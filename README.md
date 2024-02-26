@@ -1,2 +1,3 @@
-# mcss
-The CSS library for people who love CSS.
+# mCSS
+
+The library for CSS lovers.
