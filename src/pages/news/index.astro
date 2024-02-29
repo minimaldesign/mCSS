@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'mCSS News';
+const header = 'News';
+const allPosts = await Astro.glob('../../pages/news/*.md');
+---
+
+<BaseLayout title={title} header={header}>
+  <ul>
+    {
+      allPosts.map((post) => (
+        <li>
+          <a href={post.url}>{post.frontmatter.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
