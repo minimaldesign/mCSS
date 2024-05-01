@@ -1,6 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   background-color: #f1f5f9;
   font-family: sans-serif;
+}
+
+html.dark {
+  background-color: #0d0950;
+  color: #fff;
 }
 
 body {
@@ -11,8 +20,8 @@ body {
   line-height: 1.5;
 }
 
-* {
-  box-sizing: border-box;
+.dark .nav-links a {
+  color: #fff;
 }
 
 h1 {
