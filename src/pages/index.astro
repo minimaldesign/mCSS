@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Greeting from '../components/Greeting';
 const title = 'The library for CSS lovers | mCSS';
 const header = 'Introduction';
 ---
 
 <BaseLayout title={title} header={header}>
+  <Greeting client:load messages={['Hej', 'Hallo', 'Hola', 'Habari']} />
   <p>For designers who enjoy coding and coders who care about design.</p>
 </BaseLayout>
