@@ -1,0 +1,59 @@
+/* ELEMENTS FORM */
+
+::placeholder {
+  opacity: 0.75;
+}
+
+/* Remove built-in form typography styles */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+.button,
+.bt {
+  border: 0;
+}
+
+datalist {
+}
+
+fieldset {
+}
+
+form {
+}
+
+input {
+}
+
+label {
+}
+
+legend {
+}
+
+meter {
+}
+
+optgroup {
+}
+
+option {
+}
+
+output {
+}
+
+progress {
+}
+
+select {
+}
+
+textarea {
+  resize: block;
+}

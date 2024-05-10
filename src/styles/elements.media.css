@@ -1,0 +1,58 @@
+/* ELEMENTS MEDIA/EMBEDDED */
+
+/* better media defaults */
+audio,
+canvas,
+embed,
+iframe,
+img,
+object,
+picture,
+svg,
+video {
+  display: block;
+  vertical-align: middle; /* removes strange space-below if display changes */
+  max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+  height: auto; /* maintain intrinsic aspect ratios when `max-width` is applied. */
+}
+
+audio {
+  width: 100%; /* remove default 300px */
+}
+
+audio:not([controls]) {
+  display: none;
+}
+
+canvas {
+}
+
+embed {
+}
+
+iframe {
+}
+
+img {
+}
+
+object {
+}
+
+picture {
+}
+
+svg {
+}
+
+track {
+}
+
+video {
+}

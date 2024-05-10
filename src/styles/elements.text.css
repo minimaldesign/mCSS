@@ -1,0 +1,120 @@
+/* ELEMENTS TEXT */
+
+:where(a, u, ins, abbr) {
+  text-underline-offset: 1px;
+  @supports (-moz-appearance: none) {
+    text-underline-offset: 2px;
+  }
+}
+
+a {
+}
+
+abbr {
+}
+
+b {
+}
+
+blockquote {
+}
+
+br {
+}
+
+cite {
+}
+
+code {
+}
+
+data {
+}
+
+dl {
+}
+
+dt {
+}
+
+dd {
+}
+
+del {
+}
+
+dfn {
+}
+
+em {
+}
+
+figcaption {
+}
+
+figure {
+}
+
+hr {
+  border-style: solid;
+  border-width: 1px 0 0;
+  color: inherit;
+  height: 0;
+  overflow: visible;
+}
+
+i {
+}
+
+ins {
+}
+
+kbd {
+}
+
+mark {
+}
+
+menu {
+}
+
+ol {
+}
+
+ul {
+}
+
+li {
+}
+
+p {
+}
+
+pre {
+  white-space: pre-wrap; /* override overflow default */
+}
+
+q {
+  /* see: elements.text.quotes.css */
+}
+
+s {
+}
+
+samp {
+}
+
+small {
+}
+
+strong {
+}
+
+sub {
+}
+
+sup {
+}
+
+time {
+}
