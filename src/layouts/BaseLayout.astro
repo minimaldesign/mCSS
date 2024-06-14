@@ -2,10 +2,9 @@
 import Header from '../components/Header.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import '../styles/_global.css';
 
-const { title } = Astro.props;
-const { header } = Astro.props;
+const { title, header } = Astro.props;
 ---
 
 <html lang="en">
@@ -25,7 +24,7 @@ const { header } = Astro.props;
 
     <Footer />
     <script>
-      import '../scripts/global.js';
+      import '../scripts/_global.js';
     </script>
   </body>
 </html>
