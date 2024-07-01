@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: "What is mCSS"
 pubDate: 2024-02-28
 description: "mCSS is a minimal CSS framework for people who love CSS."

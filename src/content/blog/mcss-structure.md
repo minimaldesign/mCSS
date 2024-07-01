@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: "The structure of mCSS"
 pubDate: 2024-03-01
 description: "An overview of mCSS file structure philosophy and how to build upon it."

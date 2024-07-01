@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: "What is ITCSS?"
 pubDate: 2024-06-14
 description: "ITCSS is a scalable, managed, CSS architecture"
