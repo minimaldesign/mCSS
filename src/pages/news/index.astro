@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const title = 'mCSS News';
 const header = 'News';
 const allPosts = await Astro.glob('../../pages/news/*.md');
+allPosts.sort((a, b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate));
 ---
 
 <BaseLayout title={title} header={header}>
