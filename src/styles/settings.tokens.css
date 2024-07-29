@@ -1,0 +1,58 @@
+/* SETTINGS TOKENS */
+
+/*
+Can't use var() inside media queries, so breakpoints
+are hard coded in settings.media-queries.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/*
+• Font size
+• Font weight
+• Line height
+• Color
+• Margin
+• Padding
+• Width
+• Height
+• Box shadows
+• Border radius
+• Border width • Opacity
+*/
+
+:root {
+  /* COLORS */
+  --color-accent: hotpink;
+
+  /* SIZES */
+
+  --xxs: 4px;
+  --xs: 8px;
+  --sm: 12px;
+  --md: 16px;
+  --lg: 24px;
+  --xl: 32px;
+  --xl2: 48px;
+  --xl3: 64px
+  --xl4: 96px
+  --xl5: 128px
+  --xl6: 192px
+  --xl7: 256px
+  --xl8: 384px
+  --xl9: 512px
+  --xl10: 640px
+  --xl11: 768px
+
+  /* TYPOGRAPHY */
+  --baseline: 8;
+
+
+
+}
