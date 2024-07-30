@@ -4,7 +4,6 @@
 
 @import url(./theme.default.css);
 
-/* @import url(./base.normalize.css); */
 @import url(./base.reset.css);
 
 /* Global styles for HTML elements and their abstractions */
@@ -22,7 +21,7 @@
 @import url(./layout.grid.css);
 /* @import url(./layout.page.css); */
 
-/* Component specific should be added here or within the Astro component itselfn*/
+/* Component specific should be added here or within the Astro component itself */
 /* @import url(./component.banner.css); */
 
 /* Helpers with higher specificity for local overrides */

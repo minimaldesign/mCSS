@@ -1,8 +1,7 @@
 /* SETTINGS TOKENS */
 
 /*
-Can't use var() inside media queries, so breakpoints
-are hard coded in settings.media-queries.css
+Can't use var() inside media queries, so breakpoints are hard coded in settings.media-queries.css
 
 xxs: 240px
 xs: 360px
@@ -14,21 +13,29 @@ xxl: 1920px
 */
 
 /*
-• Font size
-• Font weight
-• Line height
-• Color
+
+• Globals
+
 • Margin
 • Padding
 • Width
 • Height
+
+• Font size
+• Font weight
+• Line height
+
+• Colors
+
 • Box shadows
 • Border radius
-• Border width • Opacity
+• Border width
+• Opacity
 */
 
 :root {
-  /* COLORS */
+  /* GLOBALS */
+  --baseline: 8;
   --color-accent: hotpink;
 
   /* DIMENSION */
@@ -54,5 +61,63 @@ xxl: 1920px
   --xxl3: 640px;
 
   /* TYPOGRAPHY */
-  --baseline: 8;
+  /* See also elements.text & help.text */
+
+  /* Font Families */
+  /* Local font stacks - More options @ https://modernfontstacks.com */
+  --heading: Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif;
+  --body: system-ui, sans-serif;
+  --code: Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace,
+    SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo,
+    Consolas, DejaVu Sans Mono, monospace;
+
+  /* Font Sizes */
+  --font-size-body-sm: 0.75rem;
+  --font-size-body-md: 1rem;
+  --font-size-body-lg: 1.25rem;
+  --font-size-body-xl: 1.5rem;
+  --font-size-heading-sm: 2rem;
+  --font-size-heading-md: 2.5rem;
+  --font-size-heading-lg: 3rem;
+  --font-size-heading-xl: 3.5rem;
+
+  /* Font Weights */
+  --extra-light: 200;
+  --light: 300;
+  --book: 400;
+  --semi-bold: 600;
+  --bold: 700;
+  --black: 900;
+
+  /* Letter Spacing */
+  --tracking-xs: -0.05em;
+  --tracking-sm: 0.025em;
+  --tracking-md: 0.05em;
+  --tracking-lg: 0.075em;
+  --tracking-xl: 0.15em;
+  --tracking-heading-md: 0.5em;
+  --tracking-heading-lg: 0.75em;
+
+  /* Line Height */
+  --leading-xs: 1.1;
+  --leading-sm: 1.375;
+  --leading-md: 1.5;
+  --leading-lg: 1.75;
+  --leading-xl: 2;
+
+  /* COLORS */
+
+  /*
+
+Base
+Primary
+Secondary
+Highlight
+
+Yes
+No
+Maybe
+
+
+*/
 }
