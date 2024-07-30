@@ -1,0 +1,8 @@
+body {
+  background-size: 100% calc(var(--baseline) * 1px);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) calc((var(--baseline) - 1) * 1px),
+    hotpink calc(var(--baseline) * 1px)
+  );
+}

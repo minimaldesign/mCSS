@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/_global.css';
+import '../styles/_docs.css';
 
 const { title, header } = Astro.props;
 ---
@@ -16,13 +17,16 @@ const { title, header } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <Header />
-    <Nav />
-    <h1>{header}</h1>
+    <div class="l_wrap">
+      <Header />
+      <Nav />
+      <h1>{header}</h1>
 
-    <slot />
+      <slot />
 
-    <Footer />
+      <Footer />
+    </div>
+
     <script>
       import '../scripts/_global.js';
     </script>

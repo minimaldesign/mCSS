@@ -1,0 +1,72 @@
+.cubes {
+  list-style-type: none;
+}
+
+.cubes li {
+  margin-bottom: var(--md1);
+}
+
+.cubes div {
+  background-color: hotpink;
+  height: 30px;
+}
+
+.sm1 {
+  width: var(--sm1);
+}
+
+.sm2 {
+  width: var(--sm2);
+}
+
+.sm3 {
+  width: var(--sm3);
+}
+
+.md1 {
+  width: var(--md1);
+}
+
+.md2 {
+  width: var(--md2);
+}
+
+.md3 {
+  width: var(--md3);
+}
+
+.lg1 {
+  width: var(--lg1);
+}
+
+.lg2 {
+  width: var(--lg2);
+}
+
+.lg3 {
+  width: var(--lg3);
+}
+
+.xl1 {
+  width: var(--xl1);
+}
+
+.xl2 {
+  width: var(--xl2);
+}
+
+.xl3 {
+  width: var(--xl3);
+}
+
+.xxl1 {
+  width: var(--xxl1);
+}
+
+.xxl2 {
+  width: var(--xxl2);
+}
+
+.xxl3 {
+  width: var(--xxl3);
+}

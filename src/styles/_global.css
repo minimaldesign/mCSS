@@ -30,5 +30,5 @@
 @import url(./help.spacing.css);
 @import url(./help.text.css);
 
-/* Overrides (external libraries, etc.) */
-/* @import url(./utils.print.css); */
+/* dev tools */
+/* @import url(./devtools.css); */

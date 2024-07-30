@@ -33,26 +33,26 @@ xxl: 1920px
 
   /* SIZES */
 
-  --xxs: 4px;
-  --xs: 8px;
-  --sm: 12px;
-  --md: 16px;
-  --lg: 24px;
-  --xl: 32px;
-  --xl2: 48px;
-  --xl3: 64px
-  --xl4: 96px
-  --xl5: 128px
-  --xl6: 192px
-  --xl7: 256px
-  --xl8: 384px
-  --xl9: 512px
-  --xl10: 640px
-  --xl11: 768px
+  --sm1: 4px;
+  --sm2: 8px;
+  --sm3: 12px;
+
+  --md1: 16px;
+  --md2: 24px;
+  --md3: 32px;
+
+  --lg1: 48px;
+  --lg2: 64px;
+  --lg3: 96px;
+
+  --xl1: 128px;
+  --xl2: 192px;
+  --xl3: 256px;
+
+  --xxl1: 384px;
+  --xxl2: 512px;
+  --xxl3: 640px;
 
   /* TYPOGRAPHY */
   --baseline: 8;
-
-
-
 }
