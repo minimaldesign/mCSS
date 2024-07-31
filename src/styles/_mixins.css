@@ -1,0 +1,14 @@
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+@define-mixin header {
+  font-family: var(--heading);
+  font-weight: var(--bold);
+}
+
+@define-mixin h1 {
+  @mixin header;
+  font-size: var(--font-size-heading-md);
+  line-height: var(--leading-lg);
+}
