@@ -182,4 +182,31 @@ xxl: 1920px
   /* prettier-ignore */
   --shadow-xl: 0 20px 20px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --shadow-xxl: 0 25px 40px -12px rgb(0 0 0 / 0.25);
+
+  /* BORDERS */
+
+  --border-sm: 1px;
+  --border-md: 2px;
+  --border-lg: 4px;
+  --border-xl: 8px;
+  --border-xxl: 12px;
+
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-xxl: 16px;
+  --radius-round: 1e5px;
+  --radius-drawn: 255px 15px 225px 15px / 15px 225px 15px 255px;
+
+  /* Z-INDEX */
+
+  --z-bottom: -1000000000;
+  --z-0: 0;
+  --z-1: 10;
+  --z-2: 20;
+  --z-3: 30;
+  --z-4: 40;
+  --z-5: 50;
+  --z-top: 1000000000;
 }
