@@ -60,6 +60,13 @@ xxl: 1920px
   --xxl2: 512px;
   --xxl3: 640px;
 
+  /* Aspect Ratios */
+  --ar-square: 1;
+  --ar-landscape: 4/3;
+  --ar-portrait: 3/4;
+  --ar-widescreen: 16/9;
+  --ar-golden: 1.618/1;
+
   /* TYPOGRAPHY */
   /* See also elements.text & help.text */
 
