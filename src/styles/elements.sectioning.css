@@ -1,3 +1,9 @@
+/* SECTIONING ROOT */
+
+body {
+  font-family: var(--text);
+}
+
 /* CONTENT SECTIONING ELEMENTS */
 
 address {

@@ -1,12 +1,10 @@
 /* SETTINGS */
 @import url(./settings.tokens.css);
 @import url(./settings.media-queries.css);
+@import url(./settings.mixins.css);
+@import url(./settings.theme.default.css);
 
-@import url(./theme.default.css);
-
-/* Internal - Don't edit unless you understand what you're doing */
-@import url(./_mixins.css);
-
+/* RESET & NORMALIZE */
 @import url(./base.reset.css);
 
 /* Global styles for HTML elements and their abstractions */

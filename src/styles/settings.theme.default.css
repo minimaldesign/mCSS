@@ -1,0 +1,6 @@
+/* THEME DEFAULT */
+
+h1 {
+  @mixin display-gradient;
+  font-size: var(--display-xl);
+}

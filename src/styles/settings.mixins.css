@@ -1,0 +1,10 @@
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+@define-mixin display-gradient {
+  color: transparent;
+  background: var(--gradient);
+  background-clip: text;
+  text-fill-color: transparent;
+}
