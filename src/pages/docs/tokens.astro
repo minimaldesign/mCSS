@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+import NavDocs from '../../components/NavDocs.astro';
+
+const title = 'mCSS Documentation';
+const header = 'Docs / Tokens';
+---
+
+<BaseLayout title={title} header={header}>
+  <NavDocs />
+  <h2>Dimension</h2>
+  <ul class="cubes">
+    <li><div class="sm1"></div></li>
+    <li><div class="sm2"></div></li>
+    <li><div class="sm3"></div></li>
+    <li><div class="md1"></div></li>
+    <li><div class="md2"></div></li>
+    <li><div class="md3"></div></li>
+    <li><div class="lg1"></div></li>
+    <li><div class="lg2"></div></li>
+    <li><div class="lg3"></div></li>
+    <li><div class="xl1"></div></li>
+    <li><div class="xl2"></div></li>
+    <li><div class="xl3"></div></li>
+    <li><div class="xxl1"></div></li>
+    <li><div class="xxl2"></div></li>
+    <li><div class="xxl3"></div></li>
+  </ul>
+</BaseLayout>
