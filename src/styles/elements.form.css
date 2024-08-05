@@ -12,9 +12,7 @@ select {
   font: inherit;
 }
 
-button,
-.button,
-.bt {
+button {
   border: 0;
 }
 
@@ -56,4 +54,7 @@ select {
 
 textarea {
   resize: block;
+  &:not([rows]) {
+    min-height: 6em;
+  }
 }
