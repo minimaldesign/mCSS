@@ -2,9 +2,10 @@
 
 /* Example */
 
-@define-mixin display-gradient {
+@define-mixin display-gradient $gradient {
+  width: max-content;
   color: transparent;
-  background: var(--gradient);
+  background: $gradient;
   background-clip: text;
   text-fill-color: transparent;
 }

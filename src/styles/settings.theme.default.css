@@ -5,6 +5,8 @@
 }
 
 h1 {
-  @mixin display-gradient;
+  /*
+  @mixin display-gradient var(--gradient-primary);
   font-size: var(--display-xl);
+  */
 }
