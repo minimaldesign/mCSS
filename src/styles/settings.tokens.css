@@ -167,10 +167,10 @@ xxl: 1920px
 
   /* GRADIENTS */
 
-  --gradient: linear-gradient(
-    var(--primary-900) 0%,
-    var(--primary-700) 50%,
-    var(--primary-300) 100%
+  --gradient-primary: linear-gradient(
+    90deg,
+    var(--primary-950) 0%,
+    var(--primary-400) 100%
   );
 
   /* DROP SHADOWS  */
