@@ -1,7 +1,7 @@
 /* LAYOUT WRAP */
 
 .l_wrap {
-  --space: 20px;
+  --space: var(--md2);
   display: grid;
   grid-template-columns: 1fr minmax(300px, 800px) 1fr;
 
@@ -10,15 +10,13 @@
   > astro-slot > *,
   > astro-static-slot > * {
     grid-column: 2;
-    padding: var(--space);
+    padding-left: var(--space);
+    padding-right: var(--space);
   }
 }
 
 .l_wrap_content-fullbleed {
-  --space: 20px;
   grid-column: 1 / -1;
   width: 100%;
-  height: 300px;
   object-fit: cover;
-  margin-left: calc(var(--space) * -1);
 }
