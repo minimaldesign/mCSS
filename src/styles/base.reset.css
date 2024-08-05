@@ -33,11 +33,3 @@ html,
 body {
   height: 100%;
 }
-
-body {
-  /* Consistent line-spacing, even when inline elements have different line-heights. */
-  line-sizing: normal;
-  text-size-adjust: none;
-  -webkit-font-smoothing: antialiased;
-  accent-color: var(--color-accent);
-}
