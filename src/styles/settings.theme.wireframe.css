@@ -1,0 +1,33 @@
+/* THEME WIREFRAME */
+
+/*
+Example of how to override tokens to customize basic settings like colors and typography.
+*/
+
+:root {
+  /* COLORS */
+
+  --base-50: #fafafa;
+  --base-100: #f5f5f5;
+  --base-200: #e5e5e5;
+  --base-300: #d4d4d4;
+  --base-400: #a3a3a3;
+  --base-500: #737373;
+  --base-600: #525252;
+  --base-700: #404040;
+  --base-800: #262626;
+  --base-900: #171717;
+  --base-950: #0a0a0a;
+
+  /* TYPOGRAPHY */
+
+  --text: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+
+}
+
+
+
+h1 {
+  @mixin display-gradient var(--gradient-primary);
+  font-size: var(--display-xl);
+}
