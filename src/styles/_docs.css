@@ -87,17 +87,18 @@
   box-shadow: var(--shadow-sm);
 }
 .shadow-2 {
-  box-shadow: var(--shadow);
-}
-.shadow-3 {
   box-shadow: var(--shadow-md);
 }
-.shadow-4 {
+.shadow-3 {
   box-shadow: var(--shadow-lg);
 }
-.shadow-5 {
+.shadow-4 {
   box-shadow: var(--shadow-xl);
 }
-.shadow-6 {
+.shadow-5 {
   box-shadow: var(--shadow-xxl);
+}
+
+.docs_canvas {
+  background-color: var(--primary-900);
 }
