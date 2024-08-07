@@ -1,0 +1,10 @@
+/* DEFAULT THEME */
+
+/*
+Example of how to override tokens to customize basic settings like colors and typography.
+*/
+
+:root {
+  --wrap-width: minmax(300px, 800px);
+  --wrap-padding: var(--md2);
+}

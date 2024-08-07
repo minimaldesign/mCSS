@@ -1,17 +1,16 @@
 /* LAYOUT WRAP */
 
 .l_wrap {
-  --space: var(--md2);
   display: grid;
-  grid-template-columns: 1fr minmax(300px, 800px) 1fr;
+  grid-template-columns: 1fr var(--wrap-width) 1fr;
 
   > *,
   > astro-island > *,
   > astro-slot > *,
   > astro-static-slot > * {
     grid-column: 2;
-    padding-left: var(--space);
-    padding-right: var(--space);
+    padding-left: var(--wrap-padding);
+    padding-right: var(--wrap-padding);
   }
 }
 
