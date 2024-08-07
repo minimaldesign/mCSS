@@ -200,6 +200,15 @@ xxl: 1920px
   --shadow-xl: 0 20px 20px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --shadow-xxl: 0 25px 40px -12px rgb(0 0 0 / 0.25);
 
+  /* OPACITY */
+
+  --opacity-0: 0; /* overkill for consistancy */
+  --opacity-1: 0.1;
+  --opacity-2: 0.25;
+  --opacity-3: 0.5;
+  --opacity-4: 0.75;
+  --opacity-5: 1;
+
   /* Z-INDEX */
 
   --z-bottom: -1000000000;
