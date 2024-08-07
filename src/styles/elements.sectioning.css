@@ -6,11 +6,11 @@ body {
   /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
   text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
-  accent-color: var(--primary-500);
-  font-family: var(--text);
-  color: var(--base-950);
-  background-color: var(--base-50);
 
+  accent-color: var(--body-accent-color);
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+  font-family: var(--body-font);
 }
 
 /* CONTENT SECTIONING ELEMENTS */
