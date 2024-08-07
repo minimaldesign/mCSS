@@ -7,4 +7,7 @@ Example of how to override tokens to customize basic settings like colors and ty
 :root {
   --wrap-width: minmax(300px, 800px);
   --wrap-padding: var(--md2);
+
+  --dialog-backdrop-color: var(--base-950);
+  --dialog-backdrop-opacity: var(--opacity-4);
 }

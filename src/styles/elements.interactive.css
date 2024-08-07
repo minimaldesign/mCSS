@@ -2,8 +2,8 @@
 
 dialog {
   &::backdrop {
-    background-image: var(--gradient-primary);
-    opacity: 0.8;
+    background: var(--dialog-backdrop-color);
+    opacity: var(--dialog-backdrop-opacity);
   }
 }
 
