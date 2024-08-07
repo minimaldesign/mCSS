@@ -3,12 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 import NavDocs from '../../components/NavDocs.astro';
 
-const title = 'mCSS Documentation';
+const title = 'Tokens | mCSS Documentation';
 const header = 'Docs / Tokens';
 ---
 
 <BaseLayout title={title} header={header}>
   <NavDocs />
+  <h2>How to use tokens</h2>
+  <ol>
+    <li>Override low level tokens in your theme.</li>
+    <li>Customize abstracted tokens for <code>elements</code> files in your theme.</li>
+    <li>Customize abstracted tokens for <code>layout</code> files in your theme.</li>
+    <li>Use low level tokens directly in your <code>component</code> files.</li>
+  </ol>
+
+  <h2>Low level tokens</h2>
+
   <h2>Dimension</h2>
   <ul class="cubes">
     <li><div class="sm1"></div></li>
