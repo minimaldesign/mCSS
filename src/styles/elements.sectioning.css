@@ -10,6 +10,7 @@ body {
   font-family: var(--text);
   color: var(--base-950);
   background-color: var(--base-50);
+
 }
 
 /* CONTENT SECTIONING ELEMENTS */
@@ -29,26 +30,7 @@ footer {
 header {
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word; /* Avoid text overflows */
-  text-wrap: balance;
-}
-
-h1,
-h2,
-h3 {
-  margin: 0.67em 0;
-}
-
-/* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
-:where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
-  margin-bottom: 0.25rem;
-}
+/* Technically headings (h1, h2, h3, etc.) should be here, but I think it makes more sense to keep them in the elements.text file */
 
 hgroup {
 }
