@@ -203,10 +203,10 @@ xxl: 1920px
   /* OPACITY */
 
   --opacity-0: 0; /* overkill for consistancy */
-  --opacity-1: 0.1;
-  --opacity-2: 0.25;
-  --opacity-3: 0.5;
-  --opacity-4: 0.75;
+  --opacity-1: 0.2;
+  --opacity-2: 0.4;
+  --opacity-3: 0.6;
+  --opacity-4: 0.8;
   --opacity-5: 1;
 
   /* Z-INDEX */
