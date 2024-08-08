@@ -9,6 +9,7 @@ const allPosts = await getCollection('docs');
 allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
 ---
 
-<BaseLayout title={title} header={header}>
+<BaseLayout title={title}>
+  <h1>{header}</h1>
   <NavDocs />
 </BaseLayout>

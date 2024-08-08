@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import '../styles/_global.css';
 import '../styles/_docs.css';
 
-const { title, header } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <html lang="en">
@@ -20,10 +20,7 @@ const { title, header } = Astro.props;
     <div class="l_wrap">
       <Header />
       <Nav />
-      <h1>{header}</h1>
-
       <slot />
-
       <Footer />
     </div>
 

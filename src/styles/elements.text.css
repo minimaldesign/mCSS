@@ -1,10 +1,7 @@
 /* ELEMENTS TEXT */
 
 :where(a, u, ins, abbr) {
-  text-underline-offset: 1px;
-  @supports (-moz-appearance: none) {
-    text-underline-offset: 2px;
-  }
+  text-underline-offset: 2px;
 }
 
 a {

@@ -5,9 +5,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const allPosts = await getCollection('blog');
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 const title = 'Tag Index';
+const header = 'Tags';
 ---
 
-<BaseLayout title={title} header="Tags">
+<BaseLayout title={title}>
+  <h1>{header}</h1>
   <ul>
     {
       tags.map((tag) => (
