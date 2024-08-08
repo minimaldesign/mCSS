@@ -1,24 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
+import NavDocs from '../components/NavDocs.astro';
 
 const allPosts = await getCollection('docs');
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} header={frontmatter.title}>
-  <slot />
-
+<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} header={`Docs / ${frontmatter.title}`}>
   <aside>
-    <ul>
-      <li><a href="/docs">Index</a></li>
-      {
-        allPosts.map((post) => (
-          <li>
-            <a href={`/docs/${post.slug}/`}>{post.data.title}</a>
-          </li>
-        ))
-      }
-    </ul>
+    <NavDocs />
   </aside>
+  <slot />
 </BaseLayout>

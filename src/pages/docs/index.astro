@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavDocs from '../../components/NavDocs.astro';
 
 const title = 'Documentation | mCSS';
 const header = 'Docs';
@@ -9,14 +10,5 @@ allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate))
 ---
 
 <BaseLayout title={title} header={header}>
-  <ul>
-    <li><a href="/docs">Index</a></li>
-    {
-      allPosts.map((post) => (
-        <li>
-          <a href={`/docs/${post.slug}/`}>{post.data.title}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <NavDocs />
 </BaseLayout>

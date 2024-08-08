@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import NavDocs from '../../components/NavDocs.astro';
+import DocsPostLayout from '../../layouts/DocsPostLayout.astro';
 
 import { Image } from 'astro:assets';
 import img from '../../assets/images/saxophonist.jpg';
@@ -8,12 +8,10 @@ import imgCrop from '../../assets/images/saxophonist-cropped.jpg';
 import audioFile from '../../assets/media/sax.mp3';
 import videoFile from '../../assets/media/fushimi.mp4';
 
-const title = 'HTML Elements | mCSS Documentation';
-const header = 'Docs / HTML Elements';
+const mockFrontmatter = { title: 'HTML Elements' };
 ---
 
-<BaseLayout title={title} header={header}>
-  <NavDocs />
+<DocsPostLayout frontmatter={mockFrontmatter}>
   <h2 class="docs_heading">Sectioning</h2>
 
   <p>Besides headings (moved to the <i>Text</i> section below) and the address element, <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning">content sectioning elements</a> are used to organize documents content into logical pieces and don't need global styling.</p>
@@ -492,7 +490,7 @@ p q r s t u v w x y z ~
     </dialog>
     <button>Show the dialog</button>
   </section>
-</BaseLayout>
+</DocsPostLayout>
 
 <script>
   // DIALOG
