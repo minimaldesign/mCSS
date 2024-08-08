@@ -72,11 +72,12 @@ xxl: 1920px
 
   /* Font Families */
   /* Local font stacks - More options @ https://modernfontstacks.com */
-  --display: Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif;
-  --text: system-ui, sans-serif;
-  --mono: Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace,
-    SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo,
-    Consolas, DejaVu Sans Mono, monospace;
+  --display: Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro,
+    ui-sans-serif, sans-serif;
+  --text: ui-sans-serif, system-ui, sans-serif;
+  --mono: Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono,
+    Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono,
+    ui-monospace, monospace;
 
   /* Font Sizes */
   --text-sm: 0.75rem;

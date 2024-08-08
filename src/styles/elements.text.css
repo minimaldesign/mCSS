@@ -26,6 +26,8 @@ cite {
 }
 
 code {
+  font-family: var(--mono);
+  font-size: 0.95em;
 }
 
 data {
@@ -64,6 +66,8 @@ h5,
 h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
+
+  font-family: var(--display);
 }
 
 h1,
