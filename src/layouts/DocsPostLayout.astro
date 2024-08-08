@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+
+const allPosts = await getCollection('docs');
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} header={frontmatter.title}>
+  <slot />
+
+  <aside>
+    <ul>
+      {
+        allPosts.map((post) => (
+          <li>
+            <a href={`/docs/${post.slug}/`}>{post.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </aside>
+</BaseLayout>
