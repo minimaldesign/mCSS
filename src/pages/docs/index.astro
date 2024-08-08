@@ -2,14 +2,15 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'mCSS Blog';
-const header = 'Blog';
+const title = 'Documentation | mCSS';
+const header = 'Docs';
 const allPosts = await getCollection('docs');
 allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
 ---
 
 <BaseLayout title={title} header={header}>
   <ul>
+    <li><a href="/docs">Index</a></li>
     {
       allPosts.map((post) => (
         <li>
