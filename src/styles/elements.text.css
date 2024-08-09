@@ -64,7 +64,7 @@ h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
 
-  font-family: var(--display);
+  font-family: var(--headings);
 }
 
 h1,
