@@ -1,14 +1,19 @@
 /* DEFAULT THEME */
 
 :root {
+  /* ELEMENTS */
   --body-accent-color: var(--primary-500);
   --body-background-color: var(--base-50);
   --body-color: var(--base-950);
   --body-font: var(--text);
 
-  --wrap-padding: var(--md2);
-  --wrap-width: minmax(300px, 800px);
-
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--opacity-4);
+
+  /* LAYOUTS */
+  --grid-column-gap: var(--md2);
+  --grid-row-gap: var(--sm3);
+
+  --wrap-padding: var(--md2);
+  --wrap-width: minmax(300px, 800px);
 }

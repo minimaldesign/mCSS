@@ -102,3 +102,12 @@
 .docs_canvas {
   background-color: var(--primary-900);
 }
+
+.docs_grid {
+  border: 1px solid var(--primary-950);
+  .l_cell {
+    padding: var(--sm2);
+    background-color: var(--primary-900);
+    color: var(--primary-50);
+  }
+}
