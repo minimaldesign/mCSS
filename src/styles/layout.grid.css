@@ -8,6 +8,7 @@
   grid-column-gap: var(--grid-column-gap);
   grid-row-gap: var(--grid-row-gap);
 }
+
 /* .l_cell -- cell or column */
 .l_grid > .l_cell { display: block; -moz-appearance: none; appearance: none; -webkit-appearance: none }
 .l_grid[columns="1"] { --grid-tc: repeat(1, 1fr) }
@@ -34,12 +35,6 @@
 .l_grid[columns="22"] { --grid-tc: repeat(22, 1fr) }
 .l_grid[columns="23"] { --grid-tc: repeat(23, 1fr) }
 .l_grid[columns="24"] { --grid-tc: repeat(24, 1fr) }
-.l_grid[columns="25"] { --grid-tc: repeat(25, 1fr) }
-.l_grid[columns="26"] { --grid-tc: repeat(26, 1fr) }
-.l_grid[columns="27"] { --grid-tc: repeat(27, 1fr) }
-.l_grid[columns="28"] { --grid-tc: repeat(28, 1fr) }
-.l_grid[columns="29"] { --grid-tc: repeat(29, 1fr) }
-.l_grid[columns="30"] { --grid-tc: repeat(30, 1fr) }
 /* span=start... */
 .l_grid > .l_cell[span^="1"] { --grid-cs: 1 }
 .l_grid > .l_cell[span^="2"] { --grid-cs: 2 }
@@ -65,12 +60,6 @@
 .l_grid > .l_cell[span^="22"] { --grid-cs: 22 }
 .l_grid > .l_cell[span^="23"] { --grid-cs: 23 }
 .l_grid > .l_cell[span^="24"] { --grid-cs: 24 }
-.l_grid > .l_cell[span^="25"] { --grid-cs: 25 }
-.l_grid > .l_cell[span^="26"] { --grid-cs: 26 }
-.l_grid > .l_cell[span^="27"] { --grid-cs: 27 }
-.l_grid > .l_cell[span^="28"] { --grid-cs: 28 }
-.l_grid > .l_cell[span^="29"] { --grid-cs: 29 }
-.l_grid > .l_cell[span^="30"] { --grid-cs: 30 }
 /* span=...+width, span=...-end */
 .l_grid > .l_cell[span$="+1"], .l_grid > .l_cell[span="1"] { --grid-ce: 1 }
 .l_grid > .l_cell[span$="+2"], .l_grid > .l_cell[span$="-1"], .l_grid > .l_cell[span="2"] { --grid-ce: 2 }
@@ -96,13 +85,7 @@
 .l_grid > .l_cell[span$="+22"], .l_grid > .l_cell[span$="-21"], .l_grid > .l_cell[span="22"] { --grid-ce: 22 }
 .l_grid > .l_cell[span$="+23"], .l_grid > .l_cell[span$="-22"], .l_grid > .l_cell[span="23"] { --grid-ce: 23 }
 .l_grid > .l_cell[span$="+24"], .l_grid > .l_cell[span$="-23"], .l_grid > .l_cell[span="24"] { --grid-ce: 24 }
-.l_grid > .l_cell[span$="+25"], .l_grid > .l_cell[span$="-24"], .l_grid > .l_cell[span="25"] { --grid-ce: 25 }
-.l_grid > .l_cell[span$="+26"], .l_grid > .l_cell[span$="-25"], .l_grid > .l_cell[span="26"] { --grid-ce: 26 }
-.l_grid > .l_cell[span$="+27"], .l_grid > .l_cell[span$="-26"], .l_grid > .l_cell[span="27"] { --grid-ce: 27 }
-.l_grid > .l_cell[span$="+28"], .l_grid > .l_cell[span$="-27"], .l_grid > .l_cell[span="28"] { --grid-ce: 28 }
-.l_grid > .l_cell[span$="+29"], .l_grid > .l_cell[span$="-28"], .l_grid > .l_cell[span="29"] { --grid-ce: 29 }
-.l_grid > .l_cell[span$="+30"], .l_grid > .l_cell[span$="-29"], .l_grid > .l_cell[span="30"] { --grid-ce: 30 }
-.l_grid > .l_cell[span$="-30"] { --grid-ce: 31 }
+.l_grid > .l_cell[span$="-24"]  { --grid-ce: 25 }
 /* connect vars */
 .l_grid > .l_cell[span] { grid-column-end: span var(--grid-ce) }
 .l_grid > .l_cell[span*="+"], .l_grid > .l_cell[span*="-"], .l_grid > .l_cell[span*=".."] {
@@ -136,12 +119,6 @@
   .l_grid[columns-s="22"] { --grid-tc: repeat(22, 1fr) }
   .l_grid[columns-s="23"] { --grid-tc: repeat(23, 1fr) }
   .l_grid[columns-s="24"] { --grid-tc: repeat(24, 1fr) }
-  .l_grid[columns-s="25"] { --grid-tc: repeat(25, 1fr) }
-  .l_grid[columns-s="26"] { --grid-tc: repeat(26, 1fr) }
-  .l_grid[columns-s="27"] { --grid-tc: repeat(27, 1fr) }
-  .l_grid[columns-s="28"] { --grid-tc: repeat(28, 1fr) }
-  .l_grid[columns-s="29"] { --grid-tc: repeat(29, 1fr) }
-  .l_grid[columns-s="30"] { --grid-tc: repeat(30, 1fr) }
 
   /* span-s=start... */
   .l_grid > .l_cell[span-s^="1"] { --grid-cs: 1 }
@@ -168,12 +145,6 @@
   .l_grid > .l_cell[span-s^="22"] { --grid-cs: 22 }
   .l_grid > .l_cell[span-s^="23"] { --grid-cs: 23 }
   .l_grid > .l_cell[span-s^="24"] { --grid-cs: 24 }
-  .l_grid > .l_cell[span-s^="25"] { --grid-cs: 25 }
-  .l_grid > .l_cell[span-s^="26"] { --grid-cs: 26 }
-  .l_grid > .l_cell[span-s^="27"] { --grid-cs: 27 }
-  .l_grid > .l_cell[span-s^="28"] { --grid-cs: 28 }
-  .l_grid > .l_cell[span-s^="29"] { --grid-cs: 29 }
-  .l_grid > .l_cell[span-s^="30"] { --grid-cs: 30 }
 
   /* span-s=...+width, span-s=...-end */
   .l_grid > .l_cell[span-s$="+1"], .l_grid > .l_cell[span-s="1"] { --grid-ce: 1 }
@@ -200,13 +171,7 @@
   .l_grid > .l_cell[span-s$="+22"], .l_grid > .l_cell[span-s$="-21"], .l_grid > .l_cell[span-s="22"] { --grid-ce: 22 }
   .l_grid > .l_cell[span-s$="+23"], .l_grid > .l_cell[span-s$="-22"], .l_grid > .l_cell[span-s="23"] { --grid-ce: 23 }
   .l_grid > .l_cell[span-s$="+24"], .l_grid > .l_cell[span-s$="-23"], .l_grid > .l_cell[span-s="24"] { --grid-ce: 24 }
-  .l_grid > .l_cell[span-s$="+25"], .l_grid > .l_cell[span-s$="-24"], .l_grid > .l_cell[span-s="25"] { --grid-ce: 25 }
-  .l_grid > .l_cell[span-s$="+26"], .l_grid > .l_cell[span-s$="-25"], .l_grid > .l_cell[span-s="26"] { --grid-ce: 26 }
-  .l_grid > .l_cell[span-s$="+27"], .l_grid > .l_cell[span-s$="-26"], .l_grid > .l_cell[span-s="27"] { --grid-ce: 27 }
-  .l_grid > .l_cell[span-s$="+28"], .l_grid > .l_cell[span-s$="-27"], .l_grid > .l_cell[span-s="28"] { --grid-ce: 28 }
-  .l_grid > .l_cell[span-s$="+29"], .l_grid > .l_cell[span-s$="-28"], .l_grid > .l_cell[span-s="29"] { --grid-ce: 29 }
-  .l_grid > .l_cell[span-s$="+30"], .l_grid > .l_cell[span-s$="-29"], .l_grid > .l_cell[span-s="30"] { --grid-ce: 30 }
-  .l_grid > .l_cell[span-s$="-30"] { --grid-ce: 31 }
+  .l_grid > .l_cell[span-s$="-24"] { --grid-ce: 25 }
 
   /* connect vars */
   .l_grid > .l_cell[span-s] { grid-column-end: span var(--grid-ce) }
@@ -242,12 +207,6 @@
   .l_grid[columns-l="22"] { --grid-tc: repeat(22, 1fr) }
   .l_grid[columns-l="23"] { --grid-tc: repeat(23, 1fr) }
   .l_grid[columns-l="24"] { --grid-tc: repeat(24, 1fr) }
-  .l_grid[columns-l="25"] { --grid-tc: repeat(25, 1fr) }
-  .l_grid[columns-l="26"] { --grid-tc: repeat(26, 1fr) }
-  .l_grid[columns-l="27"] { --grid-tc: repeat(27, 1fr) }
-  .l_grid[columns-l="28"] { --grid-tc: repeat(28, 1fr) }
-  .l_grid[columns-l="29"] { --grid-tc: repeat(29, 1fr) }
-  .l_grid[columns-l="30"] { --grid-tc: repeat(30, 1fr) }
 
   /* span-l=start... */
   .l_grid > .l_cell[span-l^="1"] { --grid-cs: 1 }
@@ -274,12 +233,6 @@
   .l_grid > .l_cell[span-l^="22"] { --grid-cs: 22 }
   .l_grid > .l_cell[span-l^="23"] { --grid-cs: 23 }
   .l_grid > .l_cell[span-l^="24"] { --grid-cs: 24 }
-  .l_grid > .l_cell[span-l^="25"] { --grid-cs: 25 }
-  .l_grid > .l_cell[span-l^="26"] { --grid-cs: 26 }
-  .l_grid > .l_cell[span-l^="27"] { --grid-cs: 27 }
-  .l_grid > .l_cell[span-l^="28"] { --grid-cs: 28 }
-  .l_grid > .l_cell[span-l^="29"] { --grid-cs: 29 }
-  .l_grid > .l_cell[span-l^="30"] { --grid-cs: 30 }
 
   /* span-l=...+width, span-l=...-end */
   .l_grid > .l_cell[span-l$="+1"], .l_grid > .l_cell[span-l="1"] { --grid-ce: 1 }
@@ -306,13 +259,7 @@
   .l_grid > .l_cell[span-l$="+22"], .l_grid > .l_cell[span-l$="-21"], .l_grid > .l_cell[span-l="22"] { --grid-ce: 22 }
   .l_grid > .l_cell[span-l$="+23"], .l_grid > .l_cell[span-l$="-22"], .l_grid > .l_cell[span-l="23"] { --grid-ce: 23 }
   .l_grid > .l_cell[span-l$="+24"], .l_grid > .l_cell[span-l$="-23"], .l_grid > .l_cell[span-l="24"] { --grid-ce: 24 }
-  .l_grid > .l_cell[span-l$="+25"], .l_grid > .l_cell[span-l$="-24"], .l_grid > .l_cell[span-l="25"] { --grid-ce: 25 }
-  .l_grid > .l_cell[span-l$="+26"], .l_grid > .l_cell[span-l$="-25"], .l_grid > .l_cell[span-l="26"] { --grid-ce: 26 }
-  .l_grid > .l_cell[span-l$="+27"], .l_grid > .l_cell[span-l$="-26"], .l_grid > .l_cell[span-l="27"] { --grid-ce: 27 }
-  .l_grid > .l_cell[span-l$="+28"], .l_grid > .l_cell[span-l$="-27"], .l_grid > .l_cell[span-l="28"] { --grid-ce: 28 }
-  .l_grid > .l_cell[span-l$="+29"], .l_grid > .l_cell[span-l$="-28"], .l_grid > .l_cell[span-l="29"] { --grid-ce: 29 }
-  .l_grid > .l_cell[span-l$="+30"], .l_grid > .l_cell[span-l$="-29"], .l_grid > .l_cell[span-l="30"] { --grid-ce: 30 }
-  .l_grid > .l_cell[span-l$="-30"] { --grid-ce: 31 }
+  .l_grid > .l_cell[span-l$="-24"] { --grid-ce: 25 }
 
   /* connect vars */
   .l_grid > .l_cell[span-l] { grid-column-end: span var(--grid-ce) }
