@@ -9,32 +9,32 @@
   grid-row-gap: var(--grid-row-gap);
 }
 
-/* .l_cell -- cell or column */
+/* DEFAULT */
 .l_grid > .l_cell { display: block; -moz-appearance: none; appearance: none; -webkit-appearance: none }
-.l_grid[columns="1"] { --grid-tc: repeat(1, 1fr) }
-.l_grid[columns="2"] { --grid-tc: repeat(2, 1fr) }
-.l_grid[columns="3"] { --grid-tc: repeat(3, 1fr) }
-.l_grid[columns="4"] { --grid-tc: repeat(4, 1fr) }
-.l_grid[columns="5"] { --grid-tc: repeat(5, 1fr) }
-.l_grid[columns="6"] { --grid-tc: repeat(6, 1fr) }
-.l_grid[columns="7"] { --grid-tc: repeat(7, 1fr) }
-.l_grid[columns="8"] { --grid-tc: repeat(8, 1fr) }
-.l_grid[columns="9"] { --grid-tc: repeat(9, 1fr) }
-.l_grid[columns="10"] { --grid-tc: repeat(10, 1fr) }
-.l_grid[columns="11"] { --grid-tc: repeat(11, 1fr) }
-.l_grid[columns="12"] { --grid-tc: repeat(12, 1fr) }
-.l_grid[columns="13"] { --grid-tc: repeat(13, 1fr) }
-.l_grid[columns="14"] { --grid-tc: repeat(14, 1fr) }
-.l_grid[columns="15"] { --grid-tc: repeat(15, 1fr) }
-.l_grid[columns="16"] { --grid-tc: repeat(16, 1fr) }
-.l_grid[columns="17"] { --grid-tc: repeat(17, 1fr) }
-.l_grid[columns="18"] { --grid-tc: repeat(18, 1fr) }
-.l_grid[columns="19"] { --grid-tc: repeat(19, 1fr) }
-.l_grid[columns="20"] { --grid-tc: repeat(20, 1fr) }
-.l_grid[columns="21"] { --grid-tc: repeat(21, 1fr) }
-.l_grid[columns="22"] { --grid-tc: repeat(22, 1fr) }
-.l_grid[columns="23"] { --grid-tc: repeat(23, 1fr) }
-.l_grid[columns="24"] { --grid-tc: repeat(24, 1fr) }
+.l_grid[col="1"] { --grid-tc: repeat(1, 1fr) }
+.l_grid[col="2"] { --grid-tc: repeat(2, 1fr) }
+.l_grid[col="3"] { --grid-tc: repeat(3, 1fr) }
+.l_grid[col="4"] { --grid-tc: repeat(4, 1fr) }
+.l_grid[col="5"] { --grid-tc: repeat(5, 1fr) }
+.l_grid[col="6"] { --grid-tc: repeat(6, 1fr) }
+.l_grid[col="7"] { --grid-tc: repeat(7, 1fr) }
+.l_grid[col="8"] { --grid-tc: repeat(8, 1fr) }
+.l_grid[col="9"] { --grid-tc: repeat(9, 1fr) }
+.l_grid[col="10"] { --grid-tc: repeat(10, 1fr) }
+.l_grid[col="11"] { --grid-tc: repeat(11, 1fr) }
+.l_grid[col="12"] { --grid-tc: repeat(12, 1fr) }
+.l_grid[col="13"] { --grid-tc: repeat(13, 1fr) }
+.l_grid[col="14"] { --grid-tc: repeat(14, 1fr) }
+.l_grid[col="15"] { --grid-tc: repeat(15, 1fr) }
+.l_grid[col="16"] { --grid-tc: repeat(16, 1fr) }
+.l_grid[col="17"] { --grid-tc: repeat(17, 1fr) }
+.l_grid[col="18"] { --grid-tc: repeat(18, 1fr) }
+.l_grid[col="19"] { --grid-tc: repeat(19, 1fr) }
+.l_grid[col="20"] { --grid-tc: repeat(20, 1fr) }
+.l_grid[col="21"] { --grid-tc: repeat(21, 1fr) }
+.l_grid[col="22"] { --grid-tc: repeat(22, 1fr) }
+.l_grid[col="23"] { --grid-tc: repeat(23, 1fr) }
+.l_grid[col="24"] { --grid-tc: repeat(24, 1fr) }
 /* span=start... */
 .l_grid > .l_cell[span^="1"] { --grid-cs: 1 }
 .l_grid > .l_cell[span^="2"] { --grid-cs: 2 }
@@ -93,32 +93,33 @@
 .l_grid > .l_cell[span*="-"], .l_grid > .l_cell[span*=".."] {
   grid-column-end: var(--grid-ce) }
 .l_grid > .l_cell[span="row"] { grid-column: 1 / -1 }
-/* for window width <= 600 */
+
+/* SMALL — window <= 600 */
 @media only screen and (max-width: 600px) {
-  .l_grid[columns-s="1"] { --grid-tc: repeat(1, 1fr) }
-  .l_grid[columns-s="2"] { --grid-tc: repeat(2, 1fr) }
-  .l_grid[columns-s="3"] { --grid-tc: repeat(3, 1fr) }
-  .l_grid[columns-s="4"] { --grid-tc: repeat(4, 1fr) }
-  .l_grid[columns-s="5"] { --grid-tc: repeat(5, 1fr) }
-  .l_grid[columns-s="6"] { --grid-tc: repeat(6, 1fr) }
-  .l_grid[columns-s="7"] { --grid-tc: repeat(7, 1fr) }
-  .l_grid[columns-s="8"] { --grid-tc: repeat(8, 1fr) }
-  .l_grid[columns-s="9"] { --grid-tc: repeat(9, 1fr) }
-  .l_grid[columns-s="10"] { --grid-tc: repeat(10, 1fr) }
-  .l_grid[columns-s="11"] { --grid-tc: repeat(11, 1fr) }
-  .l_grid[columns-s="12"] { --grid-tc: repeat(12, 1fr) }
-  .l_grid[columns-s="13"] { --grid-tc: repeat(13, 1fr) }
-  .l_grid[columns-s="14"] { --grid-tc: repeat(14, 1fr) }
-  .l_grid[columns-s="15"] { --grid-tc: repeat(15, 1fr) }
-  .l_grid[columns-s="16"] { --grid-tc: repeat(16, 1fr) }
-  .l_grid[columns-s="17"] { --grid-tc: repeat(17, 1fr) }
-  .l_grid[columns-s="18"] { --grid-tc: repeat(18, 1fr) }
-  .l_grid[columns-s="19"] { --grid-tc: repeat(19, 1fr) }
-  .l_grid[columns-s="20"] { --grid-tc: repeat(20, 1fr) }
-  .l_grid[columns-s="21"] { --grid-tc: repeat(21, 1fr) }
-  .l_grid[columns-s="22"] { --grid-tc: repeat(22, 1fr) }
-  .l_grid[columns-s="23"] { --grid-tc: repeat(23, 1fr) }
-  .l_grid[columns-s="24"] { --grid-tc: repeat(24, 1fr) }
+  .l_grid[col-s="1"] { --grid-tc: repeat(1, 1fr) }
+  .l_grid[col-s="2"] { --grid-tc: repeat(2, 1fr) }
+  .l_grid[col-s="3"] { --grid-tc: repeat(3, 1fr) }
+  .l_grid[col-s="4"] { --grid-tc: repeat(4, 1fr) }
+  .l_grid[col-s="5"] { --grid-tc: repeat(5, 1fr) }
+  .l_grid[col-s="6"] { --grid-tc: repeat(6, 1fr) }
+  .l_grid[col-s="7"] { --grid-tc: repeat(7, 1fr) }
+  .l_grid[col-s="8"] { --grid-tc: repeat(8, 1fr) }
+  .l_grid[col-s="9"] { --grid-tc: repeat(9, 1fr) }
+  .l_grid[col-s="10"] { --grid-tc: repeat(10, 1fr) }
+  .l_grid[col-s="11"] { --grid-tc: repeat(11, 1fr) }
+  .l_grid[col-s="12"] { --grid-tc: repeat(12, 1fr) }
+  .l_grid[col-s="13"] { --grid-tc: repeat(13, 1fr) }
+  .l_grid[col-s="14"] { --grid-tc: repeat(14, 1fr) }
+  .l_grid[col-s="15"] { --grid-tc: repeat(15, 1fr) }
+  .l_grid[col-s="16"] { --grid-tc: repeat(16, 1fr) }
+  .l_grid[col-s="17"] { --grid-tc: repeat(17, 1fr) }
+  .l_grid[col-s="18"] { --grid-tc: repeat(18, 1fr) }
+  .l_grid[col-s="19"] { --grid-tc: repeat(19, 1fr) }
+  .l_grid[col-s="20"] { --grid-tc: repeat(20, 1fr) }
+  .l_grid[col-s="21"] { --grid-tc: repeat(21, 1fr) }
+  .l_grid[col-s="22"] { --grid-tc: repeat(22, 1fr) }
+  .l_grid[col-s="23"] { --grid-tc: repeat(23, 1fr) }
+  .l_grid[col-s="24"] { --grid-tc: repeat(24, 1fr) }
 
   /* span-s=start... */
   .l_grid > .l_cell[span-s^="1"] { --grid-cs: 1 }
@@ -181,32 +182,32 @@
     grid-column-end: var(--grid-ce) }
   .l_grid > .l_cell[span-s="row"] { grid-column: 1 / -1 }
 }
-/* for window width >= 1600 */
+/* LARGE -  width >= 1600 */
 @media only screen and (min-width: 1599px) {
-  .l_grid[columns-l="1"] { --grid-tc: repeat(1, 1fr) }
-  .l_grid[columns-l="2"] { --grid-tc: repeat(2, 1fr) }
-  .l_grid[columns-l="3"] { --grid-tc: repeat(3, 1fr) }
-  .l_grid[columns-l="4"] { --grid-tc: repeat(4, 1fr) }
-  .l_grid[columns-l="5"] { --grid-tc: repeat(5, 1fr) }
-  .l_grid[columns-l="6"] { --grid-tc: repeat(6, 1fr) }
-  .l_grid[columns-l="7"] { --grid-tc: repeat(7, 1fr) }
-  .l_grid[columns-l="8"] { --grid-tc: repeat(8, 1fr) }
-  .l_grid[columns-l="9"] { --grid-tc: repeat(9, 1fr) }
-  .l_grid[columns-l="10"] { --grid-tc: repeat(10, 1fr) }
-  .l_grid[columns-l="11"] { --grid-tc: repeat(11, 1fr) }
-  .l_grid[columns-l="12"] { --grid-tc: repeat(12, 1fr) }
-  .l_grid[columns-l="13"] { --grid-tc: repeat(13, 1fr) }
-  .l_grid[columns-l="14"] { --grid-tc: repeat(14, 1fr) }
-  .l_grid[columns-l="15"] { --grid-tc: repeat(15, 1fr) }
-  .l_grid[columns-l="16"] { --grid-tc: repeat(16, 1fr) }
-  .l_grid[columns-l="17"] { --grid-tc: repeat(17, 1fr) }
-  .l_grid[columns-l="18"] { --grid-tc: repeat(18, 1fr) }
-  .l_grid[columns-l="19"] { --grid-tc: repeat(19, 1fr) }
-  .l_grid[columns-l="20"] { --grid-tc: repeat(20, 1fr) }
-  .l_grid[columns-l="21"] { --grid-tc: repeat(21, 1fr) }
-  .l_grid[columns-l="22"] { --grid-tc: repeat(22, 1fr) }
-  .l_grid[columns-l="23"] { --grid-tc: repeat(23, 1fr) }
-  .l_grid[columns-l="24"] { --grid-tc: repeat(24, 1fr) }
+  .l_grid[col-l="1"] { --grid-tc: repeat(1, 1fr) }
+  .l_grid[col-l="2"] { --grid-tc: repeat(2, 1fr) }
+  .l_grid[col-l="3"] { --grid-tc: repeat(3, 1fr) }
+  .l_grid[col-l="4"] { --grid-tc: repeat(4, 1fr) }
+  .l_grid[col-l="5"] { --grid-tc: repeat(5, 1fr) }
+  .l_grid[col-l="6"] { --grid-tc: repeat(6, 1fr) }
+  .l_grid[col-l="7"] { --grid-tc: repeat(7, 1fr) }
+  .l_grid[col-l="8"] { --grid-tc: repeat(8, 1fr) }
+  .l_grid[col-l="9"] { --grid-tc: repeat(9, 1fr) }
+  .l_grid[col-l="10"] { --grid-tc: repeat(10, 1fr) }
+  .l_grid[col-l="11"] { --grid-tc: repeat(11, 1fr) }
+  .l_grid[col-l="12"] { --grid-tc: repeat(12, 1fr) }
+  .l_grid[col-l="13"] { --grid-tc: repeat(13, 1fr) }
+  .l_grid[col-l="14"] { --grid-tc: repeat(14, 1fr) }
+  .l_grid[col-l="15"] { --grid-tc: repeat(15, 1fr) }
+  .l_grid[col-l="16"] { --grid-tc: repeat(16, 1fr) }
+  .l_grid[col-l="17"] { --grid-tc: repeat(17, 1fr) }
+  .l_grid[col-l="18"] { --grid-tc: repeat(18, 1fr) }
+  .l_grid[col-l="19"] { --grid-tc: repeat(19, 1fr) }
+  .l_grid[col-l="20"] { --grid-tc: repeat(20, 1fr) }
+  .l_grid[col-l="21"] { --grid-tc: repeat(21, 1fr) }
+  .l_grid[col-l="22"] { --grid-tc: repeat(22, 1fr) }
+  .l_grid[col-l="23"] { --grid-tc: repeat(23, 1fr) }
+  .l_grid[col-l="24"] { --grid-tc: repeat(24, 1fr) }
 
   /* span-l=start... */
   .l_grid > .l_cell[span-l^="1"] { --grid-cs: 1 }

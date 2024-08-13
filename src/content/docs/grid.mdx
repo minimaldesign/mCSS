@@ -4,13 +4,13 @@ lastUpdate: 2024-08-08
 version: 0.1
 ---
 
-## Basic functionality
-
 The grid layout is extremely easy to use, light weight, and very flexible. It uses the [CSS grid property](https://developer.mozilla.org/en-US/docs/Web/CSS/grid) under the hood, but it lets you set up your layouts directly into your HTML.
+
+## Syntax
 
 It's composed of 2 classes: `.l_grid` for the container, and `l_cell` for each grid item.
 
-You define the amount of columns of your grid with a custom `colums` property and the position/with of your cells with the custom `span` property.
+You define the amount of columns of your grid with a custom `col` attribute and the position/with of your cells with the custom `span` attribute.
 
 The `span` property syntax follows these 5 patterns:
 
@@ -20,9 +20,11 @@ The `span` property syntax follows these 5 patterns:
 - `3+5`: the cell starts in column 3 and spans for 5 columns.
 - `3..`: the cell starts in column 3 and spans the remainder of rows.
 
+##
+
 ## Example
 
-<div class="l_grid docs_grid" columns="9">
+<div class="l_grid docs_grid" col="9">
   <div class="l_cell">1</div>
   <div class="l_cell">2</div>
   <div class="l_cell">3</div>
