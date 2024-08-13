@@ -10,7 +10,7 @@
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--opacity-4);
 
-  --headings: var(--text);
+  --h123456: var(--display);
 
   /* LAYOUTS */
   --grid-column-gap: var(--md2);
