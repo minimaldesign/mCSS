@@ -21,7 +21,9 @@
 /* Global layouts wrapping components */
 @import url(./layout.wrap.css);
 @import url(./layout.grid.css);
-/* @import url(./layout.page.css); */
+
+/* Website specific pages */
+@import url(./page.docs.css);
 
 /* Component specific should be added here or within the Astro component itself */
 /* @import url(./component.banner.css); */
