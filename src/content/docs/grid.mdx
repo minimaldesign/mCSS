@@ -20,11 +20,40 @@ The `span` property syntax follows these 5 patterns:
 - `3+5`: the cell starts in column 3 and spans for 5 columns.
 - `3..`: the cell starts in column 3 and spans the remainder of rows.
 
-##
+Both the `col` and `span` attributes have responsive versions, which use the "mobile first" appraoch of the `--*-n-above` media queries.
 
-## Example
+
+## Examples
+
+### Different types of spans
+
+9 colum grid, with all types of spans
 
 <div class="l_grid docs_grid" col="9">
+  <div class="l_cell" span="2">2</div>
+  <div class="l_cell" span="4-5">4-5</div>
+  <div class="l_cell" span="6..">6..</div>
+  <div class="l_cell" span="3-3">3-3</div>
+  <div class="l_cell" span="5..">5..</div>
+  <div class="l_cell" span="2+3">2+3</div>
+  <div class="l_cell" span="6+2">6+2</div>
+  <div class="l_cell" span="row">row</div>
+  <div class="l_cell" span="4+2">4+2</div>
+</div>
+
+### Responsive grid
+
+The grid layout follows a "mobile first" approach using `--*-n-above` media queries.
+
+The following example goes from  1 → 4 → 9 → 12 columns.
+
+```html
+<div class="l_grid docs_grid" col="1" col-md="4" col-lg="9" col-xl="12">
+  […]
+</div>
+```
+
+<div class="l_grid docs_grid" col="1" col-md="4" col-lg="9" col-xl="12">
   <div class="l_cell">1</div>
   <div class="l_cell">2</div>
   <div class="l_cell">3</div>
@@ -34,34 +63,8 @@ The `span` property syntax follows these 5 patterns:
   <div class="l_cell">7</div>
   <div class="l_cell">8</div>
   <div class="l_cell">9</div>
-  <div class="l_cell"></div>
-  <div class="l_cell" span="3">
-    3
-  </div>
-  <div class="l_cell" span="6-6">6-6</div>
-  <div class="l_cell" span="8+2">
-    8+2
-  </div>
-  <div class="l_cell" span="2+3">
-    2+3
-  </div>
-  <div class="l_cell" span="5-7">
-    5-7
-  </div>
-  <div class="l_cell" span="1-4">
-    1-4
-  </div>
-  <div class="l_cell" span="6..">
-    6..
-  </div>
-  <div class="l_cell" span="2..">
-    2..
-  </div>
-  <div class="l_cell" span="4..">
-    4..
-  </div>
-  <div class="l_cell" span="4-6">
-    4-6
-  </div>
+  <div class="l_cell">10</div>
+  <div class="l_cell">11</div>
+  <div class="l_cell">12</div>
 </div>
 
