@@ -10,6 +10,11 @@ body {
   background-color: var(--body-background-color);
   color: var(--body-color);
   font-family: var(--body-font);
+
+  /* for elements like dialog etc. that require scrolling turned off */
+  &:has(.body-is-locked) {
+    overflow: hidden;
+  }
 }
 
 /* CONTENT SECTIONING ELEMENTS */
