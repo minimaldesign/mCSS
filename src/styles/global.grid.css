@@ -360,16 +360,3 @@
     grid-column-end: var(--grid-ce) }
   .grid > .grid_item[span-xl="row"] { grid-column: 1 / -1 }
 }
-
-/* .debug can be added to a .grid to visualize its effective grid_items */
-.grid.debug > * {
-  --color: rgba(248,110,91 ,0.3);
-  background-image:
-    linear-gradient(to bottom, var(--color) 0%, var(--color) 100%);
-}
-.grid.debug > :nth-child(6n+2) { --color: rgba(103,126,208,0.3) }
-.grid.debug > :nth-child(6n+3) { --color: rgba(224,174,72 ,0.3) }
-.grid.debug > :nth-child(6n+4) { --color: rgba(77, 214,115,0.3) }
-.grid.debug > :nth-child(6n+5) { --color: rgba(217,103,219,0.3) }
-.grid.debug > :nth-child(6n+6) { --color: rgba(94, 204,211,0.3) }
-.grid.debug > :nth-child(6n+7) { --color: rgba(248,110,91 ,0.3) }

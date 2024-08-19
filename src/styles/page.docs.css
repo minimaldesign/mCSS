@@ -106,6 +106,7 @@
 .docs_grid {
   border: 1px solid var(--primary-950);
   margin: var(--md2) 0;
+
   .grid_item {
     padding: var(--sm2);
     background-color: var(--primary-900);
