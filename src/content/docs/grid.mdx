@@ -8,37 +8,38 @@ The grid layout is extremely easy to use, light weight, and very flexible. It us
 
 ## Syntax
 
-It's composed of 2 classes: `.l_grid` for the container, and `l_cell` for each grid item.
+It's composed of 2 classes: `.grid` for the container, and `.grid_item` for each grid item.
 
-You define the amount of columns of your grid with a custom `col` attribute and the position/width of your cells with the custom `span` attribute.
+You define the amount of columns of your grid with a custom `col` attribute and the position/width of your grid_items with the custom `span` attribute.
 
 The `span` property syntax follows these 5 patterns:
 
-- `row`: the cell spans a full row
-- `3`: the cell start in the next column and spans 3 columns.
-- `3-5`: the cell starts in column 3 and ends in column 5.
-- `3+5`: the cell starts in column 3 and spans for 5 columns.
-- `3..`: the cell starts in column 3 and spans the remainder of rows.
+- `row`: the grid_item spans a full row
+- `3`: the grid_item start in the next column and spans 3 columns.
+- `3-5`: the grid_item starts in column 3 and ends in column 5.
+- `3+5`: the grid_item starts in column 3 and spans for 5 columns.
+- `3..`: the grid_item starts in column 3 and spans the remainder of rows.
 
 Both the `col` and `span` attributes have responsive versions, which use the "mobile first" appraoch of the `--*-n-above` media queries.
 
+**Note:** the custom attribute will not validate. If this is important to you, you'll need to change the attributes to `data-col` and `data-span` in both the CSS and HTML. I personally prefer to use shorter, more legible attributes. Check this thread on Github if you'd like to read more than you've ever wanted to know about [custom attributes and validation](https://github.com/whatwg/html/issues/2271).
 
 ## Examples
 
 ### Different types of spans
 
-9 colum grid, with all types of spans
+9 colum grid, with all types of spans.
 
-<div class="l_grid docs_grid" col="9">
-  <div class="l_cell" span="2">2</div>
-  <div class="l_cell" span="4-5">4-5</div>
-  <div class="l_cell" span="6..">6..</div>
-  <div class="l_cell" span="3-3">3-3</div>
-  <div class="l_cell" span="5..">5..</div>
-  <div class="l_cell" span="2+3">2+3</div>
-  <div class="l_cell" span="6+2">6+2</div>
-  <div class="l_cell" span="row">row</div>
-  <div class="l_cell" span="4+2">4+2</div>
+<div class="grid docs_grid" col="9">
+  <div class="grid_item" span="2">`2`</div>
+  <div class="grid_item" span="4-5">`4-5`</div>
+  <div class="grid_item" span="6..">`6..`</div>
+  <div class="grid_item" span="3-3">`3-3`</div>
+  <div class="grid_item" span="5..">`5..`</div>
+  <div class="grid_item" span="2+3">`2+3`</div>
+  <div class="grid_item" span="6+2">`6+2`</div>
+  <div class="grid_item" span="row">`row`</div>
+  <div class="grid_item" span="4+2">`4+2`</div>
 </div>
 
 ### Responsive grid
@@ -48,23 +49,23 @@ The grid layout follows a "mobile first" approach using `--*-n-above` media quer
 The following example goes from  1 → 4 → 9 → 12 columns.
 
 ```html
-<div class="l_grid docs_grid" col="1" col-md="4" col-lg="9" col-xl="12">
+<div class="grid" col="1" col-md="4" col-lg="9" col-xl="12">
   […]
 </div>
 ```
 
-<div class="l_grid docs_grid" col="1" col-md="4" col-lg="9" col-xl="12">
-  <div class="l_cell">1</div>
-  <div class="l_cell">2</div>
-  <div class="l_cell">3</div>
-  <div class="l_cell">4</div>
-  <div class="l_cell">5</div>
-  <div class="l_cell">6</div>
-  <div class="l_cell">7</div>
-  <div class="l_cell">8</div>
-  <div class="l_cell">9</div>
-  <div class="l_cell">10</div>
-  <div class="l_cell">11</div>
-  <div class="l_cell">12</div>
+<div class="grid docs_grid" col="1" col-md="4" col-lg="9" col-xl="12">
+  <div class="grid_item">1</div>
+  <div class="grid_item">2</div>
+  <div class="grid_item">3</div>
+  <div class="grid_item">4</div>
+  <div class="grid_item">5</div>
+  <div class="grid_item">6</div>
+  <div class="grid_item">7</div>
+  <div class="grid_item">8</div>
+  <div class="grid_item">9</div>
+  <div class="grid_item">10</div>
+  <div class="grid_item">11</div>
+  <div class="grid_item">12</div>
 </div>
 

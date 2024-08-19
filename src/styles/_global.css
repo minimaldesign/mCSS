@@ -18,9 +18,9 @@
 @import url(./elements.form.css);
 @import url(./elements.interactive.css);
 
-/* Global layouts wrapping components */
-@import url(./layout.wrap.css);
-@import url(./layout.grid.css);
+/* Global components */
+@import url(./global.wrap.css);
+@import url(./global.grid.css);
 
 /* Website specific pages */
 @import url(./page.docs.css);

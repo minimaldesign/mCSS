@@ -1,6 +1,6 @@
 /* LAYOUT WRAP */
 
-.l_wrap {
+.wrap {
   display: grid;
   grid-template-columns: 1fr var(--wrap-width) 1fr;
 
@@ -14,7 +14,7 @@
   }
 }
 
-.l_wrap_content-fullbleed {
+.wrap_content-fullbleed {
   grid-column: 1 / -1;
   width: 100%;
   object-fit: cover;
