@@ -55,27 +55,53 @@ figure {
 }
 
 /* Technically, headins should be in elements.sectioning but I'm guessing that's where most people would expect this to be */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
 
   font-family: var(--h123456);
+  font-weight: var(--black);
+  line-height: 1.2;
 }
 
-h1,
-h2,
-h3 {
-  margin: 0.67em 0;
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  margin: 0 0 var(--md1) 0;
 }
 
 /* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
 :where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
   margin-bottom: 0.25rem;
+}
+
+h1, .h1 {
+  font-size: var(--display-md);
+}
+
+h2, .h2 {
+  font-size: var(--display-sm);
+}
+
+h3, .h3 {
+  font-size: var(--text-xl);
+}
+
+h4, .h4 {
+  font-size: var(--text-lg);
+}
+
+h5, .h5 {
+  font-size: var(--text-md);
+}
+
+h6, .h6 {
+  font-size: var(--text-sm);
 }
 
 hr {
