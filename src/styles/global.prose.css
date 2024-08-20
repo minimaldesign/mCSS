@@ -1,0 +1,10 @@
+/* PROSE - Default style for text content */
+
+.prose {
+  p,
+  ul,
+  ol {
+    max-width: 65ch;
+    margin-bottom: var(--prose-margin);
+  }
+}

@@ -21,6 +21,10 @@
 /* Global components */
 @import url(./global.wrap.css);
 @import url(./global.grid.css);
+@import url(./global.prose.css);
+
+/* Astro comoponents - not part of mCSS */
+@import url(./global.astro.css);
 
 /* Website specific pages */
 @import url(./page.docs.css);
