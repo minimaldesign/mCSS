@@ -7,22 +7,39 @@ colgroup {
 }
 
 table {
+  margin-top: var(--md1);
+  margin-bottom: var(--md1);
+  border-spacing: 0;
+  border: 1px solid var(--table-border-color);
+  border-radius: var(--table-border-radius);
+  background-color: var(--table-background-color);
 }
 
 tbody {
 }
 
-td {
+th, td {
+  padding: var(--table-padding);
+  border-bottom: 1px solid var(--table-border-color);
+  border-left: 1px solid var(--table-border-color);
 }
 
 tfoot {
 }
 
 th {
+  text-align: left;
 }
 
 thead {
 }
 
 tr {
+  &:last-child td {
+    border-bottom-width: 0;
+  }
+
+  th:first-child, td:first-child {
+    border-left-width: 0;
+  }
 }
