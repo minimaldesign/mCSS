@@ -64,8 +64,8 @@ h6, .h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
 
-  font-family: var(--h123456);
-  font-weight: var(--black);
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
   line-height: 1.2;
 }
 
