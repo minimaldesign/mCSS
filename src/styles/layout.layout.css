@@ -1,0 +1,18 @@
+.layout {
+}
+
+.layout-sidebar {
+  .layout_content {
+    display: grid;
+    grid-template-columns: var(--layout-content-aside-width) 1fr;
+    column-gap: var(--lg1);
+  }
+
+  .layout_content_aside {
+    nav {
+      /* sticky for every nav, not just .navDocs */
+      position: sticky;
+      top: var(--header-height);
+    }
+  }
+}
