@@ -7,12 +7,12 @@ const allPosts = await getCollection('docs');
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={`${frontmatter.title} | mCSS Documentation`}>
-  <h1>{`Docs / ${frontmatter.title}`}</h1>
-  <aside>
+<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout-sidebar">
+  <aside class="layout_content_aside">
     <NavDocs />
   </aside>
-  <main class="prose">
+  <main class="layout_content_main prose">
+    <h1>{`Docs :: ${frontmatter.title}`}</h1>
     <slot />
   </main>
 </BaseLayout>
