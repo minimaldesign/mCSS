@@ -1,15 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import DocsPostLayout from '../../layouts/DocsPostLayout.astro';
 import NavDocs from '../../components/NavDocs.astro';
 
-const title = 'Documentation | mCSS';
-const header = 'Docs';
-const allPosts = await getCollection('docs');
-allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
+const mockFrontmatter = { title: 'Getting Started' };
 ---
 
-<BaseLayout title={title}>
-  <h1>{header}</h1>
-  <NavDocs />
-</BaseLayout>
+<DocsPostLayout frontmatter={mockFrontmatter}>
+  <p>mCSS is half methodology, half library.</p>
+</DocsPostLayout>
