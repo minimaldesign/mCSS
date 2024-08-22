@@ -1,8 +1,27 @@
 ---
+import Nav from '../components/Nav.astro';
 import ThemeIcon from './ThemeIcon.astro';
+import logoImg from '../assets/ui/mcss-logo.svg?raw';
 ---
 
-<header>
+<header class="header is-top">
+  <a class="header_logo" href="/">
+    <Fragment set:html={logoImg} /> mCSS
+  </a>
+  <Nav />
   <ThemeIcon />
-  <div>mCSS</div>
 </header>
+
+<script>
+  import { throttle } from '../scripts/utilities';
+
+  function toggleClassOnScroll() {
+    const header = document.querySelector('.header');
+    if (window.scrollY === 0) {
+      header.classList.add('is-top');
+    } else {
+      header.classList.remove('is-top');
+    }
+  }
+  window.onscroll = throttle(toggleClassOnScroll, 100);
+</script>
