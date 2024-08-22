@@ -31,5 +31,5 @@ Remove transitions & fixed background attachment
 /* Allow percentage-based heights */
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 }
