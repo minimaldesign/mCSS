@@ -7,4 +7,9 @@
     max-width: 65ch;
     margin-bottom: var(--prose-margin);
   }
+
+  table {
+    margin-top: var(--prose-margin);
+    margin-bottom: var(--prose-margin);
+  }
 }
