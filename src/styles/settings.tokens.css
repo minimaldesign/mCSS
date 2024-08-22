@@ -80,7 +80,8 @@ xxl: 1920px
     ui-monospace, monospace;
 
   /* Font Sizes */
-  --text-sm: 0.75rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
   --text-md: 1rem;
   --text-lg: 1.25rem;
   --text-xl: 1.5rem;
@@ -220,4 +221,9 @@ xxl: 1920px
   --z-4: 40;
   --z-5: 50;
   --z-top: 1000000000;
+
+  /* ANIMATIONS */
+
+  --transition: 220ms all ease-in-out;
+  --transition-fast: 100ms all ease-in-out;
 }
