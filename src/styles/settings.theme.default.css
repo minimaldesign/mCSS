@@ -3,7 +3,7 @@
 :root {
   /* ELEMENTS */
   --body-accent-color: var(--primary-500);
-  --body-background-color: var(--base-50);
+  --body-background-color: var(--base-0);
   --body-color: var(--base-950);
   --body-font: var(--text);
 
@@ -13,7 +13,9 @@
   /* text */
   --heading-font: var(--display); /* headings font */
   --heading-weight: var(--black);
-  --text-color: var(--base-950)
+  --text-color: var(--base-950);
+  --link-color: var(--primary-600);
+  --link-hover-color: var(--primary-500);
 
   --prose-margin: var(--md1);
 
@@ -21,22 +23,23 @@
   --table-padding: var(--sm2) var(--md1);
   --table-border-color: var(--base-100);
   --table-border-radius: var(--radius-xl);
-  --table-background-color: white;
+  --table-background-color: none;
 
   /* GLOBAL */
 
   /* layouts */
+
   --grid-column-gap: var(--md2);
   --grid-row-gap: var(--sm3);
 
   --wrap-padding: var(--md2);
   --wrap-width: minmax(300px, 800px);
 
-  /* mcss.dev components */
-
-  --layout-content-aside-width: 275px;
-  --layout-content-aside-background-color: var(--base-100);
-  --header-height: var(--lg2);
+  --layout_content_aside-width: 245px;
+  --layout_content_aside-background-color: var(--base-100);
 
   /* components */
+
+  --header-height: var(--lg2);
+  --header-background-color: var(--base-0);
 }
