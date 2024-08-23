@@ -4,8 +4,7 @@
 .layout-sidebar {
   .layout_content {
     display: grid;
-    grid-template-columns: var(--layout-content-aside-width) 1fr;
-    column-gap: var(--lg1);
+    grid-template-columns: var(--layout_content_aside-width) 1fr;
   }
 
   .layout_content_aside {
@@ -13,6 +12,12 @@
       /* sticky for every nav, not just .navDocs */
       position: sticky;
       top: var(--header-height);
+      padding: var(--lg1) var(--md3);
     }
+  }
+
+  .layout_content_main {
+    max-width: calc(65ch + (var(--lg1) * 2));
+    padding: var(--lg1);
   }
 }
