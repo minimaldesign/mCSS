@@ -1,0 +1,18 @@
+.navDocs {
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  a {
+    display: block;
+    padding: var(--sm2) 0;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: var(--transition);
+    &:hover,
+    &.is-active {
+      color: var(--link-hover-color);
+    }
+  }
+}
