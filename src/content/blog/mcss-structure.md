@@ -32,7 +32,6 @@ And please, don't order them alphabetically… Unless you're a robot, it won't h
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 10;
 
   /* Display & Box Model */
   display: inline-block;
@@ -55,5 +54,6 @@ And please, don't order them alphabetically… Unless you're a robot, it won't h
 
   /* Other */
   cursor: pointer;
+  z-index: 10;
 }
 ```
