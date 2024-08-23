@@ -1,14 +1,26 @@
 ---
-
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.split('/')[2]; // pathname starts with '/'
+const subSections = [
+  ['', 'Getting Started'],
+  ['tokens', 'Tokens'],
+  ['media-queries', 'Media Queries'],
+  ['themes', 'Themes'],
+  ['elements', 'HTML Elements'],
+  ['grid', 'Grid'],
+];
 ---
 
 <nav class="navDocs">
   <ul>
-    <li><a href="/docs">Getting Started</a></li>
-    <li><a href="/docs/tokens">Tokens</a></li>
-    <li><a href="/docs/media-queries">Media Queries</a></li>
-    <li><a href="/docs/themes">Themes</a></li>
-    <li><a href="/docs/elements">HTML Elements</a></li>
-    <li><a href="/docs/grid">Grid</a></li>
+    {
+      subSections.map((currentSubSection) => (
+        <li>
+          <a class={currentSubSection[0] == currentPath && 'is-active'} href={`/docs/${currentSubSection[0]}`}>
+            {currentSubSection[1]}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </nav>
