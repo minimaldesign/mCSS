@@ -9,6 +9,7 @@
     display: grid;
     align-items: center;
     grid-template-columns: calc(var(--iconSize) + var(--sm1)) 1fr;
+    margin-left: calc((var(--iconSize) + var(--sm1)) * -1);
     padding: var(--sm2) 0;
     text-decoration: none;
     color: var(--text-color);
