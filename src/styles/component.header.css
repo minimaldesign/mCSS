@@ -7,7 +7,7 @@
   background-color: var(--header-background-color);
   box-shadow: var(--shadow-sm);
   z-index: var(--z-5);
-  transition: var(--transition);
+  transition: all var(--transition);
 
   nav {
     display: grid;
@@ -17,11 +17,12 @@
 
   ul {
     display: flex;
-    gap: var(--lg1);
+    gap: var(--md3);
     padding-left: 0;
     list-style-type: none;
 
     a {
+      position: relative;
       display: grid;
       align-items: center;
       height: 100%;
@@ -29,10 +30,10 @@
       font-size: var(--text-sm);
       font-weight: var(--bold);
       color: var(--text-color);
-      transition: var(--transition);
+      transition: all var(--transition);
       &:hover,
       &.is-active {
-        color: var(--link-hover-color);
+        color: var(--link-color);
       }
     }
   }

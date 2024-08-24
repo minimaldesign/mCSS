@@ -5,14 +5,29 @@
   }
 
   a {
-    display: block;
+    --iconSize: 18px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: calc(var(--iconSize) + var(--sm1)) 1fr;
     padding: var(--sm2) 0;
     text-decoration: none;
     color: var(--text-color);
-    transition: var(--transition);
+    transition: all var(--transition);
     &:hover,
     &.is-active {
-      color: var(--link-hover-color);
+      color: var(--link-color);
+      svg {
+        transform: translateX(0);
+        opacity: var(--opacity-5);
+      }
+    }
+
+    svg {
+      transition: opacity var(--transition), transform var(--transition);
+      transform: translateX(calc(var(--sm2) * -1));
+      width: var(--iconSize);
+      height: var(--iconSize);
+      opacity: var(--opacity-0);
     }
   }
 }

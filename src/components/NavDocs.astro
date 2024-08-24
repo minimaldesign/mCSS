@@ -1,4 +1,6 @@
 ---
+import arrow from '../assets/icons/arrow-right-small.svg?raw';
+
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[2]; // pathname starts with '/'
 const subSections = [
@@ -17,6 +19,7 @@ const subSections = [
       subSections.map((currentSubSection) => (
         <li>
           <a class={currentSubSection[0] == currentPath && 'is-active'} href={`/docs/${currentSubSection[0]}`}>
+            <Fragment set:html={arrow} />
             {currentSubSection[1]}
           </a>
         </li>

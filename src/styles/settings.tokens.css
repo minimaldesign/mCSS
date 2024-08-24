@@ -225,6 +225,6 @@ xxl: 1920px
 
   /* ANIMATIONS */
 
-  --transition: 220ms all ease-in-out;
-  --transition-fast: 100ms all ease-in-out;
+  --transition: 220ms ease-in-out;
+  --transition-fast: 100ms ease-in-out;
 }
