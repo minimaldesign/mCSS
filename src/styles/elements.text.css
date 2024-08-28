@@ -66,7 +66,7 @@ h6, .h6 {
 
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  line-height: 1.2;
+  line-height: var(--heading-line-height);
 }
 
 h1, .h1,

@@ -80,15 +80,16 @@ xxl: 1920px
     ui-monospace, monospace;
 
   /* Font Sizes */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
+  /* Create your own sizes @ https://typescale.com */
+  --text-xs: 0.694rem;
+  --text-sm: 0.833rem;
   --text-md: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.5rem;
-  --display-sm: 2rem;
-  --display-md: 2.5rem;
-  --display-lg: 3rem;
-  --display-xl: 3.5rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.44rem;
+  --display-sm: 1.728rem;
+  --display-md: 2.074rem;
+  --display-lg: 2.488rem;
+  --display-xl: 2.986rem;
 
   /* Font Weights */
   --extra-light: 200;
@@ -109,7 +110,7 @@ xxl: 1920px
   --tracking-display-lg: 0.75em;
 
   /* Line Height */
-  --leading-sm: 1.1;
+  --leading-sm: 1.15;
   --leading-md: 1.375;
   --leading-lg: 1.5;
   --leading-xl: 1.75;

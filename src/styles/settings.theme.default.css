@@ -13,6 +13,7 @@
   /* text */
   --heading-font: var(--display); /* headings font */
   --heading-weight: var(--black);
+  --heading-line-height: var(--leading-sm);
   --text-color: var(--base-950);
   --link-color: var(--primary-600);
   --link-hover-color: var(--primary-500);
@@ -22,7 +23,7 @@
   /* tables */
   --table-padding: var(--sm2) var(--md1);
   --table-border-color: var(--base-100);
-  --table-border-radius: var(--radius-xl);
+  --table-border-radius: var(--radius-md);
   --table-background-color: none;
 
   /* GLOBAL */
