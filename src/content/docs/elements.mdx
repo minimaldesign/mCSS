@@ -1,0 +1,629 @@
+---
+title: "HTML Elements"
+lastUpdate: 2024-08-27
+version: 0.1
+---
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DocsPostLayout from "../../layouts/DocsPostLayout.astro";
+import DocsElementsScript from "../../scripts/DocsElementsScript.astro"
+
+import { Image } from "astro:assets";
+import img from "../../assets/images/saxophonist.jpg";
+import imgCrop from "../../assets/images/saxophonist-cropped.jpg";
+import audioFile from "../../assets/media/sax.mp3";
+import videoFile from "../../assets/media/fushimi.mp4";
+
+
+
+
+##  Sectioning
+
+<p>
+  Technically, <code>&lt;address&gt;</code> and <code>&lt;h1&gt;</code> —
+  <code>&lt;h6&gt;</code> are
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning">
+    content sectioning elements
+  </a>
+  like <code>&lt;header&gt;</code>, <code>&lt;section&gt;</code>, etc. But I
+  strive to make mCSS intuitive and easy rather than technically correct, so
+  Iʼve included them with the rest of the text elements below.
+</p>
+
+
+
+<h2 class="docs_heading">Text</h2>
+
+  <section class="docs_section">
+    <h3>Address</h3>
+    <p>Contact us at:</p>
+    <address>
+      <a href="mailto:sonny@rollins.com">sonny@rollins.com</a><br />
+      <a href="tel:+19294891434">+1 (929) 489 1434</a>
+    </address>
+
+    <h1>Heading One</h1>
+    <h2>Heading Two</h2>
+    <h3>Heading Three</h3>
+    <h4>Heading Four</h4>
+    <h5>Heading Five</h5>
+    <h6>Heading Six</h6>
+
+  </section>
+
+
+
+<section class="docs_section">
+  <h3>Inline Elements</h3>
+  <div>
+    <p>
+      <a href="#!">This is a text link</a>.
+    </p>
+    <p>
+      <strong>Strong is used to indicate strong importance.</strong>
+    </p>
+    <p>
+      <em>This text has added emphasis.</em>
+    </p>
+    <p>
+      The <b>b element</b> is stylistically different text from normal text,
+      without any special importance.
+    </p>
+    <p>
+      The <i>i element</i> is text that is offset from the normal text.
+    </p>
+    <p>
+      The <u>u element</u> is text with an unarticulated, though explicitly
+      rendered, non-textual annotation.
+    </p>
+    <p>
+      <del>This text is deleted</del> and <ins>This text is inserted</ins>.
+    </p>
+    <p>
+      <s>This text has a strikethrough</s>.
+    </p>
+    <p>
+      Superscript<sup>®</sup>.
+    </p>
+    <p>
+      Subscript for things like H<sub>2</sub>O.
+    </p>
+    <p>
+      <small>This small text is small for fine print, etc.</small>
+    </p>
+    <p>
+      Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr>
+    </p>
+    <p>
+      <q cite="https://developer.mozilla.org/en-US/docs/HTML/Element/q">
+        This text is a short inline quotation.
+      </q>
+    </p>
+    <p>
+      <cite>This is a citation.</cite>
+    </p>
+    <p>
+      The <dfn>dfn element</dfn> indicates a definition.
+    </p>
+    <p>
+      The <mark>mark element</mark> indicates a highlight.
+    </p>
+    <p>
+      The <var>variable element</var>, such as <var>x</var> = <var>y</var>.
+    </p>
+    <p>
+      The time element:
+      <time datetime="2013-04-06T12:32+00:00">2 weeks ago</time>
+    </p>
+  </div>
+</section>
+
+
+
+<section class="docs_section">
+  <h3>Paragraphs</h3>
+  <p>
+    A paragraph (from the Greek paragraphos, “to write beside” or “written
+    beside”) is a self-contained unit of a discourse in writing dealing with a
+    particular point or idea. A paragraph consists of one or more sentences.
+  </p>
+  <p>
+    Though not required by the syntax of any language, paragraphs are usually an
+    expected part of formal writing, used to organize longer prose.
+  </p>
+</section>
+
+  <section class="docs_section">
+    <h3>Definition list</h3>
+    <dl>
+      <dt>Definition List description term</dt>
+      <dd>This is a definition list description details</dd>
+      <dt>Another description</dt>
+      <dd>With the related description details</dd>
+    </dl>
+
+    <h3>Ordered List</h3>
+    <ol type="1">
+      <li>List Item 1</li>
+      <li>
+        List Item 2
+        <ol type="A">
+          <li>List Item 1</li>
+          <li>
+            List Item 2
+            <ol type="a">
+              <li>List Item 1</li>
+              <li>
+                List Item 2
+                <ol type="I">
+                  <li>List Item 1</li>
+                  <li>
+                    List Item 2
+                    <ol type="i">
+                      <li>List Item 1</li>
+                      <li>List Item 2</li>
+                      <li>List Item 3</li>
+                    </ol>
+                  </li>
+                  <li>List Item 3</li>
+                </ol>
+              </li>
+              <li>List Item 3</li>
+            </ol>
+          </li>
+          <li>List Item 3</li>
+        </ol>
+      </li>
+      <li>List Item 3</li>
+    </ol>
+
+    <h3>Unordered List</h3>
+    <ul>
+      <li>List Item 1</li>
+      <li>
+        List Item 2
+        <ul>
+          <li>List Item 1</li>
+          <li>
+            List Item 2
+            <ul>
+              <li>List Item 1</li>
+              <li>
+                List Item 2
+                <ul>
+                  <li>List Item 1</li>
+                  <li>
+                    List Item 2
+                    <ul>
+                      <li>List Item 1</li>
+                      <li>List Item 2</li>
+                      <li>List Item 3</li>
+                    </ul>
+                  </li>
+                  <li>List Item 3</li>
+                </ul>
+              </li>
+              <li>List Item 3</li>
+            </ul>
+          </li>
+          <li>List Item 3</li>
+        </ul>
+      </li>
+      <li>List Item 3</li>
+    </ul>
+
+  </section>
+
+
+
+<section class="docs_section">
+  <h3>Blockquotes</h3>
+  <blockquote>
+    <p>
+      A block quotation (also known as a long quotation or extract) is a
+      quotation in a written document, that is set off from the main text as a
+      paragraph, or block of text.
+    </p>
+    <p>
+      It is typically distinguished visually using indentation and a different
+      typeface or smaller size quotation. It may or may not include a citation,
+      usually placed at the bottom.
+    </p>
+    <cite>
+      <a href="#!">Said no one, ever.</a>
+    </cite>
+  </blockquote>
+</section>
+
+
+
+<section class="docs_section">
+  <h3>Horizontal Rule</h3>
+  <p>
+    The object of life is not to be on the side of the majority, but to escape
+    finding oneself in the ranks of the insane.
+  </p>
+  <hr />
+  <p>
+    You have power over your mind — not outside events. Realize this, and you
+    will find strength.
+  </p>
+</section>
+
+
+
+<section class="docs_section">
+  <h3>Code</h3>
+  <p>
+    <strong>Keyboard input:</strong>
+    <kbd>Cmd</kbd>
+  </p>
+  <p>
+    <strong>Inline code:</strong>
+    <code>&lt;div&gt;code&lt;/div&gt;</code>
+  </p>
+  <p>
+    <strong>Sample output:</strong>
+    <samp>This is sample output from a computer program.</samp>
+  </p>
+  <h3>Pre-formatted text</h3>
+  <pre>
+    P R E F O R M A T T E D T E X T ! " # $ % &amp; ' ( ) * + , - . / 0 1 2 3 4
+    5 6 7 8 9 : ; &lt; = &gt; ? @ A B C D E F G H I J K L M N O P Q R S T U V W
+    X Y Z [ \ ] ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z ~
+  </pre>
+</section>
+
+
+
+<h2 class="docs_heading">Table</h2>
+
+
+
+<table>
+  <caption>Number of albums recorded</caption>
+  <thead>
+    <tr>
+      <th scope="col">Musician</th>
+      <th scope="col">Instrument</th>
+      <th scope="col">Albums</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Sonny Rollins</th>
+      <td>Saxophone</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th scope="row">John Coltrane</th>
+      <td>Saxophone</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th scope="row">Joe Henderson</th>
+      <td>Saxophone</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th scope="row">Wayne Shorter</th>
+      <td>Saxophone</td>
+      <td>36</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope="row" colspan="2">
+        Total Albums
+      </th>
+      <td>177</td>
+    </tr>
+  </tfoot>
+</table>
+
+
+
+<h2 class="docs_heading">Form</h2>
+<p>
+  See
+  <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/How_to_structure_a_web_form">
+    How to structure a web form
+  </a>
+  on MDN.
+</p>
+
+
+
+<section class="docs_section">
+  <form>
+    <fieldset>
+      <legend>Input fields</legend>
+      <p>
+        <label for="text">Text Input</label>
+        <input id="text" type="text" placeholder="Text Input" />
+      </p>
+      <p>
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Type your Password" />
+      </p>
+      <p>
+        <label for="webaddress">Web Address</label>
+        <input id="webaddress" type="url" placeholder="https://yoursite.com" />
+      </p>
+      <p>
+        <label for="emailaddress">Email Address</label>
+        <input id="emailaddress" type="email" placeholder="name@email.com" />
+      </p>
+      <p>
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="tel" placeholder="(999) 999-9999" />
+      </p>
+      <p>
+        <label for="search">Search</label>
+        <input id="search" type="search" placeholder="Enter Search Term" />
+      </p>
+      <p>
+        <label for="text2">Number Input</label>
+        <input id="text2" type="number" placeholder="Enter a Number" />
+      </p>
+      <p>
+        <label for="file">File Input</label>
+        <input id="file" type="file" />
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend>Select menus</legend>
+      <p>
+        <label for="select">Select</label>
+        <select id="select">
+          <optgroup label="Group 1">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+          <optgroup label="Group 2">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+        </select>
+      </p>
+      <p>
+        <label for="select_multiple">Select (multiple)</label>
+        <select id="select_multiple" multiple>
+          <optgroup label="Group 1">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+          <optgroup label="Group 2">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+        </select>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend>Checkboxes</legend>
+      <ul>
+        <li>
+          <label for="checkbox1">
+            <input
+              id="checkbox1"
+              name="checkbox"
+              type="checkbox"
+              checked="checked"
+            />
+            Choice A
+          </label>
+        </li>
+        <li>
+          <label for="checkbox2">
+            <input id="checkbox2" name="checkbox" type="checkbox" />
+            Choice B
+          </label>
+        </li>
+        <li>
+          <label for="checkbox3">
+            <input id="checkbox3" name="checkbox" type="checkbox" />
+            Choice C
+          </label>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset id="forms__radio">
+      <legend>Radio buttons</legend>
+      <ul>
+        <li>
+          <label for="radio1">
+            <input id="radio1" name="radio" type="radio" checked="checked" />
+            Option 1
+          </label>
+        </li>
+        <li>
+          <label for="radio2">
+            <input id="radio2" name="radio" type="radio" />
+            Option 2
+          </label>
+        </li>
+        <li>
+          <label for="radio3">
+            <input id="radio3" name="radio" type="radio" />
+            Option 3
+          </label>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset>
+      <legend>Textareas</legend>
+      <p>
+        <label for="textarea">Textarea</label>
+        <textarea
+          id="textarea"
+          rows="8"
+          cols="48"
+          placeholder="Enter your message here"
+        ></textarea>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend>HTML5 inputs</legend>
+      <p>
+        <label for="ic">Color input</label>
+        <input type="color" id="ic" value="#38bdf8" />
+      </p>
+      <p>
+        <label for="in">Number input</label>
+        <input type="number" id="in" min="0" max="10" value="5" />
+      </p>
+      <p>
+        <label for="ir">Range input</label>
+        <input type="range" id="ir" value="10" />
+      </p>
+      <p>
+        <label for="idm">Month input</label>
+        <input type="month" id="idm" value="2024-06" />
+      </p>
+      <p>
+        <label for="idw">Week input</label>
+        <input type="week" id="idw" value="2024-W25" />
+      </p>
+      <p>
+        <label for="idate">Date input</label>
+        <input
+          type="date"
+          id="idate"
+          value="2024-06-18"
+          min="2024-01-01"
+          max="2030-12-31"
+        />
+      </p>
+      <p>
+        <label for="itime">Time input</label>
+        <input type="time" id="itime" min="09:00" max="18:00" />
+      </p>
+      <p>
+        <label for="idtl">Datetime-local input</label>
+        <input type="datetime-local" id="idtl" value="2024-06-18T00:00" />
+      </p>
+      <p>
+        <label for="idl">Datalist</label>
+        <input type="text" id="idl" list="example-list" />
+        <datalist id="example-list">
+          <option value="Example #1"></option>
+          <option value="Example #2"></option>
+          <option value="Example #3"></option>
+        </datalist>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend>Action buttons</legend>
+      <p>
+        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit (disabled)" disabled />
+        <input type="reset" value="Reset" />
+      </p>
+      <p>
+        <button type="submit">Submit</button>
+        <button type="button">Button</button>
+        <button type="button" disabled>
+          Disabled
+        </button>
+        <button type="reset">Reset</button>
+      </p>
+    </fieldset>
+  </form>
+</section>
+
+
+
+<h2 class="docs_heading">Media</h2>
+
+  <section class="docs_section">
+    <h3>Plain <code>&lt;img&gt;</code> element</h3>
+    <p><Image src={img} width="350" alt="Saxophonist playing in Central Park" /></p>
+
+    <h3><code>&lt;figure&gt;</code> element with <code>&lt;img&gt;</code> element</h3>
+    <figure><Image src={img} width="350" alt="Saxophonist playing in Central Park" /></figure>
+
+    <h3><code>&lt;figure&gt;</code> element with <code>&lt;img&gt;</code> and <code>&lt;figcaption&gt;</code> elements</h3>
+    <figure>
+      <Image src={img} width="350" alt="Saxophonist playing in Central Park" />
+      <figcaption>Here is a caption for this image.</figcaption>
+    </figure>
+
+    <h3><code>&lt;figure&gt;</code> element with a <code>&lt;picture&gt;</code> element</h3>
+    <figure>
+      <picture>
+        <source srcset={img.src} width="350" media="(min-width: 800px)" />
+        <Image src={imgCrop} width="350" alt="Saxophonist playing in Central Park" />
+      </picture>
+    </figure>
+
+  </section>
+
+  <section class="docs_section">
+    <h3>Audio</h3>
+    <audio controls>
+      <source src={audioFile} type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <h3>Video</h3>
+    <video controls width="350">
+      <source src={videoFile} type="video/mp4" />
+      Your browser does not support the video element.
+    </video>
+
+    <h3>Canvas</h3>
+    <canvas class="docs_canvas">canvas</canvas>
+
+    <h3>Meter</h3>
+    <meter value="2" min="0" max="10">2 out of 10</meter>
+
+    <h3>Progress</h3>
+    <progress>progress</progress>
+
+    <h3>Inline SVG</h3>
+    <svg width="100px" height="100px">
+      <circle cx="50" cy="50" r="50" fill="#38bdf8"></circle>
+    </svg>
+
+    <h3>Inline Frame</h3>
+    <iframe width="350" height="200" src="https://www.openstreetmap.org/export/embed.html?bbox=115.69423198699953%2C-8.367407790226663%2C115.70669889450075%2C-8.358820459526953&layer=mapnik&marker=-8.363114148527767%2C115.70046544075012"></iframe>
+
+  </section>
+
+
+
+<h2 class="docs_heading">Interactive</h2>
+
+
+
+<section class="docs_section">
+  <h3>Details & Summary</h3>
+  <details>
+    <summary>Expand for details</summary>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, odio! Odio
+      natus ullam ad quaerat, eaque necessitatibus, aliquid distinctio similique
+      voluptatibus dicta consequuntur animi. Quaerat facilis quidem unde eos!
+      Ipsa.
+    </p>
+  </details>
+</section>
+
+
+
+<section class="docs_section">
+  <h3>Dialog</h3>
+  <dialog>
+    <button autofocus>Close</button>
+    <h4>A Dialog</h4>
+    <p>Content of the dialog element.</p>
+  </dialog>
+  <button>Show the dialog</button>
+</section>
+
+
