@@ -3,4 +3,9 @@
   margin-bottom: var(--prose-margin);
   padding: var(--md1);
   border-radius: var(--radius-md);
+
+  code {
+    /* override elements.text default */
+    background-color: initial;
+  }
 }

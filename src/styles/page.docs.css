@@ -1,3 +1,19 @@
+.docs {
+  > h2 {
+    margin-bottom: var(--md2);
+    padding: var(--sm1) 0;
+    font-size: var(--text-lg);
+    font-weight: var(--book);
+    color: var(--base-500);
+    border-bottom: 1px solid var(--base-200);
+    margin-top: var(--lg1);
+  }
+}
+
+.docs_section {
+  margin-bottom: var(--lg1);
+}
+
 .cubes,
 .ds {
   list-style-type: none;
