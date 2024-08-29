@@ -72,12 +72,18 @@ h6, .h6 {
 h1, .h1,
 h2, .h2,
 h3, .h3 {
-  margin: 0 0 var(--md1) 0;
+  margin-bottom: var(--md1);
+}
+
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  margin-bottom: var(--sm2);
 }
 
 /* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
 :where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
-  margin-bottom: 0.25rem;
+  margin-bottom:var(--sm2);
 }
 
 h1, .h1 {
@@ -101,7 +107,7 @@ h5, .h5 {
 }
 
 h6, .h6 {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
 }
 
 hr {
