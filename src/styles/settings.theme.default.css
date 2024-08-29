@@ -2,7 +2,9 @@
 
 :root {
   /* ELEMENTS */
-  --body-accent-color: var(--primary-500);
+  accent-color: var(--primary-800);
+  --focus-outline: 3px solid var(--primary-800);
+
   --body-background-color: var(--base-0);
   --body-color: var(--base-950);
   --body-font: var(--text);

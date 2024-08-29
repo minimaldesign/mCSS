@@ -5,12 +5,9 @@ body {
   line-sizing: normal;
   /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
   text-size-adjust: none;
-
-  accent-color: var(--body-accent-color);
   background-color: var(--body-background-color);
   color: var(--body-color);
   font-family: var(--body-font);
-
   line-height: 1.5;
 
   /* for elements like dialog etc. that require scrolling turned off */
