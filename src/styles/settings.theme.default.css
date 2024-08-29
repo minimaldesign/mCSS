@@ -3,7 +3,6 @@
 :root {
   /* ELEMENTS */
   accent-color: var(--primary-800);
-  --focus-outline: 3px solid var(--primary-800);
 
   --body-background-color: var(--base-0);
   --body-color: var(--base-950);
@@ -45,4 +44,13 @@
 
   --header-height: var(--lg2);
   --header-background-color: var(--base-0);
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary-800);
+}
+
+::selection {
+  color: var(--base-0);
+  background-color: var(--primary-800);
 }

@@ -33,7 +33,3 @@ html,
 body {
   min-height: 100%;
 }
-
-*:focus-visible {
-  outline: var(--focus-outline);
-}
