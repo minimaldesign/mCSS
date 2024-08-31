@@ -24,6 +24,7 @@
 @import url(./layout.layout.css);
 
 /* Global styles */
+@import url(./global.button.css);
 @import url(./global.prose.css);
 
 /*  Page specific styles */
