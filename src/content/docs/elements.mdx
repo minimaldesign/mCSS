@@ -16,12 +16,15 @@ import videoFile from "../../assets/media/fushimi.mp4";
 
 ## Sectioning
 
-Technically, `address` and `h1` — `h6` are [content sectioning elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning), like `header`, `section`, etc. But I strive to make mCSS intuitive and easy rather than technically correct, so I've included them with the rest of the text elements below.
+<section class="docs_section prose">
+  Technically, `address` and `h1` — `h6` are [content sectioning elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning), like `header`, `section`, etc. But I strive to make mCSS intuitive and easy rather than technically correct, so I've included them with the rest of the text elements below.
+</section>
 
 ## Text
 
 <section class="docs_section">
   ### Address
+
   <address>
     <a href="mailto:sonny@rollins.com">sonny@rollins.com</a>
     <br />
@@ -29,8 +32,9 @@ Technically, `address` and `h1` — `h6` are [content sectioning elements](https
   </address>
 </section>
 
-<section class="docs_section">
+<section class="docs_section prose">
   ### Headings
+
   <h1>Heading One</h1>
   <p>A small paragraphe of text to show the heading in context.</p>
   <h2>Heading Two</h2>
@@ -49,7 +53,7 @@ Technically, `address` and `h1` — `h6` are [content sectioning elements](https
   <h4>H4 right aftert a H3</h4>
 </section>
 
-<section class="docs_section">
+<section class="docs_section prose">
   ### Inline Elements
 
 | Element    | Example                                                                      |
@@ -76,55 +80,54 @@ Technically, `address` and `h1` — `h6` are [content sectioning elements](https
 
 </section>
 
-<section class="docs_section">
-### Paragraphs
+<section class="docs_section prose">
+  ### Paragraphs
 
-A paragraph (from the Greek paragraphos, “to write beside” or “written beside”) is a self-contained unit of a discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences.
+  A paragraph (from the Greek paragraphos, “to write beside” or “written beside”) is a self-contained unit of a discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences.
 
-Though not required by the syntax of any language, paragraphs are usually an expected part of formal writing, used to organize longer prose.
-
+  Though not required by the syntax of any language, paragraphs are usually an expected part of formal writing, used to organize longer prose.
 </section>
 
-<section class="docs_section">
-### Definition list
+<section class="docs_section prose">
+  ### Definition list
 
-<dl>
-  <dt>Definition List description term</dt>
-  <dd>This is a definition list description details</dd>
-  <dt>Another description</dt>
-  <dd>With the related description details</dd>
-</dl>
+  <dl>
+    <dt>Definition List description term</dt>
+    <dd>This is a definition list description details</dd>
+    <dt>Another description</dt>
+    <dd>With the related description details</dd>
+  </dl>
 
-### Ordered List
+  ### Ordered List
 
-1. List Item
-1. List Item
-   1. List Item
-   1. List Item
+  1. List Item
+  1. List Item
       1. List Item
       1. List Item
-   1. List Item
-   1. List Item
-1. List Item
-1. List Item
+          1. List Item
+          1. List Item
+      1. List Item
+      1. List Item
+  1. List Item
+  1. List Item
 
-### Unordered List
+  ### Unordered List
 
-- List Item
-- List Item
   - List Item
   - List Item
     - List Item
     - List Item
+      - List Item
+      - List Item
+    - List Item
+    - List Item
   - List Item
   - List Item
-- List Item
-- List Item
 
 </section>
 
-<section class="docs_section">
-### Blockquotes
+<section class="docs_section prose">
+  ### Blockquotes
 
   <blockquote>
     <p>
@@ -143,87 +146,90 @@ Though not required by the syntax of any language, paragraphs are usually an exp
   </blockquote>
 </section>
 
-<section class="docs_section">
-### Horizontal Rule
+<section class="docs_section prose">
+  ### Horizontal Rule
 
-The object of life is not to be on the side of the majority, but to escape finding oneself in the ranks of the insane.
+  The object of life is not to be on the side of the majority, but to escape finding oneself in the ranks of the insane.
 
-<hr />
+  <hr />
 
-You have power over your mind — not outside events. Realize this, and you will find strength.
+  You have power over your mind — not outside events. Realize this, and you will find strength.
 
-</section>
+  </section>
 
-<section class="docs_section">
-### code
+  <section class="docs_section prose">
+  ### code
 
-<p>
-  <strong>Keyboard input: </strong>
-  <kbd>Cmd</kbd>
-</p>
-<p>
-  <strong>Inline code: </strong>
-  <code>&lt;div&gt;code&lt;/div&gt;</code>
-</p>
-<p>
-  <strong>Sample output: </strong>
-  <samp>This is sample output from a computer program.</samp>
-</p>
+  <p>
+    <strong>Keyboard input: </strong>
+    <kbd>Cmd</kbd>
+  </p>
+  <p>
+    <strong>Inline code: </strong>
+    <code>&lt;div&gt;code&lt;/div&gt;</code>
+  </p>
+  <p>
+    <strong>Sample output: </strong>
+    <samp>This is sample output from a computer program.</samp>
+  </p>
 
-### Pre-formatted text
+  ### Pre-formatted text
 
-<pre>
-  P R E F O R M A T T E D T E X T !
-  " # $ % &amp; ' ( ) * + , - . / 0 1 2
-  3 4 5 6 7 8 9 : ; &lt; = &gt; ? @ A B C
-  D E F G H I J K L M N O P Q R S T
-  U V W X Y Z [ \ ] ^ _ ` a b c d e
-  f g h i j k l m n o p q r s t u v
-  w x y z ~
-</pre>
+  <pre>
+    P R E F O R M A T T E D T E X T !
+    " # $ % &amp; ' ( ) * + , - . / 0 1 2
+    3 4 5 6 7 8 9 : ; &lt; = &gt; ? @ A B C
+    D E F G H I J K L M N O P Q R S T
+    U V W X Y Z [ \ ] ^ _ ` a b c d e
+    f g h i j k l m n o p q r s t u v
+    w x y z ~
+  </pre>
 
 </section>
 
 ## Table
 
-<table>
-  <caption>Number of albums recorded</caption>
-  <thead>
-    <tr>
-      <th scope="col">Musician</th>
-      <th scope="col">Instrument</th>
-      <th scope="col">Albums</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Sonny Rollins</th>
-      <td>Saxophone</td>
-      <td>60</td>
-    </tr>
-    <tr>
-      <th scope="row">John Coltrane</th>
-      <td>Saxophone</td>
-      <td>56</td>
-    </tr>
-    <tr>
-      <th scope="row">Joe Henderson</th>
-      <td>Saxophone</td>
-      <td>25</td>
-    </tr>
-    <tr>
-      <th scope="row">Wayne Shorter</th>
-      <td>Saxophone</td>
-      <td>36</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <th scope="row" colspan="2">Total Albums</th>
-      <td>177</td>
-    </tr>
-  </tfoot>
-</table>
+
+<section class="docs_section prose">
+  <table>
+    <caption>Number of albums recorded</caption>
+    <thead>
+      <tr>
+        <th scope="col">Musician</th>
+        <th scope="col">Instrument</th>
+        <th scope="col">Albums</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Sonny Rollins</th>
+        <td>Saxophone</td>
+        <td>60</td>
+      </tr>
+      <tr>
+        <th scope="row">John Coltrane</th>
+        <td>Saxophone</td>
+        <td>56</td>
+      </tr>
+      <tr>
+        <th scope="row">Joe Henderson</th>
+        <td>Saxophone</td>
+        <td>25</td>
+      </tr>
+      <tr>
+        <th scope="row">Wayne Shorter</th>
+        <td>Saxophone</td>
+        <td>36</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope="row" colspan="2">Total Albums</th>
+        <td>177</td>
+      </tr>
+    </tfoot>
+  </table>
+</section>
 
 ## Form
 
@@ -416,9 +422,7 @@ See [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn
       <p>
         <button type="submit">Submit</button>
         <button type="button">Button</button>
-        <button type="button" disabled>
-          Disabled
-        </button>
+        <button type="button" disabled>Disabled</button>
         <button type="reset">Reset</button>
       </p>
     </fieldset>

@@ -5,6 +5,12 @@
 }
 
 a {
+  font-weight: var(--semi-bold);
+  color: var(--link-color);
+  &:hover {
+    color: var(--link-hover-color);
+    text-decoration: none;
+  }
 }
 
 abbr {
