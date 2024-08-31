@@ -5,7 +5,8 @@
   align-items: center;
   min-width: 101px;
   min-height: var(--md3);
-  padding: 0 var(--sm3);
+  padding-left: var(--sm3);
+  padding-right: var(--sm3);
   font-weight: var(--semi-bold);
   font-size: var(--text-sm);
   text-decoration: none;
@@ -16,7 +17,7 @@
   cursor: pointer;
   transition: all var(--transition);
 
-  &:not(:disabled):hover {
+  &:where(:not(:disabled):hover) {
     color: var(--text-color);
     background-color: var(--base-50);
   }
@@ -25,5 +26,112 @@
     background-color: var(--base-200);
     opacity: var(--opacity-2);
     cursor: default;
+  }
+
+  svg {
+    width: var(--md1);
+    height: var(--md1);
+    margin-right: 0.25em;
+    margin-left: calc(var(--sm1) * -1);
+  }
+}
+
+/* Colors */
+
+.bt-primary {
+  color: var(--base-0);
+  background-color: var(--link-color);
+  border-color: var(--link-color);
+  &:hover {
+    background-color: var(--link-hover-color);
+    border-color: var(--link-hover-color);
+  }
+  &.bt-outline {
+    color: var(--link-color);
+    &:hover {
+      color: var(--link-hover-color);
+    }
+  }
+}
+
+.bt-yes {
+  color: var(--base-0);
+  background-color: var(--yes-500);
+  border-color: var(--yes-500);
+  &:hover {
+    color: var(--yes-500);
+    background-color: var(--yes-100);
+    border-color: var(--yes-100);
+  }
+  &.bt-outline {
+    color: var(--yes-500);
+    &:hover {
+      background-color: var(--yes-500);
+      color: var(--base-0);
+    }
+  }
+}
+
+.bt-no {
+  color: var(--base-0);
+  background-color: var(--no-500);
+  border-color: var(--no-500);
+  &:hover {
+    color: var(--no-500);
+    background-color: var(--no-100);
+    border-color: var(--no-100);
+  }
+  &.bt-outline {
+    color: var(--no-500);
+    &:hover {
+      background-color: var(--no-500);
+      color: var(--base-0);
+    }
+  }
+}
+
+.bt-maybe {
+  color: var(--base-0);
+  background-color: var(--maybe-500);
+  border-color: var(--maybe-500);
+  &:hover {
+    color: var(--maybe-500);
+    background-color: var(--maybe-100);
+    border-color: var(--maybe-100);
+  }
+  &.bt-outline {
+    color: var(--maybe-500);
+    &:hover {
+      background-color: var(--maybe-500);
+      color: var(--base-0);
+    }
+  }
+}
+
+:is(.bt-outline, .bt-outline:hover) {
+  background-color: transparent;
+}
+
+/* Sizes */
+
+.bt-md {
+  min-width: 123px;
+  min-height: var(--lg1);
+  padding-left: var(--md1);
+  padding-right: var(--md1);
+}
+
+.bt-lg {
+  min-width: 133px;
+  min-height: var(--lg2);
+  padding-left: var(--md2);
+  padding-right: var(--md2);
+  font-size: var(--text-md);
+  border-radius: var(--radius-xl);
+
+  svg {
+    margin-left: calc(var(--sm3) * -1);
+    width: var(--md2);
+    height: var(--md2);
   }
 }
