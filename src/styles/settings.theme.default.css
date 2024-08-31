@@ -1,20 +1,25 @@
 /* DEFAULT THEME */
 
 :root {
-  /* ELEMENTS */
+  /* GLOBAL */
   accent-color: var(--primary-800);
 
+  --border-color: var(--base-200);
+
+  /* ELEMENTS */
+
   --body-background-color: var(--base-0);
-  --body-color: var(--base-950);
-  --body-font: var(--text);
+
+  --button-border-radius: var(--radius-lg);
 
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--opacity-4);
 
   /* text */
-  --heading-font: var(--display); /* headings font */
+  --heading-font: var(--display);
   --heading-weight: var(--black);
   --heading-line-height: var(--leading-sm);
+
   --text-color: var(--base-950);
   --link-color: var(--primary-600);
   --link-hover-color: var(--primary-500);
@@ -27,10 +32,7 @@
   --table-border-radius: var(--radius-md);
   --table-background-color: none;
 
-  /* GLOBAL */
-
   /* layouts */
-
   --grid-column-gap: var(--md2);
   --grid-row-gap: var(--sm3);
 
@@ -41,7 +43,6 @@
   --layout_content_aside-background-color: var(--base-100);
 
   /* components */
-
   --header-height: var(--lg2);
   --header-background-color: var(--base-0);
 }

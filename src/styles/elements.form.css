@@ -12,8 +12,40 @@ select {
   font: inherit;
 }
 
+input[type="submit"],
+input[type="reset"],
+button,
+.button,
+.bt {
+  display: inline flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 101px;
+  min-height: var(--md3);
+  padding: 0 var(--sm3);
+  font-weight: var(--semi-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: var(--base-);
+  border: 1px solid var(--border-color);
+  border-radius: var(--button-border-radius);
+  cursor: pointer;
+  transition: all var(--transition);
+
+  &:not(:disabled):hover {
+    color: var(--text-color);
+    background-color: var(--base-50);
+  }
+}
+
+input,
 button {
-  border: 0;
+  &:disabled {
+    background-color: var(--base-200);
+    opacity: var(--opacity-2);
+    cursor: default;
+  }
 }
 
 datalist {
@@ -23,6 +55,9 @@ fieldset {
 }
 
 form {
+  :where(button, .button, .bt, input):has(+ :is(button, .button, .bt, input)) {
+    margin-right: var(--md1);
+  }
 }
 
 input {

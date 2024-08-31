@@ -6,8 +6,8 @@ body {
   /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
   text-size-adjust: none;
   background-color: var(--body-background-color);
-  color: var(--body-color);
-  font-family: var(--body-font);
+  color: var(--text-color);
+  font-family: var(--text);
   line-height: 1.5;
 
   /* for elements like dialog etc. that require scrolling turned off */
