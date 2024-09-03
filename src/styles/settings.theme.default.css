@@ -24,26 +24,26 @@
   --link-color: var(--primary-600);
   --link-hover-color: var(--primary-500);
 
-  --prose-margin: var(--md1);
+  --prose-margin: var(--sm1);
 
   /* tables */
-  --table-padding: var(--sm2) var(--md1);
+  --table-padding: var(--xs2) var(--sm1);
   --table-border-color: var(--base-100);
   --table-border-radius: var(--radius-md);
   --table-background-color: none;
 
   /* layouts */
-  --grid-column-gap: var(--md2);
+  --grid-column-gap: var(--sm3);
   --grid-row-gap: var(--sm3);
 
-  --wrap-padding: var(--md2);
+  --wrap-padding: var(--sm3);
   --wrap-width: minmax(300px, 800px);
 
   --layout_content_aside-width: 245px;
   --layout_content_aside-background-color: var(--base-100);
 
   /* components */
-  --header-height: var(--lg2);
+  --header-height: var(--xl2);
   --header-background-color: var(--base-0);
 }
 

@@ -8,9 +8,9 @@
     --iconSize: 18px;
     display: grid;
     align-items: center;
-    grid-template-columns: calc(var(--iconSize) + var(--sm1)) 1fr;
-    margin-left: calc((var(--iconSize) + var(--sm1)) * -1);
-    padding: var(--sm2) 0;
+    grid-template-columns: calc(var(--iconSize) + var(--xs1)) 1fr;
+    margin-left: calc((var(--iconSize) + var(--xs1)) * -1);
+    padding: var(--xs2) 0;
     text-decoration: none;
     color: var(--text-color);
     transition: all var(--transition);
@@ -25,7 +25,7 @@
 
     svg {
       transition: opacity var(--transition), transform var(--transition);
-      transform: translateX(calc(var(--sm2) * -1));
+      transform: translateX(calc(var(--xs2) * -1));
       width: var(--iconSize);
       height: var(--iconSize);
       opacity: var(--opacity-0);

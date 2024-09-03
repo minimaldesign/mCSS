@@ -5,13 +5,13 @@
   align-items: center;
   min-width: 101px;
   min-height: var(--md3);
-  padding-left: var(--sm3);
-  padding-right: var(--sm3);
+  padding-left: var(--xs3);
+  padding-right: var(--xs3);
   font-weight: var(--semi-bold);
   font-size: var(--text-sm);
   text-decoration: none;
   color: var(--text-color);
-  background-color: var(--base-);
+  background-color: var(--base-0);
   border: 1px solid var(--border-color);
   border-radius: var(--button-border-radius);
   cursor: pointer;
@@ -29,10 +29,10 @@
   }
 
   svg {
-    width: var(--md1);
-    height: var(--md1);
+    width: var(--sm1);
+    height: var(--sm1);
     margin-right: 0.25em;
-    margin-left: calc(var(--sm1) * -1);
+    margin-left: calc(var(--xs2) * -1);
   }
 }
 
@@ -116,22 +116,22 @@
 
 .bt-md {
   min-width: 123px;
-  min-height: var(--lg1);
-  padding-left: var(--md1);
-  padding-right: var(--md1);
+  min-height: var(--lg2);
+  padding-left: var(--xs3);
+  padding-right: var(--xs3);
 }
 
 .bt-lg {
   min-width: 133px;
-  min-height: var(--lg2);
-  padding-left: var(--md2);
-  padding-right: var(--md2);
+  min-height: var(--xl1);
+  padding-left: var(--sm2);
+  padding-right: var(--sm2);
   font-size: var(--text-md);
   border-radius: var(--radius-xl);
 
   svg {
-    margin-left: calc(var(--sm3) * -1);
-    width: var(--md2);
-    height: var(--md2);
+    margin-left: calc(var(--xs3) * -1);
+    width: var(--sm3);
+    height: var(--sm3);
   }
 }

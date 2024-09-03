@@ -23,7 +23,7 @@ fieldset {
 
 form {
   :where(button, .button, .bt, input):has(+ :is(button, .button, .bt, input)) {
-    margin-right: var(--md1);
+    margin-right: var(--sm1);
   }
 }
 
