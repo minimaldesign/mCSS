@@ -8,45 +8,50 @@ import arrow from "../../assets/icons/arrow-right-small.svg?raw";
 
 ## Specs
 
-The `button` components
+<section class="prose">
+
+The `button` component is one of the global components provided by mCSS. You can use `.button` or its shorthand `.bt` on `<button>`, `<input>` and `<a>` HTML elements. They will all render the same.
+
+Available options:
+
+| Class | Modifier                  | Example                                                                 |
+| ----- | ------------------------- | ----------------------------------------------------------------------- |
+| `.bt` |                           | <button class="bt">Default Button</button>                              |
+| `.bt` | `.bt-md`                  | <button class="bt bt-md">Medium Size</button>                           |
+| `.bt` | `.bt-lg`                  | <button class="bt bt-lg">Large Size</button>                            |
+| `.bt` | `.bt-primary`             | <button class="bt bt-primary">Primary CTA</button>                      |
+| `.bt` | `.bt-primary .bt-outline` | <button class="bt bt-primary bt-outline">Outlined CTA</button>          |
+| `.bt` | `.bt-yes`                 | <button class="bt bt-yes">Outlined CTA</button>                         |
+| `.bt` | `.bt-yes .bt-outline`     | <button class="bt bt-yes bt-outline">Outlined CTA</button>              |
+| `.bt` | `.bt-maybe`               | <button class="bt bt-maybe">Outlined CTA</button>                       |
+| `.bt` | `.bt-maybe .bt-outline`   | <button class="bt bt-maybe bt-outline">Outlined CTA</button>            |
+| `.bt` | `.bt-no`                  | <button class="bt bt-no">Outlined CTA</button>                          |
+| `.bt` | `.bt-no .bt-outline`      | <button class="bt bt-no bt-outline">Outlined CTA</button>               |
+| `.bt` | `.bt-no .bt-outline`      | <button class="bt bt-no bt-outline">Outlined CTA</button>               |
+| `.bt` | SVG inline inside button  | <button class="bt"><Fragment set:html={arrow} />Default Button</button> |
+| `.bt` | `disabled` attribute      | <button class="bt" disabled>Disabled Button</button>                    |
+
+</section>
 
 ## Examples
 
-<p>
-  <input class="bt bt-md bt-primary" type="submit" value="Submit Input" />
-  <input
-    class="bt bt-md bt-primary bt-outline"
-    type="reset"
-    value="Reset Input"
-  />
-  <input class="bt bt-md" type="submit" value="Disabled Input" disabled />
-</p>
+```html
+<button class="bt bt-primary bt-lg" type="button">
+  <svg>[…]</svg> Large Button with Icon
+</button>
+```
+<button class="bt bt-primary bt-lg" type="button"><Fragment set:html={arrow} /> Large button with icon</button>
 
-<p>
-  <input class="bt bt-lg" type="submit" value="Submit Input" />
-  <input class="bt bt-lg" type="reset" value="Large Reset with Long Title" />
-  <input class="bt bt-lg" type="submit" value="Disabled Input" disabled />
-</p>
-<p>
-  <input class="bt bt-yes" type="submit" value="Disabled Input"  />
-  <input class="bt bt-no" type="submit" value="Disabled Input"  />
-  <input class="bt bt-maybe" type="submit" value="Disabled Input"  />
-  <input class="bt bt-yes bt-outline" type="submit" value="Submit Input" />
-  <input class="bt bt-no bt-outline" type="submit" value="Submit Input" />
-  <input class="bt bt-maybe bt-outline" type="submit" value="Submit Input" />
-  <input class="bt bt-md bt-outline" type="reset" value="Reset Input" />
-  <input class="bt bt-lg bt-outline" type="submit" value="Disabled Input" disabled />
-</p>
-<p>
-  <input class="bt bt-link" type="submit" value="Submit Input" />
+```html
+<a class="bt">This is a Link</a>
+```
+<a class="bt">This is a Link</a>
 
-</p>
-<p>
-  <button class="bt" type="submit">Submit Button</button>
-  <button class="bt" type="button"><Fragment set:html={arrow} /> Arrow Button</button>
-  <button class="bt bt-md" type="button"><Fragment set:html={arrow} /> Arrow Button</button>
-  <button class="bt bt-primary bt-lg" type="button"><Fragment set:html={arrow} /> ARROW BUTTON</button>
-  <button class="bt" type="reset">Reset Button</button>
-  <button class="bt" type="button" disabled>Disabled Button</button>
-  <a class="bt" href> Button link</a>
-</p>
+```html
+<input class="bt bt-md bt-no bt-outline" type="submit" value="Submit Input" />
+```
+<input
+  class="bt bt-md bt-no bt-outline"
+  type="submit"
+  value="Cancel"
+/>
