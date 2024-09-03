@@ -12,7 +12,7 @@ import arrow from "../../assets/icons/arrow-right-small.svg?raw";
 
 The `button` component is one of the global components provided by mCSS. You can use `.button` or its shorthand `.bt` on `<button>`, `<input>` and `<a>` HTML elements. They will all render the same.
 
-Available options:
+You can combine modifiers however you want (see exmamples below) but note that the `.bt-outline` modifier will only work on buttons that have a solid fill color to start.
 
 | Class | Modifier                  | Example                                                                 |
 | ----- | ------------------------- | ----------------------------------------------------------------------- |
@@ -22,12 +22,8 @@ Available options:
 | `.bt` | `.bt-primary`             | <button class="bt bt-primary">Primary CTA</button>                      |
 | `.bt` | `.bt-primary .bt-outline` | <button class="bt bt-primary bt-outline">Outlined CTA</button>          |
 | `.bt` | `.bt-yes`                 | <button class="bt bt-yes">Outlined CTA</button>                         |
-| `.bt` | `.bt-yes .bt-outline`     | <button class="bt bt-yes bt-outline">Outlined CTA</button>              |
 | `.bt` | `.bt-maybe`               | <button class="bt bt-maybe">Outlined CTA</button>                       |
-| `.bt` | `.bt-maybe .bt-outline`   | <button class="bt bt-maybe bt-outline">Outlined CTA</button>            |
 | `.bt` | `.bt-no`                  | <button class="bt bt-no">Outlined CTA</button>                          |
-| `.bt` | `.bt-no .bt-outline`      | <button class="bt bt-no bt-outline">Outlined CTA</button>               |
-| `.bt` | `.bt-no .bt-outline`      | <button class="bt bt-no bt-outline">Outlined CTA</button>               |
 | `.bt` | SVG inline inside button  | <button class="bt"><Fragment set:html={arrow} />Default Button</button> |
 | `.bt` | `disabled` attribute      | <button class="bt" disabled>Disabled Button</button>                    |
 
@@ -36,16 +32,18 @@ Available options:
 ## Examples
 
 ```html
-<button class="bt bt-primary bt-lg" type="button">
+<a class="bt">This is a Link</a>
+```
+<a class="bt">This is a Link</a>
+
+
+```html
+<button class="bt bt-lg bt-primary" type="button">
   <svg>[…]</svg> Large Button with Icon
 </button>
 ```
-<button class="bt bt-primary bt-lg" type="button"><Fragment set:html={arrow} /> Large button with icon</button>
+<button class="bt bt-lg bt-primary" type="button"><Fragment set:html={arrow} /> Large Button with Icon</button>
 
-```html
-<a class="bt">This is a Link</a>
-```
-<a class="bt">This is a Link</a>
 
 ```html
 <input class="bt bt-md bt-no bt-outline" type="submit" value="Submit Input" />
