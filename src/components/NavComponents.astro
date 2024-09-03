@@ -6,12 +6,15 @@ import arrow from '../assets/icons/arrow-right-small.svg?raw';
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[2]; // pathname starts with '/'
 const allPosts = await getCollection('components');
+
+import { moveToFirstPosition } from '../scripts/utilities';
+const orderedPosts = moveToFirstPosition(allPosts, 'slug', 'start');
 ---
 
 <nav class="navDocs">
   <ul>
     {
-      allPosts.map((post) => (
+      orderedPosts.map((post) => (
         <li>
           <a class={post.slug == currentPath && 'is-active'} href={`/components/${post.slug}`}>
             <Fragment set:html={arrow} />
