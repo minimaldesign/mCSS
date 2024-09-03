@@ -25,6 +25,7 @@ export function moveToFirstPosition(arr, key, value) {
   // If a match is found
   if (index !== -1) {
     // Remove the object from its current position
+    // Note the array destructuring with [] since splice returns an array.
     const [matchedObject] = arr.splice(index, 1);
     // Add the matched object to the beginning of the array
     arr.unshift(matchedObject);
