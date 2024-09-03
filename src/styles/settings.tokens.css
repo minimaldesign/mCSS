@@ -40,25 +40,38 @@ xxl: 1920px
   /* DIMENSIONS */
 
   /* Sizes */
-  --sm1: 4px;
-  --sm2: 8px;
-  --sm3: 12px;
 
-  --md1: 16px;
-  --md2: 24px;
-  --md3: 32px;
+  --xs1: 4px;
+  --xs2: 8px;
+  --xs3: 12px;
 
-  --lg1: 48px;
-  --lg2: 64px;
-  --lg3: 96px;
+  --sm1: 16px;
+  --sm2: 20px;
+  --sm3: 24px;
 
-  --xl1: 128px;
-  --xl2: 192px;
-  --xl3: 256px;
+  --md1: 28px;
+  --md2: 32px;
+  --md3: 36px;
 
-  --xxl1: 384px;
-  --xxl2: 512px;
-  --xxl3: 640px;
+  --lg1: 40px;
+  --lg2: 44px;
+  --lg3: 48px;
+
+  --xl1: 56px;
+  --xl2: 64px;
+  --xl3: 80px;
+
+  --xxl1: 96px;
+  --xxl2: 112px;
+  --xxl3: 128px;
+
+  --mega1: 160px;
+  --mega2: 192px;
+  --mega3: 224px;
+
+  --giga1: 256px;
+  --giga2: 288px;
+  --giga3: 320px;
 
   /* Aspect Ratios */
   --ar-square: 1;
