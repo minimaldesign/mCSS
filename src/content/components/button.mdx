@@ -1,0 +1,48 @@
+---
+title: "Button"
+lastUpdate: 2024-09-02
+version: 0.1
+---
+
+import arrow from "../../assets/icons/arrow-right-small.svg?raw";
+
+## Examples
+
+<p>
+  <input class="bt bt-md bt-primary" type="submit" value="Submit Input" />
+  <input
+    class="bt bt-md bt-primary bt-outline"
+    type="reset"
+    value="Reset Input"
+  />
+  <input class="bt bt-md" type="submit" value="Disabled Input" disabled />
+</p>
+
+<p>
+  <input class="bt bt-lg" type="submit" value="Submit Input" />
+  <input class="bt bt-lg" type="reset" value="Large Reset with Long Title" />
+  <input class="bt bt-lg" type="submit" value="Disabled Input" disabled />
+</p>
+<p>
+  <input class="bt bt-yes" type="submit" value="Disabled Input"  />
+  <input class="bt bt-no" type="submit" value="Disabled Input"  />
+  <input class="bt bt-maybe" type="submit" value="Disabled Input"  />
+  <input class="bt bt-yes bt-outline" type="submit" value="Submit Input" />
+  <input class="bt bt-no bt-outline" type="submit" value="Submit Input" />
+  <input class="bt bt-maybe bt-outline" type="submit" value="Submit Input" />
+  <input class="bt bt-md bt-outline" type="reset" value="Reset Input" />
+  <input class="bt bt-lg bt-outline" type="submit" value="Disabled Input" disabled />
+</p>
+<p>
+  <input class="bt bt-link" type="submit" value="Submit Input" />
+
+</p>
+<p>
+  <button class="bt" type="submit">Submit Button</button>
+  <button class="bt" type="button"><Fragment set:html={arrow} /> Arrow Button</button>
+  <button class="bt bt-md" type="button"><Fragment set:html={arrow} /> Arrow Button</button>
+  <button class="bt bt-primary bt-lg" type="button"><Fragment set:html={arrow} /> ARROW BUTTON</button>
+  <button class="bt" type="reset">Reset Button</button>
+  <button class="bt" type="button" disabled>Disabled Button</button>
+  <a class="bt" href> Button link</a>
+</p>

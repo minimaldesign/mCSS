@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import DocsComponentsLayout from '../../layouts/DocsComponentsLayout.astro';
+
+const mockFrontmatter = { title: 'Components' };
+---
+
+<DocsComponentsLayout frontmatter={mockFrontmatter}>
+  <p>List of components</p>
+</DocsComponentsLayout>

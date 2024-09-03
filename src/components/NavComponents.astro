@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+
+import arrow from '../assets/icons/arrow-right-small.svg?raw';
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.split('/')[2]; // pathname starts with '/'
+const allPosts = await getCollection('components');
+---
+
+<nav class="navDocs">
+  <ul>
+    {
+      allPosts.map((post) => (
+        <li>
+          <a class={post.slug == currentPath && 'is-active'} href={`/components/${post.slug}/`}>
+            <Fragment set:html={arrow} />
+            {post.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

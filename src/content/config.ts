@@ -28,8 +28,18 @@ const docsCollection = defineCollection({
   }),
 });
 
+const componentsCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    lastUpdate: z.date(),
+    version: z.number(),
+  }),
+});
+
 // Export a single `collections` object to register your collection(s)
 export const collections = {
   blog: blogCollection,
   docs: docsCollection,
+  components: componentsCollection,
 };
