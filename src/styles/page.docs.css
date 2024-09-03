@@ -1,17 +1,17 @@
 .docs {
   > h2 {
-    margin-bottom: var(--md2);
+    margin-bottom: var(--sm3);
     padding: var(--sm1) 0;
     font-size: var(--text-lg);
     font-weight: var(--book);
     color: var(--base-500);
     border-bottom: 1px solid var(--base-200);
-    margin-top: var(--lg1);
+    margin-top: var(--lg3);
   }
 }
 
 .docs_section {
-  margin-bottom: var(--lg1);
+  margin-bottom: var(--lg3);
 }
 
 .docs_form {
@@ -29,7 +29,7 @@
 }
 
 .cubes li {
-  margin-bottom: var(--md1);
+  margin-bottom: var(--sm1);
 }
 
 .cubes div {
@@ -38,7 +38,7 @@
 }
 
 .ds {
-  margin-bottom: var(--lg1);
+  margin-bottom: var(--lg3);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 }
@@ -46,6 +46,18 @@
 .ds div {
   width: 100px;
   aspect-ratio: var(--ar-square);
+}
+
+.xs1 {
+  width: var(--xs1);
+}
+
+.xs2 {
+  width: var(--xs2);
+}
+
+.xs3 {
+  width: var(--xs3);
 }
 
 .sm1 {
@@ -108,6 +120,30 @@
   width: var(--xxl3);
 }
 
+.mega1 {
+  width: var(--mega1);
+}
+
+.mega2 {
+  width: var(--mega2);
+}
+
+.mega3 {
+  width: var(--mega3);
+}
+
+.giga1 {
+  width: var(--giga1);
+}
+
+.giga2 {
+  width: var(--giga2);
+}
+
+.giga3 {
+  width: var(--giga3);
+}
+
 .shadow-1 {
   box-shadow: var(--shadow-sm);
 }
@@ -130,7 +166,7 @@
 
 .docs_grid {
   border: 1px solid var(--primary-950);
-  margin: var(--md2) 0;
+  margin: var(--sm3) 0;
 
   .grid_item {
     padding: var(--sm2);
