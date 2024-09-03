@@ -1,7 +1,7 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[1]; // pathname starts with '/'
-const sections = ['Docs', 'Components', 'About', 'Blog'];
+const sections = ['Docs', 'Components', 'Blog', 'About'];
 ---
 
 <nav>
@@ -10,12 +10,13 @@ const sections = ['Docs', 'Components', 'About', 'Blog'];
       <a class={'' == currentPath && 'is-active'} href="/">Home</a>
     </li>
     {
-      sections.map((currentSection) => {
-        const path = currentSection.toLowerCase();
+      sections.map((current) => {
+        const path = current.toLowerCase();
+        const isDocs = current == 'Components' || current == 'Docs';
         return (
           <li>
-            <a class={path == currentPath && 'is-active'} href={`/${path}/`}>
-              {currentSection}
+            <a class={path == currentPath && 'is-active'} href={`/${path}${isDocs ? '/start' : ''}`}>
+              {current}
             </a>
           </li>
         );

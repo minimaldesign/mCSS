@@ -13,7 +13,7 @@ const allPosts = await getCollection('components');
     {
       allPosts.map((post) => (
         <li>
-          <a class={post.slug == currentPath && 'is-active'} href={`/components/${post.slug}/`}>
+          <a class={post.slug == currentPath && 'is-active'} href={`/components/${post.slug}`}>
             <Fragment set:html={arrow} />
             {post.data.title}
           </a>
