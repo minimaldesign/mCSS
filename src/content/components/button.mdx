@@ -6,6 +6,38 @@ version: 0.1
 
 import arrow from "../../assets/icons/arrow-right-small.svg?raw";
 
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <a class="bt">This is a Link</a>
+    ```html
+    <a class="bt">This is a Link</a>
+    ```
+  </li>
+  <li>
+    <button class="bt bt-lg bt-primary" type="button">
+      <Fragment set:html={arrow} />
+      Large Button with Icon
+    </button>
+    ```html
+    <button class="bt bt-lg bt-primary" type="button">
+      <svg>[…]</svg> Large Button with Icon
+    </button>
+    ```
+  </li>
+  <li>
+    <input class="bt bt-md bt-no bt-outline" type="submit" value="Cancel" />
+    ```html
+    <input
+      class="bt bt-md bt-no bt-outline"
+      type="submit"
+      value="Submit Input"
+    />
+    ```
+  </li>
+</ul>
+
 ## Specs
 
 <section class="prose">
@@ -36,28 +68,3 @@ You can combine modifiers however you want (see exmamples below) but note that t
 | `disabled` attribute                  | <button class="bt" disabled>Disabled Button</button>                 |
 
 </section>
-
-## Examples
-
-```html
-<a class="bt">This is a Link</a>
-```
-
-<a class="bt">This is a Link</a>
-
-```html
-<button class="bt bt-lg bt-primary" type="button">
-  <svg>[…]</svg> Large Button with Icon
-</button>
-```
-
-<button class="bt bt-lg bt-primary" type="button">
-  <Fragment set:html={arrow} />
-  Large Button with Icon
-</button>
-
-```html
-<input class="bt bt-md bt-no bt-outline" type="submit" value="Submit Input" />
-```
-
-<input class="bt bt-md bt-no bt-outline" type="submit" value="Cancel" />
