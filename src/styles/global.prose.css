@@ -2,10 +2,8 @@
 
 .prose {
   code {
-    padding: 0.15em 0.3em;
     background-color: var(--primary-100);
     color: var(--primary-600);
-    border-radius: var(--radius-sm);
   }
 
   p,

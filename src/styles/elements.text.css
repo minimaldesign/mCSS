@@ -29,8 +29,10 @@ cite {
 }
 
 code {
+  padding: 0.15em 0.3em;
   font-family: var(--mono);
   font-size: 0.9em;
+  border-radius: var(--radius-sm);
 }
 
 data {
