@@ -1,0 +1,31 @@
+---
+import info from '../assets/icons/info.svg?raw';
+import danger from '../assets/icons/octagon-alert.svg?raw';
+import warning from '../assets/icons/triangle-alert.svg?raw';
+import confirm from '../assets/icons/circle-check.svg?raw';
+
+const { title, type } = Astro.props;
+
+let svgIcon;
+switch (type) {
+  case 'danger':
+    svgIcon = danger;
+    break;
+  case 'warning':
+    svgIcon = warning;
+    break;
+  case 'confirm':
+    svgIcon = confirm;
+    break;
+  default:
+    svgIcon = info;
+}
+---
+
+<aside class={`notice notice-${type}`}>
+  <p class="notice_title">
+    <Fragment set:html={svgIcon} />
+    <strong>{title}</strong>
+  </p>
+  <slot />
+</aside>

@@ -35,6 +35,7 @@
 /* Should be added here or within the Astro component itself */
 @import url(./component.header.css);
 @import url(./component.navDocs.css);
+@import url(./component.notice.css);
 
 /* Plugins, etc. */
 @import url(./external.astro.css);

@@ -1,0 +1,38 @@
+.notice {
+  padding: var(--sm1);
+  border: 1px solid var(--base-200);
+  background-color: var(--base-50);
+  border-radius: var(--radius-lg);
+}
+
+.notice_title {
+  display: flex;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  svg {
+    margin-bottom: var(--xs3);
+    margin-right: 0.5em;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: var(--xs1);
+  }
+}
+
+.notice-info {
+  background-color: var(--primary-100);
+  border-color: var(--primary-300);
+
+  svg {
+    color: var(--primary-400);
+  }
+
+  code {
+    background-color: var(--primary-200);
+    color: var(--primary-600);
+  }
+}
