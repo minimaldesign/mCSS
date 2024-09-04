@@ -3,14 +3,15 @@
   border: 1px solid var(--base-200);
   background-color: var(--base-50);
   border-radius: var(--radius-lg);
+
+  p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
+  }
 }
 
 .notice_title {
   display: flex;
-
-  p {
-    margin-bottom: 0;
-  }
 
   svg {
     margin-bottom: var(--xs3);
