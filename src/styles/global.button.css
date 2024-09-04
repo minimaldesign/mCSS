@@ -15,11 +15,15 @@
   border: 1px solid var(--border-color);
   border-radius: var(--button-border-radius);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all var(--transition-fast);
 
   &:where(:not(:disabled):hover) {
     color: var(--text-color);
     background-color: var(--base-50);
+  }
+
+  &:where(:not(:disabled):active) {
+    transform: scale(0.97);
   }
 
   &:disabled {
