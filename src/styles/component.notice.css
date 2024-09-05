@@ -37,3 +37,45 @@
     color: var(--primary-600);
   }
 }
+
+.notice-danger {
+  background-color: var(--no-200);
+  border-color: var(--no-500);
+
+  svg {
+    color: var(--no-500);
+  }
+
+  code {
+    background-color: var(--no-100);
+    color: var(--no-500);
+  }
+}
+
+.notice-warning {
+  background-color: var(--maybe-100);
+  border-color: var(--maybe-500);
+
+  svg {
+    color: var(--maybe-400);
+  }
+
+  code {
+    background-color: var(--maybe-200);
+    color: var(--maybe-500);
+  }
+}
+
+.notice-confirm {
+  background-color: var(--yes-100);
+  border-color: var(--yes-500);
+
+  svg {
+    color: var(--yes-400);
+  }
+
+  code {
+    background-color: var(--yes-200);
+    color: var(--yes-500);
+  }
+}

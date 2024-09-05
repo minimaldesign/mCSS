@@ -23,9 +23,9 @@ switch (type) {
 ---
 
 <aside class={`notice notice-${type}`}>
-  <p class="notice_title">
+  <div class="notice_title">
     <Fragment set:html={svgIcon} />
     <strong>{title}</strong>
-  </p>
+  </div>
   <slot />
 </aside>

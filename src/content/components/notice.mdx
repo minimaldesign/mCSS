@@ -1,0 +1,112 @@
+---
+title: "Notice"
+lastUpdate: 2024-09-03
+version: 0.1
+---
+
+import Notice from "../../components/Notice.astro";
+
+## Specs
+
+<div class="prose">
+
+| File Name              | class     | Source                                                                                    |
+| ---------------------- | --------- | ----------------------------------------------------------------------------------------- |
+| `component.notice.css` | `.notice` | [Github](https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.notice.css) |
+
+The `notice` component is useful to bring something to the attention of the reader/user, as well as provide feedback on user interaction.
+
+| Available modifiers           | Style                         |
+| ----------------------------- | ----------------------------- |
+| `.notice`                     | Default style. Base colors.   |
+| `.notice` + `.notice-info`    | Information. Primary colors.  |
+| `.notice` + `.notice-danger`  | Error/Danger. Reds.           |
+| `.notice` + `.notice-warning` | Warning. Oranges.             |
+| `.notice` + `.notice-confirm` | Confirmation/Success. Greens. |
+
+When using the HTML component (Astro components are available on Github but not yet documented), you'll need to include the SVG icons "manually." All the icons are [available on Github](https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons).
+
+</div>
+
+## Available styles
+
+<ul class="docs_examples">
+  <li>
+    <Notice title="Default Notice">
+      <p>This is the the default notice style, without a modifier class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Information" type="info">
+      <p>Notice with the `.notice-info` modifier class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Something went wrong" type="danger">
+      <p>Notice with the `.notice-danger` modifier class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Attention" type="warning">
+      <p>Notice with the `.notice-warning` modifier class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Success" type="confirm">
+      <p>Notice with the `.notice-confirm` modifier class.</p>
+    </Notice>
+  </li>
+</ul>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Notice title="Default Notice">
+      <p>This is the the default notice style, without a modifier class.</p>
+    </Notice>
+
+    ```html
+    <aside class="notice">
+      <div class="notice_title">
+        <svg>[…]</svg>
+        <strong>Default Notice</strong>
+      </div>
+      <p>This is the the default […].</p>
+    </aside>
+    ```
+
+    **Astro component syntax:**
+
+    ```astro
+    <Notice title="Info Notice">
+      <p>This is the the default […].</p>
+    </Notice>
+    ```
+
+  </li>
+  <li>
+    <Notice title="Pro tip!" type="info">
+      <p>Notice with the `.notice-info` modifier class.</p>
+    </Notice>
+
+    ```html
+    <aside class="notice notice-info">
+      <div class="notice_title">
+        <svg>[…]</svg>
+        <strong>Pro tip!</strong>
+      </div>
+      <p>Notice with the <code>.notice-info</code> modifier class.</p>
+    </aside>
+    ```
+
+    **Astro component syntax:**
+
+    ```astro
+    <Notice title="Pro tip!" type="info">
+      <p>Notice with the `.notice-info` modifier class.</p>
+    </Notice>
+    ```
+
+  </li>
+</ul>
