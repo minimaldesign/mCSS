@@ -14,7 +14,7 @@
   }
 
   table {
-    margin-top: var(--prose-margin);
-    margin-bottom: var(--prose-margin);
+    margin-top: var(--md1);
+    margin-bottom: var(--md1);
   }
 }
