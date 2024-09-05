@@ -36,8 +36,6 @@ const properties = [
   { pr: "padding-right" },
 ];
 
-// script.js
-
 const fs = require("fs");
 
 // Function to generate CSS classes
