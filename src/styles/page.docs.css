@@ -1,12 +1,12 @@
 .docs {
   > h2 {
+    margin-top: var(--md1);
     margin-bottom: var(--sm3);
     padding: var(--sm1) 0;
     font-size: var(--text-lg);
     font-weight: var(--book);
     color: var(--base-500);
     border-bottom: 1px solid var(--base-200);
-    margin-top: var(--lg3);
   }
 }
 
@@ -25,8 +25,11 @@
   padding-left: 0;
   list-style-type: none;
 
-  li {
-    margin-bottom: var(--lg3);
+  li:not(:last-of-type) {
+    margin-bottom: var(--lg2);
+    &:has(.astro-code) {
+      margin-bottom: var(--xl3);
+    }
   }
 }
 
