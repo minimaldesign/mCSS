@@ -9,3 +9,10 @@
   background-clip: text;
   text-fill-color: transparent;
 }
+
+/* truncate single line of text and adds … */
+@define-mixin line-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
