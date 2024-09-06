@@ -1,0 +1,142 @@
+/* HELPER TYPOGRAPHY */
+
+/* .h1, .h2, .h3, .h4, .h5, .h6 are in elements.text */
+
+/* FONT FAMILY */
+
+.display,
+.font-display {
+  font-family: var(--display) !important;
+}
+
+.text,
+.font-text {
+  font-family: var(--text) !important;
+}
+
+.mono,
+.font-mono {
+  font-family: var(--mono) !important;
+}
+
+/* FONT WEIGHTS */
+
+.extra-light,
+.font-extra-light {
+  font-weight: var(--extra-light) !important;
+}
+
+.light,
+.font-light {
+  font-weight: var(--light) !important;
+}
+
+.book,
+.font-book {
+  font-weight: var(--book) !important;
+}
+
+.semi-bold,
+.font-semi-bold {
+  font-weight: var(--semi-bold) !important;
+}
+
+.bold,
+.font-bold {
+  font-weight: var(--bold) !important;
+}
+
+.black,
+.font-black {
+  font-weight: var(--black) !important;
+}
+
+/* FONT SIZES */
+
+.text-xs {
+  font-size: var(--text-xs) !important;
+}
+
+.text-sm {
+  font-size: var(--text-sm) !important;
+}
+
+.text-md {
+  font-size: var(--text-md) !important;
+}
+
+.text-lg {
+  font-size: var(--text-lg) !important;
+}
+
+.text-xl {
+  font-size: var(--text-xl) !important;
+}
+
+.display-sm {
+  font-size: var(--display-sm) !important;
+}
+
+.display-md {
+  font-size: var(--display-md) !important;
+}
+
+.display-lg {
+  font-size: var(--display-lg) !important;
+}
+
+.display-xl {
+  font-size: var(--display-xl) !important;
+}
+
+/* LINE HEIGHT */
+
+.leading-xs {
+  line-height: var(--leading-xs) !important;
+}
+
+.leading-sm {
+  line-height: var(--leading-sm) !important;
+}
+
+.leading-md {
+  line-height: var(--leading-md) !important;
+}
+
+.leading-lg {
+  line-height: var(--leading-lg) !important;
+}
+
+.leading-xl {
+  line-height: var(--leading-xl) !important;
+}
+
+.leading-xxl {
+  line-height: var(--leading-xxl) !important;
+}
+
+/* TEXT ALIGN */
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+.text-start {
+  text-align: start !important;
+}
+
+.text-end {
+  text-align: end !important;
+}

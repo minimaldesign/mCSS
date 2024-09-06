@@ -123,6 +123,7 @@ xxl: 1920px
   --tracking-display-lg: 0.75em;
 
   /* Line Height */
+  --leading-xs: 1;
   --leading-sm: 1.15;
   --leading-md: 1.375;
   --leading-lg: 1.5;
