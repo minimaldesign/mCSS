@@ -42,9 +42,10 @@
 
 /* Helpers with higher specificity for local overrides */
 /* (Use sparingly, or you might as well use Tailwind…) */
-@import url(./help.colors.css);
+@import url(./help.layout.css);
 @import url(./help.spacing.css);
-@import url(./help.text.css);
+@import url(./help.typography.css);
+@import url(./help.colors.css);
 
 /* dev tools */
 /* @import url(./devtools.css); */
