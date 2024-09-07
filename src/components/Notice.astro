@@ -4,7 +4,7 @@ import danger from '../assets/icons/octagon-alert.svg?raw';
 import warning from '../assets/icons/triangle-alert.svg?raw';
 import confirm from '../assets/icons/circle-check.svg?raw';
 
-const { title, type } = Astro.props;
+const { title, type, extraClass } = Astro.props;
 
 let svgIcon;
 switch (type) {
@@ -22,7 +22,7 @@ switch (type) {
 }
 ---
 
-<aside class={`notice notice-${type}`}>
+<aside class={`notice notice-${type} ${extraClass ? extraClass : ''}`}>
   <div class="notice_title">
     <Fragment set:html={svgIcon} />
     <strong>{title}</strong>
