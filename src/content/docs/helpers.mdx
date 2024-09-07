@@ -5,12 +5,24 @@ version: 0.1
 ---
 
 <section class="prose">
-Helpers are classes with high specificity for very targeted "one-off" local overrides. They should be used as little as possible, and are useful for things like:
+Helpers are classes with high specificity for very targeted "one-off" local overrides. They should be used as little as possible, but they're useful for things like:
 
 - Designer's request to "make an exception"
 - Quick fix until refactor
 - Temporary test/design
 - Etc.
+
+Let's say the request is: _"This component just doesn't look right in that context, can we just increase the top and bottom padding?"_ You would use the spacing helper this way:
+
+```html
+<div class="myComponent pt-lg3 pb-lg3">
+  <p>Content goes here.</p>
+</div>
+```
+
+Using helpers is optional and mCSS will work just fine without them. None of the mCSS components rely on them. If you do use them in your project, it's recommended to use [PurgeCSS](https://purgecss.com/getting-started.html) to keep your CSS size to a minimum. For Astro users, the [astro-purgecss integration](https://github.com/codiume/orbit/tree/main/packages/astro-purgecss) does everything for you out of the box once you install it.
+
+Below is a list of all the available helpers. mCSS doesn't include every single CSS property like utility classes frameworks do. It only includes the ones you actually need in those "one-off" situations. I've never needed more than that, but I'm open to add anything that would be useful. Just [open an issue on Github](https://github.com/minimaldesign/mCSS/issues) with a legitimate use case and I'll add it in.
 
 </section>
 
@@ -41,6 +53,8 @@ Helpers are classes with high specificity for very targeted "one-off" local over
 ### line-height
 
 ### text-align
+
+### text-transform
 
 ## Colors
 
