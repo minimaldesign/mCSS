@@ -29,6 +29,7 @@ Remove transitions & fixed background attachment
 }
 
 /* Allow percentage-based heights */
+/* See elements.sectioning.css for default body styling */
 html,
 body {
   min-height: 100%;
