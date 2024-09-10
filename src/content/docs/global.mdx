@@ -1,12 +1,18 @@
 ---
-title: "Grid"
-lastUpdate: 2024-08-08
-version: 0.1
+title: "Global Styles"
+lastUpdate: 2024-09-09
+version: 1.0
 ---
+
+## Wrap
+
+The
+
+## Grid
 
 The grid system is extremely easy to use, light weight, and very flexible. It uses the [CSS grid property](https://developer.mozilla.org/en-US/docs/Web/CSS/grid) under the hood, but it lets you set up your layouts directly into your HTML. The implementation is heavily inspired by [Raster](https://github.com/rsms/raster).
 
-## Syntax
+### Syntax
 
 It's composed of 2 classes: `.grid` for the container, and `.grid_item` for each grid item.
 
@@ -24,34 +30,50 @@ Both the `col` and `span` attributes have responsive versions, which use the "mo
 
 **Note:** the custom attribute will not validate. If this is important to you, you'll need to change the attributes to `data-col` and `data-span` in both the CSS and HTML. I personally prefer to use shorter, more legible attributes. Check this thread on Github if you'd like to read more than you've ever wanted to know about [custom attributes and validation](https://github.com/whatwg/html/issues/2271).
 
-## Examples
+### Examples
 
-### Different types of spans
+#### Different types of spans
 
 9 colum grid, with all types of spans.
 
 <div class="grid docs_grid" col="9">
-  <div class="grid_item" span="2">2</div>
-  <div class="grid_item" span="4-5">4-5</div>
-  <div class="grid_item" span="6..">6..</div>
-  <div class="grid_item" span="3-3">3-3</div>
-  <div class="grid_item" span="5..">5..</div>
-  <div class="grid_item" span="2+3">2+3</div>
-  <div class="grid_item" span="6+2">6+2</div>
-  <div class="grid_item" span="row">row</div>
-  <div class="grid_item" span="4+2">4+2</div>
+  <div class="grid_item" span="2">
+    2
+  </div>
+  <div class="grid_item" span="4-5">
+    4-5
+  </div>
+  <div class="grid_item" span="6..">
+    6..
+  </div>
+  <div class="grid_item" span="3-3">
+    3-3
+  </div>
+  <div class="grid_item" span="5..">
+    5..
+  </div>
+  <div class="grid_item" span="2+3">
+    2+3
+  </div>
+  <div class="grid_item" span="6+2">
+    6+2
+  </div>
+  <div class="grid_item" span="row">
+    row
+  </div>
+  <div class="grid_item" span="4+2">
+    4+2
+  </div>
 </div>
 
-### Responsive grid
+#### Responsive grid
 
 The grid layout follows a "mobile first" approach using `--*-n-above` media queries.
 
-The following example goes from  1 → 4 → 9 → 12 columns.
+The following example goes from 1 → 4 → 9 → 12 columns.
 
 ```html
-<div class="grid" col="1" col-md="4" col-lg="9" col-xl="12">
-  […]
-</div>
+<div class="grid" col="1" col-md="4" col-lg="9" col-xl="12">[…]</div>
 ```
 
 <div class="grid docs_grid" col="1" col-md="4" col-lg="9" col-xl="12">
@@ -68,4 +90,3 @@ The following example goes from  1 → 4 → 9 → 12 columns.
   <div class="grid_item">11</div>
   <div class="grid_item">12</div>
 </div>
-

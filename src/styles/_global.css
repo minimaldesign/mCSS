@@ -18,13 +18,10 @@
 @import url(./elements.form.css);
 @import url(./elements.interactive.css);
 
-/* Layout elements */
-@import url(./layout.grid.css);
-@import url(./layout.wrap.css);
-@import url(./layout.layout.css);
-
 /* Global styles */
-@import url(./global.button.css);
+@import url(./global.grid.css);
+@import url(./global.wrap.css);
+@import url(./global.layout.css);
 @import url(./global.prose.css);
 
 /*  Page specific styles */
@@ -33,6 +30,7 @@
 
 /* Component specific styles */
 /* Should be added here or within the Astro component itself */
+@import url(./component.button.css);
 @import url(./component.header.css);
 @import url(./component.navDocs.css);
 @import url(./component.notice.css);
