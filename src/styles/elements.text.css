@@ -14,6 +14,31 @@ a {
 }
 
 abbr {
+  position: relative;
+  cursor: help;
+  &:after {
+    position: relative;
+    top: calc(var(--xs1) * -1);
+    width: var(--sm1);
+    height: var(--sm1);
+    display: inline-block;
+    content: '';
+    background:  url(../assets/icons/circle-help.svg);
+    background-size: contain;
+  }
+  &:hover:before {
+    width: max-content;
+    max-width: 400px;
+    position: absolute;
+    left: 50%;
+    padding: var(--xs1) var(--xs3);
+    content: attr(title);
+    color: var(--base-0);
+    background-color: var(--base-900);
+    opacity: var(--o-4);
+    border-radius: var(--radius-sm);
+    transform: translate(-50%, -2em);
+  }
 }
 
 b {
@@ -28,7 +53,7 @@ br {
 cite {
 }
 
-code {
+code, var {
   padding: 0.15em 0.3em;
   font-family: var(--mono);
   font-size: 0.9em;
@@ -130,12 +155,22 @@ i {
 }
 
 ins {
+  padding: 0.15em 0.3em;
+  background-color: var(--yes-200);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  &::before {
+    content: "+ ";
+  }
 }
 
 kbd {
 }
 
 mark {
+  padding: 0.15em 0.5em;
+  background: linear-gradient(90deg, var(--maybe-400), var(--maybe-100));
+  border-radius: 1em 0;
 }
 
 menu {
@@ -180,4 +215,7 @@ sup {
 }
 
 time {
+}
+
+u {
 }

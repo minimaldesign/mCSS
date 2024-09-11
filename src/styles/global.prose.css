@@ -1,7 +1,9 @@
 /* PROSE - Default style for text content */
 
 .prose {
-  code {
+  code,
+  var {
+    font-style: normal;
     background-color: var(--primary-100);
     color: var(--primary-600);
   }
