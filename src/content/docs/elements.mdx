@@ -17,7 +17,7 @@ import videoFile from "../../assets/media/fushimi.mp4";
 ## Sectioning
 
 <section class="docs_section prose">
-  Technically, `address` and `h1` — `h6` are [content sectioning elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning), like `header`, `section`, etc. But I strive to make mCSS intuitive and easy rather than technically correct, so I've included them with the rest of the text elements below.
+  Technically, `address` and `h1` — `h6` are [content sectioning elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning), like `header`, `section`, etc. But mCSS approach is to prioritize intuitiveness and ease of use rather than technical correctness, so they're included here with the rest of the text elements.
 </section>
 
 ## Text
@@ -26,9 +26,10 @@ import videoFile from "../../assets/media/fushimi.mp4";
   ### Address
 
   <address>
+    <p>Somewhat of a whimsical default… Just a base to start from!</p>
     <a href="mailto:sonny@rollins.com">sonny@rollins.com</a>
     <br />
-    <a href="tel:+19294891434">+1 (929) 489 1434</a>
+    <a href="tel:+12121231234">+1 (212) 123 1234</a>
   </address>
 </section>
 
@@ -47,7 +48,10 @@ import videoFile from "../../assets/media/fushimi.mp4";
   <p>A small paragraphe of text to show the heading in context.</p>
   <h6>Heading Six</h6>
   <p>A small paragraphe of text to show the heading in context.</p>
-  <h1>Consecutive headings get less margin</h1>
+
+  ### Consecutive headings get less margin
+
+  <h1>This is a H1</h1>
   <h2>H2 right aftert a H1</h2>
   <h3>H3 right aftert a H2</h3>
   <h4>H4 right aftert a H3</h4>
@@ -59,14 +63,14 @@ import videoFile from "../../assets/media/fushimi.mp4";
 | Element    | Example                                                                      |
 | ---------- | ---------------------------------------------------------------------------- |
 | `<a>`      | <a href="#!">This is a text link</a>.                                        |
-| `<abbr>`   | Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr>            |
+| `<abbr>`   | Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr> in a sentence.           |
 | `<b>`      | The <b>b element</b> is only stylistically different text from normal text.  |
 | `<cite>`   | <cite>This is a citation.</cite>                                             |
 | `<del>`    | <del>This text is deleted</del>                                              |
 | `<dfn>`    | The <dfn>dfn element</dfn> indicates a definition.                           |
 | `<em>`     | <em>This text has added emphasis.</em>                                       |
 | `<i>`      | The <i>i element</i> is text that is offset from the normal text.            |
-| `<ins>`    | <ins>This text is inserted</ins>.                                            |
+| `<ins>`    | <ins>This text is inserted.</ins>                                            |
 | `<mark>`   | The <mark>mark element</mark> indicates a highlight.                         |
 | `<q>`      | <q cite="https://dub.sh/mdn-html-q">This is a short inline quotation.</q>    |
 | `<s>`      | <s>This text has a strikethrough</s>.                                        |
@@ -74,7 +78,6 @@ import videoFile from "../../assets/media/fushimi.mp4";
 | `<strong>` | <strong>Strong is used to indicate strong importance.</strong>               |
 | `<sub>`    | Subscript for things like H<sub>2</sub>O.                                    |
 | `<sup>`    | Superscript<sup>®</sup>.                                                     |
-| `<time>`   | The time element: <time datetime="2013-04-06T12:32+00:00">2 weeks ago</time> |
 | `<u>`      | The <u>u element</u> is for non-textual annotation.                          |
 | `<var>`    | The <var>variable element</var>, such as <var>x</var> = <var>y</var>.        |
 
