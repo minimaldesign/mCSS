@@ -19,6 +19,16 @@
   font-family: var(--mono) !important;
 }
 
+/* FONT STYLE */
+
+.font-italic {
+  font-style: italic;
+}
+
+.font-normal {
+  font-style: normal;
+}
+
 /* FONT WEIGHTS */
 
 .extra-light,
