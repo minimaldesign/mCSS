@@ -28,7 +28,7 @@
       transform: translateX(calc(var(--xs2) * -1));
       width: var(--iconSize);
       height: var(--iconSize);
-      opacity: var(--opacity-0);
+      opacity: var(--o-0);
     }
   }
 }

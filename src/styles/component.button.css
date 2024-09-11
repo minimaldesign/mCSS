@@ -28,7 +28,7 @@
 
   &:disabled {
     background-color: var(--base-200);
-    opacity: var(--opacity-2);
+    opacity: var(--o-2);
     cursor: default;
   }
 
