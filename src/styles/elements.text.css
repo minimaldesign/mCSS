@@ -67,12 +67,19 @@ dl {
 }
 
 dt {
+  font-weight: var(--bold);
 }
 
 dd {
 }
 
+dd + dt {
+  margin-top: .5em;
+}
+
 del {
+  text-decoration-color: var(--no-500);
+  text-decoration-style: wavy;
 }
 
 dfn {
@@ -176,10 +183,12 @@ mark {
 menu {
 }
 
-ol {
+ol, ul {
+  padding-left: var(--md1);
 }
 
 ul {
+  list-style-type: none;
 }
 
 li {
@@ -197,6 +206,8 @@ q {
 }
 
 s {
+  text-decoration-color: var(--base-950);
+  text-decoration-style: wavy;
 }
 
 samp {
@@ -209,13 +220,12 @@ strong {
 }
 
 sub {
+  line-height: 1;
 }
 
 sup {
+  line-height: 1;
 }
 
 time {
-}
-
-u {
 }

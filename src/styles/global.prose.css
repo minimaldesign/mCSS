@@ -10,9 +10,16 @@
 
   p,
   ul,
-  ol {
+  ol,
+  dl {
     max-width: 65ch;
     margin-bottom: var(--prose-margin);
+    p,
+    ul,
+    ol,
+    dl {
+      margin-bottom: 0;
+    }
   }
 
   table {
