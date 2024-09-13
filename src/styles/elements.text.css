@@ -45,12 +45,41 @@ b {
 }
 
 blockquote {
+  position: relative;
+  margin-bottom: var(--prose-margin);
+  padding: var(--sm1) var(--sm3) var(--sm1) var(--md1) ;
+  font-style: italic;
+  background-color: var(--primary-50);
+  border-radius: var(--radius-md);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--xs2);
+    height: 100%;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    background-image: linear-gradient(var(--primary-800), var(--primary-500));
+  }
+
+  p {
+    &:first-child::before {
+      content: open-quote;
+    }
+    &:last-child {
+      margin-bottom: 0;
+      &::after {
+        content: close-quote;
+      }
+    }
+  }
 }
 
 br {
 }
 
 cite {
+  font-style: italic;
 }
 
 code, var {
@@ -123,7 +152,7 @@ h6, .h6 {
 
 /* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
 :where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
-  margin-bottom:var(--sm2);
+  margin-bottom: var(--sm2);
 }
 
 h1, .h1 {
@@ -151,12 +180,27 @@ h6, .h6 {
 }
 
 hr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0;
   border-style: solid;
   border-width: 1px 0 0;
-  color: inherit;
-  height: 0;
+  color: var(--border-color);
   overflow: visible;
+  &::after {
+    content: "○ ● ○";
+    padding: 0 var(--xs1);
+    line-height: 1;
+    letter-spacing: var(--tracking-sm);
+    background-color: var(--body-background-color);
+  }
 }
+
+:where(hr):has(+ :is(p)) {
+  margin-bottom: var(--prose-margin);
+}
+
 
 i {
 }

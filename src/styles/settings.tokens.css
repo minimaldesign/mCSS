@@ -113,11 +113,11 @@ xxl: 1920px
   --black: 900;
 
   /* Letter Spacing */
-  --tracking-text-sm: -0.05em;
-  --tracking-text-md: 0.025em;
-  --tracking-text-lg: 0.05em;
-  --tracking-text-xl: 0.075em;
-  --tracking-text-xxl: 0.15em;
+  --tracking-sm: -0.05em;
+  --tracking-md: 0.025em;
+  --tracking-lg: 0.05em;
+  --tracking-xl: 0.075em;
+  --tracking-xxl: 0.15em;
   /* TODO add display tracking */
   --tracking-display-md: 0.5em;
   --tracking-display-lg: 0.75em;

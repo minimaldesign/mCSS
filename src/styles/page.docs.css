@@ -6,7 +6,7 @@
     font-size: var(--text-lg);
     font-weight: var(--book);
     color: var(--base-500);
-    border-bottom: 1px solid var(--base-200);
+    border-bottom: 1px solid var(--border-color);
   }
 }
 
