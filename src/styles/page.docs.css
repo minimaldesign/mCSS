@@ -15,9 +15,8 @@
 }
 
 .docs_form {
-  button,
-  input[type="submit"] {
-    margin-bottom: var(--sm2);
+  fieldset {
+    margin-bottom: var(--prose-margin);
   }
 }
 

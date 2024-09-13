@@ -228,10 +228,38 @@ import videoFile from "../../assets/media/fushimi.mp4";
 
 See [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn/Forms/How_to_structure_a_web_form) on MDN.
 
+This is just the bare minimum default styles to make any form look consistent out of the box. See the [form component](/components/form) for more.
+
+The `legend` HTML element is notoriously impractical to style. The example below uses the following workaround:
+
+```html
+<legend>Example of custom fieldset legend</legend>
+<div aria-hidden="true">Example of a fieldset legend</div>
+```
+
+```css
+fieldset {
+  > [aria-hidden] {
+    /* [styling goes her…] */
+  }
+}
+
+legend {
+  /*  Visually hidden  */
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+}
+```
+
   <form class="docs_form">
     <fieldset>
-      <legend>Input fields</legend>
-      <div aria-hidden="true">Input fields</div>
+      <legend>Example of custom fieldset legend</legend>
+      <div aria-hidden="true">Example of a fieldset legend</div>
       <p>
         <label for="text">Text Input</label>
         <input id="text" type="text" placeholder="Text Input" />
