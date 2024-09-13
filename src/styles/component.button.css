@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   min-width: 101px;
-  min-height: var(--md3);
+  min-height: var(--button-height);
   padding-left: var(--xs3);
   padding-right: var(--xs3);
   font-weight: var(--semi-bold);

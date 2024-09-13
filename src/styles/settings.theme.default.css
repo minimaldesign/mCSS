@@ -9,8 +9,11 @@
   /* ELEMENTS */
 
   --body-background-color: var(--base-0);
-
+  --button-height: var(--md3);
   --button-border-radius: var(--radius-lg);
+  --input-height: var(--md3);
+  --input-padding: var(--xs3);
+  --input-border-radius: var(--radius-lg);
 
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--opacity-4);

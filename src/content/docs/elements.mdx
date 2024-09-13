@@ -224,12 +224,14 @@ import videoFile from "../../assets/media/fushimi.mp4";
 
 ## Form
 
+<section class="docs_section prose">
+
 See [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn/Forms/How_to_structure_a_web_form) on MDN.
 
-<section class="docs_section">
   <form class="docs_form">
     <fieldset>
       <legend>Input fields</legend>
+      <div aria-hidden="true">Input fields</div>
       <p>
         <label for="text">Text Input</label>
         <input id="text" type="text" placeholder="Text Input" />
@@ -281,6 +283,12 @@ See [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn
         </select>
       </p>
       <p>
+        <label for="select">Select (disabled)</label>
+        <select id="select" disabled>
+            <option>Not Available</option>
+        </select>
+      </p>
+      <p>
         <label for="select_multiple">Select (multiple)</label>
         <select id="select_multiple" multiple>
           <optgroup label="Group 1">
@@ -320,8 +328,7 @@ See [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn
           </label>
         </li>
       </ul>
-    </fieldset>
-    <fieldset id="forms__radio">
+
       <legend>Radio buttons</legend>
       <ul>
         <li>

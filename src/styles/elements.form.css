@@ -1,7 +1,7 @@
 /* ELEMENTS FORM */
 
 ::placeholder {
-  opacity: 0.75;
+  opacity: var(--o-4);
 }
 
 /* Remove built-in form typography styles */
@@ -19,6 +19,20 @@ datalist {
 }
 
 fieldset {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--sm3);
+
+  ul:has([type="checkbox"], [type="radio"]) {
+    padding-left: 0;
+  }
+
+  > [aria-hidden] {
+    /* legend replacement  */
+    margin: 0 0 0.5em 0;
+    font-size: var(--text-lg);
+    grid-column: 1 / -1;
+  }
 }
 
 form {
@@ -28,12 +42,54 @@ form {
 }
 
 input {
+  &:where(:not([type="checkbox"], [type="radio"])) {
+    height: var(--input-height);
+  }
+  &:where(
+      :not(
+          [type="checkbox"],
+          [type="color"],
+          [type="number"],
+          [type="radio"],
+          [type="reset"],
+          [type="submit"]
+        )
+    ) {
+    width: 100%;
+  }
+  &:where(
+      :not([type="color"], [type="file"], [type="reset"], [type="submit"])
+    ) {
+    padding: var(--input-padding);
+  }
+  &:where(:not([type="color"])) {
+    border-radius: var(--input-border-radius);
+  }
+  &:where(:not([type="file"])) {
+    border: 1px solid var(--border-color);
+  }
+  &[type="number"] {
+    padding-right: var(--xs1);
+  }
 }
 
 label {
+  display: block;
+  &:has(+ :is(input, select, textarea)) {
+    margin-bottom: var(--xs1);
+  }
 }
 
 legend {
+  /*  Visually hidden  */
+  /* replaced by fieldset > [aria-hidden] above */
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
 }
 
 meter {
@@ -52,9 +108,17 @@ progress {
 }
 
 select {
+  border: 1px solid var(--border-color);
+  /* for multi select */
+  background-color: var(--base-0);
+  border-radius: var(--input-border-radius);
+  padding: var(--xs1) var(--input-padding);
 }
 
 textarea {
+  width: 100%;
+  border-radius: var(--input-border-radius);
+  border: 1px solid var(--border-color);
   resize: block;
   &:not([rows]) {
     min-height: 6em;
