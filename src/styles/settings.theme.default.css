@@ -29,6 +29,8 @@
 
   --prose-margin: var(--sm1);
 
+  --marker-color: #ffee00;
+
   /* tables */
   --table-padding: var(--xs2) var(--sm1);
   --table-border-color: var(--base-100);
