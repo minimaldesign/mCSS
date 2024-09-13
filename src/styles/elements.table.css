@@ -1,6 +1,9 @@
 /* ELEMENTS TABLE */
 
 caption {
+  caption-side: bottom;
+  margin-top: var(--xs3);
+  font-size: var(--text-sm);
 }
 
 colgroup {
