@@ -2,7 +2,8 @@
 
 .prose {
   code,
-  var {
+  var,
+  kbd {
     font-style: normal;
     background-color: var(--primary-100);
     color: var(--primary-600);

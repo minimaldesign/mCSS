@@ -82,7 +82,7 @@ cite {
   font-style: italic;
 }
 
-code, var {
+code, var, kbd {
   padding: 0.15em 0.3em;
   font-family: var(--mono);
   font-size: 0.9em;
@@ -215,9 +215,6 @@ ins {
   }
 }
 
-kbd {
-}
-
 mark {
   padding: 0.15em 0.5em;
   background: linear-gradient(90deg, var(--maybe-400), var(--maybe-100));
@@ -242,6 +239,8 @@ p {
 }
 
 pre {
+  font-family: var(--mono);
+  font-size: 0.9em;
   white-space: pre-wrap; /* override overflow default */
 }
 
