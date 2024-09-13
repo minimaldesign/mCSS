@@ -36,6 +36,9 @@ fieldset {
 }
 
 form {
+  :where(p, ul):not(:last-of-type) {
+    margin-bottom: var(--sm2);
+  }
   :where(button, .button, .bt, input):has(+ :is(button, .button, .bt, input)) {
     margin-right: var(--sm1);
   }
