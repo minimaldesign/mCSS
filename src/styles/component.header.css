@@ -18,8 +18,6 @@
   ul {
     display: flex;
     gap: var(--md3);
-    padding-left: 0;
-    list-style-type: none;
 
     a {
       position: relative;

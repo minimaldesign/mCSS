@@ -224,12 +224,9 @@ mark {
 menu {
 }
 
-ol, ul {
-  padding-left: var(--md1);
-}
-
-ul {
+:where(ol, ul) {
   list-style-type: none;
+  padding: 0;
 }
 
 li {

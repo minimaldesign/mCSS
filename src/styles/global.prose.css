@@ -23,6 +23,28 @@
     }
   }
 
+  ul,
+  ol {
+    ul,
+    ol {
+      margin-left: 0;
+      padding-left: var(--sm2);
+    }
+    li::marker {
+      color: var(--base-300);
+    }
+  }
+
+  ul {
+    margin-left: var(--sm1);
+    list-style-type: "→ ";
+  }
+
+  ol {
+    margin-left: var(--md2);
+    list-style-type: decimal-leading-zero;
+  }
+
   table {
     margin-top: var(--md1);
     margin-bottom: var(--md1);
