@@ -101,7 +101,7 @@ progress {
 select {
   --arrowSize: calc((var(--input-height) / 4.5));
   --arrowY: calc((var(--input-height) / 2) - (var(--arrowSize) / 2));
-  --arrowColor: var(--base-400);
+  --arrowColor: var(--base-900);
 
   display: block;
   appearance: none;
