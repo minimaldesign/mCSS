@@ -85,7 +85,7 @@ cite {
 code, var, kbd {
   padding: 0.15em 0.3em;
   font-family: var(--mono);
-  font-size: 0.9em;
+  font-size: 0.9rem;
   border-radius: var(--radius-sm);
 }
 
@@ -123,7 +123,7 @@ figcaption {
 figure {
 }
 
-/* Technically, headins should be in elements.sectioning but I'm guessing that's where most people would expect this to be */
+/* Technically, headings should be in elements.sectioning but I'm guessing that's where most people would expect this to be */
 h1, .h1,
 h2, .h2,
 h3, .h3,
@@ -240,7 +240,7 @@ p {
 
 pre {
   font-family: var(--mono);
-  font-size: 0.9em;
+  font-size: 0.9rem;
   white-space: pre-wrap; /* override overflow default */
 }
 
