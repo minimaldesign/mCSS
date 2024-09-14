@@ -1,7 +1,7 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[1]; // pathname starts with '/'
-const sections = ['Docs', 'Components', 'Blog', 'About'];
+const sections = ['Docs', 'Components', 'Blog'];
 ---
 
 <nav>
@@ -23,5 +23,4 @@ const sections = ['Docs', 'Components', 'Blog', 'About'];
       })
     }
   </ul>
-  <script></script>
 </nav>
