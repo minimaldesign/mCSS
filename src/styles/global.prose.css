@@ -36,12 +36,12 @@
   }
 
   ul {
-    margin-left: var(--sm1);
+    margin-left: var(--sm2);
     list-style-type: "→ ";
   }
 
   ol {
-    margin-left: var(--md2);
+    margin-left: var(--md3);
     list-style-type: decimal-leading-zero;
   }
 
