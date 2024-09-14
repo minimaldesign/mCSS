@@ -99,14 +99,39 @@ progress {
 }
 
 select {
-  border: 1px solid var(--border-color);
-  /* for multi select */
-  background-color: var(--base-0);
-  border-radius: var(--input-border-radius);
-  padding: var(--xs1) var(--input-padding);
+  --arrowSize: calc((var(--input-height) / 4.5));
+  --arrowY: calc((var(--input-height) / 2) - (var(--arrowSize) / 2));
+  --arrowColor: var(--base-400);
 
+  display: block;
+  appearance: none;
+  height: var(--input-height);
+  padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
+    var(--input-padding);
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-border-radius);
+  /* maybe I should just include a SVG 😅 */
+  background: linear-gradient(45deg, transparent 50%, var(--arrowColor) 50%),
+    linear-gradient(135deg, var(--arrowColor) 50%, transparent 50%),
+    linear-gradient(var(--base-0), var(--base-100));
+  background-position: calc(100% - var(--arrowSize) - var(--input-padding))
+      var(--arrowY),
+    calc(100% - var(--input-padding)) var(--arrowY), bottom left;
+  background-size: var(--arrowSize) var(--arrowSize),
+    var(--arrowSize) var(--arrowSize), 100% var(--input-height);
+  background-repeat: no-repeat;
+  &::focus-visible {
+    outline: none;
+  }
   &:disabled {
     cursor: not-allowed;
+    --arrowColor: var(--base-200);
+  }
+
+  &[multiple] {
+    height: auto;
+    padding: var(--input-padding);
+    background: var(--base-0);
   }
 }
 
