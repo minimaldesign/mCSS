@@ -49,18 +49,6 @@ input {
     height: var(--input-height);
   }
   &:where(
-      :not(
-          [type="checkbox"],
-          [type="color"],
-          [type="number"],
-          [type="radio"],
-          [type="reset"],
-          [type="submit"]
-        )
-    ) {
-    width: 100%;
-  }
-  &:where(
       :not([type="color"], [type="file"], [type="reset"], [type="submit"])
     ) {
     padding: var(--input-padding);
@@ -116,10 +104,13 @@ select {
   background-color: var(--base-0);
   border-radius: var(--input-border-radius);
   padding: var(--xs1) var(--input-padding);
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 textarea {
-  width: 100%;
   border-radius: var(--input-border-radius);
   border: 1px solid var(--border-color);
   resize: block;
