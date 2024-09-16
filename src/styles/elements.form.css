@@ -101,23 +101,23 @@ meter {
     border-radius: var(--radius-md);
   }
   &::-webkit-meter-even-less-good-value {
-    background: var(--no-500);
+    background: var(--no-400);
   }
   &::-webkit-meter-suboptimum-value {
-    background: var(--maybe-500);
+    background: var(--maybe-400);
   }
   &::-webkit-meter-optimum-value {
-    background: var(--yes-500);
+    background: var(--yes-400);
   }
   /* mozilla */
   &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: var(--no-500);
+    background: var(--no-400);
   }
   &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: var(--maybe-500);
+    background: var(--maybe-400);
   }
   &:-moz-meter-optimum::-moz-meter-bar {
-    background: var(--yes-500);
+    background: var(--yes-400);
   }
 }
 
