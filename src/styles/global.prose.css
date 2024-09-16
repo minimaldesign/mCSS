@@ -41,8 +41,11 @@
   }
 
   ol {
-    margin-left: var(--md3);
+    margin-left: var(--md2);
     list-style-type: decimal-leading-zero;
+    li::marker {
+      font-size: var(--text-sm);
+    }
   }
 
   table {
