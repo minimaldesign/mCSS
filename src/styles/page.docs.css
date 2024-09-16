@@ -14,6 +14,17 @@
   margin-bottom: var(--lg3);
 }
 
+ul.docs_section_media {
+  margin-left: 0;
+  list-style-type: none;
+  p {
+    margin-bottom: var(--sm1);
+  }
+  li {
+    margin-bottom: var(--md3);
+  }
+}
+
 .docs_form {
   fieldset {
     margin-bottom: var(--prose-margin);

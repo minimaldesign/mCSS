@@ -458,26 +458,33 @@ legend {
 
 ## Media
 
-<section class="docs_section">
-  ### Plain `<img>` element
-  <p><Image src={img} width="350" alt="Saxophonist playing in Central Park" /></p>
-
-  ### `<figure>` element with `<img>` element
-  <figure><Image src={img} width="350" alt="Saxophonist playing in Central Park" /></figure>
-
-  ### `<figure>` element with `<img>` and `<figcaption>` elements
-  <figure>
-    <Image src={img} width="350" alt="Saxophonist playing in Central Park" />
-    <figcaption>Here is a caption for this image.</figcaption>
-  </figure>
-
-  ### `<figure>` element with a `<picture>` element
-  <figure>
-    <picture>
-      <source srcset={img.src} width="350" media="(min-width: 800px)" />
-      <Image src={imgCrop} width="350" alt="Saxophonist playing in Central Park" />
-    </picture>
-  </figure>
+<section class="docs_section prose">
+  <ul class="docs_section_media">
+    <li>
+      Plain `<img>` element
+      <Image src={img} width="384" alt="Saxophonist playing in Central Park" />
+    </li>
+    <li>
+      `<figure>` element with `<img>` element
+      <figure><Image src={img} width="384" alt="Saxophonist playing in Central Park" /></figure>
+    </li>
+    <li>
+      `<figure>` element with `<img>` and `<figcaption>` elements
+      <figure>
+        <Image src={img} width="384" alt="Saxophonist playing in Central Park" />
+        <figcaption>Here is a caption for this image.</figcaption>
+      </figure>
+    </li>
+    <li>
+      `<figure>` element with a `<picture>` element
+      <figure>
+        <picture>
+          <source srcset={img.src} width="384" media="(min-width: 800px)" />
+          <Image src={imgCrop} width="384" alt="Saxophonist playing in Central Park" />
+        </picture>
+      </figure>
+    </li>
+  </ul>
 </section>
 
 <section class="docs_section">
@@ -486,30 +493,47 @@ legend {
     <source src={audioFile} type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
+</section>
 
+<section class="docs_section">
   ### Video
-  <video controls width="350">
+  <video controls width="384">
     <source src={videoFile} type="video/mp4" />
     Your browser does not support the video element.
   </video>
+</section>
 
+<section class="docs_section">
   ### Canvas
+  {/* js is in scripts/DocsElementsScript.astro */}
   <canvas class="docs_canvas">canvas</canvas>
+</section>
 
+<section class="docs_section">
+  ### Inline Frame
+  <iframe width="384" height="200" src="https://www.openstreetmap.org/export/embed.html?bbox=115.69423198699953%2C-8.367407790226663%2C115.70669889450075%2C-8.358820459526953&layer=mapnik&marker=-8.363114148527767%2C115.70046544075012"></iframe>
+</section>
+
+<section class="docs_section prose">
   ### Meter
-  <meter value="2" min="0" max="10">2 out of 10</meter>
-
+  <p>
+    <meter value="2" min="0" max="10" low="3" high="6" optimum="8">2 out of 10</meter>
+  </p>
+  <p>
+    <meter value="5" min="0" max="10" low="3" high="6" optimum="8">5 out of 10</meter>
+  </p>
+  <p>
+    <meter value="8" min="0" max="10" low="3" high="6" optimum="8">2 out of 10</meter>
+  </p>
   ### Progress
-  <progress>progress</progress>
+  <p>
+    <progress>progress</progress>
+  </p>
 
   ### Inline SVG
   <svg width="100px" height="100px">
     <circle cx="50" cy="50" r="50" fill="#38bdf8"></circle>
   </svg>
-
-  ### Inline Frame
-  <iframe width="350" height="200" src="https://www.openstreetmap.org/export/embed.html?bbox=115.69423198699953%2C-8.367407790226663%2C115.70669889450075%2C-8.358820459526953&layer=mapnik&marker=-8.363114148527767%2C115.70046544075012"></iframe>
-
 </section>
 
 ## Interactive

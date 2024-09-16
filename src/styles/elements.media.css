@@ -24,6 +24,7 @@ canvas {
 
 audio {
   width: 100%; /* remove default 300px */
+  max-width: var(--tera1);
 }
 
 audio:not([controls]) {
@@ -31,6 +32,25 @@ audio:not([controls]) {
 }
 
 canvas {
+}
+
+figcaption {
+  font-style: italic;
+  font-size: var(--text-sm);
+}
+
+figure {
+  /* caption at bottom or top */
+  &:has(* + figcaption) {
+    figcaption {
+      margin-top: var(--xs2);
+    }
+  }
+  &:has(figcaption + *) {
+    figcaption {
+      margin-bottom: var(--xs2);
+    }
+  }
 }
 
 iframe {

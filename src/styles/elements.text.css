@@ -117,11 +117,7 @@ dfn {
 em {
 }
 
-figcaption {
-}
-
-figure {
-}
+/* figcaption and figure are in elements.media.css */
 
 /* Technically, headings should be in elements.sectioning but I'm guessing that's where most people would expect this to be */
 h1, .h1,

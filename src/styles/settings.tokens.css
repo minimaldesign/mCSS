@@ -73,6 +73,10 @@ xxl: 1920px
   --giga2: 288px;
   --giga3: 320px;
 
+  --tera1: 384px;
+  --tera2: 480px;
+  --tera3: 520px;
+
   /* Aspect Ratios */
   --ar-square: 1;
   --ar-landscape: 4/3;
