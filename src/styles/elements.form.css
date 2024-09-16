@@ -84,6 +84,41 @@ legend {
 }
 
 meter {
+  width: 100%;
+  background: var(--primary-100);
+  border-radius: var(--radius-md);
+  height: var(--sm1);
+  /* webkit */
+  &::-webkit-meter-bar {
+    background: var(--primary-100);
+  }
+  &::-webkit-meter-bar,
+  &::-webkit-meter-optimum-value,
+  &::-webkit-meter-suboptimum-value,
+  &::-webkit-meter-even-less-good-value {
+    height: var(--sm1);
+    border: none;
+    border-radius: var(--radius-md);
+  }
+  &::-webkit-meter-even-less-good-value {
+    background: var(--no-500);
+  }
+  &::-webkit-meter-suboptimum-value {
+    background: var(--maybe-500);
+  }
+  &::-webkit-meter-optimum-value {
+    background: var(--yes-500);
+  }
+  /* mozilla */
+  &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: var(--no-500);
+  }
+  &:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: var(--maybe-500);
+  }
+  &:-moz-meter-optimum::-moz-meter-bar {
+    background: var(--yes-500);
+  }
 }
 
 optgroup {
