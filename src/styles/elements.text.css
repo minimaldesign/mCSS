@@ -239,6 +239,7 @@ pre {
 
 q {
   /* see: elements.text.quotes.css */
+  font-style: italic;
 }
 
 s {
