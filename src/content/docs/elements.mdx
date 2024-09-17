@@ -517,7 +517,7 @@ legend {
 <section class="docs_section prose">
   ### Meter
 
-  ```html
+```html
 <meter value="2" min="0" max="10" low="3" high="6" optimum="8">
     2 out of 10
 </meter>
@@ -528,25 +528,27 @@ legend {
     8 out of 10
 </meter>
   ```
+
   <p>
     <meter value="2" min="0" max="10" low="3" high="6" optimum="8">2 out of 10</meter>
   </p>
   <p>
     <meter value="5" min="0" max="10" low="3" high="6" optimum="8">5 out of 10</meter>
   </p>
-  <p>
+  <p class="mb-lg3">
     <meter value="8" min="0" max="10" low="3" high="6" optimum="8">8 out of 10</meter>
   </p>
 
   ### Progress
 
-  <p>
-    <progress>progress</progress>
+  <p class="mb-lg3">
+    <label for="progress-bar">Uploading Document: 80%</label>
+    <progress id="progress-bar" value="80" max="100">80%</progress>
   </p>
 
   ### Inline SVG
   <svg width="100px" height="100px">
-    <circle cx="50" cy="50" r="50" fill="#38bdf8"></circle>
+    <circle cx="50" cy="50" r="50" fill="#0ea5e9"></circle>
   </svg>
 </section>
 

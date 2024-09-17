@@ -131,6 +131,32 @@ output {
 }
 
 progress {
+  --progress-height: var(--sm1);
+  --progress-color: var(--primary-500);
+  --progress-track-color: var(--primary-100);
+  --progress-radius: var(--radius-md);
+  appearance: none;
+  width: 100%;
+  /* mozilla */
+  height: var(--progress-height);
+  background: var(--progress-track-color);
+  border-radius: var(--progress-radius);
+  border: none;
+  &::-moz-progress-bar {
+    background: var(--progress-color);
+    border-radius: var(--progress-radius);
+  }
+  /* webkit */
+  &::-webkit-progress-bar {
+    width: 100%;
+    background: var(--progress-track-color);
+    border-radius: var(--progress-radius);
+    height: var(--progress-height);
+  }
+  &::-webkit-progress-value {
+    background: var(--progress-color);
+    border-radius: var(--progress-radius);
+  }
 }
 
 select {
