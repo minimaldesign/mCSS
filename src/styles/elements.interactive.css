@@ -8,8 +8,37 @@ dialog {
 }
 
 details {
+  padding: var(--sm1) var(--sm1);
+  border: 1px solid var(--base-200);
+  background-color: var(--base-50);
+  border-radius: var(--radius-lg);
   cursor: pointer;
-}
 
-summary {
+  summary {
+    display: flex;
+    justify-content: space-between;
+    font-weight: var(--bold);
+    &::-webkit-details-marker {
+      display: none;
+    }
+    &::after {
+      content: "";
+      width: 24px;
+      height: 24px;
+      background: url("../assets/icons/chevron-down.svg") no-repeat;
+      transition: var(--transition);
+    }
+  }
+
+  &[open] > summary {
+    margin-bottom: var(--xs3);
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
+
+  p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
+  }
 }
