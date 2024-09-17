@@ -84,40 +84,47 @@ legend {
 }
 
 meter {
+  --meter-height: var(--sm1);
+  --meter-color: var(--primary-500);
+  --meter-radius: var(--radius-md);
+  --meter-color-track: var(--primary-100);
+  --meter-color-low: var(--no-400);
+  --meter-color-med: var(--maybe-400);
+  --meter-color-high: var(--yes-400);
   width: 100%;
-  background: var(--primary-100);
-  border-radius: var(--radius-md);
-  height: var(--sm1);
+  background: var(--meter-color-track);
+  border-radius: var(--meter-radius);
+  height: var(--meter-height);
   /* webkit */
   &::-webkit-meter-bar {
-    background: var(--primary-100);
+    background: var(--meter-color-track);
   }
   &::-webkit-meter-bar,
   &::-webkit-meter-optimum-value,
   &::-webkit-meter-suboptimum-value,
   &::-webkit-meter-even-less-good-value {
-    height: var(--sm1);
+    height: var(--meter-height);
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--meter-radius);
   }
   &::-webkit-meter-even-less-good-value {
-    background: var(--no-400);
+    background: var(--meter-color-low);
   }
   &::-webkit-meter-suboptimum-value {
-    background: var(--maybe-400);
+    background: var(--meter-color-med);
   }
   &::-webkit-meter-optimum-value {
-    background: var(--yes-400);
+    background: var(--meter-color-high);
   }
   /* mozilla */
   &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: var(--no-400);
+    background: var(--meter-color-low);
   }
   &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: var(--maybe-400);
+    background: var(--meter-color-med);
   }
   &:-moz-meter-optimum::-moz-meter-bar {
-    background: var(--yes-400);
+    background: var(--meter-color-high);
   }
 }
 
