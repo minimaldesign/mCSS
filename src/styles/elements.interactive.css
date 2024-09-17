@@ -1,9 +1,33 @@
 /* ELEMENTS INTERACTIVE */
 
 dialog {
+  /* body scrolling is stopped by adding .body-is-locked on <dialog> */
+  /* But it can be added to any element. See elements.sectioning.css > body { … }  */
+  min-width: var(--tera1);
+  max-width: var(--tera3);
+  padding: var(--lg1) var(--md1);
+  border: 1px solid var(--base-200);
+  background-color: var(--base-50);
+  border-radius: var(--radius-lg);
+
   &::backdrop {
     background: var(--dialog-backdrop-color);
     opacity: var(--dialog-backdrop-opacity);
+  }
+
+  [aria-label="close pop-up"] {
+    position: absolute;
+    top: var(--xs3);
+    right: var(--xs3);
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
   }
 }
 

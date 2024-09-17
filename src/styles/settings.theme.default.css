@@ -16,7 +16,7 @@
   --input-border-radius: var(--radius-lg);
 
   --dialog-backdrop-color: var(--base-950);
-  --dialog-backdrop-opacity: var(--opacity-4);
+  --dialog-backdrop-opacity: var(--o-4);
 
   /* text */
   --heading-font: var(--display);

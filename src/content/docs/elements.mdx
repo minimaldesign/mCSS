@@ -13,6 +13,7 @@ import img from "../../assets/images/saxophonist.jpg";
 import imgCrop from "../../assets/images/saxophonist-cropped.jpg";
 import audioFile from "../../assets/media/sax.mp3";
 import videoFile from "../../assets/media/fushimi.mp4";
+import iconX from '../../assets/icons/x.svg?raw';
 
 ## Sectioning
 
@@ -542,8 +543,8 @@ legend {
   ### Progress
 
   <p class="mb-lg3">
-    <label for="progress-bar">Uploading Document: 80%</label>
-    <progress id="progress-bar" value="80" max="100">80%</progress>
+    <label for="progress-bar">Uploading Document: 70%</label>
+    <progress id="progress-bar" value="70" max="100">70%</progress>
   </p>
 
   ### Inline SVG
@@ -565,9 +566,9 @@ legend {
 <section class="docs_section">
   ### Dialog
   <dialog>
-    <button autofocus>Close</button>
-    <h4>A Dialog</h4>
-    <p>Content of the dialog element.</p>
+    <button aria-label="close pop-up"><Fragment set:html={iconX} /></button>
+    <h3>A random quote you might enjoy…</h3>
+    <p><q>If you want to awaken all of humanity, then awaken all of yourself. If you want to eliminate the suffering of the world, then eliminate all that is negative in yourself. Truly the greatest gift you have to give is that of your own self-transformation.</q></p>
   </dialog>
-  <button>Show the dialog</button>
+  <button class="bt">Show the dialog</button>
 </section>
