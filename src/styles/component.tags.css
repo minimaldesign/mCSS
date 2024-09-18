@@ -1,0 +1,23 @@
+.tags {
+  li {
+    display: inline-block;
+    &:nth-last-child(n + 2) {
+      padding-right: var(--xs2);
+    }
+  }
+  a {
+    text-decoration: none;
+    padding: 0.2em 0.5em;
+    font-size: 0.9rem;
+    border-radius: var(--radius-sm);
+    font-style: normal;
+    background-color: var(--base-100);
+    color: var(--base-500);
+    text-transform: lowercase;
+    transition: all var(--transition);
+
+    &:hover {
+      background-color: var(--base-200);
+    }
+  }
+}
