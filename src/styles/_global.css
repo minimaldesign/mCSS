@@ -26,6 +26,7 @@
 
 /*  Page specific styles */
 /* (Use sparingly. Component is probably  the way to go) */
+@import url(./page.blog.css);
 @import url(./page.docs.css);
 
 /* Component specific styles */
@@ -34,6 +35,7 @@
 @import url(./component.header.css);
 @import url(./component.navDocs.css);
 @import url(./component.notice.css);
+@import url(./component.tags.css);
 
 /* Plugins, etc. */
 @import url(./external.astro.css);

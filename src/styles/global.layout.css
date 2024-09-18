@@ -1,4 +1,17 @@
-.layout {
+.layout-centered {
+  .layout_content {
+    display: grid;
+    gap: var(--md3);
+    grid-template-columns: 1fr minmax(65ch, 1fr) 1fr;
+    margin-top: var(--lg1);
+  }
+
+  main {
+    grid-column: 2/2;
+  }
+
+  aside {
+  }
 }
 
 .layout-sidebar {

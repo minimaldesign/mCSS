@@ -7,7 +7,23 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title}>
+<BaseLayout title={frontmatter.title} bodyClass="layout-centered">
+  <main>
+    <h1>{frontmatter.title}</h1>
+    <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
+    <ul class="tags">
+      {
+        frontmatter.tags.map((tag) => (
+          <li class="tag">
+            <a href={`/tags/${tag}`}>{tag}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="prose">
+      <slot />
+    </div>
+  </main>
   <aside>
     <h3>All Tags</h3>
     <ul>
@@ -20,19 +36,4 @@ const { frontmatter } = Astro.props;
       }
     </ul>
   </aside>
-  <main class="prose">
-    <h1>{frontmatter.title}</h1>
-    <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
-    <p><em>{frontmatter.description}</em></p>
-    <ul class="tags">
-      {
-        frontmatter.tags.map((tag) => (
-          <li class="tag">
-            <a href={`/tags/${tag}`}>{tag}</a>
-          </li>
-        ))
-      }
-    </ul>
-    <slot />
-  </main>
 </BaseLayout>
