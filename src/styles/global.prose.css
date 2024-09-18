@@ -30,8 +30,11 @@
       margin-left: 0;
       padding-left: var(--sm2);
     }
-    li::marker {
-      color: var(--base-300);
+    li {
+      margin-bottom: 0.5em;
+      &::marker {
+        color: var(--base-300);
+      }
     }
   }
 
