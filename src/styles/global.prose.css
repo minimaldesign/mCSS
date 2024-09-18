@@ -13,7 +13,6 @@
   ul,
   ol,
   dl {
-    max-width: 65ch;
     margin-bottom: var(--prose-margin);
     p,
     ul,
