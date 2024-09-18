@@ -1,2 +1,27 @@
 .blog {
 }
+
+/* INDEX */
+
+.blog_postListing {
+  margin-top: var(--md1);
+  li {
+    margin-bottom: var(--md1);
+  }
+  p:first-child {
+    margin-bottom: var(--xs1);
+  }
+}
+
+/* SINGLE ARTICLE  */
+
+.blog_meta {
+  margin-bottom: var(--md1);
+
+  p {
+    margin-bottom: var(--sm1);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    color: var(--base-300);
+  }
+}

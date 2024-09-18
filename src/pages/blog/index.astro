@@ -7,17 +7,20 @@ const allPosts = await getCollection('blog');
 allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
 ---
 
-<BaseLayout title={title}>
-  <div class="wrap">
-    <h1>Tutorials. Tips. Latest updates.</h1>
-    <ul>
+<BaseLayout title={title} bodyClass="layout-centered">
+  <main class="blog">
+    <h1>Latest updates, tutorials, and tips.</h1>
+    <ul class="blog_postListing">
       {
         allPosts.map((post) => (
           <li>
-            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            <p>
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            </p>
+            <p>{post.data.description}</p>
           </li>
         ))
       }
     </ul>
-  </div>
+  </main>
 </BaseLayout>

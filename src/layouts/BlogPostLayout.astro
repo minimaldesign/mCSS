@@ -8,24 +8,37 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout title={frontmatter.title} bodyClass="layout-centered">
-  <main>
+  <main class="blog">
     <h1>{frontmatter.title}</h1>
-    <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
-    <ul class="tags">
-      {
-        frontmatter.tags.map((tag) => (
-          <li class="tag">
-            <a href={`/tags/${tag}`}>{tag}</a>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="blog_meta">
+      <p>
+        Published on
+        <time datetime={frontmatter.pubDate.toISOString().slice(0, 10)}>
+          {
+            frontmatter.pubDate.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          }
+        </time>
+      </p>
+      <ul class="tags">
+        {
+          frontmatter.tags.map((tag) => (
+            <li class="tag">
+              <a href={`/tags/${tag}`}>{tag}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
     <div class="prose">
       <slot />
     </div>
   </main>
-  <aside>
-    <h3>All Tags</h3>
+  <!-- <aside>
+    <h3>Browse all tags</h3>
     <ul>
       {
         tags.map((tag) => (
@@ -35,5 +48,5 @@ const { frontmatter } = Astro.props;
         ))
       }
     </ul>
-  </aside>
+  </aside> -->
 </BaseLayout>

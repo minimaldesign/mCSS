@@ -2,8 +2,8 @@
   .layout_content {
     display: grid;
     gap: var(--md3);
-    grid-template-columns: 1fr minmax(65ch, 1fr) 1fr;
-    margin-top: var(--lg1);
+    grid-template-columns: 1fr minmax(70ch, 1fr) 1fr;
+    margin-top: var(--xl3);
   }
 
   main {
@@ -11,6 +11,7 @@
   }
 
   aside {
+    margin-top: var(--lg1);
   }
 }
 
