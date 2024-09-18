@@ -1,6 +1,6 @@
 ---
 title: "mCSS structure and organization"
-pubDate: 2024-07-23
+pubDate: 2024-07-22T20:30:00-07:00
 author: "Yann"
 tags: ["mCSS", "basics"]
 description: "An overview of mCSS file structure philosophy and how to build upon it."
