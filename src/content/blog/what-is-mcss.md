@@ -1,9 +1,9 @@
 ---
-title: "What is mCSS"
-pubDate: 2024-02-28
-description: "mCSS is a minimal CSS framework for people who love CSS."
+title: "What is mCSS?"
+pubDate: 2024-06-19
 author: "Yann"
 tags: ["mCSS", "basics"]
+description: "mCSS is a minimal CSS framework for people who love CSS."
 ---
 
 ## mCSS philosophy
