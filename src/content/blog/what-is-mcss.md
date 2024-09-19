@@ -3,7 +3,7 @@ title: "What is mCSS?"
 pubDate: 2024-06-18T16:00:00-07:00
 author: "Yann"
 tags: ["mCSS", "basics"]
-description: "mCSS is a minimal CSS framework for people who love CSS."
+description: "mCSS is full featured but light, opinionated but flexible, a pleasure to use but scalable. And you don't need to learn some weird pseudo CSS to use it. It's actual CSS…"
 ---
 
 ## mCSS philosophy
@@ -16,7 +16,7 @@ On the other hand, if you appreciate the simple elegance of the cascade, if you 
 
 ## Why mCSS?
 
-mCSS is full featured but light, opinionated but flexible, a pleasure to use but scalable. You don't need to learn some weird pseudo CSS to use it. It's actual CSS… It just takes care of all the tedious stuff for you and then gets out of the way. And you won't need a bunch of tooling around it. It will speeds up your workflow right away.
+mCSS is full featured but light, opinionated but flexible, a pleasure to use but scalable. And you don't need to learn some weird pseudo CSS to use it. It's actual CSS… It just takes care of all the tedious stuff for you and then gets out of the way. And you won't need a bunch of tooling around it. It will speeds up your workflow right away.
 
 mCSS is a CSS framework that respects and takes advantage of CSS inherent strengths. It does not try to abstract CSS inner workings with a fugly Frankenstein crossover between JavaScript and inline styles. The result is code that is easy to read and understand, and to expand on. Creating component based systems is fast, efficient, easy, and headache free.
 
