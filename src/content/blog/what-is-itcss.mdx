@@ -1,0 +1,99 @@
+---
+title: "What is ITCSS?"
+pubDate: 2024-02-28
+author: "Yann"
+tags: ["css", "basics", "tutorial"]
+description: "ITCSS (Inverted Triangle CSS) is a powerful methodology developed by Harry Roberts to help front-end developers organize their CSS in a scalable and maintainable way. It addresses common issues like specificity wars and cascading conflicts, making your codebase cleaner and easier to manage."
+---
+
+import { Image } from "astro:assets";
+
+import triangle from "../../assets/images/itcss-triangle.svg";
+
+ITCSS, or _Inverted Triangle CSS_, is a powerful methodology developed by [Harry Roberts](https://twitter.com/csswizardry) to help front-end developers organize their CSS in a scalable and maintainable way. By structuring your stylesheets into distinct layers, ITCSS addresses common issues like specificity wars and cascading conflicts, making your codebase cleaner and easier to manage.
+
+## Understanding ITCSS
+
+At its core, ITCSS uses the metaphor of an inverted triangle to represent different layers of CSS. The broad base signifies global styles, while the tip narrows down to more specific styles. This layered approach allows you to start with generic styles and progressively move toward more explicit rules, enhancing reusability and clarity.
+
+The basic idea is to use CSS [specificity][specificity] to your advantage by structuring your CSS so that its [specificity graph][graph] trends upward, in a general hockey stick shape, meaning the selectors are organized from low to high specificity.
+
+Each layer has a clear purpose, making it easier to locate styles and understand the overall structure.
+
+ITCSS is modular and flexible. You can use it with or without preprocessors like SASS, and it works well with other methodologies such as [BEM][bem], SMACSS, or OOCSS.
+
+For more details, watch Harry Roberts presentation: [Managing CSS Projects with ITCSS][youtube].
+
+<Image
+  class="mb-lg1"
+  src={triangle}
+  width="680"
+  alt="Saxophonist playing in Central Park"
+/>
+
+### The layers of ITCSS
+
+Here’s a breakdown of the ITCSS layers:
+
+1. **Settings**: Contains variables and configurations (like colors and fonts) without any actual CSS output.
+2. **Tools**: Houses mixins and functions used throughout your project, also without generating CSS.
+3. **Generic**: This is where you apply resets or normalize styles—your first layer that produces actual CSS.
+4. **Elements**: Styles for basic HTML elements (like headings and links) that don’t have classes.
+5. **Objects**: Class-based selectors that define reusable design patterns, often following OOCSS principles.
+6. **Components**: Specific UI components where most of your styling work occurs, often combining objects and components.
+7. **Utilities**: Helper classes that can override any previous styles, allowing for quick adjustments. All utility classes are defined with `!important`.
+
+This structure not only promotes organization but also helps in managing specificity effectively, as styles flow from generic to specific.
+
+Here's a (shortened) example of what the struture of a main CSS file would look like following the ITCSS architecture:
+
+```scss
+// SETTINGS
+@import "settings/settings.core";
+// TOOLS
+@import "tools/tools.font-size";
+@import "tools/tools.clearfix";
+// GENERIC
+@import "generic/generic.normalize";
+@import "generic/generic.reset";
+@import "generic/generic.shared";
+// ELEMENTS
+@import "elements/elements.heading";
+@import "elements/elements.image";
+// OBJECTS
+@import "objects/objects.wrapper";
+@import "objects/objects.layout";
+// COMPONENTS
+@import "components/components.button";
+// UTILITIES
+@import "utilities/utilities.width";
+@import "utilities/utilities.spacing";
+```
+
+## Practical tips for implementing ITCSS
+
+Here are some friendly tips to get the most out of ITCSS:
+
+- **Adjust ITCSS to your needs**: Don’t feel obligated to include every layer if it doesn’t fit your project. You can start simple and expand as necessary.
+
+- **Use [BEMIT][bemit] naming convention**: Combining BEM with ITCSS (BEMIT) helps keep your class names organized and meaningful. Use prefixes like `.o-` for objects and `.c-` for components.
+
+- **Organize layers into subfolders**: Keep your project tidy by organizing each layer into its own subfolder. This makes navigation easier when collaborating with others.
+
+- **Limit nesting**: Stick to a maximum of two levels of nesting in your styles. Deeply nested selectors can lead to overly specific rules that are hard to maintain.
+
+- **Don’t overuse objects**: While objects are useful, they can become confusing if not managed properly. Consider skipping this layer if it complicates your workflow.
+
+- **Separate spacing from components**: To maintain component encapsulation, use utility classes for margins instead of adding them directly within components.
+
+By following these guidelines, you can create a CSS architecture that is not only scalable but also easy to maintain as your projects grow.
+
+## Conclusion
+
+ITCSS is a fantastic methodology for front-end developers looking to create a scalable CSS architecture for large projects involving many developers. With its clear layering system and flexibility, it completely sidesteps the common pitfalls of poorly engineered CSS projects such as specificity wars and cascading conflicts. And it makes your codebase easy to understand and a pleasure to manage.
+
+[bem]: /blog/what-is-bem
+[graph]: https://jonassebastianohlsson.com/specificity-graph/
+[specificity]: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
+[bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
+[youtube]: https://youtube.com/watch?v=1OKZOV-iLj4&t=646
