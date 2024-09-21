@@ -26,6 +26,8 @@ const sizes = [
 ];
 
 const properties = [
+  { w: "width" },
+  { h: "height" },
   { m: "margin" },
   { mt: "margin-top" },
   { mb: "margin-bottom" },
