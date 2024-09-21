@@ -1,15 +1,226 @@
 ---
 title: "Getting Started"
-lastUpdate: 2024-08-07
-version: 1.0
+lastUpdate: 2024-09-17T22:06:48-07:00
+version: 0.9
 ---
 
 <section class="prose">
 
-mCSS is both a CSS framework and a methodology.
+mCSS is both a CSS framework and a methodology. You need to first understand the methodology to use the framework correctly. There are 3 main parts to the methodology.
 
-## Structure
+1. The file structure
+1. The CSS syntax
+1. The component architecture
+
+Once you've read through the basics below, the best way to understand how it all comes together is to have a look at the [source code][src]. (Video tutorial coming soon!)
+
+## mCSS File structure
+
+The file structure is based on [ITCSS][1], but with important differences detailed below. The basic idea is to organize your files in different [layers][layers] so that your CSS [rulesets][2] are organized from global low [specificity][3] to local high specificity. When done right, it takes care of all the common "shortcomings" of CSS such as specificity wars and cascading conflicts. Below is an overview of each layer. The full documentation of most layers is available from the sidebar.
+
+This how mCSS is organized. ([Github source][4].)
+
+```css
+@import url(./settings.tokens.css);
+@import url(./settings.media-queries.css);
+@import url(./settings.mixins.css);
+@import url(./settings.theme.default.css);
+
+@import url(./base.reset.css);
+
+@import url(./elements.sectioning.css);
+@import url(./elements.text.css);
+@import url(./elements.text.quotes.css);
+@import url(./elements.media.css);
+@import url(./elements.table.css);
+@import url(./elements.form.css);
+@import url(./elements.interactive.css);
+
+@import url(./global.grid.css);
+@import url(./global.wrap.css);
+@import url(./global.layout.css);
+@import url(./global.prose.css);
+
+@import url(./page.blog.css);
+@import url(./page.docs.css);
+
+@import url(./component.button.css);
+/* etc. */
+
+@import url(./external.astro.css);
+
+@import url(./help.layout.css);
+@import url(./help.spacing.css);
+@import url(./help.typography.css);
+@import url(./help.colors.css);
+```
+
+### Settings
+
+Settings are where all custom properties are set.
+
+- [Tokens][5] is where you set default values for sizes, font stacks, colors, transitions, etc. See [the docs][5] for all the values available by default.
+- [Media queries][6] include responsive sizes, as well as user preferences like color schemes, reduced motion, etc. See [media queries docs][6].
+- **Mixins** is optional. It is not used in other parts of mCSS by default but can be useful to streamline your own components' code. It requires a [PostCSS plugin][7] to work.
+- [Themes][themes] is an abstraction level to stadardize common values accross elements and components. For instance, you could use `--light-border-color` throughout your components instead of the lower level token `--base-200`.
+
+### Base
+
+- Simple reset/normalize.
+
+### HTML Elements
+
+The default styling of all HTML elements, without classes.
+
+- **Sectioning:** `header`, `footer`, etc.
+- **Text:** `a`, `p`, etc.
+- **Quotes:** adds the correct quotes depending on language.
+- **Media:** `img`,`video`, etc.
+- **Table:** `table`, `th`, etc.
+- **Form:** `input`, `button`, etc.
+- **Interactive:** `dialog`, `details`.
+
+### Global
+
+Global styles include:
+
+- A responsive [Grid][grid] system.
+- A full feature [Wrapper][wrap].
+- Common global site [layouts][layout].)
+- [Typography][prose], via the `.prose` class, for long form text, like articles, etc.
+
+### Pages
+
+Page specific design elements and adjustments. These files are project specific and none are included in mCSS by default.
 
 ### Components
 
+Self contained syles of single components. The mCSS framework is designed to be used on its own, allowing you to create your own components. But a collections of components built on top of mCSS is in developement.
+
+See the [components section][components] for more info..
+
+### External
+
+The `external` layer is where all the CSS you don't have control over should go. This include CSS from npm packages, plugins, etc.
+
+### Helpers
+
+[Helpers][helpers] provide high specificity classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Read [the docs][helpers] for more info on this.
+
+## mCSS classes syntax
+
+Classes in mCSS are inspired by [BEM][bem], but they're simpler to use and easier to look at.
+
+You can use standard BEM, the even more verbose [BEMIT][bemit], or any other syntax you'd like. But the mCSS syntax gets you 90% of the same benefits without any drawbacks, even on large projects involving many devs.
+
+### Blocks, elements, and modifiers
+
+|          | BEM                  | mCSS               |
+| -------- | -------------------- | ------------------ |
+| Block    | `site-search`        | `siteSearch`       |
+| Element  | `site-search__field` | `siteSearch_field` |
+| Modifier | `site-search--full`  | `siteSearch-full`  |
+
+### States
+
+Here's how you implement a state in BEM vs. mCSS.
+
+HTML:
+
+```html
+<!-- BEM -->
+<form class="form">
+  <input class="form__input" type="text" />
+  <input class="form__submit form__submit--disabled" type="submit" />
+</form>
+
+<!-- mCSS -->
+<form class="form">
+  <input class="formInput" type="text" />
+  <input class="formSubmit is-disabled" type="submit" />
+</form>
+```
+
+CSS:
+
+```css
+/* BEM */
+.form__submit--disabled {
+}
+
+/* mCSS */
+.formSubmit.is-disabled {
+}
+```
+
+## Components
+
+### Targetting HTML elements within a component
+
+With mCSS syntax, **within a component**, it's considered overkill to create a class for every single HTML element you need to target.
+
+For example, this is acceptable (and recommended) CSS for the tags component (`component.tags.css`):
+
+```css
+.tags {
+  li {
+    […]
+  }
+
+  a {
+    […]
+    &:hover {
+      […]
+    }
+  }
+}
+```
+
+### Modifiers and component variations
+
+When using modifiers to create different variations of a component, it's recommended to use local custom propertie if possible instead of overriding the CSS directly.
+
+```css
+/* Don't do that */
+.component {
+  color: blue;
+}
+
+.component-variation {
+  color: red;
+}
+
+/* Do that instead */
+.component {
+  --color: blue;
+  color: var(--color);
+}
+
+.component-variation {
+  --color: red;
+}
+```
+
+See the [implementation][github] of the [notice component](/components/notice) for a real life example.
+
 </section>
+
+[1]: /blog/what-is-itcss
+[2]: https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#css_rulesets
+[3]: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css
+[5]: /docs/tokens
+[6]: /docs/media-queries
+[7]: https://github.com/postcss/postcss-mixins
+[grid]: /docs/global#grid
+[wrap]: /docs/global#wrap
+[layout]: /docs/global#layouts
+[prose]: /docs/global#prose
+[components]: /components/start
+[helpers]: /docs/helpers
+[themes]: /docs/themes
+[layers]: /blog/what-is-itcss#the-layers-of-itcss
+[bem]: /blog/what-is-bem
+[bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
+[github]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.notice.css
+[src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles
