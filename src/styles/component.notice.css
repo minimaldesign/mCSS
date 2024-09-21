@@ -1,7 +1,13 @@
 .notice {
+  --bg-color: var(--base-50);
+  --bd-color: var(--base-200);
+  --svg-color: inherit;
+  --code-color: inherit;
+  --code-bg-color: inherit;
+
   padding: var(--sm1);
-  border: 1px solid var(--base-200);
-  background-color: var(--base-50);
+  border: 1px solid var(--bd-color);
+  background-color: var(--bg-color);
   border-radius: var(--radius-lg);
 
   p:last-of-type {
@@ -10,12 +16,18 @@
   }
 }
 
+code {
+  background-color: var(--code-bg-color);
+  color: var(--code-color);
+}
+
 .notice_title {
   display: flex;
 
   svg {
     margin-bottom: var(--xs3);
     margin-right: 0.5em;
+    color: var(--svg-color);
   }
 
   strong {
@@ -25,57 +37,33 @@
 }
 
 .notice-info {
-  background-color: var(--primary-100);
-  border-color: var(--primary-300);
-
-  svg {
-    color: var(--primary-400);
-  }
-
-  code {
-    background-color: var(--primary-200);
-    color: var(--primary-600);
-  }
+  --bg-color: var(--primary-100);
+  --bd-color: var(--primary-300);
+  --svg-color: var(--primary-400);
+  --code-color: var(--primary-600);
+  --code-bg-color: var(--primary-200);
 }
 
 .notice-danger {
-  background-color: var(--no-200);
-  border-color: var(--no-500);
-
-  svg {
-    color: var(--no-500);
-  }
-
-  code {
-    background-color: var(--no-100);
-    color: var(--no-500);
-  }
+  --bg-color: var(--no-200);
+  --bd-color: var(--no-500);
+  --svg-color: var(--no-500);
+  --code-color: var(--no-500);
+  --code-bg-color: var(--no-100);
 }
 
 .notice-warning {
-  background-color: var(--maybe-100);
-  border-color: var(--maybe-500);
-
-  svg {
-    color: var(--maybe-400);
-  }
-
-  code {
-    background-color: var(--maybe-200);
-    color: var(--maybe-500);
-  }
+  --bg-color: var(--maybe-100);
+  --bd-color: var(--maybe-500);
+  --svg-color: var(--maybe-400);
+  --code-color: var(--maybe-500);
+  --code-bg-color: var(--maybe-200);
 }
 
 .notice-confirm {
-  background-color: var(--yes-100);
-  border-color: var(--yes-500);
-
-  svg {
-    color: var(--yes-400);
-  }
-
-  code {
-    background-color: var(--yes-200);
-    color: var(--yes-500);
-  }
+  --bg-color: var(--yes-100);
+  --bd-color: var(--yes-500);
+  --svg-color: var(--yes-400);
+  --code-color: var(--yes-500);
+  --code-bg-color: var(--yes-200);
 }
