@@ -23,6 +23,9 @@ const sizes = [
   "giga1",
   "giga2",
   "giga3",
+  "tera1",
+  "tera2",
+  "tera3",
 ];
 
 const properties = [
