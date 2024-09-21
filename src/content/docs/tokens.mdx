@@ -6,22 +6,23 @@ version: 0.1
 
 import Notice from "../../components/Notice.astro";
 
-## How to use tokens
-
 <div class="prose">
 
-1. Override low level tokens in your theme.
-1. Customize abstracted tokens for `elements` files in your theme.
-1. Customize abstracted tokens for `layout` files in your theme.
-1. Use low level tokens directly in your `component` files.
+**Design tokens** are the "atoms" of a design system. They define the design elements of a user interface, such as colors, typography, and spacing.
 
-</div>
+In mCSS, tokens are CSS custom properties that provide a flexible, coherent, and harmonious set of values designed to make implementing UI/UX projects fast and easy.
+
+## How to use tokens
+
+When you start a new project, open `settings.tokens.css` and change the values of as many tokens as necessary to match the design you're planning to implement. (Things like spacing might not need to change, but you'll almost certainly need to customize your `base` and `primary` colors for instance.)
+
+Themes offer an additional layer of abstraction for tokens (ie. `settings.theme.default.css`). These tokens only ever take another token for value and are useful to standardize UI elements in logical groups. For example, you can have a `--light-border-color` with a value of `--base-100`. This allows you to create tokens with meaning and context which makes them more intuitive to use.
+
+`elements.*`, `global.*`, and `page.*` files tend to use abstracted theme tokens, while `component.*` generally use low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new theme token is probably the best option.
 
 ## Low level tokens
 
 ### Typography
-
-<div class="prose">
 
 There are 3 font stacks set up by default:
 
