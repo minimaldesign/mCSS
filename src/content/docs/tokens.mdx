@@ -6,7 +6,13 @@ version: 0.1
 
 import Notice from "../../components/Notice.astro";
 
-<div class="prose">
+<section class="prose">
+
+| File name             | Source        |
+| --------------------- | ------------- |
+| `settings.tokens.css` | [Github][src] |
+
+[src]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/settings.tokens.css
 
 **Design tokens** are the "atoms" of a design system. They define the design elements of a user interface, such as colors, typography, and spacing.
 
@@ -22,19 +28,55 @@ Themes offer an additional layer of abstraction for tokens (ie. `settings.theme.
 
 ## Low level tokens
 
+### Dimensions
+
+Dimension tokens can be used anywhere you need to set `margin`, `padding`, `width`, `height`, etc.
+
+| Token   | Value | Demo                                       |
+| ------- | ----- | ------------------------------------------ |
+| `xs1`   | 4px   | <div class="docs_widthDemo w-xs1"></div>   |
+| `xs2`   | 8px   | <div class="docs_widthDemo w-xs2"></div>   |
+| `xs3`   | 12px  | <div class="docs_widthDemo w-xs3"></div>   |
+| `sm1`   | 16px  | <div class="docs_widthDemo w-sm1"></div>   |
+| `sm2`   | 20px  | <div class="docs_widthDemo w-sm2"></div>   |
+| `sm3`   | 24px  | <div class="docs_widthDemo w-sm3"></div>   |
+| `md1`   | 28px  | <div class="docs_widthDemo w-md1"></div>   |
+| `md2`   | 32px  | <div class="docs_widthDemo w-md2"></div>   |
+| `md3`   | 36px  | <div class="docs_widthDemo w-md3"></div>   |
+| `lg1`   | 40px  | <div class="docs_widthDemo w-lg1"></div>   |
+| `lg2`   | 44px  | <div class="docs_widthDemo w-lg2"></div>   |
+| `lg3`   | 48px  | <div class="docs_widthDemo w-lg3"></div>   |
+| `xl1`   | 56px  | <div class="docs_widthDemo w-xl1"></div>   |
+| `xl2`   | 64px  | <div class="docs_widthDemo w-xl2"></div>   |
+| `xl3`   | 80px  | <div class="docs_widthDemo w-xl3"></div>   |
+| `xxl1`  | 96px  | <div class="docs_widthDemo w-xxl1"></div>  |
+| `xxl2`  | 112px | <div class="docs_widthDemo w-xxl2"></div>  |
+| `xxl3`  | 128px | <div class="docs_widthDemo w-xxl3"></div>  |
+| `mega1` | 160px | <div class="docs_widthDemo w-mega1"></div> |
+| `mega2` | 192px | <div class="docs_widthDemo w-mega2"></div> |
+| `mega3` | 224px | <div class="docs_widthDemo w-mega3"></div> |
+| `giga1` | 256px | <div class="docs_widthDemo w-giga1"></div> |
+| `giga2` | 288px | <div class="docs_widthDemo w-giga2"></div> |
+| `giga3` | 320px | <div class="docs_widthDemo w-giga3"></div> |
+| `tera1` | 384px | <div class="docs_widthDemo w-tera1"></div> |
+| `tera2` | 480px | <div class="docs_widthDemo w-tera2"></div> |
+| `tera3` | 520px | <div class="docs_widthDemo w-tera3"></div> |
+
 ### Typography
 
-There are 3 font stacks set up by default:
+#### Font stacks
 
-- `text`
-- `display`
-- `monospace`.
+There are 3 font stacks set up by default for the `font-family` CSS Property.
 
-The stacks are optimized for fonts available on device, to maximize for speed and alleviate any layout shifts or flashes. You can find more stacks at [Modern Font Stacks](https://modernfontstacks.com).
+| Token       | Value                                                                                                                                                           |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `text`      | ui-sans-serif, system-ui, sans-serif                                                                                                                            |
+| `display`   | Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif, sans-serif                                                                              |
+| `monospace` | Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, ui-monospace, monospace |
+
+These stacks are optimized for fonts available on device, to maximize for speed and alleviate any layout shifts or flashes. You can find more stacks at [Modern Font Stacks](https://modernfontstacks.com).
 
 If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.com), you can override the `display` and `text` tokens inside your theme file.
-
-</div>
 
 <Notice type="info" title="Note">
   In case you're curious, `ui-sans-serif` is the system default, `sans-serif` is
@@ -42,82 +84,51 @@ If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.
   sans-serif.
 </Notice>
 
-### Dimensions
+#### Font sizes
 
-<ul class="cubes">
-  <li>
-    <div class="xs1"></div>
-  </li>
-  <li>
-    <div class="xs2"></div>
-  </li>
-  <li>
-    <div class="xs3"></div>
-  </li>
-  <li>
-    <div class="sm1"></div>
-  </li>
-  <li>
-    <div class="sm2"></div>
-  </li>
-  <li>
-    <div class="sm3"></div>
-  </li>
-  <li>
-    <div class="md1"></div>
-  </li>
-  <li>
-    <div class="md2"></div>
-  </li>
-  <li>
-    <div class="md3"></div>
-  </li>
-  <li>
-    <div class="lg1"></div>
-  </li>
-  <li>
-    <div class="lg2"></div>
-  </li>
-  <li>
-    <div class="lg3"></div>
-  </li>
-  <li>
-    <div class="xl1"></div>
-  </li>
-  <li>
-    <div class="xl2"></div>
-  </li>
-  <li>
-    <div class="xl3"></div>
-  </li>
-  <li>
-    <div class="xxl1"></div>
-  </li>
-  <li>
-    <div class="xxl2"></div>
-  </li>
-  <li>
-    <div class="xxl3"></div>
-  </li>
-  <li>
-    <div class="mega1"></div>
-  </li>
-  <li>
-    <div class="mega2"></div>
-  </li>
-  <li>
-    <div class="mega3"></div>
-  </li>
-  <li>
-    <div class="giga1"></div>
-  </li>
-  <li>
-    <div class="giga2"></div>
-  </li>
-  <li>
-    <div class="giga3"></div>
-  </li>
-</ul>
+| Token        | Value    | Demo                                           |
+| ------------ | -------- | ---------------------------------------------- |
+| `text-xs`    | 0.694rem | <div class="text-xs">Sample demo text</div>    |
+| `text-sm`    | 0.833rem | <div class="text-sm">Sample demo text</div>    |
+| `text-md`    | 1rem     | <div class="text-md">Sample demo text</div>    |
+| `text-lg`    | 1.2rem   | <div class="text-lg">Sample demo text</div>    |
+| `text-xl`    | 1.44rem  | <div class="text-xl">Sample demo text</div>    |
+| `display-sm` | 1.728rem | <div class="display-sm">Sample demo text</div> |
+| `display-md` | 2.074rem | <div class="display-md">Sample demo text</div> |
+| `display-lg` | 2.488rem | <div class="display-lg">Sample demo text</div> |
+| `display-xl` | 2.986rem | <div class="display-xl">Sample demo text</div> |
+
+#### Font weights
+
+| Token         | Value | Demo                                            |
+| ------------- | ----- | ----------------------------------------------- |
+| `extra-light` | 200   | <div class="extra-light">Sample demo text</div> |
+| `light`       | 300   | <div class="light">Sample demo text</div>       |
+| `book`        | 400   | <div class="book">Sample demo text</div>        |
+| `semi-bold`   | 600   | <div class="semi-bold">Sample demo text</div>   |
+| `bold`        | 700   | <div class="bold">Sample demo text</div>        |
+| `black`       | 900   | <div class="black">Sample demo text</div>       |
+
+#### Letter spacing
+
+| Token          | Value   | Demo                                             |
+| -------------- | ------- | ------------------------------------------------ |
+| `tracking-sm`  | -0.05em | <div class="tracking-sm">Sample demo text</div>  |
+| `tracking-md`  | 0.025em | <div class="tracking-md">Sample demo text</div>  |
+| `tracking-lg`  | 0.05em  | <div class="tracking-lg">Sample demo text</div>  |
+| `tracking-xl`  | 0.075em | <div class="tracking-xl">Sample demo text</div>  |
+| `tracking-xxl` | 0.15em  | <div class="tracking-xxl">Sample demo text</div> |
+
+#### Line height
+
+| Token         | Value | Demo                                                                |
+| ------------- | ----- | ------------------------------------------------------------------- |
+| `leading-xs`  | 1     | <div class="docs_lineHeightDemo leading-xs">Sample demo text</div>  |
+| `leading-sm`  | 1.15  | <div class="docs_lineHeightDemo leading-sm">Sample demo text</div>  |
+| `leading-md`  | 1.375 | <div class="docs_lineHeightDemo leading-md">Sample demo text</div>  |
+| `leading-lg`  | 1.5   | <div class="docs_lineHeightDemo leading-lg">Sample demo text</div>  |
+| `leading-xl`  | 1.75  | <div class="docs_lineHeightDemo leading-xl">Sample demo text</div>  |
+| `leading-xxl` | 2     | <div class="docs_lineHeightDemo leading-xxl">Sample demo text</div> |
 
 ### Drop Shadows
 
@@ -138,3 +149,5 @@ If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.
     <div class="shadow-5"></div>
   </li>
 </ul>
+
+</section>
