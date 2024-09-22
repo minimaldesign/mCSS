@@ -99,6 +99,28 @@
   font-size: var(--display-xl) !important;
 }
 
+/* LETTER SPACING */
+
+.tracking-sm {
+  letter-spacing: var(--tracking-sm);
+}
+
+.tracking-md {
+  letter-spacing: var(--tracking-md);
+}
+
+.tracking-lg {
+  letter-spacing: var(--tracking-lg);
+}
+
+.tracking-xl {
+  letter-spacing: var(--tracking-xl);
+}
+
+.tracking-xxl {
+  letter-spacing: var(--tracking-xxl);
+}
+
 /* LINE HEIGHT */
 
 .leading-xs {

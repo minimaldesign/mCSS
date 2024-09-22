@@ -122,6 +122,7 @@ xxl: 1920px
   --tracking-lg: 0.05em;
   --tracking-xl: 0.075em;
   --tracking-xxl: 0.15em;
+
   /* TODO add display tracking */
   --tracking-display-md: 0.5em;
   --tracking-display-lg: 0.75em;
