@@ -1,1 +1,21 @@
 /* HELPER RATIOS */
+
+.ar-square {
+  aspect-ratio: 1;
+}
+
+.ar-landscape {
+  aspect-ratio: 4/3;
+}
+
+.ar-portrait {
+  aspect-ratio: 3/4;
+}
+
+.ar-widescreen {
+  aspect-ratio: 16/9;
+}
+
+.ar-golden {
+  aspect-ratio: 1.618/1;
+}
