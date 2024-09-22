@@ -10,15 +10,15 @@
   background-color: var(--bg-color);
   border-radius: var(--radius-lg);
 
+  code {
+    background-color: var(--code-bg-color);
+    color: var(--code-color);
+  }
+
   p:last-of-type {
     /* in case it's inside a .prose context */
     margin-bottom: 0;
   }
-}
-
-code {
-  background-color: var(--code-bg-color);
-  color: var(--code-color);
 }
 
 .notice_title {
