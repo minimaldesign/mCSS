@@ -4,9 +4,24 @@ lastUpdate: 2024-08-13
 version: 0.1
 ---
 
+import Notice from "../../components/Notice.astro";
+
 ## Available Media Queries
 
-**Important:** [custom media queries are](https://drafts.csswg.org/mediaqueries-5/#custom-mq) are not yet available without a [PostCSS plugins](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media). If you can't or don't want to add a build step to your process, you'll have to hard code your breakpoints. (You can still use nesting as in the example below though.)
+<Notice
+  type="info"
+  title="PostCSS needed for custom media queries"
+  extraClass="mb-sm3"
+>
+  [custom media queries are](https://drafts.csswg.org/mediaqueries-5/#custom-mq)
+  are not yet available without a [PostCSS
+  plugins](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media).
+  If you can't or don't want to add a build step to your process, you'll have to
+  hard code your breakpoints. (You can still use nesting as in the example below
+  though.)
+</Notice>
+
+<section class="prose">
 
 ### Dimensions
 
@@ -39,28 +54,28 @@ Using the `md` dimension as an example:
 | `@media(--md-only) {}`    | `(480px <= width < 768px);`     |
 | `@media(--md) {}`         | `(width >= 768px);`             |
 | `@media(--md-n-above) {}` | `(width >= 768px);`             |
-| `@media(--md-n-below) {}` | `(width < 768px);`              |
+| `@media(--md-n-below) {}` | `(width <section 768px);`       |
 | `@media(--md-phone) {}`   | `(--md-only) and (--portrait);` |
 
 ## Recommended responsive setup
 
-If you search online for the best appraoch to responsive design and setting up your breakpoints, you'll come accross the technically true but useless "it depends" answer.
+If you search online for the best approach to responsive design and setting up your breakpoints, you'll come accross the technically true but useless "it depends" answer.
 
 Unless you have a good reason not to, you should use a mobile first approach. What that means is you design will work great on small screen out of the box, without any media queries, and then you add your tweaks for additional sizes.
 
-In short, here's an (silly) example of how the CSS of most responsive components should be set up:
+This is how the CSS of most responsive components should be set up:
 
 ```html
 <style>
   .exampleComponent {
-    color: var(--base-50);
-    background-color: var(--base-900);
+    /* default mobile */
     @media (--lg) {
-      color: var(--base-950);
-      background-color: var(--base-200);
+      /* responsive tweaks for desktop */
     }
   }
 </style>
 
 <div class="exampleComponent">[…]</div>
 ```
+
+</section>
