@@ -27,7 +27,7 @@ ul.docs_section_media {
 
 .docs_form {
   fieldset {
-    margin-bottom: var(--prose-margin);
+    margin-bottom: var(--prose-spacing);
   }
 }
 

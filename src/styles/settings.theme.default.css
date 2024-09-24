@@ -27,7 +27,7 @@
   --link-color: var(--primary-600);
   --link-hover-color: var(--primary-500);
 
-  --prose-margin: var(--sm1);
+  --prose-spacing: var(--sm1);
 
   --marker-color: #ffee00;
 

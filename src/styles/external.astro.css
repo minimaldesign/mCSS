@@ -1,6 +1,6 @@
 .astro-code {
-  margin-top: var(--prose-margin);
-  margin-bottom: var(--prose-margin);
+  margin-top: var(--prose-spacing);
+  margin-bottom: var(--prose-spacing);
   padding: var(--sm1);
   border-radius: var(--radius-md);
 

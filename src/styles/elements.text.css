@@ -66,7 +66,7 @@ b {
 
 blockquote {
   position: relative;
-  margin-bottom: var(--prose-margin);
+  margin-bottom: var(--prose-spacing);
   padding: var(--sm1) var(--sm3) var(--sm1) var(--md1) ;
   font-style: italic;
   background-color: var(--primary-50);
@@ -214,7 +214,7 @@ hr {
 }
 
 :where(hr):has(+ :is(p)) {
-  margin-bottom: var(--prose-margin);
+  margin-bottom: var(--prose-spacing);
 }
 
 
