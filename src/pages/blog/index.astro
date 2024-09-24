@@ -7,8 +7,8 @@ const allPosts = await getCollection('blog');
 allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
 ---
 
-<BaseLayout title={title} bodyClass="layout-centered">
-  <main class="blog">
+<BaseLayout title={title} bodyClass="layout layout-centered">
+  <main class="blog layout_content_main">
     <h1>Latest updates, tutorials, tips and tricks, and the occasional rant.</h1>
     <ul class="blog_postListing">
       {

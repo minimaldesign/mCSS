@@ -7,8 +7,8 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title} bodyClass="layout-centered">
-  <main class="blog">
+<BaseLayout title={frontmatter.title} bodyClass="layout layout-centered">
+  <main class="blog layout_content_main">
     <h1>{frontmatter.title}</h1>
     <div class="blog_meta">
       <p>

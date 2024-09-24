@@ -6,12 +6,8 @@
     margin-top: var(--xl3);
   }
 
-  main {
+  .layout_content_main {
     grid-column: 2/2;
-  }
-
-  aside {
-    margin-top: var(--lg1);
   }
 }
 
@@ -21,6 +17,11 @@
     grid-template-columns: var(--layout_content_aside-width) 1fr;
   }
 
+  .layout_content_main {
+    max-width: calc(70ch + (var(--lg1) * 2));
+    padding: var(--lg1);
+  }
+
   .layout_content_aside {
     nav {
       /* sticky for every nav, not just .navDocs */
@@ -28,10 +29,5 @@
       top: var(--header-height);
       padding: var(--lg1) var(--md3);
     }
-  }
-
-  .layout_content_main {
-    max-width: calc(70ch + (var(--lg1) * 2));
-    padding: var(--lg1);
   }
 }

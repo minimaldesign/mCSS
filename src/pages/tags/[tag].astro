@@ -20,8 +20,8 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 
-<BaseLayout bodyClass="layout-centered">
-  <main class="blog">
+<BaseLayout bodyClass="layout layout-centered">
+  <main class="blog layout_content_main">
     <h1>Posts tagged with  “{tag}”</h1>
     <ul class="blog_postListing">
       {
