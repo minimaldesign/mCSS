@@ -6,12 +6,18 @@ version: 0.1
 
 import Notice from "../../components/Notice.astro";
 
-## Available Media Queries
+<section class="prose">
+
+| File name                    | Source        |
+| ---------------------------- | ------------- |
+| `settings.media-queries.css` | [Github][src] |
+
+[src]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/settings.media-queries.css
 
 <Notice
   type="info"
   title="PostCSS needed for custom media queries"
-  extraClass="mb-sm3"
+  extraClass="mt-sm3 mb-sm3"
 >
   [custom media queries are](https://drafts.csswg.org/mediaqueries-5/#custom-mq)
   are not yet available without a [PostCSS
@@ -21,8 +27,11 @@ import Notice from "../../components/Notice.astro";
   though.)
 </Notice>
 
-<section class="prose">
+</section>
 
+## Available Media Queries
+
+<section class="prose">
 ### Dimensions
 
 | Token keyword | Dimension (px) |
