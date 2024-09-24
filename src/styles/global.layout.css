@@ -31,7 +31,7 @@
   }
 
   .layout_content_main {
-    max-width: calc(65ch + (var(--lg1) * 2));
+    max-width: calc(70ch + (var(--lg1) * 2));
     padding: var(--lg1);
   }
 }

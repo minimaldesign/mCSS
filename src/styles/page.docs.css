@@ -43,7 +43,7 @@ ul.docs_section_media {
   }
 }
 
-.docs_widthDemo {
+.docs_box {
   background-color: var(--primary-500);
   height: var(--md1);
 }
