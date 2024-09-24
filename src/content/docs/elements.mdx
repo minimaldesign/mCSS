@@ -18,12 +18,27 @@ import iconX from '../../assets/icons/x.svg?raw';
 ## Sectioning
 
 <section class="docs_section prose">
+
+| File name                 | Source                  |
+| ------------------------- | ----------------------- |
+| `elements.sectioning.css` | [Github][srcSectioning] |
+
+[srcSectioning]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.sectioning.css
+
   Technically, `address` and `h1` — `h6` are [content sectioning elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning), like `header`, `section`, etc. But mCSS approach is to prioritize intuitiveness and ease of use rather than technical correctness, so they're included here with the rest of the text elements.
 </section>
 
 ## Text
 
 <section class="docs_section prose">
+
+
+| File name                 | Source                  |
+| ------------------------- | ----------------------- |
+| `elements.text.css` | [Github][srcText] |
+
+[srcText]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.text.css
+
   ### Headings
 
   <h1>Heading One</h1>
@@ -45,9 +60,7 @@ import iconX from '../../assets/icons/x.svg?raw';
   <h2>H2 right aftert a H1</h2>
   <h3>H3 right aftert a H2</h3>
   <h4>H4 right aftert a H3</h4>
-</section>
 
-<section class="docs_section prose">
   ### Inline Elements
 
 | Element    | Example                                                                      |
@@ -180,8 +193,15 @@ import iconX from '../../assets/icons/x.svg?raw';
 
 ## Table
 
-
 <section class="docs_section prose">
+
+
+| File name            | Source             |
+| -------------------- | ------------------ |
+| `elements.table.css` | [Github][srcTable] |
+
+[srcTable]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.table.css
+
   <table>
     <caption>Numbers of albums recorded</caption>
     <thead>
@@ -225,6 +245,12 @@ import iconX from '../../assets/icons/x.svg?raw';
 ## Form
 
 <section class="docs_section prose">
+
+| File name            | Source           |
+| -------------------- | ---------------- |
+| `elements.form.css` | [Github][srcForm] |
+
+[srcForm]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.form.css
 
 See [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn/Forms/How_to_structure_a_web_form) on MDN.
 
@@ -457,9 +483,47 @@ legend {
   </form>
 </section>
 
+  ### Meter
+
+```html
+<meter value="2" min="0" max="10" low="3" high="6" optimum="8">
+    2 out of 10
+</meter>
+<meter value="5" min="0" max="10" low="3" high="6" optimum="8">
+    5 out of 10
+</meter>
+<meter value="8" min="0" max="10" low="3" high="6" optimum="8">
+    8 out of 10
+</meter>
+  ```
+
+<p>
+  <meter value="2" min="0" max="10" low="3" high="6" optimum="8">2 out of 10</meter>
+</p>
+<p>
+  <meter value="5" min="0" max="10" low="3" high="6" optimum="8">5 out of 10</meter>
+</p>
+<p class="mb-lg3">
+  <meter value="8" min="0" max="10" low="3" high="6" optimum="8">8 out of 10</meter>
+</p>
+
+### Progress
+
+<p class="mb-lg3">
+  <label for="progress-bar">Uploading Document: 70%</label>
+  <progress id="progress-bar" value="70" max="100">70%</progress>
+</p>
+
 ## Media
 
 <section class="docs_section prose">
+
+| File name            | Source             |
+| -------------------- | ------------------ |
+| `elements.media.css` | [Github][srcMedia] |
+
+[srcMedia]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.media.css
+
   <ul class="docs_section_media">
     <li>
       Plain `<img>` element
@@ -516,37 +580,6 @@ legend {
 </section>
 
 <section class="docs_section prose">
-  ### Meter
-
-```html
-<meter value="2" min="0" max="10" low="3" high="6" optimum="8">
-    2 out of 10
-</meter>
-<meter value="5" min="0" max="10" low="3" high="6" optimum="8">
-    5 out of 10
-</meter>
-<meter value="8" min="0" max="10" low="3" high="6" optimum="8">
-    8 out of 10
-</meter>
-  ```
-
-  <p>
-    <meter value="2" min="0" max="10" low="3" high="6" optimum="8">2 out of 10</meter>
-  </p>
-  <p>
-    <meter value="5" min="0" max="10" low="3" high="6" optimum="8">5 out of 10</meter>
-  </p>
-  <p class="mb-lg3">
-    <meter value="8" min="0" max="10" low="3" high="6" optimum="8">8 out of 10</meter>
-  </p>
-
-  ### Progress
-
-  <p class="mb-lg3">
-    <label for="progress-bar">Uploading Document: 70%</label>
-    <progress id="progress-bar" value="70" max="100">70%</progress>
-  </p>
-
   ### Inline SVG
   <svg width="100px" height="100px">
     <circle cx="50" cy="50" r="50" fill="#0ea5e9"></circle>
@@ -555,7 +588,14 @@ legend {
 
 ## Interactive
 
-<section class="docs_section">
+<section class="docs_section prose">
+
+| File name            | Source             |
+| -------------------- | ------------------ |
+| `elements.interactive.css` | [Github][srcInteractive] |
+
+[srcInteractive]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.interactive.css
+
   ### Details & Summary
   <details>
     <summary>Expand for details</summary>
