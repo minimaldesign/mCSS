@@ -19,23 +19,7 @@ body {
 /* CONTENT SECTIONING ELEMENTS */
 
 address {
-  width: max-content;
-  padding: var(--sm1) var(--sm3);
-  font-style: normal;
-  background-color: var(--base-50);
-  border: var(--xs2) solid transparent;
-  border-image: 8
-    repeating-linear-gradient(
-      -45deg,
-      var(--no-500) 0,
-      var(--no-500) var(--xs2),
-      transparent 0,
-      transparent calc(var(--xs2) * 2),
-      var(--primary-500) 0,
-      var(--primary-500) calc(var(--xs2) * 3),
-      transparent 0,
-      transparent calc(var(--xs2) * 4)
-    );
+  /* moved to elements.text.css where most people would assume it is */
 }
 
 article {
