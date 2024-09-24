@@ -135,30 +135,20 @@ ul.docs_section_media {
   }
 }
 
-/* TODO: REFACTOR */
-
-.ds {
-  margin-bottom: var(--lg3);
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-
-.ds div {
-  width: 100px;
-  aspect-ratio: var(--ar-square);
-}
-
 .docs_canvas {
   background-color: var(--primary-900);
 }
 
 .docs_grid {
-  border: 1px solid var(--primary-950);
+  border: 1px solid var(--base-200);
   margin: var(--sm3) 0;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 
   .grid_item {
-    padding: var(--sm2);
-    background-color: var(--primary-900);
-    color: var(--primary-50);
+    padding: var(--xs2);
+    background-color: var(--primary-500);
+    color: var(--base-0);
   }
 }
