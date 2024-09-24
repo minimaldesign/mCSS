@@ -109,6 +109,32 @@ ul.docs_section_media {
   }
 }
 
+.docs_shadow {
+  div {
+    width: var(--xl1);
+    height: var(--xl1);
+    margin: var(--sm1);
+  }
+
+  tr {
+    &:nth-child(1) div {
+      box-shadow: var(--shadow-sm);
+    }
+    &:nth-child(2) div {
+      box-shadow: var(--shadow-md);
+    }
+    &:nth-child(3) div {
+      box-shadow: var(--shadow-lg);
+    }
+    &:nth-child(4) div {
+      box-shadow: var(--shadow-xl);
+    }
+    &:nth-child(5) div {
+      box-shadow: var(--shadow-xxl);
+    }
+  }
+}
+
 /* TODO: REFACTOR */
 
 .ds {

@@ -26,9 +26,7 @@ Themes offer an additional layer of abstraction for tokens (ie. `settings.theme.
 
 `elements.*`, `global.*`, and `page.*` files tend to use abstracted theme tokens, while `component.*` generally use low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new theme token is probably the best option.
 
-## Low level tokens
-
-### Dimensions
+### Dimension
 
 Dimension tokens can be used anywhere you need to set `margin`, `padding`, `width`, `height`, etc.
 
@@ -62,7 +60,7 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 | `tera2` | 480px | <div class="docs_box w-tera2"></div> |
 | `tera3` | 520px | <div class="docs_box w-tera3"></div> |
 
-### Aspect ratios
+### Aspect ratio
 
 | Token           | Value   | Demo                                       |
 | --------------- | ------- | ------------------------------------------ |
@@ -74,7 +72,7 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 
 ### Typography
 
-#### Font stacks
+#### Font stack
 
 There are 3 font stacks set up by default for the `font-family` CSS Property.
 
@@ -94,7 +92,7 @@ If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.
   sans-serif.
 </Notice>
 
-#### Font sizes
+#### Font size
 
 Check out [typescale.com ](https://typescale.com) if you need help creating your own sizes.
 
@@ -110,7 +108,7 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 | `display-lg` | 2.488rem | <div class="display-lg">Sample demo text</div> |
 | `display-xl` | 2.986rem | <div class="display-xl">Sample demo text</div> |
 
-#### Font weights
+#### Font weight
 
 | Token         | Value | Demo                                            |
 | ------------- | ----- | ----------------------------------------------- |
@@ -142,7 +140,7 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 | `leading-xl`  | 1.75  | <div class="docs_lineHeightDemo leading-xl">Sample demo text</div>  |
 | `leading-xxl` | 2     | <div class="docs_lineHeightDemo leading-xxl">Sample demo text</div> |
 
-### Colors
+### Color
 
 Check out [tints.dev](https://www.tints.dev) if you want to make your own palettes programmatically.
 
@@ -238,24 +236,53 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 
 </div>
 
-### Drop Shadows
+### Drop Shadow
 
-<ul class="ds">
-  <li>
-    <div class="shadow-1"></div>
-  </li>
-  <li>
-    <div class="shadow-2"></div>
-  </li>
-  <li>
-    <div class="shadow-3"></div>
-  </li>
-  <li>
-    <div class="shadow-4"></div>
-  </li>
-  <li>
-    <div class="shadow-5"></div>
-  </li>
-</ul>
+<div class="docs_shadow">
+
+It wouldn't be super useful to list the values here. You can look at them [on Github][githubShadows] if you're curious.
+
+[githubShadows]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/settings.tokens.css#L215
+
+| Token        | Demo        |
+| ------------ | ----------- |
+| `shadow-sm`  | <div></div> |
+| `shadow-md`  | <div></div> |
+| `shadow-lg`  | <div></div> |
+| `shadow-xl`  | <div></div> |
+| `shadow-xxl` | <div></div> |
+
+</div>
+
+### Opacity
+
+| Token | Value |
+| ----- | ----- |
+| `o-0` | 0     |
+| `o-1` | 0.2   |
+| `o-2` | 0.4   |
+| `o-3` | 0.6   |
+| `o-4` | 0.8   |
+| `o-5` | 1     |
+
+### Z-Index
+
+| Token      | Value       |
+| ---------- | ----------- |
+| `z-bottom` | -1000000000 |
+| `z-0`      | 0           |
+| `z-1`      | 10          |
+| `z-2`      | 20          |
+| `z-3`      | 30          |
+| `z-4`      | 40          |
+| `z-5`      | 50          |
+| `z-top`    | 1000000000  |
+
+### Transition
+
+| Token             | Value             |
+| ----------------- | ----------------- |
+| `transition`      | 220ms ease-in-out |
+| `transition-fast` | 100ms ease-in-out |
 
 </section>

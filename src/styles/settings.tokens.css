@@ -235,7 +235,7 @@ xxl: 1920px
   /* Z-INDEX */
 
   --z-bottom: -1000000000;
-  --z-0: 0; /* overkill for consistancy */
+  --z-0: 0; /* overkill for consistency */
   --z-1: 10;
   --z-2: 20;
   --z-3: 30;
@@ -243,7 +243,7 @@ xxl: 1920px
   --z-5: 50;
   --z-top: 1000000000;
 
-  /* ANIMATIONS */
+  /* TRANSITIONS */
 
   --transition: 220ms ease-in-out;
   --transition-fast: 100ms ease-in-out;
