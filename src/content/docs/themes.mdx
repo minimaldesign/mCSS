@@ -4,6 +4,19 @@ lastUpdate: 2024-08-07
 version: 0.1
 ---
 
-## Default
+import Notice from "../../components/Notice.astro";
 
-## Wireframes
+<Notice type="warning" title="Work in progress" extraClass="mt-lg1">
+  This feature is still in beta and the implementation details are likely to
+  change while the mCSS components are built out. However, if you use the mCSS
+  framework to build your own components, it is recommended to use a theme as a
+  token abstraction layer. See the _Getting Started_ section for more info.
+</Notice>
+
+## Default theme
+
+<section class="prose">
+
+Themes offer an additional layer of abstraction for [tokens](/docs/tokens). Theme tokens only ever take another token for value and are useful to standardize UI elements in logical groups. For example, you can have a `--light-border-color` with a value of `--base-100`. This allows you to create tokens with meaning and context which makes them more intuitive to use.
+
+</section>
