@@ -127,12 +127,66 @@ The following example goes from 1 → 4 → 9 → 12 columns.
 
 ## Wrap
 
-The
+<section class="docs_section prose">
+
+| File name         | Source            |
+| ----------------- | ----------------- |
+| `global.wrap.css` | [Github][srcWrap] |
+
+[srcWrap]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/global.wrap.css
+
+The `.wrap` global class is a simple content wrapper that will center your content on the page and add some left/right padding on small viewports.
+
+### Syntax
+
+```html
+<div class="wrap">
+  <section class="wrap_content">
+    <!-- content -->
+  </section>
+</div>
+```
+
+### Settings
+
+You can customize 3 diffent sizes of left/right padding for responsive designs as well as the width of your content. The values below are set in the default theme.
+
+| token             | value                  | Description                      |
+| ----------------- | ---------------------- | -------------------------------- |
+| `wrap-padding`    | `var(--sm1)`           | default left/right padding       |
+| `wrap-md-padding` | `var(--sm3)`           | left/right padding tablet and up |
+| `wrap-lg-padding` | `0`                    | left/right padding laptop and up |
+| `wrap-width`      | `minmax(300px, 800px)` | 300px minimum, 800px maximum     |
+
+- More info on [themes](/docs/themes).
+- More info on [responsive setup](/docs/media-queries#recommended-responsive-setup).
+
+</section>
 
 ## Layouts
 
+<section class="docs_section prose">
+
+| File name           | Source              |
+| ------------------- | ------------------- |
+| `global.layout.css` | [Github][srcLayout] |
+
+[srcLayout]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/global.layout.css
+
 This global `.prose` can be used anywhere you need basic typography. It sets up these default styles:
+
+</section>
 
 ## Prose
 
+<section class="docs_section prose">
+
+| File name          | Source             |
+| ------------------ | ------------------ |
+| `global.prose.css` | [Github][srcProse] |
+
+[srcProse]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/global.prose.css
+
 This global `.prose` can be used anywhere you need basic typography. It sets up these default styles:
+
+</section>
