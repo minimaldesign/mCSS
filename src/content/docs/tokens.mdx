@@ -18,7 +18,11 @@ import Notice from "../../components/Notice.astro";
 
 In mCSS, tokens are CSS custom properties that provide a flexible, coherent, and harmonious set of values designed to make implementing UI/UX projects fast and easy.
 
+</section>
+
 ## How to use tokens
+
+<section class="prose">
 
 When you start a new project, open `settings.tokens.css` and change the values of as many tokens as necessary to match the design you're planning to implement. (Things like spacing might not need to change, but you'll almost certainly need to customize your `base` and `primary` colors for instance.)
 
@@ -26,7 +30,11 @@ Themes offer an additional layer of abstraction for tokens (ie. `settings.theme.
 
 `elements.*`, `global.*`, and `page.*` files tend to use abstracted theme tokens, while `component.*` generally use low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new theme token is probably the best option.
 
-### Dimension
+</section>
+
+## Dimension
+
+<section class="prose">
 
 Dimension tokens can be used anywhere you need to set `margin`, `padding`, `width`, `height`, etc.
 
@@ -60,7 +68,11 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 | `tera2` | 480px | <div class="docs_box w-tera2"></div> |
 | `tera3` | 520px | <div class="docs_box w-tera3"></div> |
 
-### Aspect ratio
+</section>
+
+## Aspect ratio
+
+<section class="prose">
 
 | Token           | Value   | Demo                                       |
 | --------------- | ------- | ------------------------------------------ |
@@ -70,9 +82,13 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 | `ar-widescreen` | 16/9    | <div class="docs_box ar-widescreen"></div> |
 | `ar-golden`     | 1.618/1 | <div class="docs_box ar-golden"></div>     |
 
-### Typography
+</section>
 
-#### Font stack
+## Typography
+
+<section class="prose">
+
+### Font stack
 
 There are 3 font stacks set up by default for the `font-family` CSS Property.
 
@@ -86,13 +102,13 @@ These stacks are optimized for fonts available on device, to maximize for speed 
 
 If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.com), you can override the `display` and `text` tokens inside your theme file.
 
-<Notice type="info" title="Note">
+<Notice type="info" title="Note" extraClass="mb-sm3">
   In case you're curious, `ui-sans-serif` is the system default, `sans-serif` is
   the browser default, and `system-ui` is the system default, wether serif or
   sans-serif.
 </Notice>
 
-#### Font size
+### Font size
 
 Check out [typescale.com ](https://typescale.com) if you need help creating your own sizes.
 
@@ -108,7 +124,7 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 | `display-lg` | 2.488rem | <div class="display-lg">Sample demo text</div> |
 | `display-xl` | 2.986rem | <div class="display-xl">Sample demo text</div> |
 
-#### Font weight
+### Font weight
 
 | Token         | Value | Demo                                            |
 | ------------- | ----- | ----------------------------------------------- |
@@ -119,7 +135,7 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 | `bold`        | 700   | <div class="bold">Sample demo text</div>        |
 | `black`       | 900   | <div class="black">Sample demo text</div>       |
 
-#### Letter spacing
+### Letter spacing
 
 | Token          | Value   | Demo                                             |
 | -------------- | ------- | ------------------------------------------------ |
@@ -129,7 +145,7 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 | `tracking-xl`  | 0.075em | <div class="tracking-xl">Sample demo text</div>  |
 | `tracking-xxl` | 0.15em  | <div class="tracking-xxl">Sample demo text</div> |
 
-#### Line height
+### Line height
 
 | Token         | Value | Demo                                                                |
 | ------------- | ----- | ------------------------------------------------------------------- |
@@ -140,13 +156,17 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 | `leading-xl`  | 1.75  | <div class="docs_lineHeightDemo leading-xl">Sample demo text</div>  |
 | `leading-xxl` | 2     | <div class="docs_lineHeightDemo leading-xxl">Sample demo text</div> |
 
-### Color
+</section>
+
+## Color
+
+<section class="prose">
 
 Check out [tints.dev](https://www.tints.dev) if you want to make your own palettes programmatically.
 
 <div class="grid" col="1" col-lg="2">
   <div class="grid_item">
-  #### Base
+  ### Base
 
 | Token      | Value   | Demo                                      |
 | ---------- | ------- | ----------------------------------------- |
@@ -165,7 +185,7 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 
   </div>
   <div class="grid_item">
-  #### Primary
+  ### Primary
 
 | Token         | Value   | Demo                                         |
 | ------------- | ------- | -------------------------------------------- |
@@ -183,7 +203,7 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 
   </div>
   <div class="grid_item">
-  #### Feedback
+  ### Feedback
 
 | Token       | Value   | Demo                                       |
 | ----------- | ------- | ------------------------------------------ |
@@ -206,9 +226,29 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
   </div>
 </div>
 
-### Border width
+</section>
 
-<div class="docs_border">
+## Borders
+
+<section class="prose">
+  <div class="grid" col="1" col-lg="2">
+    <div class="grid_item docs_radius">
+
+### Border radius
+
+| Token          | Value | Demo        |
+| -------------- | ----- | ----------- |
+| `radius-sm`    | 3px   | <div></div> |
+| `radius-md`    | 5px   | <div></div> |
+| `radius-lg`    | 8px   | <div></div> |
+| `radius-xl`    | 12px  | <div></div> |
+| `radius-xxl`   | 16px  | <div></div> |
+| `radius-round` | 1e5px | <div></div> |
+
+    </div>
+    <div class="grid_item docs_border">
+
+      ### Border width
 
 | Token        | Value | Demo        |
 | ------------ | ----- | ----------- |
@@ -218,31 +258,22 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 | `border-xl`  | 8px   | <div></div> |
 | `border-xxl` | 12px  | <div></div> |
 
-</div>
+    </div>
 
-### Border radius
+  </div>
+</section>
 
-<div class="docs_radius">
+## Drop Shadow
 
-| Token          | Value                                         | Demo        |
-| -------------- | --------------------------------------------- | ----------- |
-| `radius-sm`    | 3px                                           | <div></div> |
-| `radius-md`    | 5px                                           | <div></div> |
-| `radius-lg`    | 8px                                           | <div></div> |
-| `radius-xl`    | 12px                                          | <div></div> |
-| `radius-xxl`   | 16px                                          | <div></div> |
-| `radius-round` | 1e5px                                         | <div></div> |
-| `radius-drawn` | 255px 15px 225px 15px / 15px 225px 15px 255px | <div></div> |
-
-</div>
-
-### Drop Shadow
-
-<div class="docs_shadow">
+<section class="prose">
 
 It wouldn't be super useful to list the values here. You can look at them [on Github][githubShadows] if you're curious.
 
 [githubShadows]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/settings.tokens.css#L215
+
+</section>
+<section class="prose">
+  <div class="docs_shadow">
 
 | Token        | Demo        |
 | ------------ | ----------- |
@@ -252,7 +283,7 @@ It wouldn't be super useful to list the values here. You can look at them [on Gi
 | `shadow-xl`  | <div></div> |
 | `shadow-xxl` | <div></div> |
 
-</div>
+  </div>
 
 ### Opacity
 
