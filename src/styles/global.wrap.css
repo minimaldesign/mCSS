@@ -11,7 +11,19 @@
     grid-column: 2;
     padding-left: var(--wrap-padding);
     padding-right: var(--wrap-padding);
+    @media (--md) {
+      padding-left: var(--wrap-md-padding);
+      padding-right: var(--wrap-md-padding);
+    }
+    @media (--lg) {
+      padding-left: var(--wrap-lg-padding);
+      padding-right: var(--wrap-lg-padding);
+    }
   }
+}
+
+.wrap_content {
+  background-color: var(--primary-200);
 }
 
 .wrap_content-fullbleed {

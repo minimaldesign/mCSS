@@ -41,7 +41,9 @@
   --grid-column-gap: var(--sm3);
   --grid-row-gap: var(--sm3);
 
-  --wrap-padding: var(--sm3);
+  --wrap-padding: var(--sm1);
+  --wrap-md-padding: var(--sm3);
+  --wrap-lg-padding: 0;
   --wrap-width: minmax(300px, 800px);
 
   --layout_content_aside-width: 245px;
