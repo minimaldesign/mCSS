@@ -25,6 +25,91 @@ Below is a list of all the available helpers. mCSS doesn't include every single 
 
 </section>
 
+## Spacing
+
+<section class="prose">
+| File name          | Source               |
+| ------------------ | -------------------- |
+| `help.spacing.css` | [Github][srcSpacing] |
+
+[srcSpacing]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.spacing.css
+
+### width, height, margin, and padding
+
+You can combine these properties with any [dimension token](/docs/token#dimension) as well as `0`:
+
+| CSS property     | Class prefix |
+| ---------------- | ------------ |
+| `width`          | `w`          |
+| `height`         | `h`          |
+| `margin`         | `m`          |
+| `margin-top`     | `mt`         |
+| `margin-bottom`  | `mb`         |
+| `margin-left`    | `ml`         |
+| `margin-right`   | `mr`         |
+| `padding`        | `p`          |
+| `padding-top`    | `pt`         |
+| `padding-bottom` | `pb`         |
+| `padding-left`   | `pl`         |
+| `padding-right`  | `pr`         |
+
+#### Examples
+
+| Class    | Value                       |
+| -------- | --------------------------- |
+| `w-lg1`  | `width: var(--lg1)`         |
+| `ml-0`   | `margin-left: 0`            |
+| `mb-sm1` | `margin-bottom: var(--sm1)` |
+
+```html
+<div class="component mb-lg3">
+  A component with an extra bottom margin of 48px.
+</div>
+
+<div class="component p-md1">A component with an extra padding of 28px.</div>
+```
+
+</section>
+
+## Colors
+
+<section class="prose">
+| File name         | Source              |
+| ----------------- | ------------------- |
+| `help.colors.css` | [Github][srcColors] |
+
+[srcColors]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.colors.css
+
+### color, background-color, and border-color
+
+You can combine this properties with any [color token](/docs/tokens#color):
+
+| CSS property       | Class prefix |
+| ------------------ | ------------ |
+| `color`            | `c`          |
+| `background-color` | `bgc`        |
+| `border-color`     | `bdc`        |
+
+#### Examples
+
+| Class               | Value                               |
+| ------------------- | ----------------------------------- |
+| `bgc-base-200`      | `background-color: var(--base-200)` |
+| `bdc-yes-500`       | `border-color: var(--yes-500)`      |
+| `color-primary-500` | `color: var(--primary-500)`         |
+
+<div class="c-base-0 bgc-primary-600 p-sm1">
+  <p class="mb-0">A block with with custom colors.</p>
+</div>
+
+```html
+<div class="c-base-0 bgc-primary-600">
+  <p>A block with with custom colors.</p>
+</div>
+```
+
+</section>
+
 ## Layout
 
 <section class="prose">
@@ -110,52 +195,6 @@ Helper classes for the `z-index` property. See also the [z-index token docs](doc
 | `--ar-portrait`   | 3/4       | `.ar-portrait`   |
 | `--ar-widescreen` | 16/9      | `.ar-widescreen` |
 | `--ar-golden`     | 1.618/1   | `.ar-golden`     |
-
-</section>
-
-## Spacing
-
-<section class="prose">
-| File name          | Source               |
-| ------------------ | -------------------- |
-| `help.spacing.css` | [Github][srcSpacing] |
-
-[srcSpacing]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.spacing.css
-
-### width, height, margin, and padding
-
-You can combine these properties with any [dimension token](/docs/token#dimension) as well as `0`:
-
-| CSS property     | Class prefix |
-| ---------------- | ------------ |
-| `width`          | `w`          |
-| `height`         | `h`          |
-| `margin`         | `m`          |
-| `margin-top`     | `mt`         |
-| `margin-bottom`  | `mb`         |
-| `margin-left`    | `ml`         |
-| `margin-right`   | `mr`         |
-| `padding`        | `p`          |
-| `padding-top`    | `pt`         |
-| `padding-bottom` | `pb`         |
-| `padding-left`   | `pl`         |
-| `padding-right`  | `pr`         |
-
-#### Examples
-
-| Class    | Value                       |
-| -------- | --------------------------- |
-| `w-lg1`  | `width: var(--lg1)`         |
-| `ml-0`   | `margin-left: 0`            |
-| `mb-sm1` | `margin-bottom: var(--sm1)` |
-
-```html
-<div class="component mb-lg3">
-  A component with an extra bottom margin of 48px.
-</div>
-
-<div class="component p-md1">A component with an extra padding of 28px.</div>
-```
 
 </section>
 
@@ -245,44 +284,5 @@ See the [line height tokens](/docs/tokens#line-height) for details.
 | `uppercase`  | `.text-uppercase`  |
 | `lowercase`  | `.text-lowercase`  |
 | `capitalize` | `.text-capitalize` |
-
-</section>
-
-## Colors
-
-<section class="prose">
-| File name         | Source              |
-| ----------------- | ------------------- |
-| `help.colors.css` | [Github][srcColors] |
-
-[srcColors]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.colors.css
-
-### color, background-color, and border-color
-
-You can combine this properties with any [color token](/docs/tokens#color):
-
-| CSS property       | Class prefix |
-| ------------------ | ------------ |
-| `color`            | `c`          |
-| `background-color` | `bgc`        |
-| `border-color`     | `bdc`        |
-
-#### Examples
-
-| Class               | Value                               |
-| ------------------- | ----------------------------------- |
-| `bgc-base-200`      | `background-color: var(--base-200)` |
-| `bdc-yes-500`       | `border-color: var(--yes-500)`      |
-| `color-primary-500` | `color: var(--primary-500)`         |
-
-<div class="c-base-0 bgc-primary-600 p-sm1">
-  <p class="mb-0">A block with with custom colors.</p>
-</div>
-
-```html
-<div class="c-base-0 bgc-primary-600">
-  <p>A block with with custom colors.</p>
-</div>
-```
 
 </section>
