@@ -10,7 +10,6 @@ Helpers are classes with high specificity for very targeted "one-off" local over
 - Designer's request to "make an exception"
 - Quick fix until refactor
 - Temporary test/design
-- Etc.
 
 Let's say the request is: _"This component just doesn't look right in that context, can we just increase the top and bottom padding?"_ You would use the spacing helper this way:
 
@@ -22,46 +21,268 @@ Let's say the request is: _"This component just doesn't look right in that conte
 
 Using helpers is optional and mCSS will work just fine without them. None of the mCSS components rely on them. If you do use them in your project, it's recommended to use [PurgeCSS](https://purgecss.com/getting-started.html) to keep your CSS size to a minimum. For Astro users, the [astro-purgecss integration](https://github.com/codiume/orbit/tree/main/packages/astro-purgecss) does everything for you out of the box once you install it.
 
-Below is a list of all the available helpers. mCSS doesn't include every single CSS property like utility classes frameworks do. It only includes the ones you actually need in those "one-off" situations. I've never needed more than that, but I'm open to add anything that would be useful. Just [open an issue on Github](https://github.com/minimaldesign/mCSS/issues) with a legitimate use case and I'll add it in.
+Below is a list of all the available helpers. mCSS doesn't include every single CSS property like utility classes frameworks do. It only includes the ones you actually need in those "one-off" situations. I've never needed more than that, but I'm open to add anything that would be useful. Just [open an issue on Github](https://github.com/minimaldesign/mCSS/issues) with your use case and I'll add it in.
 
 </section>
 
 ## Layout
 
+<section class="prose">
+| File name         | Source              |
+| ----------------- | ------------------- |
+| `help.layout.css` | [Github][srcLayout] |
+
+[srcLayout]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.layout.css
+
 ### overflow
+
+| CSS property | CSS value | Class                 | Short class     |
+| ------------ | --------- | --------------------- | --------------- |
+| `overflow`   | `auto`    | `.overflow-auto`      | `.of-auto`      |
+| `overflow`   | `hidden`  | `.overflow-hidden`    | `.of-hidden`    |
+| `overflow`   | `clip`    | `.overflow-clip`      | `.of-clip`      |
+| `overflow`   | `visible` | `.overflow-visible`   | `.of-visible`   |
+| `overflow`   | `scroll`  | `.overflow-scroll`    | `.of-scroll`    |
+| `overflow-x` | `auto`    | `.overflow-x-auto`    | `.of-x-auto`    |
+| `overflow-y` | `auto`    | `.overflow-y-auto`    | `.of-y-auto`    |
+| `overflow-x` | `hidden`  | `.overflow-x-hidden`  | `.of-x-hidden`  |
+| `overflow-y` | `hidden`  | `.overflow-y-hidden`  | `.of-y-hidden`  |
+| `overflow-x` | `clip`    | `.overflow-x-clip`    | `.of-x-clip`    |
+| `overflow-y` | `clip`    | `.overflow-y-clip`    | `.of-y-clip`    |
+| `overflow-x` | `visible` | `.overflow-x-visible` | `.of-x-visible` |
+| `overflow-y` | `visible` | `.overflow-y-visible` | `.of-y-visible` |
+| `overflow-x` | `scroll`  | `.overflow-x-scroll`  | `.of-x-scroll`  |
+| `overflow-y` | `scroll`  | `.overflow-y-scroll`  | `.of-y-scroll`  |
 
 ### position
 
+Helper classes for the `position` property.
+
+| CSS value  | Class                | Short class |
+| ---------- | -------------------- | ----------- |
+| `static`   | `.position-static`   | `.static`   |
+| `fixed`    | `.position-fixed`    | `.fixed`    |
+| `absolute` | `.position-absolute` | `.absolute` |
+| `relative` | `.position-relative` | `.relative` |
+| `sticky`   | `.position-sticky`   | `.sticky`   |
+
 ### visibility
+
+Helper classes for the `visibility` property.
+
+| CSS value  | Class                  | Short class |
+| ---------- | ---------------------- | ----------- |
+| `visible`  | `.visibility-visible`  | `.visible`  |
+| `hidden`   | `.visibility-hidden`   | `.hidden`   |
+| `collapse` | `.visibility-collapse` | `.collapse` |
+| `collapse` | `.visibility-collapse` | `.collapse` |
 
 ### z-index
 
+Helper classes for the `z-index` property. See also the [z-index token docs](docs/tokens#z-index).
+
+| Custom Property | CSS Value   | Class       |
+| --------------- | ----------- | ----------- |
+| `--z-bottom`    | -1000000000 | `.z-bottom` |
+| `--z-0`         | 0           | `.z-0`      |
+| `--z-1`         | 10          | `.z-1`      |
+| `--z-2`         | 20          | `.z-2`      |
+| `--z-3`         | 30          | `.z-3`      |
+| `--z-4`         | 40          | `.z-4`      |
+| `--z-5`         | 50          | `.z-5`      |
+| `--z-top`       | 1000000000  | `.z-top`    |
+
+</section>
+
+## Aspect ratios
+
+<section class="prose">
+| File name         | Source              |
+| ----------------- | ------------------- |
+| `help.ratios.css` | [Github][srcRatios] |
+
+[srcRatios]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.ratios.css
+
+| Custom Property   | CSS Value | Class            |
+| ----------------- | --------- | ---------------- |
+| `--ar-square`     | 1         | `.ar-square`     |
+| `--ar-landscape`  | 4/3       | `.ar-landscape`  |
+| `--ar-portrait`   | 3/4       | `.ar-portrait`   |
+| `--ar-widescreen` | 16/9      | `.ar-widescreen` |
+| `--ar-golden`     | 1.618/1   | `.ar-golden`     |
+
+</section>
+
 ## Spacing
 
-### margin
+<section class="prose">
+| File name          | Source               |
+| ------------------ | -------------------- |
+| `help.spacing.css` | [Github][srcSpacing] |
 
-### padding
+[srcSpacing]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.spacing.css
+
+### width, height, margin, and padding
+
+You can combine these properties with any [dimension token](/docs/token#dimension) as well as `0`:
+
+| CSS property     | Class prefix |
+| ---------------- | ------------ |
+| `width`          | `w`          |
+| `height`         | `h`          |
+| `margin`         | `m`          |
+| `margin-top`     | `mt`         |
+| `margin-bottom`  | `mb`         |
+| `margin-left`    | `ml`         |
+| `margin-right`   | `mr`         |
+| `padding`        | `p`          |
+| `padding-top`    | `pt`         |
+| `padding-bottom` | `pb`         |
+| `padding-left`   | `pl`         |
+| `padding-right`  | `pr`         |
+
+#### Examples
+
+| Class    | Value                       |
+| -------- | --------------------------- |
+| `w-lg1`  | `width: var(--lg1)`         |
+| `ml-0`   | `margin-left: 0`            |
+| `mb-sm1` | `margin-bottom: var(--sm1)` |
+
+```html
+<div class="component mb-lg3">
+  A component with an extra bottom margin of 48px.
+</div>
+
+<div class="component p-md1">A component with an extra padding of 28px.</div>
+```
+
+</section>
 
 ## Typography
 
+<section class="prose">
+| File name             | Source                  |
+| --------------------- | ----------------------- |
+| `help.typography.css` | [Github][srcTypography] |
+
+[srcTypography]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.typography.css
+
 ### font-family
 
-### font-size
+See the [font stack tokens](/docs/tokens#font-stack) for details.
+
+| Custom Property | Class           | Short class |
+| --------------- | --------------- | ----------- |
+| `--text`        | `.font-text`    | `.text`     |
+| `--display`     | `.font-display` | `.display`  |
+| `--mono`        | `.font-mono`    | `.mono`     |
 
 ### font-style
 
+| CSS value | Class          |
+| --------- | -------------- |
+| `italic`  | `.font-italic` |
+| `normal`  | `.font-normal` |
+
 ### font-weight
+
+See the [font weight tokens](/docs/tokens#font-weight) for details.
+
+| Custom Property | Class               | Short class    |
+| --------------- | ------------------- | -------------- |
+| `--extra-light` | `.font-extra-light` | `.extra-light` |
+| `--light`       | `.font-light`       | `.light`       |
+| `--book`        | `.font-book`        | `.book`        |
+| `--semi-bold`   | `.font-semi-bold`   | `.semi-bold`   |
+| `--bold`        | `.font-bold`        | `.bold`        |
+| `--black`       | `.font-black`       | `.black`       |
+
+### font-size
+
+See the [font size tokens](/docs/tokens#font-size) for details.
+
+| Custom Property | Class         |
+| --------------- | ------------- |
+| `--text-xs`     | `.text-xs`    |
+| `--text-sm`     | `.text-sm`    |
+| `--text-dm`     | `.text-dm`    |
+| `--text-lg`     | `.text-lg`    |
+| `--text-xl`     | `.text-xl`    |
+| `--display-sm`  | `.display-sm` |
+| `--display-md`  | `.display-md` |
+| `--display-lg`  | `.display-lg` |
+| `--display-xl`  | `.display-xl` |
 
 ### line-height
 
+See the [line height tokens](/docs/tokens#line-height) for details.
+
+| Custom Property | Class          |
+| --------------- | -------------- |
+| `--leading-xs`  | `.leading-xs`  |
+| `--leading-sm`  | `.leading-sm`  |
+| `--leading-md`  | `.leading-md`  |
+| `--leading-lg`  | `.leading-lg`  |
+| `--leading-xl`  | `.leading-xl`  |
+| `--leading-xxl` | `.leading-xxl` |
+
 ### text-align
+
+| CSS value | Class           |
+| --------- | --------------- |
+| `left`    | `.text-left`    |
+| `center`  | `.text-center`  |
+| `right`   | `.text-right`   |
+| `justify` | `.text-justify` |
+| `start`   | `.text-start`   |
+| `end`     | `.text-end`     |
 
 ### text-transform
 
+| CSS value    | Class              |
+| ------------ | ------------------ |
+| `uppercase`  | `.text-uppercase`  |
+| `lowercase`  | `.text-lowercase`  |
+| `capitalize` | `.text-capitalize` |
+
+</section>
+
 ## Colors
 
-### color
+<section class="prose">
+| File name         | Source              |
+| ----------------- | ------------------- |
+| `help.colors.css` | [Github][srcColors] |
 
-### background-color
+[srcColors]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/help.colors.css
 
-### border-color
+### color, background-color, and border-color
+
+You can combine this properties with any [color token](/docs/tokens#color):
+
+| CSS property       | Class prefix |
+| ------------------ | ------------ |
+| `color`            | `c`          |
+| `background-color` | `bgc`        |
+| `border-color`     | `bdc`        |
+
+#### Examples
+
+| Class               | Value                               |
+| ------------------- | ----------------------------------- |
+| `bgc-base-200`      | `background-color: var(--base-200)` |
+| `bdc-yes-500`       | `border-color: var(--yes-500)`      |
+| `color-primary-500` | `color: var(--primary-500)`         |
+
+<div class="c-base-0 bgc-primary-600 p-sm1">
+  <p class="mb-0">A block with with custom colors.</p>
+</div>
+
+```html
+<div class="c-base-0 bgc-primary-600">
+  <p>A block with with custom colors.</p>
+</div>
+```
+
+</section>
