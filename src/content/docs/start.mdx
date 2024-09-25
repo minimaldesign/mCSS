@@ -41,13 +41,18 @@ This how mCSS is organized. ([Github source][4].)
 @import url(./global.layout.css);
 @import url(./global.prose.css);
 
+/* Your content - start. */
+
 @import url(./page.blog.css);
-@import url(./page.docs.css);
+/* etc. */
 
 @import url(./component.button.css);
 /* etc. */
 
 @import url(./external.astro.css);
+/* etc. */
+
+/* Your content - end. */
 
 @import url(./help.layout.css);
 @import url(./help.spacing.css);
@@ -97,11 +102,11 @@ Page specific design elements and adjustments. These files are project specific 
 
 Self contained syles of single components. The mCSS framework is designed to be used on its own, allowing you to create your own components. But a collections of components built on top of mCSS is in developement.
 
-See the [components section][components] for more info..
+See the [components section][components] for more info.
 
 ### External
 
-The `external` layer is where all the CSS you don't have control over should go. This include CSS from npm packages, plugins, etc.
+The `external` layer is where all the CSS you don't have control over should go. This includes CSS from npm packages, plugins, etc.
 
 ### Helpers
 
