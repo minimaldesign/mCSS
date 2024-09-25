@@ -4,17 +4,20 @@ lastUpdate: 2024-09-02
 version: 1.0
 ---
 
+import Notice from "../../components/Notice.astro";
+
 <section class="prose">
 
 ## Framework agnostic UI component library
 
-The mCSS component library is entirely built with the mCSS framework. As long as you include mCSS in your project, all you have to do is copy + paste the HTML/CSS on each components page and it will work out of the box.
+<Notice type="warning" title="Work in progress" extraClass="mt-md1 mb-md1">
+  The component library is being actively worked on. The `button` and `.notice`
+  components included here are meant to be used as examples on how to build your
+  own.
+</Notice>
 
-There are 2 types of components:
+The mCSS component library is entirely built with the [mCSS framework](/docs/start). As long as you include **mCSS** in your project, all you have to do is copy + paste the HTML/CSS in your project, regardless of what framework you're using, and it will work out of the box.
 
-- **Global components:** styles that can be used throughout your UI, like [buttons](/components/button).
-- **Components:** self contained HTML/CSS pair, like a product card.
-
-I'm working on an Astro component library version that will use the same HTML/CSS. If you'd like to be notified when it's ready (and/or beta test it), you can [sign up to my mailing list here]().
+An [Astro](https://astro.build) version of the component library is worked on in parallel. If you'd like to be notified when it's ready (and/or beta test it), you can [sign up for my mailing list here]().
 
 </section>
