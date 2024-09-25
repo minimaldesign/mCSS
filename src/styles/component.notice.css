@@ -53,11 +53,11 @@
 }
 
 .notice-warning {
-  --bg-color: var(--maybe-100);
+  --bg-color: var(--maybe-200);
   --bd-color: var(--maybe-500);
   --svg-color: var(--maybe-400);
   --code-color: var(--maybe-500);
-  --code-bg-color: var(--maybe-200);
+  --code-bg-color: var(--maybe-100);
 }
 
 .notice-confirm {
