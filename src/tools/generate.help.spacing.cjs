@@ -1,4 +1,5 @@
 const sizes = [
+  0,
   "xs1",
   "xs2",
   "xs3",
@@ -52,9 +53,15 @@ function generateCSSClasses(sizes, properties) {
   for (const size of sizes) {
     for (const prop of properties) {
       const [className, cssProperty] = Object.entries(prop)[0];
-      cssOutput += `.${className}-${size} {\n`;
-      cssOutput += `  ${cssProperty}: var(--${size}) !important;\n`;
-      cssOutput += `}\n\n`;
+      if (typeof size === "number") {
+        cssOutput += `.${className}-${size} {\n`;
+        cssOutput += `  ${cssProperty}: ${size} !important;\n`;
+        cssOutput += `}\n\n`;
+      } else {
+        cssOutput += `.${className}-${size} {\n`;
+        cssOutput += `  ${cssProperty}: var(--${size}) !important;\n`;
+        cssOutput += `}\n\n`;
+      }
     }
   }
 
