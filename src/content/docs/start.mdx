@@ -5,7 +5,6 @@ version: 0.9
 ---
 
 <section class="prose">
-
 mCSS is both a CSS framework and a methodology. You need to first understand the methodology to use the framework correctly. There are 3 main parts to the methodology.
 
 1. The file structure
@@ -14,7 +13,11 @@ mCSS is both a CSS framework and a methodology. You need to first understand the
 
 Once you've read through the basics below, the best way to understand how it all comes together is to have a look at the [source code][src]. (Video tutorial coming soon!)
 
+</section>
+
 ## mCSS File structure
+
+<section class="docs_section prose">
 
 The file structure is based on [ITCSS][1], but with important differences detailed below. The basic idea is to organize your files in different [layers][layers] so that your CSS [rulesets][2] are organized from global low [specificity][3] to local high specificity. When done right, it takes care of all the common "shortcomings" of CSS such as specificity wars and cascading conflicts. Below is an overview of each layer. The full documentation of most layers is available from the sidebar.
 
@@ -112,7 +115,11 @@ The `external` layer is where all the CSS you don't have control over should go.
 
 [Helpers][helpers] provide high specificity classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Read [the docs][helpers] for more info on this.
 
+</section>
+
 ## mCSS classes syntax
+
+<section class="docs_section prose">
 
 Classes in mCSS are inspired by [BEM][bem], but they're simpler to use and easier to look at.
 
@@ -158,7 +165,11 @@ CSS:
 }
 ```
 
+</section>
+
 ## Components
+
+<section class="docs_section prose">
 
 ### Targetting HTML elements within a component
 
