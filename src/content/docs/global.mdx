@@ -132,12 +132,20 @@ The following example goes from 1 → 4 → 9 → 12 columns. (Resize window to 
 
 The `.wrap` global class is a simple content wrapper that will center your content on the page and add some left/right padding on small viewports.
 
+The default `.wrap_content` has a max width of `800px` by default (see below to customize) and there is a modifier `.wrap_content-fullbleed` that will extend to the full size of the viewport. See [demo](/demos/wrap).
+
 ### Syntax
 
 ```html
 <div class="wrap">
   <section class="wrap_content">
-    <!-- content -->
+    <!-- 800px wide content -->
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="wrap_content wrap_content-fullbleed">
+    <!-- Viewport width content -->
   </section>
 </div>
 ```
