@@ -44,7 +44,7 @@
   --wrap-padding: var(--sm1);
   --wrap-md-padding: var(--sm3);
   --wrap-lg-padding: 0;
-  --wrap-width: minmax(200px, 800px);
+  --wrap-width: minmax(200px, 70ch);
 
   --layout_content_aside-width: 245px;
   --layout_content_aside-background-color: var(--base-100);
