@@ -1,0 +1,36 @@
+.home {
+}
+
+/* INDEX */
+
+.home_hero {
+  text-align: center;
+  margin: var(--xl3) 0;
+
+  h1 {
+    font-size: var(--display-giga);
+    font-weight: var(--bold);
+    line-height: var(--leading-xs);
+  }
+
+  img {
+    margin: var(--md3) auto;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    font-size: var(--display-sm);
+    font-weight: var(--bold);
+    /* color: var(--base-500); */
+    li {
+      &:nth-child(n + 2) {
+        &::before {
+          content: "•";
+          padding: 0 var(--xs3);
+          color: var(--primary-700);
+        }
+      }
+    }
+  }
+}

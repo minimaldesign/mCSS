@@ -1,9 +1,36 @@
 ---
+import { Image } from 'astro:assets';
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 const title = 'The library for CSS lovers | mCSS';
 const header = 'mCSS';
+import mcssImg from '../assets/ui/mcss-logo.svg';
+import waterfallImg from '../assets/images/illustration-waterfall.svg';
 ---
 
-<BaseLayout title={title} header={header}>
-  <p>The CSS framework for designers who enjoy coding and engineers who care about design.</p>
+<BaseLayout title={title} header={header} bodyClass="home">
+  <div class="wrap">
+    <section class="wrap_content wrap_content-fullbleed home_hero">
+      <h1>The framework that makes the cascade work for you.</h1>
+      <Image src={waterfallImg} width="800" alt="Illustration of a waterfall" />
+      <ul>
+        <li>Easy</li>
+        <li>Fast</li>
+        <li>Scalable</li>
+        <li>Elegant</li>
+      </ul>
+      <!-- <Image src={mcssImg} width="300" alt="mCSS Logo" /> -->
+    </section>
+    <section class="wrap_content prose">
+      <h2>Embrace the true power of CSS</h2>
+      <p>Discover a CSS framework that honors the essence of the language rather than attempting to “fix” it. <strong>mCSS</strong> empowers front-end developers to harness the full potential of CSS without unnecessary complications.</p>
+      <h2>Simplify your workflow</h2>
+      <p>Say goodbye to tedious tasks and hello to efficiency! With <strong>mCSS</strong>, you can dive into your projects within minutes. Since it’s built on pure CSS, there’s no steep learning curve—just seamless integration into your existing workflow.</p>
+      <h2>Versatile for any project</h2>
+      <p>Whether you’re creating a quick static HTML mockup, enhancing a legacy PHP application, or building a component-based React app, <strong>mCSS</strong> is your go-to solution. Its flexibility allows you to adapt it for virtually any project that utilizes CSS.</p>
+      <h2>Perfect for teams of all sizes</h2>
+      <p><strong>mCSS</strong> features a modular architecture designed for scalability, making it ideal for both small teams and large collaborative projects. Enjoy the benefits of organized code and effortless teamwork as you bring your projects to life.</p>
+      <p class="mt-lg3 mb-lg3 text-center"><a class="bt bt-lg bt-primary" href="/docs/start">Get started in 10 mn or less</a></p>
+    </section>
+  </div>
 </BaseLayout>

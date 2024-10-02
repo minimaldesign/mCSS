@@ -28,6 +28,7 @@
 /* (Use sparingly. Component is probably  the way to go) */
 @import url(./page.blog.css);
 @import url(./page.docs.css);
+@import url(./page.home.css);
 
 /* Component specific styles */
 /* Should be added here or within the Astro component itself */
