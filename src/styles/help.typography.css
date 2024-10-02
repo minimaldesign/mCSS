@@ -99,6 +99,14 @@
   font-size: var(--display-xl) !important;
 }
 
+.display-mega {
+  font-size: var(--display-mega);
+}
+
+.display-giga {
+  font-size: var(--display-giga);
+}
+
 /* LETTER SPACING */
 
 .tracking-sm {

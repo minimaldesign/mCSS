@@ -107,6 +107,8 @@ xxl: 1920px
   --display-md: 2.074rem;
   --display-lg: 2.488rem;
   --display-xl: 2.986rem;
+  --display-mega: 3.583rem;
+  --display-giga: 4.299rem;
 
   /* Font Weights */
   --extra-light: 200;
