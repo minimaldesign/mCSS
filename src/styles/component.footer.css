@@ -1,0 +1,45 @@
+footer {
+  display: grid;
+  gap: var(--md3);
+  grid-template-columns: 25% 1fr;
+  padding: var(--lg3) var(--md3);
+  background-color: var(--primary-600);
+  color: var(--base-0);
+  line-height: var(--leading-xl);
+
+  a {
+    color: var(--base-0);
+    text-decoration: none;
+    font-weight: var(--book);
+    transition: color var(--transition);
+    &:hover {
+      color: var(--primary-200);
+    }
+  }
+}
+
+.footer_meta {
+  --logo-size: 25px;
+
+  /* & is just to make syntax highlighter happy */
+  & p:last-child {
+    margin-top: 1em;
+  }
+
+  span {
+    font-size: var(--text-lg);
+    line-height: 1;
+  }
+
+  svg {
+    display: inline-block;
+    margin-right: 0.25em;
+    width: var(--logo-size);
+    height: var(--logo-size);
+  }
+}
+
+.footer_nav > ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}

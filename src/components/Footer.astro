@@ -1,0 +1,45 @@
+---
+import logoImg from '../assets/ui/mcss-logo.svg?raw';
+
+import { VERSION } from '../scripts/globals';
+---
+
+<footer>
+  <section class="footer_meta">
+    <p>Made with <span>❤</span> in California by <a href="http://minimaldesign.net">minimal design</a></p>
+    <p>Released under the MIT <a href="https://github.com/minimaldesign/mCSS/blob/main/LICENSE">License</a></p>
+    <p><Fragment set:html={logoImg} /> mCSS v.{VERSION}</p>
+  </section>
+  <nav class="footer_nav">
+    <ul>
+      <li>
+        <h5>Documentation</h5>
+        <ul>
+          <li><a href="/docs/start">mCSS methodology</a></li>
+          <li><a href="/docs/tokens">Tokens</a></li>
+          <li><a href="/docs/media-queries">Responsive design</a></li>
+          <li><a href="/docs/global#grid">Grid system</a></li>
+          <li><a href="/docs/helpers">Utility classes</a></li>
+          <li><a href="/components/start">Component library</a></li>
+        </ul>
+      </li>
+      <li>
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="https://github.com/minimaldesign/mCSS/tree/main/src/styles">mCSS code</a></li>
+          <li><a href="https://github.com/minimaldesign/mCSS/issues">Issue tracker</a></li>
+          <li><a href="/tags/learn">Tutorials, tips, trick…</a></li>
+        </ul>
+      </li>
+      <li>
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://github.com/minimaldesign/mCSS/discussions">Discussions</a></li>
+          <li><a href="https://x.com/_yannb_">Twitter</a></li>
+          <li><a href="">YouTube</a></li>
+          <li><a href="">Email</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</footer>
