@@ -13,8 +13,273 @@
     line-height: var(--leading-xs);
   }
 
-  img {
+  svg {
+    width: 800px;
     margin: var(--md3) auto;
+    .st0 {
+      fill: #09142c;
+    }
+    .st1 {
+      fill: var(--primary-950);
+    }
+    .st2 {
+      fill: #143676;
+    }
+    .st3 {
+      fill: #08152f;
+    }
+    .st4 {
+      fill: #0a1b41;
+    }
+    .st5 {
+      fill: #0b1e49;
+    }
+    .st6 {
+      fill: #3ba3f4;
+    }
+    .st7 {
+      fill: #071843;
+    }
+    .st8 {
+      fill: #46a8f3;
+    }
+    .st9 {
+      fill: #0c4e98;
+    }
+    .st10 {
+      fill: #66bdf9;
+    }
+    .st11 {
+      fill: #1e5cac;
+    }
+    .st12 {
+      fill: #48acfa;
+    }
+    .st13 {
+      fill: #1a428a;
+    }
+    .st14 {
+      fill: #081c45;
+    }
+    .st15 {
+      fill: #0c61ae;
+    }
+    .st16 {
+      fill: #0f559f;
+    }
+    .st17 {
+      fill: #106bba;
+    }
+    .st18 {
+      fill: #9bd6fe;
+    }
+    .st19 {
+      fill: #bae1fe;
+    }
+    .st20 {
+      fill: #9bd6fd;
+    }
+    .st21 {
+      fill: #3e9cf2;
+    }
+    .st22 {
+      fill: #01224e;
+    }
+    .st23 {
+      fill: #054389;
+    }
+    .st24 {
+      fill: #08142c;
+    }
+    .st25 {
+      fill: #051a3c;
+    }
+    .st26 {
+      fill: #051a3e;
+    }
+    .st27 {
+      fill: #1769b6;
+    }
+    .st28 {
+      fill: #186dbe;
+    }
+    .st29 {
+      fill: #0b4489;
+    }
+    .st30 {
+      fill: #1f8cd5;
+    }
+    .st31 {
+      fill: #3ca1ea;
+    }
+    .st32 {
+      fill: #6fa4c9;
+    }
+    .st33 {
+      fill: #c7e9fa;
+    }
+    .st34 {
+      fill: #063b6d;
+    }
+    .st35 {
+      fill: #04214c;
+    }
+    .st36 {
+      fill: #0d66a1;
+    }
+    .st37 {
+      fill: #217ccf;
+    }
+    .st38 {
+      fill: #92d0fb;
+    }
+    .st39 {
+      fill: #1d69c4;
+    }
+    .st40 {
+      fill: #1d55a7;
+    }
+    .st41 {
+      fill: #c2e5fc;
+    }
+    .st42 {
+      fill: #75c4f9;
+    }
+    .st43 {
+      fill: #76c5fa;
+    }
+    .st44 {
+      fill: #1e60b8;
+    }
+    .st45 {
+      fill: #278ce7;
+    }
+    .st46 {
+      fill: #278ae5;
+    }
+    .st47 {
+      fill: #153a7e;
+    }
+    .st48 {
+      fill: #236fb1;
+    }
+    .st49 {
+      fill: #278de9;
+    }
+    .st50 {
+      fill: #153676;
+    }
+    .st51 {
+      fill: #0a1f4a;
+    }
+    .st52 {
+      fill: #7dc9fb;
+    }
+    .st53 {
+      fill: #07132d;
+    }
+    .st54 {
+      fill: #164490;
+    }
+    .st55 {
+      fill: #1959b2;
+    }
+    .st56 {
+      fill: #1c5eb7;
+    }
+    .st57 {
+      fill: #184694;
+    }
+    .st58 {
+      fill: #113679;
+    }
+    .st59 {
+      fill: #97d2f9;
+    }
+    .st60 {
+      fill: var(--base-0);
+    }
+    .st61 {
+      fill: #0b468b;
+    }
+    .st62 {
+      fill: #031f47;
+    }
+    .st63 {
+      fill: #b8d9f1;
+    }
+    .st64 {
+      fill: var(--base-0);
+    }
+    .st65 {
+      fill: #166fbd;
+    }
+    .st66 {
+      fill: #d3eaf6;
+    }
+    .st67 {
+      fill: #369ced;
+    }
+    .st68 {
+      fill: #91d0fb;
+    }
+    .st69 {
+      fill: #61b7ed;
+    }
+    .st70 {
+      fill: var(--primary-50);
+    }
+    .st71 {
+      fill: #bde4fc;
+    }
+    .st72 {
+      fill: #c2e6f3;
+    }
+    .st73 {
+      fill: #99d0eb;
+    }
+    .st74 {
+      fill: #99d1f2;
+    }
+    .st75 {
+      fill: #a8d9fa;
+    }
+    .st76 {
+      fill: var(--primary-50);
+    }
+    .st77 {
+      fill: #1489d5;
+    }
+    .st78 {
+      fill: var(--primary-50);
+    }
+    .st79 {
+      fill: #0960a9;
+    }
+    .st80 {
+      fill: var(--base-0);
+    }
+    .st81 {
+      fill: var(--base-0);
+    }
+    .st82 {
+      fill: #9be0f7;
+    }
+    .st83 {
+      fill: #c7e7fd;
+    }
+    .st84 {
+      fill: #a5d9f9;
+    }
+    .st85 {
+      fill: #d3edfd;
+    }
+    .st86 {
+      fill: #63b9ee;
+    }
+    .st87 {
+      fill: #9bd4fb;
+    }
   }
 
   ul {
@@ -22,7 +287,6 @@
     justify-content: center;
     font-size: var(--display-sm);
     font-weight: var(--bold);
-    /* color: var(--base-500); */
     li {
       &:nth-child(n + 2) {
         &::before {
@@ -33,4 +297,9 @@
       }
     }
   }
+}
+
+.home_cta {
+  text-align: center;
+  margin: var(--lg3) 0 var(--xl3);
 }

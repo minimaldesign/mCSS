@@ -5,14 +5,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const title = 'The library for CSS lovers | mCSS';
 const header = 'mCSS';
 import mcssImg from '../assets/ui/mcss-logo.svg';
-import waterfallImg from '../assets/images/illustration-waterfall.svg';
+import waterfallImg from '../assets/images/illustration-waterfall.svg?raw';
 ---
 
 <BaseLayout title={title} header={header} bodyClass="home">
   <div class="wrap">
     <section class="wrap_content wrap_content-fullbleed home_hero">
       <h1>The framework that makes the cascade work for you.</h1>
-      <Image src={waterfallImg} width="800" alt="Illustration of a waterfall" />
+      <!-- <Image src={waterfallImg} width="800" alt="Illustration of a waterfall" /> -->
+      <Fragment set:html={waterfallImg} />
       <ul>
         <li>Easy</li>
         <li>Fast</li>
@@ -30,7 +31,7 @@ import waterfallImg from '../assets/images/illustration-waterfall.svg';
       <p>Whether you’re creating a quick static HTML mockup, enhancing a legacy PHP application, or building a component-based React app, <strong>mCSS</strong> is your go-to solution. Its flexibility allows you to adapt it for virtually any project that utilizes CSS.</p>
       <h2>Perfect for teams of all sizes</h2>
       <p><strong>mCSS</strong> features a modular architecture designed for scalability, making it ideal for both small teams and large collaborative projects. Enjoy the benefits of organized code and effortless teamwork as you bring your projects to life.</p>
-      <p class="mt-lg3 mb-lg3 text-center"><a class="bt bt-lg bt-primary" href="/docs/start">Get started in 10 mn or less</a></p>
     </section>
+    <p class="home_cta"><a class="bt bt-lg bt-primary" href="/docs/start">Get started in 10 mn or less</a></p>
   </div>
 </BaseLayout>
