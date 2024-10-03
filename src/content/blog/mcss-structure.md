@@ -2,7 +2,7 @@
 title: "mCSS structure and organization"
 pubDate: 2024-07-22T20:30:00-07:00
 author: "Yann"
-tags: ["mCSS", "basics"]
+tags: ["mCSS", "basics", "learn"]
 description: "An overview of how and why mCSS file structure is organized the way it is. And a quick overview of how the selector’s properties are organized within CSS files."
 ---
 

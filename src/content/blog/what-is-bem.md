@@ -2,7 +2,7 @@
 title: "What is BEM?"
 pubDate: 2024-03-15
 author: "Yann"
-tags: ["css", "basics", "tutorial"]
+tags: ["css", "basics", "tutorial", "learn"]
 description: "BEM, which stands for Block, Element, Modifier, is a popular CSS naming convention that provides a clear and structured way to name your classes, making them more meaningful and easier for teams to understand, especially in larger projects."
 ---
 
