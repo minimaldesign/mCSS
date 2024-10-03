@@ -148,7 +148,12 @@ h5, .h5,
 h6, .h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
+}
 
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4 {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
   line-height: var(--heading-line-height);
@@ -160,10 +165,13 @@ h3, .h3 {
   margin-bottom: var(--sm1);
 }
 
-h4, .h4,
+h4, .h4 {
+  margin-bottom: var(--sm2);
+}
+
 h5, .h5,
 h6, .h6 {
-  margin-bottom: var(--sm2);
+  margin-bottom: var(--xs2);
 }
 
 /* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
