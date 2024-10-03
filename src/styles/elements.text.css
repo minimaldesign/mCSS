@@ -248,7 +248,7 @@ mark {
 menu {
 }
 
-ol, ul {
+:where(ol, ul) {
   list-style-type: none;
   padding: 0;
 }
