@@ -2,14 +2,47 @@
   position: sticky;
   top: 0;
   display: grid;
-  grid-template-columns: var(--layout_content_aside-width) 1fr 50px;
+  grid-template-columns: 1fr auto;
+  align-items: center;
   height: var(--header-height);
   background-color: var(--header-background-color);
   box-shadow: var(--shadow-sm);
   z-index: var(--z-5);
   transition: all var(--transition);
+  @media (--md) {
+    grid-template-columns: var(--layout_content_aside-width) 1fr 50px;
+  }
 
-  nav {
+  &.is-top {
+    box-shadow: none;
+  }
+}
+
+.header_logo {
+  --logo-size: 35px;
+
+  display: grid;
+  grid-template-columns: var(--logo-size) 1fr;
+  align-items: center;
+  gap: var(--sm2);
+  margin-left: var(--sm3);
+  text-decoration: none;
+  font-size: var(--text-md);
+  font-weight: var(--semi-bold);
+  color: var(--text-color);
+  @media (--md) {
+    margin-left: var(--md3);
+  }
+
+  svg {
+    width: var(--logo-size);
+    height: var(--logo-size);
+  }
+}
+
+.header_nav {
+  display: none;
+  @media (--md) {
     display: grid;
     justify-self: end;
     width: max-content;
@@ -35,27 +68,44 @@
       }
     }
   }
-
-  &.is-top {
-    box-shadow: none;
-  }
 }
 
-.header_logo {
-  --logo-size: 35px;
+.header_navMobile {
+  @media (--md-n-above) {
+    display: none;
+  }
 
-  display: grid;
-  grid-template-columns: var(--logo-size) 1fr;
-  align-items: center;
-  gap: var(--sm2);
-  margin-left: var(--md3);
-  text-decoration: none;
-  font-size: var(--text-md);
-  font-weight: var(--semi-bold);
-  color: var(--text-color);
+  button {
+    background-color: var(--base-0);
+    border-width: 0;
+    padding: 0 var(--sm3);
+  }
 
-  svg {
-    width: var(--logo-size);
-    height: var(--logo-size);
+  > div {
+    display: none;
+    background-color: var(--base-950);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: var(--lg3);
+    &.is-open {
+      display: block;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: var(--sm1) var(--sm3);
+      background-color: transparent;
+      color: var(--base-0);
+    }
+
+    a {
+      color: var(--base-0);
+      text-decoration: none;
+    }
   }
 }

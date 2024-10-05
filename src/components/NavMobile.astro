@@ -1,0 +1,49 @@
+---
+import menuIcon from '../assets/icons/menu.svg?raw';
+import closeIcon from '../assets/icons/x.svg?raw';
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.split('/')[1]; // pathname starts with '/'
+const sections = ['Docs', 'Components', 'Blog'];
+---
+
+<nav class="header_navMobile" role="navigation" aria-label="Main menu">
+  <button aria-expanded="false">
+    <Fragment set:html={menuIcon} />
+  </button>
+  <div>
+    <button>
+      <Fragment set:html={closeIcon} />
+    </button>
+    <ul>
+      <li>
+        <a class={'' == currentPath && 'is-active'} href="/">Home</a>
+      </li>
+      {
+        sections.map((current) => {
+          const path = current.toLowerCase();
+          const isDocs = current == 'Components' || current == 'Docs';
+          return (
+            <li>
+              <a class={path == currentPath && 'is-active'} href={`/${path}${isDocs ? '/start' : ''}`}>
+                {current}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</nav>
+
+<script is:inline>
+  const button = document.querySelector('.header_navMobile > button');
+  const menu = document.querySelector('.header_navMobile > div');
+  const closeButton = document.querySelector('.header_navMobile > div button');
+
+  const handleToggleNav = () => {
+    menu.classList.toggle('is-open');
+  };
+
+  button.addEventListener('click', handleToggleNav);
+  closeButton.addEventListener('click', handleToggleNav);
+</script>

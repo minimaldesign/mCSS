@@ -1,9 +1,12 @@
 .layout-centered {
   .layout_content {
     display: grid;
-    gap: var(--md3);
+    gap: var(--sm3);
     grid-template-columns: 1fr minmax(0, 70ch) 1fr;
     margin-top: var(--xl3);
+    @media (--md) {
+      gap: var(--md3);
+    }
   }
 
   .layout_content_main {

@@ -1,5 +1,6 @@
 ---
 import Nav from '../components/Nav.astro';
+import NavMobile from '../components/NavMobile.astro';
 import ThemeIcon from './ThemeIcon.astro';
 import logoImg from '../assets/ui/mcss-logo.svg?raw';
 ---
@@ -9,6 +10,7 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
     <Fragment set:html={logoImg} /> mCSS
   </a>
   <Nav />
+  <NavMobile />
   <!-- <ThemeIcon /> -->
 </header>
 
