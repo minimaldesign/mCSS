@@ -2,7 +2,7 @@
   .layout_content {
     display: grid;
     gap: var(--md3);
-    grid-template-columns: 1fr minmax(70ch, 1fr) 1fr;
+    grid-template-columns: 1fr minmax(0, 70ch) 1fr;
     margin-top: var(--xl3);
   }
 
