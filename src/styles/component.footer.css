@@ -43,11 +43,14 @@ footer {
 }
 
 .footer_nav > ul {
-  h5 {
-    margin-top: var(--md3);
-  }
   @media (--md) {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+  h5 {
+    margin-top: var(--md3);
+    @media (--md) {
+      margin-top: 0;
+    }
   }
 }
