@@ -107,5 +107,21 @@
       color: var(--base-0);
       text-decoration: none;
     }
+
+    > ul {
+      font-size: var(--text-lg);
+
+      li {
+        margin-top: var(--xs3);
+      }
+
+      ul {
+        padding-left: var(--sm1);
+        border-left: 1px solid var(--base-500);
+        a {
+          color: var(--base-300);
+        }
+      }
+    }
   }
 }

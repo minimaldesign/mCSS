@@ -1,9 +1,90 @@
 ---
+import { getCollection } from 'astro:content';
+
 import menuIcon from '../assets/icons/menu.svg?raw';
 import closeIcon from '../assets/icons/x.svg?raw';
+
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[1]; // pathname starts with '/'
-const sections = ['Docs', 'Components', 'Blog'];
+
+const componentList = await getCollection('components');
+import { moveToFirstPosition } from '../scripts/utilities';
+const orderedPosts = moveToFirstPosition(componentList, 'slug', 'start');
+
+const navItems = [
+  {
+    slug: '',
+    top: true,
+    data: {
+      title: 'Home',
+    },
+    subsection: [],
+  },
+  {
+    slug: 'docs',
+    data: {
+      title: 'Docs',
+    },
+    subsection: [
+      {
+        slug: 'start',
+        data: {
+          title: 'Getting Started',
+        },
+      },
+      {
+        slug: 'tokens',
+        data: {
+          title: 'Tokens',
+        },
+      },
+      {
+        slug: 'media-queries',
+        data: {
+          title: 'Media Queries',
+        },
+      },
+      {
+        slug: 'themes',
+        data: {
+          title: 'Themes',
+        },
+      },
+      {
+        slug: 'reset',
+        data: {
+          title: 'Reset',
+        },
+      },
+      {
+        slug: 'elements',
+        data: {
+          title: 'HTML Elements',
+        },
+      },
+      {
+        slug: 'global',
+        data: {
+          title: 'Global Styles',
+        },
+      },
+    ],
+  },
+  {
+    slug: 'components',
+    data: {
+      title: 'Components',
+    },
+    subsection: orderedPosts,
+  },
+  {
+    slug: 'blog',
+    top: true,
+    data: {
+      title: 'Blog',
+    },
+  },
+];
 ---
 
 <nav class="header_navMobile" role="navigation" aria-label="Main menu">
@@ -15,21 +96,25 @@ const sections = ['Docs', 'Components', 'Blog'];
       <Fragment set:html={closeIcon} />
     </button>
     <ul>
-      <li>
-        <a class={'' == currentPath && 'is-active'} href="/">Home</a>
-      </li>
       {
-        sections.map((current) => {
-          const path = current.toLowerCase();
-          const isDocs = current == 'Components' || current == 'Docs';
-          return (
-            <li>
-              <a class={path == currentPath && 'is-active'} href={`/${path}${isDocs ? '/start' : ''}`}>
-                {current}
-              </a>
-            </li>
-          );
-        })
+        navItems.map((item) => (
+          <li>
+            <a class={item.slug == currentPath && 'is-active'} href={`/${item.slug}${item.top ? '' : '/start'}`}>
+              {item.data.title}
+            </a>
+            {item.subsection && (
+              <ul>
+                {item.subsection.map((sub) => (
+                  <li>
+                    <a class={sub.slug == currentPath && 'is-active'} href={`/${item.slug}/${sub.slug}`}>
+                      {sub.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))
       }
     </ul>
   </div>
