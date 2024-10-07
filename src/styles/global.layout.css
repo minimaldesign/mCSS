@@ -17,15 +17,26 @@
 .layout-sidebar {
   .layout_content {
     display: grid;
-    grid-template-columns: var(--layout_content_aside-width) 1fr;
+    gap: var(--md3);
+    @media (--md) {
+      grid-template-columns: var(--layout_content_aside-width) 1fr;
+    }
   }
 
   .layout_content_main {
     max-width: calc(70ch + (var(--lg1) * 2));
-    padding: var(--lg1);
+    padding: var(--md1);
+    @media (--md) {
+      padding: var(--lg1);
+    }
   }
 
   .layout_content_aside {
+    display: none;
+    @media (--md) {
+      display: block;
+    }
+
     nav {
       /* sticky for every nav, not just .navDocs */
       position: sticky;
