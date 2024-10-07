@@ -22,6 +22,8 @@ footer {
 }
 
 .footer_meta {
+  grid-column: 1;
+  grid-row: 1;
   /* & is just to make syntax highlighter happy */
   & p:last-child {
     margin-top: 1em;
@@ -50,10 +52,7 @@ footer {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
-  h5 {
-    margin-top: var(--md3);
-    @media (--md) {
-      margin-top: 0;
-    }
+  ul {
+    margin-bottom: var(--md3);
   }
 }
