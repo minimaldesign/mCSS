@@ -22,23 +22,25 @@ footer {
 }
 
 .footer_meta {
-  --logo-size: 25px;
-
   /* & is just to make syntax highlighter happy */
   & p:last-child {
     margin-top: 1em;
   }
 
-  span {
-    font-size: var(--text-lg);
-    line-height: 1;
+  svg {
+    position: relative;
+    fill: currentColor;
+    display: inline-block;
+    width: 20px;
+    top: -2px;
   }
+}
 
+.footer_meta_version {
   svg {
     display: inline-block;
     margin-right: 0.25em;
-    width: var(--logo-size);
-    height: var(--logo-size);
+    width: 25px;
   }
 }
 
@@ -47,6 +49,7 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
   }
+
   h5 {
     margin-top: var(--md3);
     @media (--md) {

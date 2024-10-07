@@ -1,14 +1,15 @@
 ---
 import logoImg from '../assets/ui/mcss-logo.svg?raw';
+import heartIcon from '../assets/icons/heart.svg?raw';
 
 import { VERSION } from '../scripts/globals';
 ---
 
 <footer>
   <section class="footer_meta">
-    <p>Made with <span>❤</span> in California by <a href="http://minimaldesign.net">minimal design</a></p>
+    <p>Made with <Fragment set:html={heartIcon} /> in California by <a href="http://minimaldesign.net">minimal design</a></p>
     <p>Released under the MIT <a href="https://github.com/minimaldesign/mCSS/blob/main/LICENSE">License</a></p>
-    <p><Fragment set:html={logoImg} /> mCSS v.{VERSION}</p>
+    <p class="footer_meta_version"><Fragment set:html={logoImg} /> mCSS v.{VERSION}</p>
   </section>
   <nav class="footer_nav">
     <ul>
