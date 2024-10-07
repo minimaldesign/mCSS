@@ -89,13 +89,14 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    overflow-y: auto;
     padding: var(--lg3);
     &.is-open {
       display: block;
     }
 
     button {
-      position: absolute;
+      position: fixed;
       top: 0;
       right: 0;
       padding: var(--sm1) var(--sm3);
