@@ -113,7 +113,7 @@
       font-size: var(--text-lg);
 
       li {
-        margin-top: var(--xs3);
+        margin-top: var(--sm1);
       }
 
       ul {
