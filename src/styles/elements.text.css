@@ -181,11 +181,17 @@ h6, .h6 {
 }
 
 h1, .h1 {
-  font-size: var(--display-md);
+  font-size: var(--text-xl);
+  @media (--md) {
+    font-size: var(--display-md);
+  }
 }
 
 h2, .h2 {
-  font-size: var(--display-sm);
+  font-size: var(--text-lg);
+  @media (--md){
+    font-size: var(--display-sm);
+  }
 }
 
 h3, .h3 {
