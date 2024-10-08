@@ -7,8 +7,11 @@
     display: grid;
     gap: var(--sm3);
     grid-template-columns: 1fr minmax(0, 70ch) 1fr;
-    margin-top: var(--xl3);
+    margin-top: var(--lg1);
+    margin-bottom: var(--sm1);
     @media (--md) {
+      margin-top: var(--xl3);
+      margin-bottom: var(--md3);
       gap: var(--md3);
     }
   }

@@ -15,6 +15,7 @@ a {
 
 address {
   width: max-content;
+  max-width: 100%;
   padding: var(--sm1) var(--sm3);
   font-style: normal;
   background-color: var(--base-50);

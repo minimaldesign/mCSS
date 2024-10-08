@@ -59,6 +59,9 @@ input {
   &:where(:not([type="file"])) {
     border: 1px solid var(--border-color);
   }
+  &[type="file"] {
+    width: 100%;
+  }
   &[type="number"] {
     padding-right: var(--xs1);
   }
@@ -204,6 +207,7 @@ select {
 }
 
 textarea {
+  width: 100%;
   border-radius: var(--input-border-radius);
   border: 1px solid var(--border-color);
   resize: block;
