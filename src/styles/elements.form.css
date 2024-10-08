@@ -63,6 +63,7 @@ input {
   }
   &[type="file"] {
     width: 100%;
+    accent-color: var(--text-color);
   }
   &[type="number"] {
     padding-right: var(--xs1);
