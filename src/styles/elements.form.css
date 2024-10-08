@@ -13,6 +13,7 @@ select {
 }
 
 button {
+  color: var(--text-color);
 }
 
 datalist {
