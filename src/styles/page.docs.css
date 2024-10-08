@@ -1,3 +1,4 @@
+/* BOTH /docs and /components sections */
 .docs {
   > h2 {
     margin-top: var(--md1);
@@ -33,6 +34,25 @@ ul.docs_section_media {
     margin-bottom: var(--prose-spacing);
   }
 }
+
+.docs_oversizedTable {
+  width: 100%;
+  max-width: fit-content;
+  overflow-x: auto;
+  margin-top: var(--md1);
+  margin-bottom: var(--md1);
+  border: 1px solid var(--table-border-color);
+  border-radius: var(--table-border-radius);
+
+  table {
+    /* margin comes form .prose */
+    margin-top: 0;
+    margin-bottom: 0;
+    border-width: 0;
+  }
+}
+
+/* TOKEN DEMOS */
 
 .docs_examples {
   padding-left: 0;

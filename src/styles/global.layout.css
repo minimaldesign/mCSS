@@ -1,3 +1,7 @@
+.layout {
+  width: 100vw;
+}
+
 .layout-centered {
   .layout_content {
     display: grid;
@@ -16,17 +20,17 @@
 
 .layout-sidebar {
   .layout_content {
-    display: grid;
-    gap: var(--md3);
     @media (--md) {
-      grid-template-columns: var(--layout_content_aside-width) 1fr;
+      display: grid;
+      gap: var(--md3);
+      grid-template-columns: var(--layout_content_aside-width) minmax(0, 1fr);
     }
   }
 
   .layout_content_main {
-    max-width: calc(70ch + (var(--lg1) * 2));
     padding: var(--md1);
     @media (--md) {
+      max-width: calc(71ch + (var(--lg1) * 2));
       padding: var(--lg1);
     }
   }
