@@ -12,10 +12,14 @@
 
 .home_hero {
   text-align: center;
-  margin: var(--xl3) 0;
+  margin: var(--lg1) 0;
+  @media (--md) {
+    margin-top: var(--xl3);
+    margin-bottom: var(--xl3);
+  }
 
   h1 {
-    font-size: var(--display-lg);
+    font-size: var(--display-md);
     font-weight: var(--black);
     line-height: var(--leading-xs);
     padding: var(--xs1);
@@ -98,14 +102,22 @@
   ul {
     display: flex;
     justify-content: center;
-    font-size: var(--display-sm);
+    padding: 0 var(--md1);
+    font-size: var(--text-lg);
     font-weight: var(--bold);
+    @media (--md) {
+      font-size: var(--display-sm);
+    }
     li {
       &:nth-child(n + 2) {
         &::before {
           content: "•";
-          padding: 0 var(--xs3);
+          padding: 0 var(--xs2);
           color: var(--primary-700);
+          @media (--md) {
+            padding-left: var(--xs3);
+            padding-right: var(--xs3);
+          }
         }
       }
       &:nth-child(1) {
