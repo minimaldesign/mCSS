@@ -54,5 +54,8 @@ footer {
 
   ul {
     margin-bottom: var(--md3);
+    li:not(:last-child) {
+      margin-bottom: var(--xs1);
+    }
   }
 }
