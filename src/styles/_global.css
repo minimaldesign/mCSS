@@ -20,24 +20,28 @@
 
 /* Global styles */
 @import url(./global.grid.css);
-@import url(./global.wrap.css);
 @import url(./global.layout.css);
 @import url(./global.prose.css);
+@import url(./global.wrap.css);
+
+/* Atoms */
+@import url(./atom.button.css);
+/* @import url(./atom.input.css); */
+
+/* Component specific styles */
+/* Should be added here or within the Astro component itself */
+@import url(./component.avatar.css);
+@import url(./component.footer.css);
+@import url(./component.header.css);
+@import url(./component.navDocs.css);
+@import url(./component.notice.css);
+@import url(./component.tags.css);
 
 /*  Page specific styles */
 /* (Use sparingly. Component is probably  the way to go) */
 @import url(./page.blog.css);
 @import url(./page.docs.css);
 @import url(./page.home.css);
-
-/* Component specific styles */
-/* Should be added here or within the Astro component itself */
-@import url(./component.button.css);
-@import url(./component.footer.css);
-@import url(./component.header.css);
-@import url(./component.navDocs.css);
-@import url(./component.notice.css);
-@import url(./component.tags.css);
 
 /* Plugins, etc. */
 @import url(./external.astro.css);
