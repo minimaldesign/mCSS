@@ -50,6 +50,8 @@
   --layout_content_aside-background-color: var(--base-100);
 
   /* components */
+  --avatar-radius: var(--radius-round);
+
   --header-height: var(--xl2);
   --header-background-color: var(--base-0);
 }

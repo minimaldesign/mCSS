@@ -33,3 +33,15 @@ export function moveToFirstPosition(arr, key, value) {
   // Return the modified array
   return arr;
 }
+
+export function getInitials(name = ":)") {
+  const fullName = name.trim();
+  if (fullName.length <= 2) {
+    return fullName.toUpperCase();
+  }
+  const names = fullName.split(/\s+/);
+  const firstName = names[0];
+  const lastName = names[names.length - 1];
+  const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+  return initials.toUpperCase();
+}

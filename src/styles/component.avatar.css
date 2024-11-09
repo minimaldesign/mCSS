@@ -1,0 +1,68 @@
+.avatar {
+  --w: var(--xl1);
+  --fs: var(--text-md);
+  position: relative;
+  width: var(--w);
+
+  > div {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 1;
+    align-items: center;
+    border-radius: var(--avatar-radius);
+    font-size: var(--fs);
+    line-height: 1;
+    background-color: var(--base-400);
+    border: 1px solid var(--base-0);
+    color: var(--base-0);
+    overflow: hidden;
+  }
+}
+
+.avatar-online,
+.avatar-offline {
+  --ls: var(--xs3); /* light size */
+  --lp: 4%; /* light position */
+  --bdw: 2px;
+  &:after {
+    content: "";
+    display: block;
+    width: var(--ls);
+    aspect-ratio: 1;
+    position: absolute;
+    top: var(--lp);
+    right: var(--lp);
+    border: var(--bdw) solid var(--base-0);
+    border-radius: var(--radius-round);
+    background-color: var(--base-300);
+  }
+}
+.avatar-online:after {
+  background-color: var(--yes-400);
+}
+
+.avatar-sm {
+  --w: var(--sm3);
+  --fs: var(--text-xs);
+  --ls: var(--xs2);
+  --lp: 0;
+  --bdw: 1px;
+}
+.avatar-md {
+  --w: var(--md3);
+  --fs: var(--text-sm);
+  --ls: var(--xs2);
+  --bdw: 1px;
+}
+.avatar-lg {
+  --w: var(--xl3);
+  --fs: var(--text-xl);
+  --ls: var(--xs3);
+  --lp: 7%;
+}
+.avatar-xl {
+  --w: var(--xxl3);
+  --fs: var(--display-lg);
+  --ls: var(--sm2);
+  --lp: 7%;
+}

@@ -1,0 +1,97 @@
+---
+title: "Avatar"
+lastUpdate: 2024-11-08
+version: 0.1
+---
+
+import Avatar from "../../components/Avatar.astro";
+import pic from "../../assets/images/sonny.png";
+
+## Specs
+
+<section class="prose">
+
+| File Name              | class     | Source      |
+| ---------------------- | --------- | ----------- |
+| `component.avatar.css` | `.avatar` | [Github][1] |
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.avatar.css
+
+The `.avatar` component is a visual represention of a user. It shows the user's initials or an image thumbnail.
+
+| Available modifiers           | Description                |
+| ----------------------------- | -------------------------- |
+| `.avatar`                     | Default - 56px             |
+| `.avatar` + `.avatar-sm`      | Small - 24px               |
+| `.avatar` + `.avatar-md`      | Medium - 36px              |
+| `.avatar` + `.avatar-lg`      | Large - 80px               |
+| `.avatar` + `.avatar-xl`      | Extra large - 128px        |
+| `.avatar` + `.avatar-online`  | User is online - green dot |
+| `.avatar` + `.avatar-offline` | User is offline - grey dot |
+
+</section>
+
+## Available styles
+
+{/* prettier-ignore */}
+<ul class="docs_examples grid" col="2">
+  <li><Avatar size="sm" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="sm">SR</Avatar></li>
+  <li><Avatar size="md" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="md">SR</Avatar></li>
+  <li><Avatar pic={pic}>SR</Avatar></li>
+  <li><Avatar>SR</Avatar></li>
+  <li><Avatar size="lg" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="lg">SR</Avatar></li>
+  <li><Avatar size="xl" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="xl">SR</Avatar></li>
+  <li><Avatar offline size="xl" pic={pic}>SR</Avatar></li>
+  <li><Avatar online size="xl">SR</Avatar></li>
+</ul>
+
+## Examples
+
+<ul class="docs_examples prose">
+  <li>
+    <Avatar>SR</Avatar>
+
+    ```html
+    <div class="avatar">
+      <div>
+        <span>SR</span>
+      </div>
+    </div>
+    ```
+
+    **Astro component syntax:**
+
+    ```astro
+    <Avatar>Sonny Rollins</Avatar>
+    ```
+    The astro component can take initials or a full name and will output initials if an image is not provided. It will output the full name in the `alt` attribute if an image is provided.
+
+  </li>
+  <li>
+    <Avatar online size="xl" pic={pic}>Sonny Rollins</Avatar>
+
+    ```html
+    <div class="avatar avatar-xl avatar-online">
+      <div>
+        <img src="/assets/images/sonny.png" alt="Sonny Rollins">
+      </div>
+    </div>
+
+    ```
+
+    **Astro component syntax:**
+
+    ```astro
+    ---
+    import Avatar from "../../components/Avatar.astro";
+    import pic from "../../assets/images/sonny.png";
+    ---
+    <Avatar online size="xl" pic={pic}>Sonny Rollins</Avatar>
+    ```
+
+  </li>
+</ul>
