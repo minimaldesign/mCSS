@@ -1,8 +1,9 @@
 footer {
   padding: var(--md3) var(--sm3);
-  background-color: var(--primary-600);
-  color: var(--base-0);
   line-height: var(--leading-xl);
+  color: var(--footer-text-color);
+  background-color: var(--footer-background-color);
+  border-top: 2px dashed var(--footer-border-color);
   @media (--md) {
     display: grid;
     gap: var(--md3);
@@ -54,6 +55,10 @@ footer {
 
   ul {
     margin-bottom: var(--md3);
+    @media (--md) {
+      margin-bottom: 0;
+    }
+
     li:not(:last-child) {
       margin-bottom: var(--xs1);
     }
