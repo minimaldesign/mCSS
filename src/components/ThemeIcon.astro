@@ -40,8 +40,8 @@
   window.localStorage.setItem('theme', theme);
 
   // if dark theme is set, checkbox is checked
-  const isLight = theme === 'light';
-  document.getElementById('theme').checked = !isLight;
+  const isDark = theme === 'dark';
+  document.getElementById('theme').checked = isDark;
 
   const handleToggleClick = () => {
     const isDark = document.getElementById('theme').checked;
