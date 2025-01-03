@@ -1,0 +1,42 @@
+.toggle {
+  --toggle-w: 50px; /* width  */
+  --toggle-h: 28px; /* height */
+  --toggle-bd: 2px; /* border */
+  position: relative;
+  appearance: none;
+  border: none;
+  display: block;
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  border-radius: calc(var(--toggle-h) / 2);
+  cursor: pointer;
+  background-color: var(--border-color);
+
+  &::before {
+    --diameter: calc(var(--toggle-h) - var(--toggle-bd) * 2);
+    position: absolute;
+    top: var(--toggle-bd);
+    left: var(--toggle-bd);
+    content: "";
+    display: block;
+    width: var(--diameter);
+    height: var(--diameter);
+    border-radius: var(--diameter);
+    background-color: var(--body-background-color);
+    transition: all var(--transition);
+    transform: translateX(0);
+  }
+
+  &:checked {
+    background-color: var(--yes-400);
+
+    &::before {
+      left: calc(100% - var(--toggle-bd));
+      transform: translateX(-100%);
+    }
+  }
+
+  &:active::before {
+    width: calc(var(--diameter) * 1.3);
+  }
+}

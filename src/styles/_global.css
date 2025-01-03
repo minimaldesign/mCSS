@@ -26,6 +26,7 @@
 
 /* Atoms */
 @import url(./atom.button.css);
+@import url(./atom.toggle.css);
 /* @import url(./atom.input.css); */
 
 /* Component specific styles */
