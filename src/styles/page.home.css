@@ -8,6 +8,13 @@
   }
 }
 
+:root:has(#theme:checked) .home {
+  h1,
+  h2 {
+    color: var(--primary-400);
+  }
+}
+
 /* INDEX */
 
 .home_hero {
@@ -131,6 +138,19 @@
       }
       &:nth-child(4) {
         color: var(--primary-600);
+      }
+    }
+  }
+}
+
+:root:has(#theme:checked) .home {
+  ul {
+    li {
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(4) {
+        color: var(--primary-400);
       }
     }
   }

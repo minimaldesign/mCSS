@@ -86,7 +86,7 @@
 
   /* text */
 
-  --text-color: var(--base-200);
+  --text-color: var(--base-100);
   --link-color: var(--primary-400);
   --link-hover-color: var(--primary-500);
 
