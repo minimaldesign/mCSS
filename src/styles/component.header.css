@@ -10,7 +10,7 @@
   z-index: var(--z-5);
   transition: all var(--transition);
   @media (--md) {
-    grid-template-columns: var(--layout_content_aside-width) 1fr 50px;
+    grid-template-columns: var(--layout_content_aside-width) 1fr max-content;
   }
 
   &.is-top {
@@ -125,4 +125,8 @@
       }
     }
   }
+}
+
+.header_toggle {
+  padding: 0 var(--sm3);
 }
