@@ -10,7 +10,7 @@
   height: var(--toggle-h);
   border-radius: calc(var(--toggle-h) / 2);
   cursor: pointer;
-  background-color: var(--border-color);
+  background-color: var(--base-300);
 
   &::before {
     --diameter: calc(var(--toggle-h) - var(--toggle-bd) * 2);
