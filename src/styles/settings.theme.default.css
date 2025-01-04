@@ -71,7 +71,7 @@
   background-color: var(--primary-800);
 }
 
-:root:has(#theme:checked) {
+:root:has(.root-theme:checked) {
   /* GLOBAL */
   accent-color: var(--primary-500);
 

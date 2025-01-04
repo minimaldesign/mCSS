@@ -8,7 +8,7 @@
   }
 }
 
-:root:has(#theme:checked) .home {
+:root:has(.root-theme:checked) .home {
   h1,
   h2 {
     color: var(--primary-400);
@@ -143,7 +143,7 @@
   }
 }
 
-:root:has(#theme:checked) .home {
+:root:has(.root-theme:checked) .home {
   ul {
     li {
       &:nth-child(1),

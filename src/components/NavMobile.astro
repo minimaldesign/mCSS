@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from './ThemeToggle.astro';
+
 import { getCollection } from 'astro:content';
 
 import menuIcon from '../assets/icons/menu.svg?raw';
@@ -68,6 +70,12 @@ const navItems = [
           title: 'Global Styles',
         },
       },
+      {
+        slug: 'helpers',
+        data: {
+          title: 'Helpers',
+        },
+      },
     ],
   },
   {
@@ -92,6 +100,9 @@ const navItems = [
     <Fragment set:html={menuIcon} />
   </button>
   <div>
+    <div class="header_navMobile_themeToggle">
+      <ThemeToggle />
+    </div>
     <button>
       <Fragment set:html={closeIcon} />
     </button>

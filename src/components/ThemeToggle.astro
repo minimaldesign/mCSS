@@ -1,29 +1,6 @@
 ---
 
 ---
-<input id="theme" class="toggle" name="theme" type="checkbox" />
 
-<script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme');
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
-
-  window.localStorage.setItem('theme', theme);
-
-  // if dark theme is set, checkbox is checked
-  const isDark = theme === 'dark';
-  document.getElementById('theme').checked = isDark;
-
-  const handleToggleClick = () => {
-    const isDark = document.getElementById('theme').checked;
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  };
-
-  document.getElementById('theme').addEventListener('click', handleToggleClick);
-</script>
+<input class="toggle root-theme js-theme-checkbox" name="theme" type="checkbox" />
+<span class="header_navMobile_themeToggle_text">current theme: <span id="js-theme">placeholder</span></span>
