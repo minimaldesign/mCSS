@@ -6,7 +6,6 @@ version: 0.1
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DocsPostLayout from "../../layouts/DocsPostLayout.astro";
-import DocsElementsScript from "../../scripts/DocsElementsScript.astro";
 
 import { Image } from "astro:assets";
 import img from "../../assets/images/saxophonist.jpg";
@@ -570,7 +569,7 @@ legend {
 
 <section class="docs_section">
   ### Canvas
-  {/* js is in scripts/DocsElementsScript.astro */}
+  <script src="/_js/DocsElementsScript.js" type="module"></script>
   <canvas class="docs_canvas">canvas</canvas>
 </section>
 
