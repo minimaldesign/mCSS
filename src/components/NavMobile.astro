@@ -11,11 +11,11 @@ const currentPath = pathname.split('/')[1]; // pathname starts with '/'
 
 const componentList = await getCollection('components');
 import { moveToFirstPosition } from '../scripts/utilities';
-const orderedPosts = moveToFirstPosition(componentList, 'slug', 'start');
+const orderedPosts = moveToFirstPosition(componentList, 'id', 'start');
 
 const navItems = [
   {
-    slug: '',
+    id: '',
     top: true,
     data: {
       title: 'Home',
@@ -23,55 +23,55 @@ const navItems = [
     subsection: [],
   },
   {
-    slug: 'docs',
+    id: 'docs',
     data: {
       title: 'Docs',
     },
     subsection: [
       {
-        slug: 'start',
+        id: 'start',
         data: {
           title: 'Getting Started',
         },
       },
       {
-        slug: 'tokens',
+        id: 'tokens',
         data: {
           title: 'Tokens',
         },
       },
       {
-        slug: 'media-queries',
+        id: 'media-queries',
         data: {
           title: 'Media Queries',
         },
       },
       {
-        slug: 'themes',
+        id: 'themes',
         data: {
           title: 'Themes',
         },
       },
       {
-        slug: 'reset',
+        id: 'reset',
         data: {
           title: 'Reset',
         },
       },
       {
-        slug: 'elements',
+        id: 'elements',
         data: {
           title: 'HTML Elements',
         },
       },
       {
-        slug: 'global',
+        id: 'global',
         data: {
           title: 'Global Styles',
         },
       },
       {
-        slug: 'helpers',
+        id: 'helpers',
         data: {
           title: 'Helpers',
         },
@@ -79,14 +79,14 @@ const navItems = [
     ],
   },
   {
-    slug: 'components',
+    id: 'components',
     data: {
       title: 'Components',
     },
     subsection: orderedPosts,
   },
   {
-    slug: 'blog',
+    id: 'blog',
     top: true,
     data: {
       title: 'Blog',
@@ -110,14 +110,14 @@ const navItems = [
       {
         navItems.map((item) => (
           <li>
-            <a class={item.slug == currentPath && 'is-active'} href={`/${item.slug}${item.top ? '' : '/start'}`}>
+            <a class={item.id == currentPath && 'is-active'} href={`/${item.id}${item.top ? '' : '/start'}`}>
               {item.data.title}
             </a>
             {item.subsection && (
               <ul>
                 {item.subsection.map((sub) => (
                   <li>
-                    <a class={sub.slug == currentPath && 'is-active'} href={`/${item.slug}/${sub.slug}`}>
+                    <a class={sub.id == currentPath && 'is-active'} href={`/${item.id}/${sub.id}`}>
                       {sub.data.title}
                     </a>
                   </li>

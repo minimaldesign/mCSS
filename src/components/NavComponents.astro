@@ -8,7 +8,7 @@ const currentPath = pathname.split('/')[2]; // pathname starts with '/'
 
 const allPosts = await getCollection('components');
 import { moveToFirstPosition } from '../scripts/utilities';
-const orderedPosts = moveToFirstPosition(allPosts, 'slug', 'start');
+const orderedPosts = moveToFirstPosition(allPosts, 'id', 'start');
 ---
 
 <nav class="navDocs">
@@ -16,7 +16,7 @@ const orderedPosts = moveToFirstPosition(allPosts, 'slug', 'start');
     {
       orderedPosts.map((post) => (
         <li>
-          <a class={post.slug == currentPath && 'is-active'} href={`/components/${post.slug}`}>
+          <a class={post.id == currentPath && 'is-active'} href={`/components/${post.id}`}>
             <Fragment set:html={arrow} />
             {post.data.title}
           </a>

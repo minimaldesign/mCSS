@@ -15,7 +15,7 @@ allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate))
         allPosts.map((post) => (
           <li>
             <p>
-              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
             </p>
             <p>{post.data.description}</p>
           </li>
