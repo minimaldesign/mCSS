@@ -4,16 +4,30 @@ import facebookIcon from '../assets/icons/facebook.svg?raw';
 import githubIcon from '../assets/icons/github.svg?raw';
 import instagramIcon from '../assets/icons/instagram.svg?raw';
 import linkedinIcon from '../assets/icons/linkedin.svg?raw';
+import mindsIcon from '../assets/icons/minds.svg?raw';
+import odyseeIcon from '../assets/icons/odysee.svg?raw';
 import pinterestIcon from '../assets/icons/pinterest.svg?raw';
 import redditIcon from '../assets/icons/reddit.svg?raw';
 import snapchatIcon from '../assets/icons/snapchat.svg?raw';
+import substackIcon from '../assets/icons/substack.svg?raw';
 import telegramIcon from '../assets/icons/telegram.svg?raw';
 import tiktokIcon from '../assets/icons/tiktok.svg?raw';
+import twitchIcon from '../assets/icons/twitch.svg?raw';
 import xIcon from '../assets/icons/x.svg?raw';
 import youtubeIcon from '../assets/icons/youtube.svg?raw';
+import bitchuteIcon from '../assets/icons/bitchute.svg?raw';
+import bastyonIcon from '../assets/icons/bastyon.svg?raw';
 import linkIcon from '../assets/icons/link.svg?raw';
 
 const services = {
+  Bastyon: {
+    icon: bastyonIcon,
+    match: /bastyon\.com/,
+  },
+  Bitchute: {
+    icon: bitchuteIcon,
+    match: /bitchute\.com/,
+  },
   Discord: {
     icon: discordIcon,
     match: /discord\.com/,
@@ -34,6 +48,14 @@ const services = {
     icon: linkedinIcon,
     match: /linkedin\.com/,
   },
+  Minds: {
+    icon: mindsIcon,
+    match: /minds\.com/,
+  },
+  Odysee: {
+    icon: odyseeIcon,
+    match: /odysee\.com/,
+  },
   Pinterest: {
     icon: pinterestIcon,
     match: /pinterest\.com/,
@@ -46,13 +68,21 @@ const services = {
     icon: snapchatIcon,
     match: /snapchat\.com/,
   },
+  Substack: {
+    icon: substackIcon,
+    match: /substack\.com/,
+  },
   Telegram: {
     icon: telegramIcon,
-    match: /telegram\.org/,
+    match: /telegram\.org|t\.me/,
   },
   Tiktok: {
     icon: tiktokIcon,
     match: /tiktok\.com/,
+  },
+  Twitch: {
+    icon: twitchIcon,
+    match: /twitch\.tv/,
   },
   X: {
     icon: xIcon,
