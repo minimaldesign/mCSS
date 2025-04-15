@@ -19,7 +19,7 @@ import bitchuteIcon from '../assets/icons/bitchute.svg?raw';
 import bastyonIcon from '../assets/icons/bastyon.svg?raw';
 import linkIcon from '../assets/icons/link.svg?raw';
 
-const services = {
+const platforms = {
   Bastyon: {
     icon: bastyonIcon,
     match: /bastyon\.com/,
@@ -93,17 +93,17 @@ const services = {
     match: /youtube\.com/,
   },
   Link: {
-    icon: linkIcon, // General link icon for unknown services
+    icon: linkIcon, // General link icon for unknown platforms
     match: /.*/,
   },
 };
 
 const { urls, size } = Astro.props;
 
-const filteredServices = urls
+const filteredPlatforms = urls
   .map((url) => {
-    const serviceKey = Object.keys(services).find((key) => services[key].match.test(url));
-    const service = services[serviceKey];
+    const serviceKey = Object.keys(platforms).find((key) => platforms[key].match.test(url));
+    const service = platforms[serviceKey];
     return { url, icon: service.icon, key: serviceKey };
   })
   .filter(Boolean);
@@ -111,7 +111,7 @@ const filteredServices = urls
 
 <ul class={`socialMedia ${size ? `socialMedia-${size}` : ''}`}>
   {
-    filteredServices.map(({ url, icon, key }) => (
+    filteredPlatforms.map(({ url, icon, key }) => (
       <li>
         <a href={url} title={key} target="_blank" rel="noopener noreferrer" aria-label={url}>
           <Fragment set:html={icon} alt="" />
