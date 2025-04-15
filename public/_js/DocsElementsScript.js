@@ -19,7 +19,7 @@ closeButton.addEventListener("click", () => {
 var canvas = document.querySelector(".docs_canvas"),
   ctx = canvas.getContext("2d"),
   particles = [],
-  patriclesNum = 150,
+  particlesNum = 150,
   w = 384,
   h = 250,
   colors = ["#bae6fd", "#38bdf8", "#0284c7", "#075985", "#f9a007"];
@@ -43,11 +43,11 @@ function Factory() {
 function draw() {
   ctx.clearRect(0, 0, w, h);
   ctx.globalCompositeOperation = "lighter";
-  for (var i = 0; i < patriclesNum; i++) {
+  for (var i = 0; i < particlesNum; i++) {
     var temp = particles[i];
     var factor = 1;
 
-    for (var j = 0; j < patriclesNum; j++) {
+    for (var j = 0; j < particlesNum; j++) {
       var temp2 = particles[j];
       ctx.linewidth = 0.5;
 
@@ -100,7 +100,7 @@ window.requestAnimFrame = (function () {
 })();
 
 (function init() {
-  for (var i = 0; i < patriclesNum; i++) {
+  for (var i = 0; i < particlesNum; i++) {
     particles.push(new Factory());
   }
 })();

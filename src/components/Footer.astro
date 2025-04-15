@@ -1,6 +1,7 @@
 ---
 import logoImg from '../assets/ui/mcss-logo.svg?raw';
 import heartIcon from '../assets/icons/heart.svg?raw';
+import SocialMedia from './SocialMedia.astro';
 
 import { VERSION } from '../scripts/globals';
 ---
@@ -36,6 +37,7 @@ import { VERSION } from '../scripts/globals';
           <li><a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Mailing list</a></li>
           <li><a href="mailto:hello@mcss.dev">Email</a></li>
         </ul>
+        <SocialMedia size="md" urls={['https://www.unknownservice.com/example', 'https://www.youtube.com/channel/UC123456', 'https://www.tiktok.com/@example', 'https://twitter.com/example', 'https://www.instagram.com/example', 'https://www.linkedin.com/in/example', 'https://www.github.com/example', 'https://www.discord.com/invite/example', 'https://www.reddit.com/user/example', 'https://www.telegram.org/example', 'https://www.snapchat.com/add/example', 'https://www.pinterest.com/example', 'https://www.facebook.com/example']} />
       </li>
     </ul>
   </nav>

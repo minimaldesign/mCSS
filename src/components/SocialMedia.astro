@@ -1,8 +1,91 @@
 ---
-const platform = 'github';
-const username = 'withastro';
+import discordIcon from '../assets/icons/discord.svg?raw';
+import facebookIcon from '../assets/icons/facebook.svg?raw';
+import githubIcon from '../assets/icons/github.svg?raw';
+import instagramIcon from '../assets/icons/instagram.svg?raw';
+import linkedinIcon from '../assets/icons/linkedin.svg?raw';
+import pinterestIcon from '../assets/icons/pinterest.svg?raw';
+import redditIcon from '../assets/icons/reddit.svg?raw';
+import snapchatIcon from '../assets/icons/snapchat.svg?raw';
+import telegramIcon from '../assets/icons/telegram.svg?raw';
+import tiktokIcon from '../assets/icons/tiktok.svg?raw';
+import xIcon from '../assets/icons/x.svg?raw';
+import youtubeIcon from '../assets/icons/youtube.svg?raw';
+import linkIcon from '../assets/icons/link.svg?raw';
+
+const services = {
+  discord: {
+    icon: discordIcon,
+    match: /discord\.com/,
+  },
+  facebook: {
+    icon: facebookIcon,
+    match: /facebook\.com/,
+  },
+  github: {
+    icon: githubIcon,
+    match: /github\.com/,
+  },
+  instagram: {
+    icon: instagramIcon,
+    match: /instagram\.com/,
+  },
+  linkedin: {
+    icon: linkedinIcon,
+    match: /linkedin\.com/,
+  },
+  pinterest: {
+    icon: pinterestIcon,
+    match: /pinterest\.com/,
+  },
+  reddit: {
+    icon: redditIcon,
+    match: /reddit\.com/,
+  },
+  snapchat: {
+    icon: snapchatIcon,
+    match: /snapchat\.com/,
+  },
+  telegram: {
+    icon: telegramIcon,
+    match: /telegram\.org/,
+  },
+  tiktok: {
+    icon: tiktokIcon,
+    match: /tiktok\.com/,
+  },
+  x: {
+    icon: xIcon,
+    match: /twitter\.com|x\.com/,
+  },
+  youtube: {
+    icon: youtubeIcon,
+    match: /youtube\.com/,
+  },
+  generic: {
+    icon: linkIcon, // General link icon for unknown services
+    match: /.*/,
+  },
+};
+
+const { urls, size } = Astro.props;
+
+const filteredServices = urls
+  .map((url) => {
+    const service = Object.values(services).find((s) => s.match.test(url));
+    return service ? { url, icon: service.icon } : null;
+  })
+  .filter(Boolean);
 ---
 
-<footer>
-  <p>Learn more about my projects on <a href={`https://www.${platform}.com/${username}`}>{platform}</a>!</p>
-</footer>
+<ul class={`socialMedia ${size ? `socialMedia-${size}` : ''}`}>
+  {
+    filteredServices.map(({ url, icon }) => (
+      <li>
+        <a href={url} title={icon} target="_blank" rel="noopener noreferrer" aria-label={url}>
+          <Fragment set:html={icon} alt="" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
