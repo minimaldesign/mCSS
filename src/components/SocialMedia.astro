@@ -14,55 +14,55 @@ import youtubeIcon from '../assets/icons/youtube.svg?raw';
 import linkIcon from '../assets/icons/link.svg?raw';
 
 const services = {
-  discord: {
+  Discord: {
     icon: discordIcon,
     match: /discord\.com/,
   },
-  facebook: {
+  Facebook: {
     icon: facebookIcon,
     match: /facebook\.com/,
   },
-  github: {
+  Github: {
     icon: githubIcon,
     match: /github\.com/,
   },
-  instagram: {
+  Instagram: {
     icon: instagramIcon,
     match: /instagram\.com/,
   },
-  linkedin: {
+  Linkedin: {
     icon: linkedinIcon,
     match: /linkedin\.com/,
   },
-  pinterest: {
+  Pinterest: {
     icon: pinterestIcon,
     match: /pinterest\.com/,
   },
-  reddit: {
+  Reddit: {
     icon: redditIcon,
     match: /reddit\.com/,
   },
-  snapchat: {
+  Snapchat: {
     icon: snapchatIcon,
     match: /snapchat\.com/,
   },
-  telegram: {
+  Telegram: {
     icon: telegramIcon,
     match: /telegram\.org/,
   },
-  tiktok: {
+  Tiktok: {
     icon: tiktokIcon,
     match: /tiktok\.com/,
   },
-  x: {
+  X: {
     icon: xIcon,
     match: /twitter\.com|x\.com/,
   },
-  youtube: {
+  YouTube: {
     icon: youtubeIcon,
     match: /youtube\.com/,
   },
-  generic: {
+  Link: {
     icon: linkIcon, // General link icon for unknown services
     match: /.*/,
   },
@@ -72,17 +72,18 @@ const { urls, size } = Astro.props;
 
 const filteredServices = urls
   .map((url) => {
-    const service = Object.values(services).find((s) => s.match.test(url));
-    return service ? { url, icon: service.icon } : null;
+    const serviceKey = Object.keys(services).find((key) => services[key].match.test(url));
+    const service = services[serviceKey];
+    return { url, icon: service.icon, key: serviceKey };
   })
   .filter(Boolean);
 ---
 
 <ul class={`socialMedia ${size ? `socialMedia-${size}` : ''}`}>
   {
-    filteredServices.map(({ url, icon }) => (
+    filteredServices.map(({ url, icon, key }) => (
       <li>
-        <a href={url} title={icon} target="_blank" rel="noopener noreferrer" aria-label={url}>
+        <a href={url} title={key} target="_blank" rel="noopener noreferrer" aria-label={url}>
           <Fragment set:html={icon} alt="" />
         </a>
       </li>
