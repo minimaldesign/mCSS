@@ -1,42 +1,42 @@
 <svg width="100%" height="100%" viewBox="0 0 62 75" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g id="bottom" transform="matrix(1,0,0,1,21,56.3686)">
-        <path id="Triangle-3" d="M4.95,8.39L4.554,14.049L4.95,8.39Z" style="fill:currentColor;fill-rule:nonzero;"/>
-        <path id="Triangle-31" serif:id="Triangle-3" d="M0,12.098L5,8L10,16L0,12.098Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
-        <path id="Triangle-32" serif:id="Triangle-3" d="M0,0L0,12.098L5,8L0,0Z" style="fill:currentColor;fill-opacity:0.9;fill-rule:nonzero;"/>
-        <path id="Triangle-33" serif:id="Triangle-3" d="M15,8L10,16L20,12.098L15,8Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
-        <path id="Triangle-34" serif:id="Triangle-3" d="M20,12.098L15,8L20,0L20,12.098Z" style="fill:currentColor;fill-opacity:0.9;fill-rule:nonzero;"/>
-        <path id="Triangle-35" serif:id="Triangle-3" d="M0,0L20,0L10,16L0,0Z" style="fill:currentColor;fill-opacity:0.5;fill-rule:nonzero;"/>
+        <path d="M4.95,8.39L4.554,14.049L4.95,8.39Z" style="fill:currentColor;fill-rule:nonzero;"/>
+        <path  d="M0,12.098L5,8L10,16L0,12.098Z" style="fill:currentColor;fill-opacity:0.5;fill-rule:nonzero;"/>
+        <path  d="M0,0L0,12.098L5,8L0,0Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
+        <path  d="M15,8L10,16L20,12.098L15,8Z" style="fill:currentColor;fill-opacity:0.5;fill-rule:nonzero;"/>
+        <path  d="M20,12.098L15,8L20,0L20,12.098Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
+        <path  d="M0,0L20,0L10,16L0,0Z" style="fill:currentColor;fill-opacity:0.3;fill-rule:nonzero;"/>
     </g>
     <g id="top" transform="matrix(1,0,0,1,0.60066,-2.63142)">
-        <path id="Triangle-36" serif:id="Triangle-3" d="M22.347,20.242L43.686,29.148L28.386,41.495L22.347,20.242Z" style="fill:currentColor;fill-rule:nonzero;"/>
-        <path id="Triangle-37" serif:id="Triangle-3" d="M38.452,5.263L50.531,17.813L43.686,29.148L38.452,5.263Z" style="fill:currentColor;fill-rule:nonzero;"/>
-        <path id="Triangle-38" serif:id="Triangle-3" d="M20.333,58.498L42.479,52.021L40.465,58.498L20.333,58.498Z" style="fill:currentColor;fill-rule:nonzero;"/>
-        <path id="Triangle-39" serif:id="Triangle-3" d="M18.32,52.021L28.386,41.495L20.333,58.498L18.32,52.021Z" style="fill:currentColor;fill-rule:nonzero;"/>
-        <path id="Triangle-310" serif:id="Triangle-3" d="M10.267,17.813L22.347,5.263L22.347,20.242L10.267,17.813Z" style="fill:currentColor;fill-rule:nonzero;"/>
-        <path id="Triangle-311" serif:id="Triangle-3" d="M28.386,41.495L42.479,52.021L43.686,29.148L28.386,41.495Z" style="fill:currentColor;fill-opacity:0.8;fill-rule:nonzero;"/>
-        <g id="Triangle-312" serif:id="Triangle-3" transform="matrix(-0.766044,0.642788,-0.642788,-0.766044,59.0433,60.4907)">
-            <path d="M11.275,34.257L23.868,49.316L25.752,32.664L11.275,34.257Z" style="fill:currentColor;fill-opacity:0.8;fill-rule:nonzero;"/>
+        <path  d="M22.347,20.242L43.686,29.148L28.386,41.495L22.347,20.242Z" style="fill:currentColor;fill-rule:nonzero;"/>
+        <path  d="M38.452,5.263L50.531,17.813L43.686,29.148L38.452,5.263Z" style="fill:currentColor;fill-rule:nonzero;"/>
+        <path  d="M20.333,58.498L42.479,52.021L40.465,58.498L20.333,58.498Z" style="fill:currentColor;fill-rule:nonzero;"/>
+        <path  d="M18.32,52.021L28.386,41.495L20.333,58.498L18.32,52.021Z" style="fill:currentColor;fill-rule:nonzero;"/>
+        <path  d="M10.267,17.813L22.347,5.263L22.347,20.242L10.267,17.813Z" style="fill:currentColor;fill-rule:nonzero;"/>
+        <path  d="M28.386,41.495L42.479,52.021L43.686,29.148L28.386,41.495Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
+        <g  transform="matrix(-0.766044,0.642788,-0.642788,-0.766044,59.0433,60.4907)">
+            <path d="M11.275,34.257L23.868,49.316L25.752,32.664L11.275,34.257Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
         </g>
-        <g id="Triangle-313" serif:id="Triangle-3" transform="matrix(0.601815,-0.798636,0.798636,0.601815,0.411401,37.4962)">
-            <path d="M26.981,7.134L48.636,10.982L32.711,29.537L26.981,7.134Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
+        <g  transform="matrix(0.601815,-0.798636,0.798636,0.601815,0.411401,37.4962)">
+            <path d="M26.981,7.134L48.636,10.982L32.711,29.537L26.981,7.134Z" style="fill:currentColor;fill-opacity:0.6;fill-rule:nonzero;"/>
         </g>
-        <g id="Triangle-314" serif:id="Triangle-3" transform="matrix(0.601815,-0.798636,0.798636,0.601815,-18.4494,31.8276)">
-            <path d="M11.582,25.717L33.805,25.609L20.465,43.223L11.582,25.717Z" style="fill:currentColor;fill-opacity:0.9;fill-rule:nonzero;"/>
+        <g  transform="matrix(0.601815,-0.798636,0.798636,0.601815,-18.4494,31.8276)">
+            <path d="M11.582,25.717L33.805,25.609L20.465,43.223L11.582,25.717Z" style="fill:currentColor;fill-opacity:0.8;fill-rule:nonzero;"/>
         </g>
-        <g id="Triangle-315" serif:id="Triangle-3" transform="matrix(0.601815,-0.798636,0.798636,0.601815,-31.318,45.4177)">
-            <path d="M20.638,49.123L39.063,45.321L39.138,62.911L20.638,49.123Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
+        <g  transform="matrix(0.601815,-0.798636,0.798636,0.601815,-31.318,45.4177)">
+            <path d="M20.638,49.123L39.063,45.321L39.138,62.911L20.638,49.123Z" style="fill:currentColor;fill-opacity:0.6;fill-rule:nonzero;"/>
         </g>
-        <g id="Triangle-316" serif:id="Triangle-3" transform="matrix(0.601815,-0.798636,0.798636,0.601815,-15.2575,50.5674)">
-            <path d="M33.585,46.985L52.58,34.184L50.313,45.975L33.585,46.985Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
+        <g  transform="matrix(0.601815,-0.798636,0.798636,0.601815,-15.2575,50.5674)">
+            <path d="M33.585,46.985L52.58,34.184L50.313,45.975L33.585,46.985Z" style="fill:currentColor;fill-opacity:0.6;fill-rule:nonzero;"/>
         </g>
-        <g id="Triangle-317" serif:id="Triangle-3" transform="matrix(0.601815,-0.798636,0.798636,0.601815,-16.1227,19.2736)">
-            <path d="M0.156,31.414L17.049,20.197L22.378,31.306L0.156,31.414Z" style="fill:currentColor;fill-opacity:0.7;fill-rule:nonzero;"/>
+        <g  transform="matrix(0.601815,-0.798636,0.798636,0.601815,-16.1227,19.2736)">
+            <path d="M0.156,31.414L17.049,20.197L22.378,31.306L0.156,31.414Z" style="fill:currentColor;fill-opacity:0.6;fill-rule:nonzero;"/>
         </g>
-        <g id="Triangle-318" serif:id="Triangle-3" transform="matrix(0.601815,-0.798636,0.798636,0.601815,-1.9474,51.9612)">
-            <path d="M45.683,22.716L58.855,21.36L43.416,34.507L45.683,22.716Z" style="fill:currentColor;fill-opacity:0.9;fill-rule:nonzero;"/>
+        <g  transform="matrix(0.601815,-0.798636,0.798636,0.601815,-1.9474,51.9612)">
+            <path d="M45.683,22.716L58.855,21.36L43.416,34.507L45.683,22.716Z" style="fill:currentColor;fill-opacity:0.8;fill-rule:nonzero;"/>
         </g>
-        <g id="Triangle-319" serif:id="Triangle-3" transform="matrix(-0.939693,0.34202,-0.34202,-0.939693,60.6145,9.64031)">
-            <path d="M19.329,11.693L39.586,3.126L34.463,17.202L19.329,11.693Z" style="fill:currentColor;fill-opacity:0.9;fill-rule:nonzero;"/>
+        <g  transform="matrix(-0.939693,0.34202,-0.34202,-0.939693,60.6145,9.64031)">
+            <path d="M19.329,11.693L39.586,3.126L34.463,17.202L19.329,11.693Z" style="fill:currentColor;fill-opacity:0.8;fill-rule:nonzero;"/>
         </g>
     </g>
 </svg>

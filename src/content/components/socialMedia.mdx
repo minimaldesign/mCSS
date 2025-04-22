@@ -1,0 +1,179 @@
+---
+title: "Social Media Links"
+lastUpdate: 2025-04-16
+version: 0.1
+---
+
+import discordIcon from "../../assets/icons/discord.svg?raw";
+import facebookIcon from "../../assets/icons/facebook.svg?raw";
+import githubIcon from "../../assets/icons/github.svg?raw";
+import instagramIcon from "../../assets/icons/instagram.svg?raw";
+import linkedinIcon from "../../assets/icons/linkedin.svg?raw";
+import mindsIcon from "../../assets/icons/minds.svg?raw";
+import odyseeIcon from "../../assets/icons/odysee.svg?raw";
+import pinterestIcon from "../../assets/icons/pinterest.svg?raw";
+import redditIcon from "../../assets/icons/reddit.svg?raw";
+import snapchatIcon from "../../assets/icons/snapchat.svg?raw";
+import substackIcon from "../../assets/icons/substack.svg?raw";
+import telegramIcon from "../../assets/icons/telegram.svg?raw";
+import tiktokIcon from "../../assets/icons/tiktok.svg?raw";
+import twitchIcon from "../../assets/icons/twitch.svg?raw";
+import xIcon from "../../assets/icons/x.svg?raw";
+import youtubeIcon from "../../assets/icons/youtube.svg?raw";
+import bitchuteIcon from "../../assets/icons/bitchute.svg?raw";
+import bastyonIcon from "../../assets/icons/bastyon.svg?raw";
+import linkIcon from "../../assets/icons/link.svg?raw";
+
+import SocialMedia from "../../components/SocialMedia.astro";
+
+## Specs
+
+<div class="prose">
+
+| File Name                   | class          | Source      |
+| --------------------------- | -------------- | ----------- |
+| `component.socialMedia.css` | `.socialMedia` | [Github][1] |
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.socialMedia.css
+
+The `socialMedia` component consists of an unordered list of links to social media accounts and their corresponding icons. The following 4 sizes and 19 icons (18 social media platforms + 1 generic link icon) are available out of the box.
+
+| Available modifiers                | Description    |
+| ---------------------------------- | -------------- |
+| `.socialMedia`                     | Default - 24px |
+| `.socialMedia` + `.socialMedia-md` | 32px           |
+| `.socialMedia` + `.socialMedia-lg` | 44px           |
+| `.socialMedia` + `.socialMedia-xl` | 64px           |
+
+<div class="docs_examples_icons24">
+
+| Platform    | Icon                                         |
+| ----------- | -------------------------------------------- |
+| Unknown URL | <Fragment set:html={linkIcon} alt="" />      |
+| Discord     | <Fragment set:html={discordIcon} alt="" />   |
+| Facebook    | <Fragment set:html={facebookIcon} alt="" />  |
+| Github      | <Fragment set:html={githubIcon} alt="" />    |
+| Instagram   | <Fragment set:html={instagramIcon} alt="" /> |
+| Linkedin    | <Fragment set:html={linkedinIcon} alt="" />  |
+| Pinterest   | <Fragment set:html={pinterestIcon} alt="" /> |
+| Reddit      | <Fragment set:html={redditIcon} alt="" />    |
+| Snapchat    | <Fragment set:html={snapchatIcon} alt="" />  |
+| Telegram    | <Fragment set:html={telegramIcon} alt="" />  |
+| Tiktok      | <Fragment set:html={tiktokIcon} alt="" />    |
+| X           | <Fragment set:html={xIcon} alt="" />         |
+| Youtube     | <Fragment set:html={youtubeIcon} alt="" />   |
+| Twitch      | <Fragment set:html={twitchIcon} alt="" />    |
+| Odysee      | <Fragment set:html={odyseeIcon} alt="" />    |
+| Minds       | <Fragment set:html={mindsIcon} alt="" />     |
+| Substack    | <Fragment set:html={substackIcon} alt="" />  |
+| Bitchute    | <Fragment set:html={bitchuteIcon} alt="" />  |
+| Bastyon     | <Fragment set:html={bastyonIcon} alt="" />   |
+
+</div>
+
+When using the HTML component you'll need to include the SVG icons "manually." All the icons are [available on Github](https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons). If you'd like to use different icons, [Lucide](https://lucide.dev/) is a great resource.
+
+The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/src/components/SocialMedia.astro)) takes 3 props:
+
+- `urls`: an array of social media urls
+- `size` (optional) string: `md`, `lg`, `xl`
+- `extraClass`: (optional) additional css, useful for [helper classes](/docs/helpers).
+
+</div>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <SocialMedia
+      urls={[
+        "https://www.instagram.com/amandaoleander/",
+        "https://www.tiktok.com/@samdoesarts",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+      extraClass="mb-sm1"
+    />
+
+    **Astro component syntax:**
+
+    ```astro
+    <SocialMedia
+      urls={[
+        "https://www.instagram.com/amandaoleander/",
+        "https://www.tiktok.com/@samdoesarts",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+    />
+    ```
+
+     **HTML component syntax:**
+
+    ```html
+    <ul class="socialMedia">
+      <li>
+        <a href="https://www.instagram.com/amandaoleander/" title="Instagram" target="_blank" rel="noopener noreferrer" aria-label="https://www.instagram.com/amandaoleander/">
+         <svg>[…]</svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.tiktok.com/@samdoesarts" title="Tiktok" target="_blank" rel="noopener noreferrer" aria-label="https://www.tiktok.com/@samdoesarts">
+         <svg>[…]</svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/@ProkoTV" title="YouTube" target="_blank" rel="noopener noreferrer" aria-label="https://www.youtube.com/@ProkoTV">
+         <svg>[…]</svg>
+        </a>
+      </li>
+    </ul>
+    ```
+
+  </li>
+  <li>
+    <SocialMedia
+      size="xl"
+      urls={[
+        "https://x.com/_yannb_",
+        "https://github.com/minimaldesign",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+      extraClass="mb-sm1"
+    />
+
+    **Astro component syntax:**
+
+    ```astro
+    <SocialMedia
+      size="xl"
+      urls={[
+        "https://x.com/_yannb_",
+        "https://github.com/minimaldesign",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+    />
+    ```
+
+     **HTML component syntax:**
+
+    ```html
+    <ul class="socialMedia socialMedia-xl">
+      <li>
+        <a href="https://x.com/_yannb_" title="X" target="_blank" rel="noopener noreferrer" aria-label="https://x.com/_yannb_">
+         <svg>[…]</svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/minimaldesign" title="Github" target="_blank" rel="noopener noreferrer" aria-label="https://github.com/minimaldesign">
+         <svg>[…]</svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/@ProkoTV" title="YouTube" target="_blank" rel="noopener noreferrer" aria-label="https://www.youtube.com/@ProkoTV">
+         <svg>[…]</svg>
+        </a>
+      </li>
+    </ul>
+    ```
+
+  </li>
+</ul>

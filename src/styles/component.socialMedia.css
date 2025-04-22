@@ -28,3 +28,7 @@
 .socialMedia-lg {
   --icon-size: var(--lg2);
 }
+
+.socialMedia-xl {
+  --icon-size: var(--xl2);
+}

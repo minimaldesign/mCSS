@@ -92,13 +92,13 @@ const platforms = {
     icon: youtubeIcon,
     match: /youtube\.com/,
   },
-  Link: {
+  'Social Media': {
     icon: linkIcon, // General link icon for unknown platforms
     match: /.*/,
   },
 };
 
-const { urls, size } = Astro.props;
+const { urls, size, extraClass } = Astro.props;
 
 const filteredPlatforms = urls
   .map((url) => {
@@ -109,7 +109,7 @@ const filteredPlatforms = urls
   .filter(Boolean);
 ---
 
-<ul class={`socialMedia ${size ? `socialMedia-${size}` : ''}`}>
+<ul class={`socialMedia${size ? ` socialMedia-${size}` : ''}${extraClass ? ` ${extraClass}` : ''}`}>
   {
     filteredPlatforms.map(({ url, icon, key }) => (
       <li>

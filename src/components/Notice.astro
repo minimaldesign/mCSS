@@ -22,7 +22,7 @@ switch (type) {
 }
 ---
 
-<aside class={`notice notice-${type} ${extraClass ? extraClass : ''}`}>
+<aside class={`notice notice-${type}${extraClass ? ` ${extraClass}` : ''}`}>
   <div class="notice_title">
     <Fragment set:html={svgIcon} />
     <strong>{title}</strong>
