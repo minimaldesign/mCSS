@@ -7,14 +7,30 @@ const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[2]; // pathname starts with '/'
 
 const allPosts = await getCollection('components');
-import { moveToFirstPosition } from '../scripts/utilities';
-const orderedPosts = moveToFirstPosition(allPosts, 'id', 'start');
+
+const filterAndSort = (type) => allPosts.filter((post) => post.data.type === type).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const atomPosts = filterAndSort('atom');
+const componentPosts = filterAndSort('component');
 ---
 
 <nav class="navDocs">
   <ul>
     {
-      orderedPosts.map((post) => (
+      atomPosts.map((post) => (
+        <li>
+          <a class={post.id == currentPath && 'is-active'} href={`/components/${post.id}`}>
+            <Fragment set:html={arrow} />
+            {post.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <hr class="mt-sm2 mb-sm2" style="--content: '🏄‍♂️'" />
+  <ul>
+    {
+      componentPosts.map((post) => (
         <li>
           <a class={post.id == currentPath && 'is-active'} href={`/components/${post.id}`}>
             <Fragment set:html={arrow} />

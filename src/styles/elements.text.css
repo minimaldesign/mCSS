@@ -211,6 +211,7 @@ h6, .h6 {
 }
 
 hr {
+  --content: "";
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,7 +221,7 @@ hr {
   color: var(--border-color);
   overflow: visible;
   &::after {
-    content: "○ ● ○";
+    content: var(--content);
     padding: 0 var(--xs1);
     line-height: 1;
     letter-spacing: var(--tracking-sm);

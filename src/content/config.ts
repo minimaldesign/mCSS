@@ -1,10 +1,10 @@
 // Import utilities from `astro:content`
 import { z, defineCollection } from "astro:content";
-import { glob } from 'astro/loaders';
+import { glob } from "astro/loaders";
 
 // Define a `type` and `schema` for each collection
 const blogCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/blog" }),
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     pubDate: z.date(),
@@ -21,7 +21,7 @@ const blogCollection = defineCollection({
 });
 
 const docsCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/docs" }),
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/docs" }),
   schema: z.object({
     title: z.string(),
     lastUpdate: z.date(),
@@ -30,11 +30,15 @@ const docsCollection = defineCollection({
 });
 
 const componentsCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/components" }),
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/components",
+  }),
   schema: z.object({
     title: z.string(),
     lastUpdate: z.date(),
     version: z.number(),
+    type: z.enum(["intro", "atom", "component"]),
   }),
 });
 
