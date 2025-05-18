@@ -34,23 +34,19 @@ fs.readdir(iconsFolder, (err, files) => {
           changes.push("XML declaration removed");
         }
 
-        // Check if the correct id is already present
-        const idRegex = new RegExp(`<svg[^>]*id="${fileNameWithoutExt}"[^>]*>`);
-        if (!idRegex.test(updatedData)) {
-          // Add or overwrite the id attribute in the <svg> tag
-          if (/<svg([^>]*)id="[^"]*"([^>]*)>/.test(updatedData)) {
-            updatedData = updatedData.replace(
-              /<svg([^>]*)id="[^"]*"([^>]*)>/,
-              `<svg$1$2 id="${fileNameWithoutExt}">`
-            );
-            changes.push("id updated");
-          } else if (/<svg([^>]*)>/.test(updatedData)) {
-            updatedData = updatedData.replace(
-              /<svg([^>]*)>/,
-              `<svg$1 id="${fileNameWithoutExt}">`
-            );
-            changes.push("id added");
-          }
+        // Remove duplicate id attributes and ensure proper formatting
+        if (/\s+id="[^"]*"/g.test(updatedData)) {
+          updatedData = updatedData.replace(/\s+id="[^"]*"/g, ""); // Remove all id attributes
+          changes.push("duplicate id attributes removed");
+        }
+
+        // Add the correct id attribute with a single space before it
+        if (/<svg([^>]*)>/.test(updatedData)) {
+          updatedData = updatedData.replace(
+            /<svg([^>]*)>/,
+            `<svg$1 id="${fileNameWithoutExt}">`
+          );
+          changes.push("id added or updated");
         }
 
         // Remove any class attributes
@@ -65,9 +61,12 @@ fs.readdir(iconsFolder, (err, files) => {
           changes.push("comments removed");
         }
 
+        // Ensure there is only one space before each attribute
+        updatedData = updatedData.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
+
         // Write the updated SVG back to the file only if changes were made
         if (changes.length > 0) {
-          fs.writeFile(filePath, updatedData, "utf8", (err) => {
+          fs.writeFile(filePath, updatedData.trim(), "utf8", (err) => {
             if (err) {
               console.error(`Error writing file ${file}:`, err);
               return;
