@@ -28,10 +28,28 @@ fs.readdir(iconsFolder, (err, files) => {
         let updatedData = data;
         let changes = [];
 
-        // Remove any XML declaration at the top of the file
+        // Remove <!DOCTYPE> declaration
+        if (/<!DOCTYPE[^>]*>/i.test(updatedData)) {
+          updatedData = updatedData.replace(/<!DOCTYPE[^>]*>/i, "");
+          changes.push("DOCTYPE declaration removed");
+        }
+
+        // Remove XML declaration
         if (/<\?xml[\s\S]*?\?>\s*/.test(updatedData)) {
           updatedData = updatedData.replace(/<\?xml[\s\S]*?\?>\s*/g, "");
           changes.push("XML declaration removed");
+        }
+
+        // Remove xmlns attributes (keep only xmlns="http://www.w3.org/2000/svg")
+        if (/xmlns:[a-z]+="[^"]*"/g.test(updatedData)) {
+          updatedData = updatedData.replace(/xmlns:[a-z]+="[^"]*"/g, "");
+          changes.push("unnecessary xmlns attributes removed");
+        }
+
+        // Remove xml:space="preserve" if present
+        if (/xml:space="preserve"/.test(updatedData)) {
+          updatedData = updatedData.replace(/xml:space="preserve"/g, "");
+          changes.push('xml:space="preserve" removed');
         }
 
         // Remove duplicate id attributes and ensure proper formatting
@@ -64,10 +82,10 @@ fs.readdir(iconsFolder, (err, files) => {
           changes.push("comments removed");
         }
 
-        // Ensure there is only one space before each attribute
+        // Replace multiple spaces with a single space
         updatedData = updatedData.replace(/\s{2,}/g, " ");
 
-        // Trim the updated data to remove unnecessary whitespace
+        // Remove unnecessary whitespace
         updatedData = updatedData.trim();
 
         // Write the updated SVG back to the file only if changes were made
