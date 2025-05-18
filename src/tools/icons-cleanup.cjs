@@ -1,0 +1,81 @@
+const fs = require("fs");
+const path = require("path");
+
+// Path to your icons folder (relative to the /tools directory)
+const iconsFolder = path.join(__dirname, "../assets/icons");
+
+// Read all SVG files in the folder
+fs.readdir(iconsFolder, (err, files) => {
+  if (err) {
+    console.error("Error reading the icons folder:", err);
+    return;
+  }
+
+  files.forEach((file) => {
+    const filePath = path.join(iconsFolder, file);
+
+    // Process only .svg files
+    if (path.extname(file) === ".svg") {
+      const fileNameWithoutExt = path.basename(file, ".svg");
+
+      // Read the SVG file
+      fs.readFile(filePath, "utf8", (err, data) => {
+        if (err) {
+          console.error(`Error reading file ${file}:`, err);
+          return;
+        }
+
+        let updatedData = data;
+        let changes = [];
+
+        // Remove any XML declaration at the top of the file
+        if (/<\?xml[\s\S]*?\?>\s*/.test(updatedData)) {
+          updatedData = updatedData.replace(/<\?xml[\s\S]*?\?>\s*/g, "");
+          changes.push("XML declaration removed");
+        }
+
+        // Check if the correct id is already present
+        const idRegex = new RegExp(`<svg[^>]*id="${fileNameWithoutExt}"[^>]*>`);
+        if (!idRegex.test(updatedData)) {
+          // Add or overwrite the id attribute in the <svg> tag
+          if (/<svg([^>]*)id="[^"]*"([^>]*)>/.test(updatedData)) {
+            updatedData = updatedData.replace(
+              /<svg([^>]*)id="[^"]*"([^>]*)>/,
+              `<svg$1$2 id="${fileNameWithoutExt}">`
+            );
+            changes.push("id updated");
+          } else if (/<svg([^>]*)>/.test(updatedData)) {
+            updatedData = updatedData.replace(
+              /<svg([^>]*)>/,
+              `<svg$1 id="${fileNameWithoutExt}">`
+            );
+            changes.push("id added");
+          }
+        }
+
+        // Remove any class attributes
+        if (/\sclass="[^"]*"/.test(updatedData)) {
+          updatedData = updatedData.replace(/\sclass="[^"]*"/g, "");
+          changes.push("class removed");
+        }
+
+        // Remove any comments
+        if (/<!--[\s\S]*?-->/.test(updatedData)) {
+          updatedData = updatedData.replace(/<!--[\s\S]*?-->/g, "");
+          changes.push("comments removed");
+        }
+
+        // Write the updated SVG back to the file only if changes were made
+        if (changes.length > 0) {
+          fs.writeFile(filePath, updatedData, "utf8", (err) => {
+            if (err) {
+              console.error(`Error writing file ${file}:`, err);
+              return;
+            }
+            console.log(`Updated ${file}: ${changes.join(", ")}.`);
+          });
+        }
+      });
+    }
+  });
+});
