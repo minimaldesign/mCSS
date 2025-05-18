@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-// Path to your icons folder (relative to the /tools directory)
+// Path to icons folder (relative to the /tools directory)
 const iconsFolder = path.join(__dirname, "../assets/icons");
 
 // Read all SVG files in the folder
@@ -40,13 +40,16 @@ fs.readdir(iconsFolder, (err, files) => {
           changes.push("duplicate id attributes removed");
         }
 
-        // Add the correct id attribute with a single space before it
-        if (/<svg([^>]*)>/.test(updatedData)) {
-          updatedData = updatedData.replace(
-            /<svg([^>]*)>/,
-            `<svg$1 id="${fileNameWithoutExt}">`
-          );
-          changes.push("id added or updated");
+        // Add the correct id attribute
+        const idRegex = new RegExp(`<svg[^>]*id="${fileNameWithoutExt}"[^>]*>`);
+        if (!idRegex.test(updatedData)) {
+          if (/<svg([^>]*)>/.test(updatedData)) {
+            updatedData = updatedData.replace(
+              /<svg([^>]*)>/,
+              `<svg$1 id="${fileNameWithoutExt}">`
+            );
+            changes.push("id added or updated");
+          }
         }
 
         // Remove any class attributes
@@ -62,11 +65,14 @@ fs.readdir(iconsFolder, (err, files) => {
         }
 
         // Ensure there is only one space before each attribute
-        updatedData = updatedData.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
+        updatedData = updatedData.replace(/\s{2,}/g, " ");
+
+        // Trim the updated data to remove unnecessary whitespace
+        updatedData = updatedData.trim();
 
         // Write the updated SVG back to the file only if changes were made
-        if (changes.length > 0) {
-          fs.writeFile(filePath, updatedData.trim(), "utf8", (err) => {
+        if (changes.length > 0 && updatedData !== data) {
+          fs.writeFile(filePath, updatedData, "utf8", (err) => {
             if (err) {
               console.error(`Error writing file ${file}:`, err);
               return;
