@@ -27,8 +27,10 @@
 
 .socialMedia-lg {
   --icon-size: var(--lg2);
+  gap: var(--sm2);
 }
 
 .socialMedia-xl {
   --icon-size: var(--xl2);
+  gap: var(--md2);
 }
