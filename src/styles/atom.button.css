@@ -42,6 +42,14 @@
 
 /* Colors */
 
+.bt-text {
+  border-color: transparent;
+  &:hover {
+    color: var(--link-color);
+    background-color: transparent;
+  }
+}
+
 .bt-primary {
   color: var(--base-0);
   background-color: var(--link-color);
