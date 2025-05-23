@@ -1,4 +1,4 @@
-footer {
+.footer {
   padding: var(--md3) var(--sm3);
   line-height: var(--leading-xl);
   color: var(--footer-text-color);
