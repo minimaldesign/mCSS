@@ -1,16 +1,15 @@
 /* DEFAULT THEME */
 
+/* ELEMENTS */
+
 :root {
-  /* GLOBAL */
   accent-color: var(--primary-500);
 
-  --border-color: var(--base-200);
-
-  /* ELEMENTS */
-
   --body-background-color: var(--base-0);
+
   --button-height: var(--md3);
   --button-border-radius: var(--radius-lg);
+
   --input-height: var(--md3);
   --input-padding: var(--xs3);
   --input-border-radius: var(--radius-lg);
@@ -18,7 +17,13 @@
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
-  /* text */
+  --table-padding: var(--xs2) var(--sm1);
+  --table-border-color: var(--base-100);
+  --table-border-radius: var(--radius-md);
+  --table-background-color: none;
+
+  /* Text */
+
   --heading-font: var(--display);
   --heading-weight: var(--black);
   --heading-line-height: var(--leading-sm);
@@ -30,14 +35,34 @@
   --prose-spacing: var(--sm1);
 
   --marker-color: #ffee00;
+}
 
-  /* tables */
-  --table-padding: var(--xs2) var(--sm1);
-  --table-border-color: var(--base-100);
-  --table-border-radius: var(--radius-md);
+:root:has(.root-theme:checked) {
+  accent-color: var(--primary-500);
+
+  --body-background-color: var(--base-950);
+
+  --button-height: var(--md3);
+
+  --dialog-backdrop-color: var(--base-950);
+
+  --table-border-color: var(--base-700);
   --table-background-color: none;
 
-  /* layouts */
+  /* Text */
+
+  --text-color: var(--base-100);
+  --link-color: var(--primary-400);
+  --link-hover-color: var(--primary-500);
+
+  --marker-color: #ffee00;
+}
+
+/* GLOBAL */
+
+:root {
+  --border-color: var(--base-200);
+
   --grid-column-gap: var(--sm3);
   --grid-row-gap: var(--sm3);
 
@@ -48,57 +73,83 @@
 
   --layout_content_aside-width: 245px;
   --layout_content_aside-background-color: var(--base-100);
-
-  /* components */
-  --avatar-radius: var(--radius-round);
-
-  --footer-background-color: var(--primary-600);
-  --footer-text-color: var(--base-0);
-  --footer-border-color: transparent;
-
-  --header-height: var(--xl2);
-  --header-background-color: var(--base-0);
-
-  --notice-text-color: var(--base-950);
-}
-
-:focus-visible {
-  outline: 3px solid var(--primary-500);
-}
-
-::selection {
-  color: var(--base-0);
-  background-color: var(--primary-800);
 }
 
 :root:has(.root-theme:checked) {
-  /* GLOBAL */
-  accent-color: var(--primary-500);
-
   --border-color: var(--base-500);
+}
 
-  /* ELEMENTS */
+/* COMPONENTS */
 
-  --body-background-color: var(--base-950);
-  --button-height: var(--md3);
+/* Avatar */
 
-  --dialog-backdrop-color: var(--base-950);
+:root {
+  --avatar-radius: var(--radius-round);
+}
 
-  /* text */
+/* Card */
 
-  --text-color: var(--base-100);
-  --link-color: var(--primary-400);
-  --link-hover-color: var(--primary-500);
+:root {
+  --card-bg-color: #ffffff;
+  --card-filled-bg: var(--base-50);
+  --card-border-radius: 8px;
+  --card-padding: 16px;
+  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --card-border-color: #e5e7eb;
+  --card-text-color: #111827;
+  --card-secondary-text-color: #6b7280;
+  --card-badge-bg: #3b82f6; /* Default badge background */
+  --card-badge-text: #ffffff;
+  --card-loading-bg: #e5e7eb;
+  --card-action-bg: #3b82f6;
+  --card-action-text: #ffffff;
+}
 
-  --marker-color: #ffee00;
+:root:has(.root-theme:checked) {
+  --card-bg-color: #1f2937;
+  --card-filled-bg: var(--base-900);
+  --card-border-color: #374151;
+  --card-text-color: #f3f4f6;
+  --card-secondary-text-color: #9ca3af;
+  --card-loading-bg: #4b5563;
+  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --card-button-bg: #3b82f6;
+  --card-button-text: #ffffff;
+  --card-button-border: #2563eb;
+  --card-button-bg-hover: #2563eb;
+  --card-button-text-hover: #ffffff;
+  --card-badge-bg: #3b82f6;
+}
 
-  /* tables */
-  --table-border-color: var(--base-700);
-  --table-background-color: none;
+/* Footer */
 
-  /* components */
+:root {
+  --footer-background-color: var(--primary-600);
+  --footer-text-color: var(--base-0);
+  --footer-border-color: transparent;
+}
+
+:root:has(.root-theme:checked) {
   --footer-background-color: var(--base-950);
   --footer-text-color: var(--base-200);
   --footer-border-color: var(--base-700);
+}
+
+/* Header */
+
+:root {
+  --header-height: var(--xl2);
+  --header-background-color: var(--base-0);
+}
+
+:root:has(.root-theme:checked) {
   --header-background-color: var(--base-950);
+}
+
+/* Notice */
+
+:root {
+  --notice-text-color: var(--base-950);
 }
