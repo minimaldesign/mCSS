@@ -48,9 +48,14 @@
     color: var(--link-color);
     background-color: transparent;
   }
+  &:disabled {
+    color: var(--text-colors);
+    background-color: transparent;
+    cursor: not-allowed;
+  }
 }
 
-.bt-primary {
+.bt-primary:not(:disabled) {
   color: var(--base-0);
   background-color: var(--link-color);
   border-color: var(--link-color);
@@ -61,12 +66,13 @@
   &.bt-outline {
     color: var(--link-color);
     &:hover {
-      color: var(--link-hover-color);
+      background-color: var(--link-color);
+      color: var(--base-0);
     }
   }
 }
 
-.bt-yes {
+.bt-yes:not(:disabled) {
   color: var(--base-0);
   background-color: var(--yes-500);
   border-color: var(--yes-500);
@@ -84,7 +90,7 @@
   }
 }
 
-.bt-no {
+.bt-no:not(:disabled) {
   color: var(--base-0);
   background-color: var(--no-500);
   border-color: var(--no-500);
@@ -102,7 +108,7 @@
   }
 }
 
-.bt-maybe {
+.bt-maybe:not(:disabled) {
   color: var(--base-0);
   background-color: var(--maybe-500);
   border-color: var(--maybe-500);
