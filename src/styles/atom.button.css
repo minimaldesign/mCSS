@@ -66,8 +66,8 @@
   &.bt-outline {
     color: var(--link-color);
     &:hover {
-      background-color: var(--link-color);
       color: var(--base-0);
+      background-color: var(--link-color);
     }
   }
 }
