@@ -58,11 +58,19 @@ ul.docs_section_media {
   padding-left: 0;
   list-style-type: none;
 
-  > li:not(:last-of-type) {
-    margin-bottom: var(--lg2);
+  > li {
+    margin: var(--sm1) 0;
     &:has(.astro-code) {
-      margin-bottom: var(--xl3);
+      margin-top: var(--lg2);
+      margin-bottom: var(--xl1);
     }
+  }
+}
+
+.docs_examples_icons24 {
+  svg {
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -173,12 +181,5 @@ ul.docs_section_media {
     padding: var(--xs2);
     background-color: var(--primary-500);
     color: var(--base-0);
-  }
-}
-
-.docs_examples_icons24 {
-  svg {
-    width: 24px;
-    height: 24px;
   }
 }
