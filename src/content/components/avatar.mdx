@@ -8,9 +8,14 @@ type: "component"
 import Avatar from "../../components/Avatar.astro";
 import pic from "../../assets/images/sonny.png";
 
-## Specs
-
 <section class="prose">
+
+The `.avatar` component is a visual representation of a user. It shows the user's initials or an image thumbnail.
+Its default size is 56px. (See the [HTML](#html) section below for all options.)
+
+<Avatar online size="xl" pic={pic}>
+  SR
+</Avatar>
 
 | File Name              | class     | Source      |
 | ---------------------- | --------- | ----------- |
@@ -18,7 +23,11 @@ import pic from "../../assets/images/sonny.png";
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.avatar.css
 
-The `.avatar` component is a visual representation of a user. It shows the user's initials or an image thumbnail.
+</section>
+
+## HTML
+
+<section class="prose">
 
 | Available modifiers           | Description                |
 | ----------------------------- | -------------------------- |
@@ -32,27 +41,7 @@ The `.avatar` component is a visual representation of a user. It shows the user'
 
 </section>
 
-## Available styles
-
-{/* prettier-ignore */}
-<ul class="docs_examples grid" col="2">
-  <li><Avatar size="sm" pic={pic}>SR</Avatar></li>
-  <li><Avatar size="sm">SR</Avatar></li>
-  <li><Avatar size="md" pic={pic}>SR</Avatar></li>
-  <li><Avatar size="md">SR</Avatar></li>
-  <li><Avatar pic={pic}>SR</Avatar></li>
-  <li><Avatar>SR</Avatar></li>
-  <li><Avatar size="lg" pic={pic}>SR</Avatar></li>
-  <li><Avatar size="lg">SR</Avatar></li>
-  <li><Avatar size="xl" pic={pic}>SR</Avatar></li>
-  <li><Avatar size="xl">SR</Avatar></li>
-  <li><Avatar offline size="xl" pic={pic}>SR</Avatar></li>
-  <li><Avatar online size="xl">SR</Avatar></li>
-</ul>
-
-## Examples
-
-<ul class="docs_examples prose">
+<ul class="docs_examples">
   <li>
     <Avatar>SR</Avatar>
 
@@ -63,13 +52,6 @@ The `.avatar` component is a visual representation of a user. It shows the user'
       </div>
     </div>
     ```
-
-    **Astro component syntax:**
-
-    ```astro
-    <Avatar>Sonny Rollins</Avatar>
-    ```
-    The astro component can take initials or a full name and will output initials if an image is not provided. It will output the full name in the `alt` attribute if an image is provided.
 
   </li>
   <li>
@@ -84,15 +66,64 @@ The `.avatar` component is a visual representation of a user. It shows the user'
 
     ```
 
-    **Astro component syntax:**
+  </li>
+</ul>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop      | Type     | Default     | Description                                 |
+| --------- | -------- | ----------- | ------------------------------------------- |
+| `size`    | `string` | `undefined` | `sm`, `md`, `lg`, `xl` ([px values](#html)) |
+| `online`  | `string` | `undefined` | User is online - green dot                  |
+| `offline` | `string` | `undefined` | User is offline - grey dot                  |
+
+</div>
+
+<ul class="docs_examples prose">
+  <li>
+    <Avatar>Sonny Rollins</Avatar>
+    <Avatar>SR</Avatar>
+
+    ```astro
+    ---
+    import Avatar from "../../components/Avatar.astro";
+    ---
+    <Avatar>Sonny Rollins</Avatar>
+    <Avatar>SR</Avatar>
+    ```
+    The astro component can take initials or a full name and will output initials if an image is not provided. It will output the full name in the `alt` attribute if an image is provided.
+
+  </li>
+  <li>
+    <Avatar offline size="lg" pic={pic}>Sonny Rollins</Avatar>
 
     ```astro
     ---
     import Avatar from "../../components/Avatar.astro";
     import pic from "../../assets/images/sonny.png";
     ---
-    <Avatar online size="xl" pic={pic}>Sonny Rollins</Avatar>
+    <Avatar offline size="lg" pic={pic}>Sonny Rollins</Avatar>
     ```
 
   </li>
+</ul>
+
+## Available styles
+
+{/* prettier-ignore */}
+<ul class="docs_examples grid grid-flush" col="2">
+  <li><Avatar size="sm" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="sm">SR</Avatar></li>
+  <li><Avatar size="md" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="md">SR</Avatar></li>
+  <li><Avatar pic={pic}>SR</Avatar></li>
+  <li><Avatar>SR</Avatar></li>
+  <li><Avatar size="lg" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="lg">SR</Avatar></li>
+  <li><Avatar size="xl" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="xl">SR</Avatar></li>
+  <li><Avatar offline size="xl" pic={pic}>SR</Avatar></li>
+  <li><Avatar online size="xl">SR</Avatar></li>
 </ul>

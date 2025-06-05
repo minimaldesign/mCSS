@@ -2,6 +2,7 @@
   --w: var(--xl1);
   --fs: var(--text-md);
   position: relative;
+  display: inline-block;
   width: var(--w);
 
   > div {
