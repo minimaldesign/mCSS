@@ -27,24 +27,31 @@ import linkIcon from "../../assets/icons/link.svg?raw";
 
 import SocialMedia from "../../components/SocialMedia.astro";
 
-## Specs
-
 <div class="prose">
 
+The `socialMedia` component consists of an unordered list of links to social media accounts and their corresponding icons.
+
+</div>
+
+<SocialMedia
+  size="md"
+  urls={[
+    "https://www.instagram.com/amandaoleander/",
+    "https://www.tiktok.com/@samdoesarts",
+    "https://www.youtube.com/@ProkoTV",
+  ]}
+/>
+
+<div class="prose">
 | File Name                   | class          | Source      |
 | --------------------------- | -------------- | ----------- |
 | `component.socialMedia.css` | `.socialMedia` | [Github][1] |
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.socialMedia.css
 
-The `socialMedia` component consists of an unordered list of links to social media accounts and their corresponding icons. The following 4 sizes and 19 icons (18 social media platforms + 1 generic link icon) are available out of the box.
+The following 4 sizes and 19 icons (18 social media platforms + 1 generic link icon) are available out of the box.
 
-| Available modifiers                | Description    |
-| ---------------------------------- | -------------- |
-| `.socialMedia`                     | Default - 24px |
-| `.socialMedia` + `.socialMedia-md` | 32px           |
-| `.socialMedia` + `.socialMedia-lg` | 44px           |
-| `.socialMedia` + `.socialMedia-xl` | 64px           |
+</div>
 
 <div class="docs_examples_icons24">
 
@@ -72,17 +79,20 @@ The `socialMedia` component consists of an unordered list of links to social med
 
 </div>
 
+## HTML
+
+<div class="prose">
+
+| Available modifiers                | Description    |
+| ---------------------------------- | -------------- |
+| `.socialMedia`                     | Default - 24px |
+| `.socialMedia` + `.socialMedia-md` | 32px           |
+| `.socialMedia` + `.socialMedia-lg` | 44px           |
+| `.socialMedia` + `.socialMedia-xl` | 64px           |
+
 When using the HTML component you'll need to include the SVG icons "manually." All the icons are [available on Github](https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons). If you'd like to use different icons, [Lucide](https://lucide.dev/) is a great resource.
 
-The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/src/components/SocialMedia.astro)) takes 3 props:
-
-- `urls`: an array of social media urls
-- `size` (optional) string: `md`, `lg`, `xl`
-- `extraClass`: (optional) additional css, useful for [helper classes](/docs/helpers).
-
 </div>
-
-## Examples
 
 <ul class="docs_examples">
   <li>
@@ -94,20 +104,6 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
       ]}
       extraClass="mb-sm1"
     />
-
-    **Astro component syntax:**
-
-    ```astro
-    <SocialMedia
-      urls={[
-        "https://www.instagram.com/amandaoleander/",
-        "https://www.tiktok.com/@samdoesarts",
-        "https://www.youtube.com/@ProkoTV",
-      ]}
-    />
-    ```
-
-     **HTML component syntax:**
 
     ```html
     <ul class="socialMedia">
@@ -141,21 +137,6 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
       extraClass="mb-sm1"
     />
 
-    **Astro component syntax:**
-
-    ```astro
-    <SocialMedia
-      size="xl"
-      urls={[
-        "https://x.com/_yannb_",
-        "https://github.com/minimaldesign",
-        "https://www.youtube.com/@ProkoTV",
-      ]}
-    />
-    ```
-
-     **HTML component syntax:**
-
     ```html
     <ul class="socialMedia socialMedia-xl">
       <li>
@@ -174,6 +155,67 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
         </a>
       </li>
     </ul>
+    ```
+
+  </li>
+</ul>
+
+## Astro component
+
+<div class="prose">
+
+The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/src/components/SocialMedia.astro)) takes 3 props:
+
+| Prop         | Type     | Default     | Description                                                 |
+| ------------ | -------- | ----------- | ----------------------------------------------------------- |
+| `urls`       | `array`  | `[]`        | An array of social media urls.                              |
+| `size`       | `string` | `undefined` | `md`, `lg`, `xl`.                                           |
+| `extraClass` | `string` | `undefined` | Additional CSS, useful for [helper classes](/docs/helpers). |
+
+</div>
+
+<ul class="docs_examples">
+  <li>
+    <SocialMedia
+      urls={[
+        "https://www.instagram.com/amandaoleander/",
+        "https://www.tiktok.com/@samdoesarts",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+      extraClass="mb-sm1"
+    />
+
+    ```astro
+    <SocialMedia
+      urls={[
+        "https://www.instagram.com/amandaoleander/",
+        "https://www.tiktok.com/@samdoesarts",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+    />
+    ```
+
+  </li>
+  <li>
+    <SocialMedia
+      size="lg"
+      urls={[
+        "https://x.com/_yannb_",
+        "https://github.com/minimaldesign",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+      extraClass="mb-sm1"
+    />
+
+    ```astro
+    <SocialMedia
+      size="lg"
+      urls={[
+        "https://x.com/_yannb_",
+        "https://github.com/minimaldesign",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+    />
     ```
 
   </li>
