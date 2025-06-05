@@ -9,6 +9,11 @@
   grid-row-gap: var(--grid-row-gap);
 }
 
+.grid-flush {
+  grid-column-gap:0;
+  grid-row-gap: 0;
+}
+
 /* DEFAULT */
 .grid > .grid_item { display: block; -moz-appearance: none; appearance: none; -webkit-appearance: none }
 .grid[col="1"] { --grid-tc: repeat(1, 1fr) }
