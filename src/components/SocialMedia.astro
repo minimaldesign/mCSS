@@ -19,102 +19,55 @@ import bitchuteIcon from '../assets/icons/social-bitchute.svg?raw';
 import bastyonIcon from '../assets/icons/social-bastyon.svg?raw';
 import linkIcon from '../assets/icons/link.svg?raw';
 
-const platforms = {
-  Bastyon: {
-    icon: bastyonIcon,
-    match: /bastyon\.com/,
-  },
-  Bitchute: {
-    icon: bitchuteIcon,
-    match: /bitchute\.com/,
-  },
-  Discord: {
-    icon: discordIcon,
-    match: /discord\.com/,
-  },
-  Facebook: {
-    icon: facebookIcon,
-    match: /facebook\.com/,
-  },
-  Github: {
-    icon: githubIcon,
-    match: /github\.com/,
-  },
-  Instagram: {
-    icon: instagramIcon,
-    match: /instagram\.com/,
-  },
-  Linkedin: {
-    icon: linkedinIcon,
-    match: /linkedin\.com/,
-  },
-  Minds: {
-    icon: mindsIcon,
-    match: /minds\.com/,
-  },
-  Odysee: {
-    icon: odyseeIcon,
-    match: /odysee\.com/,
-  },
-  Pinterest: {
-    icon: pinterestIcon,
-    match: /pinterest\.com/,
-  },
-  Reddit: {
-    icon: redditIcon,
-    match: /reddit\.com/,
-  },
-  Snapchat: {
-    icon: snapchatIcon,
-    match: /snapchat\.com/,
-  },
-  Substack: {
-    icon: substackIcon,
-    match: /substack\.com/,
-  },
-  Telegram: {
-    icon: telegramIcon,
-    match: /telegram\.org|t\.me/,
-  },
-  Tiktok: {
-    icon: tiktokIcon,
-    match: /tiktok\.com/,
-  },
-  Twitch: {
-    icon: twitchIcon,
-    match: /twitch\.tv/,
-  },
-  X: {
-    icon: xIcon,
-    match: /twitter\.com|x\.com/,
-  },
-  YouTube: {
-    icon: youtubeIcon,
-    match: /youtube\.com/,
-  },
-  'Social Media': {
-    icon: linkIcon, // General link icon for unknown platforms
-    match: /.*/,
-  },
-};
+const platforms = [
+  { name: 'Bastyon', icon: bastyonIcon, match: /bastyon\.com/ },
+  { name: 'Bitchute', icon: bitchuteIcon, match: /bitchute\.com/ },
+  { name: 'Discord', icon: discordIcon, match: /discord\.com/ },
+  { name: 'Facebook', icon: facebookIcon, match: /facebook\.com/ },
+  { name: 'Github', icon: githubIcon, match: /github\.com/ },
+  { name: 'Instagram', icon: instagramIcon, match: /instagram\.com/ },
+  { name: 'Linkedin', icon: linkedinIcon, match: /linkedin\.com/ },
+  { name: 'Minds', icon: mindsIcon, match: /minds\.com/ },
+  { name: 'Odysee', icon: odyseeIcon, match: /odysee\.com/ },
+  { name: 'Pinterest', icon: pinterestIcon, match: /pinterest\.com/ },
+  { name: 'Reddit', icon: redditIcon, match: /reddit\.com/ },
+  { name: 'Snapchat', icon: snapchatIcon, match: /snapchat\.com/ },
+  { name: 'Substack', icon: substackIcon, match: /substack\.com/ },
+  { name: 'Telegram', icon: telegramIcon, match: /telegram\.org|t\.me/ },
+  { name: 'Tiktok', icon: tiktokIcon, match: /tiktok\.com/ },
+  { name: 'Twitch', icon: twitchIcon, match: /twitch\.tv/ },
+  { name: 'X', icon: xIcon, match: /twitter\.com|x\.com/ },
+  { name: 'YouTube', icon: youtubeIcon, match: /youtube\.com/ },
+  // Catch-all must be last
+  { name: 'Social Media', icon: linkIcon, match: /.*/ },
+];
 
-const { urls, size, extraClass } = Astro.props;
+const { urls = [], size = '', extraClass = '' } = Astro.props;
 
-const filteredPlatforms = urls
-  .map((url) => {
-    const serviceKey = Object.keys(platforms).find((key) => platforms[key].match.test(url));
-    const service = platforms[serviceKey];
-    return { url, icon: service.icon, key: serviceKey };
-  })
-  .filter(Boolean);
+const filteredPlatforms = urls.map((url) => {
+  const platform = platforms.find((p) => p.match.test(url));
+  return {
+    url,
+    icon: platform.icon,
+    key: platform.name,
+  };
+});
 ---
 
-<ul class={`socialMedia${size ? ` socialMedia-${size}` : ''}${extraClass ? ` ${extraClass}` : ''}`}>
+<!-- prettier-ignore -->
+<ul
+  class:list={[
+    'socialMedia',
+    size && `socialMedia-${size}`,
+    extraClass,
+  ]}
+>
   {
     filteredPlatforms.map(({ url, icon, key }) => (
       <li>
-        <a href={url} title={key} target="_blank" rel="noopener noreferrer" aria-label={url}>
-          <Fragment set:html={icon} alt="" />
+        <a href={url} title={key} target="_blank" rel="noopener noreferrer" aria-label={key}>
+          <Fragment set:html={icon} aria-hidden="true" />
+          <span class="sr-only">{key}</span>
         </a>
       </li>
     ))
