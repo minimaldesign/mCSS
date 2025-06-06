@@ -9,7 +9,7 @@ import Notice from "../../components/Notice.astro";
 
 <section class="prose">
 
-The `notice` component is useful to bring something to the attention of the reader/user, as well as provide feedback on user interaction.
+The `.notice` component is useful to bring something to the attention of the reader/user, as well as provide feedback on user interaction.
 
 <Notice title="Example notice component">
   <p>This is the the default notice style, without a modifier class.</p>
@@ -78,10 +78,11 @@ When using HTML, you'll need to include the SVG icons "manually." All the icons 
 
 <div class="docs_oversizedTable prose">
 
-| Prop    | Type     | Default     | Description                             |
-| ------- | -------- | ----------- | --------------------------------------- |
-| `title` | `string` | `undefined` | Text for the notice header. (Optional.) |
-| `type`  | `string` | `undefined` | `info`, `danger`, `warning`, `confirm`. |
+| Prop         | Type     | Default     | Description                                                 |
+| ------------ | -------- | ----------- | ----------------------------------------------------------- |
+| `title`      | `string` | `undefined` | Text for the notice header. (Optional.)                     |
+| `type`       | `string` | `undefined` | `info`, `danger`, `warning`, `confirm`.                     |
+| `extraClass` | `string` | `undefined` | Additional CSS, useful for [helper classes](/docs/helpers). |
 
 </div>
 

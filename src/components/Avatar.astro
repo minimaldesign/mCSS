@@ -1,13 +1,22 @@
 ---
 import { Image } from 'astro:assets';
 import { getInitials } from '../scripts/utilities';
-const { online, offline, pic, size } = Astro.props;
+const { online, offline, pic, size, extraClass } = Astro.props;
 
 const slotContent = await Astro.slots.render('default');
 const initials = getInitials(slotContent);
 ---
 
-<div class:list={['avatar', size && `avatar-${size}`, online && 'avatar-online', offline && 'avatar-offline']}>
+<!-- prettier-ignore -->
+<div
+  class:list={[
+    'avatar',
+    size && `avatar-${size}`,
+    online && 'avatar-online',
+    offline && 'avatar-offline',
+    extraClass,
+  ]}
+>
   <div>
     {pic && <Image src={pic} alt={slotContent} width="256" />}
     {!pic && initials && <span>{initials}</span>}
