@@ -1,10 +1,18 @@
 ---
 import { Image } from 'astro:assets';
 import { getInitials } from '../scripts/utilities';
-const { online, offline, pic, size, extraClass } = Astro.props;
+// prettier-ignore
+const {
+  online = false,
+  offline = false,
+  pic,
+  size,
+  extraClass = '',
+} = Astro.props;
 
 const slotContent = await Astro.slots.render('default');
 const initials = getInitials(slotContent);
+const label = slotContent || 'User avatar';
 ---
 
 <!-- prettier-ignore -->
@@ -16,9 +24,11 @@ const initials = getInitials(slotContent);
     offline && 'avatar-offline',
     extraClass,
   ]}
+  role="img"
+  aria-label={label}
 >
   <div>
-    {pic && <Image src={pic} alt={slotContent} width="256" />}
+    {pic && <Image src={pic} alt={label} width="256" />}
     {!pic && initials && <span>{initials}</span>}
   </div>
 </div>
