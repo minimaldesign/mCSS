@@ -19,6 +19,7 @@
 @import url(./elements.interactive.css);
 
 /* Global styles */
+@import url(./global.accessibility.css);
 @import url(./global.grid.css);
 @import url(./global.layout.css);
 @import url(./global.prose.css);
