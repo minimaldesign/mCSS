@@ -8,6 +8,7 @@ const {
   pic,
   size,
   extraClass = '',
+  'data-testid': testId = 'avatar',
 } = Astro.props;
 
 const slotContent = await Astro.slots.render('default');
@@ -26,6 +27,7 @@ const label = slotContent || 'User avatar';
   ]}
   role="img"
   aria-label={label}
+  data-testid={testId}
 >
   <div>
     {pic && <Image src={pic} alt={label} width="256" />}
