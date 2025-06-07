@@ -26,7 +26,7 @@ switch (type) {
 <aside
   class:list={[
     'notice',
-    `notice-${type}`,
+    type && `notice-${type}`,
     extraClass,
   ]}
   role={type === 'danger' || type === 'warning' ? 'alert' : 'status'}
