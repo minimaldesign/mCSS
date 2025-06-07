@@ -6,10 +6,13 @@ type: "atom"
 ---
 
 import arrow from "../../assets/icons/arrow-right-small.svg?raw";
-
-## Specs
+import Notice from "../../components/Notice.astro";
 
 <section class="prose">
+
+The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt` class. It will render the same when applied to buttons, inputs, and a tags.
+
+<button class="bt bt-lg bt-primary">Sample Large Button</button>
 
 <div class="docs_oversizedTable">
 
@@ -17,17 +20,21 @@ import arrow from "../../assets/icons/arrow-right-small.svg?raw";
 | ----------------- | ------------------ | ----------- |
 | `atom.button.css` | `.button` or `.bt` | [Github][1] |
 
-</div>
-
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/atom.button.css
 
-The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt` class. It will render the same on the following HTML elements:
+</div>
 
-- `<button>`
-- `<input>`
-- `<a>`
+</section>
 
-You can combine modifiers however you want (see exmamples below) but note that the `.bt-outline` modifier will only work on buttons that have a solid fill color to start.
+## HTML
+
+<section class="prose">
+
+<Notice type="info">
+  You can combine modifiers however you want (see examples below) but note that
+  the `.bt-outline` modifier will only work on buttons that have a solid fill
+  color to start.
+</Notice>
 
 | Available modifiers                   | Style                                                                |
 | ------------------------------------- | -------------------------------------------------------------------- |
@@ -47,8 +54,6 @@ You can combine modifiers however you want (see exmamples below) but note that t
 | `disabled` attribute                  | <button class="bt" disabled>Disabled Button</button>                 |
 
 </section>
-
-## Examples
 
 <ul class="docs_examples">
   <li>
