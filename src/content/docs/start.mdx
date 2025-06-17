@@ -99,12 +99,13 @@ Global styles inlcluded out of the box:
 - A full feature [wrapper][wrap].
 - Common global site [layouts][layout].
 - [Typography][prose], via the `.prose` class, for long form text, like articles, etc.
+- [Accessibility][a11y] (A11Y) specific classes.
 
 ### Atoms
 
-Atoms are similar to components. The main distinction between components and an atoms is that the atoms don't have a corresponding HTML/Astro component. For example, the `.button` atom can be added to a `<button>` or a `<a>` HTML element.
+Atoms are the smallest explicit styling units in mCSS, applying CSS classes to individual HTML elements without needing a dedicated HTML/Astro component. For example, the `.button` atom can style a `<button>` or `<a>` element, but since not all `<a>` tags are buttons, atoms provide targeted styling flexibility.
 
-- `.button` (with a `.bt` shorthand) button.
+Find atoms documentation in the [Components](components/start) section, as they’re designed to work together seamlessly.
 
 ### Components
 
@@ -247,6 +248,7 @@ Any questions or feedback? Head over to the [Github discussions][discussions]!
 [wrap]: /docs/global#wrap
 [layout]: /docs/global#layouts
 [prose]: /docs/global#prose
+[a11y]: /docs/global#accessibility
 [components]: /components/start
 [helpers]: /docs/helpers
 [themes]: /docs/themes

@@ -1,5 +1,5 @@
 /* hide in browser but accessible in screen readers */
-.sr-only {
+.a11y-srOnly {
   position: absolute;
   width: 1px;
   height: 1px;
