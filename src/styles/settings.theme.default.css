@@ -1,6 +1,14 @@
 /* DEFAULT THEME */
 
-/* ELEMENTS */
+:root {
+  --theme-border-color: var(--base-200);
+}
+
+:root:has(.root-theme:checked) {
+  --theme-border-color: var(--base-500);
+}
+
+/* HTML ELEMENTS */
 
 :root {
   accent-color: var(--primary-500);
@@ -32,7 +40,7 @@
   --link-color: var(--primary-600);
   --link-hover-color: var(--primary-500);
 
-  --prose-spacing: var(--sm1);
+  /* .prose related stuff in GLOBAL */
 
   --marker-color: #ffee00;
 }
@@ -61,8 +69,6 @@
 /* GLOBAL */
 
 :root {
-  --border-color: var(--base-200);
-
   --grid-column-gap: var(--sm3);
   --grid-row-gap: var(--sm3);
 
@@ -73,10 +79,8 @@
 
   --layout_content_aside-width: 245px;
   --layout_content_aside-background-color: var(--base-100);
-}
 
-:root:has(.root-theme:checked) {
-  --border-color: var(--base-500);
+  --prose-spacing: var(--sm1);
 }
 
 /* COMPONENTS */
@@ -96,7 +100,7 @@
   --card-bg-color: var(--body-background-color);
   --card-fill-bg-color: var(--base-100);
   --card-border-radius: var(--radius-lg);
-  --card-border-color: var(--border-color);
+  --card-border-color: var(--theme-border-color);
   --card-border-width: var(--border-sm);
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
