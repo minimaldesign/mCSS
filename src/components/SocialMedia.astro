@@ -67,7 +67,7 @@ const filteredPlatforms = urls.map((url) => {
       <li>
         <a href={url} title={key} target="_blank" rel="noopener noreferrer" aria-label={key}>
           <Fragment set:html={icon} aria-hidden="true" />
-          <span class="sr-only">{key}</span>
+          <span class="a11y-srOnly">{key}</span>
         </a>
       </li>
     ))
