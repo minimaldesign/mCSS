@@ -44,9 +44,9 @@
 
 .bt-text {
   border-color: transparent;
+  background-color: transparent;
   &:hover {
     color: var(--link-color);
-    background-color: transparent;
   }
   &:disabled {
     color: var(--text-colors);
