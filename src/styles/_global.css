@@ -33,6 +33,7 @@
 /* Component specific styles */
 /* Should be added here or within the Astro component itself */
 @import url(./component.avatar.css);
+@import url(./component.card.css);
 @import url(./component.footer.css);
 @import url(./component.header.css);
 @import url(./component.navDocs.css);

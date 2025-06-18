@@ -90,37 +90,27 @@
 /* Card */
 
 :root {
-  --card-bg-color: #ffffff;
-  --card-filled-bg: var(--base-50);
-  --card-border-radius: 8px;
-  --card-padding: 16px;
-  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --card-border-color: #e5e7eb;
-  --card-text-color: #111827;
-  --card-secondary-text-color: #6b7280;
-  --card-badge-bg: #3b82f6; /* Default badge background */
-  --card-badge-text: #ffffff;
-  --card-loading-bg: #e5e7eb;
-  --card-action-bg: #3b82f6;
-  --card-action-text: #ffffff;
+  --card-spacing: var(--sm3);
+  --card-text-color: var(--text-color);
+  --card-secondary-text-color: var(--base-400);
+  --card-bg-color: var(--body-background-color);
+  --card-fill-bg-color: var(--base-100);
+  --card-border-radius: var(--radius-lg);
+  --card-border-color: var(--border-color);
+  --card-border-width: var(--border-sm);
+  --card-shadow: var(--shadow-md);
+  --card-shadow-hover: var(--shadow-xl);
+  --card-badge-bg: var(--base-700); /* Default badge background */
+  --card-badge-text: var(--base-0); /* Default badge text */
+  --card-loading-bg: var(--base-200);
 }
 
 :root:has(.root-theme:checked) {
-  --card-bg-color: #1f2937;
-  --card-filled-bg: var(--base-900);
-  --card-border-color: #374151;
-  --card-text-color: #f3f4f6;
-  --card-secondary-text-color: #9ca3af;
-  --card-loading-bg: #4b5563;
-  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.4);
-  --card-button-bg: #3b82f6;
-  --card-button-text: #ffffff;
-  --card-button-border: #2563eb;
-  --card-button-bg-hover: #2563eb;
-  --card-button-text-hover: #ffffff;
-  --card-badge-bg: #3b82f6;
+  --card-fill-bg-color: var(--base-900);
+  --card-border-color: var(--base-600);
+  --card-secondary-text-color: var(--base-500);
+  --card-loading-bg: var(--base-900);
+  --card-badge-bg: var(--base-600);
 }
 
 /* Footer */

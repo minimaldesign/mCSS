@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+import type { HTMLAttributes } from 'astro/types';
+
+// Define badge type for multiple badges with customizable colors
+interface Badge {
+  label: string;
+  color?: string; // CSS color value (e.g., '#ff0000', 'red', 'rgb(255, 0, 0)')
+}
+
+// Props definitions
+interface Props extends HTMLAttributes<'article'> {
+  variant?: 'outlined' | 'filled' | 'raised';
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  href?: string;
+  title?: string;
+  subtitle?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  aspectRatio?: string;
+  badges?: Badge[]; // Array of badge objects
+  'data-testid'?: string;
+  extraClass?: string;
+}
+
+// prettier-ignore
+const {
+  variant = 'outlined',
+  isDisabled = false,
+  isLoading = false,
+  href,
+  title,
+  subtitle,
+  imageSrc,
+  imageAlt = '',
+  aspectRatio = 'widescreen',
+  badges = [],
+  extraClass,
+  'data-testid': testId = 'card',
+  ...rest
+} = Astro.props;
+
+// Map aspect ratio to CSS value
+const aspectRatioMap = {
+  widescreen: 'var(--ar-widescreen)',
+  landscape: 'var(--ar-landscape)',
+  portrait: 'var(--ar-portrait)',
+  square: 'var(--ar-square)',
+  golden: 'var(--ar-golden)',
+};
+const aspectRatioValue = aspectRatioMap[aspectRatio];
+---
+
+<article
+  class="card"
+  class:list={[
+    {
+      'card-outlined': variant === 'outlined',
+      'card-filled': variant === 'filled',
+      'card-raised': variant === 'raised',
+      'is-clickable': href && !isDisabled,
+      'is-disabled': isDisabled,
+      'is-loading': isLoading,
+    },
+    extraClass,
+  ]}
+  style={`--card-aspect-ratio: ${aspectRatioValue};`}
+  data-testid={testId}
+  role={href && !isDisabled ? 'link' : undefined}
+  aria-disabled={isDisabled ? 'true' : undefined}
+  {...rest}>
+  <!-- Clickable wrapper if href is provided -->
+  {href && !isDisabled ? <a href={href} class="card_link" aria-label={title ? `${title} (actions in footer are separate)` : 'Card link (actions in footer are separate)'} /> : null}
+
+  <!-- Badges -->
+  {
+    badges.length > 0 && (
+      <div class="card_badges" data-testid="card-badges">
+        {badges.map((badge, index) => (
+          <span class="card_badge" style={badge.color ? `background: ${badge.color};` : ''} data-testid={`card-badge-${index}`}>
+            {badge.label}
+          </span>
+        ))}
+      </div>
+    )
+  }
+
+  <!-- Header -->
+  {
+    title && (
+      <header class="card_header" data-testid="card-header">
+        <h2>{title}</h2>
+        {subtitle && <p>{subtitle}</p>}
+      </header>
+    )
+  }
+
+  <!-- Media -->
+  {
+    imageSrc && (
+      <figure class="card_media" data-testid="card-media">
+        {isLoading ? <div class="card_placeholder" /> : <Image src={imageSrc} alt={imageAlt} class="card_image" loading="lazy" decoding="async" />}
+      </figure>
+    )
+  }
+
+  <!-- Content -->
+  <div class="card_content" data-testid="card-content">
+    {
+      isLoading ? (
+        <div class="card_loading">
+          <div class="card_loadingLine" />
+          <div class="card_loadingLine card_loadingLine-short" />
+        </div>
+      ) : (
+        <slot />
+      )
+    }
+  </div>
+
+  <!-- Actions: Only render footer if actions slot is provided -->
+  {
+    Astro.slots.has('actions') && (
+      <footer class="card_actions" data-testid="card-actions">
+        <slot name="actions" />
+      </footer>
+    )
+  }
+</article>

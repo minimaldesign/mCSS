@@ -1,0 +1,132 @@
+.card {
+  --loading-animation: 2s infinite ease-in-out;
+
+  position: relative;
+  padding: var(--card-spacing);
+  color: var(--card-text-color);
+  background: var(--card-bg-color);
+  border-radius: var(--card-border-radius);
+  transition: box-shadow var(--transition);
+
+  &.is-disabled {
+    opacity: var(--o-2);
+    pointer-events: none;
+  }
+
+  /* in case it's inside a .prose context */
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+/* Variants */
+.card-raised {
+  border: var(--card-border-width) solid var(--card-border-color);
+  box-shadow: var(--card-shadow);
+}
+
+.card-raised:hover:not(.is-disabled) {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.card-outlined {
+  border: var(--card-border-width) solid var(--card-border-color);
+}
+
+.card-filled {
+  background: var(--card-fill-bg-color);
+}
+
+.card_link {
+  position: absolute;
+  inset: 0;
+}
+
+.card_badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs2);
+  justify-content: flex-end;
+  transform: translate(var(--xs2), calc(var(--xs2) * -1));
+}
+
+.card_badge {
+  padding: var(--xs1) var(--xs2);
+  font-size: var(--text-sm);
+  font-weight: var(--semi-bold);
+  color: var(--card-badge-text);
+  background: var(--card-badge-bg);
+  border-radius: var(--radius-sm);
+}
+
+.card_header {
+  h2 {
+    font-size: var(--text-lg);
+    font-weight: var(--semi-bold);
+  }
+
+  p {
+    font-size: var(--text-lg);
+    color: var(--card-secondary-text-color);
+  }
+}
+
+.card_media {
+  margin: var(--card-spacing) 0;
+  overflow: hidden;
+  border-radius: var(--card-border-radius);
+}
+
+.card_image {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--card-aspect-ratio);
+}
+
+.card_content {
+}
+
+.card_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sm1);
+  position: relative;
+  margin-top: var(--md3);
+}
+
+/* Loading state */
+.card_placeholder {
+  width: 100%;
+  aspect-ratio: var(--card-aspect-ratio);
+  background: var(--card-loading-bg);
+  animation: pulse var(--loading-animation);
+}
+
+.card_loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs2);
+}
+
+.card_loadingLine {
+  height: var(--sm1);
+  background: var(--card-loading-bg);
+  border-radius: var(--radius-sm);
+  animation: pulse var(--loading-animation);
+}
+
+.card_loadingLine-short {
+  width: 75%;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
