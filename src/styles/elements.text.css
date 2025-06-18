@@ -218,7 +218,7 @@ hr {
   height: 0;
   border-style: solid;
   border-width: 1px 0 0;
-  color: var(--border-color);
+  color: var(--theme-border-color);
   overflow: visible;
   &::after {
     content: var(--content);

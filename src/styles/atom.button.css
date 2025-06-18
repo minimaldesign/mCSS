@@ -12,7 +12,7 @@
   text-decoration: none;
   color: var(--text-color);
   background-color: var(--base-0);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--theme-border-color);
   border-radius: var(--button-border-radius);
   cursor: pointer;
   transition: all var(--transition-fast);

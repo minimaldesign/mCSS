@@ -140,7 +140,7 @@
   gap: var(--sm3);
   margin-right: var(--sm1);
   padding: var(--xs3);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--theme-border-color);
   border-radius: var(--radius-lg);
   background-color: var(--body-background-color);
 }
