@@ -7,14 +7,14 @@
   }
 
   a {
+    padding: var(--xs1) var(--xs2);
     text-decoration: none;
-    padding: 0.2em 0.5em;
-    font-size: 0.9rem;
-    border-radius: var(--radius-sm);
-    font-style: normal;
-    background-color: var(--base-100);
-    color: var(--base-500);
     text-transform: lowercase;
+    font-size: var(--text-sm);
+    font-style: normal;
+    color: var(--base-500);
+    border-radius: var(--radius-sm);
+    background-color: var(--base-100);
     transition: all var(--transition);
     &:hover {
       background-color: var(--base-200);
