@@ -40,6 +40,7 @@
 @import url(./component.notice.css);
 @import url(./component.socialMedia.css);
 @import url(./component.tags.css);
+@import url(./component.toc.css);
 
 /*  Page specific styles */
 /* (Use sparingly. Component is probably  the way to go) */

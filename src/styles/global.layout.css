@@ -52,3 +52,42 @@
     }
   }
 }
+
+.layout-docs {
+  .layout_content {
+    @media (--md) {
+      display: grid;
+      gap: var(--md3);
+      grid-template-columns: var(--layout_content_aside-width) minmax(0, 1fr) var(
+          --layout_content_aside-width
+        );
+    }
+  }
+
+  .layout_content_main {
+    order: 1;
+    padding: var(--md1);
+    @media (--md) {
+      max-width: calc(71ch + (var(--lg1) * 2));
+      padding: var(--lg1);
+    }
+  }
+
+  .layout_content_aside {
+    display: none;
+    @media (--md) {
+      display: block;
+    }
+
+    nav {
+      /* sticky for every nav, not just .navDocs */
+      position: sticky;
+      top: var(--header-height);
+      padding: var(--lg1) var(--md3);
+    }
+  }
+
+  .layout_content_aside-toc {
+    order: 3;
+  }
+}

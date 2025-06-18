@@ -1,0 +1,77 @@
+---
+const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '' } = Astro.props;
+---
+
+<nav id="toc-root" class="toc" data-selector={selector} data-headings={JSON.stringify(headings)} data-base-url={baseUrl}></nav>
+
+<script type="module">
+  const tocRoot = document.getElementById('toc-root');
+  const selector = tocRoot.dataset.selector;
+  const headingsTags = JSON.parse(tocRoot.dataset.headings);
+  const baseUrl = tocRoot.dataset.baseUrl;
+
+  function buildTocTree(headings) {
+    const root = [];
+    const stack = [{ level: 0, children: root }];
+
+    headings.forEach((heading) => {
+      const level = parseInt(heading.tagName[1], 10);
+      const item = {
+        id: heading.id,
+        text: heading.textContent,
+        level,
+        children: [],
+      };
+
+      while (stack.length && stack[stack.length - 1].level >= level) {
+        stack.pop();
+      }
+      stack[stack.length - 1].children.push(item);
+      stack.push(item);
+    });
+
+    return root;
+  }
+
+  function renderToc(items) {
+    if (!items.length) return '';
+    return `<ul>${items
+      .map(
+        (item) =>
+          `<li>
+            <a href="${baseUrl ? baseUrl + '#' + item.id : '#' + item.id}" data-toc-link="${item.id}">${item.text}</a>
+            ${renderToc(item.children)}
+          </li>`
+      )
+      .join('')}</ul>`;
+  }
+
+  function setupToc() {
+    const container = document.querySelector(selector);
+    if (!container) return;
+
+    const headings = Array.from(container.querySelectorAll(headingsTags.join(','))).filter((el) => el.id);
+
+    const tocTree = buildTocTree(headings);
+    const tocRoot = document.getElementById('toc-root');
+    tocRoot.innerHTML = renderToc(tocTree);
+
+    tocRoot.querySelectorAll('a[data-toc-link]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('data-toc-link');
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, '', link.getAttribute('href'));
+        }
+      });
+    });
+  }
+
+  if (document.readyState !== 'loading') {
+    setupToc();
+  } else {
+    window.addEventListener('DOMContentLoaded', setupToc);
+  }
+</script>

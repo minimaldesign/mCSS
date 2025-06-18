@@ -1,0 +1,11 @@
+.toc {
+  font-size: var(--text-sm);
+
+  ul ul {
+    margin-left: var(--sm2);
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
