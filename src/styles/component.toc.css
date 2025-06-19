@@ -2,10 +2,15 @@
   font-size: var(--text-sm);
 
   ul ul {
-    margin-left: var(--sm2);
+    margin-left: var(--xs3);
   }
 
   a {
+    padding-bottom: var(--xs1);
+    display: block;
+    overflow: hidden;
     text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
