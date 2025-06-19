@@ -1,14 +1,15 @@
 ---
-const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '' } = Astro.props;
+const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset = 0 } = Astro.props;
 ---
 
-<nav id="toc-root" class="toc" data-selector={selector} data-headings={JSON.stringify(headings)} data-base-url={baseUrl}></nav>
+<nav id="toc-root" class="toc" data-selector={selector} data-headings={JSON.stringify(headings)} data-base-url={baseUrl} data-scroll-offset={scrollOffset}></nav>
 
 <script type="module">
   const tocRoot = document.getElementById('toc-root');
   const selector = tocRoot.dataset.selector;
   const headingsTags = JSON.parse(tocRoot.dataset.headings);
   const baseUrl = tocRoot.dataset.baseUrl;
+  const scrollOffset = parseInt(tocRoot.dataset.scrollOffset, 10) || 0;
 
   function buildTocTree(headings) {
     const root = [];
@@ -62,7 +63,10 @@ const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '' } = Astro.props
         const targetId = link.getAttribute('data-toc-link');
         const target = document.getElementById(targetId);
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
+          const rect = target.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const top = rect.top + scrollTop - scrollOffset;
+          window.scrollTo({ top, behavior: 'smooth' });
           history.pushState(null, '', link.getAttribute('href'));
         }
       });
