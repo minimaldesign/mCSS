@@ -71,8 +71,8 @@
       order: 3;
       padding-top: var(--lg3);
 
-      /* we hide "on this page" if the nave is empty */
-      &:not(:has(ul)) p {
+      /* we hide "on this page" if the TOC has less than 2 items */
+      &:not(:has(li:nth-of-type(2))) p {
         display: none;
       }
 

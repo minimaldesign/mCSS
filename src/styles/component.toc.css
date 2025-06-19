@@ -1,7 +1,8 @@
 .toc {
   font-size: var(--text-sm);
 
-  &:not(:has(ul)) {
+  /* we hide the TOC if there is less than 2 item */
+  &:not(:has(li:nth-of-type(2))) {
     display: none;
   }
 
