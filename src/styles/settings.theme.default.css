@@ -68,8 +68,6 @@
 
   --text-code-color: var(--primary-400);
   --text-code-background-color: var(--primary-800);
-
-  --marker-color: #ffee00;
 }
 
 /* GLOBAL */
@@ -152,4 +150,14 @@
 
 :root {
   --notice-text-color: var(--base-950);
+}
+
+/* EXTERNAL PLUGINS */
+
+:root {
+  --astro-code-background-color: var(--base-950);
+}
+
+:root:has(.root-theme:checked) {
+  --astro-code-background-color: var(--base-900);
 }

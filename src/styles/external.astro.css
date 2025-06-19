@@ -3,6 +3,7 @@
   margin-bottom: var(--prose-spacing);
   padding: var(--sm1);
   border-radius: var(--radius-md);
+  background-color: var(--astro-code-background-color) !important;
 
   code {
     /* override elements.text default */
