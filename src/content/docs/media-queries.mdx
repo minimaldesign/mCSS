@@ -19,12 +19,10 @@ import Notice from "../../components/Notice.astro";
   title="PostCSS needed for custom media queries"
   extraClass="mt-sm3 mb-sm3"
 >
-  [custom media queries are](https://drafts.csswg.org/mediaqueries-5/#custom-mq)
-  are not yet available without a [PostCSS
-  plugins](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media).
-  If you can't or don't want to add a build step to your process, you'll have to
-  hard code your breakpoints. (You can still use nesting as in the example below
-  though.)
+  [Custom media queries are][custom] are not yet available without a [PostCSS
+  plugins][postcss]. If you can't or don't want to add a build step to your
+  process, you'll have to hard code your breakpoints. (You can still use nesting
+  as in the example below though.)
 </Notice>
 
 </section>
@@ -74,17 +72,27 @@ Unless you have a good reason not to, you should use a mobile first approach. Wh
 
 This is how the CSS of most responsive components should be set up:
 
-```html
-<style>
-  .exampleComponent {
-    /* default mobile */
-    @media (--lg) {
-      /* responsive tweaks for desktop */
-    }
+```css
+.exampleComponent {
+  /* default mobile */
+  @media (--lg) {
+    /* responsive tweaks for desktop */
   }
-</style>
+}
+```
 
-<div class="exampleComponent">[…]</div>
+Without [PostCSS plugins][postcss]:
+
+```css
+.exampleComponent {
+  /* default mobile */
+  @media (width >= 1024px) {
+    /* responsive tweaks for desktop */
+  }
+}
 ```
 
 </section>
+
+[custom]: https://drafts.csswg.org/mediaqueries-5/#custom-mq
+[postcss]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media
