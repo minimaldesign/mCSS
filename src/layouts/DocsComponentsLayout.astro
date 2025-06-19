@@ -2,14 +2,19 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import NavComponents from '../components/NavComponents.astro';
+import Toc from '../components/Toc.astro';
 
 const allPosts = await getCollection('components');
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-sidebar">
+<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-sidebar layout-sidebar-toc">
   <aside class="layout_content_aside">
     <NavComponents />
+  </aside>
+  <aside class="layout_content_aside">
+    <p><strong>On this page</strong></p>
+    <Toc selector=".docs" headings={['h2', 'h3']} baseUrl="" scrollOffset={80} />
   </aside>
   <main class="layout_content_main docs">
     <h1 class="text-capitalize">{`${frontmatter.type} :: ${frontmatter.title}`}</h1>
