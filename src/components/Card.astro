@@ -5,7 +5,7 @@ import type { HTMLAttributes } from 'astro/types';
 // Define badge type for multiple badges with customizable colors
 interface Badge {
   label: string;
-  color?: string; // CSS color value (e.g., '#ff0000', 'red', 'rgb(255, 0, 0)')
+  color?: string; // CSS color value (e.g., '#ffffff', 'white', 'rgb(255, 255, 255)')
 }
 
 // Props definitions
@@ -39,7 +39,7 @@ const {
   extraClass,
   'data-testid': testId = 'card',
   ...rest
-} = Astro.props;
+} = Astro.props as Props;
 
 // Map aspect ratio to CSS value
 const aspectRatioMap = {
