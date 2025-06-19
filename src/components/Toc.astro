@@ -1,10 +1,39 @@
 ---
 import arrow from '../assets/icons/arrow-right-small.svg?raw';
+import type { HTMLAttributes } from 'astro/types';
 
-const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset = 0 } = Astro.props;
+interface Props extends HTMLAttributes<'nav'> {
+  selector?: string;
+  headings?: string[];
+  baseUrl?: string;
+  scrollOffset?: number;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  selector = 'main',
+  headings = ['h2', 'h3'],
+  baseUrl = '',
+  scrollOffset = 0,
+  'data-testid': testId = 'toc',
+  ...rest
+} = Astro.props as Props;
 ---
 
-<nav id="toc-root" class="toc" data-selector={selector} data-headings={JSON.stringify(headings)} data-base-url={baseUrl} data-scroll-offset={scrollOffset} data-arrow={encodeURIComponent(arrow)}></nav>
+<!-- prettier-ignore -->
+<nav
+  id="toc-root"
+  class="toc"
+  aria-label="Table of contents"
+  data-testid={testId}
+  data-selector={selector}
+  data-headings={JSON.stringify(headings)}
+  data-base-url={baseUrl}
+  data-scroll-offset={scrollOffset}
+  data-arrow={encodeURIComponent(arrow)}
+  {...rest}
+></nav>
 
 <script type="module">
   const tocRoot = document.getElementById('toc-root');
