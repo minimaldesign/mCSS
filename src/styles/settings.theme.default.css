@@ -40,6 +40,9 @@
   --link-color: var(--primary-600);
   --link-hover-color: var(--primary-500);
 
+  --text-code-color: var(--primary-600);
+  --text-code-background-color: var(--primary-100);
+
   /* .prose related stuff in GLOBAL */
 
   --marker-color: #ffee00;
@@ -59,9 +62,12 @@
 
   /* Text */
 
-  --text-color: var(--base-100);
+  --text-color: var(--base-200);
   --link-color: var(--primary-400);
   --link-hover-color: var(--primary-500);
+
+  --text-code-color: var(--primary-400);
+  --text-code-background-color: var(--primary-800);
 
   --marker-color: #ffee00;
 }

@@ -1,14 +1,6 @@
 /* PROSE - Default style for text content */
 
 .prose {
-  code,
-  var,
-  kbd {
-    font-style: normal;
-    background-color: var(--primary-100);
-    color: var(--primary-600);
-  }
-
   :is(p, ul, ol, .astro-code, .notice, table):has(+ :is(h1, h2, h3, h4)) {
     margin-bottom: calc(var(--prose-spacing) * 2);
   }

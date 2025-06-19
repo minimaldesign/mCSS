@@ -107,6 +107,9 @@ code, var, kbd {
   padding: 0.15em 0.3em;
   font-family: var(--mono);
   font-size: 0.9rem;
+  font-style: normal;
+  color: var(--text-code-color);
+  background-color:  var(--text-code-background-color);
   border-radius: var(--radius-sm);
 }
 
