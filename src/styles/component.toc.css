@@ -1,6 +1,10 @@
 .toc {
   font-size: var(--text-sm);
 
+  &:not(:has(ul)) {
+    display: none;
+  }
+
   ul ul {
     margin-left: var(--xs3);
   }

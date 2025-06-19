@@ -71,6 +71,11 @@
       order: 3;
       padding-top: var(--lg3);
 
+      /* we hide "on this page" if the nave is empty */
+      &:not(:has(ul)) p {
+        display: none;
+      }
+
       nav {
         padding-top: var(--xs2);
       }

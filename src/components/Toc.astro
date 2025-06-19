@@ -45,6 +45,8 @@ const {
 
   let suppressObserver = false;
   let scrollTimeout;
+  let observer = null;
+  let scrollHandler = null;
 
   function buildTocTree(headings) {
     const root = [];
@@ -89,21 +91,25 @@ const {
 
     const headings = Array.from(container.querySelectorAll(headingsTags.join(','))).filter((el) => el.id);
 
-    const tocTree = buildTocTree(headings);
-    const tocRoot = document.getElementById('toc-root');
-    tocRoot.innerHTML = renderToc(tocTree);
+    tocRoot.innerHTML = renderToc(buildTocTree(headings));
 
     function updateActiveLink() {
       const hash = decodeURIComponent(window.location.hash);
       tocRoot.querySelectorAll('a[data-toc-link]').forEach((link) => {
         const href = link.getAttribute('href');
-        if (hash && (href === hash || href.endsWith(hash))) {
+        if (hash && href === hash) {
           link.classList.add('is-active');
+          link.setAttribute('aria-current', 'true');
         } else {
           link.classList.remove('is-active');
+          link.removeAttribute('aria-current');
         }
       });
     }
+
+    // Clean up previous event listeners if any
+    if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+    if (observer) observer.disconnect();
 
     tocRoot.querySelectorAll('a[data-toc-link]').forEach((link) => {
       link.addEventListener('click', (e) => {
@@ -120,14 +126,14 @@ const {
           updateActiveLink();
 
           // Debounced scroll event to re-enable observer
-          const onScroll = () => {
+          scrollHandler = () => {
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
               suppressObserver = false;
-              window.removeEventListener('scroll', onScroll);
-            }, 150); // 150ms after last scroll event
+              window.removeEventListener('scroll', scrollHandler);
+            }, 150);
           };
-          window.addEventListener('scroll', onScroll);
+          window.addEventListener('scroll', scrollHandler);
         }
       });
     });
@@ -140,9 +146,9 @@ const {
 
     if ('IntersectionObserver' in window && headingElements.length) {
       let ticking = false;
-      const observer = new IntersectionObserver(
+      observer = new IntersectionObserver(
         (entries) => {
-          if (suppressObserver) return; // <-- skip if suppressed
+          if (suppressObserver) return;
           if (!ticking) {
             window.requestAnimationFrame(() => {
               const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.target.offsetTop - b.target.offsetTop)[0];
