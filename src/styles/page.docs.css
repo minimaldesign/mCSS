@@ -8,9 +8,6 @@
     font-weight: var(--book);
     color: var(--base-500);
     border-bottom: 1px solid var(--theme-border-color);
-    &:target {
-      padding-top: calc(var(--md1) + var(--header-height));
-    }
   }
 }
 
