@@ -2,10 +2,12 @@
 
 :root {
   --theme-border-color: var(--base-200);
+  --theme-shadow-color: rgb(0 0 0 / 0.1);
 }
 
 :root:has(.root-theme:checked) {
   --theme-border-color: var(--base-500);
+  --theme-shadow-color: rgb(0 0 0 / 0.6);
 }
 
 /* HTML ELEMENTS */
