@@ -1,8 +1,10 @@
 ---
+import arrow from '../assets/icons/arrow-right-small.svg?raw';
+
 const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset = 0 } = Astro.props;
 ---
 
-<nav id="toc-root" class="toc" data-selector={selector} data-headings={JSON.stringify(headings)} data-base-url={baseUrl} data-scroll-offset={scrollOffset}></nav>
+<nav id="toc-root" class="toc" data-selector={selector} data-headings={JSON.stringify(headings)} data-base-url={baseUrl} data-scroll-offset={scrollOffset} data-arrow={encodeURIComponent(arrow)}></nav>
 
 <script type="module">
   const tocRoot = document.getElementById('toc-root');
@@ -10,6 +12,7 @@ const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset =
   const headingsTags = JSON.parse(tocRoot.dataset.headings);
   const baseUrl = tocRoot.dataset.baseUrl;
   const scrollOffset = parseInt(tocRoot.dataset.scrollOffset, 10) || 0;
+  const arrow = decodeURIComponent(tocRoot.dataset.arrow);
 
   function buildTocTree(headings) {
     const root = [];
@@ -40,7 +43,8 @@ const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset =
       .map(
         (item) =>
           `<li>
-            <a href="${baseUrl ? baseUrl + '#' + item.id : '#' + item.id}" data-toc-link="${item.id}">${item.text}</a>
+            <a href="${baseUrl ? baseUrl + '#' + item.id : '#' + item.id}" data-toc-link="${item.id}">
+            ${arrow} <span>${item.text}</span></a>
             ${renderToc(item.children)}
           </li>`
       )
@@ -57,6 +61,18 @@ const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset =
     const tocRoot = document.getElementById('toc-root');
     tocRoot.innerHTML = renderToc(tocTree);
 
+    function updateActiveLink() {
+      const hash = decodeURIComponent(window.location.hash);
+      tocRoot.querySelectorAll('a[data-toc-link]').forEach((link) => {
+        const href = link.getAttribute('href');
+        if (hash && (href === hash || href.endsWith(hash))) {
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+
     tocRoot.querySelectorAll('a[data-toc-link]').forEach((link) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -68,9 +84,13 @@ const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset =
           const top = rect.top + scrollTop - scrollOffset;
           window.scrollTo({ top, behavior: 'smooth' });
           history.pushState(null, '', link.getAttribute('href'));
+          updateActiveLink();
         }
       });
     });
+
+    window.addEventListener('hashchange', updateActiveLink);
+    updateActiveLink();
   }
 
   if (document.readyState !== 'loading') {

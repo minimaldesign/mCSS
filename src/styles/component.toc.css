@@ -6,11 +6,34 @@
   }
 
   a {
+    --iconSize: 16px;
+    display: flex;
+    align-items: center;
+    margin-left: calc(var(--iconSize) * -1);
     padding-bottom: var(--xs1);
-    display: block;
-    overflow: hidden;
     text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    transition: all var(--transition);
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    svg {
+      width: var(--iconSize);
+      height: var(--iconSize);
+      flex-shrink: 0;
+      opacity: var(--o-0);
+      transform: translateX(calc(var(--xs2) * -1));
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    &.is-active {
+      svg {
+        transform: translateX(0);
+        opacity: var(--opacity-5);
+      }
+    }
   }
 }
