@@ -14,6 +14,9 @@ const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset =
   const scrollOffset = parseInt(tocRoot.dataset.scrollOffset, 10) || 0;
   const arrow = decodeURIComponent(tocRoot.dataset.arrow);
 
+  let suppressObserver = false;
+  let scrollTimeout;
+
   function buildTocTree(headings) {
     const root = [];
     const stack = [{ level: 0, children: root }];
@@ -79,18 +82,60 @@ const { selector = 'main', headings = ['h2', 'h3'], baseUrl = '', scrollOffset =
         const targetId = link.getAttribute('data-toc-link');
         const target = document.getElementById(targetId);
         if (target) {
+          suppressObserver = true;
           const rect = target.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const top = rect.top + scrollTop - scrollOffset;
           window.scrollTo({ top, behavior: 'smooth' });
           history.pushState(null, '', link.getAttribute('href'));
           updateActiveLink();
+
+          // Debounced scroll event to re-enable observer
+          const onScroll = () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+              suppressObserver = false;
+              window.removeEventListener('scroll', onScroll);
+            }, 150); // 150ms after last scroll event
+          };
+          window.addEventListener('scroll', onScroll);
         }
       });
     });
 
     window.addEventListener('hashchange', updateActiveLink);
     updateActiveLink();
+
+    // Intersection Observer to update URL and active link on scroll
+    const headingElements = headings.map((h) => document.getElementById(h.id)).filter(Boolean);
+
+    if ('IntersectionObserver' in window && headingElements.length) {
+      let ticking = false;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (suppressObserver) return; // <-- skip if suppressed
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.target.offsetTop - b.target.offsetTop)[0];
+              if (visible) {
+                const id = visible.target.id;
+                if (window.location.hash !== '#' + id) {
+                  history.replaceState(null, '', '#' + id);
+                  updateActiveLink();
+                }
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
+        },
+        {
+          rootMargin: `-${scrollOffset}px 0px 0px 0px`,
+          threshold: 0.1,
+        }
+      );
+      headingElements.forEach((el) => observer.observe(el));
+    }
   }
 
   if (document.readyState !== 'loading') {
