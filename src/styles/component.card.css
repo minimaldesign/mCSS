@@ -12,11 +12,6 @@
     opacity: var(--o-2);
     pointer-events: none;
   }
-
-  /* in case it's inside a .prose context */
-  p:last-of-type {
-    margin-bottom: 0;
-  }
 }
 
 .card-filled {
@@ -38,6 +33,31 @@
   inset: 0;
 }
 
+.card_header {
+  display: grid;
+  grid-template-columns: 1fr minmax(min-content, max-content);
+  align-items: start;
+  gap: var(--xs2);
+  margin-bottom: var(--xs3);
+  /* we need extra spacing when there is an image after the header */
+  &:has(+ .card_media) {
+    margin-bottom: var(--card-spacing);
+  }
+}
+
+.card_header_text {
+  h2 {
+    font-size: var(--text-lg);
+    font-weight: var(--semi-bold);
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: var(--text-lg);
+    color: var(--card-secondary-text-color);
+  }
+}
+
 .card_badges {
   display: flex;
   flex-wrap: wrap;
@@ -50,28 +70,13 @@
   padding: var(--xs1) var(--xs2);
   font-size: var(--text-sm);
   font-weight: var(--semi-bold);
-  color: var(--card-badge-text);
+  color: var(--card-badge-text-color);
   background: var(--card-badge-bg);
   border-radius: var(--radius-sm);
 }
 
-.card_header {
-  h2 {
-    font-size: var(--text-lg);
-    font-weight: var(--semi-bold);
-    &:has(+ p) {
-      margin-bottom: 0;
-    }
-  }
-
-  p {
-    font-size: var(--text-lg);
-    color: var(--card-secondary-text-color);
-  }
-}
-
 .card_media {
-  margin: var(--card-spacing) 0;
+  margin-bottom: var(--card-spacing);
   overflow: hidden;
   border-radius: var(--card-border-radius);
 }
@@ -83,15 +88,18 @@
 }
 
 .card_content {
-  /* content slot customization */
+  /* in case it's inside a .prose context */
+  p:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .card_actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--sm1);
+  gap: var(--xs3);
   position: relative;
-  margin-top: var(--md3);
+  margin-top: var(--card-spacing);
 }
 
 /* Loading state */

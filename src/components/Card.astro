@@ -10,7 +10,7 @@ interface Badge {
 
 // Props definitions
 interface Props extends HTMLAttributes<'article'> {
-  variant?: 'outlined' | 'filled' | 'raised';
+  variant?: 'filled' | 'raised';
   isDisabled?: boolean;
   isLoading?: boolean;
   href?: string;
@@ -26,7 +26,7 @@ interface Props extends HTMLAttributes<'article'> {
 
 // prettier-ignore
 const {
-  variant = 'outlined',
+  variant,
   isDisabled = false,
   isLoading = false,
   href,
@@ -34,7 +34,7 @@ const {
   subtitle,
   imageSrc,
   imageAlt = '',
-  aspectRatio = 'widescreen',
+  aspectRatio = 'golden',
   badges = [],
   extraClass,
   'data-testid': testId = 'card',
@@ -56,10 +56,8 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
   class="card"
   class:list={[
     {
-      'card-outlined': variant === 'outlined',
       'card-filled': variant === 'filled',
       'card-raised': variant === 'raised',
-      'is-clickable': href && !isDisabled,
       'is-disabled': isDisabled,
       'is-loading': isLoading,
     },
@@ -71,27 +69,27 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
   aria-disabled={isDisabled ? 'true' : undefined}
   {...rest}>
   <!-- Clickable wrapper if href is provided -->
-  {href && !isDisabled ? <a href={href} class="card_link" aria-label={title ? `${title} (actions in footer are separate)` : 'Card link (actions in footer are separate)'} /> : null}
-
-  <!-- Badges -->
-  {
-    badges.length > 0 && (
-      <div class="card_badges" data-testid="card-badges">
-        {badges.map((badge, index) => (
-          <span class="card_badge" style={badge.color ? `background: ${badge.color};` : ''} data-testid={`card-badge-${index}`}>
-            {badge.label}
-          </span>
-        ))}
-      </div>
-    )
-  }
+  {href && !isDisabled && <a href={href} class="card_link" aria-label={title ? `${title} (actions in footer are separate)` : 'Card link (actions in footer are separate)'} />}
 
   <!-- Header -->
   {
-    title && (
+    (title || subtitle || badges.length > 0) && (
       <header class="card_header" data-testid="card-header">
-        <h2>{title}</h2>
-        {subtitle && <p>{subtitle}</p>}
+        {(title || subtitle) && (
+          <div class="card_header_text">
+            {title && <h2>{title}</h2>}
+            {subtitle && <p>{subtitle}</p>}
+          </div>
+        )}
+        {badges.length > 0 && (
+          <div class="card_badges" data-testid="card-badges">
+            {badges.map((badge, index) => (
+              <span class="card_badge" style={badge.color ? `background: ${badge.color};` : ''} data-testid={`card-badge-${index}`}>
+                {badge.label}
+              </span>
+            ))}
+          </div>
+        )}
       </header>
     )
   }
@@ -106,7 +104,7 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
   }
 
   <!-- Content -->
-  <div class="card_content" data-testid="card-content">
+  <section class="card_content" data-testid="card-content">
     {
       isLoading ? (
         <div class="card_loading">
@@ -117,7 +115,7 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
         <slot />
       )
     }
-  </div>
+  </section>
 
   <!-- Actions: Only render footer if actions slot is provided -->
   {

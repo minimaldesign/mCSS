@@ -110,7 +110,7 @@
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
   --card-badge-bg: var(--base-700); /* Default badge background */
-  --card-badge-text: var(--base-0); /* Default badge text */
+  --card-badge-text-color: var(--base-0); /* Default badge text color */
   --card-loading-bg: var(--base-200);
 }
 
