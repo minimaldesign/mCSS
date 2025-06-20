@@ -8,7 +8,7 @@ description: "ITCSS (Inverted Triangle CSS) is a powerful methodology developed 
 
 import { Image } from "astro:assets";
 
-import triangle from "../../assets/images/itcss-triangle.svg";
+import triangle from "../../assets/images/itcss-triangle.svg?raw";
 
 ITCSS, or _Inverted Triangle CSS_, is a powerful methodology developed by [Harry Roberts](https://twitter.com/csswizardry) to help front-end developers organize their CSS in a scalable and maintainable way. By structuring your stylesheets into distinct layers, ITCSS addresses common issues like specificity wars and cascading conflicts, making your codebase cleaner and easier to manage.
 
@@ -26,12 +26,9 @@ For more details, watch Harry Roberts presentation: [Managing CSS Projects with 
 
 ### The layers of ITCSS
 
-<Image
-  class="mb-lg1"
-  src={triangle}
-  width="680"
-  alt="Saxophonist playing in Central Park"
-/>
+<div class="mb-lg1" style={{ maxWidth: "680px" }}>
+  <Fragment set:html={triangle} />
+</div>
 
 Here’s a breakdown of the ITCSS layers:
 
