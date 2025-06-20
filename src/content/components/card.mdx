@@ -1,0 +1,376 @@
+---
+title: "Card"
+lastUpdate: 2025-05-20
+version: 0.1
+type: "component"
+---
+
+import Card from "../../components/Card.astro";
+import placeholder from "../../assets/images/placeholder-16_9.png";
+
+<section class="prose">
+
+The `.card` component, in its simplest form, is a container with 3 style options:
+
+- **Default:** transparent background, border outline.
+- **Filled:** solid background color.
+- **Raised:** drop shadow and hover effect.
+
+Additional features include: header with title and subtitle, image with predefined aspect ratios, footer, custom badges, clickable body, disabled state, and loading state with skeleton UI. The Astro component makes it easy to use all those features.
+
+{/* prettier-ignore */}
+<div class="grid" col="2">
+  <div class="grid_item">
+    <Card variant="filled" title="A simple filled card">
+      <p>Natural Law, is a set of universal, non-man-made, binding and unchangeable conditions which govern the consequence of our actions.</p>
+    </Card>
+  </div>
+  <div class="grid_item">
+    <Card variant="raised" title="A simple raised card">
+      <p>Natural Law, is a set of universal, non-man-made, binding and unchangeable conditions which govern the consequence of our actions.</p>
+    </Card>
+  </div>
+</div>
+
+| File Name            | class   | Source      |
+| -------------------- | ------- | ----------- |
+| `component.card.css` | `.card` | [Github][1] |
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.card.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+| Available modifiers      | Description                                        |
+| ------------------------ | -------------------------------------------------- |
+| `.card`                  | Default style. Transparent background with border. |
+| `.card` + `.card-filled` | Filled with a background color.                    |
+| `.card` + `.card-raised` | Drop shadow, animated on hover.                    |
+| `.card` + `.is-disabled` | Lowered opacity. Interactivity disabled.           |
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+| Property                      | Color                                        |
+| ----------------------------- | -------------------------------------------- |
+| `--card-spacing`              | General padding inside the card.             |
+| `--card-text-color`           | Text color.                                  |
+| `--card-secondary-text-color` | Subtitle color.                              |
+| `--card-bg-color`             | Background color of the "filled" variant.    |
+| `--card-border-radius`        | Border radius.                               |
+| `--card-border-color`         | Border color.                                |
+| `--card-border-width`         | Border width.                                |
+| `--card-shadow`               | Default drop shadow or the "raised" variant. |
+| `--card-shadow-hover`         | Hover state drop shadow.                     |
+| `--card-badge-bg`             | Default badge background.                    |
+| `--card-badge-text-color`     | Badge text color.                            |
+| `--card-loading-bg`           | Loading skeleton background color.           |
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop          | Type      | Default     | Description                                                 |
+| ------------- | --------- | ----------- | ----------------------------------------------------------- |
+| `variant`     | `string`  | undefined   | Card’s visual style: `filled`, `raised`.                    |
+| `isDisabled`  | `boolean` | `false`     | Disabled style. Disabled interactions.                      |
+| `isLoading`   | `boolean` | `false`     | Loading state with skeleton UI.                             |
+| `href`        | `string`  | `undefined` | Makes card clickable.                                       |
+| `title`       | `string`  | `undefined` | Header title text.                                          |
+| `subtitle`    | `string`  | `undefined` | Header subtitle text.                                       |
+| `imageSrc`    | `string`  | `undefined` | Add an image to card.                                       |
+| `imageAlt`    | `string`  | `''`        | Alt text for the image.                                     |
+| `aspectRatio` | `string`  | `golden`    | Image aspect ratio (available [aspect ratios][ar]).         |
+| `badges`      | `array`   | `[]`        | Array of objects (see example below).                       |
+| `data-testid` | `string`  | `'card'`    | Test ID for testing frameworks.                             |
+| `extraClass`  | `string`  | `undefined` | Additional CSS, useful for [helper classes](/docs/helpers). |
+
+[ar]: /docs/tokens#aspect-ratio
+
+</div>
+
+<section class="prose">
+
+### Slots
+
+The `Card` component supports the following slots for content projection:
+
+- **Default slot**: Main content area (e.g., text or paragraphs).
+- **Actions slot**: Action buttons or links in the footer.
+
+It is recommended to use the [button atom](/components/button) in the `actions` slot, e.g.:
+
+```astro
+<Fragment slot="actions">
+  <a class="bt bt-text" href="/home">Cancel</a>
+  <button class="bt bt-primary">Add to Cart</button>
+</Fragment>
+```
+
+### Badge Styling
+
+The `badges` prop takes an array of objects. Each object consists of a `label` property which defines the badge's text, and an optional `color` property that defines the badge's background color. If no `color` is provided, it defaults to `--card-badge-bg` defined in the [default theme](/docs/themes).
+
+{/* prettier-ignore */}
+<div class="grid" col="3">
+  <div class="grid_item" span="2">
+    <Card
+      title="A card with too many badges"
+      badges={[
+        { label: "Way", color: "#a6b65a" },
+        { label: "Too", color: "#86615c" },
+        { label: "Many", color: "#81a598" },
+        { label: "Badges", color: "#e3863d" },
+      ]}
+    >
+      <p>This is where the content goes. Unless you only want a bunch of badges!</p>
+    </Card>
+  </div>
+</div>
+
+```astro
+<Card
+  title="A card with too many badges"
+  badges={[
+    { label: "Way", color: "#a6b65a" },
+    { label: "Too", color: "#86615c" },
+    { label: "Many", color: "#81a598" },
+    { label: "Badges", color: "#e3863d" },
+  ]}
+>
+  <p>This is where the content goes. Unless you only want a bunch of badges!</p>
+</Card>
+```
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+
+<li>
+
+### Basic Cards
+
+<div class="grid" col="3">
+  <div class="grid_item">
+    <Card title="Default style">
+      <p>This is where the content goes!</p>
+    </Card>
+  </div>
+  <div class="grid_item">
+    <Card variant="filled" title="Filled style">
+      <p>This is where the content goes!</p>
+    </Card>
+  </div>
+  <div class="grid_item">
+    <Card variant="raised" title="Raised style">
+      <p>This is where the content goes!</p>
+    </Card>
+  </div>
+</div>
+
+```astro
+---
+import Card from '../components/Card.astro';
+---
+<Card title="Default style">
+  <p>This is where the content goes!</p>
+</Card>
+
+<Card variant="filled" title="Filled style">
+  <p>This is where the content goes!</p>
+</Card>
+
+<Card variant="raised" title="Raised style">
+  <p>This is where the content goes!</p>
+</Card>
+```
+
+</li>
+<li>
+
+### Card with image and actions
+
+<div class="grid" col="3">
+  <div class="grid_item" span="2">
+    <Card
+      variant="raised"
+      href="/product/123"
+      title="Product Name"
+      subtitle="Category"
+      imageSrc={placeholder}
+      imageAlt="Product image"
+      aspectRatio="widescreen"
+    >
+      <p>This is a extremely detailed description of the product.</p>
+      <Fragment slot="actions">
+        <a class="bt bt-md bt-text " href="/details">
+          View Details
+        </a>
+        <button class="bt bt-md bt-primary">Add to Cart</button>
+      </Fragment>
+    </Card>
+  </div>
+</div>
+
+```astro
+---
+import placeholder from "../../assets/images/image.png";
+import Card from '../components/Card.astro';
+---
+<Card
+  variant="raised"
+  href="/product/123"
+  title="Product Name"
+  subtitle="Category"
+  imageSrc={placeholder}
+  imageAlt="Product image"
+  aspectRatio="widescreen"
+>
+  <p>This is a extremely detailed description of the product.</p>
+  <Fragment slot="actions">
+    <a class="bt bt-md bt-text " href="/details">
+      View Details
+    </a>
+    <button class="bt bt-md bt-primary">Add to Cart</button>
+  </Fragment>
+</Card>
+```
+
+</li>
+<li>
+
+### Loading state
+
+<div class="grid" col="2">
+  <div class="grid_item">
+    <Card imageSrc={placeholder} imageAlt="Product image" isLoading>
+      <p>This is what the card looks like without the `isLoading` prop.</p>
+    </Card>
+  </div>
+  <div class="grid_item">
+    <Card imageSrc={placeholder} imageAlt="Product image">
+      <p>This is what the card looks like without the `isLoading` prop.</p>
+    </Card>
+  </div>
+</div>
+
+```astro
+---
+import placeholder from "../../assets/images/image.png";
+import Card from '../components/Card.astro';
+---
+<Card imageSrc={placeholder} imageAlt="Product image" isLoading>
+  <p>This is what the card looks like without the `isLoading` prop.</p>
+</Card>
+```
+
+</li>
+<li>
+
+### Disabled state
+
+<div class="grid" col="2">
+  <div class="grid_item">
+    <Card
+      href="/product/123"
+      imageSrc={placeholder}
+      imageAlt="Product image"
+      isDisabled
+    >
+      <p>With the `isDisabled` prop, the link doesn't work anymore.</p>
+    </Card>
+  </div>
+  <div class="grid_item">
+    <Card href="/product/123" imageSrc={placeholder} imageAlt="Product image">
+      <p>Witout the `isDisabled` prop, the link is clickable.</p>
+    </Card>
+  </div>
+</div>
+
+```astro
+---
+import placeholder from "../../assets/images/image.png";
+import Card from '../components/Card.astro';
+---
+<Card
+  href="/product/123"
+  imageSrc={placeholder}
+  imageAlt="Product image"
+  isDisabled
+>
+  <p>With the `isDisabled` prop, the link doesn't work anymore.</p>
+</Card>
+```
+
+</li>
+<li>
+
+### HTML example
+
+<div class="grid" col="2">
+  <div class="grid_item">
+    <Card
+      variant="raised"
+      href="/product/123"
+      title="Product Name"
+      subtitle="Category"
+      imageSrc={placeholder}
+      imageAlt="Product image"
+      badges={[{ label: "new" }]}
+    >
+      <p>This is a extremely detailed description of the product.</p>
+      <Fragment slot="actions">
+        <a class="bt bt-text " href="/details">
+          View Details
+        </a>
+        <button class="bt bt-primary">Add to Cart</button>
+      </Fragment>
+    </Card>
+  </div>
+</div>
+
+```html
+<article
+  class="card card-raised"
+  style="--card-aspect-ratio: var(--ar-golden)"
+  role="link"
+>
+  <a
+    class="card_link"
+    href="/product/123"
+    aria-label="Product Name (actions in footer are separate)"
+  ></a>
+  <header class="card_header">
+    <div class="card_header_text">
+      <h2>Product Name</h2>
+      <p>Category</p>
+    </div>
+    <div class="card_badges"><span class="card_badge">new</span></div>
+  </header>
+  <figure class="card_media">
+    <img
+      class="card_image"
+      src="image.jpg"
+      alt="Product image"
+      loading="lazy"
+      decoding="async"
+    />
+  </figure>
+  <section class="card_content">
+    <p>This is a extremely detailed description of the product.</p>
+  </section>
+  <footer class="card_actions">
+    <a class="bt bt-text" href="/details"><p>View Details</p></a>
+    <button class="bt bt-primary">Add to Cart</button>
+  </footer>
+</article>
+```
+
+</li>
+</ul>
