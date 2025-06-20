@@ -4,8 +4,8 @@
   position: relative;
   padding: var(--card-spacing);
   color: var(--card-text-color);
-  background: var(--card-bg-color);
   border-radius: var(--card-border-radius);
+  border: var(--card-border-width) solid var(--card-border-color);
   transition: box-shadow var(--transition);
 
   &.is-disabled {
@@ -19,7 +19,11 @@
   }
 }
 
-/* Variants */
+.card-filled {
+  background: var(--card-bg-color);
+  border: none;
+}
+
 .card-raised {
   border: var(--card-border-width) solid var(--card-border-color);
   box-shadow: var(--card-shadow);
@@ -27,14 +31,6 @@
 
 .card-raised:hover:not(.is-disabled) {
   box-shadow: var(--card-shadow-hover);
-}
-
-.card-outlined {
-  border: var(--card-border-width) solid var(--card-border-color);
-}
-
-.card-filled {
-  background: var(--card-fill-bg-color);
 }
 
 .card_link {
@@ -63,6 +59,9 @@
   h2 {
     font-size: var(--text-lg);
     font-weight: var(--semi-bold);
+    &:has(+ p) {
+      margin-bottom: 0;
+    }
   }
 
   p {
@@ -84,6 +83,7 @@
 }
 
 .card_content {
+  /* content slot customization */
 }
 
 .card_actions {
@@ -95,6 +95,7 @@
 }
 
 /* Loading state */
+
 .card_placeholder {
   width: 100%;
   aspect-ratio: var(--card-aspect-ratio);

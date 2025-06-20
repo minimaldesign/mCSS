@@ -103,8 +103,7 @@
   --card-spacing: var(--sm3);
   --card-text-color: var(--text-color);
   --card-secondary-text-color: var(--base-400);
-  --card-bg-color: var(--body-background-color);
-  --card-fill-bg-color: var(--base-100);
+  --card-bg-color: var(--base-100);
   --card-border-radius: var(--radius-lg);
   --card-border-color: var(--theme-border-color);
   --card-border-width: var(--border-sm);
@@ -116,7 +115,7 @@
 }
 
 :root:has(.root-theme:checked) {
-  --card-fill-bg-color: var(--base-900);
+  --card-bg-color: var(--base-900);
   --card-border-color: var(--base-600);
   --card-secondary-text-color: var(--base-500);
   --card-loading-bg: var(--base-900);
