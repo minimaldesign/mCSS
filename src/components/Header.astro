@@ -31,19 +31,10 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
 </script>
 
 <script is:inline>
-  const currentTheme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme');
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
-
-  window.localStorage.setItem('theme', currentTheme);
-  document.getElementById('js-theme').textContent = currentTheme;
+  // dark/light set on <html> + localStorage in header (BaseLayout) to alleviate FOUC
+  const currentTheme = localStorage.getItem('theme');
   const checkboxes = document.querySelectorAll('.js-theme-checkbox');
+  document.getElementById('js-theme').textContent = currentTheme;
 
   // if dark theme is set, checkbox is checked
   const isDark = currentTheme === 'dark';
@@ -57,6 +48,8 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
     checkboxes.forEach((el) => {
       el.checked = isDark;
     });
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(isDark ? 'dark' : 'light');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     document.getElementById('js-theme').textContent = isDark ? 'dark' : 'light';
   }

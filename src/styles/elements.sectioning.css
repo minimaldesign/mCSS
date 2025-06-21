@@ -9,6 +9,7 @@ body {
   color: var(--text-color);
   font-family: var(--text);
   line-height: 1.5;
+  transition: background-color var(--transition);
 
   /* for elements like dialog etc. that require scrolling turned off */
   &:has(.body-is-locked) {

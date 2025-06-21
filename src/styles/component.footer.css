@@ -4,6 +4,7 @@
   color: var(--footer-text-color);
   background-color: var(--footer-background-color);
   border-top: 2px dashed var(--footer-border-color);
+  transition: background-color var(--transition);
   @media (--md) {
     display: grid;
     gap: var(--md3);

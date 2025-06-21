@@ -8,7 +8,7 @@
   background-color: var(--header-background-color);
   box-shadow: var(--shadow-sm);
   z-index: var(--z-5);
-  transition: box-shadow var(--transition);
+  transition: all var(--transition);
   @media (--md) {
     grid-template-columns: var(--layout_content_aside-width) 1fr max-content;
   }
