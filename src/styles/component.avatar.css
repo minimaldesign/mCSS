@@ -13,57 +13,59 @@
     border-radius: var(--avatar-radius);
     font-size: var(--fs);
     line-height: 1;
-    background-color: var(--base-400);
-    border: 1px solid var(--base-0);
-    color: var(--base-0);
+    background-color: var(--avatar-background-color);
+    border: var(--avatar-border-width) solid var(--avatar-border-color);
+    color: var(--avatar-color);
     overflow: hidden;
   }
 }
 
 .avatar-online,
 .avatar-offline {
-  --ls: var(--xs3); /* light size */
-  --lp: 4%; /* light position */
-  --bdw: 2px;
+  --status-dot-size: var(--xs3);
+  --status-dot-position: 4%;
+  --status-dot-border-width: 2px;
+  --status-dot-border-color: var(--body-background-color);
+
   &:after {
     content: "";
     display: block;
-    width: var(--ls);
+    width: var(--status-dot-size);
     aspect-ratio: 1;
     position: absolute;
-    top: var(--lp);
-    right: var(--lp);
-    border: var(--bdw) solid var(--base-0);
+    top: var(--status-dot-position);
+    right: var(--status-dot-position);
+    border: var(--status-dot-border-width) solid var(--status-dot-border-color);
     border-radius: var(--radius-round);
-    background-color: var(--base-300);
+    background-color: var(--avatar-status-dot-color-offline);
   }
 }
 .avatar-online:after {
-  background-color: var(--yes-400);
+  background-color: var(--avatar-status-dot-color-online);
 }
 
 .avatar-sm {
   --w: var(--sm3);
   --fs: var(--text-xs);
-  --ls: var(--xs2);
-  --lp: 0;
-  --bdw: 1px;
+  --status-dot-size: var(--xs2);
+  --status-dot-position: 0;
+  --status-dot-border-width: 1px;
 }
 .avatar-md {
   --w: var(--md3);
   --fs: var(--text-sm);
-  --ls: var(--xs2);
-  --bdw: 1px;
+  --status-dot-size: var(--xs2);
+  --status-dot-border-width: 1px;
 }
 .avatar-lg {
   --w: var(--xl3);
   --fs: var(--text-xl);
-  --ls: var(--xs3);
-  --lp: 7%;
+  --status-dot-size: var(--xs3);
+  --status-dot-position: 7%;
 }
 .avatar-xl {
   --w: var(--xxl3);
   --fs: var(--display-lg);
-  --ls: var(--sm2);
-  --lp: 7%;
+  --status-dot-size: var(--sm2);
+  --status-dot-position: 7%;
 }

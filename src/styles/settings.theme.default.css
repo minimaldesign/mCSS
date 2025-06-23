@@ -94,7 +94,17 @@
 /* Avatar */
 
 :root {
+  --avatar-color: var(--base-0);
+  --avatar-background-color: var(--base-400);
+  --avatar-border-color: var(--base-0);
+  --avatar-border-width: var(--border-sm);
   --avatar-radius: var(--radius-round);
+  --avatar-status-dot-color-offline: var(--base-300);
+  --avatar-status-dot-color-online: var(--yes-400);
+}
+
+:root.dark {
+  --avatar-border-color: var(--base-500);
 }
 
 /* Card */
