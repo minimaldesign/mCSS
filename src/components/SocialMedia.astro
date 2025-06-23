@@ -42,7 +42,7 @@ const platforms = [
   { name: 'Social Media', icon: linkIcon, match: /.*/ },
 ];
 
-const { urls = [], size = '', extraClass = '' } = Astro.props;
+const { urls = [], size, extraClass } = Astro.props;
 
 const filteredPlatforms = urls.map((url) => {
   const platform = platforms.find((p) => p.match.test(url));
