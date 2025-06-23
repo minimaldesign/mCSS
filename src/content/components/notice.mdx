@@ -108,6 +108,9 @@ The following custom properties are available in the [default theme](/docs/theme
     </Notice>
 
     ```astro
+    ---
+    import Notice from "../../components/Notice.astro";
+    ---
     <Notice type="warning">
       <p>This is a warning notice without a `title` prop.</p>
     </Notice>
@@ -120,6 +123,9 @@ The following custom properties are available in the [default theme](/docs/theme
     </Notice>
 
     ```astro
+    ---
+    import Notice from "../../components/Notice.astro";
+    ---
     <Notice title="Congratulation!" type="confirm">
       <p>You've successfully read this notice until the end.</p>
     </Notice>
