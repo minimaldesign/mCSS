@@ -160,7 +160,18 @@
 /* Notice */
 
 :root {
+  --notice-spacing: var(--sm1);
   --notice-text-color: var(--base-950);
+  --notice-background-color: var(--base-50);
+  --notice-border-color: var(--base-200);
+  --notice-border-width: var(--border-sm);
+  --notice-border-radius: var(--radius-lg);
+}
+
+:root.theme-dark {
+  --notice-text-color: var(--base-0);
+  --notice-background-color: var(--base-800);
+  --notice-border-color: var(--base-500);
 }
 
 /* EXTERNAL PLUGINS */

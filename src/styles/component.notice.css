@@ -1,13 +1,13 @@
 .notice {
-  --bg-color: var(--base-50);
-  --bd-color: var(--base-200);
+  --bg-color: var(--notice-background-color);
+  --bd-color: var(--notice-border-color);
   --svg-color: inherit;
   --code-color: inherit;
   --code-bg-color: inherit;
 
-  padding: var(--sm1);
-  border: 1px solid var(--bd-color);
-  border-radius: var(--radius-lg);
+  padding: var(--notice-spacing);
+  border: var(--notice-border-width) solid var(--bd-color);
+  border-radius: var(--notice-border-radius);
   color: var(--notice-text-color);
   background-color: var(--bg-color);
 
@@ -38,6 +38,7 @@
 }
 
 .notice-info {
+  color: var(--base-950);
   --bg-color: var(--primary-100);
   --bd-color: var(--primary-300);
   --svg-color: var(--primary-400);
@@ -46,6 +47,7 @@
 }
 
 .notice-danger {
+  color: var(--base-950);
   --bg-color: var(--no-200);
   --bd-color: var(--no-500);
   --svg-color: var(--no-500);
@@ -54,6 +56,7 @@
 }
 
 .notice-warning {
+  color: var(--base-950);
   --bg-color: var(--maybe-200);
   --bd-color: var(--maybe-500);
   --svg-color: var(--maybe-400);
@@ -62,6 +65,7 @@
 }
 
 .notice-confirm {
+  color: var(--base-950);
   --bg-color: var(--yes-100);
   --bd-color: var(--yes-500);
   --svg-color: var(--yes-400);
