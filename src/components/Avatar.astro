@@ -5,7 +5,7 @@ import { getInitials } from '../scripts/utilities';
 const {
   online = false,
   offline = false,
-  pic,
+  imageSrc,
   size,
   extraClass = '',
   'data-testid': testId = 'avatar',
@@ -30,7 +30,7 @@ const label = slotContent || 'User avatar';
   data-testid={testId}
 >
   <div>
-    {pic && <Image src={pic} alt={label} width="256" />}
-    {!pic && initials && <span>{initials}</span>}
+    {imageSrc && <Image src={imageSrc} alt={label} width="256" />}
+    {!imageSrc && initials && <span>{initials}</span>}
   </div>
 </div>

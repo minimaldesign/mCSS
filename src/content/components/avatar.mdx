@@ -6,7 +6,7 @@ type: "component"
 ---
 
 import Avatar from "../../components/Avatar.astro";
-import pic from "../../assets/images/sonny.png";
+import imageSrc from "../../assets/images/sonny.png";
 
 <section class="prose">
 
@@ -14,7 +14,7 @@ The `.avatar` component is a visual representation of a user. It shows the user'
 Its default size is 56px. (See the [HTML](#html) section below for all options.)
 
 {/* prettier-ignore */}
-<Avatar online size="xl" pic={pic}>SR</Avatar>
+<Avatar online size="xl" imageSrc={imageSrc}>SR</Avatar>
 
 | File Name              | class     | Source      |
 | ---------------------- | --------- | ----------- |
@@ -54,7 +54,7 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
 
   </li>
   <li>
-    <Avatar online size="xl" pic={pic}>Sonny Rollins</Avatar>
+    <Avatar online size="xl" imageSrc={imageSrc}>Sonny Rollins</Avatar>
 
     ```html
     <div class="avatar avatar-xl avatar-online">
@@ -72,12 +72,13 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
 
 <div class="docs_oversizedTable prose">
 
-| Prop         | Type      | Default     | Description                                                 |
-| ------------ | --------- | ----------- | ----------------------------------------------------------- |
-| `size`       | `string`  | `undefined` | `sm`, `md`, `lg`, `xl` ([px values](#html))                 |
-| `online`     | `boolean` | `false`     | User is online - green dot                                  |
-| `offline`    | `boolean` | `false`     | User is offline - grey dot                                  |
-| `extraClass` | `string`  | `undefined` | Additional CSS, useful for [helper classes](/docs/helpers). |
+| Prop         | Type      | Default   | Description                                                 |
+| ------------ | --------- | --------- | ----------------------------------------------------------- |
+| `size`       | `string`  | undefined | `sm`, `md`, `lg`, `xl` ([px values](#html))                 |
+| `imageSrc`   | `string`  | undefined | Optional image.                                             |
+| `online`     | `boolean` | `false`   | User is online - green dot                                  |
+| `offline`    | `boolean` | `false`   | User is offline - grey dot                                  |
+| `extraClass` | `string`  | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
 
 </div>
 
@@ -97,14 +98,14 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
 
   </li>
   <li>
-    <Avatar offline size="lg" pic={pic}>Sonny Rollins</Avatar>
+    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
 
     ```astro
     ---
     import Avatar from "../../components/Avatar.astro";
-    import pic from "../../assets/images/sonny.png";
+    import imageSrc from "../../assets/images/sonny.png";
     ---
-    <Avatar offline size="lg" pic={pic}>Sonny Rollins</Avatar>
+    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
     ```
 
   </li>
@@ -114,16 +115,16 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
 
 {/* prettier-ignore */}
 <ul class="docs_examples grid grid-flush" col="2">
-  <li><Avatar size="sm" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="sm" imageSrc={imageSrc}>SR</Avatar></li>
   <li><Avatar size="sm">SR</Avatar></li>
-  <li><Avatar size="md" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="md" imageSrc={imageSrc}>SR</Avatar></li>
   <li><Avatar size="md">SR</Avatar></li>
-  <li><Avatar pic={pic}>SR</Avatar></li>
+  <li><Avatar imageSrc={imageSrc}>SR</Avatar></li>
   <li><Avatar>SR</Avatar></li>
-  <li><Avatar size="lg" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="lg" imageSrc={imageSrc}>SR</Avatar></li>
   <li><Avatar size="lg">SR</Avatar></li>
-  <li><Avatar size="xl" pic={pic}>SR</Avatar></li>
+  <li><Avatar size="xl" imageSrc={imageSrc}>SR</Avatar></li>
   <li><Avatar size="xl">SR</Avatar></li>
-  <li><Avatar offline size="xl" pic={pic}>SR</Avatar></li>
+  <li><Avatar offline size="xl" imageSrc={imageSrc}>SR</Avatar></li>
   <li><Avatar online size="xl">SR</Avatar></li>
 </ul>
