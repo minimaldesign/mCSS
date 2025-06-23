@@ -39,7 +39,7 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
   document.getElementById('js-theme').textContent = currentTheme;
 
   // if dark theme is set, checkbox is checked
-  const isDark = currentTheme === 'dark';
+  const isDark = currentTheme === 'theme-dark';
   // we have to set both checkboxes to checked, because the theme is set on both the mobile and desktop nav
   checkboxes.forEach((el) => {
     el.checked = isDark;
@@ -51,10 +51,10 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
     checkboxes.forEach((el) => {
       el.checked = isDark;
     });
-    document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(isDark ? 'dark' : 'light');
-    document.getElementById('js-theme').textContent = isDark ? 'dark' : 'light';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.documentElement.classList.remove('theme-light', 'theme-dark');
+    document.documentElement.classList.add(isDark ? 'theme-dark' : 'theme-light');
+    document.getElementById('js-theme').textContent = isDark ? 'theme-dark' : 'theme-light';
+    localStorage.setItem('theme', isDark ? 'theme-dark' : 'theme-light');
   }
 
   checkboxes.forEach((el) => {

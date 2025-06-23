@@ -5,7 +5,7 @@
   --theme-shadow-color: rgb(0 0 0 / 0.1);
 }
 
-:root.dark {
+:root.theme-dark {
   --theme-border-color: var(--base-500);
   --theme-shadow-color: rgb(0 0 0 / 0.6);
 }
@@ -50,7 +50,7 @@
   --marker-color: #ffee00;
 }
 
-:root.dark {
+:root.theme-dark {
   accent-color: var(--primary-500);
 
   --body-background-color: var(--base-950);
@@ -103,7 +103,7 @@
   --avatar-status-dot-color-online: var(--yes-400);
 }
 
-:root.dark {
+:root.theme-dark {
   --avatar-border-color: var(--base-500);
 }
 
@@ -124,7 +124,7 @@
   --card-loading-bg: var(--base-200);
 }
 
-:root.dark {
+:root.theme-dark {
   --card-bg-color: var(--base-900);
   --card-border-color: var(--base-600);
   --card-secondary-text-color: var(--base-500);
@@ -140,7 +140,7 @@
   --footer-border-color: transparent;
 }
 
-:root.dark {
+:root.theme-dark {
   --footer-background-color: var(--base-950);
   --footer-text-color: var(--base-200);
   --footer-border-color: var(--base-700);
@@ -153,7 +153,7 @@
   --header-background-color: var(--base-0);
 }
 
-:root.dark {
+:root.theme-dark {
   --header-background-color: var(--base-950);
 }
 
@@ -169,6 +169,6 @@
   --astro-code-background-color: var(--base-950);
 }
 
-:root.dark {
+:root.theme-dark {
   --astro-code-background-color: var(--base-900);
 }

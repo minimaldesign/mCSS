@@ -14,7 +14,7 @@ const { title, bodyClass } = Astro.props;
         try {
           var theme = localStorage.getItem('theme');
           if (!theme) {
-            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'theme-dark' : 'theme-light';
           }
           document.documentElement.classList.add(theme);
           window.localStorage.setItem('theme', theme);
