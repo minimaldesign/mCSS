@@ -3,7 +3,7 @@
 
   position: relative;
   padding: var(--card-spacing);
-  color: var(--card-text-color);
+  color: var(--card-color);
   border-radius: var(--card-border-radius);
   border: var(--card-border-width) solid var(--card-border-color);
   transition: box-shadow var(--transition);

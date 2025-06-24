@@ -111,7 +111,7 @@
 
 :root {
   --card-spacing: var(--sm3);
-  --card-text-color: var(--text-color);
+  --card-color: var(--text-color);
   --card-secondary-text-color: var(--base-400);
   --card-bg-color: var(--base-100);
   --card-border-radius: var(--radius-lg);
