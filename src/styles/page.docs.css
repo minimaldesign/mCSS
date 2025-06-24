@@ -30,6 +30,13 @@ ul.docs_section_media {
   fieldset {
     margin-bottom: var(--prose-spacing);
   }
+
+  :where(p, ul):not(:last-child) {
+    margin-bottom: var(--sm2);
+  }
+  :where(button, input):has(+ :is(button, input)) {
+    margin-right: var(--sm1);
+  }
 }
 
 .docs_oversizedTable {

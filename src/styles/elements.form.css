@@ -37,15 +37,6 @@ fieldset {
   }
 }
 
-form {
-  :where(p, ul):not(:last-child) {
-    margin-bottom: var(--sm2);
-  }
-  :where(button, .button, .bt, input):has(+ :is(button, .button, .bt, input)) {
-    margin-right: var(--sm1);
-  }
-}
-
 input {
   &:where(:not([type="checkbox"], [type="radio"])) {
     height: var(--input-height);
