@@ -69,13 +69,7 @@
 
     &:nth-of-type(2) {
       order: 3;
-      padding-top: var(--lg3);
-
-      /* we hide "on this page" if the TOC has less than 2 items */
-      &:not(:has(li:nth-of-type(2))) p {
-        display: none;
-      }
-
+      padding-top: var(--lg1);
       nav {
         padding-top: var(--xs2);
       }

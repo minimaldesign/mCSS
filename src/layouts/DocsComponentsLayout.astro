@@ -4,6 +4,8 @@ import BaseLayout from './BaseLayout.astro';
 import NavComponents from '../components/NavComponents.astro';
 import Toc from '../components/Toc.astro';
 
+import arrow from '../assets/icons/arrow-right-small.svg?raw';
+
 const allPosts = await getCollection('components');
 const { frontmatter } = Astro.props;
 ---
@@ -13,11 +15,12 @@ const { frontmatter } = Astro.props;
     <NavComponents />
   </aside>
   <aside class="layout_content_aside">
-    <p><strong>On this page</strong></p>
-    <Toc selector=".docs" headings={['h2', 'h3']} baseUrl="" scrollOffset={80} />
+    <Toc selector=".docs" headings={['h2', 'h3']} scrollOffset={80} description={'On this page'} icon={arrow} />
   </aside>
   <main class="layout_content_main docs">
-    <h1 class="text-capitalize">{`${frontmatter.type} :: ${frontmatter.title}`}</h1>
+    <h1>
+      <span class="text-capitalize">{frontmatter.type}</span> :: {`${frontmatter.title}`}
+    </h1>
     <slot />
   </main>
 </BaseLayout>

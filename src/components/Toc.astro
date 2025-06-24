@@ -1,21 +1,28 @@
 ---
-import arrow from '../assets/icons/arrow-right-small.svg?raw';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'nav'> {
+  id?: string;
   selector?: string;
   headings?: string[];
   baseUrl?: string;
   scrollOffset?: number;
+  description?: string;
+  icon?: string;
   'data-testid'?: string;
+  extraClass?: string;
 }
 
 // prettier-ignore
 const {
+  id = 'toc',
   selector = 'main',
   headings = ['h2', 'h3'],
   baseUrl = '',
   scrollOffset = 0,
+  description,
+  icon = '',
+  extraClass,
   'data-testid': testId = 'toc',
   ...rest
 } = Astro.props as Props;
@@ -23,30 +30,26 @@ const {
 
 <!-- prettier-ignore -->
 <nav
-  id="toc-root"
-  class="toc"
-  aria-label="Table of contents"
+  id={id}
+  class:list={[
+    'toc',
+    {
+      'toc-icon': icon,
+    },
+    extraClass,
+  ]}
+  aria-label={description}
   data-testid={testId}
-  data-selector={selector}
-  data-headings={JSON.stringify(headings)}
-  data-base-url={baseUrl}
-  data-scroll-offset={scrollOffset}
-  data-arrow={encodeURIComponent(arrow)}
   {...rest}
 ></nav>
 
-<script type="module">
-  const tocRoot = document.getElementById('toc-root');
-  const selector = tocRoot.dataset.selector;
-  const headingsTags = JSON.parse(tocRoot.dataset.headings);
-  const baseUrl = tocRoot.dataset.baseUrl;
-  const scrollOffset = parseInt(tocRoot.dataset.scrollOffset, 10) || 0;
-  const arrow = decodeURIComponent(tocRoot.dataset.arrow);
+<script type="module" define:vars={{ id, selector, headings, baseUrl, scrollOffset, description, icon }}>
+  const tocRoot = document.getElementById(id);
 
   let suppressObserver = false;
   let scrollTimeout;
-  let observer = null;
-  let scrollHandler = null;
+  let tocObserver = null;
+  let tocScrollHandler = null;
 
   function buildTocTree(headings) {
     const root = [];
@@ -71,27 +74,32 @@ const {
     return root;
   }
 
-  function renderToc(items) {
+  function renderToc(items, isTopLevel = false) {
     if (!items.length) return '';
-    return `<ul>${items
+    let html = '';
+    if (isTopLevel && description) {
+      html += `<p><strong>${description}</strong></p>`;
+    }
+    html += `<ul>${items
       .map(
         (item) =>
           `<li>
             <a href="${baseUrl ? baseUrl + '#' + item.id : '#' + item.id}" data-toc-link="${item.id}">
-            ${arrow} <span>${item.text}</span></a>
+            ${icon} <span>${item.text}</span></a>
             ${renderToc(item.children)}
           </li>`
       )
       .join('')}</ul>`;
+    return html;
   }
 
   function setupToc() {
     const container = document.querySelector(selector);
     if (!container) return;
 
-    const headings = Array.from(container.querySelectorAll(headingsTags.join(','))).filter((el) => el.id);
+    const headingsEls = Array.from(container.querySelectorAll(headings.join(','))).filter((el) => el.id);
 
-    tocRoot.innerHTML = renderToc(buildTocTree(headings));
+    tocRoot.innerHTML = renderToc(buildTocTree(headingsEls), true);
 
     function updateActiveLink() {
       const hash = decodeURIComponent(window.location.hash);
@@ -108,8 +116,10 @@ const {
     }
 
     // Clean up previous event listeners if any
-    if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
-    if (observer) observer.disconnect();
+    if (tocScrollHandler) window.removeEventListener('scroll', tocScrollHandler);
+    if (tocObserver) {
+      tocObserver.disconnect();
+    }
 
     tocRoot.querySelectorAll('a[data-toc-link]').forEach((link) => {
       link.addEventListener('click', (e) => {
@@ -126,14 +136,14 @@ const {
           updateActiveLink();
 
           // Debounced scroll event to re-enable observer
-          scrollHandler = () => {
+          tocScrollHandler = () => {
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
               suppressObserver = false;
-              window.removeEventListener('scroll', scrollHandler);
+              window.removeEventListener('scroll', tocScrollHandler);
             }, 150);
           };
-          window.addEventListener('scroll', scrollHandler);
+          window.addEventListener('scroll', tocScrollHandler);
         }
       });
     });
@@ -142,11 +152,11 @@ const {
     updateActiveLink();
 
     // Intersection Observer to update URL and active link on scroll
-    const headingElements = headings.map((h) => document.getElementById(h.id)).filter(Boolean);
+    const headingElements = headingsEls.map((h) => document.getElementById(h.id)).filter(Boolean);
 
     if ('IntersectionObserver' in window && headingElements.length) {
       let ticking = false;
-      observer = new IntersectionObserver(
+      tocObserver = new IntersectionObserver(
         (entries) => {
           if (suppressObserver) return;
           if (!ticking) {
@@ -169,7 +179,7 @@ const {
           threshold: 1,
         }
       );
-      headingElements.forEach((el) => observer.observe(el));
+      headingElements.forEach((el) => tocObserver.observe(el));
     }
   }
 

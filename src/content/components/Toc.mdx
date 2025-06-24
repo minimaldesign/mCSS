@@ -1,0 +1,134 @@
+---
+title: "Table of Content"
+lastUpdate: 2025-06-23
+version: 0.1
+type: "component"
+---
+
+import arrow from "../../assets/icons/arrow-right-small.svg?raw";
+import Toc from "../../components/Toc.astro";
+
+<div class="prose">
+  The `.toc` component is an "Astro only" client-side rendered component. It creates a table of content from the headings on the page it's on:
+
+</div>
+
+<Toc id="example1" extraClass="mb-sm2" />
+
+<div class="prose">
+
+By default, the TOC includes `H2`s and `H3`s (customizable via props) that have an ` id` attribute and links to them.
+
+It's possible to add multiple TOC on the same page, but this will duplicate Javascript and it's not recommended. If you do need to include more than one TOC, you'll need to add a unique `id` to each instance of the component.
+
+| File Name           | class  | Source      |
+| ------------------- | ------ | ----------- |
+| `component.toc.css` | `.toc` | [Github][1] |
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.toc.css
+
+</div>
+
+## HTML
+
+<section class="prose">
+
+This component's main functionality is to create a table of content via JavaScript. It just renders a nested `ul` and it's most useful as an Astro component.
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+| Property            | Color                     |
+| ------------------- | ------------------------- |
+| `--toc-color`       | Links color.              |
+| `--toc-color-hover` | Links hover color.        |
+| `--toc-spacing`     | Links padding.            |
+| `--toc-icon-size`   | Icon size.                |
+| `--toc-indentation` | Nested lists indentation. |
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop           | Type      | Default       | Description                                                 |
+| -------------- | --------- | ------------- | ----------------------------------------------------------- |
+| `id`           | `string`  | `toc`         | Needed to add more than one TOC.                            |
+| `selector`     | `string`  | `main`        | HTML element to scan for headings.                          |
+| `headings`     | `array`   | `['h2','h3']` | Heading levels to include.                                  |
+| `baseUrl`      | `string`  | `''`          | Optional URL to prepend `#id` with.                         |
+| `scrollOffset` | `integer` | `0`           | Scroll position offset from the top..                       |
+| `description`  | `string`  | undefined     | Text above the TOC.                                         |
+| `icon`         | `string`  | `''`          | Optinal inline SVG. (See example.)                          |
+| `extraClass`   | `string`  | undefined     | Additional CSS, useful for [helper classes](/docs/helpers). |
+
+</div>
+
+<section class="prose">
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+
+<li>
+
+### TOC with only H2s
+
+import heart from "../../assets/icons/heart.svg?raw";
+
+<Toc
+  id="example2"
+  selector=".docs"
+  headings={["h2"]}
+  scrollOffset={150}
+  description={"Just H2s and Hearts"}
+/>
+
+```astro
+---
+import Toc from "../../components/Toc.astro";
+---
+<Toc
+  id="example2"
+  selector=".docs"
+  headings={["h2"]}
+  scrollOffset={150}
+  description={"Just H2s and Hearts"}
+/>
+```
+
+</li>
+<li>
+
+### TOC with H2 — h4 and a ♥︎ icon
+
+#### An H4 just as an example
+
+<Toc
+  id="example3"
+  selector=".docs"
+  headings={["h2", "h3", "h4"]}
+  scrollOffset={80}
+  icon={heart}
+/>
+
+```astro
+---
+import heart from "../../assets/icons/arrow-right-small.svg?raw";
+import Toc from "../../components/Toc.astro";
+---
+<Toc
+  id="example3"
+  selector=".docs"
+  headings={["h2", "h3", "h4"]}
+  scrollOffset={80}
+  icon={heart}
+/>
+```
+
+</li>
+</ul>
