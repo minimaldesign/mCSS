@@ -1,7 +1,7 @@
 ---
 title: "Button"
 lastUpdate: 2024-09-02
-version: 0.1
+version: 0.9
 type: "atom"
 ---
 
@@ -31,9 +31,9 @@ The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt`
 <section class="prose">
 
 <Notice type="info">
-  You can combine modifiers however you want (see examples below) but note that
-  the `.bt-outline` modifier will only work on buttons that have a solid fill
-  color to start.
+  You can combine modifiers in any way you like (see [examples](#examples)), but
+  note that the `.bt-outline` modifier only works on buttons that start with a
+  solid fill color.
 </Notice>
 
 | Available modifiers                   | Style                                                                |
@@ -41,6 +41,7 @@ The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt`
 | `.bt`                                 | <button class="bt">Default Button</button>                           |
 | `.bt` + `.bt-md`                      | <button class="bt bt-md">Medium Size</button>                        |
 | `.bt` + `.bt-lg`                      | <button class="bt bt-lg">Large Size</button>                         |
+| `.bt` + `bt-outline`                  | <button class="bt bt-outline">Outline Button</button>                |
 | `.bt` + `.bt-primary`                 | <button class="bt bt-primary">Primary CTA</button>                   |
 | `.bt` + `.bt-primary` + `.bt-outline` | <button class="bt bt-primary bt-outline">Outlined CTA</button>       |
 | `.bt` + `.bt-yes`                     | <button class="bt bt-yes">Action Button</button>                     |
@@ -53,7 +54,36 @@ The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt`
 | `.bt` + `.bt-text`                    | <button class="bt bt-text">"Text" Button</button>                    |
 | `disabled` attribute                  | <button class="bt" disabled>Disabled Button</button>                 |
 
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+| Property                              | Description                       |
+| ------------------------------------- | --------------------------------- |
+| `--bt-font-size`                      | Font size.                        |
+| `--bt-font-size-lg`                   | Large font size.                  |
+| `--bt-font-weight`                    | Font weight.                      |
+| `--bt-color`                          | Text color.                       |
+| `--bt-color-hover`                    | Text color (hover).               |
+| `--bt-background-color`               | Background color.                 |
+| `--bt-background-color-hover`         | Background color (hover).         |
+| `--bt-border-color`                   | Border color.                     |
+| `--bt-border-width`                   | Border width.                     |
+| `--bt-border-radius`                  | Border radius.                    |
+| `--bt-border-radius-lg`               | Large border radius.              |
+| `--bt-outline-color-hover`            | Outline text color (hover).       |
+| `--bt-outline-background-color-hover` | Outline background color (hover). |
+| `--bt-outline-border-color`           | Outline border color.             |
+| `--bt-primary-color`                  | Primary text color.               |
+| `--bt-primary-color-hover`            | Primary text color (hover).       |
+| `--bt-primary-background-color`       | Primary background color.         |
+| `--bt-primary-background-color-hover` | Primary background color (hover). |
+| `--bt-primary-border-color`           | Primary border color.             |
+| `--bt-primary-border-color-hover`     | Primary border color (hover).     |
+
 </section>
+
+### Examples
 
 <ul class="docs_examples">
   <li>
@@ -74,12 +104,16 @@ The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt`
     ```
   </li>
   <li>
-    <input class="bt bt-md bt-no bt-outline" type="submit" value="Cancel" />
+    <input
+      class="bt bt-md bt-no bt-outline"
+      type="submit"
+      value="Cancel Input"
+    />
     ```html
     <input
       class="bt bt-md bt-no bt-outline"
       type="submit"
-      value="Submit Input"
+      value="Cancel Input"
     />
     ```
   </li>

@@ -8,7 +8,7 @@ a {
   font-weight: var(--semi-bold);
   color: var(--link-color);
   &:where(:hover) {
-    color: var(--link-hover-color);
+    color: var(--link-color-hover);
     text-decoration: none;
   }
 }

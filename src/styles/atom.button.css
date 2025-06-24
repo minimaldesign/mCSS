@@ -4,22 +4,30 @@
   justify-content: center;
   align-items: center;
   min-width: 101px;
-  min-height: var(--button-height);
+  min-height: var(--md3);
   padding-left: var(--xs3);
   padding-right: var(--xs3);
-  font-weight: var(--semi-bold);
-  font-size: var(--text-sm);
+  font-weight: var(--bt-font-weight);
+  font-size: var(--bt-font-size);
   text-decoration: none;
-  color: var(--text-color);
-  background-color: var(--base-0);
-  border: 1px solid var(--theme-border-color);
-  border-radius: var(--button-border-radius);
+  color: var(--bt-color);
+  background-color: var(--bt-background-color);
+  border: var(--bt-border-width) solid var(--bt-border-color);
+  border-radius: var(--bt-border-radius);
   cursor: pointer;
   transition: all var(--transition-fast);
 
+  &.bt-outline {
+    border-color: var(--bt-outline-border-color);
+    &:hover {
+      color: var(--bt-outline-color-hover);
+      background-color: var(--bt-outline-background-color-hover);
+    }
+  }
+
   &:where(:not(:disabled):hover) {
-    color: var(--text-color);
-    background-color: var(--base-50);
+    color: var(--bt-color-hover);
+    background-color: var(--bt-background-color-hover);
   }
 
   &:where(:not(:disabled):active) {
@@ -27,9 +35,9 @@
   }
 
   &:disabled {
-    background-color: var(--base-200);
     opacity: var(--o-2);
     cursor: not-allowed;
+    pointer-events: none;
   }
 
   svg {
@@ -56,18 +64,19 @@
 }
 
 .bt-primary:not(:disabled) {
-  color: var(--base-0);
-  background-color: var(--link-color);
-  border-color: var(--link-color);
+  color: var(--bt-primary-color);
+  background-color: var(--bt-primary-background-color);
+  border-color: var(--bt-primary-border-color);
   &:hover {
-    background-color: var(--link-hover-color);
-    border-color: var(--link-hover-color);
+    background-color: var(--bt-primary-background-color-hover);
+    border-color: var(--bt-primary-background-color-hover);
   }
   &.bt-outline {
-    color: var(--link-color);
+    color: var(--bt-primary-background-color);
     &:hover {
-      color: var(--base-0);
-      background-color: var(--link-color);
+      color: var(--bt-primary-color);
+      background-color: var(--bt-primary-background-color);
+      border-color: var(--bt-primary-border-color-hover);
     }
   }
 }
@@ -84,8 +93,9 @@
   &.bt-outline {
     color: var(--yes-500);
     &:hover {
-      background-color: var(--yes-500);
       color: var(--base-0);
+      background-color: var(--yes-500);
+      border-color: var(--yes-500);
     }
   }
 }
@@ -102,8 +112,9 @@
   &.bt-outline {
     color: var(--no-500);
     &:hover {
-      background-color: var(--no-500);
       color: var(--base-0);
+      background-color: var(--no-500);
+      border-color: var(--no-500);
     }
   }
 }
@@ -120,8 +131,9 @@
   &.bt-outline {
     color: var(--maybe-500);
     &:hover {
-      background-color: var(--maybe-500);
       color: var(--base-0);
+      background-color: var(--maybe-500);
+      border-color: var(--maybe-500);
     }
   }
 }
@@ -144,8 +156,8 @@
   min-height: var(--xl1);
   padding-left: var(--sm2);
   padding-right: var(--sm2);
-  font-size: var(--text-md);
-  border-radius: var(--radius-xl);
+  font-size: var(--bt-font-size-lg);
+  border-radius: var(--bt-border-radius-lg);
 
   svg {
     margin-left: calc(var(--xs3) * -1);

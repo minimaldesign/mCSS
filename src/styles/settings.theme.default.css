@@ -17,9 +17,6 @@
 
   --body-background-color: var(--base-0);
 
-  --button-height: var(--md3);
-  --button-border-radius: var(--radius-lg);
-
   --input-height: var(--md3);
   --input-padding: var(--xs3);
   --input-border-radius: var(--radius-lg);
@@ -40,7 +37,7 @@
 
   --text-color: var(--base-950);
   --link-color: var(--primary-600);
-  --link-hover-color: var(--primary-500);
+  --link-color-hover: var(--primary-500);
 
   --text-code-color: var(--primary-600);
   --text-code-background-color: var(--primary-100);
@@ -55,8 +52,6 @@
 
   --body-background-color: var(--base-950);
 
-  --button-height: var(--md3);
-
   --dialog-backdrop-color: var(--base-950);
 
   --table-border-color: var(--base-700);
@@ -66,7 +61,7 @@
 
   --text-color: var(--base-200);
   --link-color: var(--primary-400);
-  --link-hover-color: var(--primary-500);
+  --link-color-hover: var(--primary-500);
 
   --text-code-color: var(--primary-400);
   --text-code-background-color: var(--primary-900);
@@ -87,6 +82,47 @@
   --layout_content_aside-background-color: var(--base-100);
 
   --prose-spacing: var(--sm1);
+}
+
+/* ATOMS */
+
+/* Button */
+/* (Button defaults and primary button colors) */
+
+:root {
+  --bt-font-size: var(--text-sm);
+  --bt-font-size-lg: var(--text-md);
+  --bt-font-weight: var(--semi-bold);
+  --bt-color: var(--text-color);
+  --bt-color-hover: var(--text-color);
+  --bt-background-color: var(--base-0);
+  --bt-background-color-hover: var(--base-50);
+  --bt-border-color: var(--theme-border-color);
+  --bt-border-width: var(--border-sm);
+  --bt-border-radius: var(--radius-lg);
+  --bt-border-radius-lg: var(--radius-xl);
+
+  --bt-outline-color-hover: var(--base-0);
+  --bt-outline-background-color-hover: var(--text-color);
+  --bt-outline-border-color: var(--text-color);
+
+  --bt-primary-color: var(--base-0);
+  --bt-primary-color-hover: var(--base-0);
+  --bt-primary-background-color: var(--primary-600);
+  --bt-primary-background-color-hover: var(--primary-500);
+  --bt-primary-border-color: var(--primary-600);
+  --bt-primary-border-color-hover: var(--primary-600);
+}
+
+:root.theme-dark {
+  --bt-color-hover: var(--base-0);
+  --bt-background-color: var(--base-800);
+  --bt-background-color-hover: var(--base-900);
+  --bt-border-color: var(--base-700);
+
+  --bt-outline-color-hover: var(--base-900);
+  --bt-outline-background-color-hover: var(--base-0);
+  --bt-outline-border-color: var(--base-0);
 }
 
 /* COMPONENTS */
@@ -178,7 +214,7 @@
 
 :root {
   --toc-color: var(--link-color);
-  --toc-color-hover: var(--link-hover-color);
+  --toc-color-hover: var(--link-color-hover);
   --toc-spacing: var(--xs1);
   --toc-indentation: var(--xs3);
   --toc-icon-size: 16px;
