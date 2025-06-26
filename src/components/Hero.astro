@@ -1,0 +1,211 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { Image } from 'astro:assets';
+
+interface Media {
+  type: 'image' | 'video' | 'gradient';
+  src: string;
+  alt?: string;
+  poster?: string;
+}
+
+interface SlideshowItem {
+  media?: Media;
+  content?: string; // HTML string for slide content
+}
+
+interface Props extends HTMLAttributes<'section'> {
+  id?: string;
+  variant?: 'split' | 'full-width' | 'centered' | 'slideshow';
+  ratio?: string;
+  direction?: 'left' | 'right';
+  contentFirst?: boolean;
+  media?: Media;
+  animation?: 'fade' | 'slide' | 'none';
+  parallax?: boolean;
+  height?: 'full' | 'auto';
+  overlayOpacity?: number;
+  slideshowItems?: SlideshowItem[];
+  slideshowAutoplay?: boolean;
+  slideshowInterval?: number;
+  slideshowTransitionSpeed?: number; // ms
+  extraClass?: string;
+}
+
+// prettier-ignore
+const {
+  id = 'hero',
+  variant = 'split',
+  ratio = '60/40',
+  direction = 'left',
+  contentFirst = true,
+  media = {},
+  animation = 'none',
+  parallax = false,
+  height = 'auto',
+  overlayOpacity = 0.5,
+  slideshowItems = [],
+  slideshowAutoplay = false,
+  slideshowInterval = 5000,
+  slideshowTransitionSpeed = 600,
+  extraClass = '',
+  ...rest
+} = Astro.props as Props;
+
+const getGridStyle = () => {
+  if (variant === 'split') {
+    const [left, right] = ratio.split('/').map(Number);
+    return direction === 'left' ? `grid-template-columns: ${left}fr ${right}fr;` : `grid-template-columns: ${right}fr ${left}fr;`;
+  }
+  return '';
+};
+---
+
+<section id={id} class:list={[`hero hero-${variant}`, extraClass]} style={getGridStyle()} {...rest}>
+  {
+    variant === 'split' && (
+      <>
+        {((direction === 'left' && contentFirst) || (direction === 'right' && !contentFirst)) && (
+          <div class="hero_content">
+            <slot />
+          </div>
+        )}
+        <div class="hero_media">
+          {media.type === 'image' && <Image src={media.src} alt={media.alt} loading="lazy" />}
+          {media.type === 'video' && <video src={media.src} poster={media.poster} alt={media.alt} controls loading="lazy" />}
+        </div>
+        {((direction === 'right' && contentFirst) || (direction === 'left' && !contentFirst)) && (
+          <div class="hero_content">
+            <slot />
+          </div>
+        )}
+      </>
+    )
+  }
+  {
+    variant === 'full-width' && (
+      <div class:list={['hero_fullwidth', { 'hero-fullHeight': height === 'full' }]}>
+        {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
+        {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} alt={media.alt} autoPlay muted loop playsInline loading="lazy" />}
+        {media.type === 'gradient' && <div class="hero_bg hero_gradient" style={`background: ${media.src};`} />}
+        <div class="hero_overlay" style={`opacity: ${overlayOpacity};`} />
+        <div class="hero_content">
+          <slot />
+        </div>
+      </div>
+    )
+  }
+  {
+    variant === 'centered' && (
+      <div class="hero_centered">
+        <div class="hero_content">
+          <slot />
+        </div>
+      </div>
+    )
+  }
+  {
+    variant === 'slideshow' && (
+      <div class:list={['hero_fullwidth', 'hero_slideshow', { 'hero-fullHeight': height === 'full' }]} data-slideshow length={slideshowItems.length}>
+        {/* Render all media elements, only the active one is visible */}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} alt={item.media.alt} autoPlay muted loop playsInline loading="lazy" data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'gradient' && <div class={`hero_bg hero_gradient hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} style={`background: ${item.media.src};`} data-slideshow-media={idx} />)}
+        <div class="hero_overlay" style={`opacity: ${overlayOpacity};`} />
+        <div class="hero_content">
+          <slot />
+        </div>
+        <div class="slideshow-pagination">
+          {slideshowItems.map((_, idx) => (
+            <button class={`slideshow-dot${idx === 0 ? ' is-active' : ''}`} aria-label={`Go to slide ${idx + 1}`} data-slideshow-dot={idx} type="button" />
+          ))}
+        </div>
+      </div>
+    )
+  }
+</section>
+
+<script type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransitionSpeed, slideshowItems, parallax, variant, ratio }}>
+  function isValidRatio(ratio) {
+    const match = ratio && ratio.match(/^([1-9][0-9]?)\/([1-9][0-9]?)$/);
+    if (!match) return false;
+    const left = Number(match[1]);
+    const right = Number(match[2]);
+    return left + right === 100;
+  }
+
+  // Render dev error for invalid ratio in split variant
+  if (variant === 'split' && !isValidRatio(ratio)) {
+    const section = document.getElementById(id);
+    if (section) {
+      const error = document.createElement('div');
+      error.className = 'dev-error';
+      error.innerHTML = `<strong>Hero Error:</strong> Invalid <code>ratio</code> prop: <code>${ratio}</code>. The ratio total should be 100, e.g., <code>60/40</code>.`;
+      section.prepend(error);
+    }
+  }
+
+  // Parallax logic for full-width variant
+  const root = document.querySelector(`#${id} .hero_slideshow`);
+  if (parallax && id && document) {
+    const fullwidth = document.querySelector(`#${id}.hero-full-width, #${id}.hero_fullwidth`);
+    if (fullwidth) {
+      const bg = fullwidth.querySelector('.hero_bg');
+      if (bg) {
+        const onScroll = () => {
+          const rect = fullwidth.getBoundingClientRect();
+          // Parallax offset: only based on how much hero has scrolled past the top of the viewport
+          const offset = Math.max(0, 0 - rect.top) * 0.3;
+          bg.style.transform = `translateY(${offset}px)`;
+        };
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('resize', onScroll);
+        window.addEventListener('astro:before-swap', () => {
+          window.removeEventListener('scroll', onScroll);
+          window.removeEventListener('resize', onScroll);
+        });
+        // Initial position
+        onScroll();
+      }
+    }
+  }
+  if (root) {
+    let active = 0;
+    const dots = root.querySelectorAll('[data-slideshow-dot]');
+    const mediaEls = root.querySelectorAll('.hero_slideshow_media');
+    const ul = root.querySelector('.hero_content ul');
+    const lis = ul ? Array.from(ul.children) : [];
+    let autoplayIntervalId = null;
+    const show = (idx) => {
+      mediaEls.forEach((el, i) => {
+        el.classList.toggle('is-active', i === idx);
+      });
+      lis.forEach((li, i) => {
+        li.classList.toggle('is-active', i === idx);
+      });
+      dots.forEach((el, i) => {
+        el.classList.toggle('is-active', i === idx);
+      });
+      active = idx;
+    };
+    const stopAutoplay = () => {
+      if (autoplayIntervalId) {
+        clearInterval(autoplayIntervalId);
+        autoplayIntervalId = null;
+      }
+    };
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        show(idx);
+        stopAutoplay(); // Stop autoplay on user interaction
+      });
+    });
+    if (slideshowAutoplay) {
+      autoplayIntervalId = setInterval(() => {
+        show((active + 1) % slideshowItems.length);
+      }, slideshowInterval);
+    }
+    // Initial state
+    show(0);
+  }
+</script>

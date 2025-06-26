@@ -1,8 +1,21 @@
-body {
+body.dev {
   background-size: 100% calc(var(--baseline) * 1px);
   background-image: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) calc((var(--baseline) - 1) * 1px),
     hotpink calc(var(--baseline) * 1px)
   );
+}
+
+.dev-error {
+  position: fixed;
+  top: var(--md1);
+  left: var(--md1);
+  z-index: var(--z-top);
+  color: var(--no-500);
+  background: var(--no-100);
+  border: 1px solid var(--no-500);
+  padding: var(--sm1);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
 }

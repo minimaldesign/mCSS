@@ -1,0 +1,62 @@
+---
+import DemoLayout from '../../layouts/DemoLayout.astro';
+import Hero from '../../components/Hero.astro';
+import placeholder from '../../assets/images/placeholder-16_9.png';
+import saxo from '../../assets/images/saxophonist.jpg';
+import { Image } from 'astro:assets';
+
+const title = 'Hero component demo';
+---
+
+<DemoLayout title={title}>
+  <Hero variant="full-width" height="full" media={{ type: 'image', src: placeholder, alt: 'Background' }} overlayOpacity={0.6} parallax="true">
+    <h1>Full-Width Variant</h1>
+    <p>Full-bleed background image with overlay.</p>
+    <a class="bt bt-primary">Sign Up</a>
+  </Hero>
+
+  <Hero variant="split" direction="right" media={{ type: 'image', src: placeholder, alt: 'Placeholder' }}>
+    <h1>Split Variant (Right Content)</h1>
+    <p>Split layout with content on the right.</p>
+    <a class="bt bt-primary">Get Started</a>
+  </Hero>
+
+  <Hero variant="split" ratio="40/60" media={{ type: 'image', src: placeholder, alt: 'Placeholder' }}>
+    <h1>Split Variant</h1>
+    <p>Split layout with text and image.</p>
+    <a class="bt bt-primary">Get Started</a>
+  </Hero>
+
+  <Hero variant="centered">
+    <h1>Centered Variant</h1>
+    <p>Minimal, centered content.</p>
+    <a class="bt bt-primary">Try Now</a>
+  </Hero>
+
+  <Hero
+    variant="slideshow"
+    slideshowItems={[
+      {
+        media: { type: 'image', src: placeholder, alt: 'Placeholder' },
+      },
+      {
+        media: { type: 'image', src: saxo, alt: 'Saxophonist' },
+      },
+    ]}
+    slideshowAutoplay={true}
+    slideshowInterval={5000}
+    slideshowTransitionSpeed={1500}>
+    <ul>
+      <li>
+        <h1>Slideshow Variant</h1>
+        <p>This is the first slide of the slideshow.</p>
+        <a class="bt bt-primary">See More</a>
+      </li>
+      <li>
+        <h1>Slideshow Variant</h1>
+        <p>Different content for the second slide.</p>
+        <a class="bt bt-primary">Discover</a>
+      </li>
+    </ul>
+  </Hero>
+</DemoLayout>
