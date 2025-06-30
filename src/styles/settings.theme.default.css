@@ -196,7 +196,7 @@
 /* Hero */
 
 :root {
-  --hero-spacing: var(--md1);
+  --hero-spacing: var(--md3);
 }
 
 :root.theme-dark {

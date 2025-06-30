@@ -16,7 +16,7 @@ interface SlideshowItem {
 
 interface Props extends HTMLAttributes<'section'> {
   id?: string;
-  variant?: 'split' | 'full-width' | 'centered' | 'slideshow';
+  variant?: 'split' | 'full' | 'slideshow';
   ratio?: string;
   direction?: 'left' | 'right';
   contentFirst?: boolean;
@@ -25,6 +25,8 @@ interface Props extends HTMLAttributes<'section'> {
   parallax?: boolean;
   height?: 'full' | 'auto';
   overlayOpacity?: number;
+  overlayColor?: string;
+  textColor?: string;
   slideshowItems?: SlideshowItem[];
   slideshowAutoplay?: boolean;
   slideshowInterval?: number;
@@ -35,7 +37,7 @@ interface Props extends HTMLAttributes<'section'> {
 // prettier-ignore
 const {
   id = 'hero',
-  variant = 'split',
+  variant = 'full',
   ratio = '60/40',
   direction = 'left',
   contentFirst = true,
@@ -43,7 +45,9 @@ const {
   animation = 'none',
   parallax = false,
   height = 'auto',
-  overlayOpacity = 0.5,
+  overlayOpacity = 0,
+  overlayColor = '--base-950',
+  textColor = '--text-color',
   slideshowItems = [],
   slideshowAutoplay = false,
   slideshowInterval = 5000,
@@ -63,10 +67,23 @@ const getGridStyle = () => {
 
 <section id={id} class:list={[`hero hero-${variant}`, extraClass]} style={getGridStyle()} {...rest}>
   {
+    variant === 'full' && (
+      <div class:list={['hero_wrap', { 'hero_wrap-fullHeight': height === 'full' }]}>
+        {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
+        {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} alt={media.alt} autoPlay muted loop playsInline loading="lazy" />}
+        {media.type === 'gradient' && <div class="hero_bg hero_gradient" style={`background: ${media.src};`} />}
+        {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
+        <div class="hero_content" style={`color: var(${textColor});`}>
+          <slot />
+        </div>
+      </div>
+    )
+  }
+  {
     variant === 'split' && (
       <>
         {((direction === 'left' && contentFirst) || (direction === 'right' && !contentFirst)) && (
-          <div class="hero_content">
+          <div class="hero_content" style={`color: var(${textColor});`}>
             <slot />
           </div>
         )}
@@ -75,7 +92,7 @@ const getGridStyle = () => {
           {media.type === 'video' && <video src={media.src} poster={media.poster} alt={media.alt} controls loading="lazy" />}
         </div>
         {((direction === 'right' && contentFirst) || (direction === 'left' && !contentFirst)) && (
-          <div class="hero_content">
+          <div class="hero_content" style={`color: var(${textColor});`}>
             <slot />
           </div>
         )}
@@ -83,41 +100,19 @@ const getGridStyle = () => {
     )
   }
   {
-    variant === 'full-width' && (
-      <div class:list={['hero_fullwidth', { 'hero-fullHeight': height === 'full' }]}>
-        {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
-        {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} alt={media.alt} autoPlay muted loop playsInline loading="lazy" />}
-        {media.type === 'gradient' && <div class="hero_bg hero_gradient" style={`background: ${media.src};`} />}
-        <div class="hero_overlay" style={`opacity: ${overlayOpacity};`} />
-        <div class="hero_content">
-          <slot />
-        </div>
-      </div>
-    )
-  }
-  {
-    variant === 'centered' && (
-      <div class="hero_centered">
-        <div class="hero_content">
-          <slot />
-        </div>
-      </div>
-    )
-  }
-  {
     variant === 'slideshow' && (
-      <div class:list={['hero_fullwidth', 'hero_slideshow', { 'hero-fullHeight': height === 'full' }]} data-slideshow length={slideshowItems.length}>
+      <div class:list={['hero_wrap', 'hero_slideshow', { 'hero_wrap-fullHeight': height === 'full' }]} data-slideshow length={slideshowItems.length}>
         {/* Render all media elements, only the active one is visible */}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} alt={item.media.alt} autoPlay muted loop playsInline loading="lazy" data-slideshow-media={idx} />)}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'gradient' && <div class={`hero_bg hero_gradient hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} style={`background: ${item.media.src};`} data-slideshow-media={idx} />)}
-        <div class="hero_overlay" style={`opacity: ${overlayOpacity};`} />
-        <div class="hero_content">
+        {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
+        <div class="hero_content" style={`color: var(${textColor});`}>
           <slot />
         </div>
-        <div class="slideshow-pagination">
+        <div class="hero_pagination">
           {slideshowItems.map((_, idx) => (
-            <button class={`slideshow-dot${idx === 0 ? ' is-active' : ''}`} aria-label={`Go to slide ${idx + 1}`} data-slideshow-dot={idx} type="button" />
+            <button class={`hero_pagination_dot${idx === 0 ? ' is-active' : ''}`} aria-label={`Go to slide ${idx + 1}`} data-hero_pagination_dot={idx} type="button" />
           ))}
         </div>
       </div>
@@ -140,20 +135,20 @@ const getGridStyle = () => {
     if (section) {
       const error = document.createElement('div');
       error.className = 'dev-error';
-      error.innerHTML = `<strong>Hero Error:</strong> Invalid <code>ratio</code> prop: <code>${ratio}</code>. The ratio total should be 100, e.g., <code>60/40</code>.`;
+      error.innerHTML = `<strong>Hero error:</strong> the ratio (<code>${ratio}</code>) is invalid. Its total should be 100, i.e., <code>60/40</code>, <code>30/70</code>, <code>62/38</code>, etc.`;
       section.prepend(error);
     }
   }
 
-  // Parallax logic for full-width variant
+  // Parallax logic for full variant
   const root = document.querySelector(`#${id} .hero_slideshow`);
   if (parallax && id && document) {
-    const fullwidth = document.querySelector(`#${id}.hero-full-width, #${id}.hero_fullwidth`);
-    if (fullwidth) {
-      const bg = fullwidth.querySelector('.hero_bg');
+    const full = document.querySelector(`#${id}.hero-full, #${id}.hero_wrap`);
+    if (full) {
+      const bg = full.querySelector('.hero_bg');
       if (bg) {
         const onScroll = () => {
-          const rect = fullwidth.getBoundingClientRect();
+          const rect = full.getBoundingClientRect();
           // Parallax offset: only based on how much hero has scrolled past the top of the viewport
           const offset = Math.max(0, 0 - rect.top) * 0.3;
           bg.style.transform = `translateY(${offset}px)`;
@@ -171,7 +166,7 @@ const getGridStyle = () => {
   }
   if (root) {
     let active = 0;
-    const dots = root.querySelectorAll('[data-slideshow-dot]');
+    const dots = root.querySelectorAll('[data-hero_pagination_dot]');
     const mediaEls = root.querySelectorAll('.hero_slideshow_media');
     const ul = root.querySelector('.hero_content ul');
     const lis = ul ? Array.from(ul.children) : [];
