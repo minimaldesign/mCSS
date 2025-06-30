@@ -72,7 +72,7 @@
   font-weight: var(--semi-bold);
   color: var(--card-badge-text-color);
   background: var(--card-badge-bg);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
 }
 
 .card_media {
