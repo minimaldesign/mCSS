@@ -23,7 +23,7 @@ interface Props extends HTMLAttributes<'section'> {
   media?: Media;
   animation?: 'fade' | 'slide' | 'none';
   parallax?: boolean;
-  height?: 'full' | 'auto';
+  height?: number; // 0-100, min-height in vh
   overlayOpacity?: number;
   overlayColor?: string;
   textColor?: string;
@@ -44,7 +44,7 @@ const {
   media = {},
   animation = 'none',
   parallax = false,
-  height = 'auto',
+  height,
   overlayOpacity = 0,
   overlayColor = '--base-950',
   textColor = '--text-color',
@@ -63,12 +63,19 @@ const getGridStyle = () => {
   }
   return '';
 };
+
+const getMinHeightStyle = () => {
+  if (typeof height === 'number' && height > 0 && height <= 100) {
+    return `min-height: ${height}vh;`;
+  }
+  return '';
+};
 ---
 
 <section id={id} class:list={[`hero hero-${variant}`, extraClass]} style={getGridStyle()} {...rest}>
   {
     variant === 'full' && (
-      <div class:list={['hero_wrap', { 'hero_wrap-fullHeight': height === 'full' }]}>
+      <div class:list={['hero_wrap']} style={getMinHeightStyle()}>
         {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
         {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} alt={media.alt} autoPlay muted loop playsInline loading="lazy" />}
         {media.type === 'gradient' && <div class="hero_bg hero_gradient" style={`background: ${media.src};`} />}
@@ -120,36 +127,37 @@ const getGridStyle = () => {
   }
 </section>
 
-<script type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransitionSpeed, slideshowItems, parallax, variant, ratio }}>
-  function isValidRatio(ratio) {
-    const match = ratio && ratio.match(/^([1-9][0-9]?)\/([1-9][0-9]?)$/);
-    if (!match) return false;
-    const left = Number(match[1]);
-    const right = Number(match[2]);
-    return left + right === 100;
-  }
-
-  // Render dev error for invalid ratio in split variant
-  if (variant === 'split' && !isValidRatio(ratio)) {
-    const section = document.getElementById(id);
-    if (section) {
-      const error = document.createElement('div');
-      error.className = 'dev-error';
-      error.innerHTML = `<strong>Hero error:</strong> the ratio (<code>${ratio}</code>) is invalid. Its total should be 100, i.e., <code>60/40</code>, <code>30/70</code>, <code>62/38</code>, etc.`;
-      section.prepend(error);
+{/* Only include split ratio validation for split variant in dev */}
+{import.meta.env.DEV && variant === 'split' && (
+  <script type="module" define:vars={{ id, ratio }}>
+    function isValidRatio(ratio) {
+      const match = ratio && ratio.match(/^([1-9][0-9]?)\/([1-9][0-9]?)$/);
+      if (!match) return false;
+      const left = Number(match[1]);
+      const right = Number(match[2]);
+      return left + right === 100;
     }
-  }
+    if (!isValidRatio(ratio)) {
+      const section = document.getElementById(id);
+      if (section) {
+        const error = document.createElement('div');
+        error.className = 'dev-error';
+        error.innerHTML = `<strong>Hero error:</strong> the ratio (<code>${ratio}</code>) is invalid. Its total should be 100, i.e., <code>60/40</code>, <code>30/70</code>, <code>62/38</code>, etc.`;
+        section.prepend(error);
+      }
+    }
+  </script>
+)}
 
-  // Parallax logic for full variant
-  const root = document.querySelector(`#${id} .hero_slideshow`);
-  if (parallax && id && document) {
+{/* Only include parallax JS for full variant with parallax enabled */}
+{variant === 'full' && parallax && (
+  <script type="module" define:vars={{ id }}>
     const full = document.querySelector(`#${id}.hero-full, #${id}.hero_wrap`);
     if (full) {
       const bg = full.querySelector('.hero_bg');
       if (bg) {
         const onScroll = () => {
           const rect = full.getBoundingClientRect();
-          // Parallax offset: only based on how much hero has scrolled past the top of the viewport
           const offset = Math.max(0, 0 - rect.top) * 0.3;
           bg.style.transform = `translateY(${offset}px)`;
         };
@@ -159,48 +167,53 @@ const getGridStyle = () => {
           window.removeEventListener('scroll', onScroll);
           window.removeEventListener('resize', onScroll);
         });
-        // Initial position
         onScroll();
       }
     }
-  }
-  if (root) {
-    let active = 0;
-    const dots = root.querySelectorAll('[data-hero_pagination_dot]');
-    const mediaEls = root.querySelectorAll('.hero_slideshow_media');
-    const ul = root.querySelector('.hero_content ul');
-    const lis = ul ? Array.from(ul.children) : [];
-    let autoplayIntervalId = null;
-    const show = (idx) => {
-      mediaEls.forEach((el, i) => {
-        el.classList.toggle('is-active', i === idx);
+  </script>
+)}
+
+{/* Only include slideshow JS for slideshow variant */}
+{variant === 'slideshow' && (
+  <script type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransitionSpeed, slideshowItems }}>
+    const root = document.querySelector(`#${id} .hero_slideshow`);
+    if (root) {
+      let active = 0;
+      const dots = root.querySelectorAll('[data-hero_pagination_dot]');
+      const mediaEls = root.querySelectorAll('.hero_slideshow_media');
+      const ul = root.querySelector('.hero_content ul');
+      const lis = ul ? Array.from(ul.children) : [];
+      let autoplayIntervalId = null;
+      const show = (idx) => {
+        mediaEls.forEach((el, i) => {
+          el.classList.toggle('is-active', i === idx);
+        });
+        lis.forEach((li, i) => {
+          li.classList.toggle('is-active', i === idx);
+        });
+        dots.forEach((el, i) => {
+          el.classList.toggle('is-active', i === idx);
+        });
+        active = idx;
+      };
+      const stopAutoplay = () => {
+        if (autoplayIntervalId) {
+          clearInterval(autoplayIntervalId);
+          autoplayIntervalId = null;
+        }
+      };
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          show(idx);
+          stopAutoplay();
+        });
       });
-      lis.forEach((li, i) => {
-        li.classList.toggle('is-active', i === idx);
-      });
-      dots.forEach((el, i) => {
-        el.classList.toggle('is-active', i === idx);
-      });
-      active = idx;
-    };
-    const stopAutoplay = () => {
-      if (autoplayIntervalId) {
-        clearInterval(autoplayIntervalId);
-        autoplayIntervalId = null;
+      if (slideshowAutoplay) {
+        autoplayIntervalId = setInterval(() => {
+          show((active + 1) % slideshowItems.length);
+        }, slideshowInterval);
       }
-    };
-    dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () => {
-        show(idx);
-        stopAutoplay(); // Stop autoplay on user interaction
-      });
-    });
-    if (slideshowAutoplay) {
-      autoplayIntervalId = setInterval(() => {
-        show((active + 1) % slideshowItems.length);
-      }, slideshowInterval);
+      show(0);
     }
-    // Initial state
-    show(0);
-  }
-</script>
+  </script>
+)}
