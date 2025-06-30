@@ -102,9 +102,10 @@
   --bt-border-radius: var(--radius-lg);
   --bt-border-radius-lg: var(--radius-xl);
 
-  --bt-outline-color-hover: var(--base-0);
-  --bt-outline-background-color-hover: var(--text-color);
-  --bt-outline-border-color: var(--text-color);
+  --bt-outline-color-hover: var(--base-950);
+  --bt-outline-background-color-hover: rgb(0 0 0 / 0.1);
+  --bt-outline-border-color: var(--base-950);
+  --bt-outline-border-color-hover: var(--base-950);
 
   --bt-primary-color: var(--base-0);
   --bt-primary-color-hover: var(--base-0);
@@ -120,9 +121,10 @@
   --bt-background-color-hover: var(--base-900);
   --bt-border-color: var(--base-700);
 
-  --bt-outline-color-hover: var(--base-900);
-  --bt-outline-background-color-hover: var(--base-0);
+  --bt-outline-color-hover: var(--base-0);
+  --bt-outline-background-color-hover: rgb(255 255 255 / 0.1);
   --bt-outline-border-color: var(--base-0);
+  --bt-outline-border-color-hover: var(--base-0);
 }
 
 /* COMPONENTS */
