@@ -26,7 +26,7 @@
   /* default doesn't need styling */
 }
 
-.wrap_content-fullbleed {
+.wrap_content-fullBleed {
   grid-column: 1 / -1;
   width: 100%;
   object-fit: cover;
