@@ -73,9 +73,9 @@
   --grid-column-gap: var(--sm3);
   --grid-row-gap: var(--sm3);
 
-  --wrap-padding: var(--sm1);
-  --wrap-md-padding: var(--sm3);
-  --wrap-lg-padding: 0;
+  --wrap-spacing: var(--sm1);
+  --wrap-md-spacing: var(--sm3);
+  --wrap-lg-spacing: 0;
   --wrap-width: minmax(200px, 70ch);
 
   --layout_content_aside-width: 245px;
@@ -187,6 +187,16 @@
 :root {
   --header-height: var(--xl2);
   --header-background-color: var(--base-0);
+}
+
+:root.theme-dark {
+  --header-background-color: var(--base-950);
+}
+
+/* Hero */
+
+:root {
+  --hero-spacing: var(--md1);
 }
 
 :root.theme-dark {
