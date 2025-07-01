@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'astro/types';
 import { Image } from 'astro:assets';
 
 interface Media {
-  type: 'image' | 'video' | 'gradient';
+  type: 'image' | 'video' | 'gradient' | 'canvas';
   src: string;
   alt?: string;
   poster?: string;
@@ -32,13 +32,14 @@ interface Props extends HTMLAttributes<'section'> {
   slideshowInterval?: number;
   slideshowTransitionSpeed?: number; // ms
   extraClass?: string;
+  canvasScriptSrc?: string; // optional custom script src for canvas animation
 }
 
 // prettier-ignore
 const {
   id = 'hero',
   variant = 'full',
-  ratio = '60/40',
+  ratio = '62/38',
   direction = 'left',
   contentFirst = true,
   media = {},
@@ -53,13 +54,14 @@ const {
   slideshowInterval = 5000,
   slideshowTransitionSpeed = 600,
   extraClass = '',
+  canvasScriptSrc = '/_js/triangles.js',
   ...rest
 } = Astro.props as Props;
 
 const getGridStyle = () => {
   if (variant === 'split') {
     const [left, right] = ratio.split('/').map(Number);
-    return direction === 'left' ? `grid-template-columns: ${left}fr ${right}fr;` : `grid-template-columns: ${right}fr ${left}fr;`;
+    return `grid-template-columns: ${left}fr ${right}fr;`;
   }
   return '';
 };
@@ -72,13 +74,19 @@ const getMinHeightStyle = () => {
 };
 ---
 
-<section id={id} class:list={[`hero hero-${variant}`, extraClass]} style={getGridStyle()} {...rest}>
+<section id={id} class:list={[`hero hero-${variant}`, `hero-${direction}`, { 'hero-parallax': parallax }, extraClass]} style={getGridStyle()} {...rest}>
   {
     variant === 'full' && (
       <div class:list={['hero_wrap']} style={getMinHeightStyle()}>
         {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
         {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} alt={media.alt} autoPlay muted loop playsInline loading="lazy" />}
         {media.type === 'gradient' && <div class="hero_bg hero_gradient" style={`background: ${media.src};`} />}
+        {media.type === 'canvas' && (
+          <>
+            <canvas class="hero_bg triangles" aria-hidden="true"></canvas>
+            <script src={canvasScriptSrc} type="module"></script>
+          </>
+        )}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
         <div class="hero_content" style={`color: var(${textColor});`}>
           <slot />
@@ -89,7 +97,7 @@ const getMinHeightStyle = () => {
   {
     variant === 'split' && (
       <>
-        {((direction === 'left' && contentFirst) || (direction === 'right' && !contentFirst)) && (
+        {contentFirst && (
           <div class="hero_content" style={`color: var(${textColor});`}>
             <slot />
           </div>
@@ -98,7 +106,7 @@ const getMinHeightStyle = () => {
           {media.type === 'image' && <Image src={media.src} alt={media.alt} loading="lazy" />}
           {media.type === 'video' && <video src={media.src} poster={media.poster} alt={media.alt} controls loading="lazy" />}
         </div>
-        {((direction === 'right' && contentFirst) || (direction === 'left' && !contentFirst)) && (
+        {!contentFirst && (
           <div class="hero_content" style={`color: var(${textColor});`}>
             <slot />
           </div>
@@ -108,7 +116,7 @@ const getMinHeightStyle = () => {
   }
   {
     variant === 'slideshow' && (
-      <div class:list={['hero_wrap', 'hero_slideshow', { 'hero_wrap-fullHeight': height === 'full' }]} data-slideshow length={slideshowItems.length}>
+      <div class:list={['hero_wrap', 'hero_slideshow', { 'hero_wrap-fullHeight': height === 'full' }]} data-slideshow length={slideshowItems.length} style={getMinHeightStyle()}>
         {/* Render all media elements, only the active one is visible */}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} alt={item.media.alt} autoPlay muted loop playsInline loading="lazy" data-slideshow-media={idx} />)}
@@ -152,23 +160,20 @@ const getMinHeightStyle = () => {
 {/* Only include parallax JS for full variant with parallax enabled */}
 {variant === 'full' && parallax && (
   <script type="module" define:vars={{ id }}>
-    const full = document.querySelector(`#${id}.hero-full, #${id}.hero_wrap`);
+    const full = document.querySelector(`#${id}.hero-parallax .hero_bg`);
     if (full) {
-      const bg = full.querySelector('.hero_bg');
-      if (bg) {
-        const onScroll = () => {
-          const rect = full.getBoundingClientRect();
-          const offset = Math.max(0, 0 - rect.top) * 0.3;
-          bg.style.transform = `translateY(${offset}px)`;
-        };
-        window.addEventListener('scroll', onScroll);
-        window.addEventListener('resize', onScroll);
-        window.addEventListener('astro:before-swap', () => {
-          window.removeEventListener('scroll', onScroll);
-          window.removeEventListener('resize', onScroll);
-        });
-        onScroll();
-      }
+      const onScroll = () => {
+        const rect = full.getBoundingClientRect();
+        const offset = Math.max(0, 0 - rect.top) * 0.3;
+        full.style.transform = `translateY(${offset}px)`;
+      };
+      window.addEventListener('scroll', onScroll);
+      window.addEventListener('resize', onScroll);
+      window.addEventListener('astro:before-swap', () => {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      });
+      onScroll();
     }
   </script>
 )}

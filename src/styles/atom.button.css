@@ -64,6 +64,15 @@
   }
 }
 
+.bt-outline-white:not(:disabled) {
+  color: var(--bt-0);
+  background-color: transparent;
+  border-color: var(--base-0);
+  &:hover {
+    background-color: rgb(255 255 255 / 0.1);
+  }
+}
+
 .bt-primary:not(:disabled) {
   color: var(--bt-primary-color);
   background-color: var(--bt-primary-background-color);

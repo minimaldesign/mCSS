@@ -4,13 +4,30 @@
 .hero-split {
   display: grid;
   align-items: center;
+
+  @media (--md-n-below) {
+    grid-template-columns: 1fr !important;
+    min-height: 40vh;
+  }
+
+  /* setup via direction prop in component */
+  @media (--md) {
+    &.hero-right {
+      & div:nth-child(1) {
+        order: 2;
+      }
+      & div:nth-child(2) {
+        order: 1;
+      }
+    }
+  }
 }
 
 .hero-full {
   .hero_content {
     z-index: 2;
     text-align: center;
-    max-width: 70ch;
+    max-width: 60ch;
     min-width: 200px;
   }
 }
@@ -28,9 +45,8 @@
 
   img,
   video {
-    max-width: 100%;
+    width: 100%;
     max-height: 60vh;
-    /* border-radius: var(--radius-xl); */
     object-fit: cover;
   }
 }
@@ -40,6 +56,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 60vh;
   overflow: hidden;
 }
 
@@ -69,12 +86,15 @@
 }
 
 .hero_slideshow {
-  --slideshow-interval: 4000ms;
   --slideshow-speed: 600ms;
   width: 100vw;
-  min-height: 60vh;
   position: relative;
   overflow: hidden;
+
+  .hero_content {
+    position: relative;
+    width: 50ch;
+  }
 
   .hero_content ul > li,
   .hero_slideshow_media {
@@ -85,6 +105,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     pointer-events: none;
     opacity: 0;
     transition: opacity var(--slideshow-speed) ease-in-out;
@@ -114,35 +135,22 @@
   bottom: var(--md1);
   display: flex;
   justify-content: center;
-  gap: var(--xs2);
+  gap: var(--xs3);
   z-index: 10;
 }
 
 .hero_pagination_dot {
-  width: var(--xs3);
-  height: var(--xs3);
+  width: var(--sm1);
+  height: var(--sm1);
   border-radius: var(--radius-round);
   background: var(--base-0);
-  opacity: var(--o-1);
+  opacity: var(--o-4);
   border: none;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition);
   &.is-active {
     opacity: 1;
     background: var(--primary-600);
-  }
-}
-
-@media (max-width: 900px) {
-  .hero-split {
-    grid-template-columns: 1fr !important;
-    min-height: 40vh;
-  }
-  .hero_content {
-    order: 1;
-  }
-  .hero_media {
-    order: 2;
-    margin-top: var(--sm2);
   }
 }

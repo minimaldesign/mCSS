@@ -1,61 +1,76 @@
 ---
 import DemoLayout from '../../layouts/DemoLayout.astro';
 import Hero from '../../components/Hero.astro';
-import placeholder from '../../assets/images/placeholder-16_9.png';
-import saxo from '../../assets/images/saxophonist.jpg';
+
+import triangle01 from '../../assets/images/triangle-346273409-sm.svg';
+import triangle02 from '../../assets/images/triangle-340496516.svg';
+import triangle03 from '../../assets/images/triangle-342054505.svg';
 import { Image } from 'astro:assets';
 
 const title = 'Hero component demo';
 ---
 
 <DemoLayout title={title}>
-  <Hero variant="full-width" height="full" media={{ type: 'image', src: placeholder, alt: 'Background' }} overlayOpacity={0.6} parallax="true">
-    <h1>Full-Width Variant</h1>
-    <p>Full-bleed background image with overlay.</p>
-    <a class="bt bt-primary">Sign Up</a>
+  <Hero variant="full" parallax={true} height={100} media={{ type: 'canvas', src: '', alt: '' }} textColor="--base-0" extraClass="prose" canvasScriptSrc="/_js/triangles.js">
+    <h1>Hero with Live Canvas Background & Parallax</h1>
+    <p>This hero uses animated canvas element as background and has its parallax prop set to true.</p>
+    <a class="bt bt-lg bt-outline-white mt-xs3">Get Started</a>
+  </Hero>
+  <Hero
+    variant="full"
+    height={70}
+    media={{
+      type: 'gradient',
+      src: 'linear-gradient(120deg, #f0f 0%, #0ff 100%)',
+    }}
+    textColor="--base-0"
+    extraClass="prose">
+    <h1>Hero Set to 70% Height and a Gradient Background</h1>
+    <p>You can also set the media prop to gradient (or image, or video).</p>
+    <a class="bt bt-lg bt-outline-white mt-xs3">Get Started</a>
   </Hero>
 
-  <Hero variant="split" direction="right" media={{ type: 'image', src: placeholder, alt: 'Placeholder' }}>
-    <h1>Split Variant (Right Content)</h1>
-    <p>Split layout with content on the right.</p>
-    <a class="bt bt-primary">Get Started</a>
+  <Hero variant="split" media={{ type: 'image', src: triangle01, alt: 'Triangle 01' }} extraClass="prose">
+    <h1>Split Variant Default</h1>
+    <p>The Split layout defaults to a 62/38 ratio, with content on top on small screens (and in the DOM), and on the left on large screens.</p>
   </Hero>
 
-  <Hero variant="split" ratio="40/60" media={{ type: 'image', src: placeholder, alt: 'Placeholder' }}>
-    <h1>Split Variant</h1>
-    <p>Split layout with text and image.</p>
-    <a class="bt bt-primary">Get Started</a>
-  </Hero>
-
-  <Hero variant="centered">
-    <h1>Centered Variant</h1>
-    <p>Minimal, centered content.</p>
-    <a class="bt bt-primary">Try Now</a>
+  <Hero variant="split" direction="right" media={{ type: 'image', src: triangle03, alt: 'Triangle 03' }} extraClass="prose">
+    <h1>Split Variant (Right)</h1>
+    <p>Setting the <code>direction</code> prop to <code>right</code>.</p>
   </Hero>
 
   <Hero
     variant="slideshow"
+    overlayOpacity={0.6}
+    overlayColor="--base-950"
+    textColor="--base-0"
     slideshowItems={[
       {
-        media: { type: 'image', src: placeholder, alt: 'Placeholder' },
+        media: { type: 'image', src: triangle01, alt: 'Triangle 01' },
       },
       {
-        media: { type: 'image', src: saxo, alt: 'Saxophonist' },
+        media: { type: 'image', src: triangle02, alt: 'Triangle 02' },
+      },
+      {
+        media: { type: 'image', src: triangle03, alt: 'Triangle 03' },
       },
     ]}
     slideshowAutoplay={true}
     slideshowInterval={5000}
     slideshowTransitionSpeed={1500}>
-    <ul>
+    <ul class="prose">
       <li>
         <h1>Slideshow Variant</h1>
         <p>This is the first slide of the slideshow.</p>
-        <a class="bt bt-primary">See More</a>
+      </li>
+      <li>
+        <h1>Each Slide has a different content & background</h1>
+        <p>This is the second slide of the slideshow.</p>
       </li>
       <li>
         <h1>Slideshow Variant</h1>
-        <p>Different content for the second slide.</p>
-        <a class="bt bt-primary">Discover</a>
+        <p>Each slide is absolute positioned so make sure you account for the tallest slide by using the <code>height</code> prop.</p>
       </li>
     </ul>
   </Hero>
