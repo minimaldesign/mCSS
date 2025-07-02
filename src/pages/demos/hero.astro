@@ -1,20 +1,21 @@
 ---
 import DemoLayout from '../../layouts/DemoLayout.astro';
 import Hero from '../../components/Hero.astro';
-
-import triangle01 from '../../assets/images/triangle-346273409-sm.svg';
-import triangle02 from '../../assets/images/triangle-340496516.svg';
-import triangle03 from '../../assets/images/triangle-342054505.svg';
 import { Image } from 'astro:assets';
+
+import triangle01 from '../../assets/images/triangle-345015062.svg';
+import triangle02 from '../../assets/images/triangle-39337866.svg';
+import triangle03 from '../../assets/images/triangle-311944673.svg';
+import videoFile from '../../assets/media/fushimi.mp4';
 
 const title = 'Hero component demo';
 ---
 
 <DemoLayout title={title}>
-  <Hero variant="full" parallax={true} height={100} media={{ type: 'canvas', src: '', alt: '' }} textColor="--base-0" extraClass="prose" canvasScriptSrc="/_js/triangles.js">
+  <Hero variant="full" parallax={true} height={100} overlayOpacity={0.4} overlayColor="--primary-950" media={{ type: 'canvas', src: '/_js/triangles.js', alt: '' }} textColor="--base-0" extraClass="prose">
     <h1>Hero with Live Canvas Background & Parallax</h1>
-    <p>This hero uses animated canvas element as background and has its parallax prop set to true.</p>
-    <a class="bt bt-lg bt-outline-white mt-xs3">Get Started</a>
+    <p>This hero uses an animated canvas element as background and has its parallax prop set to true.</p>
+    <a class="bt bt-lg bt-outline-white mt-xs3" href="/components/hero">Component Docs</a>
   </Hero>
   <Hero
     variant="full"
@@ -27,23 +28,42 @@ const title = 'Hero component demo';
     extraClass="prose">
     <h1>Hero Set to 70% Height and a Gradient Background</h1>
     <p>You can also set the media prop to gradient (or image, or video).</p>
-    <a class="bt bt-lg bt-outline-white mt-xs3">Get Started</a>
-  </Hero>
-
-  <Hero variant="split" media={{ type: 'image', src: triangle01, alt: 'Triangle 01' }} extraClass="prose">
-    <h1>Split Variant Default</h1>
-    <p>The Split layout defaults to a 62/38 ratio, with content on top on small screens (and in the DOM), and on the left on large screens.</p>
-  </Hero>
-
-  <Hero variant="split" direction="right" media={{ type: 'image', src: triangle03, alt: 'Triangle 03' }} extraClass="prose">
-    <h1>Split Variant (Right)</h1>
-    <p>Setting the <code>direction</code> prop to <code>right</code>.</p>
+    <a class="bt bt-lg bt-outline-white mt-xs3" href="/components/hero">Component Docs</a>
   </Hero>
 
   <Hero
+    variant="full"
+    height={60}
+    overlayOpacity={0.8}
+    overlayColor="--base-0"
+    media={{
+      type: 'video',
+      src: videoFile,
+      alt: 'Fushimi Inari video',
+      poster: '',
+    }}
+    extraClass="prose">
+    <h1>Hero with Video Background</h1>
+    <p>This hero uses a video as its background media.</p>
+    <a class="bt bt-lg bt-primary mt-xs3">Watch Video</a>
+  </Hero>
+
+  <Hero variant="split" media={{ type: 'image', src: triangle01, alt: 'Triangle 01' }} extraClass="">
+    <h1>Split Variant Default</h1>
+    <p>The Split layout defaults to a 62/38 ratio, with content on top on small screens (content first in the DOM), and on the left on large screens.</p>
+  </Hero>
+
+  <Hero variant="split" direction="reversed" media={{ type: 'image', src: triangle03, alt: 'Triangle 03' }} extraClass="prose">
+    <h1>Split Variant (Reversed)</h1>
+    <p>Setting the <code>direction</code> prop to <code>reversed</code>.</p>
+  </Hero>
+
+  <Hero
+    id="hero01"
     variant="slideshow"
+    height={70}
     overlayOpacity={0.6}
-    overlayColor="--base-950"
+    overlayColor="--primary-950"
     textColor="--base-0"
     slideshowItems={[
       {
@@ -56,9 +76,8 @@ const title = 'Hero component demo';
         media: { type: 'image', src: triangle03, alt: 'Triangle 03' },
       },
     ]}
-    slideshowAutoplay={true}
     slideshowInterval={5000}
-    slideshowTransitionSpeed={1500}>
+    slideshowTransition={1500}>
     <ul class="prose">
       <li>
         <h1>Slideshow Variant</h1>

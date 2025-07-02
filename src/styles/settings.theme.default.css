@@ -198,7 +198,12 @@
 /* Hero */
 
 :root {
-  --hero-spacing: var(--md3);
+  --hero-radius: var(--radius-xl);
+  --hero-content-padding: var(--md3);
+  --hero-pagination-dot: var(--sm1);
+  --hero-pagination-dot-color: var(--base-0);
+  --hero-pagination-dot-active-color: var(--primary-600);
+  --hero-pagination-opacity: var(--o-4);
 }
 
 :root.theme-dark {

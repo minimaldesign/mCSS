@@ -129,6 +129,6 @@ for (let i = 1; i <= 3; i++) {
   const seed = Math.floor(Math.random() * 1e9);
   const svg = makeSVG(seed);
   const fname = `triangle-${seed}.svg`;
-  fs.writeFileSync(__dirname + `/../assets/images/${fname}-sm`, svg);
+  fs.writeFileSync(__dirname + `/../assets/images/${fname}`, svg);
   console.log(`${fname} written to assets/images/triangles-${seed}.svg`);
 }

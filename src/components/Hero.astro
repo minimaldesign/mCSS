@@ -11,28 +11,27 @@ interface Media {
 
 interface SlideshowItem {
   media?: Media;
-  content?: string; // HTML string for slide content
+  content?: string;
 }
 
 interface Props extends HTMLAttributes<'section'> {
   id?: string;
   variant?: 'split' | 'full' | 'slideshow';
   ratio?: string;
-  direction?: 'left' | 'right';
+  direction?: 'default' | 'reversed';
   contentFirst?: boolean;
   media?: Media;
-  animation?: 'fade' | 'slide' | 'none';
   parallax?: boolean;
   height?: number; // 0-100, min-height in vh
   overlayOpacity?: number;
   overlayColor?: string;
+  roundCorners?: boolean;
   textColor?: string;
   slideshowItems?: SlideshowItem[];
   slideshowAutoplay?: boolean;
   slideshowInterval?: number;
-  slideshowTransitionSpeed?: number; // ms
+  slideshowTransition?: number; // ms
   extraClass?: string;
-  canvasScriptSrc?: string; // optional custom script src for canvas animation
 }
 
 // prettier-ignore
@@ -40,21 +39,20 @@ const {
   id = 'hero',
   variant = 'full',
   ratio = '62/38',
-  direction = 'left',
+  direction = 'default',
   contentFirst = true,
   media = {},
-  animation = 'none',
   parallax = false,
   height,
   overlayOpacity = 0,
-  overlayColor = '--base-950',
-  textColor = '--text-color',
+  overlayColor,
+  roundCorners,
+  textColor,
   slideshowItems = [],
-  slideshowAutoplay = false,
+  slideshowAutoplay = true,
   slideshowInterval = 5000,
-  slideshowTransitionSpeed = 600,
+  slideshowTransition = 600,
   extraClass = '',
-  canvasScriptSrc = '/_js/triangles.js',
   ...rest
 } = Astro.props as Props;
 
@@ -74,7 +72,7 @@ const getMinHeightStyle = () => {
 };
 ---
 
-<section id={id} class:list={[`hero hero-${variant}`, `hero-${direction}`, { 'hero-parallax': parallax }, extraClass]} style={getGridStyle()} {...rest}>
+<section id={id} class:list={[`hero hero-${variant}`, `hero-${direction}`, { 'hero-parallax': parallax, 'hero-roundCorners': roundCorners }, extraClass]} style={getGridStyle()} {...rest}>
   {
     variant === 'full' && (
       <div class:list={['hero_wrap']} style={getMinHeightStyle()}>
@@ -83,8 +81,8 @@ const getMinHeightStyle = () => {
         {media.type === 'gradient' && <div class="hero_bg hero_gradient" style={`background: ${media.src};`} />}
         {media.type === 'canvas' && (
           <>
-            <canvas class="hero_bg triangles" aria-hidden="true"></canvas>
-            <script src={canvasScriptSrc} type="module"></script>
+            <canvas class="hero_bg" aria-hidden="true"></canvas>
+            {media.src && <script src={media.src} type="module"></script>}
           </>
         )}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
@@ -116,7 +114,7 @@ const getMinHeightStyle = () => {
   }
   {
     variant === 'slideshow' && (
-      <div class:list={['hero_wrap', 'hero_slideshow', { 'hero_wrap-fullHeight': height === 'full' }]} data-slideshow length={slideshowItems.length} style={getMinHeightStyle()}>
+      <div class:list={['hero_wrap', 'hero_slideshow']} data-slideshow length={slideshowItems.length} style={`${getMinHeightStyle()} --slideshow-transition:${slideshowTransition}ms;`}>
         {/* Render all media elements, only the active one is visible */}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} alt={item.media.alt} autoPlay muted loop playsInline loading="lazy" data-slideshow-media={idx} />)}
@@ -180,7 +178,7 @@ const getMinHeightStyle = () => {
 
 {/* Only include slideshow JS for slideshow variant */}
 {variant === 'slideshow' && (
-  <script type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransitionSpeed, slideshowItems }}>
+  <script type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransition, slideshowItems }}>
     const root = document.querySelector(`#${id} .hero_slideshow`);
     if (root) {
       let active = 0;
