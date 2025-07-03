@@ -52,8 +52,8 @@
 
   /* one column on mobile */
   @media (--md-n-below) {
+    /* important to override the columns dynamically set inline */
     grid-template-columns: 1fr !important;
-    min-height: 40vh;
   }
 
   /* setup via direction prop in component */
