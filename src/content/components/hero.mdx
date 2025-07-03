@@ -170,9 +170,9 @@ import Hero from "../../components/Hero.astro";
       height={50}
       media={{
         type: "gradient",
-        src: "linear-gradient(120deg, #ff0080 0%, #7928ca 50%, #007cf0 100%)",
+        src: "linear-gradient(120deg, #f0f 0%, #0ff 100%)",
       }}
-      overlayOpacity={0.7}
+      overlayOpacity={0.3}
       roundCorners
       textColor="--base-0"
     >
@@ -190,8 +190,9 @@ import Hero from "../../components/Hero.astro";
   height={50}
   media={{
     type: "gradient",
-    src: "linear-gradient(120deg, #ff0080 0%, #7928ca 50%, #007cf0 100%)",
+    src: "linear-gradient(120deg, #f0f 0%, #0ff 100%)",
   }}
+  overlayOpacity={0.3}
   roundCorners
   textColor="--base-0"
 >
@@ -303,16 +304,14 @@ import backgroundImage from "../../assets/images/triangles.svg";
     ### Content first reversed  split
     <Hero
       variant="split"
-      ratio="60/40"
-      contentFirst={false}
+  ratio="62/38"
       reversed
       flush
       roundCorners
       media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
-      extraClass="prose"
     >
       <h1>Split Hero (Reversed)</h1>
-      <p>`contentFirst` is set to `false`, but the content still appears first because of the `reversed` prop. The `flush` prop is used to remove left padding.</p>
+      <p>`contentFirst` is not set, but the content still appears first because of the `reversed` prop. The `flush` prop is used to remove left padding.</p>
     </Hero>
 
 ```astro
@@ -323,15 +322,13 @@ import backgroundImage from "../../assets/images/triangles.svg";
 <Hero
   variant="split"
   ratio="60/40"
-  contentFirst={false}
   reversed
   flush
   roundCorners
   media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
-  extraClass="prose"
 >
   <h1>Split Hero (Reversed)</h1>
-  <p>`contentFirst` is set to `false`, but the content still appears first because of the `reversed` prop. The `flush` prop is used to remove left padding.</p>
+  <p>`contentFirst` is not set, but the content still appears first because of the `reversed` prop. The `flush` prop is used to remove left padding.</p>
 </Hero>
 ```
 
