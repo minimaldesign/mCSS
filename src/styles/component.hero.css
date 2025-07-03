@@ -5,6 +5,7 @@
   display: grid;
   align-items: center;
 
+  /* one column on mobile */
   @media (--md-n-below) {
     grid-template-columns: 1fr !important;
     min-height: 40vh;
@@ -18,6 +19,30 @@
       }
       & div:nth-child(2) {
         order: 1;
+      }
+    }
+
+    /* when `flush` prop is added we remove content padding on the "outside" */
+    &.hero-flush {
+      &:not(.hero-reversed) {
+        /* default */
+        & .hero_media + .hero_content {
+          padding-right: 0;
+        }
+        /* contentFirst */
+        & .hero_content:has(+ .hero_media) {
+          padding-left: 0;
+        }
+      }
+      &.hero-reversed {
+        /* default */
+        & .hero_media + .hero_content {
+          padding-left: 0;
+        }
+        /* contentFirst */
+        & .hero_content:has(+ .hero_media) {
+          padding-right: 0;
+        }
       }
     }
   }

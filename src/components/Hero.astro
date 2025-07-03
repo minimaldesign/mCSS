@@ -18,8 +18,9 @@ interface Props extends HTMLAttributes<'section'> {
   id?: string;
   variant?: 'split' | 'full' | 'slideshow';
   ratio?: string;
-  direction?: 'default' | 'reversed';
   contentFirst?: boolean;
+  reversed?: boolean;
+  flush?: boolean;
   media?: Media;
   parallax?: boolean;
   height?: number; // 0-100, min-height in vh
@@ -38,9 +39,10 @@ interface Props extends HTMLAttributes<'section'> {
 const {
   id = 'hero',
   variant = 'full',
-  ratio = '62/38',
-  direction = 'default',
-  contentFirst = true,
+  ratio = '38/62',
+  contentFirst = false,
+  reversed = false,
+  flush = false,
   media = {},
   parallax = false,
   height,
@@ -72,7 +74,7 @@ const getMinHeightStyle = () => {
 };
 ---
 
-<section id={id} class:list={[`hero hero-${variant}`, `hero-${direction}`, { 'hero-parallax': parallax, 'hero-roundCorners': roundCorners }, extraClass]} style={getGridStyle()} {...rest}>
+<section id={id} class:list={[`hero hero-${variant}`, { 'hero-parallax': parallax, 'hero-flush': flush, 'hero-reversed': reversed, 'hero-roundCorners': roundCorners }, extraClass]} style={getGridStyle()} {...rest}>
   {
     variant === 'full' && (
       <div class:list={['hero_wrap']} style={getMinHeightStyle()}>
