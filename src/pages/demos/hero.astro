@@ -12,7 +12,7 @@ const title = 'Hero component demo';
 ---
 
 <DemoLayout title={title}>
-  <Hero variant="full" parallax={true} height={100} overlayOpacity={0.4} overlayColor="--primary-950" media={{ type: 'canvas', src: '/_js/triangles.js', alt: '' }} textColor="--base-0" extraClass="prose">
+  <Hero variant="full" parallax={true} height={100} overlayOpacity={0.5} overlayColor="--primary-950" media={{ type: 'canvas', src: '/_js/triangles.js', alt: '' }} textColor="--base-0" extraClass="prose">
     <h1>Hero with Live Canvas Background & Parallax</h1>
     <p>This hero uses an animated canvas element as background and has its parallax prop set to true.</p>
     <a class="bt bt-lg bt-outline-white mt-xs3" href="/components/hero">Component Docs</a>
@@ -27,7 +27,7 @@ const title = 'Hero component demo';
     textColor="--base-0"
     extraClass="prose">
     <h1>Hero Set to 70% Height and a Gradient Background</h1>
-    <p>You can also set the media prop to gradient (or image, or video).</p>
+    <p>The background can be set to a gradient, image, video, or canvas.</p>
     <a class="bt bt-lg bt-outline-white mt-xs3" href="/components/hero">Component Docs</a>
   </Hero>
 
@@ -51,12 +51,12 @@ const title = 'Hero component demo';
 
   <Hero variant="split" media={{ type: 'image', src: triangle01, alt: 'Triangle 01' }} extraClass="">
     <h1>Split Variant Default</h1>
-    <p>The Split layout defaults to a 62/38 ratio, with content on top on small screens (content first in the DOM), and on the left on large screens.</p>
+    <p>The Split layout defaults to a 62/38 ratio, with content on top on small screens (content first in the DOM), and on the right on larger screens.</p>
   </Hero>
 
-  <Hero variant="split" direction="reversed" media={{ type: 'image', src: triangle03, alt: 'Triangle 03' }} extraClass="prose">
+  <Hero variant="split" reversed media={{ type: 'image', src: triangle03, alt: 'Triangle 03' }} extraClass="prose">
     <h1>Split Variant (Reversed)</h1>
-    <p>Setting the <code>direction</code> prop to <code>reversed</code>.</p>
+    <p>Adding the <code>reversed</code> prop visually swaps the content and media sections (without changing their position in the DOM).</p>
   </Hero>
 
   <Hero
