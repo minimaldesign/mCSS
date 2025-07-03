@@ -9,6 +9,10 @@
     color: var(--base-500);
     border-bottom: 1px solid var(--theme-border-color);
   }
+
+  table code {
+    text-wrap: nowrap;
+  }
 }
 
 .docs_section {
