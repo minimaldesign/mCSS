@@ -47,7 +47,7 @@ const {
   parallax = false,
   height,
   overlayOpacity = 0,
-  overlayColor,
+  overlayColor = '--base-950',
   roundCorners,
   textColor,
   slideshowItems = [],
@@ -80,7 +80,7 @@ const getMinHeightStyle = () => {
       <div class:list={['hero_wrap']} style={getMinHeightStyle()}>
         {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
         {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} alt={media.alt} autoPlay muted loop playsInline loading="lazy" />}
-        {media.type === 'gradient' && <div class="hero_bg hero_gradient" style={`background: ${media.src};`} />}
+        {media.type === 'gradient' && <div class="hero_bg" style={`background: ${media.src};`} />}
         {media.type === 'canvas' && (
           <>
             <canvas class="hero_bg" aria-hidden="true"></canvas>
@@ -116,18 +116,18 @@ const getMinHeightStyle = () => {
   }
   {
     variant === 'slideshow' && (
-      <div class:list={['hero_wrap', 'hero_slideshow']} data-slideshow length={slideshowItems.length} style={`${getMinHeightStyle()} --slideshow-transition:${slideshowTransition}ms;`}>
+      <div class:list={['hero_wrap']} data-slideshow length={slideshowItems.length} style={`${getMinHeightStyle()} --slideshow-transition:${slideshowTransition}ms;`}>
         {/* Render all media elements, only the active one is visible */}
-        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
-        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} alt={item.media.alt} autoPlay muted loop playsInline loading="lazy" data-slideshow-media={idx} />)}
-        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'gradient' && <div class={`hero_bg hero_gradient hero_slideshow_media${idx === 0 ? ' is-active' : ''}`} style={`background: ${item.media.src};`} data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} alt={item.media.alt} autoPlay muted loop playsInline loading="lazy" data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'gradient' && <div class={`hero_bg${idx === 0 ? ' is-active' : ''}`} style={`background: ${item.media.src};`} data-slideshow-media={idx} />)}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
         <div class="hero_content" style={`color: var(${textColor});`}>
           <slot />
         </div>
         <div class="hero_pagination">
           {slideshowItems.map((_, idx) => (
-            <button class={`hero_pagination_dot${idx === 0 ? ' is-active' : ''}`} aria-label={`Go to slide ${idx + 1}`} data-hero_pagination_dot={idx} type="button" />
+            <button class={`hero_pagination_dot${idx === 0 ? ' is-active' : ''}`} aria-label={`Go to slide ${idx + 1}`} type="button" />
           ))}
         </div>
       </div>
@@ -160,15 +160,16 @@ const getMinHeightStyle = () => {
 {/* Only include parallax JS for full variant with parallax enabled */}
 {variant === 'full' && parallax && (
   <script type="module" define:vars={{ id }}>
-    const full = document.querySelector(`#${id}.hero-parallax .hero_bg`);
-    if (full) {
+    const root = document.querySelector(`#${id}.hero-parallax .hero_bg`);
+    if (root) {
       const onScroll = () => {
-        const rect = full.getBoundingClientRect();
+        const rect = root.getBoundingClientRect();
         const offset = Math.max(0, 0 - rect.top) * 0.3;
-        full.style.transform = `translateY(${offset}px)`;
+        root.style.transform = `translateY(${offset}px)`;
       };
       window.addEventListener('scroll', onScroll);
       window.addEventListener('resize', onScroll);
+      // remove listeners to prevent memory leaks
       window.addEventListener('astro:before-swap', () => {
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', onScroll);
@@ -181,11 +182,11 @@ const getMinHeightStyle = () => {
 {/* Only include slideshow JS for slideshow variant */}
 {variant === 'slideshow' && (
   <script type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransition, slideshowItems }}>
-    const root = document.querySelector(`#${id} .hero_slideshow`);
+    const root = document.querySelector(`#${id} .hero_wrap`);
     if (root) {
       let active = 0;
-      const dots = root.querySelectorAll('[data-hero_pagination_dot]');
-      const mediaEls = root.querySelectorAll('.hero_slideshow_media');
+      const dots = root.querySelectorAll('.hero_pagination_dot');
+      const mediaEls = root.querySelectorAll('.hero_bg');
       const ul = root.querySelector('.hero_content ul');
       const lis = ul ? Array.from(ul.children) : [];
       let autoplayIntervalId = null;
