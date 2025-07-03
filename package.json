@@ -15,6 +15,7 @@
     "@astrojs/rss": "^4.0.11",
     "astro": "^5.7.13",
     "astro-purgecss": "^5.2.2",
+    "astro-tunnel": "^0.1.8",
     "postcss-mixins": "^11.0.3",
     "postcss-preset-env": "^10.1.5",
     "preact": "^10.26.5",
