@@ -68,7 +68,7 @@ const getGridStyle = () => {
 
 const getMinHeightStyle = () => {
   if (typeof height === 'number' && height > 0 && height <= 100) {
-    return `min-height: ${height}vh;`;
+    return `min-height: ${height}vh; min-height: ${height}dvh;`;
   }
   return '';
 };
