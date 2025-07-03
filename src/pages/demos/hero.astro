@@ -51,7 +51,7 @@ const title = 'Hero component demo';
 
   <Hero variant="split" media={{ type: 'image', src: triangle01, alt: 'Triangle 01' }} extraClass="">
     <h1>Split Variant Default</h1>
-    <p>The Split layout defaults to a 62/38 ratio, with content on top on small screens (content first in the DOM), and on the right on larger screens.</p>
+    <p>The Split layout defaults to a <code>62/38</code> ratio, with media on top on small screens (media first in the DOM), and on the left on larger screens. You can add the <code>contentFirst</code> prop to change that.</p>
   </Hero>
 
   <Hero variant="split" reversed media={{ type: 'image', src: triangle03, alt: 'Triangle 03' }} extraClass="prose">
