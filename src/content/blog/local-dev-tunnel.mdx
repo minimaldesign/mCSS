@@ -6,6 +6,8 @@ author: "Yann"
 tags: ["dev", "astro", "VS Code", "mobile", "tunnel"]
 ---
 
+import Notice from "../../components/Notice.astro";
+
 **TL;DR:** Want to see your Astro site on your phone before deploying? Use VS Code Ports for secure, private testing, or Astro Tunnel for instant, public sharing—no logins, no hassle.
 
 Devtools are great, but testing your Astro site on a real phone is the only way to make sure it's ready for prime time. Here are two super-fast ways to get your local dev server onto your phone.
@@ -26,7 +28,7 @@ Devtools are great, but testing your Astro site on a real phone is the only way 
 3. **Forward your port** (usually 4321), sign in if prompted, and grab your public URL.
 4. **Test on your phone:** Open the link or scan the QR code in VS Code.
 
-**Pro tip:** Tunnels are private by default. You can make it public to client review but they'll see a windows "warning" page first which is not the best UX.
+**Pro tip:** Tunnels are private by default. If you make your tunnel public for client review, anyone with the link can access it—no login required—but they’ll see a security warning page first and must click through. This isn’t the smoothest experience for non-technical users.
 
 ## 2. Astro Tunnel: Instant, Public, No Logins
 
@@ -35,7 +37,7 @@ Devtools are great, but testing your Astro site on a real phone is the only way 
 1. **Add Astro Tunnel:**
 
    ```bash
-   npx astro add Astro Tunnel
+   npx astro add astro-tunnel
    ```
 
 2. **Run your dev server:**
@@ -46,6 +48,11 @@ Devtools are great, but testing your Astro site on a real phone is the only way 
 
 3. **Click the Tunnel icon** in the Astro Dev Toolbar to get your public URL.
 4. **Open on your phone:** Paste the link in your browser—done!
+
+<Notice type="warning" title="Heads up" extraClass="mt-md3">
+  Both methods expose your local site to the internet if made public. For
+  sensitive projects, use VS Code and make sure to keep the port private!
+</Notice>
 
 ## Verdict
 
