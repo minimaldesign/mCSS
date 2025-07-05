@@ -58,6 +58,13 @@ ul.docs_section_media {
     margin-bottom: 0;
     border-width: 0;
   }
+
+  td {
+    white-space: nowrap;
+    @media (--md) {
+      white-space: normal;
+    }
+  }
 }
 
 /* TOKEN DEMOS */

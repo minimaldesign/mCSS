@@ -44,9 +44,13 @@ The `.socialMedia` component consists of an unordered list of links to social me
 
 <div class="prose">
 
+<div class="docs_oversizedTable">
+
 | File Name                   | class          | Source      |
 | --------------------------- | -------------- | ----------- |
 | `component.socialMedia.css` | `.socialMedia` | [Github][1] |
+
+</div>
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.socialMedia.css
 
@@ -55,6 +59,8 @@ The following 4 sizes and 19 icons (18 social media platforms + 1 generic link i
 </div>
 
 <div class="docs_examples_icons24">
+
+<div class="docs_oversizedTable">
 
 | Platform    | Icon                                         |
 | ----------- | -------------------------------------------- |
@@ -80,9 +86,13 @@ The following 4 sizes and 19 icons (18 social media platforms + 1 generic link i
 
 </div>
 
+</div>
+
 ## HTML
 
 <div class="prose">
+
+<div class="docs_oversizedTable">
 
 | Available modifiers                | Description    |
 | ---------------------------------- | -------------- |
@@ -90,6 +100,8 @@ The following 4 sizes and 19 icons (18 social media platforms + 1 generic link i
 | `.socialMedia` + `.socialMedia-md` | 32px           |
 | `.socialMedia` + `.socialMedia-lg` | 44px           |
 | `.socialMedia` + `.socialMedia-xl` | 64px           |
+
+</div>
 
 When using the HTML component you'll need to include the SVG icons "manually." All the icons are [available on Github](https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons). If you'd like to use different icons, [Lucide](https://lucide.dev/) is a great resource.
 
@@ -167,12 +179,15 @@ When using the HTML component you'll need to include the SVG icons "manually." A
 
 The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/src/components/SocialMedia.astro)) takes 3 props:
 
+<div class="docs_oversizedTable">
+
 | Prop         | Type     | Default   | Description                                                 |
 | ------------ | -------- | --------- | ----------------------------------------------------------- |
 | `urls`       | `array`  | `[]`      | An array of social media urls.                              |
 | `size`       | `string` | undefined | `md`, `lg`, `xl`.                                           |
 | `extraClass` | `string` | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
 
+</div>
 </div>
 
 <ul class="docs_examples">

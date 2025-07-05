@@ -21,9 +21,13 @@ By default, the TOC includes `H2`s and `H3`s (customizable via props) that have 
 
 It's possible to add multiple TOC on the same page, but this will duplicate Javascript and it's not recommended. If you do need to include more than one TOC, you'll need to add a unique `id` to each instance of the component.
 
+<div class="docs_oversizedTable">
+
 | File Name           | class  | Source      |
 | ------------------- | ------ | ----------- |
 | `component.toc.css` | `.toc` | [Github][1] |
+
+</div>
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.toc.css
 
@@ -60,9 +64,9 @@ The following custom properties are available in the [default theme](/docs/theme
 | `headings`     | `array`   | `['h2','h3']` | Heading levels to include.                                  |
 | `baseUrl`      | `string`  | `''`          | Optional URL to prepend `#id` with.                         |
 | `scrollOffset` | `integer` | `0`           | Scroll position offset from the top..                       |
-| `description`  | `string`  | undefined     | Text above the TOC.                                         |
+| `description`  | `string`  | `undefined`   | Text above the TOC.                                         |
 | `icon`         | `string`  | `''`          | Optinal inline SVG. (See example.)                          |
-| `extraClass`   | `string`  | undefined     | Additional CSS, useful for [helper classes](/docs/helpers). |
+| `extraClass`   | `string`  | `undefined`   | Additional CSS, useful for [helper classes](/docs/helpers). |
 
 </div>
 
