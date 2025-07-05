@@ -6,11 +6,12 @@ type: "atom"
 ---
 
 import arrow from "../../assets/icons/arrow-right-small.svg?raw";
-import Notice from "../../components/Notice.astro";
 
 <section class="prose">
 
-The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt` class. It will render the same when applied to buttons, inputs, and a tags.
+The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt` class. Apply it to `<button>`, `<input type="submit">`, or `<a>` elements for a consistent look.
+
+For accessibility, use `<button>` for actions and `<a>` for navigation. If you use `<a>` as a button, add `role="button"` and `tabindex="0"` and `aria-disabled="true"` if disabled.
 
 <button class="bt bt-lg bt-primary">Sample Large Button</button>
 
@@ -30,29 +31,30 @@ The `button` [atom](/docs/start#atoms) uses the `.button` or its shorthand `.bt`
 
 <section class="prose">
 
-<Notice type="info">
-  You can combine modifiers in any way you like (see [examples](#examples)), but
-  note that the `.bt-outline` modifier only works on buttons that start with a
-  solid fill color.
-</Notice>
+You can combine modifiers in any way you like (see [examples](#examples)).
 
-| Available modifiers                   | Style                                                                |
-| ------------------------------------- | -------------------------------------------------------------------- |
-| `.bt`                                 | <button class="bt">Default Button</button>                           |
-| `.bt` + `.bt-md`                      | <button class="bt bt-md">Medium Size</button>                        |
-| `.bt` + `.bt-lg`                      | <button class="bt bt-lg">Large Size</button>                         |
-| `.bt` + `bt-outline`                  | <button class="bt bt-outline">Outline Button</button>                |
-| `.bt` + `.bt-primary`                 | <button class="bt bt-primary">Primary CTA</button>                   |
-| `.bt` + `.bt-primary` + `.bt-outline` | <button class="bt bt-primary bt-outline">Outlined CTA</button>       |
-| `.bt` + `.bt-yes`                     | <button class="bt bt-yes">Action Button</button>                     |
-| `.bt` + `.bt-yes` + `.bt-outline`     | <button class="bt bt-yes bt-outline">Action Button</button>          |
-| `.bt` + `.bt-maybe`                   | <button class="bt bt-maybe">Action Button</button>                   |
-| `.bt` + `.bt-maybe` + `.bt-outline`   | <button class="bt bt-maybe bt-outline">Action Button</button>        |
-| `.bt` + `.bt-no`                      | <button class="bt bt-no">Action Button</button>                      |
-| `.bt` + `.bt-no` + `.bt-outline`      | <button class="bt bt-no bt-outline">Action Button</button>           |
-| SVG inline inside button              | <button class="bt"><Fragment set:html={arrow} />Icon Button</button> |
-| `.bt` + `.bt-text`                    | <button class="bt bt-text">"Text" Button</button>                    |
-| `disabled` attribute                  | <button class="bt" disabled>Disabled Button</button>                 |
+The `.bt-outline-white` is a special case button useful for dark/image backgrounds such as [Heroes](/components/hero) and doesn't change between light/dark themes.
+
+| Available modifiers                    | Style                                                                                  |
+| -------------------------------------- | -------------------------------------------------------------------------------------- |
+| `.bt`                                  | <button class="bt">Default Button</button>                                             |
+| `.bt.bt-md`                            | <button class="bt bt-md">Medium Size</button>                                          |
+| `.bt.bt-lg`                            | <button class="bt bt-lg">Large Size</button>                                           |
+| `.bt.bt-outline`                       | <button class="bt bt-outline">Outline Button</button>                                  |
+| `.bt.bt-outline-white`                 | <button class="bt bt-outline-white">White Outline</button>                             |
+| `.bt.bt-primary`                       | <button class="bt bt-primary">Primary CTA</button>                                     |
+| `.bt.bt-primary.bt-outline`            | <button class="bt bt-primary bt-outline">Outlined CTA</button>                         |
+| `.bt.bt-yes`                           | <button class="bt bt-yes">Action Button</button>                                       |
+| `.bt.bt-yes.bt-outline`                | <button class="bt bt-yes bt-outline">Action Button</button>                            |
+| `.bt.bt-maybe`                         | <button class="bt bt-maybe">Action Button</button>                                     |
+| `.bt.bt-maybe.bt-outline`              | <button class="bt bt-maybe bt-outline">Action Button</button>                          |
+| `.bt.bt-no`                            | <button class="bt bt-no">Action Button</button>                                        |
+| `.bt.bt-no.bt-outline`                 | <button class="bt bt-no bt-outline">Action Button</button>                             |
+| SVG inline inside button               | <button class="bt"><Fragment set:html={arrow} />Icon Button</button>                   |
+| `.bt.bt-text`                          | <button class="bt bt-text">"Text" Button</button>                                      |
+| `disabled` attribute                   | <button class="bt" disabled>Disabled Button</button>                                   |
+| `<a>` as button                        | <a class="bt" role="button" tabindex="0"> Link Button</a>                              |
+| `<a>` as button (with `aria-disabled`) | <a class="bt" role="button" aria-disabled="true" tabindex="0">Disabled Link Button</a> |
 
 ### Custom properties
 
