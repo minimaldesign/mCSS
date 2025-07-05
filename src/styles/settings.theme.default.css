@@ -187,7 +187,8 @@
 /* Header */
 
 :root {
-  --header-height: var(--xl2);
+  --header-height: var(--xl1);
+  --header-padding: var(--sm1);
   --header-background-color: var(--base-0);
 }
 

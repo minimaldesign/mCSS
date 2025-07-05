@@ -31,7 +31,7 @@
   }
 
   .layout_content_main {
-    padding: var(--md1);
+    padding: var(--sm2);
     @media (--md) {
       max-width: calc(71ch + (var(--lg1) * 2));
       padding: var(--lg1);

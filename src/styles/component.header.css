@@ -25,7 +25,7 @@
   grid-template-columns: var(--logo-size) 1fr;
   align-items: center;
   gap: var(--sm2);
-  margin-left: var(--sm3);
+  margin-left: var(--header-padding);
   text-decoration: none;
   font-size: var(--text-md);
   font-weight: var(--semi-bold);
@@ -86,7 +86,7 @@
   button {
     background-color: var(--body-background-color);
     border-width: 0;
-    padding: 0 var(--sm3);
+    padding: 0 var(--header-padding);
   }
 
   > div {
