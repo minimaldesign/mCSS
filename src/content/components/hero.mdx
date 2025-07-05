@@ -7,11 +7,14 @@ type: "component"
 
 import Notice from "../../components/Notice.astro";
 import Hero from "../../components/Hero.astro";
-import backgroundImage from "../../assets/images/triangle-345015062.svg";
+
+import triangle01 from "../../assets/images/triangle-345015062.svg";
+import triangle02 from "../../assets/images/triangle-39337866.svg";
+import triangle03 from "../../assets/images/triangle-311944673.svg";
 
 <section class="prose">
 
-The `Hero` component offers highly flexible, accessible hero sections for landing pages, product sites, and marketing. It supports full, split, and slideshow layouts; accepts image, video, gradient, or animated canvas backgrounds; provides overlay and text color controls; allows custom aspect ratios and content/media ordering; supports parallax, rounded corners, and flush layouts; and is fully slot-based for custom content. ([Full size demo](/demos/hero).)
+The `Hero` component offers highly flexible, accessible hero sections for landing pages, product sites, and marketing. It supports full, split, and slideshow layouts; accepts image, video, gradient, or canvas backgrounds; provides overlay and text color controls; allows custom aspect ratios and content/media ordering; supports parallax, rounded corners, and a flush layout for the split variant; and is fully slot-based for custom content. ([Full size demo](/demos/hero).)
 
 <Hero
   variant="full"
@@ -39,16 +42,15 @@ The `Hero` component offers highly flexible, accessible hero sections for landin
 
 #### Full layout (default)
 
-The full layout spans the entire viewport with content (headline, sub headline, CTA) centered or aligned over a background image, video, gradient, or animated canvas. Use the `height` prop to control min-height in viewport units.
+The full layout spans the entire viewport with content centered over a background image, video, gradient, or canvas element. Use the `height` prop to control min-height (in `svh` units).
 
 #### Split layout
 
 The Split layout features an asymmetric split (e.g., `70/30`, `80/20`, etc.) with content on one side and media on the other. The media section fills the available space with an image or video, cropping as needed. The `ratio` prop defines the grid layout, `contentFirst` controls the DOM order of content and media, and `reversed` visually reverses their order (while the grid ratio remains unchanged).
-The media section
 
 #### Slideshow layout
 
-The Slideshow layout features rotating content (such as multiple headlines, CTAs, or background media) with pagination dots. Each slide can have its own media and content.
+The Slideshow layout features rotating content and background (same options available as for the Full layout) with pagination dots. Each slide can have its own media and content.
 
 <Notice
   type="warning"
@@ -92,34 +94,34 @@ The following custom properties are available in the [default theme](/docs/theme
 | -------------- | ------- | ------- | ------------------------------------------------------------- |
 | `variant`      | string  | `full`  | Layout variant: Full, Split, and Slideshow.                   |
 | `media`        | object  | —       | Image, video, gradient, or canvas background.                 |
-| `height`       | number  | —       | Height (`vh`) for the Full and Slideshow variants.            |
 | `roundCorners` | boolean | `false` | Whether the hero media has rounded corners.                   |
 | `textColor`    | string  | —       | Text color (CSS variable or value).                           |
 | `extraClass`   | string  | —       | Additional CSS classes (see [helper classes](/docs/helpers)). |
 
-### Split variant Props
+### Split variant props
 
-| Prop           | Type    | Default | Description                                                                              |
-| -------------- | ------- | ------- | ---------------------------------------------------------------------------------------- |
-| `ratio`        | string  | `62/38` | Split ratio, e.g. `70/30`, `40/60`, etc.                                                 |
-| `contentFirst` | boolean | `false` | If set, content appears before media in the DOM (content on the left on desktop).        |
-| `reversed`     | boolean | `false` | Visually reverses the content order set by `contentFirst`. (No change to DOM.)           |
-| `flush`        | boolean | `false` | Removes the outer padding from the content section, making the text flush with the edge. |
+| Prop           | Type    | Default | Description                                                                        |
+| -------------- | ------- | ------- | ---------------------------------------------------------------------------------- |
+| `ratio`        | string  | `62/38` | Split ratio, e.g. `70/30`, `40/60`, etc.                                           |
+| `contentFirst` | boolean | `false` | If true, content appears before media in the DOM (left on desktop, top on mobile). |
+| `reversed`     | boolean | `false` | Visually reverses the order set by `contentFirst` (does not change DOM order).     |
+| `roundCorners` | boolean | `false` | If true, media has rounded corners.                                                |
+| `flush`        | boolean | `false` | Removes outer padding from the content section, making text flush with the edge.   |
 
 ### Full and slideshow variant props
 
-| Prop                  | Type    | Default      | Description                                |
-| --------------------- | ------- | ------------ | ------------------------------------------ |
-| `parallax`            | boolean | `false`      | Parallax effect (full variant only).       |
-| `height`              | number  | —            | Min-height in vh (0-100) for full variant. |
-| `overlayOpacity`      | number  | `0`          | Overlay opacity for full/slideshow.        |
-| `overlayColor`        | string  | `--base-950` | Overlay color (CSS var or value).          |
-| `roundCorners`        | boolean | `false`      | Hero media has rounded corners?            |
-| `textColor`           | string  | —            | Text color (CSS var or value).             |
-| `slideshowItems`      | array   | —            | Items for slideshow.                       |
-| `slideshowAutoplay`   | boolean | `true`       | Slideshow autoplay.                        |
-| `slideshowInterval`   | number  | `5000`       | Slideshow interval (ms).                   |
-| `slideshowTransition` | number  | `600`        | Slideshow transition speed (ms).           |
+| Prop                  | Type    | Default      | Description                          |
+| --------------------- | ------- | ------------ | ------------------------------------ |
+| `parallax`            | boolean | `false`      | Parallax effect (full variant only). |
+| `height`              | number  | —            | Sets `min-height` in `svh` (0-100).  |
+| `overlayOpacity`      | number  | `0`          | Overlay opacity.                     |
+| `overlayColor`        | string  | `--base-950` | Overlay color (CSS var or value).    |
+| `roundCorners`        | boolean | `false`      | If true, hero has rounded corners.   |
+| `textColor`           | string  | —            | Text color (CSS var or value).       |
+| `slideshowItems`      | array   | —            | Array of objects (see example).      |
+| `slideshowAutoplay`   | boolean | `true`       | Slideshow autoplay.                  |
+| `slideshowInterval`   | number  | `5000`       | Slideshow interval (ms).             |
+| `slideshowTransition` | number  | `600`        | Slideshow transition speed (ms).     |
 
 </section>
 
@@ -127,7 +129,6 @@ The following custom properties are available in the [default theme](/docs/theme
 
 <ul class="docs_examples">
   <li>
-
     ### Animated Canvas
     <Hero
       variant="full"
@@ -208,7 +209,7 @@ import Hero from "../../components/Hero.astro";
     <Hero
       variant="full"
       height={50}
-      media={{ type: "image", src: backgroundImage, alt: "Background Example" }}
+      media={{ type: "image", src: triangle01, alt: "Background Example" }}
       overlayColor="--primary-950"
       overlayOpacity={0.4}
       roundCorners
@@ -222,12 +223,12 @@ import Hero from "../../components/Hero.astro";
 ```astro
 ---
 import Hero from "../../components/Hero.astro";
-import backgroundImage from "../../assets/images/triangles.svg";
+import triangle01 from "../../assets/images/triangles.svg";
 ---
 <Hero
   variant="full"
   height={50}
-  media={{ type: "image", src: backgroundImage, alt: "Background Example" }}
+  media={{ type: "image", src: triangle01, alt: "Background Example" }}
   overlayColor="--primary-950"
   overlayOpacity={0.4}
   roundCorners
@@ -241,11 +242,96 @@ import backgroundImage from "../../assets/images/triangles.svg";
 
   </li>
   <li>
+  ### Slideshow
+  <Hero
+    id="heroSlideshow"
+    variant="slideshow"
+    height={40}
+    overlayOpacity={0.6}
+    overlayColor="--primary-950"
+    textColor="--base-0"
+    roundCorners
+    slideshowInterval={4000}
+    slideshowTransition={600}
+    slideshowItems={[
+      {
+        media: { type: 'image', src: triangle01, alt: 'Triangle 01' },
+      },
+      {
+        media: { type: 'image', src: triangle02, alt: 'Triangle 02' },
+      },
+      {
+        media: { type: 'image', src: triangle03, alt: 'Triangle 03' },
+      },
+    ]}>
+    <ul>
+      <li>
+        <h1>First Slide</h1>
+        <p>This is the first slide of the slideshow.</p>
+      </li>
+      <li>
+        <h1>Second Slide</h1>
+        <p>This is the second slide of the slideshow.</p>
+      </li>
+      <li>
+        <h1>Third Slide</h1>
+        <p>This is the third slide of the slideshow.</p>
+      </li>
+    </ul>
+  </Hero>
+
+```astro
+---
+import Hero from "../../components/Hero.astro";
+import triangle01 from "../../assets/images/triangle-01.svg";
+import triangle02 from "../../assets/images/triangle-02.svg";
+import triangle03 from "../../assets/images/triangle-03.svg";
+---
+<Hero
+  id="heroSlideshow"
+  variant="slideshow"
+  height={40}
+  overlayOpacity={0.6}
+  overlayColor="--primary-950"
+  textColor="--base-0"
+  roundCorners
+  slideshowInterval={4000}
+  slideshowTransition={600}
+  slideshowItems={[
+    {
+      media: { type: 'image', src: triangle01, alt: 'Triangle 01' },
+    },
+    {
+      media: { type: 'image', src: triangle02, alt: 'Triangle 02' },
+    },
+    {
+      media: { type: 'image', src: triangle03, alt: 'Triangle 03' },
+    },
+  ]}>
+  <ul>
+    <li>
+      <h1>First Slide</h1>
+      <p>This is the first slide of the slideshow.</p>
+    </li>
+    <li>
+      <h1>Second Slide</h1>
+      <p>This is the second slide of the slideshow.</p>
+    </li>
+    <li>
+      <h1>Third Slide</h1>
+      <p>This is the third slide of the slideshow.</p>
+    </li>
+  </ul>
+</Hero>
+```
+
+  </li>
+  <li>
     ### Default split
     <Hero
       variant="split"
       roundCorners
-      media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
+      media={{ type: "image", src: triangle01, alt: "Split Example" }}
     >
       <h1>Split Hero (Content Right)</h1>
       <p>Default split with content on the right and media on the left.</p>
@@ -254,12 +340,12 @@ import backgroundImage from "../../assets/images/triangles.svg";
 ```astro
 ---
 import Hero from "../../components/Hero.astro";
-import backgroundImage from "../../assets/images/triangles.svg";
+import triangle01 from "../../assets/images/triangles.svg";
 ---
 <Hero
   variant="split"
   roundCorners
-  media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
+  media={{ type: "image", src: triangle01, alt: "Split Example" }}
 >
   <h1>Split Hero (Content Right)</h1>
   <p>Default split with content on the right and media on the left.</p>
@@ -275,16 +361,16 @@ import backgroundImage from "../../assets/images/triangles.svg";
       contentFirst
       flush
       roundCorners
-      media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
+      media={{ type: "image", src: triangle01, alt: "Split Example" }}
     >
       <h1>Split Hero (Content First)</h1>
-      <p>The `contentFirst` prop places the content first in the DOM (above on mobile and on the left on desktop).</p>
+      <p>This example uses the <code>contentFirst</code> prop to place content before media in the DOM (left on desktop, top on mobile).</p>
     </Hero>
 
 ```astro
 ---
 import Hero from "../../components/Hero.astro";
-import backgroundImage from "../../assets/images/triangles.svg";
+import triangle01 from "../../assets/images/triangles.svg";
 ---
 <Hero
   variant="split"
@@ -292,32 +378,32 @@ import backgroundImage from "../../assets/images/triangles.svg";
   contentFirst
   flush
   roundCorners
-  media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
+  media={{ type: "image", src: triangle01, alt: "Split Example" }}
 >
   <h1>Split Hero (Content First)</h1>
-  <p>The `contentFirst` prop places the content first in the DOM (above on mobile and on the left on desktop).</p>
+  <p>This example uses the <code>contentFirst</code> prop to place content before media in the DOM (left on desktop, top on mobile).</p>
 </Hero>
 ```
 
   </li>
   <li>
-    ### Content first reversed  split
+    ### Content first reversed split
     <Hero
       variant="split"
-  ratio="62/38"
+      ratio="62/38"
       reversed
       flush
       roundCorners
-      media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
+      media={{ type: "image", src: triangle01, alt: "Split Example" }}
     >
       <h1>Split Hero (Reversed)</h1>
-      <p>`contentFirst` is not set, but the content still appears first because of the `reversed` prop. The `flush` prop is used to remove left padding.</p>
+      <p>This example uses the <code>reversed</code> prop to visually flip the order of content and media, without changing their DOM order. The <code>flush</code> prop removes left padding.</p>
     </Hero>
 
 ```astro
 ---
 import Hero from "../../components/Hero.astro";
-import backgroundImage from "../../assets/images/triangles.svg";
+import triangle01 from "../../assets/images/triangles.svg";
 ---
 <Hero
   variant="split"
@@ -325,10 +411,10 @@ import backgroundImage from "../../assets/images/triangles.svg";
   reversed
   flush
   roundCorners
-  media={{ type: "image", src: backgroundImage, alt: "Split Example" }}
+  media={{ type: "image", src: triangle01, alt: "Split Example" }}
 >
   <h1>Split Hero (Reversed)</h1>
-  <p>`contentFirst` is not set, but the content still appears first because of the `reversed` prop. The `flush` prop is used to remove left padding.</p>
+  <p>This example uses the <code>reversed</code> prop to visually flip the order of content and media, without changing their DOM order. The <code>flush</code> prop removes left padding.</p>
 </Hero>
 ```
 
