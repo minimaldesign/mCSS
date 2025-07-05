@@ -189,6 +189,10 @@
 :root {
   --header-height: var(--xl1);
   --header-padding: var(--sm1);
+  @media (--md) {
+    --header-height: var(--xl2);
+    --header-padding: var(--sm3);
+  }
   --header-background-color: var(--base-0);
 }
 
