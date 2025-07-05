@@ -36,7 +36,7 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
   // localStorage and <html> class set in header (BaseLayout) to alleviate FOUC
   const currentTheme = localStorage.getItem('theme');
   const checkboxes = document.querySelectorAll('.js-theme-checkbox');
-  document.getElementById('js-theme').textContent = currentTheme;
+  document.getElementById('js-theme').textContent = currentTheme.replace('theme-', '');
 
   // if dark theme is set, checkbox is checked
   const isDark = currentTheme === 'theme-dark';
@@ -53,7 +53,7 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
     });
     document.documentElement.classList.remove('theme-light', 'theme-dark');
     document.documentElement.classList.add(isDark ? 'theme-dark' : 'theme-light');
-    document.getElementById('js-theme').textContent = isDark ? 'theme-dark' : 'theme-light';
+    document.getElementById('js-theme').textContent = isDark ? 'dark' : 'light';
     localStorage.setItem('theme', isDark ? 'theme-dark' : 'theme-light');
   }
 
