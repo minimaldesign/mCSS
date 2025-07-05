@@ -13,8 +13,6 @@
     "@astrojs/mdx": "^4.2.6",
     "@astrojs/preact": "^4.0.11",
     "@astrojs/rss": "^4.0.11",
-    "@sentry/astro": "^9.34.0",
-    "@spotlightjs/astro": "^3.2.5",
     "astro": "^5.7.13",
     "astro-purgecss": "^5.2.2",
     "astro-tunnel": "^0.1.8",
