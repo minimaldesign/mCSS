@@ -10,7 +10,7 @@ const allPosts = await getCollection('components');
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-sidebar layout-sidebar-toc">
+<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-sidebar">
   <aside class="layout_content_aside">
     <NavComponents />
   </aside>
