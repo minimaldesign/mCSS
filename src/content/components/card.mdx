@@ -19,7 +19,7 @@ The `.card` component, in its simplest form, is a container with 3 style options
 Additional features include: header with title and subtitle, image with predefined aspect ratios, footer, custom badges, clickable body, disabled state, and loading state with skeleton UI. The Astro component makes it easy to use all those features.
 
 {/* prettier-ignore */}
-<div class="grid" col="2">
+<div class="grid" col="1" col-md="2">
   <div class="grid_item">
     <Card variant="filled" title="A simple filled card">
       <p>Natural Law, is a set of universal, non-man-made, binding and unchangeable conditions which govern the consequence of our actions.</p>
@@ -132,7 +132,7 @@ It is recommended to use the [button atom](/components/button) in the `actions` 
 The `badges` prop takes an array of objects. Each object consists of a `label` property which defines the badge's text, and an optional `color` property that defines the badge's background color. If no `color` is provided, it defaults to `--card-badge-bg` defined in the [default theme](/docs/themes).
 
 {/* prettier-ignore */}
-<div class="grid" col="3">
+<div class="grid" col="1" col-md="3">
   <div class="grid_item" span="2">
     <Card
       title="A card with too many badges"
@@ -172,7 +172,7 @@ The `badges` prop takes an array of objects. Each object consists of a `label` p
 
 ### Basic Cards
 
-<div class="grid" col="3">
+<div class="grid" col="1" col-md="3">
   <div class="grid_item">
     <Card title="Default style">
       <p>This is where the content goes!</p>
@@ -212,8 +212,8 @@ import Card from '../../components/Card.astro';
 
 ### Card with image and actions
 
-<div class="grid" col="3">
-  <div class="grid_item" span="2">
+<div class="grid" col="1" col-md="2">
+  <div class="grid_item" span="1">
     <Card
       variant="raised"
       href="/product/123"
@@ -263,7 +263,7 @@ import Card from '../../components/Card.astro';
 
 ### Loading state
 
-<div class="grid" col="2">
+<div class="grid" col="1" col-md="2">
   <div class="grid_item">
     <Card imageSrc={placeholder} imageAlt="Product image" isLoading>
       <p>This is what the card looks like without the `isLoading` prop.</p>
@@ -291,7 +291,7 @@ import Card from '../../components/Card.astro';
 
 ### Disabled state
 
-<div class="grid" col="2">
+<div class="grid" col="1" col-md="2">
   <div class="grid_item">
     <Card
       href="/product/123"
@@ -329,7 +329,7 @@ import Card from '../../components/Card.astro';
 
 ### HTML example
 
-<div class="grid" col="2">
+<div class="grid" col="1" col-md="2">
   <div class="grid_item">
     <Card
       variant="raised"
