@@ -35,8 +35,18 @@
   svg {
     width: var(--sm1);
     height: var(--sm1);
-    margin-right: 0.25em;
-    margin-left: calc(var(--xs2) * -1);
+    margin-left: 0;
+    margin-right: 0.5em;
+  }
+
+  /* icon options */
+
+  &.bt-tightIcon {
+    /* also tweaked under .bt-lg under "sizes" section */
+    svg {
+      margin-right: 0.25em;
+      margin-left: calc(var(--xs2) * -1);
+    }
   }
 
   /* Colors */
@@ -165,8 +175,13 @@
   border-radius: var(--bt-border-radius-lg);
 
   svg {
-    margin-left: calc(var(--xs3) * -1);
     width: var(--sm3);
     height: var(--sm3);
+  }
+
+  &.bt-iconTight {
+    svg {
+      margin-left: calc(var(--xs3) * -1);
+    }
   }
 }

@@ -6,6 +6,7 @@ type: "atom"
 ---
 
 import arrow from "../../assets/icons/arrow-right-small.svg?raw";
+import mail from "../../assets/icons/mail.svg?raw";
 
 <section class="prose">
 
@@ -52,7 +53,8 @@ The `.bt-outline-white` is a special case button useful for dark/image backgroun
 | `.bt.bt-maybe.bt-outline`              | <button class="bt bt-maybe bt-outline">Action Button</button>                          |
 | `.bt.bt-no`                            | <button class="bt bt-no">Action Button</button>                                        |
 | `.bt.bt-no.bt-outline`                 | <button class="bt bt-no bt-outline">Action Button</button>                             |
-| SVG inline inside button               | <button class="bt"><Fragment set:html={arrow} />Icon Button</button>                   |
+| SVG inline inside button               | <button class="bt"><Fragment set:html={mail} />Icon Button</button>                    |
+| `.bt.bt-tightIcon`                     | <button class="bt bt-tightIcon"><Fragment set:html={arrow} />Icon Button</button>      |
 | `.bt.bt-text`                          | <button class="bt bt-text">"Text" Button</button>                                      |
 | `disabled` attribute                   | <button class="bt" disabled>Disabled Button</button>                                   |
 | `<a>` as button                        | <a class="bt" role="button" tabindex="0"> Link Button</a>                              |
@@ -103,13 +105,20 @@ The following custom properties are available in the [default theme](/docs/theme
     ```
   </li>
   <li>
-    <button class="bt bt-lg bt-primary" type="button">
-      <Fragment set:html={arrow} />
+    <button class="bt bt-lg bt-primary mr-sm3" type="button">
+      <Fragment set:html={mail} />
       Large Button with Icon
+    </button>
+    <button class="bt bt-lg bt-primary bt-tightIcon" type="button">
+      <Fragment set:html={arrow} />
+      Large Button with Tight Icon
     </button>
     ```html
     <button class="bt bt-lg bt-primary" type="button">
       <svg>[…]</svg> Large Button with Icon
+    </button>
+    <button class="bt bt-lg bt-primary bt-tightIcon" type="button">
+      <svg>[…]</svg> Large Button with Tight Icon
     </button>
     ```
   </li>
