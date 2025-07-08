@@ -45,3 +45,9 @@ export function getInitials(name = ":)") {
   const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`;
   return initials.toUpperCase();
 }
+
+export function filterAndSort(source, type) {
+  return source
+    .filter((post) => post.data.type === type)
+    .sort((a, b) => a.data.title.localeCompare(b.data.title));
+}

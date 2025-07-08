@@ -8,10 +8,10 @@ const currentPath = pathname.split('/')[2]; // pathname starts with '/'
 
 const allPosts = await getCollection('components');
 
-const filterAndSort = (type) => allPosts.filter((post) => post.data.type === type).sort((a, b) => a.data.title.localeCompare(b.data.title));
+import { filterAndSort } from '../scripts/utilities';
 
-const atomPosts = filterAndSort('atom');
-const componentPosts = filterAndSort('component');
+const atomPosts = filterAndSort(allPosts, 'atom');
+const componentPosts = filterAndSort(allPosts, 'component');
 ---
 
 <nav class="navDocs">

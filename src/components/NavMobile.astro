@@ -9,9 +9,10 @@ import closeIcon from '../assets/icons/x.svg?raw';
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[1]; // pathname starts with '/'
 
+import { filterAndSort } from '../scripts/utilities';
 const componentList = await getCollection('components');
-import { moveToFirstPosition } from '../scripts/utilities';
-const orderedPosts = moveToFirstPosition(componentList, 'id', 'start');
+const atomPosts = filterAndSort(componentList, 'atom');
+const componentPosts = filterAndSort(componentList, 'component');
 
 const navItems = [
   {
@@ -79,11 +80,19 @@ const navItems = [
     ],
   },
   {
+    id: 'atoms',
+    url: 'components',
+    data: {
+      title: 'Atoms',
+    },
+    subsection: atomPosts,
+  },
+  {
     id: 'components',
     data: {
       title: 'Components',
     },
-    subsection: orderedPosts,
+    subsection: componentPosts,
   },
   {
     id: 'blog',
@@ -110,14 +119,14 @@ const navItems = [
       {
         navItems.map((item) => (
           <li>
-            <a class={item.id == currentPath && 'is-active'} href={`/${item.id}${item.top ? '' : '/start'}`}>
+            <a class={item.id == currentPath && 'is-active'} href={`/${item.url ? item.url : item.id}${item.top ? '' : '/start'}`}>
               {item.data.title}
             </a>
             {item.subsection && (
               <ul>
                 {item.subsection.map((sub) => (
                   <li>
-                    <a class={sub.id == currentPath && 'is-active'} href={`/${item.id}/${sub.id}`}>
+                    <a class={sub.id == currentPath && 'is-active'} href={`/${item.url ? item.url : item.id}/${sub.id}`}>
                       {sub.data.title}
                     </a>
                   </li>
