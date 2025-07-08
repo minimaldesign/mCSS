@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 
+import arrow from '../assets/icons/mail.svg?raw';
+
 const allPosts = await getCollection('blog');
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 const { frontmatter } = Astro.props;
@@ -36,8 +38,10 @@ const { frontmatter } = Astro.props;
     <div class="prose">
       <slot />
     </div>
-  </main>
-  <!-- <aside>
+    <a href={`mailto:hello@mcss.dev?subject=About:%20${frontmatter.title}`} class="bt bt-primary bt-lg mt-sm3">
+      <Fragment set:html={arrow} /> Reply by email
+    </a>
+    <!-- <aside>
     <h3>Browse all tags</h3>
     <ul>
       {
@@ -49,4 +53,5 @@ const { frontmatter } = Astro.props;
       }
     </ul>
   </aside> -->
+  </main>
 </BaseLayout>
