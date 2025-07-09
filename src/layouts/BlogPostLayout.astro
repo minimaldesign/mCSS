@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 
 import arrow from '../assets/icons/mail.svg?raw';
+import ReadProgressBar from '../components/ReadProgressBar.astro';
 
 const allPosts = await getCollection('blog');
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
@@ -10,6 +11,7 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout title={frontmatter.title} bodyClass="layout layout-centered">
+  <ReadProgressBar />
   <main class="layout_content_main blog">
     <h1>{frontmatter.title}</h1>
     <div class="blog_meta">
