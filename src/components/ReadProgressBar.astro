@@ -5,3 +5,39 @@
 <div class="readProgressBar" aria-hidden="true">
   <div></div>
 </div>
+
+<script>
+  // Polyfill for animation-timeline: scroll(y)
+  // Uses native CSS if supported, JS fallback otherwise
+
+  import { throttle } from '../scripts/utilities';
+
+  function supportsScrollTimeline() {
+    return CSS.supports('animation-timeline: scroll(y)');
+  }
+
+  function updateProgressBar() {
+    const bar = document.querySelector('.readProgressBar > div');
+    if (!bar) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+    bar.style.width = progress * 100 + '%';
+  }
+
+  function enableJSProgressBar() {
+    const bar = document.querySelector('.readProgressBar > div');
+    if (!bar) return;
+    // Remove any inline width set by CSS animation
+    bar.style.animation = 'none';
+    bar.style.animationTimeline = 'none';
+    updateProgressBar();
+    const throttledUpdate = throttle(updateProgressBar, 10);
+    window.addEventListener('scroll', throttledUpdate, { passive: true });
+    window.addEventListener('resize', throttledUpdate);
+  }
+
+  if (typeof window !== 'undefined' && !supportsScrollTimeline()) {
+    document.addEventListener('DOMContentLoaded', enableJSProgressBar);
+  }
+</script>
