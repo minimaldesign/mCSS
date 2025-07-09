@@ -8,7 +8,7 @@ description: "CSS viewport units are essential for building responsive layouts, 
 
 ## The problem with old viewport units
 
-The `vh` unit (and similarly `vw`) was originally defined as 1% of the initial containing block ([ICB](https://developer.mozilla.org/en-US/docs/Web/CSS/Initial_containing_block)), which matches the viewport size. This worked well until mobile browsers began dynamically adjusting their UI, like toolbars, to maximize screen space. This dynamic resizing led to jarring content shifts. Using `vh` for properties like `font-size` would exacerbate this issue.
+The `vh` unit (and similarly `vw`) was originally defined as 1% of the initial containing block ([ICB](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display/Containing_block#identifying_the_containing_block)), which matches the viewport size. This worked well until mobile browsers began dynamically adjusting their UI, like toolbars, to maximize screen space. This dynamic resizing led to jarring content shifts. Using `vh` for properties like `font-size` would exacerbate this issue.
 
 In 2015, Safari/Webkit made `vh` static, tying it to the _largest_ viewport size (when the browser UI is minimized). Chrome/Blink followed in 2016. This stopped dynamic resizing but introduced a new issue: `height: 100vh` overflowed the screen on initial load when the browser UI was expanded, making it hard to fit content perfectly with CSS alone.
 
