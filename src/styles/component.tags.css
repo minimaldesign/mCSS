@@ -14,7 +14,7 @@
     background-color: var(--tags-background-color);
     transition: all var(--transition);
     &:hover {
-      background-color: var(--tags-color-hover);
+      background-color: var(--tags-background-color-hover);
     }
   }
 }

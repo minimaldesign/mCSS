@@ -245,7 +245,7 @@
 :root.theme-dark {
   --tags-color: var(--base-400);
   --tags-background-color: var(--base-800);
-  --tags-background-color-hover: var(--base-900);
+  --tags-background-color-hover: var(--base-950);
 }
 
 /* TOC */
