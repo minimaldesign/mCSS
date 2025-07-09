@@ -8,7 +8,7 @@ description: "BEM, which stands for Block, Element, Modifier, is a popular CSS n
 
 BEM, which stands for Block, Element, Modifier, is a popular CSS naming convention developed by Yandex. It provides a clear and structured way to name your classes, making them more meaningful and easier for teams to understand, especially in larger projects.
 
-### BEM Structure
+### BEM structure
 
 The BEM naming convention follows this pattern:
 
@@ -31,7 +31,7 @@ Using double hyphens and underscores helps keep the naming organized. For exampl
 
 This structure allows developers to quickly understand the relationships between different components just by looking at their names.
 
-### Why Use BEM?
+### Why use BEM?
 
 BEM enhances code readability and maintainability. When you see a class like `.person__hand--left`, it’s clear that it refers to the left hand of a person block. In contrast, using generic names like `.hand` or `.left-hand` can create confusion about their context.
 

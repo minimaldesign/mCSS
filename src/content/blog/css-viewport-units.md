@@ -6,7 +6,7 @@ tags: ["css", "responsive design", "viewport units", "web dev", "front-end"]
 description: "CSS viewport units are essential for building responsive layouts, but with mobile browsers’ dynamic UI, using them efficiently can get tricky."
 ---
 
-## The Problem with Old Viewport Units
+## The problem with old viewport units
 
 The `vh` unit (and similarly `vw`) was originally defined as 1% of the initial containing block ([ICB](https://developer.mozilla.org/en-US/docs/Web/CSS/Initial_containing_block)), which matches the viewport size. This worked well until mobile browsers began dynamically adjusting their UI, like toolbars, to maximize screen space. This dynamic resizing led to jarring content shifts. Using `vh` for properties like `font-size` would exacerbate this issue.
 
@@ -14,7 +14,7 @@ In 2015, Safari/Webkit made `vh` static, tying it to the _largest_ viewport size
 
 To fix these issues, new viewport units were introduced in 2021.
 
-## The Solution: Smarter Viewport Units for Real Devices
+## The solution: smarter viewport units for real devices
 
 **`svh`, `svw`**: 1% of the viewport when browser UI is fully visible (smallest viewport). Use for content that must always fit on initial load (e.g., splash screens, onboarding modals).
 
@@ -24,7 +24,7 @@ To fix these issues, new viewport units were introduced in 2021.
 
 **`vmin`, `vmax`**: The smaller/larger of `vw` or `vh` (and their `sv`, `lv`, `dv` variants).
 
-## When to Use Each Viewport Unit
+## When to use each viewport unit
 
 Use `svh` for content that shouldn't be hidden on load (e.g., hero, onboarding, splash, or login screens).
 
@@ -36,7 +36,7 @@ Use `vmin` for always-visible elements that must fit entirely within the viewpor
 
 Use `vmax` for elements that must always cover the entire viewport, even if it means overflowing in one direction (think: `background-size: cover`).
 
-## Viewport Units at a Glance
+## Viewport units at a glance
 
 | Unit   | What It Means                        | When to Use                        |
 | ------ | ------------------------------------ | ---------------------------------- |
