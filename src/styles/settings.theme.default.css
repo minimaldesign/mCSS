@@ -232,6 +232,22 @@
   --notice-border-color: var(--base-500);
 }
 
+/* Tags */
+
+:root {
+  --tags-font-size: var(--text-sm);
+  --tags-color: var(--base-500);
+  --tags-background-color: var(--base-100);
+  --tags-background-color-hover: var(--base-200);
+  --tags-radius: var(--radius-md);
+}
+
+:root.theme-dark {
+  --tags-color: var(--base-400);
+  --tags-background-color: var(--base-800);
+  --tags-background-color-hover: var(--base-900);
+}
+
 /* TOC */
 
 :root {

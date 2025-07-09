@@ -1,23 +1,20 @@
 .tags {
-  li {
-    display: inline-block;
-    &:nth-last-child(n + 2) {
-      padding-right: var(--xs2);
-    }
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs2);
 
   a {
     padding: var(--xs1) var(--xs2);
     text-decoration: none;
     text-transform: lowercase;
-    font-size: var(--text-sm);
+    font-size: var(--tags-font-size);
     font-style: normal;
-    color: var(--base-500);
-    border-radius: var(--radius-sm);
-    background-color: var(--base-100);
+    color: var(--tags-color);
+    border-radius: var(--tags-radius);
+    background-color: var(--tags-background-color);
     transition: all var(--transition);
     &:hover {
-      background-color: var(--base-200);
+      background-color: var(--tags-color-hover);
     }
   }
 }
