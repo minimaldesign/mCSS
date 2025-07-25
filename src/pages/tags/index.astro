@@ -11,6 +11,6 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 <BaseLayout bodyClass="layout layout-centered" title="Tag Index">
   <main class="blog layout_content_main">
     <h1>Tags</h1>
-    <Tags tagList={tags} url="/tags" />
+    <Tags tagList={tags} />
   </main>
 </BaseLayout>

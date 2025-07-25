@@ -27,7 +27,7 @@ const { frontmatter } = Astro.props;
           }
         </time>
       </p>
-      <Tags tagList={frontmatter.tags} url="/tags/" />
+      <Tags tagList={frontmatter.tags} />
     </div>
     <div class="prose">
       <slot />
