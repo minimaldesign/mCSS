@@ -1,6 +1,9 @@
 .tags {
-  & li:not(:last-child) {
+  li {
     margin-bottom: var(--xs2);
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   a {
@@ -23,4 +26,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--xs2);
+
+  li {
+    margin-bottom: 0;
+  }
 }
