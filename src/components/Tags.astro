@@ -1,0 +1,38 @@
+---
+// Props definitions
+interface Props extends HTMLAttributes<'ul'> {
+  tagList?: Tag[]; // Array of badge objects
+  variant?: 'inline' | 'list';
+  url: string;
+  'data-testid'?: string;
+  extraClass?: string;
+  ariaLabel?: string;
+}
+
+// prettier-ignore
+const {
+  tagList = [],
+  variant = 'inline',
+  url = "/tags",
+  extraClass,
+  'data-testid': testId = 'tags',
+  ariaLabel = 'Tags',
+  ...rest
+} = Astro.props as Props;
+
+function joinUrl(base: string, tag: string) {
+  return base.endsWith('/') ? `${base}${tag}` : `${base}/${tag}`;
+}
+---
+
+{
+  tagList.length > 0 && (
+    <ul class:list={['tags', { 'tags-inline': variant === 'inline' }, extraClass]} data-testid={testId} aria-label={ariaLabel} {...rest}>
+      {tagList.map((tag) => (
+        <li class="tag" key={tag}>
+          <a href={joinUrl(url, tag)}>{tag}</a>
+        </li>
+      ))}
+    </ul>
+  )
+}

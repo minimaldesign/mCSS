@@ -2,21 +2,15 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
+import Tags from '../../components/Tags.astro';
+
 const allPosts = await getCollection('blog');
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
-const title = 'Tag Index';
-const header = 'Tags';
 ---
 
-<BaseLayout title={title}>
-  <h1>{header}</h1>
-  <ul>
-    {
-      tags.map((tag) => (
-        <li>
-          <a href={`/tags/${tag}`}>{tag}</a>
-        </li>
-      ))
-    }
-  </ul>
+<BaseLayout bodyClass="layout layout-centered" title="Tag Index">
+  <main class="blog layout_content_main">
+    <h1>Tags</h1>
+    <Tags tagList={tags} url="/tags" />
+  </main>
 </BaseLayout>

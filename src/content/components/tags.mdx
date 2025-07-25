@@ -1,0 +1,161 @@
+---
+title: "Tags"
+lastUpdate: 2025-07-24
+version: 0.1
+type: "component"
+---
+
+import Tags from "../../components/Tags.astro";
+
+<div class="prose">
+  The `.tags` component styles a list of tags. It supports both list and inline
+  layouts, is accessible by default, and customizable via CSS custom properties.
+</div>
+
+<Tags tagList={["css", "astro", "basics"]} extraClass="mt-sm2 mb-sm2" />
+
+<div class="prose">
+
+<div class="docs_oversizedTable">
+
+| File Name            | class   | Source      |
+| -------------------- | ------- | ----------- |
+| `component.tags.css` | `.tags` | [Github][1] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.tags.css
+
+</div>
+
+## HTML
+
+<section class="prose">
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+| Property                        | Description                 |
+| ------------------------------- | --------------------------- |
+| `--tags-padding`                | Tag padding.                |
+| `--tags-font-size`              | Tag font size.              |
+| `--tags-color`                  | Tag text color.             |
+| `--tags-background-color`       | Tag background color.       |
+| `--tags-background-color-hover` | Tag hover background color. |
+| `--tags-radius`                 | Tag border radius.          |
+
+</section>
+
+### Available modifiers
+
+<div class="docs_oversizedTable">
+
+| Modifier       | Description                  |
+| -------------- | ---------------------------- |
+| `.tags`        | Default style (list layout). |
+| `.tags-inline` | Inline layout using flex.    |
+
+</div>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop          | Type       | Default     | Description                                                 |
+| ------------- | ---------- | ----------- | ----------------------------------------------------------- |
+| `tagList`     | `string[]` | `[]`        | Array of tag strings to display.                            |
+| `variant`     | `string`   | `inline`    | Inline or list layout.                                      |
+| `url`         | `string`   | `/tags`     | Base URL to prepend to each tag.                            |
+| `extraClass`  | `string`   | `undefined` | Additional CSS, useful for [helper classes](/docs/helpers). |
+| `ariaLabel`   | `string`   | `'Tags'`    | Accessible label for the tag list.                          |
+| `data-testid` | `string`   | `'tags'`    | Test ID for testing purposes.                               |
+
+</div>
+
+<section class="prose">
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+
+<li>
+
+### HTML example (list layout)
+
+<ul class="tags">
+  <li>
+    <a href="/tags/css">css</a>
+  </li>
+  <li>
+    <a href="/tags/astro">astro</a>
+  </li>
+  <li>
+    <a href="/tags/basics">basics</a>
+  </li>
+</ul>
+
+```html
+<ul class="tags">
+  <li>
+    <a href="/tags/css">css</a>
+  </li>
+  <li>
+    <a href="/tags/astro">astro</a>
+  </li>
+  <li>
+    <a href="/tags/basics">basics</a>
+  </li>
+</ul>
+```
+
+</li>
+<li>
+
+### HTML example (inline layout)
+
+<ul class="tags tags-inline">
+  <li>
+    <a href="/tags/css">css</a>
+  </li>
+  <li>
+    <a href="/tags/astro">astro</a>
+  </li>
+  <li>
+    <a href="/tags/basics">basics</a>
+  </li>
+</ul>
+
+```html
+<ul class="tags tags-inline">
+  <li>
+    <a href="/tags/css">css</a>
+  </li>
+  <li>
+    <a href="/tags/astro">astro</a>
+  </li>
+  <li>
+    <a href="/tags/basics">basics</a>
+  </li>
+</ul>
+```
+
+</li>
+<li>
+
+### Astro example (frontmatter metadata)
+
+<Tags tagList={["css", "astro", "basics"]} url="/tags" />
+
+```astro
+---
+import Tags from '../components/Tags.astro';
+const { frontmatter } = Astro.props;
+---
+<Tags tagList={frontmatter.tags} url="/tags" />
+```
+
+</li>
+</ul>

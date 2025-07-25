@@ -235,6 +235,7 @@
 /* Tags */
 
 :root {
+  --tags-padding: var(--xs2);
   --tags-font-size: var(--text-sm);
   --tags-color: var(--base-500);
   --tags-background-color: var(--base-100);

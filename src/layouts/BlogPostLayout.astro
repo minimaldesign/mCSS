@@ -4,9 +4,9 @@ import BaseLayout from './BaseLayout.astro';
 
 import arrow from '../assets/icons/mail.svg?raw';
 import ReadProgressBar from '../components/ReadProgressBar.astro';
+import Tags from '../components/Tags.astro';
 
 const allPosts = await getCollection('blog');
-const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 const { frontmatter } = Astro.props;
 ---
 
@@ -27,15 +27,7 @@ const { frontmatter } = Astro.props;
           }
         </time>
       </p>
-      <ul class="tags">
-        {
-          frontmatter.tags.map((tag) => (
-            <li class="tag">
-              <a href={`/tags/${tag}`}>{tag}</a>
-            </li>
-          ))
-        }
-      </ul>
+      <Tags tagList={frontmatter.tags} url="/tags/" />
     </div>
     <div class="prose">
       <slot />
