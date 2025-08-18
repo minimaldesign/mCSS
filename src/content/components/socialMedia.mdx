@@ -107,6 +107,80 @@ When using the HTML component you'll need to include the SVG icons "manually." A
 
 </div>
 
+## Astro component
+
+<div class="prose">
+
+The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/src/components/SocialMedia.astro)) takes 3 props:
+
+<div class="docs_oversizedTable">
+
+| Prop         | Type     | Default   | Description                                                 |
+| ------------ | -------- | --------- | ----------------------------------------------------------- |
+| `urls`       | `array`  | `[]`      | An array of social media urls.                              |
+| `size`       | `string` | undefined | `md`, `lg`, `xl`.                                           |
+| `extraClass` | `string` | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
+
+</div>
+</div>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <SocialMedia
+      urls={[
+        "https://www.instagram.com/amandaoleander/",
+        "https://www.tiktok.com/@samdoesarts",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+      extraClass="mb-sm1"
+    />
+
+    ```astro
+    ---
+    import SocialMedia from "../../components/SocialMedia.astro";
+    ---
+    <SocialMedia
+      urls={[
+        "https://www.instagram.com/amandaoleander/",
+        "https://www.tiktok.com/@samdoesarts",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+    />
+    ```
+
+  </li>
+  <li>
+    <SocialMedia
+      size="lg"
+      urls={[
+        "https://x.com/_yannb_",
+        "https://github.com/minimaldesign",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+      extraClass="mb-sm1"
+    />
+
+    ```astro
+    ---
+    import SocialMedia from "../../components/SocialMedia.astro";
+    ---
+    <SocialMedia
+      size="lg"
+      urls={[
+        "https://x.com/_yannb_",
+        "https://github.com/minimaldesign",
+        "https://www.youtube.com/@ProkoTV",
+      ]}
+    />
+    ```
+
+  </li>
+</ul>
+
+### HTML examples
+
 <ul class="docs_examples">
   <li>
     <SocialMedia
@@ -168,76 +242,6 @@ When using the HTML component you'll need to include the SVG icons "manually." A
         </a>
       </li>
     </ul>
-    ```
-
-  </li>
-</ul>
-
-## Astro component
-
-<div class="prose">
-
-The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/src/components/SocialMedia.astro)) takes 3 props:
-
-<div class="docs_oversizedTable">
-
-| Prop         | Type     | Default   | Description                                                 |
-| ------------ | -------- | --------- | ----------------------------------------------------------- |
-| `urls`       | `array`  | `[]`      | An array of social media urls.                              |
-| `size`       | `string` | undefined | `md`, `lg`, `xl`.                                           |
-| `extraClass` | `string` | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
-
-</div>
-</div>
-
-<ul class="docs_examples">
-  <li>
-    <SocialMedia
-      urls={[
-        "https://www.instagram.com/amandaoleander/",
-        "https://www.tiktok.com/@samdoesarts",
-        "https://www.youtube.com/@ProkoTV",
-      ]}
-      extraClass="mb-sm1"
-    />
-
-    ```astro
-    ---
-    import SocialMedia from "../../components/SocialMedia.astro";
-    ---
-    <SocialMedia
-      urls={[
-        "https://www.instagram.com/amandaoleander/",
-        "https://www.tiktok.com/@samdoesarts",
-        "https://www.youtube.com/@ProkoTV",
-      ]}
-    />
-    ```
-
-  </li>
-  <li>
-    <SocialMedia
-      size="lg"
-      urls={[
-        "https://x.com/_yannb_",
-        "https://github.com/minimaldesign",
-        "https://www.youtube.com/@ProkoTV",
-      ]}
-      extraClass="mb-sm1"
-    />
-
-    ```astro
-    ---
-    import SocialMedia from "../../components/SocialMedia.astro";
-    ---
-    <SocialMedia
-      size="lg"
-      urls={[
-        "https://x.com/_yannb_",
-        "https://github.com/minimaldesign",
-        "https://www.youtube.com/@ProkoTV",
-      ]}
-    />
     ```
 
   </li>
