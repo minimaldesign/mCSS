@@ -3,17 +3,13 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--xs1);
+  height: var(--readProgressBar-height);
   z-index: var(--z-5);
 
   > div {
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      var(--primary-600) 0%,
-      var(--primary-400) 100%
-    );
+    background: var(--readProgressBar-color);
     animation: bar linear;
     animation-timeline: scroll(y);
   }

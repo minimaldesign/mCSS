@@ -232,6 +232,17 @@
   --notice-border-color: var(--base-500);
 }
 
+/* Read Progress Bar */
+
+:root {
+  --readProgressBar-height: var(--xs1);
+  --readProgressBar-color: linear-gradient(
+    90deg,
+    var(--primary-600) 0%,
+    var(--primary-400) 100%
+  );
+}
+
 /* Tags */
 
 :root {
