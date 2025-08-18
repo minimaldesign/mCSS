@@ -68,6 +68,74 @@ The following custom properties are available in the [default theme](/docs/theme
 
 </section>
 
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop         | Type      | Default   | Description                                                 |
+| ------------ | --------- | --------- | ----------------------------------------------------------- |
+| `size`       | `string`  | undefined | `sm`, `md`, `lg`, `xl` ([px values](#html))                 |
+| `imageSrc`   | `string`  | undefined | Optional image.                                             |
+| `online`     | `boolean` | `false`   | User is online - green dot                                  |
+| `offline`    | `boolean` | `false`   | User is offline - grey dot                                  |
+| `extraClass` | `string`  | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
+
+</div>
+
+## Available styles
+
+{/* prettier-ignore */}
+<ul class="docs_examples grid grid-flush" col="2">
+  <li><Avatar size="sm" imageSrc={imageSrc}>SR</Avatar></li>
+  <li><Avatar size="sm">SR</Avatar></li>
+  <li><Avatar size="md" imageSrc={imageSrc}>SR</Avatar></li>
+  <li><Avatar size="md">SR</Avatar></li>
+  <li><Avatar imageSrc={imageSrc}>SR</Avatar></li>
+  <li><Avatar>SR</Avatar></li>
+  <li><Avatar size="lg" imageSrc={imageSrc}>SR</Avatar></li>
+  <li><Avatar size="lg">SR</Avatar></li>
+  <li><Avatar size="xl" imageSrc={imageSrc}>SR</Avatar></li>
+  <li><Avatar size="xl">SR</Avatar></li>
+  <li><Avatar offline size="xl" imageSrc={imageSrc}>SR</Avatar></li>
+  <li><Avatar online size="xl">SR</Avatar></li>
+</ul>
+
+## Examples
+
+<ul class="docs_examples prose">
+  <li>
+    ### Full name vs initials
+
+    <Avatar>Sonny Rollins</Avatar>
+    <Avatar>SR</Avatar>
+
+    ```astro
+    ---
+    import Avatar from "../../components/Avatar.astro";
+    ---
+    <Avatar>Sonny Rollins</Avatar>
+    <Avatar>SR</Avatar>
+    ```
+    The astro component can take initials or a full name and will output initials if an image is not provided. It will output the full name in the `alt` attribute if an image is provided.
+
+  </li>
+  <li>
+    ### Offline large avatar
+
+    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
+
+    ```astro
+    ---
+    import Avatar from "../../components/Avatar.astro";
+    import imageSrc from "../../assets/images/sonny.png";
+    ---
+    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
+    ```
+
+  </li>
+</ul>
+### HTML examples
+
 <ul class="docs_examples">
   <li>
     <Avatar>SR</Avatar>
@@ -94,65 +162,4 @@ The following custom properties are available in the [default theme](/docs/theme
     ```
 
   </li>
-</ul>
-
-## Astro component
-
-<div class="docs_oversizedTable prose">
-
-| Prop         | Type      | Default   | Description                                                 |
-| ------------ | --------- | --------- | ----------------------------------------------------------- |
-| `size`       | `string`  | undefined | `sm`, `md`, `lg`, `xl` ([px values](#html))                 |
-| `imageSrc`   | `string`  | undefined | Optional image.                                             |
-| `online`     | `boolean` | `false`   | User is online - green dot                                  |
-| `offline`    | `boolean` | `false`   | User is offline - grey dot                                  |
-| `extraClass` | `string`  | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
-
-</div>
-
-<ul class="docs_examples prose">
-  <li>
-    <Avatar>Sonny Rollins</Avatar>
-    <Avatar>SR</Avatar>
-
-    ```astro
-    ---
-    import Avatar from "../../components/Avatar.astro";
-    ---
-    <Avatar>Sonny Rollins</Avatar>
-    <Avatar>SR</Avatar>
-    ```
-    The astro component can take initials or a full name and will output initials if an image is not provided. It will output the full name in the `alt` attribute if an image is provided.
-
-  </li>
-  <li>
-    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
-
-    ```astro
-    ---
-    import Avatar from "../../components/Avatar.astro";
-    import imageSrc from "../../assets/images/sonny.png";
-    ---
-    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
-    ```
-
-  </li>
-</ul>
-
-## Available styles
-
-{/* prettier-ignore */}
-<ul class="docs_examples grid grid-flush" col="2">
-  <li><Avatar size="sm" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="sm">SR</Avatar></li>
-  <li><Avatar size="md" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="md">SR</Avatar></li>
-  <li><Avatar imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar>SR</Avatar></li>
-  <li><Avatar size="lg" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="lg">SR</Avatar></li>
-  <li><Avatar size="xl" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="xl">SR</Avatar></li>
-  <li><Avatar offline size="xl" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar online size="xl">SR</Avatar></li>
 </ul>
