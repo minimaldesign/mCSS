@@ -66,41 +66,6 @@ The following custom properties are available in the [default theme](/docs/theme
 
 </section>
 
-<ul class="docs_examples">
-  <li>
-    <Notice title="Default Notice">
-      <p>This is the the default notice style, without a modifier class.</p>
-    </Notice>
-
-    ```html
-    <aside class="notice">
-      <div class="notice_title">
-        <svg>[…]</svg>
-        <strong>Default Notice</strong>
-      </div>
-      <p>This is the the default […].</p>
-    </aside>
-    ```
-
-  </li>
-  <li>
-    <Notice title="Pro tip!" type="info">
-      <p>Notice with the `.notice-info` modifier class.</p>
-    </Notice>
-
-    ```html
-    <aside class="notice notice-info">
-      <div class="notice_title">
-        <svg>[…]</svg>
-        <strong>Pro tip!</strong>
-      </div>
-      <p>Notice with the <code>.notice-info</code> modifier class.</p>
-    </aside>
-    ```
-
-  </li>
-</ul>
-
 ## Astro component
 
 <div class="docs_oversizedTable prose">
@@ -112,6 +77,38 @@ The following custom properties are available in the [default theme](/docs/theme
 | `extraClass` | `string` | `undefined` | Additional CSS, useful for [helper classes](/docs/helpers). |
 
 </div>
+
+## Available styles
+
+<ul class="docs_examples">
+  <li>
+    <Notice title="Default Notice">
+      <p>This is the the default notice style, without a modifier class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Information" type="info">
+      <p>Notice with the `.notice-info` class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Something went wrong" type="danger">
+      <p>Notice with the `.notice-danger` class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Attention" type="warning">
+      <p>Notice with the `.notice-warning` class.</p>
+    </Notice>
+  </li>
+  <li>
+    <Notice title="Success" type="confirm">
+      <p>Notice with the `.notice-confirm` class.</p>
+    </Notice>
+  </li>
+</ul>
+
+## Examples
 
 <ul class="docs_examples">
   <li>
@@ -146,32 +143,39 @@ The following custom properties are available in the [default theme](/docs/theme
   </li>
 </ul>
 
-## Available styles
+### HTML examples
 
 <ul class="docs_examples">
   <li>
     <Notice title="Default Notice">
       <p>This is the the default notice style, without a modifier class.</p>
     </Notice>
+
+    ```html
+    <aside class="notice">
+      <div class="notice_title">
+        <svg>[…]</svg>
+        <strong>Default Notice</strong>
+      </div>
+      <p>This is the the default […].</p>
+    </aside>
+    ```
+
   </li>
   <li>
-    <Notice title="Information" type="info">
-      <p>Notice with the `.notice-info` class.</p>
+    <Notice title="Pro tip!" type="info">
+      <p>Notice with the `.notice-info` modifier class.</p>
     </Notice>
-  </li>
-  <li>
-    <Notice title="Something went wrong" type="danger">
-      <p>Notice with the `.notice-danger` class.</p>
-    </Notice>
-  </li>
-  <li>
-    <Notice title="Attention" type="warning">
-      <p>Notice with the `.notice-warning` class.</p>
-    </Notice>
-  </li>
-  <li>
-    <Notice title="Success" type="confirm">
-      <p>Notice with the `.notice-confirm` class.</p>
-    </Notice>
+
+    ```html
+    <aside class="notice notice-info">
+      <div class="notice_title">
+        <svg>[…]</svg>
+        <strong>Pro tip!</strong>
+      </div>
+      <p>Notice with the <code>.notice-info</code> modifier class.</p>
+    </aside>
+    ```
+
   </li>
 </ul>
