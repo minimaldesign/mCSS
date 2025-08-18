@@ -73,13 +73,24 @@ The following custom properties are available in the [default theme](/docs/theme
 
 </div>
 
-<section class="prose">
-
-</section>
-
 ## Examples
 
 <ul class="docs_examples">
+<li>
+
+### Astro example (frontmatter metadata)
+
+<Tags tagList={["css", "astro", "basics"]} url="/tags" />
+
+```astro
+---
+import Tags from '../components/Tags.astro';
+const { frontmatter } = Astro.props;
+---
+<Tags tagList={frontmatter.tags} url="/tags" />
+```
+
+</li>
 
 <li>
 
@@ -140,21 +151,6 @@ The following custom properties are available in the [default theme](/docs/theme
     <a href="/tags/basics">basics</a>
   </li>
 </ul>
-```
-
-</li>
-<li>
-
-### Astro example (frontmatter metadata)
-
-<Tags tagList={["css", "astro", "basics"]} url="/tags" />
-
-```astro
----
-import Tags from '../components/Tags.astro';
-const { frontmatter } = Astro.props;
----
-<Tags tagList={frontmatter.tags} url="/tags" />
 ```
 
 </li>
