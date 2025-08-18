@@ -1,0 +1,134 @@
+---
+title: "Read Progress Bar"
+lastUpdate: 2025-08-15
+version: 0.1
+type: "component"
+---
+
+import ReadProgressBar from "../../components/ReadProgressBar.astro";
+
+<div class="prose">
+  The `.readProgressBar` component creates a reading progress bar at the top of
+  the page that represents the user's scroll position, growing as the user
+  scrolls down and decreasing as they scroll up. This helps users understand
+  their progress through the content and how much remains to be read. This component uses pure CSS when supported by the browser, and has a polyfill for [browsers that don't support](https://caniuse.com/?search=animation-timeline) `animation-timeline`.
+
+(Scroll this page to see the component in action.)
+
+</div>
+
+<ReadProgressBar />
+
+<div class="prose">
+
+<div class="docs_oversizedTable">
+
+| File Name                       | class              | Source      |
+| ------------------------------- | ------------------ | ----------- |
+| `component.ReadProgressBar.css` | `.readProgressBar` | [Github][1] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/component.readProgressBar.css
+
+</div>
+
+## HTML
+
+<section class="prose">
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+| Property                   | Description                    |
+| -------------------------- | ------------------------------ |
+| `--readProgressBar-height` | Progress bar height.           |
+| `--readProgressBar-color`  | Progress bar background color. |
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+
+<li>
+
+### Astro Component
+
+<ReadProgressBar />
+
+```astro
+---
+import ReadProgressBar from '../components/ReadProgressBar.astro';
+---
+<ReadProgressBar />
+```
+
+</li>
+<li>
+
+### HTML
+
+<ReadProgressBar />
+
+```html
+<div class="readProgressBar" aria-hidden="true">
+  <div></div>
+</div>
+```
+
+If you're using HTML and would like to us the polyfill for [browsers that don't support](https://caniuse.com/?search=animation-timeline) `animation-timeline`, add the following JavaScript to your code:
+
+```js
+function throttle(func, delay) {
+  let lastCall = 0;
+  let timerId;
+
+  return function (...args) {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => {
+        lastCall = now;
+        func.apply(this, args);
+      }, delay);
+    } else {
+      lastCall = now;
+      func.apply(this, args);
+    }
+  };
+}
+
+function supportsScrollTimeline() {
+  return CSS.supports("animation-timeline: scroll(y)");
+}
+
+function updateProgressBar() {
+  const bar = document.querySelector(".readProgressBar > div");
+  if (!bar) return;
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+  bar.style.width = progress * 100 + "%";
+}
+
+function enableJSProgressBar() {
+  const bar = document.querySelector(".readProgressBar > div");
+  if (!bar) return;
+  // Remove any inline width set by CSS animation
+  bar.style.animation = "none";
+  bar.style.animationTimeline = "none";
+  updateProgressBar();
+  const throttledUpdate = throttle(updateProgressBar, 10);
+  window.addEventListener("scroll", throttledUpdate, { passive: true });
+  window.addEventListener("resize", throttledUpdate);
+}
+
+if (typeof window !== "undefined" && !supportsScrollTimeline()) {
+  document.addEventListener("DOMContentLoaded", enableJSProgressBar);
+}
+```
+
+</li>
+</ul>
