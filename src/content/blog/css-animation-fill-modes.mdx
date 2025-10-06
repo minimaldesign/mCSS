@@ -1,0 +1,54 @@
+---
+title: "CSS Animation: Fill Modes"
+pubDate: 2025-10-06
+author: "Yann"
+tags: ["css", "animation"]
+description: "CSS viewport units are essential for building responsive layouts, but with mobile browsers’ dynamic UI, using them efficiently can get tricky."
+---
+
+## Why CSS properties "snap back"
+
+A common problem when using CSS `@keyframes` animations is that property values temporarily change during the animation but revert to their original state once the animation ends.
+
+In this example, the div "snaps back" to `opacity: 1;` when the animation ends:
+
+<div
+  class="codepen"
+  data-height="400"
+  data-default-tab="html,result"
+  data-slug-hash="KwVWVeJ"
+  data-pen-title="CSS animation Fill Modes 01"
+  data-user="_yann"
+  style="height: 400px;"
+></div>
+
+### Why Does This Happen?
+
+During an animation, the browser applies intermediate styles defined in `@keyframes`. However, after the animation completes, by default, the affected properties return to their original values as defined outside the animation.
+
+### An easy fix
+
+The `animation-fill-mode` property controls how styles are applied before and after a keyframe animation runs:
+
+- `none` (default): No styles from the animation persist after it ends.
+- `forwards`: The element retains the styles from the last keyframe after completion.
+- `backwards`: Styles from the first keyframe is applied during any animation delay.
+- `both`: Applies both `forwards` and `backwards` effects.
+
+It's most common to use the shorthand syntax for this property.
+
+In thisd example we use `backwards` to set `.test` to `opacity: 0;` during the `1s` delay:
+
+<div
+  class="codepen"
+  data-height="400"
+  data-default-tab="html,result"
+  data-slug-hash="bNEqpGO"
+  data-pen-title="CSS animation Fill Modes 01"
+  data-user="_yann"
+  style="height: 400px; border: 0;"
+>
+
+</div>
+
+<script async src="https://public.codepenassets.com/embed/index.js"></script>

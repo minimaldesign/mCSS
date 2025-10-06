@@ -11,3 +11,9 @@
     background-color: initial;
   }
 }
+
+/* Codepen */
+.cp_embed_wrapper {
+  margin-top: var(--prose-spacing);
+  margin-bottom: var(--prose-spacing);
+}
