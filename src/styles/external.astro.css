@@ -14,6 +14,6 @@
 
 /* Codepen */
 .cp_embed_wrapper {
-  margin-top: var(--prose-spacing);
-  margin-bottom: var(--prose-spacing);
+  margin-top: var(--md3);
+  margin-bottom: var(--md3);
 }
