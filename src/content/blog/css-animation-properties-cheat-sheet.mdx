@@ -1,0 +1,51 @@
+---
+title: "CSS Animation: Properties Cheat Sheet"
+pubDate: 2025-10-02
+author: "Yann"
+tags: ["css", "animation", "cheat sheet"]
+description: "CSS keyframe animation properties cheat sheet, including concise descriptions, typical values, and typical order in shorthand form."
+---
+
+Here is the updated CSS animation properties cheat sheet with "Description" and "Possible values" bolded:
+
+| Property                    | Description and Possible Values                                                                                                      |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `animation-name`            | Specifies the name of the `@keyframes` animation.<br/>Custom name, e.g. `slideIn`, `fadeOut`                                         |
+| `animation-duration`        | Defines how long the animation takes to complete.<br/>Time values, e.g. `2s`, `500ms`                                                |
+| `animation-timing-function` | Controls the speed curve of the animation over time.<br/>`linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`, `cubic-bezier(...)` |
+| `animation-delay`           | Delay before the animation starts.<br/>Time values, e.g. `1s`, `200ms`                                                               |
+| `animation-iteration-count` | Number of times the animation repeats.<br/>Number or `infinite`                                                                      |
+| `animation-direction`       | Direction in which the animation plays.<br/>`normal`, `reverse`, `alternate`, `alternate-reverse`                                    |
+| `animation-fill-mode`       | [Defines style applied](/blog/css-animation-fill-modes) before/after animation.<br/>`none`, `forwards`, `backwards`, `both`          |
+| `animation-play-state`      | Controls whether the animation is running or paused.<br/>`running`, `paused`                                                         |
+
+## Shorthand & Properties Order
+
+In the shorthand `animation` property, only `animation-name` and `animation-duration` are mandatory. All others are optional.
+
+The only properties that require a specific order are `animation-duration`, which has to be before `animation-delay` (optional) since they're both durations. All other values are unique and can be parsed independently of their order.
+
+It is recommended however to follow this conventional order, to improve readability and maintainability:
+
+1. `animation-name`
+1. `animation-duration`
+1. `animation-timing-function`
+1. `animation-delay`
+1. `animation-iteration-count`
+1. `animation-direction`
+1. `animation-fill-mode`
+1. `animation-play-state`
+
+### Example of Common Usage:
+
+```css
+animation: fadeOut 3s ease-in 1s infinite alternate forwards;
+```
+
+- `fadeOut`: animation-name
+- `3s`: duration
+- `ease-in`: timing function
+- `1s`: delay
+- `infinite`: iteration count
+- `alternate`: direction
+- `forwards`: fill mode
