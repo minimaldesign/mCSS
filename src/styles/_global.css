@@ -20,6 +20,7 @@
 
 /* Global styles */
 @import url(./global.a11y.css);
+@import url(./global.animation.css);
 @import url(./global.grid.css);
 @import url(./global.layout.css);
 @import url(./global.prose.css);
