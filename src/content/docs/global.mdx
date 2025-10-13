@@ -228,3 +228,28 @@ The `.prose` class also adds extra styling for `ol`, `ul`, and `code` elements.
 This is where accessibility specific classes go. Currently a WIP as [components are being created](/components/start).
 
 </section>
+
+## Animation
+
+<section class="docs_section animation">
+
+<div class="docs_oversizedTable">
+
+| File name              | Source                 |
+| ---------------------- | ---------------------- |
+| `global.animation.css` | [Github][srcAnimation] |
+
+</div>
+
+[srcAnimation]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/global.animation.css
+
+Basic fade in/out animations with flexible start/end opacity values. (More info about [forwards](/blog/css-animation-fill-modes))
+
+```css
+.element {
+  opacity: 0.8;
+  animation: fadeToTransparent 1s forwards;
+}
+```
+
+</section>
