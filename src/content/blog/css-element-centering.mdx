@@ -1,0 +1,56 @@
+---
+title: "Modern Ways to Center Elements Vertically and Horizontally with CSS"
+pubDate: 2025-10-13
+author: "Yann"
+tags: ["css", "basics", "layout"]
+description: "A concise reference of all the CSS technics to center elements both vertically and horizontally, with code samples."
+---
+
+## New take on the classic
+
+The best way to center an element without modifying its container or affecting its siblings.
+
+```css
+.block {
+  max-width: fit-content;
+  margin-inline: auto;
+}
+```
+
+## Flexbox
+
+The most ubiquitous technic that should be the go-to in most cases.
+
+```css
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+## Grid
+
+Similar to the `flexbox` solution, but note `align-content` vs `align-items`. **I recommend sticking with flexbox**, as the grid layout algorithm is more complex and tends to make it more finicky to work with in some cases.
+
+```css
+.container {
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+```
+
+## For positioned elements
+
+Great for `absolute` or `fixed` positioned elements. The browser resolves the conflicting `inset` and dimensions (`width`/`height` in this example) declarations by centering the element.
+
+```css
+.box {
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  inset: 0;
+  margin: auto;
+}
+```
