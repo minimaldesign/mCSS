@@ -34,7 +34,7 @@
     <div>
       <div class="code">
         <pre id="editor" contenteditable="plaintext-only" spellcheck="false">.elem {'{'}
-background-color: hsl(0deg 100% 50%);
+background: hsl(0deg 100% 50%);
 {'}'}</pre>
       </div>
     </div>
@@ -43,7 +43,7 @@ background-color: hsl(0deg 100% 50%);
 
 <style id="live-style">
   .elem {
-    background-color: hsl(0deg 100% 50%);
+    background: hsl(0deg 100% 50%);
   }
 </style>
 
@@ -167,11 +167,11 @@ background-color: hsl(0deg 100% 50%);
       colorPicker.style.setProperty('--l', Math.round(l) + '%');
 
       if (liveStyle) {
-        liveStyle.textContent = `.elem { background-color: ${str}; }`;
+        liveStyle.textContent = `.elem { background: ${str}; }`;
       }
 
       if (!isTyping) {
-        const next = `.elem {\n  background-color: ${str};\n}`;
+        const next = `.elem {\n  background: ${str};\n}`;
         if (editor.textContent.trim() !== next.trim()) {
           editor.textContent = next;
           placeCaretAtEnd(editor);

@@ -16,7 +16,7 @@
   --cp-radius: calc(var(--cp-wheel-size) / 2);
 
   @media (--md) {
-    --cp-wheel-size: 295px;
+    --cp-wheel-size: 285px;
     --cp-spacing: var(--md3);
   }
 
@@ -28,7 +28,7 @@
   .top {
     @media (--md) {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr var(--cp-wheel-size);
       gap: var(--cp-spacing);
     }
   }
@@ -103,6 +103,9 @@
     height: var(--cp-wheel-size);
     margin: auto;
     user-select: none;
+    @media (--md) {
+      margin-left: 0;
+    }
 
     .ring {
       position: absolute;
