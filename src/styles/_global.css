@@ -53,6 +53,7 @@
 
 /* Plugins, etc. */
 @import url(./external.astro.css);
+@import url(./external.colorPicker.css);
 
 /* Helpers with higher specificity for local overrides */
 /* (Use VERY sparingly, or you might as well use Tailwind…) */
