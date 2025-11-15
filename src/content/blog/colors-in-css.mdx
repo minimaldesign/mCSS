@@ -12,7 +12,7 @@ import ColorPickerOklch from "../../components/_ColorPickerOklch.astro";
 
 ### A little bit of history
 
-First, there was the [CIELAB](https://en.wikipedia.org/wiki/CIELAB_color_space) ("Lab") perceptually uniform color space. Then in 2020, [Björn Ottosson created Oklab](https://bottosson.github.io/posts/oklab/) ("an OK Lab color space") to address Lab's problems when used with modern displays. But Oklab user Cartesian coordinates which is great if you're a computer… So OKLCH was added to the mix soon after, using polar coordinates, which makes it much easier to use (similar to HSL) for non-robots.
+First, there was the [CIELAB](https://en.wikipedia.org/wiki/CIELAB_color_space) ("Lab") perceptually uniform color space. Then in 2020, [Björn Ottosson created Oklab](https://bottosson.github.io/posts/oklab/) ("an OK Lab color space") to address Lab's problems when used with modern displays. But Oklab uses Cartesian coordinates which is great if you're a computer, but pretty cryptic otherwise… So OKLCH was added to the mix soon after, using polar coordinates, which makes it much easier to use (similar to HSL) for non-robots.
 
 ### OKLCH syntax
 
@@ -61,7 +61,7 @@ You can create design system palettes using the same hue while tweaking lightnes
 
 ### Accessibility
 
-It also makes it the best option for a11y friendly palettes creation. In both HSL and OKLCH below, we only change the hue:
+This "perceptually uniform" business makes it the best option for a11y friendly palettes. Here's a comparison between HSL and OKLCH that makes it clear why. We're only changing the **Hue** angle by the same amount in both. (Switch to dark mode to make it even more evident.)
 
 {/* prettier-ignore */}
 <div class="grid text-center mt-md2 mb-md2" col="4">
@@ -91,7 +91,7 @@ It also makes it the best option for a11y friendly palettes creation. In both HS
 
 ### Wide gamut P3 colors
 
-OKLCH works with wide-gamut colors, and your browser will render the closest approximation if needed. (Make sure you look at the swatches below on a monitors with P3 color support.)
+OKLCH works with [wide-gamut][gamut] colors, and your browser will render the closest approximation if your screen can't display it. (Make sure you look at the swatches below on a monitors with P3 color support.)
 
 {/* prettier-ignore */}
 <div class="grid text-center c-base-950  mt-md2 mb-md2" col="2">
@@ -105,13 +105,13 @@ OKLCH works with wide-gamut colors, and your browser will render the closest app
 
 ### Intuitive to use
 
-Pick your _Lightness_ and _Chroma_, then you can just change the _Hue_ with predictable results.
+OKLCH mental model is similar to LCH (but with perceptually uniform results): pick a **Hue**, then adjust the **Lightness**/**Chroma** (or vice versa). Below is an OKLCH color picker to get a feel for it. The "Gamut correction" warning tells you when the color is out of range for your display.
 
 <ColorPickerOklch />
 
 ## Use Oklab for gradients
 
-OKLCH is great, but it can lead to some unexpected results with gradients because of its polar coordinates underpinnings. And RGB is notorious for interpolating colors with the artistic flair of a vacuum cleaner. Most of the time, Oklab will get you the best results.
+RGB is notorious for interpolating colors with the artistic flair of a vacuum cleaner. OKLCH is great, but it can lead to some unexpected results with gradients because of its polar coordinates underpinnings. Most of the time, Oklab will get you the best results.
 
 {/* prettier-ignore */}
 <div
@@ -221,4 +221,5 @@ If you want more, here are some great resources, including deep dives in the nit
 - [OKLCH color tools](https://oklch.fyi)
 - [Color tools for design systems](https://leonardocolor.io)
 
+[gamut]: https://www.makingsoftware.com/chapters/color-spaces-models-and-gamuts#what-is-a-gamut
 [relative colors]: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Using_relative_colors
