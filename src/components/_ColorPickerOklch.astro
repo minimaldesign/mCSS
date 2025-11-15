@@ -1,0 +1,187 @@
+---
+// OKLCH Color Picker Component
+---
+
+<div class="colorPickerOklch">
+  <div class="control-group">
+    <div class="control-label"></div>
+    <div class="color-wheel-container">
+      <canvas class="color-wheel" id="colorWheel" width="200" height="200"></canvas>
+      <div class="color-wheel-center">
+        <div>
+          <div class="caption">Hue</div>
+          <div id="oklchH">242°</div>
+        </div>
+      </div>
+      <div class="hue-marker" id="hueMarker"></div>
+    </div>
+  </div>
+
+  <div class="sliders">
+    <div class="control-group">
+      <div class="control-label">
+        <span>Lightness</span>
+        <span id="oklchL">0.59</span>
+      </div>
+      <input type="range" id="oklchLSlider" min="0" max="1" step="0.01" value="0.59" />
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Chroma</span>
+        <span id="oklchC">0.13</span>
+      </div>
+      <input type="range" id="oklchCSlider" min="0" max="0.4" step="0.01" value="0.13" />
+    </div>
+  </div>
+
+  <div class="color-display" id="oklchDisplay">
+    <div class="gamut-warning" id="oklchWarning">⚠️ Gamut correction</div>
+  </div>
+  <pre class="color-value" id="oklchValue">oklch(0.59 0.13 242)</pre>
+</div>
+
+<script>
+  // OKLab/OKLCH to RGB conversion for gamut checking
+  function oklabToLinearRGB(L, a, b) {
+    const l = L + 0.3963377774 * a + 0.2158037573 * b;
+    const m = L - 0.1055613458 * a - 0.0638541728 * b;
+    const s = L - 0.0894841775 * a - 1.291485548 * b;
+    const l3 = l * l * l;
+    const m3 = m * m * m;
+    const s3 = s * s * s;
+    return [+4.0767416621 * l3 - 3.3077115913 * m3 + 0.2309699292 * s3, -1.2684380046 * l3 + 2.6097574011 * m3 - 0.3413193965 * s3, -0.0041960863 * l3 - 0.7034186147 * m3 + 1.707614701 * s3];
+  }
+  function linearToSRGB(val) {
+    if (val <= 0.0031308) {
+      return 12.92 * val;
+    }
+    return 1.055 * Math.pow(val, 1 / 2.4) - 0.055;
+  }
+  function oklchToOklab(L, C, H) {
+    const hRad = (H * Math.PI) / 180;
+    return [L, C * Math.cos(hRad), C * Math.sin(hRad)];
+  }
+  function isOutOfGamut(L, C, H) {
+    // Convert OKLCH to OKLab first
+    const [labL, labA, labB] = oklchToOklab(L, C, H);
+    const rgb = oklabToLinearRGB(labL, labA, labB);
+
+    // Convert linear RGB to sRGB
+    const r = linearToSRGB(rgb[0]);
+    const g = linearToSRGB(rgb[1]);
+    const b = linearToSRGB(rgb[2]);
+
+    // Check if any channel is outside [0, 1] range (needs clamping)
+    const epsilon = 0.00001;
+    return r < -epsilon || r > 1 + epsilon || g < -epsilon || g > 1 + epsilon || b < -epsilon || b > 1 + epsilon;
+  }
+  // OKLCH Color Picker
+  const oklchLSlider = document.getElementById('oklchLSlider');
+  const oklchCSlider = document.getElementById('oklchCSlider');
+  const oklchDisplay = document.getElementById('oklchDisplay');
+  const oklchValue = document.getElementById('oklchValue');
+  const oklchLLabel = document.getElementById('oklchL');
+  const oklchCLabel = document.getElementById('oklchC');
+  const oklchHLabel = document.getElementById('oklchH');
+  const oklchWarning = document.getElementById('oklchWarning');
+  const colorWheel = document.getElementById('colorWheel');
+  const hueMarker = document.getElementById('hueMarker');
+  const ctx = colorWheel.getContext('2d');
+  let currentHue = 242;
+  // Draw color wheel
+  function drawColorWheel() {
+    const centerX = colorWheel.width / 2;
+    const centerY = colorWheel.height / 2;
+    const radius = colorWheel.width / 2;
+    for (let angle = 0; angle < 360; angle++) {
+      const startAngle = ((angle - 90) * Math.PI) / 180;
+      const endAngle = ((angle + 1 - 90) * Math.PI) / 180;
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+      ctx.closePath();
+
+      // Use current lightness and chroma for wheel display
+      const l = parseFloat(oklchLSlider.value);
+      const c = parseFloat(oklchCSlider.value);
+      ctx.fillStyle = `oklch(${l} ${c} ${angle})`;
+      ctx.fill();
+    }
+  }
+  function updateOKLCH() {
+    const l = parseFloat(oklchLSlider.value);
+    const c = parseFloat(oklchCSlider.value);
+    const h = currentHue;
+
+    const colorString = `oklch(${l} ${c} ${h.toFixed(2)})`;
+    oklchDisplay.style.backgroundColor = colorString;
+    oklchValue.textContent = `.elem {\n  ${colorString}\n}`;
+
+    oklchLLabel.textContent = l.toFixed(2);
+    oklchCLabel.textContent = c.toFixed(2);
+    oklchHLabel.textContent = h.toFixed(2) + '°';
+
+    // Check if out of gamut using proper conversion
+    if (isOutOfGamut(l, c, h)) {
+      oklchWarning.classList.add('show');
+    } else {
+      oklchWarning.classList.remove('show');
+    }
+
+    updateHueMarker();
+    drawColorWheel();
+  }
+  function updateHueMarker() {
+    const container = document.querySelector('.color-wheel-container');
+    const centerX = container.offsetWidth / 2;
+    const centerY = container.offsetHeight / 2;
+    const radius = centerX * 0.9; // Position marker near edge
+    const angle = ((currentHue - 90) * Math.PI) / 180;
+
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+
+    hueMarker.style.left = x + 'px';
+    hueMarker.style.top = y + 'px';
+  }
+  function handleWheelClick(event) {
+    const rect = colorWheel.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    const centerX = colorWheel.width / 2;
+    const centerY = colorWheel.height / 2;
+
+    const dx = x - centerX;
+    const dy = y - centerY;
+
+    let angle = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
+    if (angle < 0) angle += 360;
+
+    currentHue = angle;
+    updateOKLCH();
+  }
+  colorWheel.addEventListener('click', handleWheelClick);
+
+  let isDragging = false;
+  colorWheel.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    handleWheelClick(e);
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      handleWheelClick(e);
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+  oklchLSlider.addEventListener('input', updateOKLCH);
+  oklchCSlider.addEventListener('input', updateOKLCH);
+  // Initialize
+  drawColorWheel();
+  updateOKLCH();
+</script>

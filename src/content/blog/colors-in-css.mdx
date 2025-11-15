@@ -1,0 +1,224 @@
+---
+title: "Pro Tips on Using Colors in CSS"
+pubDate: 2025-11-14
+author: "Yann"
+tags: ["css", "color"]
+description: "A fast-moving dive into the newest CSS color tools that are transforming how we design for the web. Learn how to build richer palettes, keep accessibility on point, and streamline your entire workflow. Packed with code samples and hands-on demos, this guide gives you exactly what you need and none of the fluff."
+---
+
+import ColorPickerOklch from "../../components/_ColorPickerOklch.astro";
+
+## Use OKLCH color mode
+
+### A little bit of history
+
+First, there was the [CIELAB](https://en.wikipedia.org/wiki/CIELAB_color_space) ("Lab") perceptually uniform color space. Then in 2020, [Björn Ottosson created Oklab](https://bottosson.github.io/posts/oklab/) ("an OK Lab color space") to address Lab's problems when used with modern displays. But Oklab user Cartesian coordinates which is great if you're a computer… So OKLCH was added to the mix soon after, using polar coordinates, which makes it much easier to use (similar to HSL) for non-robots.
+
+### OKLCH syntax
+
+```css
+.elem {
+  background-color: oklch(0.59 0.13 242); /*  blue */
+}
+```
+
+- **L**ightness controls how light or dark the color is. From `0` – `1` (or `0%` – `100%`).
+- **C**hroma is similar to saturation, but [different](https://en.wikipedia.org/wiki/Munsell_color_system#Chroma): it's how a color _looks_ compared to a neutral gray of the same brightness. A "safe" range is `0` – `0.35`, Values above ~`0.37` will be clipped on most monitors.
+- **H**ue controls what part of the color wheel to sample. From `0deg` – `360deg`
+
+### Why use OKLCH
+
+OKLCH is a newer color model designed to be perceptually uniform. Colors are more accurate in terms of how humans perceive them and it makes working with them much easier.
+
+### Design system palettes
+
+You can create design system palettes using the same hue while tweaking lightness and chroma:
+
+{/* prettier-ignore */}
+<div class="grid text-center mt-md2 mb-md2" col="8">
+    <div class="grid_item ar-square" style="background-color: oklch(0.849 0.107 252.0)"></div>
+    <div class="grid_item ar-square" style="background-color: oklch(0.682 0.176 252.0)"></div>
+    <div class="grid_item ar-square" style="background-color: oklch(0.629 0.187 252.0)"></div>
+    <div class="grid_item ar-square" style="background-color: oklch(0.579 0.191 252.0)"></div>
+    <div class="grid_item ar-square" style="background-color: oklch(0.493 0.172 252.0)"></div>
+    <div class="grid_item ar-square" style="background-color: oklch(0.425 0.152 252.0)"></div>
+    <div class="grid_item ar-square" style="background-color: oklch(0.374 0.131 252.0)"></div>
+    <div class="grid_item ar-square" style="background-color: oklch(0.328 0.107 252.0)"></div>
+</div>
+
+```css
+.example {
+  --color-1: oklch(0.849 0.107 252);
+  --color-2: oklch(0.682 0.176 252);
+  --color-3: oklch(0.629 0.187 252);
+  --color-4: oklch(0.579 0.191 252);
+  --color-5: oklch(0.493 0.172 252);
+  --color-6: oklch(0.425 0.152 252);
+  --color-7: oklch(0.374 0.131 252);
+  --color-8: oklch(0.328 0.107 252);
+}
+```
+
+### Accessibility
+
+It also makes it the best option for a11y friendly palettes creation. In both HSL and OKLCH below, we only change the hue:
+
+{/* prettier-ignore */}
+<div class="grid text-center mt-md2 mb-md2" col="4">
+    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 29.23)">OKLCH</div>
+    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 149.23)">OKLCH</div>
+    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 249.23)">OKLCH</div>
+    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 319.23)">OKLCH</div>
+    <div class="grid_item p-sm2" style="background-color: hsl(0 100% 50%)">HSL</div>
+    <div class="grid_item p-sm2" style="background-color: hsl(120 100% 50%)">HSL</div>
+    <div class="grid_item p-sm2" style="background-color: hsl(220 100% 50%)">HSL</div>
+    <div class="grid_item p-sm2" style="background-color: hsl(290 100% 50%)">HSL</div>
+</div>
+
+```css
+.example {
+  --oklch-1: oklch(0.628 0.2577 29.23);
+  --oklch-2: oklch(0.628 0.2577 149.23);
+  --oklch-3: oklch(0.628 0.2577 249.23);
+  --oklch-4: oklch(0.628 0.2577 319.23);
+
+  --hsl-1: hsl(0 100% 50%);
+  --hsl-2: hsl(120 100% 50%);
+  --hsl-3: hsl(220 100% 50%);
+  --hsl-4: hsl(290 100% 50%);
+}
+```
+
+### Wide gamut P3 colors
+
+OKLCH works with wide-gamut colors, and your browser will render the closest approximation if needed. (Make sure you look at the swatches below on a monitors with P3 color support.)
+
+{/* prettier-ignore */}
+<div class="grid text-center c-base-950  mt-md2 mb-md2" col="2">
+    <div class="grid_item p-sm2" style="background-color: rgb(255, 0, 34)">sRGB</div>
+    <div class="grid_item p-sm2" style="background-color: oklch(0.6471 0.296 26.47)">Display-P3</div>
+    <div class="grid_item p-sm2" style="background-color: rgb(0, 252, 21)">sRGB</div>
+    <div class="grid_item p-sm2" style="background-color: oklch(0.85 0.3601 145.06)">Display-P3</div>
+    <div class="grid_item p-sm2" style="background-color: rgb(255, 203, 0)">sRGB</div>
+    <div class="grid_item p-sm2" style="background-color: oklch(0.8676 0.2023 90)">Display-P3</div>
+</div>
+
+### Intuitive to use
+
+Pick your _Lightness_ and _Chroma_, then you can just change the _Hue_ with predictable results.
+
+<ColorPickerOklch />
+
+## Use Oklab for gradients
+
+OKLCH is great, but it can lead to some unexpected results with gradients because of its polar coordinates underpinnings. And RGB is notorious for interpolating colors with the artistic flair of a vacuum cleaner. Most of the time, Oklab will get you the best results.
+
+{/* prettier-ignore */}
+<div
+  class="mb-sm2 p-sm2 br-sm"
+  style="background: linear-gradient(90deg,  #ff00ff,#00ff00);"
+>sRGB</div>
+<div
+  class="mb-sm2 p-sm2 br-sm"
+  style="background: linear-gradient(in oklab  90deg,  #ff00ff,#00ff00);"
+>Oklab</div>
+<div
+  class="mb-md2 p-sm2 br-sm"
+  style="background: linear-gradient(in oklch  90deg, #ff00ff,#00ff00);"
+> OKLCH</div>
+
+```css
+.srgb {
+  background: linear-gradient(90deg, #ff00ff, #00ff00);
+}
+
+.oklab {
+  background: linear-gradient(in oklab 90deg, #ff00ff, #00ff00);
+}
+
+.oklch {
+  background: linear-gradient(in oklch 90deg, #ff00ff, #00ff00);
+}
+```
+
+## Use the newer/cleaner syntax
+
+For a cleaner syntax, you can drop the commas and units, and add the alpha channel after a `/`. No need for `rgba()` anymore!
+
+```css
+  /* red at 0.5 opacity */
+
+.elem3 {
+  oklch(0.628 0.2577 29.23 / 0.5)
+}
+
+.elem1 {
+  color: hsl(0 100 50 / 0.5);
+}
+
+.elem2 {
+  color: rgb(255 0 0 / 0.5);
+}
+
+
+```
+
+**Bonus:** you can add the alpha channel in Hex colors too:
+
+```css
+.elem3 {
+  /* you can pass alpha channel at the end of hex too*/
+  /* (hex 80 = decimal 50) */
+  background: #ff000080;
+}
+```
+
+## Use relative colors
+
+[Relative colors][relative colors] let you create a color from another color.
+
+{/* prettier-ignore */}
+<div class="grid text-center mt-md2 mb-md2" col="8" style="--base: hotpink;">
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 80%);"></div>
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 70%);"></div>
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 60%);"></div>
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 50%);"></div>
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 40%);"></div>
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 30%);"></div>
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 20%);"></div>
+    <div class="grid_item ar-square" style="background: hsl(from var(--base) h s 10%);"></div>
+</div>
+
+{/* prettier-ignore */}
+```css
+:root { --base: hotpink; }
+.square-1 { background: hsl(from var(--base) h s 80%); }
+.square-2 { background: hsl(from var(--base) h s 70%); }
+.square-3 { background: hsl(from var(--base) h s 60%); }
+.square-4 { background: hsl(from var(--base) h s 50%); }
+.square-5 { background: hsl(from var(--base) h s 40%); }
+.square-6 { background: hsl(from var(--base) h s 30%); }
+.square-7 { background: hsl(from var(--base) h s 20%); }
+.square-8 { background: hsl(from var(--base) h s 10%); }
+```
+
+## Resources
+
+If you want more, here are some great resources, including deep dives in the nitty gritty details, as well as some useful tools.
+
+### Articles
+
+- [An interactive review of Oklab](https://raphlinus.github.io/color/2021/01/18/oklab-critique.html)
+- [LCH colors in CSS: what, why, and how?](https://lea.verou.me/blog/2020/04/lch-colors-in-css-what-why-and-how/)
+- [What is a color space?](https://www.makingsoftware.com/chapters/color-spaces-models-and-gamuts)
+
+### Tools
+
+- [Accessible color systems](https://huetone.ardov.me)
+- [OKLCH Color Picker & Converter](https://oklch.com)
+- [Another OKLCH Color Picker](https://oklch.net)
+- [Yet another OKLCH Color Picker](https://oklchpicker.com)
+- [OKLCH color tools](https://oklch.fyi)
+- [Color tools for design systems](https://leonardocolor.io)
+
+[relative colors]: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Using_relative_colors
