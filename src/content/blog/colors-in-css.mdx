@@ -64,15 +64,15 @@ You can create design system palettes using the same hue while tweaking lightnes
 This "perceptually uniform" business makes it the best option for a11y friendly palettes. Here's a comparison between HSL and OKLCH that makes it clear why. We're only changing the **Hue** angle by the same amount in both. (Switch to dark mode to make it even more evident.)
 
 {/* prettier-ignore */}
-<div class="grid text-center mt-md2 mb-md2" col="4">
-    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 29.23)">OKLCH</div>
-    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 149.23)">OKLCH</div>
-    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 249.23)">OKLCH</div>
-    <div class="grid_item p-sm2" style="background-color: oklch(0.628 0.2577 319.23)">OKLCH</div>
-    <div class="grid_item p-sm2" style="background-color: hsl(0 100% 50%)">HSL</div>
-    <div class="grid_item p-sm2" style="background-color: hsl(120 100% 50%)">HSL</div>
-    <div class="grid_item p-sm2" style="background-color: hsl(220 100% 50%)">HSL</div>
-    <div class="grid_item p-sm2" style="background-color: hsl(290 100% 50%)">HSL</div>
+<div class="blog-grid-hsl-v-oklch">
+    <div style="background-color: oklch(0.628 0.2577 29.23)">OKLCH</div>
+    <div style="background-color: oklch(0.628 0.2577 149.23)">OKLCH</div>
+    <div style="background-color: oklch(0.628 0.2577 249.23)">OKLCH</div>
+    <div style="background-color: oklch(0.628 0.2577 319.23)">OKLCH</div>
+    <div style="background-color: hsl(0 100% 50%)">HSL</div>
+    <div style="background-color: hsl(120 100% 50%)">HSL</div>
+    <div style="background-color: hsl(220 100% 50%)">HSL</div>
+    <div style="background-color: hsl(290 100% 50%)">HSL</div>
 </div>
 
 ```css
@@ -146,17 +146,17 @@ RGB is notorious for interpolating colors with the artistic flair of a vacuum cl
 For a cleaner syntax, you can drop the commas and units, and add the alpha channel after a `/`. No need for `rgba()` anymore!
 
 ```css
-  /* red at 0.5 opacity */
+/* red at 0.5 opacity */
 
-.elem3 {
+.elem {
   oklch(0.628 0.2577 29.23 / 0.5)
 }
 
-.elem1 {
+.elem {
   color: hsl(0 100 50 / 0.5);
 }
 
-.elem2 {
+.elem {
   color: rgb(255 0 0 / 0.5);
 }
 
@@ -166,7 +166,7 @@ For a cleaner syntax, you can drop the commas and units, and add the alpha chann
 **Bonus:** you can add the alpha channel in Hex colors too:
 
 ```css
-.elem3 {
+.elem {
   /* you can pass alpha channel at the end of hex too*/
   /* (hex 80 = decimal 50) */
   background: #ff000080;
