@@ -167,6 +167,7 @@
     padding: var(--xs2) var(--xs3);
     border-radius: var(--radius-sm);
     font-size: var(--text-sm);
+    color: var(--base-950);
     box-shadow: var(--shadow-md);
     background: hsl(0 0 100 / 0.4);
     animation: gamutWarningFadeIn var(--transition);
