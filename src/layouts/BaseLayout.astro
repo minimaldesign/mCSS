@@ -7,29 +7,49 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const { title, bodyClass, frontmatter } = Astro.props;
+
+const headDescription = (frontmatter?.description ? frontmatter.description.slice(0, 149) + (frontmatter.description.length > 149 ? '…' : '') : '') || 'The CSS framework for CSS lovers.';
+const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="msapplication-TileColor" content="#0ea5e9" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={frontmatter?.description?.slice(0, 149) + (frontmatter?.description?.length > 149 ? '…' : '') || 'The CSS framework for CSS lovers.'} />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={headDescription} />
+    <meta name="author" content="minimal design" />
+    <meta name="robots" content="index, follow" />
 
-    <meta name="twitter:card" content="summary_large_image" />
+    {/* Open Graph  */}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.origin} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={headDescription} />
+    <meta property="og:image" content={headImage} />
+    <meta property="og:image:width" content={logoImg.width} />
+    <meta property="og:image:height" content={logoImg.height} />
+    <meta property="og:site_name" content="mCSS" />
+    <meta property="og:locale" content="en_US" />
+
+    {/* Twitter Card  */}
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@_yannb_" />
     <meta name="twitter:creator" content="@_yannb_" />
     <meta name="twitter:url" content={Astro.url.href} />
     <meta name="twitter:title" content={title} />
-    {/* content must be less than 200 characters  */}
-    <meta name="twitter:description" content={frontmatter?.description?.slice(0, 199) + (frontmatter?.description?.length > 199 ? '…' : '') || 'The CSS framework for CSS lovers.'} />
-    <meta name="twitter:image" content={`${Astro.url.origin}${logoImg.src.split('?')[0]}`} />
+    <meta name="twitter:description" content={headDescription} />
+    <meta name="twitter:image" content={headImage} />
     <meta name="twitter:image:alt" content="mCSS logo" />
 
-    <title>{title}</title>
+    {/* SEO & Misc */}
+    <link rel="canonical" href={Astro.url} />
+    <meta name="msapplication-TileColor" content="#0ea5e9" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="generator" content={Astro.generator} />
 
+    {/* Favicon  */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
