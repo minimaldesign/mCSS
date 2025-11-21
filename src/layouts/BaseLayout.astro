@@ -23,7 +23,8 @@ const { title, bodyClass, frontmatter } = Astro.props;
     <meta name="twitter:creator" content="@_yannb_" />
     <meta name="twitter:url" content={Astro.url.href} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={frontmatter ? frontmatter.description : `The CSS framework for CSS lovers.`} />
+    <!-- content must be less than 200 characters -->
+    {frontmatter?.description?.slice(0, 199) + (frontmatter?.description?.length > 199 ? '…' : '') || 'The CSS framework for CSS lovers.'}
     <meta name="twitter:image" content={`${Astro.url.origin}${logoImg.src.split('?')[0]}`} />
     <meta name="twitter:image:alt" content="mCSS logo" />
 
