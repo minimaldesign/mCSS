@@ -10,7 +10,7 @@ const allPosts = await getCollection('blog');
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title} bodyClass="layout layout-centered">
+<BaseLayout title={frontmatter.title} bodyClass="layout layout-centered" frontmatter={frontmatter}>
   <ReadProgressBar />
   <main class="layout_content_main blog">
     <h1>{frontmatter.title}</h1>
