@@ -202,6 +202,14 @@ For a cleaner syntax, you can drop the commas and units, and add the alpha chann
 .square-8 { background: hsl(from var(--base) h s 10%); }
 ```
 
+You can also adjust a custom property's alpha using relative color syntax:
+
+```css
+.elem {
+  background: oklab(from var(--my-color) l a b / 20%);
+}
+```
+
 ## Resources
 
 If you want more, here are some great resources, including deep dives in the nitty gritty details, as well as some useful tools.
