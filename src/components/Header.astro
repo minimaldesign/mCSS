@@ -32,8 +32,10 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
 
 <script is:inline>
   // Dark/light Theme switcher
-  // localStorage and <html> class set in header (BaseLayout) to alleviate FOUC
-  const currentTheme = localStorage.getItem('theme');
+  // sessionStorage and <html> class set in BaseLayout to alleviate FOUC
+  // Theme only persists during session
+  const currentTheme = sessionStorage.getItem('theme') || 
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'theme-dark' : 'theme-light');
   const checkboxes = document.querySelectorAll('.js-theme-checkbox');
   document.getElementById('js-theme').textContent = currentTheme.replace('theme-', '');
 
@@ -53,7 +55,7 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
     document.documentElement.classList.remove('theme-light', 'theme-dark');
     document.documentElement.classList.add(isDark ? 'theme-dark' : 'theme-light');
     document.getElementById('js-theme').textContent = isDark ? 'dark' : 'light';
-    localStorage.setItem('theme', isDark ? 'theme-dark' : 'theme-light');
+    sessionStorage.setItem('theme', isDark ? 'theme-dark' : 'theme-light');
   }
 
   checkboxes.forEach((el) => {
