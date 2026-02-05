@@ -1,21 +1,27 @@
 /* DEFAULT THEME */
 
 :root {
-  --theme-border-color: var(--base-200);
-  --theme-shadow-color: rgb(0 0 0 / 0.1);
+  color-scheme: light dark;
+  
+  --theme-border-color: light-dark(var(--base-200), var(--base-500));
+  --theme-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
+}
+
+:root.theme-light {
+  color-scheme: light;
 }
 
 :root.theme-dark {
-  --theme-border-color: var(--base-500);
-  --theme-shadow-color: rgb(0 0 0 / 0.6);
+  color-scheme: dark;
 }
+
 
 /* HTML ELEMENTS */
 
 :root {
   accent-color: var(--primary-500);
 
-  --body-background-color: var(--base-0);
+  --body-background-color: light-dark(var(--base-0), var(--base-950));
 
   --input-height: var(--md3);
   --input-padding: var(--xs3);
@@ -25,7 +31,7 @@
   --dialog-backdrop-opacity: var(--o-4);
 
   --table-padding: var(--xs2) var(--sm1);
-  --table-border-color: var(--base-100);
+  --table-border-color: light-dark(var(--base-100), var(--base-700));
   --table-border-radius: var(--radius-md);
   --table-background-color: none;
 
@@ -35,36 +41,16 @@
   --heading-weight: var(--black);
   --heading-line-height: var(--leading-sm);
 
-  --text-color: var(--base-950);
-  --link-color: var(--primary-600);
+  --text-color: light-dark(var(--base-950), var(--base-200));
+  --link-color: light-dark(var(--primary-600), var(--primary-400));
   --link-color-hover: var(--primary-500);
 
-  --text-code-color: var(--primary-600);
-  --text-code-background-color: var(--primary-100);
+  --text-code-color: light-dark(var(--primary-600), var(--primary-400));
+  --text-code-background-color: light-dark(var(--primary-100), var(--primary-900));
 
   /* .prose related stuff in GLOBAL */
 
   --marker-color: #ffee00;
-}
-
-:root.theme-dark {
-  accent-color: var(--primary-500);
-
-  --body-background-color: var(--base-950);
-
-  --dialog-backdrop-color: var(--base-950);
-
-  --table-border-color: var(--base-700);
-  --table-background-color: none;
-
-  /* Text */
-
-  --text-color: var(--base-200);
-  --link-color: var(--primary-400);
-  --link-color-hover: var(--primary-500);
-
-  --text-code-color: var(--primary-400);
-  --text-code-background-color: var(--primary-900);
 }
 
 /* GLOBAL */
@@ -94,18 +80,18 @@
   --bt-font-size-lg: var(--text-md);
   --bt-font-weight: var(--semi-bold);
   --bt-color: var(--text-color);
-  --bt-color-hover: var(--text-color);
-  --bt-background-color: var(--base-0);
-  --bt-background-color-hover: var(--base-50);
+  --bt-color-hover: light-dark(var(--text-color), var(--base-0));
+  --bt-background-color: light-dark(var(--base-0), var(--base-800));
+  --bt-background-color-hover: light-dark(var(--base-50), var(--base-900));
   --bt-border-color: var(--theme-border-color);
   --bt-border-width: var(--border-sm);
   --bt-border-radius: var(--radius-lg);
   --bt-border-radius-lg: var(--radius-xl);
 
-  --bt-outline-color-hover: var(--base-950);
-  --bt-outline-background-color-hover: rgb(0 0 0 / 0.1);
-  --bt-outline-border-color: var(--base-950);
-  --bt-outline-border-color-hover: var(--base-950);
+  --bt-outline-color-hover: light-dark(var(--base-950), var(--base-0));
+  --bt-outline-background-color-hover: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
+  --bt-outline-border-color: light-dark(var(--base-950), var(--base-0));
+  --bt-outline-border-color-hover: light-dark(var(--base-950), var(--base-0));
 
   --bt-primary-color: var(--base-0);
   --bt-primary-color-hover: var(--base-0);
@@ -115,18 +101,6 @@
   --bt-primary-border-color-hover: var(--primary-600);
 }
 
-:root.theme-dark {
-  --bt-color-hover: var(--base-0);
-  --bt-background-color: var(--base-800);
-  --bt-background-color-hover: var(--base-900);
-  --bt-border-color: var(--base-700);
-
-  --bt-outline-color-hover: var(--base-0);
-  --bt-outline-background-color-hover: rgb(255 255 255 / 0.1);
-  --bt-outline-border-color: var(--base-0);
-  --bt-outline-border-color-hover: var(--base-0);
-}
-
 /* COMPONENTS */
 
 /* Avatar */
@@ -134,15 +108,11 @@
 :root {
   --avatar-color: var(--base-0);
   --avatar-background-color: var(--base-400);
-  --avatar-border-color: var(--base-0);
+  --avatar-border-color: light-dark(var(--base-0), var(--base-500));
   --avatar-border-width: var(--border-sm);
   --avatar-radius: var(--radius-round);
   --avatar-status-dot-color-offline: var(--base-300);
   --avatar-status-dot-color-online: var(--yes-400);
-}
-
-:root.theme-dark {
-  --avatar-border-color: var(--base-500);
 }
 
 /* Card */
@@ -150,38 +120,24 @@
 :root {
   --card-spacing: var(--sm3);
   --card-color: var(--text-color);
-  --card-secondary-text-color: var(--base-400);
-  --card-bg-color: var(--base-100);
+  --card-secondary-text-color: light-dark(var(--base-400), var(--base-500));
+  --card-bg-color: light-dark(var(--base-100), var(--base-900));
   --card-border-radius: var(--radius-lg);
   --card-border-color: var(--theme-border-color);
   --card-border-width: var(--border-sm);
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
-  --card-badge-bg: var(--base-700); /* Default badge background */
+  --card-badge-bg: light-dark(var(--base-700), var(--base-600)); /* Default badge background */
   --card-badge-text-color: var(--base-0); /* Default badge text color */
-  --card-loading-bg: var(--base-200);
-}
-
-:root.theme-dark {
-  --card-bg-color: var(--base-900);
-  --card-border-color: var(--base-600);
-  --card-secondary-text-color: var(--base-500);
-  --card-loading-bg: var(--base-900);
-  --card-badge-bg: var(--base-600);
+  --card-loading-bg: light-dark(var(--base-200), var(--base-900));
 }
 
 /* Footer */
 
 :root {
-  --footer-background-color: var(--primary-600);
-  --footer-text-color: var(--base-0);
-  --footer-border-color: transparent;
-}
-
-:root.theme-dark {
-  --footer-background-color: var(--base-950);
-  --footer-text-color: var(--base-200);
-  --footer-border-color: var(--base-700);
+  --footer-background-color: light-dark(var(--primary-600), var(--base-950));
+  --footer-text-color: light-dark(var(--base-0), var(--base-200));
+  --footer-border-color: light-dark(transparent, var(--base-700));
 }
 
 /* Header */
@@ -193,11 +149,7 @@
     --header-height: var(--xl2);
     --header-padding: var(--sm3);
   }
-  --header-background-color: var(--base-0);
-}
-
-:root.theme-dark {
-  --header-background-color: var(--base-950);
+  --header-background-color: light-dark(var(--base-0), var(--base-950));
 }
 
 /* Hero */
@@ -211,25 +163,15 @@
   --hero-pagination-opacity: var(--o-4);
 }
 
-:root.theme-dark {
-  --header-background-color: var(--base-950);
-}
-
 /* Notice */
 
 :root {
   --notice-spacing: var(--sm1);
-  --notice-text-color: var(--base-950);
-  --notice-background-color: var(--base-50);
-  --notice-border-color: var(--base-200);
+  --notice-text-color: light-dark(var(--base-950), var(--base-0));
+  --notice-background-color: light-dark(var(--base-50), var(--base-800));
+  --notice-border-color: light-dark(var(--base-200), var(--base-500));
   --notice-border-width: var(--border-sm);
   --notice-border-radius: var(--radius-lg);
-}
-
-:root.theme-dark {
-  --notice-text-color: var(--base-0);
-  --notice-background-color: var(--base-800);
-  --notice-border-color: var(--base-500);
 }
 
 /* Read Progress Bar */
@@ -248,16 +190,10 @@
 :root {
   --tags-padding: var(--xs2);
   --tags-font-size: var(--text-sm);
-  --tags-color: var(--base-500);
-  --tags-background-color: var(--base-100);
-  --tags-background-color-hover: var(--base-200);
+  --tags-color: light-dark(var(--base-500), var(--base-400));
+  --tags-background-color: light-dark(var(--base-100), var(--base-800));
+  --tags-background-color-hover: light-dark(var(--base-200), var(--base-950));
   --tags-radius: var(--radius-md);
-}
-
-:root.theme-dark {
-  --tags-color: var(--base-400);
-  --tags-background-color: var(--base-800);
-  --tags-background-color-hover: var(--base-950);
 }
 
 /* TOC */
@@ -270,16 +206,8 @@
   --toc-icon-size: 16px;
 }
 
-:root.theme-dark {
-  --toc-text-color: var(--base-0);
-}
-
 /* EXTERNAL PLUGINS */
 
 :root {
-  --astro-code-background-color: var(--base-950);
-}
-
-:root.theme-dark {
-  --astro-code-background-color: var(--base-900);
+  --astro-code-background-color: light-dark(var(--base-950), var(--base-900));
 }
