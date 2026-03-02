@@ -1,0 +1,74 @@
+---
+title: "The modern way to implement CSS light/dark themes"
+pubDate: 2026-03-01
+author: "Yann"
+tags: ["css", "color"]
+description: "The best way to implement light/dark themes in 2026 is to use the `color-scheme` CSS property and the `light-dark()` CSS function."
+---
+
+## Before
+
+The common way to implement a CSS light/dark theme toggle is to declare your default theme custom properties at the root and change these values with a `.dark` (or similar) class:
+
+```css
+:root {
+  --body-background-color: white;
+  --text-color: black;
+}
+
+:root.dark {
+  --body-background-color: black;
+  --text-color: white;
+}
+```
+
+## Now
+
+Now that the `color-scheme` CSS property and the `light-dark()` CSS function are available in all major browsers, there is a much cleaner way to set that up which remove all duplication and makes it much easier to read and maintain.
+
+```css
+:root {
+  color-scheme: light dark;
+
+  --body-background-color: light-dark(white, black);
+  --text-color: light-dark(black, white);
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+```
+
+As of now, the only useful properties are `light` and `dark`. The "custom name" [listed on MDN][1] is just for future proofing [the specs][2]:
+
+> `<custom-ident>` values are meaningless, and exist only for future compatibility, so that future added color schemes do not invalidate the color-scheme declaration in legacy user agents.
+
+## Other Uses
+
+You can use the `color-scheme` property to "force" a theme within a specific component:
+
+```css
+.dark-only-component {
+  color-scheme: dark;
+}
+```
+
+You can tell the browser you only support one theme to prevent the browser from forcing dark UI on your site.
+
+```css
+:root {
+  color-scheme: light;
+}
+```
+
+## Notes
+
+Make sure to also include the "color-scheme" meta tag in the `<head>` of you HTML (the [order maters][3]). It can prevent screen flashes during the page load:
+
+```html
+<meta name="color-scheme" content="light dark" />
+```
+
+[1]:https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme#formal_syntax
+[2]:https://drafts.csswg.org/css-color-adjust/#color-scheme-prop
+[3]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/color-scheme#usage_notes
