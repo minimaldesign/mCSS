@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
@@ -18,6 +19,13 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
+
+const md = await createMarkdownProcessor();
+const descriptions = new Map();
+for (const post of posts) {
+  const { code } = await md.render(post.data.description);
+  descriptions.set(post.id, code);
+}
 ---
 
 <BaseLayout bodyClass="layout layout-centered">
@@ -30,7 +38,7 @@ const { posts } = Astro.props;
             <p>
               <a href={`/blog/${post.id}`}>{post.data.title}</a>
             </p>
-            <p>{post.data.description}</p>
+            <Fragment set:html={descriptions.get(post.id)} />
           </li>
         ))
       }

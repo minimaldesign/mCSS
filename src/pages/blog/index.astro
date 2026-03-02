@@ -1,10 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = 'mCSS Blog';
 const allPosts = await getCollection('blog');
 allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
+
+const md = await createMarkdownProcessor();
+const descriptions = new Map();
+for (const post of allPosts) {
+  const { code } = await md.render(post.data.description);
+  descriptions.set(post.id, code);
+}
 ---
 
 <BaseLayout title={title} bodyClass="layout layout-centered">
@@ -17,7 +25,7 @@ allPosts.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate))
             <p>
               <a href={`/blog/${post.id}`}>{post.data.title}</a>
             </p>
-            <p>{post.data.description}</p>
+            <Fragment set:html={descriptions.get(post.id)} />
           </li>
         ))
       }
