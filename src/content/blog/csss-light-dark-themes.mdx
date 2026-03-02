@@ -24,7 +24,7 @@ The common way to implement a CSS light/dark theme toggle is to declare your def
 
 ## Now
 
-Now that the `color-scheme` CSS property and the `light-dark()` CSS function are available in all major browsers, there is a much cleaner way to set that up which remove all duplication and makes it much easier to read and maintain.
+Now that the `color-scheme` CSS property and the `light-dark()` CSS function are available in modern browsers, there is a much cleaner way to set this up that removes duplication and makes it easier to read and maintain.
 
 ```css
 :root {
@@ -39,13 +39,13 @@ Now that the `color-scheme` CSS property and the `light-dark()` CSS function are
 }
 ```
 
-As of now, the only useful properties are `light` and `dark`. The "custom name" [listed on MDN][1] is just for future proofing [the specs][2]:
+In practice today, the useful keywords are `light` and `dark`. The `<custom-ident>` [listed on MDN][1] is there for forward compatibility in [the specs][2]:
 
 > `<custom-ident>` values are meaningless, and exist only for future compatibility, so that future added color schemes do not invalidate the color-scheme declaration in legacy user agents.
 
 ## Other Uses
 
-You can use the `color-scheme` property to "force" a theme within a specific component:
+You can use the `color-scheme` property to force a theme inside a specific component (for built-in UI and `light-dark()` resolution in that subtree):
 
 ```css
 .dark-only-component {
@@ -53,17 +53,17 @@ You can use the `color-scheme` property to "force" a theme within a specific com
 }
 ```
 
-You can tell the browser you only support one theme to prevent the browser from forcing dark UI on your site.
+You can tell the browser you only support one theme to prevent it from auto-adjusting built-in UI on your site.
 
 ```css
 :root {
   color-scheme: light;
 }
 ```
-
+ß
 ## Notes
 
-Make sure to also include the "color-scheme" meta tag in the `<head>` of you HTML (the [order maters][3]). It can prevent screen flashes during the page load:
+Make sure to also include the `color-scheme` meta tag in the `<head>` of your HTML (the [order matters][3]). It can help prevent flashes during page load:
 
 ```html
 <meta name="color-scheme" content="light dark" />
@@ -71,4 +71,4 @@ Make sure to also include the "color-scheme" meta tag in the `<head>` of you HTM
 
 [1]:https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme#formal_syntax
 [2]:https://drafts.csswg.org/css-color-adjust/#color-scheme-prop
-[3]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/color-scheme#usage_notes
+[3]:https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/color-scheme#usage_notes
