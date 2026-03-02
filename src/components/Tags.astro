@@ -28,7 +28,7 @@ function joinUrl(base: string, tag: string) {
 {
   tagList.length > 0 && (
     <ul class:list={['tags', { 'tags-inline': variant === 'inline' }, extraClass]} data-testid={testId} aria-label={ariaLabel} {...rest}>
-      {tagList.map((tag) => (
+      {[...tagList].sort((a, b) => a.localeCompare(b)).map((tag) => (
         <li class="tag" key={tag}>
           <a href={joinUrl(url, tag)}>{tag}</a>
         </li>
