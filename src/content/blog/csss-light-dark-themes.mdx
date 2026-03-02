@@ -2,7 +2,7 @@
 title: "The modern way to implement CSS light/dark themes"
 pubDate: 2026-03-01
 author: "Yann"
-tags: ["css", "color"]
+tags: ["css", "theming", "dark mode", "light mode"]
 description: "The best way to implement light/dark themes in 2026 is to use the `color-scheme` CSS property and the `light-dark()` CSS function."
 ---
 
@@ -60,7 +60,7 @@ You can tell the browser you only support one theme to prevent it from auto-adju
   color-scheme: light;
 }
 ```
-ß
+
 ## Notes
 
 Make sure to also include the `color-scheme` meta tag in the `<head>` of your HTML (the [order matters][3]). It can help prevent flashes during page load:
@@ -69,6 +69,6 @@ Make sure to also include the `color-scheme` meta tag in the `<head>` of your HT
 <meta name="color-scheme" content="light dark" />
 ```
 
-[1]:https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme#formal_syntax
-[2]:https://drafts.csswg.org/css-color-adjust/#color-scheme-prop
-[3]:https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/color-scheme#usage_notes
+[1]: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme#formal_syntax
+[2]: https://drafts.csswg.org/css-color-adjust/#color-scheme-prop
+[3]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/color-scheme#usage_notes
