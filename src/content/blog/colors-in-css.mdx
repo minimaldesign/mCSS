@@ -6,7 +6,7 @@ tags: ["css", "color"]
 description: "A fast-moving dive into the newest CSS color tools that are transforming how we design for the web. Learn how to build richer palettes, keep accessibility on point, and streamline your entire workflow. Packed with code samples and hands-on demos, this guide gives you exactly what you need and none of the fluff."
 ---
 
-import ColorPickerOklch from "../../components/_ColorPickerOklch.astro";
+import ColorPickerOklch from "../../components/_ColorPickerOklch.jsx";
 
 ## Use OKLCH color mode
 
@@ -107,7 +107,7 @@ OKLCH works with [wide-gamut][gamut] colors, and your browser will render the cl
 
 OKLCH mental model is similar to LCH (but with perceptually uniform results): pick a **Hue**, then adjust the **Lightness**/**Chroma** (or vice versa). Below is an OKLCH color picker so you can get a feel for how it works. (The "Gamut correction" warning tells you when the color is out of range for your display.)
 
-<ColorPickerOklch />
+<ColorPickerOklch client:visible />
 
 ## Use Oklab for gradients
 
