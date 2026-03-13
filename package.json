@@ -10,10 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.5",
-    "@astrojs/preact": "^4.1.1",
-    "@astrojs/rss": "^4.0.12",
-    "astro": "^5.13.9",
+    "@astrojs/mdx": "^5.0.0",
+    "@astrojs/preact": "^5.0.0",
+    "@astrojs/rss": "^4.0.17",
+    "astro": "^6.0.4",
     "astro-purgecss": "^5.2.2",
     "astro-tunnel": "^0.1.8",
     "postcss-mixins": "^11.0.3",
