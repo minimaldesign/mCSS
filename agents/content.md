@@ -1,6 +1,6 @@
 # Content Collections
 
-Collections are defined in `src/content/config.ts`. Files whose names start with `_` are excluded.
+Collections are defined in `src/content.config.ts`. Files whose names start with `_` are excluded.
 
 ## Schemas
 
