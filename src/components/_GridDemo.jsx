@@ -13,6 +13,16 @@ const ITEM_LABELS = [
   'Forty-six', 'Forty-seven', 'Forty-eight', 'Forty-nine', 'Fifty',
 ];
 
+/** Reorder: min pointer movement (px) before drag activates — avoids ghost + layout updates on accidental clicks. */
+const REORDER_DRAG_ACTIVATION_PX = 8;
+
+/**
+ * When mapping cursor position to a grid track, the snap boundary between track i and i+1 is
+ * a blend of the two track centers. Weight on the *next* center — higher = snap happens later
+ * (cursor must move further into the target cell). 0.75 ≈ “~25% into the target” vs midpoint snap.
+ */
+const TRACK_SNAP_NEXT_CENTER_WEIGHT = 0.75;
+
 function getItemLabel(index) {
   return ITEM_LABELS[index] || `Item ${index + 1}`;
 }
@@ -43,8 +53,10 @@ function buildGridProps(state) {
 
   const container = { display: 'grid', gap };
 
+  const columnFlow = settings.gridAutoFlow === 'column' || settings.gridAutoFlow === 'column dense';
+
   if (settings.useShorthand && settings.useTemplateAreas) {
-    const areaGrid = buildTemplateAreas(items, cols, rows);
+    const areaGrid = buildTemplateAreas(items, cols, rows, columnFlow);
     const rowParts = areaGrid.map((row, i) =>
       `"${row.join(' ')}" ${rowSizes[i] || '1fr'}`
     );
@@ -52,7 +64,7 @@ function buildGridProps(state) {
   } else if (settings.useShorthand) {
     container.grid = `${rowTemplate} / ${colTemplate}`;
   } else if (settings.useTemplateAreas) {
-    const areaGrid = buildTemplateAreas(items, cols, rows);
+    const areaGrid = buildTemplateAreas(items, cols, rows, columnFlow);
     container['grid-template-areas'] = areaGrid
       .map(row => `"${row.join(' ')}"`)
       .join(' ');
@@ -114,8 +126,9 @@ function getPlacementRule(start, end) {
   return null;
 }
 
-function buildTemplateAreas(items, cols, rows) {
+function buildTemplateAreas(items, cols, rows, columnFlow) {
   const grid = Array.from({ length: rows }, () => Array(cols).fill('.'));
+  const totalCells = cols * rows;
   let autoIdx = 0;
 
   function placeArea(name, cs, ce, rs, re) {
@@ -135,41 +148,49 @@ function buildTemplateAreas(items, cols, rows) {
     return true;
   }
 
+  function autoCellAt(idx) {
+    if (columnFlow) {
+      return { c: Math.floor(idx / rows), r: idx % rows };
+    }
+    return { r: Math.floor(idx / cols), c: idx % cols };
+  }
+
   items.forEach(item => {
     const name = `area${item.id}`;
-    const hasCol = item.colStart || item.colEnd;
-    const hasRow = item.rowStart || item.rowEnd;
+    const posCol = !!item.colStart;
+    const posRow = !!item.rowStart;
+    const cSpan = posCol
+      ? (item.colEnd || item.colStart + 1) - item.colStart
+      : (item.colEnd ? item.colEnd - 1 : 1);
+    const rSpan = posRow
+      ? (item.rowEnd || item.rowStart + 1) - item.rowStart
+      : (item.rowEnd ? item.rowEnd - 1 : 1);
 
-    if (hasCol && hasRow) {
-      const cs = (item.colStart || 1) - 1;
-      const ce = (item.colEnd || cs + 2) - 1;
-      const rs = (item.rowStart || 1) - 1;
-      const re = (item.rowEnd || rs + 2) - 1;
-      placeArea(name, cs, ce, rs, re);
-    } else if (hasCol && !hasRow) {
-      const cs = (item.colStart || 1) - 1;
-      const ce = (item.colEnd || cs + 2) - 1;
+    if (posCol && posRow) {
+      const cs = item.colStart - 1;
+      const rs = item.rowStart - 1;
+      placeArea(name, cs, cs + cSpan, rs, rs + rSpan);
+    } else if (posCol && !posRow) {
+      const cs = item.colStart - 1;
       for (let r = 0; r < rows; r++) {
-        if (regionFree(cs, ce, r, r + 1)) {
-          placeArea(name, cs, ce, r, r + 1);
+        if (regionFree(cs, cs + cSpan, r, r + rSpan)) {
+          placeArea(name, cs, cs + cSpan, r, r + rSpan);
           break;
         }
       }
-    } else if (hasRow && !hasCol) {
-      const rs = (item.rowStart || 1) - 1;
-      const re = (item.rowEnd || rs + 2) - 1;
+    } else if (posRow && !posCol) {
+      const rs = item.rowStart - 1;
       for (let c = 0; c < cols; c++) {
-        if (regionFree(c, c + 1, rs, re)) {
-          placeArea(name, c, c + 1, rs, re);
+        if (regionFree(c, c + cSpan, rs, rs + rSpan)) {
+          placeArea(name, c, c + cSpan, rs, rs + rSpan);
           break;
         }
       }
     } else {
-      while (autoIdx < cols * rows) {
-        const r = Math.floor(autoIdx / cols);
-        const c = autoIdx % cols;
-        if (grid[r][c] === '.') {
-          grid[r][c] = name;
+      while (autoIdx < totalCells) {
+        const { r, c } = autoCellAt(autoIdx);
+        if (c + cSpan <= cols && r + rSpan <= rows && regionFree(c, c + cSpan, r, r + rSpan)) {
+          placeArea(name, c, c + cSpan, r, r + rSpan);
           autoIdx++;
           break;
         }
@@ -368,6 +389,8 @@ export default function GridDemo() {
 
   const gridRef = useRef(null);
   const dragState = useRef(null);
+  const reorderRef = useRef(null);
+  const [draggingId, setDraggingId] = useState(null);
 
   function getTrackLines() {
     const el = gridRef.current;
@@ -556,6 +579,137 @@ export default function GridDemo() {
     document.addEventListener('pointerup', onUp);
   }
 
+  function findTrackAt(lines, pos) {
+    const centers = [];
+    for (let i = 0; i < lines.length - 1; i++) {
+      centers.push((lines[i] + lines[i + 1]) / 2);
+    }
+    const wNext = TRACK_SNAP_NEXT_CENTER_WEIGHT;
+    const wPrev = 1 - wNext;
+    for (let i = 0; i < centers.length - 1; i++) {
+      const boundary = centers[i] * wPrev + centers[i + 1] * wNext;
+      if (pos < boundary) return i + 1;
+    }
+    return centers.length;
+  }
+
+  function onItemPointerDown(e, itemId) {
+    if (dragState.current) return;
+    if (e.target.closest('.gridDemo_btn') || e.target.closest('.gridDemo_handle')) return;
+    e.preventDefault();
+
+    const boundaries = getTrackLines();
+    const actual = resolveItemPosition(itemId, boundaries);
+    const colSpan = actual.colEnd - actual.col;
+    const rowSpan = actual.rowEnd - actual.row;
+
+    const li = gridRef.current.querySelector(`.grid-item-${itemId}`);
+    const rect = li.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const offsetY = e.clientY - rect.top;
+
+    reorderRef.current = {
+      itemId,
+      boundaries,
+      colSpan,
+      rowSpan,
+      origCol: actual.col,
+      origRow: actual.row,
+      origItems: items.map(i => ({ ...i })),
+      startX: e.clientX,
+      startY: e.clientY,
+      activated: false,
+      ghost: null,
+    };
+
+    const onMove = (ev) => {
+      const rs = reorderRef.current;
+      if (!rs) return;
+
+      const dx = ev.clientX - rs.startX;
+      const dy = ev.clientY - rs.startY;
+
+      if (!rs.activated) {
+        if (Math.abs(dx) < REORDER_DRAG_ACTIVATION_PX && Math.abs(dy) < REORDER_DRAG_ACTIVATION_PX) return;
+        rs.activated = true;
+        setDraggingId(itemId);
+
+        const ghost = li.cloneNode(true);
+        ghost.className = 'gridDemo_item gridDemo_ghost';
+        ghost.style.cssText = `
+          position: fixed;
+          width: ${rect.width}px;
+          height: ${rect.height}px;
+          left: ${ev.clientX - offsetX}px;
+          top: ${ev.clientY - offsetY}px;
+          pointer-events: none;
+          z-index: 100;
+          margin: 0;
+        `;
+        document.body.appendChild(ghost);
+        rs.ghost = ghost;
+      }
+
+      if (rs.ghost) {
+        rs.ghost.style.left = `${ev.clientX - offsetX}px`;
+        rs.ghost.style.top = `${ev.clientY - offsetY}px`;
+      }
+
+      const { colLines, rowLines } = rs.boundaries;
+      const targetCol = findTrackAt(colLines, ev.clientX);
+      const targetRow = findTrackAt(rowLines, ev.clientY);
+      const tce = targetCol + rs.colSpan;
+      const tre = targetRow + rs.rowSpan;
+
+      setItems(rs.origItems.map(item => {
+        if (item.id === rs.itemId) {
+          return { ...item, colStart: targetCol, colEnd: tce, rowStart: targetRow, rowEnd: tre };
+        }
+        if (item.colStart || item.rowStart) {
+          const ics = item.colStart || 1;
+          const ice = item.colEnd || ics + 1;
+          const irs = item.rowStart || 1;
+          const ire = item.rowEnd || irs + 1;
+          if (ics < tce && ice > targetCol && irs < tre && ire > targetRow) {
+            const cSpan = ice - ics;
+            const rSpan = ire - irs;
+            return {
+              ...item,
+              colStart: null,
+              colEnd: cSpan > 1 ? cSpan + 1 : null,
+              rowStart: null,
+              rowEnd: rSpan > 1 ? rSpan + 1 : null,
+            };
+          }
+        }
+        return { ...item };
+      }));
+    };
+
+    const onUp = () => {
+      const rs = reorderRef.current;
+      if (rs) {
+        if (rs.ghost) rs.ghost.remove();
+        if (rs.activated) {
+          setItems(prev => prev.map(item => {
+            if (item.id !== rs.itemId) return item;
+            if (item.colStart === rs.origCol && item.rowStart === rs.origRow) {
+              return { ...item, colStart: null, colEnd: null, rowStart: null, rowEnd: null };
+            }
+            return item;
+          }));
+        }
+      }
+      reorderRef.current = null;
+      setDraggingId(null);
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+    };
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+  }
+
   const EDGES = ['top', 'right', 'bottom', 'left', 'top-left', 'top-right', 'bottom-left', 'bottom-right'];
 
   return (
@@ -594,10 +748,14 @@ export default function GridDemo() {
           class="gridDemo_main_grid"
           ref={gridRef}
         >
-          {items.map((item, i) => (
+          {items.map((item, i) => {
+            let cls = `gridDemo_item grid-item-${item.id}`;
+            if (draggingId === item.id) cls += ' is-dragging';
+            return (
             <li
               key={item.id}
-              class={`gridDemo_item grid-item-${item.id}`}
+              class={cls}
+              onPointerDown={(e) => onItemPointerDown(e, item.id)}
             >
               {getItemLabel(item.id - 1)}
               {EDGES.map(edge => (
@@ -623,7 +781,8 @@ export default function GridDemo() {
                 </span>
               )}
             </li>
-          ))}
+            );
+          })}
         </ul>
       </div>
 

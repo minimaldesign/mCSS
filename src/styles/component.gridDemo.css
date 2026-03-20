@@ -31,6 +31,18 @@
     font-weight: var(--semi-bold);
     font-size: var(--text-sm);
     user-select: none;
+    cursor: grab;
+}
+
+.gridDemo_item.is-dragging {
+    opacity: var(--o-3);
+    cursor: grabbing;
+}
+
+.gridDemo_ghost {
+    opacity: 0.5;
+    filter: brightness(0.7);
+    box-shadow: var(--shadow-lg);
 }
 
 /* Round +/- control buttons */
