@@ -9,7 +9,7 @@
 ## Naming
 
 - **PascalCase** for all component filenames: `ComponentName.astro`, `ComponentName.jsx`.
-- **`_` prefix** for internal/private components: `_ColorPickerHsl.jsx`.
+- **`_` prefix** for internal/private components (not part of the public Astro component library; used only in blog posts or docs): `_ColorPickerOklch.jsx`, `_GridDemo.jsx`.
 
 ## Layouts
 

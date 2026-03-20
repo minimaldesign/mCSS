@@ -45,6 +45,10 @@
 @import url(./component.tags.css);
 @import url(./component.toc.css);
 
+/*  Internal components (not part of the public Astro component library) */
+@import url(./component.colorPickerOklch.css);
+@import url(./component.gridDemo.css);
+
 /*  Page specific styles */
 /* (Use sparingly. Component is probably  the way to go) */
 @import url(./page.blog.css);
@@ -53,8 +57,6 @@
 
 /* Plugins, etc. */
 @import url(./external.astro.css);
-
-@import url(./external.colorPickerOklch.css);
 
 /* Helpers with higher specificity for local overrides */
 /* (Use VERY sparingly, or you might as well use Tailwind…) */
