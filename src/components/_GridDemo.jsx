@@ -43,7 +43,13 @@ function buildGridProps(state) {
 
   const container = { display: 'grid', gap };
 
-  if (settings.useShorthand && !settings.useTemplateAreas) {
+  if (settings.useShorthand && settings.useTemplateAreas) {
+    const areaGrid = buildTemplateAreas(items, cols, rows);
+    const rowParts = areaGrid.map((row, i) =>
+      `"${row.join(' ')}" ${rowSizes[i] || '1fr'}`
+    );
+    container['grid-template'] = `${rowParts.join(' ')} / ${colSizes.join(' ')}`;
+  } else if (settings.useShorthand) {
     container.grid = `${rowTemplate} / ${colTemplate}`;
   } else if (settings.useTemplateAreas) {
     const areaGrid = buildTemplateAreas(items, cols, rows);
@@ -77,8 +83,16 @@ function buildGridProps(state) {
     } else {
       const colRule = getPlacementRule(item.colStart, item.colEnd);
       const rowRule = getPlacementRule(item.rowStart, item.rowEnd);
-      if (colRule) props['grid-column'] = colRule;
-      if (rowRule) props['grid-row'] = rowRule;
+      if (settings.useShorthand && colRule && rowRule) {
+        const rs = item.rowStart || 'auto';
+        const cs = item.colStart || 'auto';
+        const re = item.rowEnd || 'auto';
+        const ce = item.colEnd || 'auto';
+        props['grid-area'] = `${rs} / ${cs} / ${re} / ${ce}`;
+      } else {
+        if (colRule) props['grid-column'] = colRule;
+        if (rowRule) props['grid-row'] = rowRule;
+      }
     }
     return { id: item.id, props };
   });
@@ -141,16 +155,35 @@ function buildPlaceShorthand(align, justify) {
 }
 
 /** Convert CSS-property map → CSS code string (for the code block). */
+function formatMultilineArea(prop, val, indent) {
+  if (prop === 'grid-template-areas') {
+    const areas = val.split('" "').map(s => s.replace(/"/g, ''));
+    const out = [`${indent}grid-template-areas:`];
+    areas.forEach((row, i) => {
+      const suffix = i === areas.length - 1 ? ';' : '';
+      out.push(`${indent}  "${row}"${suffix}`);
+    });
+    return out;
+  }
+  if (prop === 'grid-template') {
+    const slashIdx = val.lastIndexOf(' / ');
+    const rowsPart = val.slice(0, slashIdx);
+    const colsPart = val.slice(slashIdx + 3);
+    const rowMatches = [...rowsPart.matchAll(/"[^"]*"\s*[^"]*/g)].map(m => m[0].trim());
+    const out = [`${indent}grid-template:`];
+    rowMatches.forEach(r => out.push(`${indent}  ${r}`));
+    out.push(`${indent}  / ${colsPart};`);
+    return out;
+  }
+  return null;
+}
+
 function propsToCSS(gridProps) {
   const lines = ['.grid {'];
   for (const [prop, val] of Object.entries(gridProps.container)) {
-    if (prop === 'grid-template-areas') {
-      const areas = val.split('" "').map(s => s.replace(/"/g, ''));
-      lines.push('  grid-template-areas:');
-      areas.forEach((row, i) => {
-        const suffix = i === areas.length - 1 ? ';' : '';
-        lines.push(`    "${row}"${suffix}`);
-      });
+    const multi = formatMultilineArea(prop, val, '  ');
+    if (multi) {
+      lines.push(...multi);
     } else {
       lines.push(`  ${prop}: ${val};`);
     }
@@ -173,11 +206,8 @@ function propsToCSS(gridProps) {
 /** Convert CSS-property map → real CSS rule string for a given selector. */
 function propsToRule(selector, cssProps) {
   const decls = Object.entries(cssProps).map(([prop, val]) => {
-    if (prop === 'grid-template-areas') {
-      const areas = val.split('" "').map(s => s.replace(/"/g, ''));
-      return '  grid-template-areas:\n' +
-        areas.map((row, i) => `    "${row}"${i === areas.length - 1 ? '' : ''}`).join('\n') + ';';
-    }
+    const multi = formatMultilineArea(prop, val, '  ');
+    if (multi) return multi.join('\n');
     return `  ${prop}: ${val};`;
   });
   return `${selector} {\n${decls.join('\n')}\n}`;
