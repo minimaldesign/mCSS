@@ -102,15 +102,32 @@ function getPlacementRule(start, end) {
 
 function buildTemplateAreas(items, cols, rows) {
   const grid = Array.from({ length: rows }, () => Array(cols).fill('.'));
+  let autoIdx = 0;
+
   items.forEach((item) => {
     const name = `area${item.id}`;
-    const cs = (item.colStart || 1) - 1;
-    const ce = (item.colEnd || cs + 2) - 1;
-    const rs = (item.rowStart || 1) - 1;
-    const re = (item.rowEnd || rs + 2) - 1;
-    for (let r = rs; r < re && r < rows; r++) {
-      for (let c = cs; c < ce && c < cols; c++) {
-        grid[r][c] = name;
+    const hasPlacement = item.colStart || item.colEnd || item.rowStart || item.rowEnd;
+
+    if (hasPlacement) {
+      const cs = (item.colStart || 1) - 1;
+      const ce = (item.colEnd || cs + 2) - 1;
+      const rs = (item.rowStart || 1) - 1;
+      const re = (item.rowEnd || rs + 2) - 1;
+      for (let r = rs; r < re && r < rows; r++) {
+        for (let c = cs; c < ce && c < cols; c++) {
+          grid[r][c] = name;
+        }
+      }
+    } else {
+      while (autoIdx < cols * rows) {
+        const r = Math.floor(autoIdx / cols);
+        const c = autoIdx % cols;
+        if (grid[r][c] === '.') {
+          grid[r][c] = name;
+          autoIdx++;
+          break;
+        }
+        autoIdx++;
       }
     }
   });
