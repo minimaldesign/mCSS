@@ -179,5 +179,39 @@
 .gridDemo_settings_title {
     font-weight: var(--bold);
     font-size: var(--text-sm);
+    margin-bottom: var(--sm1);
+}
+
+.gridDemo_settings_check {
+    display: flex;
+    align-items: center;
+    gap: var(--xs2);
+    font-size: var(--text-sm);
+    cursor: pointer;
     margin-bottom: var(--xs2);
+
+    input {
+        margin: 0;
+    }
+}
+
+.gridDemo_settings_field {
+    margin-top: var(--xs3);
+}
+
+.gridDemo_settings_label {
+    display: block;
+    font-size: var(--text-sm);
+    color: light-dark(var(--base-500), var(--base-400));
+    margin-bottom: var(--xs1);
+}
+
+.gridDemo_settings_select {
+    width: 100%;
+    padding: var(--xs1) var(--xs2);
+    font-size: var(--text-sm);
+    border: var(--border-sm) solid var(--theme-border-color);
+    border-radius: var(--radius-md);
+    background: light-dark(var(--base-0), var(--base-800));
+    color: inherit;
 }
