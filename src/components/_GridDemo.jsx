@@ -75,14 +75,18 @@ function buildGridProps(state) {
     container['grid-template-rows'] = rowTemplate;
   }
 
-  if (settings.useShorthand) {
+  if (settings.useShorthand && settings.alignItems && settings.justifyItems) {
     const pi = buildPlaceShorthand(settings.alignItems, settings.justifyItems);
-    const pc = buildPlaceShorthand(settings.alignContent, settings.justifyContent);
     if (pi) container['place-items'] = pi;
-    if (pc) container['place-content'] = pc;
   } else {
     if (settings.justifyItems) container['justify-items'] = settings.justifyItems;
     if (settings.alignItems) container['align-items'] = settings.alignItems;
+  }
+
+  if (settings.useShorthand && settings.alignContent && settings.justifyContent) {
+    const pc = buildPlaceShorthand(settings.alignContent, settings.justifyContent);
+    if (pc) container['place-content'] = pc;
+  } else {
     if (settings.justifyContent) container['justify-content'] = settings.justifyContent;
     if (settings.alignContent) container['align-content'] = settings.alignContent;
   }
@@ -535,37 +539,30 @@ export default function GridDemo() {
           if (item.id !== ds.itemId) return item;
           const patched = { ...item };
 
-          const colSame = patched.colStart === ds.origCol && patched.colEnd === ds.origColEnd;
-          const rowSame = patched.rowStart === ds.origRow && patched.rowEnd === ds.origRowEnd;
-          const colIsNull = patched.colStart === null && patched.colEnd === null;
-          const rowIsNull = patched.rowStart === null && patched.rowEnd === null;
+          const colBackToOrig = patched.colStart === ds.origCol && patched.colEnd === ds.origColEnd;
+          const rowBackToOrig = patched.rowStart === ds.origRow && patched.rowEnd === ds.origRowEnd;
 
-          const colChanged = !colIsNull && !colSame;
-          const rowChanged = !rowIsNull && !rowSame;
-
-          if (!colChanged && !rowChanged) {
+          if (touchesCol && colBackToOrig) {
             patched.colStart = null;
             patched.colEnd = null;
+          }
+          if (touchesRow && rowBackToOrig) {
             patched.rowStart = null;
             patched.rowEnd = null;
-          } else if (rowChanged && !colChanged) {
-            if (ds.columnFlow) {
-              patched.colStart = null;
-              patched.colEnd = null;
-            } else {
-              patched.colStart = ds.origCol;
-              patched.colEnd = ds.origColEnd;
-            }
-          } else if (colChanged && !rowChanged) {
-            if (ds.columnFlow) {
-              patched.rowStart = ds.origRow;
-              patched.rowEnd = ds.origRowEnd;
-            } else {
-              patched.rowStart = null;
-              patched.rowEnd = null;
-            }
           }
-          // Both changed: keep both as-is
+
+          const hasCol = patched.colStart !== null || patched.colEnd !== null;
+          const hasRow = patched.rowStart !== null || patched.rowEnd !== null;
+
+          // Pin cross-axis to prevent auto-placement jump
+          if (hasRow && !hasCol && !ds.columnFlow) {
+            patched.colStart = ds.origCol;
+            patched.colEnd = ds.origColEnd;
+          }
+          if (hasCol && !hasRow && ds.columnFlow) {
+            patched.rowStart = ds.origRow;
+            patched.rowEnd = ds.origRowEnd;
+          }
 
           return patched;
         }));
