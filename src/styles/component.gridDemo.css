@@ -1,277 +1,302 @@
 .gridDemo {
-    width: 100%;
+  width: 100%;
 }
 
 /* Main — interactive grid */
 
 .gridDemo_main {
-    position: relative;
-    width: 100%;
-    margin-bottom: var(--sm3);
-    padding-top: var(--lg1);
-    padding-left: var(--lg1);
+  position: relative;
+  width: 100%;
+  margin-bottom: var(--sm3);
+  padding-top: var(--lg1);
+  padding-left: var(--lg1);
 }
 
 .gridDemo_main_grid {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .gridDemo_item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 200px;
-    min-height: 100px;
-    border-radius: var(--radius-md);
-    background-color: light-dark(var(--primary-100), var(--primary-900));
-    color: light-dark(var(--primary-800), var(--primary-200));
-    font-weight: var(--semi-bold);
-    font-size: var(--text-sm);
-    user-select: none;
-    cursor: grab;
+  position: relative;
+  display: inline-block;
+  padding: var(--xs2) var(--xs3);
+  border-radius: var(--radius-md);
+  background-color: light-dark(var(--primary-100), var(--primary-900));
+  color: light-dark(var(--primary-800), var(--primary-200));
+  font-weight: var(--semi-bold);
+  font-size: var(--text-sm);
+  user-select: none;
+  cursor: grab;
 }
 
 .gridDemo_item.is-dragging {
-    opacity: var(--o-3);
-    cursor: grabbing;
+  opacity: var(--o-3);
+  cursor: grabbing;
 }
 
 .gridDemo_ghost {
-    opacity: 0.5;
-    filter: brightness(0.7);
-    box-shadow: var(--shadow-lg);
+  opacity: 0.5;
+  filter: brightness(0.7);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Round +/- control buttons */
 
 .gridDemo_btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: var(--radius-round);
-    border: var(--border-sm) solid var(--theme-border-color);
-    background: light-dark(var(--base-0), var(--base-800));
-    color: light-dark(var(--base-600), var(--base-300));
-    font-size: var(--text-lg);
-    line-height: 1;
-    cursor: pointer;
-    transition: background var(--transition), color var(--transition);
-    padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-round);
+  border: var(--border-sm) solid var(--theme-border-color);
+  background: light-dark(var(--base-0), var(--base-800));
+  color: light-dark(var(--base-600), var(--base-300));
+  font-size: var(--text-lg);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    color var(--transition);
+  padding: 0;
 
-    &:hover:not(:disabled) {
-        background: light-dark(var(--base-100), var(--base-700));
-        color: light-dark(var(--base-900), var(--base-0));
-    }
+  &:hover:not(:disabled) {
+    background: light-dark(var(--base-100), var(--base-700));
+    color: light-dark(var(--base-900), var(--base-0));
+  }
 
-    &:disabled {
-        opacity: var(--o-1);
-        cursor: not-allowed;
-    }
+  &:disabled {
+    opacity: var(--o-1);
+    cursor: not-allowed;
+  }
 }
 
 .gridDemo_btn-xs {
-    width: 22px;
-    height: 22px;
-    font-size: var(--text-md);
+  width: 22px;
+  height: 22px;
+  font-size: var(--text-md);
 }
 
 /* Column controls — top-right of grid */
 
 .gridDemo_controls-col {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    gap: var(--xs1);
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: var(--xs1);
 }
 
 /* Row controls — bottom-left of grid */
 
 .gridDemo_controls-row {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--xs1);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs1);
 }
 
 /* Item add/remove — inside last grid item */
 
 .gridDemo_controls-item {
-    position: absolute;
-    bottom: var(--xs1);
-    right: var(--xs1);
-    display: flex;
-    gap: var(--xs1);
+  position: absolute;
+  bottom: var(--xs1);
+  right: var(--xs1);
+  display: flex;
+  gap: var(--xs1);
 }
 
 /* Bottom row — code block + settings */
 
 .gridDemo_bottom {
-    display: flex;
-    gap: var(--sm3);
-    align-items: flex-start;
+  display: flex;
+  gap: var(--sm3);
+  align-items: flex-start;
 
-    @media (--md-n-below) {
-        flex-direction: column;
-    }
+  @media (--md-n-below) {
+    flex-direction: column;
+  }
 }
 
 /* Code block */
 
 .gridDemo_code {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .gridDemo_code_tabs {
-    display: flex;
-    gap: 0;
+  display: flex;
+  gap: 0;
 }
 
 .gridDemo_code_tab {
-    padding: var(--xs2) var(--sm1);
-    border: var(--border-sm) solid var(--theme-border-color);
-    border-bottom: none;
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-    background: light-dark(var(--base-100), var(--base-800));
-    color: light-dark(var(--base-500), var(--base-400));
-    font-size: var(--text-sm);
-    font-weight: var(--semi-bold);
-    cursor: pointer;
-    transition: background var(--transition), color var(--transition);
+  padding: var(--xs2) var(--sm1);
+  border: var(--border-sm) solid var(--theme-border-color);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: light-dark(var(--base-100), var(--base-800));
+  color: light-dark(var(--base-500), var(--base-400));
+  font-size: var(--text-sm);
+  font-weight: var(--semi-bold);
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    color var(--transition);
 
-    &.is-active {
-        background: light-dark(var(--base-950), var(--base-900));
-        color: light-dark(var(--base-0), var(--base-200));
-    }
+  &.is-active {
+    background: light-dark(var(--base-950), var(--base-900));
+    color: light-dark(var(--base-0), var(--base-200));
+  }
 
-    & + & {
-        margin-left: calc(var(--border-sm) * -1);
-    }
+  & + & {
+    margin-left: calc(var(--border-sm) * -1);
+  }
 }
 
 .gridDemo_code_block {
-    margin: 0;
-    padding: var(--sm1);
-    border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
-    background: light-dark(var(--base-950), var(--base-900));
-    color: light-dark(var(--base-200), var(--base-200));
-    font-family: var(--mono);
-    font-size: var(--text-sm);
-    line-height: var(--leading-lg);
-    overflow-x: auto;
-    white-space: pre;
+  margin: 0;
+  padding: var(--sm1);
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  background: light-dark(var(--base-950), var(--base-900));
+  color: light-dark(var(--base-200), var(--base-200));
+  font-family: var(--mono);
+  font-size: var(--text-sm);
+  line-height: var(--leading-lg);
+  overflow-x: auto;
+  white-space: pre;
 
-    code {
-        font-family: inherit;
-        background: none;
-        padding: 0;
-        color: inherit;
-    }
+  code {
+    font-family: inherit;
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
 }
 
 /* Resize handles on grid items */
 
 .gridDemo_handle {
-    position: absolute;
-    z-index: var(--z-1);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
+  position: absolute;
+  z-index: var(--z-1);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
 }
 
 .gridDemo_item:hover .gridDemo_handle {
-    opacity: 1;
+  opacity: 1;
 }
 
 .gridDemo_handle-top,
 .gridDemo_handle-bottom {
-    left: 8px;
-    right: 8px;
-    height: 6px;
-    cursor: ns-resize;
+  left: 8px;
+  right: 8px;
+  height: 6px;
+  cursor: ns-resize;
 }
 
-.gridDemo_handle-top { top: -3px; }
-.gridDemo_handle-bottom { bottom: -3px; }
+.gridDemo_handle-top {
+  top: -3px;
+}
+.gridDemo_handle-bottom {
+  bottom: -3px;
+}
 
 .gridDemo_handle-left,
 .gridDemo_handle-right {
-    top: 8px;
-    bottom: 8px;
-    width: 6px;
-    cursor: ew-resize;
+  top: 8px;
+  bottom: 8px;
+  width: 6px;
+  cursor: ew-resize;
 }
 
-.gridDemo_handle-left { left: -3px; }
-.gridDemo_handle-right { right: -3px; }
+.gridDemo_handle-left {
+  left: -3px;
+}
+.gridDemo_handle-right {
+  right: -3px;
+}
 
 .gridDemo_handle-top-left,
 .gridDemo_handle-top-right,
 .gridDemo_handle-bottom-left,
 .gridDemo_handle-bottom-right {
-    width: 10px;
-    height: 10px;
+  width: 10px;
+  height: 10px;
 }
 
-.gridDemo_handle-top-left { top: -5px; left: -5px; cursor: nwse-resize; }
-.gridDemo_handle-top-right { top: -5px; right: -5px; cursor: nesw-resize; }
-.gridDemo_handle-bottom-left { bottom: -5px; left: -5px; cursor: nesw-resize; }
-.gridDemo_handle-bottom-right { bottom: -5px; right: -5px; cursor: nwse-resize; }
+.gridDemo_handle-top-left {
+  top: -5px;
+  left: -5px;
+  cursor: nwse-resize;
+}
+.gridDemo_handle-top-right {
+  top: -5px;
+  right: -5px;
+  cursor: nesw-resize;
+}
+.gridDemo_handle-bottom-left {
+  bottom: -5px;
+  left: -5px;
+  cursor: nesw-resize;
+}
+.gridDemo_handle-bottom-right {
+  bottom: -5px;
+  right: -5px;
+  cursor: nwse-resize;
+}
 
 /* Settings panel */
 
 .gridDemo_settings {
-    width: 220px;
-    flex-shrink: 0;
+  width: 220px;
+  flex-shrink: 0;
 
-    @media (--md-n-below) {
-        width: 100%;
-    }
+  @media (--md-n-below) {
+    width: 100%;
+  }
 }
 
 .gridDemo_settings_title {
-    font-weight: var(--bold);
-    font-size: var(--text-sm);
-    margin-bottom: var(--sm1);
+  font-weight: var(--bold);
+  font-size: var(--text-sm);
+  margin-bottom: var(--sm1);
 }
 
 .gridDemo_settings_check {
-    display: flex;
-    align-items: center;
-    gap: var(--xs2);
-    font-size: var(--text-sm);
-    cursor: pointer;
-    margin-bottom: var(--xs2);
+  display: flex;
+  align-items: center;
+  gap: var(--xs2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  margin-bottom: var(--xs2);
 
-    input {
-        margin: 0;
-    }
+  input {
+    margin: 0;
+  }
 }
 
 .gridDemo_settings_field {
-    margin-top: var(--xs3);
+  margin-top: var(--xs3);
 }
 
 .gridDemo_settings_label {
-    display: block;
-    font-size: var(--text-sm);
-    color: light-dark(var(--base-500), var(--base-400));
-    margin-bottom: var(--xs1);
+  display: block;
+  font-size: var(--text-sm);
+  color: light-dark(var(--base-500), var(--base-400));
+  margin-bottom: var(--xs1);
 }
 
 .gridDemo_settings_select {
-    width: 100%;
-    padding: var(--xs1) var(--xs2);
-    font-size: var(--text-sm);
-    border: var(--border-sm) solid var(--theme-border-color);
-    border-radius: var(--radius-md);
-    background: light-dark(var(--base-0), var(--base-800));
-    color: inherit;
+  width: 100%;
+  padding: var(--xs1) var(--xs2);
+  font-size: var(--text-sm);
+  border: var(--border-sm) solid var(--theme-border-color);
+  border-radius: var(--radius-md);
+  background: light-dark(var(--base-0), var(--base-800));
+  color: inherit;
 }
