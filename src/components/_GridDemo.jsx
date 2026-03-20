@@ -367,15 +367,29 @@ export default function GridDemo() {
     const boundaries = getTrackLines();
     const actual = resolveItemPosition(itemId, boundaries);
 
+    const columnFlow = settings.gridAutoFlow === 'column' || settings.gridAutoFlow === 'column dense';
+
     dragState.current = {
       itemId,
       edge,
       boundaries,
+      columnFlow,
       origCol: actual.col,
       origColEnd: actual.colEnd,
       origRow: actual.row,
       origRowEnd: actual.rowEnd,
     };
+
+    const touchesCol = edge === 'right' || edge === 'left' ||
+      edge === 'top-right' || edge === 'top-left' ||
+      edge === 'bottom-right' || edge === 'bottom-left';
+    const touchesRow = edge === 'top' || edge === 'bottom' ||
+      edge === 'top-right' || edge === 'top-left' ||
+      edge === 'bottom-right' || edge === 'bottom-left';
+    const isRight = edge === 'right' || edge === 'top-right' || edge === 'bottom-right';
+    const isLeft = edge === 'left' || edge === 'top-left' || edge === 'bottom-left';
+    const isBottom = edge === 'bottom' || edge === 'bottom-left' || edge === 'bottom-right';
+    const isTop = edge === 'top' || edge === 'top-left' || edge === 'top-right';
 
     const onMove = (ev) => {
       const ds = dragState.current;
@@ -384,38 +398,92 @@ export default function GridDemo() {
 
       setItems(prev => prev.map(item => {
         if (item.id !== ds.itemId) return item;
-        const p = {
-          colStart: item.colStart || ds.origCol,
-          colEnd: item.colEnd || ds.origColEnd,
-          rowStart: item.rowStart || ds.origRow,
-          rowEnd: item.rowEnd || ds.origRowEnd,
-        };
+        const patched = { ...item };
 
-        const isRight = edge === 'right' || edge === 'top-right' || edge === 'bottom-right';
-        const isLeft = edge === 'left' || edge === 'top-left' || edge === 'bottom-left';
-        const isBottom = edge === 'bottom' || edge === 'bottom-left' || edge === 'bottom-right';
-        const isTop = edge === 'top' || edge === 'top-left' || edge === 'top-right';
-
-        if (isRight) {
-          p.colEnd = Math.max(p.colStart + 1, findNearestLine(colLines, ev.clientX));
-        }
-        if (isLeft) {
-          p.colStart = Math.min(p.colEnd - 1, findNearestLine(colLines, ev.clientX));
-          if (p.colStart < 1) p.colStart = 1;
-        }
-        if (isBottom) {
-          p.rowEnd = Math.max(p.rowStart + 1, findNearestLine(rowLines, ev.clientY));
-        }
-        if (isTop) {
-          p.rowStart = Math.min(p.rowEnd - 1, findNearestLine(rowLines, ev.clientY));
-          if (p.rowStart < 1) p.rowStart = 1;
+        if (touchesCol) {
+          const cs = item.colStart || ds.origCol;
+          const ce = item.colEnd || ds.origColEnd;
+          if (isRight) {
+            patched.colStart = cs;
+            patched.colEnd = Math.max(cs + 1, findNearestLine(colLines, ev.clientX));
+          }
+          if (isLeft) {
+            patched.colEnd = ce;
+            patched.colStart = Math.min(ce - 1, Math.max(1, findNearestLine(colLines, ev.clientX)));
+          }
         }
 
-        return { ...item, colStart: p.colStart, colEnd: p.colEnd, rowStart: p.rowStart, rowEnd: p.rowEnd };
+        if (touchesRow) {
+          const rs = item.rowStart || ds.origRow;
+          const re = item.rowEnd || ds.origRowEnd;
+          if (isBottom) {
+            patched.rowStart = rs;
+            patched.rowEnd = Math.max(rs + 1, findNearestLine(rowLines, ev.clientY));
+          }
+          if (isTop) {
+            patched.rowEnd = re;
+            patched.rowStart = Math.min(re - 1, Math.max(1, findNearestLine(rowLines, ev.clientY)));
+          }
+        }
+
+        // Pin the cross-axis to prevent auto-placement jumps.
+        // In row flow, explicit row without column → item jumps to col 1.
+        // In column flow, explicit column without row → item jumps to row 1.
+        if (touchesRow && !touchesCol && !ds.columnFlow) {
+          patched.colStart = item.colStart || ds.origCol;
+          patched.colEnd = item.colEnd || ds.origColEnd;
+        }
+        if (touchesCol && !touchesRow && ds.columnFlow) {
+          patched.rowStart = item.rowStart || ds.origRow;
+          patched.rowEnd = item.rowEnd || ds.origRowEnd;
+        }
+
+        return patched;
       }));
     };
 
     const onUp = () => {
+      const ds = dragState.current;
+      if (ds) {
+        setItems(prev => prev.map(item => {
+          if (item.id !== ds.itemId) return item;
+          const patched = { ...item };
+
+          const colSame = patched.colStart === ds.origCol && patched.colEnd === ds.origColEnd;
+          const rowSame = patched.rowStart === ds.origRow && patched.rowEnd === ds.origRowEnd;
+          const colIsNull = patched.colStart === null && patched.colEnd === null;
+          const rowIsNull = patched.rowStart === null && patched.rowEnd === null;
+
+          const colChanged = !colIsNull && !colSame;
+          const rowChanged = !rowIsNull && !rowSame;
+
+          if (!colChanged && !rowChanged) {
+            patched.colStart = null;
+            patched.colEnd = null;
+            patched.rowStart = null;
+            patched.rowEnd = null;
+          } else if (rowChanged && !colChanged) {
+            if (ds.columnFlow) {
+              patched.colStart = null;
+              patched.colEnd = null;
+            } else {
+              patched.colStart = ds.origCol;
+              patched.colEnd = ds.origColEnd;
+            }
+          } else if (colChanged && !rowChanged) {
+            if (ds.columnFlow) {
+              patched.rowStart = ds.origRow;
+              patched.rowEnd = ds.origRowEnd;
+            } else {
+              patched.rowStart = null;
+              patched.rowEnd = null;
+            }
+          }
+          // Both changed: keep both as-is
+
+          return patched;
+        }));
+      }
       dragState.current = null;
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
