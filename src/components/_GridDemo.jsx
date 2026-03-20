@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'preact/hooks';
+import { useState, useMemo, useRef } from 'preact/hooks';
 
 const ITEM_LABELS = [
   'One', 'Two', 'Three', 'Four', 'Five', 'Six',
@@ -170,14 +170,28 @@ function propsToCSS(gridProps) {
   return lines.join('\n');
 }
 
-/** Convert CSS-property map → inline style object (for the live grid). */
-function propsToStyle(cssProps) {
-  const style = {};
-  for (const [prop, val] of Object.entries(cssProps)) {
-    const camel = prop.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-    style[camel] = val;
-  }
-  return style;
+/** Convert CSS-property map → real CSS rule string for a given selector. */
+function propsToRule(selector, cssProps) {
+  const decls = Object.entries(cssProps).map(([prop, val]) => {
+    if (prop === 'grid-template-areas') {
+      const areas = val.split('" "').map(s => s.replace(/"/g, ''));
+      return '  grid-template-areas:\n' +
+        areas.map((row, i) => `    "${row}"${i === areas.length - 1 ? '' : ''}`).join('\n') + ';';
+    }
+    return `  ${prop}: ${val};`;
+  });
+  return `${selector} {\n${decls.join('\n')}\n}`;
+}
+
+/** Build complete stylesheet applied to the live grid (uses real class names). */
+function buildLiveStylesheet(gridProps) {
+  const rules = [propsToRule('.gridDemo_main_grid', gridProps.container)];
+  gridProps.itemProps.forEach(({ id, props }) => {
+    if (Object.keys(props).length) {
+      rules.push(propsToRule(`.gridDemo_main_grid .grid-item-${id}`, props));
+    }
+  });
+  return rules.join('\n');
 }
 
 function generateHTML(items) {
@@ -231,7 +245,7 @@ export default function GridDemo() {
     [cols, rows, colSizes, rowSizes, items, settings]
   );
 
-  const gridStyle = useMemo(() => propsToStyle(gridProps.container), [gridProps]);
+  const liveCSS = useMemo(() => buildLiveStylesheet(gridProps), [gridProps]);
 
   const cssCode = useMemo(() => propsToCSS(gridProps), [gridProps]);
 
@@ -289,13 +303,133 @@ export default function GridDemo() {
     setItems(prev => prev.slice(0, -1));
   }
 
-  function getItemStyle(item) {
-    const match = gridProps.itemProps.find(ip => ip.id === item.id);
-    return match ? propsToStyle(match.props) : {};
+  const gridRef = useRef(null);
+  const dragState = useRef(null);
+
+  function getTrackLines() {
+    const el = gridRef.current;
+    if (!el) return { colLines: [], rowLines: [] };
+    const cs = getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    const colTracks = cs.gridTemplateColumns.split(' ').map(parseFloat);
+    const rowTracks = cs.gridTemplateRows.split(' ').map(parseFloat);
+    const colGap = parseFloat(cs.columnGap) || 0;
+    const rowGap = parseFloat(cs.rowGap) || 0;
+
+    const colLines = [rect.left];
+    let cx = rect.left;
+    for (let i = 0; i < colTracks.length; i++) {
+      cx += colTracks[i];
+      colLines.push(cx);
+      if (i < colTracks.length - 1) cx += colGap;
+    }
+
+    const rowLines = [rect.top];
+    let ry = rect.top;
+    for (let i = 0; i < rowTracks.length; i++) {
+      ry += rowTracks[i];
+      rowLines.push(ry);
+      if (i < rowTracks.length - 1) ry += rowGap;
+    }
+
+    return { colLines, rowLines };
   }
+
+  function findNearestLine(lines, pos) {
+    let best = 0;
+    let bestDist = Infinity;
+    for (let i = 0; i < lines.length; i++) {
+      const d = Math.abs(lines[i] - pos);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    return best + 1;
+  }
+
+  function resolveItemPosition(itemId, trackLines) {
+    const el = gridRef.current;
+    if (!el) return { col: 1, colEnd: 2, row: 1, rowEnd: 2 };
+    const li = el.querySelector(`.grid-item-${itemId}`);
+    if (!li) return { col: 1, colEnd: 2, row: 1, rowEnd: 2 };
+    const rect = li.getBoundingClientRect();
+    const { colLines, rowLines } = trackLines;
+    return {
+      col: findNearestLine(colLines, rect.left),
+      colEnd: findNearestLine(colLines, rect.right),
+      row: findNearestLine(rowLines, rect.top),
+      rowEnd: findNearestLine(rowLines, rect.bottom),
+    };
+  }
+
+  function onHandlePointerDown(e, itemId, edge) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const boundaries = getTrackLines();
+    const actual = resolveItemPosition(itemId, boundaries);
+
+    dragState.current = {
+      itemId,
+      edge,
+      boundaries,
+      origCol: actual.col,
+      origColEnd: actual.colEnd,
+      origRow: actual.row,
+      origRowEnd: actual.rowEnd,
+    };
+
+    const onMove = (ev) => {
+      const ds = dragState.current;
+      if (!ds) return;
+      const { colLines, rowLines } = ds.boundaries;
+
+      setItems(prev => prev.map(item => {
+        if (item.id !== ds.itemId) return item;
+        const p = {
+          colStart: item.colStart || ds.origCol,
+          colEnd: item.colEnd || ds.origColEnd,
+          rowStart: item.rowStart || ds.origRow,
+          rowEnd: item.rowEnd || ds.origRowEnd,
+        };
+
+        const isRight = edge === 'right' || edge === 'top-right' || edge === 'bottom-right';
+        const isLeft = edge === 'left' || edge === 'top-left' || edge === 'bottom-left';
+        const isBottom = edge === 'bottom' || edge === 'bottom-left' || edge === 'bottom-right';
+        const isTop = edge === 'top' || edge === 'top-left' || edge === 'top-right';
+
+        if (isRight) {
+          p.colEnd = Math.max(p.colStart + 1, findNearestLine(colLines, ev.clientX));
+        }
+        if (isLeft) {
+          p.colStart = Math.min(p.colEnd - 1, findNearestLine(colLines, ev.clientX));
+          if (p.colStart < 1) p.colStart = 1;
+        }
+        if (isBottom) {
+          p.rowEnd = Math.max(p.rowStart + 1, findNearestLine(rowLines, ev.clientY));
+        }
+        if (isTop) {
+          p.rowStart = Math.min(p.rowEnd - 1, findNearestLine(rowLines, ev.clientY));
+          if (p.rowStart < 1) p.rowStart = 1;
+        }
+
+        return { ...item, colStart: p.colStart, colEnd: p.colEnd, rowStart: p.rowStart, rowEnd: p.rowEnd };
+      }));
+    };
+
+    const onUp = () => {
+      dragState.current = null;
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+    };
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+  }
+
+  const EDGES = ['top', 'right', 'bottom', 'left', 'top-left', 'top-right', 'bottom-left', 'bottom-right'];
 
   return (
     <div class="gridDemo">
+      <style dangerouslySetInnerHTML={{ __html: liveCSS }} />
       <div class="gridDemo_main">
         <div class="gridDemo_controls-col">
           <button
@@ -325,14 +459,23 @@ export default function GridDemo() {
           >+</button>
         </div>
 
-        <ul class="gridDemo_main_grid" style={gridStyle}>
+        <ul
+          class="gridDemo_main_grid"
+          ref={gridRef}
+        >
           {items.map((item, i) => (
             <li
               key={item.id}
               class={`gridDemo_item grid-item-${item.id}`}
-              style={getItemStyle(item)}
             >
               {getItemLabel(item.id - 1)}
+              {EDGES.map(edge => (
+                <span
+                  key={edge}
+                  class={`gridDemo_handle gridDemo_handle-${edge}`}
+                  onPointerDown={(e) => onHandlePointerDown(e, item.id, edge)}
+                />
+              ))}
               {i === items.length - 1 && (
                 <span class="gridDemo_controls-item">
                   <button

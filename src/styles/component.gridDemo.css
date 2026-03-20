@@ -165,6 +165,54 @@
     }
 }
 
+/* Resize handles on grid items */
+
+.gridDemo_handle {
+    position: absolute;
+    z-index: var(--z-1);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.gridDemo_item:hover .gridDemo_handle {
+    opacity: 1;
+}
+
+.gridDemo_handle-top,
+.gridDemo_handle-bottom {
+    left: 8px;
+    right: 8px;
+    height: 6px;
+    cursor: ns-resize;
+}
+
+.gridDemo_handle-top { top: -3px; }
+.gridDemo_handle-bottom { bottom: -3px; }
+
+.gridDemo_handle-left,
+.gridDemo_handle-right {
+    top: 8px;
+    bottom: 8px;
+    width: 6px;
+    cursor: ew-resize;
+}
+
+.gridDemo_handle-left { left: -3px; }
+.gridDemo_handle-right { right: -3px; }
+
+.gridDemo_handle-top-left,
+.gridDemo_handle-top-right,
+.gridDemo_handle-bottom-left,
+.gridDemo_handle-bottom-right {
+    width: 10px;
+    height: 10px;
+}
+
+.gridDemo_handle-top-left { top: -5px; left: -5px; cursor: nwse-resize; }
+.gridDemo_handle-top-right { top: -5px; right: -5px; cursor: nesw-resize; }
+.gridDemo_handle-bottom-left { bottom: -5px; left: -5px; cursor: nesw-resize; }
+.gridDemo_handle-bottom-right { bottom: -5px; right: -5px; cursor: nwse-resize; }
+
 /* Settings panel */
 
 .gridDemo_settings {
