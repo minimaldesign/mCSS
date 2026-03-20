@@ -118,18 +118,50 @@ function buildTemplateAreas(items, cols, rows) {
   const grid = Array.from({ length: rows }, () => Array(cols).fill('.'));
   let autoIdx = 0;
 
-  items.forEach((item) => {
-    const name = `area${item.id}`;
-    const hasPlacement = item.colStart || item.colEnd || item.rowStart || item.rowEnd;
+  function placeArea(name, cs, ce, rs, re) {
+    for (let r = rs; r < re && r < rows; r++) {
+      for (let c = cs; c < ce && c < cols; c++) {
+        grid[r][c] = name;
+      }
+    }
+  }
 
-    if (hasPlacement) {
+  function regionFree(cs, ce, rs, re) {
+    for (let r = rs; r < re && r < rows; r++) {
+      for (let c = cs; c < ce && c < cols; c++) {
+        if (c >= cols || grid[r][c] !== '.') return false;
+      }
+    }
+    return true;
+  }
+
+  items.forEach(item => {
+    const name = `area${item.id}`;
+    const hasCol = item.colStart || item.colEnd;
+    const hasRow = item.rowStart || item.rowEnd;
+
+    if (hasCol && hasRow) {
       const cs = (item.colStart || 1) - 1;
       const ce = (item.colEnd || cs + 2) - 1;
       const rs = (item.rowStart || 1) - 1;
       const re = (item.rowEnd || rs + 2) - 1;
-      for (let r = rs; r < re && r < rows; r++) {
-        for (let c = cs; c < ce && c < cols; c++) {
-          grid[r][c] = name;
+      placeArea(name, cs, ce, rs, re);
+    } else if (hasCol && !hasRow) {
+      const cs = (item.colStart || 1) - 1;
+      const ce = (item.colEnd || cs + 2) - 1;
+      for (let r = 0; r < rows; r++) {
+        if (regionFree(cs, ce, r, r + 1)) {
+          placeArea(name, cs, ce, r, r + 1);
+          break;
+        }
+      }
+    } else if (hasRow && !hasCol) {
+      const rs = (item.rowStart || 1) - 1;
+      const re = (item.rowEnd || rs + 2) - 1;
+      for (let c = 0; c < cols; c++) {
+        if (regionFree(c, c + 1, rs, re)) {
+          placeArea(name, c, c + 1, rs, re);
+          break;
         }
       }
     } else {
@@ -145,6 +177,7 @@ function buildTemplateAreas(items, cols, rows) {
       }
     }
   });
+
   return grid;
 }
 
