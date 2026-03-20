@@ -459,6 +459,9 @@ export default function GridDemo() {
 
     const columnFlow = settings.gridAutoFlow === 'column' || settings.gridAutoFlow === 'column dense';
 
+    const li = gridRef.current.querySelector(`.grid-item-${itemId}`);
+    const liRect = li.getBoundingClientRect();
+
     dragState.current = {
       itemId,
       edge,
@@ -468,7 +471,9 @@ export default function GridDemo() {
       origColEnd: actual.colEnd,
       origRow: actual.row,
       origRowEnd: actual.rowEnd,
+      ghost: null,
     };
+    setDraggingId(itemId);
 
     const touchesCol = edge === 'right' || edge === 'left' ||
       edge === 'top-right' || edge === 'top-left' ||
@@ -485,6 +490,36 @@ export default function GridDemo() {
       const ds = dragState.current;
       if (!ds) return;
       const { colLines, rowLines } = ds.boundaries;
+
+      if (!ds.ghost) {
+        const ghost = li.cloneNode(true);
+        ghost.className = 'gridDemo_item gridDemo_ghost';
+        ghost.style.cssText = `
+          position: fixed;
+          width: ${liRect.width}px;
+          height: ${liRect.height}px;
+          left: ${liRect.left}px;
+          top: ${liRect.top}px;
+          pointer-events: none;
+          z-index: 100;
+          margin: 0;
+        `;
+        document.body.appendChild(ghost);
+        ds.ghost = ghost;
+      }
+
+      // Resize ghost to follow the pointer on the dragged edge(s)
+      const g = ds.ghost;
+      let gLeft = liRect.left, gRight = liRect.right;
+      let gTop = liRect.top, gBottom = liRect.bottom;
+      if (isRight) gRight = Math.max(gLeft + 20, ev.clientX);
+      if (isLeft) gLeft = Math.min(gRight - 20, ev.clientX);
+      if (isBottom) gBottom = Math.max(gTop + 20, ev.clientY);
+      if (isTop) gTop = Math.min(gBottom - 20, ev.clientY);
+      g.style.left = gLeft + 'px';
+      g.style.top = gTop + 'px';
+      g.style.width = (gRight - gLeft) + 'px';
+      g.style.height = (gBottom - gTop) + 'px';
 
       setItems(prev => prev.map(item => {
         if (item.id !== ds.itemId) return item;
@@ -535,6 +570,7 @@ export default function GridDemo() {
     const onUp = () => {
       const ds = dragState.current;
       if (ds) {
+        if (ds.ghost) ds.ghost.remove();
         setItems(prev => prev.map(item => {
           if (item.id !== ds.itemId) return item;
           const patched = { ...item };
@@ -568,6 +604,7 @@ export default function GridDemo() {
         }));
       }
       dragState.current = null;
+      setDraggingId(null);
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
     };
