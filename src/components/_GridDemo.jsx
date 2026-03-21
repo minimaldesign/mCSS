@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from 'preact/hooks';
+import { useState, useMemo, useRef, useEffect } from 'preact/hooks';
 
 const ITEM_LABELS = [
   'One', 'Two', 'Three', 'Four', 'Five', 'Six',
@@ -22,6 +22,9 @@ const REORDER_DRAG_ACTIVATION_PX = 8;
  * (cursor must move further into the target cell). 0.75 ≈ “~25% into the target” vs midpoint snap.
  */
 const TRACK_SNAP_NEXT_CENTER_WEIGHT = 0.75;
+
+/** Minimum track size (px) when resizing via track handles — prevents collapsing. */
+const MIN_TRACK_PX = 20;
 
 function getItemLabel(index) {
   return ITEM_LABELS[index] || `Item ${index + 1}`;
@@ -395,6 +398,87 @@ export default function GridDemo() {
   const dragState = useRef(null);
   const reorderRef = useRef(null);
   const [draggingId, setDraggingId] = useState(null);
+  const trackDragRef = useRef(null);
+  const [trackPositions, setTrackPositions] = useState({ col: [], row: [], gridW: 0, gridH: 0 });
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const frame = requestAnimationFrame(() => {
+      const cs = getComputedStyle(el);
+      const rect = el.getBoundingClientRect();
+      const parentRect = el.parentElement.getBoundingClientRect();
+      const offsetX = rect.left - parentRect.left;
+      const offsetY = rect.top - parentRect.top;
+      const colTracks = cs.gridTemplateColumns.split(' ').map(parseFloat);
+      const rowTracks = cs.gridTemplateRows.split(' ').map(parseFloat);
+      const colGap = parseFloat(cs.columnGap) || 0;
+      const rowGap = parseFloat(cs.rowGap) || 0;
+
+      const colHandles = [];
+      let cx = offsetX;
+      for (let i = 0; i < colTracks.length - 1; i++) {
+        cx += colTracks[i];
+        colHandles.push(cx + colGap / 2);
+        cx += colGap;
+      }
+
+      const rowHandles = [];
+      let ry = offsetY;
+      for (let i = 0; i < rowTracks.length - 1; i++) {
+        ry += rowTracks[i];
+        rowHandles.push(ry + rowGap / 2);
+        ry += rowGap;
+      }
+
+      setTrackPositions({ col: colHandles, row: rowHandles, gridW: rect.width, gridH: rect.height, offsetX, offsetY, colGap, rowGap });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [cols, rows, colSizes, rowSizes, items, settings, draggingId]);
+
+  function onTrackPointerDown(axis, index, e) {
+    e.preventDefault();
+    const el = gridRef.current;
+    if (!el) return;
+    const cs = getComputedStyle(el);
+    const tracks = (axis === 'col' ? cs.gridTemplateColumns : cs.gridTemplateRows)
+      .split(' ').map(parseFloat);
+    const startPos = axis === 'col' ? e.clientX : e.clientY;
+    const sizeA = tracks[index];
+    const sizeB = tracks[index + 1];
+
+    trackDragRef.current = { axis, index, startPos, sizeA, sizeB };
+    const handle = e.currentTarget;
+    handle.classList.add('is-active');
+    handle.setPointerCapture(e.pointerId);
+
+    const onMove = (ev) => {
+      const td = trackDragRef.current;
+      if (!td) return;
+      const delta = (axis === 'col' ? ev.clientX : ev.clientY) - td.startPos;
+      let newA = td.sizeA + delta;
+      let newB = td.sizeB - delta;
+      if (newA < MIN_TRACK_PX) { newA = MIN_TRACK_PX; newB = td.sizeA + td.sizeB - MIN_TRACK_PX; }
+      if (newB < MIN_TRACK_PX) { newB = MIN_TRACK_PX; newA = td.sizeA + td.sizeB - MIN_TRACK_PX; }
+      const setter = axis === 'col' ? setColSizes : setRowSizes;
+      setter(prev => {
+        const next = [...prev];
+        next[td.index] = `${Math.round(newA)}px`;
+        next[td.index + 1] = `${Math.round(newB)}px`;
+        return next;
+      });
+    };
+
+    const onUp = () => {
+      trackDragRef.current = null;
+      handle.classList.remove('is-active');
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+    };
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+  }
 
   function getTrackLines() {
     const el = gridRef.current;
@@ -818,6 +902,33 @@ export default function GridDemo() {
             );
           })}
         </ul>
+
+        {trackPositions.col.map((x, i) => (
+          <span
+            key={`col-${i}`}
+            class="gridDemo_trackHandle gridDemo_trackHandle-col"
+            style={{
+              left: `${x - trackPositions.colGap / 2}px`,
+              top: `${trackPositions.offsetY}px`,
+              width: `${trackPositions.colGap}px`,
+              height: `${trackPositions.gridH}px`,
+            }}
+            onPointerDown={(e) => onTrackPointerDown('col', i, e)}
+          />
+        ))}
+        {trackPositions.row.map((y, i) => (
+          <span
+            key={`row-${i}`}
+            class="gridDemo_trackHandle gridDemo_trackHandle-row"
+            style={{
+              top: `${y - trackPositions.rowGap / 2}px`,
+              left: `${trackPositions.offsetX}px`,
+              width: `${trackPositions.gridW}px`,
+              height: `${trackPositions.rowGap}px`,
+            }}
+            onPointerDown={(e) => onTrackPointerDown('row', i, e)}
+          />
+        ))}
       </div>
 
       <div class="gridDemo_bottom">
