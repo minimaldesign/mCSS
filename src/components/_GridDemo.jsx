@@ -45,7 +45,7 @@ function createDefaultItems(count) {
  * and each item. Used by BOTH the inline styles and the code-block display.
  */
 function buildGridProps(state) {
-  const { cols, rows, colSizes, rowSizes, gap, items, settings } = state;
+  const { cols, rows, colSizes, rowSizes, gap, items, settings, gridWidth, gridHeight } = state;
 
   const colTemplate = colSizes.every(s => s === '1fr')
     ? `repeat(${cols}, 1fr)`
@@ -55,6 +55,8 @@ function buildGridProps(state) {
     : rowSizes.join(' ');
 
   const container = { display: 'grid', gap };
+  if (gridWidth) container.width = gridWidth;
+  if (gridHeight) container.height = gridHeight;
 
   const columnFlow = settings.gridAutoFlow === 'column' || settings.gridAutoFlow === 'column dense';
 
@@ -330,10 +332,12 @@ export default function GridDemo() {
   });
 
   const gap = '20px';
+  const [gridWidth, setGridWidth] = useState(null);
+  const [gridHeight, setGridHeight] = useState(null);
 
   const gridProps = useMemo(
-    () => buildGridProps({ cols, rows, colSizes, rowSizes, gap, items, settings }),
-    [cols, rows, colSizes, rowSizes, items, settings]
+    () => buildGridProps({ cols, rows, colSizes, rowSizes, gap, items, settings, gridWidth, gridHeight }),
+    [cols, rows, colSizes, rowSizes, items, settings, gridWidth, gridHeight]
   );
 
   const liveCSS = useMemo(() => buildLiveStylesheet(gridProps), [gridProps]);
@@ -434,7 +438,7 @@ export default function GridDemo() {
       setTrackPositions({ col: colHandles, row: rowHandles, gridW: rect.width, gridH: rect.height, offsetX, offsetY, colGap, rowGap });
     });
     return () => cancelAnimationFrame(frame);
-  }, [cols, rows, colSizes, rowSizes, items, settings, draggingId]);
+  }, [cols, rows, colSizes, rowSizes, items, settings, draggingId, gridWidth, gridHeight]);
 
   function onTrackPointerDown(axis, index, e) {
     e.preventDefault();
@@ -471,6 +475,44 @@ export default function GridDemo() {
 
     const onUp = () => {
       trackDragRef.current = null;
+      handle.classList.remove('is-active');
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+    };
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+  }
+
+  const gridResizeRef = useRef(null);
+
+  function onGridResizePointerDown(e) {
+    e.preventDefault();
+    const el = gridRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    gridResizeRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startW: rect.width,
+      startH: rect.height,
+    };
+    e.currentTarget.classList.add('is-active');
+    e.currentTarget.setPointerCapture(e.pointerId);
+
+    const handle = e.currentTarget;
+
+    const onMove = (ev) => {
+      const gr = gridResizeRef.current;
+      if (!gr) return;
+      const w = Math.max(MIN_TRACK_PX, Math.round(gr.startW + ev.clientX - gr.startX));
+      const h = Math.max(MIN_TRACK_PX, Math.round(gr.startH + ev.clientY - gr.startY));
+      setGridWidth(`${w}px`);
+      setGridHeight(`${h}px`);
+    };
+
+    const onUp = () => {
+      gridResizeRef.current = null;
       handle.classList.remove('is-active');
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
@@ -929,6 +971,15 @@ export default function GridDemo() {
             onPointerDown={(e) => onTrackPointerDown('row', i, e)}
           />
         ))}
+
+        <span
+          class="gridDemo_gridResize"
+          style={{
+            top: `${trackPositions.offsetY + trackPositions.gridH - 6}px`,
+            left: `${trackPositions.offsetX + trackPositions.gridW - 6}px`,
+          }}
+          onPointerDown={onGridResizePointerDown}
+        />
       </div>
 
       <div class="gridDemo_bottom">

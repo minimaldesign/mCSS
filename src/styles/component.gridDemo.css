@@ -278,6 +278,26 @@
     cursor: row-resize;
 }
 
+/* Grid container resize handle — bottom-right corner */
+
+.gridDemo_gridResize {
+    position: absolute;
+    z-index: var(--z-2);
+    width: 12px;
+    height: 12px;
+    cursor: nwse-resize;
+    border-right: var(--border-md) solid light-dark(var(--base-400), var(--base-500));
+    border-bottom: var(--border-md) solid light-dark(var(--base-400), var(--base-500));
+    border-radius: 0 0 var(--radius-sm) 0;
+    transition: border-color var(--transition-fast);
+}
+
+.gridDemo_gridResize:hover,
+.gridDemo_gridResize.is-active {
+    border-right-color: light-dark(var(--base-600), var(--base-300));
+    border-bottom-color: light-dark(var(--base-600), var(--base-300));
+}
+
 /* Settings panel */
 
 .gridDemo_settings {
