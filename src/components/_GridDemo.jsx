@@ -409,33 +409,85 @@ export default function GridDemo() {
     const el = gridRef.current;
     if (!el) return;
     const frame = requestAnimationFrame(() => {
-      const cs = getComputedStyle(el);
-      const rect = el.getBoundingClientRect();
       const parentRect = el.parentElement.getBoundingClientRect();
-      const offsetX = rect.left - parentRect.left;
-      const offsetY = rect.top - parentRect.top;
-      const colTracks = cs.gridTemplateColumns.split(' ').map(parseFloat);
-      const rowTracks = cs.gridTemplateRows.split(' ').map(parseFloat);
+      const elRect = el.getBoundingClientRect();
+      const offsetX = elRect.left - parentRect.left;
+      const offsetY = elRect.top - parentRect.top;
+
+      const cs = getComputedStyle(el);
+      const ruler = document.createElement('div');
+      ruler.style.cssText = `
+        position:absolute;visibility:hidden;pointer-events:none;
+        left:${offsetX}px;top:${offsetY}px;
+        display:grid;
+        grid-template-columns:${cs.gridTemplateColumns};
+        grid-template-rows:${cs.gridTemplateRows};
+        column-gap:${cs.columnGap};
+        row-gap:${cs.rowGap};
+        justify-content:${cs.justifyContent};
+        align-content:${cs.alignContent};
+        width:${elRect.width}px;
+        height:${elRect.height}px;
+        padding:0;margin:0;box-sizing:border-box;
+      `;
+      el.parentElement.appendChild(ruler);
+
+      const probe = document.createElement('div');
+      probe.style.cssText = 'margin:0;padding:0;justify-self:stretch;align-self:stretch;';
+      ruler.appendChild(probe);
+
+      const colCells = [];
+      for (let c = 1; c <= cols; c++) {
+        probe.style.gridColumn = `${c}`;
+        probe.style.gridRow = '1';
+        const r = probe.getBoundingClientRect();
+        colCells.push({ left: r.left - parentRect.left, right: r.right - parentRect.left });
+      }
+
+      const rowCells = [];
+      for (let r = 1; r <= rows; r++) {
+        probe.style.gridColumn = '1';
+        probe.style.gridRow = `${r}`;
+        const rect = probe.getBoundingClientRect();
+        rowCells.push({ top: rect.top - parentRect.top, bottom: rect.bottom - parentRect.top });
+      }
+
       const colGap = parseFloat(cs.columnGap) || 0;
       const rowGap = parseFloat(cs.rowGap) || 0;
 
+      ruler.remove();
+
       const colHandles = [];
-      let cx = offsetX;
-      for (let i = 0; i < colTracks.length - 1; i++) {
-        cx += colTracks[i];
-        colHandles.push(cx + colGap / 2);
-        cx += colGap;
+      for (let i = 0; i < colCells.length - 1; i++) {
+        const gapLeft = colCells[i].right;
+        const gapRight = colCells[i + 1].left;
+        colHandles.push({ pos: (gapLeft + gapRight) / 2, size: Math.min(colGap, gapRight - gapLeft) });
       }
 
       const rowHandles = [];
-      let ry = offsetY;
-      for (let i = 0; i < rowTracks.length - 1; i++) {
-        ry += rowTracks[i];
-        rowHandles.push(ry + rowGap / 2);
-        ry += rowGap;
+      for (let i = 0; i < rowCells.length - 1; i++) {
+        const gapTop = rowCells[i].bottom;
+        const gapBottom = rowCells[i + 1].top;
+        rowHandles.push({ pos: (gapTop + gapBottom) / 2, size: Math.min(rowGap, gapBottom - gapTop) });
       }
 
-      setTrackPositions({ col: colHandles, row: rowHandles, gridW: rect.width, gridH: rect.height, offsetX, offsetY, colGap, rowGap });
+      const contentTop = rowCells[0].top;
+      const contentBottom = rowCells[rowCells.length - 1].bottom;
+      const contentLeft = colCells[0].left;
+      const contentRight = colCells[colCells.length - 1].right;
+
+      setTrackPositions({
+        col: colHandles,
+        row: rowHandles,
+        gridW: elRect.width,
+        gridH: elRect.height,
+        offsetX,
+        offsetY,
+        contentTop,
+        contentBottom,
+        contentLeft,
+        contentRight,
+      });
     });
     return () => cancelAnimationFrame(frame);
   }, [cols, rows, colSizes, rowSizes, items, settings, draggingId, gridWidth, gridHeight]);
@@ -945,28 +997,28 @@ export default function GridDemo() {
           })}
         </ul>
 
-        {trackPositions.col.map((x, i) => (
+        {trackPositions.col.map(({ pos, size }, i) => (
           <span
             key={`col-${i}`}
             class="gridDemo_trackHandle gridDemo_trackHandle-col"
             style={{
-              left: `${x - trackPositions.colGap / 2}px`,
-              top: `${trackPositions.offsetY}px`,
-              width: `${trackPositions.colGap}px`,
-              height: `${trackPositions.gridH}px`,
+              left: `${pos - size / 2}px`,
+              top: `${trackPositions.contentTop}px`,
+              width: `${size}px`,
+              height: `${trackPositions.contentBottom - trackPositions.contentTop}px`,
             }}
             onPointerDown={(e) => onTrackPointerDown('col', i, e)}
           />
         ))}
-        {trackPositions.row.map((y, i) => (
+        {trackPositions.row.map(({ pos, size }, i) => (
           <span
             key={`row-${i}`}
             class="gridDemo_trackHandle gridDemo_trackHandle-row"
             style={{
-              top: `${y - trackPositions.rowGap / 2}px`,
-              left: `${trackPositions.offsetX}px`,
-              width: `${trackPositions.gridW}px`,
-              height: `${trackPositions.rowGap}px`,
+              top: `${pos - size / 2}px`,
+              left: `${trackPositions.contentLeft}px`,
+              width: `${trackPositions.contentRight - trackPositions.contentLeft}px`,
+              height: `${size}px`,
             }}
             onPointerDown={(e) => onTrackPointerDown('row', i, e)}
           />
