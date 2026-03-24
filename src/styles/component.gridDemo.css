@@ -1,5 +1,9 @@
 .gridDemo {
   width: 100%;
+
+  &.is-itemDragged .gridDemo_trackHandle {
+    pointer-events: none;
+  }
 }
 
 /* Toolbar — rows / columns / items controls */
@@ -265,7 +269,8 @@
   cursor: nwse-resize;
 }
 
-/* Track resize handles — visible strips on the gap between tracks */
+/* Track resize handles — visible strips on the gap between tracks
+   Disabled via pointer-events in .gridDemo.is-itemDragged on top of file */
 
 .gridDemo_trackHandle {
   position: absolute;

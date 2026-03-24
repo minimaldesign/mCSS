@@ -1167,7 +1167,7 @@ export default function GridDemo() {
   ];
 
   return (
-    <div class="gridDemo not-prose">
+    <div class={`gridDemo not-prose${draggingId ? " is-itemDragged" : ""}`}>
       <style dangerouslySetInnerHTML={{ __html: liveCSS }} />
 
       <div class="gridDemo_toolbar">
