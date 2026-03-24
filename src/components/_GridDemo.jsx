@@ -55,18 +55,18 @@ const ITEM_LABELS = [
   "Fifty",
 ];
 
-/** Reorder: min pointer movement (px) before drag activates — avoids ghost + layout updates on accidental clicks. */
+// Reorder: min pointer movement (px) before drag activates — avoids ghost + layout updates on accidental clicks.
 const REORDER_DRAG_ACTIVATION_PX = 8;
 
-/**
- * When mapping cursor position to a grid track, the snap boundary between track i and i+1 is
- * a blend of the two track centers. Weight on the *next* center — higher = snap happens later
- * (cursor must move further into the target cell). 0.75 ≈ “~25% into the target” vs midpoint snap.
- */
+// When mapping cursor position to a grid track, the snap boundary between track i and i+1 is a blend of the two track centers. Weight on the *next* center — higher = snap happens later (cursor must move further into the target cell). 0.75 ≈ “~25% into the target” vs midpoint snap.
 const TRACK_SNAP_NEXT_CENTER_WEIGHT = 0.75;
 
-/** Minimum track size (px) when resizing via track handles — prevents collapsing. */
+// Minimum track size (px) when resizing via track handles — prevents collapsing.
 const MIN_TRACK_PX = 20;
+
+const DEFAULT_COLS = 3;
+const DEFAULT_ROWS = 3;
+const DEFAULT_ITEMS = 9;
 
 function getItemLabel(index) {
   return ITEM_LABELS[index] || `Item ${index + 1}`;
@@ -82,10 +82,7 @@ function createDefaultItems(count) {
   }));
 }
 
-/**
- * Single source of truth: builds CSS property maps for the grid container
- * and each item. Used by BOTH the inline styles and the code-block display.
- */
+// Single source of truth: builds CSS property maps for the grid container and each item. Used by BOTH the inline styles and the code-block display.
 function buildGridProps(state) {
   const {
     cols,
@@ -230,8 +227,7 @@ function buildTemplateAreas(items, cols, rows, columnFlow) {
     return { r: Math.floor(idx / cols), c: idx % cols };
   }
 
-  items.forEach((item) => {
-    const name = `area${item.id}`;
+  function getSpans(item) {
     const posCol = !!item.colStart;
     const posRow = !!item.rowStart;
     const cSpan = posCol
@@ -244,11 +240,21 @@ function buildTemplateAreas(items, cols, rows, columnFlow) {
       : item.rowEnd
         ? item.rowEnd - 1
         : 1;
+    return { posCol, posRow, cSpan, rSpan };
+  }
 
+  // Pass 1: place all explicitly-positioned items first
+  items.forEach((item) => {
+    const { posCol, posRow, cSpan, rSpan } = getSpans(item);
+    const name = `area${item.id}`;
     if (posCol && posRow) {
-      const cs = item.colStart - 1;
-      const rs = item.rowStart - 1;
-      placeArea(name, cs, cs + cSpan, rs, rs + rSpan);
+      placeArea(
+        name,
+        item.colStart - 1,
+        item.colStart - 1 + cSpan,
+        item.rowStart - 1,
+        item.rowStart - 1 + rSpan,
+      );
     } else if (posCol && !posRow) {
       const cs = item.colStart - 1;
       for (let r = 0; r < rows; r++) {
@@ -265,20 +271,26 @@ function buildTemplateAreas(items, cols, rows, columnFlow) {
           break;
         }
       }
-    } else {
-      while (autoIdx < totalCells) {
-        const { r, c } = autoCellAt(autoIdx);
-        if (
-          c + cSpan <= cols &&
-          r + rSpan <= rows &&
-          regionFree(c, c + cSpan, r, r + rSpan)
-        ) {
-          placeArea(name, c, c + cSpan, r, r + rSpan);
-          autoIdx++;
-          break;
-        }
+    }
+  });
+
+  // Pass 2: auto-place remaining items in DOM order
+  items.forEach((item) => {
+    const { posCol, posRow, cSpan, rSpan } = getSpans(item);
+    if (posCol || posRow) return;
+    const name = `area${item.id}`;
+    while (autoIdx < totalCells) {
+      const { r, c } = autoCellAt(autoIdx);
+      if (
+        c + cSpan <= cols &&
+        r + rSpan <= rows &&
+        regionFree(c, c + cSpan, r, r + rSpan)
+      ) {
+        placeArea(name, c, c + cSpan, r, r + rSpan);
         autoIdx++;
+        break;
       }
+      autoIdx++;
     }
   });
 
@@ -291,7 +303,7 @@ function buildPlaceShorthand(align, justify) {
   return `${align || "stretch"} ${justify || "stretch"}`;
 }
 
-/** Convert CSS-property map → CSS code string (for the code block). */
+// Convert CSS-property map → CSS code string (for the code block).
 function formatMultilineArea(prop, val, indent) {
   if (prop === "grid-template-areas") {
     const areas = val.split('" "').map((s) => s.replace(/"/g, ""));
@@ -342,7 +354,7 @@ function propsToCSS(gridProps) {
   return lines.join("\n");
 }
 
-/** Convert CSS-property map → real CSS rule string for a given selector. */
+// Convert CSS-property map → real CSS rule string for a given selector.
 function propsToRule(selector, cssProps) {
   const decls = Object.entries(cssProps).map(([prop, val]) => {
     const multi = formatMultilineArea(prop, val, "  ");
@@ -352,7 +364,7 @@ function propsToRule(selector, cssProps) {
   return `${selector} {\n${decls.join("\n")}\n}`;
 }
 
-/** Build complete stylesheet applied to the live grid (uses real class names). */
+// Build complete stylesheet applied to the live grid (uses real class names).
 function buildLiveStylesheet(gridProps) {
   const rules = [propsToRule(".gridDemo_main_grid", gridProps.container)];
   gridProps.itemProps.forEach(({ id, props }) => {
@@ -395,11 +407,11 @@ function SettingsDropdown({ label, value, options, onChange }) {
 }
 
 export default function GridDemo() {
-  const [cols, setCols] = useState(3);
-  const [rows, setRows] = useState(3);
-  const [colSizes, setColSizes] = useState(() => Array(3).fill("1fr"));
-  const [rowSizes, setRowSizes] = useState(() => Array(3).fill("1fr"));
-  const [items, setItems] = useState(() => createDefaultItems(9));
+  const [cols, setCols] = useState(DEFAULT_COLS);
+  const [rows, setRows] = useState(DEFAULT_ROWS);
+  const [colSizes, setColSizes] = useState(() => Array(DEFAULT_COLS).fill("1fr"));
+  const [rowSizes, setRowSizes] = useState(() => Array(DEFAULT_ROWS).fill("1fr"));
+  const [items, setItems] = useState(() => createDefaultItems(DEFAULT_ITEMS));
   const [activeTab, setActiveTab] = useState("css");
   const [settings, setSettings] = useState({
     useShorthand: false,
