@@ -2,14 +2,36 @@
   width: 100%;
 }
 
+/* Toolbar — rows / columns / items controls */
+
+.gridDemo_toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sm2);
+  margin-bottom: var(--sm2);
+}
+
+.gridDemo_toolbar_group {
+  display: flex;
+  align-items: center;
+  gap: var(--xs2);
+}
+
+.gridDemo_toolbar_label {
+  font-size: var(--text-sm);
+  font-weight: var(--semi-bold);
+  color: light-dark(var(--base-600), var(--base-300));
+  user-select: none;
+}
+
 /* Main — interactive grid */
 
 .gridDemo_main {
   position: relative;
   width: 100%;
   margin-bottom: var(--sm3);
-  padding-top: var(--lg1);
-  padding-left: var(--lg1);
 }
 
 .gridDemo_main_grid {
@@ -54,13 +76,18 @@
   border: var(--border-sm) solid var(--theme-border-color);
   background: light-dark(var(--base-0), var(--base-800));
   color: light-dark(var(--base-600), var(--base-300));
-  font-size: var(--text-lg);
   line-height: 1;
   cursor: pointer;
   transition:
     background var(--transition),
-    color var(--transition);
+    color var(--transition),
+    opacity var(--transition);
   padding: 0;
+
+  & svg {
+    width: 16px;
+    height: 16px;
+  }
 
   &:hover:not(:disabled) {
     background: light-dark(var(--base-100), var(--base-700));
@@ -74,40 +101,28 @@
 }
 
 .gridDemo_btn-xs {
-  width: 22px;
-  height: 22px;
-  font-size: var(--text-md);
+  width: 20px;
+  height: 20px;
+
+  & svg {
+    width: 14px;
+    height: 14px;
+  }
 }
 
-/* Column controls — top-right of grid */
+/* Per-item remove button — fades in on hover */
 
-.gridDemo_controls-col {
+.gridDemo_itemRemove {
   position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  gap: var(--xs1);
-}
-
-/* Row controls — bottom-left of grid */
-
-.gridDemo_controls-row {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--xs1);
-}
-
-/* Item add/remove — inside last grid item */
-
-.gridDemo_controls-item {
-  position: absolute;
-  bottom: var(--xs1);
+  top: var(--xs1);
   right: var(--xs1);
-  display: flex;
-  gap: var(--xs1);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: var(--z-1);
+}
+
+.gridDemo_item:hover .gridDemo_itemRemove {
+  opacity: 1;
 }
 
 /* Bottom row — code block + settings */

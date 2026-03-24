@@ -1,4 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'preact/hooks';
+import plusIcon from '../assets/icons/plus.svg?raw';
+import minusIcon from '../assets/icons/minus.svg?raw';
 
 const ITEM_LABELS = [
   'One', 'Two', 'Three', 'Four', 'Five', 'Six',
@@ -396,6 +398,11 @@ export default function GridDemo() {
   function removeItem() {
     if (items.length <= 1) return;
     setItems(prev => prev.slice(0, -1));
+  }
+
+  function removeSpecificItem(itemId) {
+    if (items.length <= 1) return;
+    setItems(prev => prev.filter(i => i.id !== itemId));
   }
 
   const gridRef = useRef(null);
@@ -927,40 +934,64 @@ export default function GridDemo() {
   return (
     <div class="gridDemo">
       <style dangerouslySetInnerHTML={{ __html: liveCSS }} />
-      <div class="gridDemo_main">
-        <div class="gridDemo_controls-col">
-          <button
-            class="gridDemo_btn"
-            onClick={removeColumn}
-            disabled={cols <= 1}
-            title="Remove column"
-          >−</button>
-          <button
-            class="gridDemo_btn"
-            onClick={addColumn}
-            title="Add column"
-          >+</button>
-        </div>
 
-        <div class="gridDemo_controls-row">
+      <div class="gridDemo_toolbar">
+        <div class="gridDemo_toolbar_group">
           <button
             class="gridDemo_btn"
             onClick={removeRow}
             disabled={rows <= 1}
             title="Remove row"
-          >−</button>
+            dangerouslySetInnerHTML={{ __html: minusIcon }}
+          />
+          <span class="gridDemo_toolbar_label">Rows</span>
           <button
             class="gridDemo_btn"
             onClick={addRow}
             title="Add row"
-          >+</button>
+            dangerouslySetInnerHTML={{ __html: plusIcon }}
+          />
         </div>
+        <div class="gridDemo_toolbar_group">
+          <button
+            class="gridDemo_btn"
+            onClick={removeColumn}
+            disabled={cols <= 1}
+            title="Remove column"
+            dangerouslySetInnerHTML={{ __html: minusIcon }}
+          />
+          <span class="gridDemo_toolbar_label">Columns</span>
+          <button
+            class="gridDemo_btn"
+            onClick={addColumn}
+            title="Add column"
+            dangerouslySetInnerHTML={{ __html: plusIcon }}
+          />
+        </div>
+        <div class="gridDemo_toolbar_group">
+          <span class="gridDemo_toolbar_label">{items.length} Grid Items</span>
+          <button
+            class="gridDemo_btn"
+            onClick={addItem}
+            title="Add item"
+            dangerouslySetInnerHTML={{ __html: plusIcon }}
+          />
+          <button
+            class="gridDemo_btn"
+            onClick={removeItem}
+            disabled={items.length <= 1}
+            title="Remove last item"
+            dangerouslySetInnerHTML={{ __html: minusIcon }}
+          />
+        </div>
+      </div>
 
+      <div class="gridDemo_main">
         <ul
           class="gridDemo_main_grid"
           ref={gridRef}
         >
-          {items.map((item, i) => {
+          {items.map((item) => {
             let cls = `gridDemo_item grid-item-${item.id}`;
             if (draggingId === item.id) cls += ' is-dragging';
             return (
@@ -977,21 +1008,13 @@ export default function GridDemo() {
                   onPointerDown={(e) => onHandlePointerDown(e, item.id, edge)}
                 />
               ))}
-              {i === items.length - 1 && (
-                <span class="gridDemo_controls-item">
-                  <button
-                    class="gridDemo_btn gridDemo_btn-xs"
-                    onClick={removeItem}
-                    disabled={items.length <= 1}
-                    title="Remove item"
-                  >−</button>
-                  <button
-                    class="gridDemo_btn gridDemo_btn-xs"
-                    onClick={addItem}
-                    title="Add item"
-                  >+</button>
-                </span>
-              )}
+              <button
+                class="gridDemo_btn gridDemo_btn-xs gridDemo_itemRemove"
+                onClick={() => removeSpecificItem(item.id)}
+                disabled={items.length <= 1}
+                title="Remove item"
+                dangerouslySetInnerHTML={{ __html: minusIcon }}
+              />
             </li>
             );
           })}
