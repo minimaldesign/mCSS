@@ -31,13 +31,12 @@
 .gridDemo_main {
   position: relative;
   width: 100%;
-  margin-bottom: var(--lg3);
+  margin-bottom: var(--xl1);
 }
 
 .gridDemo_main_grid {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  background-color: var(--base-950);
+  border-radius: var(--radius-md);
 }
 
 .gridDemo_item {
@@ -45,8 +44,9 @@
   display: inline-block;
   padding: var(--xs2) var(--xs3);
   border-radius: var(--radius-md);
-  background-color: light-dark(var(--primary-100), var(--primary-900));
-  color: light-dark(var(--primary-800), var(--primary-200));
+  border: 1px solid var(--primary-200);
+  background-color: var(--primary-500);
+  color: var(--base-0);
   font-weight: var(--semi-bold);
   font-size: var(--text-sm);
   user-select: none;
@@ -114,8 +114,8 @@
 
 .gridDemo_itemRemove {
   position: absolute;
-  top: var(--xs1);
-  right: var(--xs1);
+  top: var(--xs2);
+  right: var(--xs2);
   opacity: 0;
   transition: opacity var(--transition-fast);
   z-index: var(--z-1);
@@ -270,26 +270,28 @@
 .gridDemo_trackHandle {
   position: absolute;
   z-index: var(--z-2);
-  background: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.12));
-  border-radius: var(--radius-sm);
   transition:
     background var(--transition-fast),
     opacity var(--transition-fast);
 }
 
 .gridDemo_trackHandle:hover {
-  background: light-dark(rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.25));
+  border-color: var(--maybe-500);
 }
 
 .gridDemo_trackHandle.is-active {
-  background: light-dark(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.35));
+  border-color: var(--maybe-300);
 }
 
 .gridDemo_trackHandle-col {
+  border-inline-start: 1px dashed var(--base-500);
+  border-inline-end: 1px dashed var(--base-500);
   cursor: col-resize;
 }
 
 .gridDemo_trackHandle-row {
+  border-block-start: 1px dashed var(--base-500);
+  border-block-end: 1px dashed var(--base-500);
   cursor: row-resize;
 }
 
@@ -305,7 +307,7 @@
     light-dark(var(--base-400), var(--base-500));
   border-bottom: var(--border-md) solid
     light-dark(var(--base-400), var(--base-500));
-  border-radius: 0 0 var(--radius-sm) 0;
+  border-radius: 0 0 var(--radius-lg) 0;
   transition: border-color var(--transition-fast);
 }
 
