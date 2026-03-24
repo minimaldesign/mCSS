@@ -1,6 +1,6 @@
 /* PROSE - Default style for text content */
 
-.prose {
+@scope (.prose) to (.not-prose) {
   :is(p, ul, ol, .astro-code, .notice, table):has(+ :is(h1, h2, h3, h4)) {
     margin-bottom: calc(var(--prose-spacing) * 2);
   }
