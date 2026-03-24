@@ -9,7 +9,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: var(--sm2);
+  gap: var(--lg3);
   margin-bottom: var(--sm2);
 }
 
@@ -20,7 +20,7 @@
 }
 
 .gridDemo_toolbar_label {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: var(--semi-bold);
   color: light-dark(var(--base-600), var(--base-300));
   user-select: none;
@@ -31,7 +31,7 @@
 .gridDemo_main {
   position: relative;
   width: 100%;
-  margin-bottom: var(--sm3);
+  margin-bottom: var(--lg3);
 }
 
 .gridDemo_main_grid {
@@ -268,49 +268,51 @@
 /* Track resize handles — visible strips on the gap between tracks */
 
 .gridDemo_trackHandle {
-    position: absolute;
-    z-index: var(--z-2);
-    background: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.12));
-    border-radius: var(--radius-sm);
-    transition:
-        background var(--transition-fast),
-        opacity var(--transition-fast);
+  position: absolute;
+  z-index: var(--z-2);
+  background: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.12));
+  border-radius: var(--radius-sm);
+  transition:
+    background var(--transition-fast),
+    opacity var(--transition-fast);
 }
 
 .gridDemo_trackHandle:hover {
-    background: light-dark(rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.25));
+  background: light-dark(rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.25));
 }
 
 .gridDemo_trackHandle.is-active {
-    background: light-dark(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.35));
+  background: light-dark(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.35));
 }
 
 .gridDemo_trackHandle-col {
-    cursor: col-resize;
+  cursor: col-resize;
 }
 
 .gridDemo_trackHandle-row {
-    cursor: row-resize;
+  cursor: row-resize;
 }
 
 /* Grid container resize handle — bottom-right corner */
 
 .gridDemo_gridResize {
-    position: absolute;
-    z-index: var(--z-2);
-    width: 12px;
-    height: 12px;
-    cursor: nwse-resize;
-    border-right: var(--border-md) solid light-dark(var(--base-400), var(--base-500));
-    border-bottom: var(--border-md) solid light-dark(var(--base-400), var(--base-500));
-    border-radius: 0 0 var(--radius-sm) 0;
-    transition: border-color var(--transition-fast);
+  position: absolute;
+  z-index: var(--z-2);
+  width: 12px;
+  height: 12px;
+  cursor: nwse-resize;
+  border-right: var(--border-md) solid
+    light-dark(var(--base-400), var(--base-500));
+  border-bottom: var(--border-md) solid
+    light-dark(var(--base-400), var(--base-500));
+  border-radius: 0 0 var(--radius-sm) 0;
+  transition: border-color var(--transition-fast);
 }
 
 .gridDemo_gridResize:hover,
 .gridDemo_gridResize.is-active {
-    border-right-color: light-dark(var(--base-600), var(--base-300));
-    border-bottom-color: light-dark(var(--base-600), var(--base-300));
+  border-right-color: light-dark(var(--base-600), var(--base-300));
+  border-bottom-color: light-dark(var(--base-600), var(--base-300));
 }
 
 /* Settings panel */
