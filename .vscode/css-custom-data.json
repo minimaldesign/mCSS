@@ -1,0 +1,15 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@scope",
+      "description": "CSS Cascading and Inheritance Level 6 – scopes style rules to a subtree of the DOM.",
+      "references": [
+        {
+          "name": "MDN Reference",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@scope"
+        }
+      ]
+    }
+  ]
+}

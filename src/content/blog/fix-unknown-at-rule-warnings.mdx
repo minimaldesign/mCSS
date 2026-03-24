@@ -1,0 +1,81 @@
+---
+title: "How to Fix “Unknown at rule” CSS Warnings in VS Code"
+pubDate: 2026-03-24
+author: "Yann"
+tags: ["Cursor", "VS Code"]
+description: "VS Code (and Cursor) doesn't always keep up with the latest CSS specifications. If you use modern at-rules like `@scope`, you might get unwarranted warnings. Here's how to fix it."
+---
+
+VS Code (and Cursor) doesn't always keep up with the latest CSS specifications. If you use modern at-rules like `@scope`, you may see warnings like:
+
+> ⚠️ Unknown at rule @scope (unknownAtRules)
+
+The CSS is perfectly valid. The editor just doesn't know about it yet.
+
+## Custom CSS Data
+
+VS Code supports **custom CSS data** files that let you register specific at-rules, properties, or pseudo-classes with its language service.
+
+For CSS, look for the **CSS: Custom Data** setting (`css.customData` in JSON). It uses the [VS Code CSS Custom Data format](https://github.com/microsoft/vscode-custom-data) to extend the editor's built-in CSS knowledge without disabling any lint rules.
+
+The schema supports:
+
+- `atDirectives`: custom at-rules
+- `properties`: custom CSS properties
+- `pseudoClasses`: custom pseudo-classes
+- `pseudoElements`: custom pseudo-elements
+
+### Step 1: Create the custom data file
+
+Create `.vscode/css-custom-data.json` at the root of your project:
+
+```json
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@scope",
+      "description": "CSS Cascading and Inheritance Level 6 – scopes style rules to a subtree of the DOM.",
+      "references": [
+        {
+          "name": "MDN Reference",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@scope"
+        }
+      ]
+    }
+  ]
+}
+```
+
+You can add more objects to the `atDirectives` array if you need other at-rules recognized. For example:
+
+```json
+{
+  "name": "@starting-style",
+  "description": "Defines starting values for CSS transitions on elements that are being displayed for the first time.",
+  "references": [
+    {
+      "name": "MDN Reference",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style"
+    }
+  ]
+}
+```
+
+### Step 2: Point the editor at the file
+
+In `.vscode/settings.json`, add the `css.customData` setting:
+
+```json
+{
+  "css.customData": [".vscode/css-custom-data.json"]
+}
+```
+
+The path is relative to the workspace root.
+
+### Step 3: Reload
+
+Open the command palette and run: `Developer: Reload Window`.
+
+The warning should be gone, and hovering over `@scope` in your CSS will now show the description and MDN link to the docs.
