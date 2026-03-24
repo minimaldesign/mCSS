@@ -64,9 +64,9 @@ const TRACK_SNAP_NEXT_CENTER_WEIGHT = 0.75;
 // Minimum track size (px) when resizing via track handles — prevents collapsing.
 const MIN_TRACK_PX = 20;
 
-const DEFAULT_COLS = 3;
-const DEFAULT_ROWS = 3;
-const DEFAULT_ITEMS = 9;
+const DEFAULT_COLS = 4;
+const DEFAULT_ROWS = 5;
+const DEFAULT_ITEMS = 3;
 
 function getItemLabel(index) {
   return ITEM_LABELS[index] || `Item ${index + 1}`;
@@ -409,8 +409,12 @@ function SettingsDropdown({ label, value, options, onChange }) {
 export default function GridDemo() {
   const [cols, setCols] = useState(DEFAULT_COLS);
   const [rows, setRows] = useState(DEFAULT_ROWS);
-  const [colSizes, setColSizes] = useState(() => Array(DEFAULT_COLS).fill("1fr"));
-  const [rowSizes, setRowSizes] = useState(() => Array(DEFAULT_ROWS).fill("1fr"));
+  const [colSizes, setColSizes] = useState(() =>
+    Array(DEFAULT_COLS).fill("1fr"),
+  );
+  const [rowSizes, setRowSizes] = useState(() =>
+    Array(DEFAULT_ROWS).fill("1fr"),
+  );
   const [items, setItems] = useState(() => createDefaultItems(DEFAULT_ITEMS));
   const [activeTab, setActiveTab] = useState("css");
   const [settings, setSettings] = useState({
