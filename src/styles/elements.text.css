@@ -18,7 +18,7 @@ address {
   max-width: 100%;
   padding: var(--sm1) var(--sm3);
   font-style: normal;
-  background-color: var(--base-50);
+  background-color: light-dark(var(--base-50), var(--base-900));
   border: var(--xs2) solid transparent;
   border-image: 8
     repeating-linear-gradient(
@@ -70,7 +70,7 @@ blockquote {
   margin-bottom: var(--prose-spacing);
   padding: var(--sm1) var(--sm3) var(--sm1) var(--md1) ;
   font-style: italic;
-  background-color: var(--primary-50);
+  background-color: light-dark(var(--primary-50), var(--primary-900));
   border-radius: var(--radius-md);
   &::before {
     content: '';
