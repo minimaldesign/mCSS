@@ -43,7 +43,7 @@
 }
 
 .gridDemo_main_grid {
-  background-color: var(--base-950);
+  background-color: light-dark(var(--base-950), var(--base-900));
   border-radius: var(--radius-md);
 }
 
@@ -371,12 +371,6 @@
   @media (--md-n-below) {
     width: 100%;
   }
-}
-
-.gridDemo_settings_title {
-  font-weight: var(--bold);
-  font-size: var(--text-sm);
-  margin-bottom: var(--sm1);
 }
 
 .gridDemo_settings_check {

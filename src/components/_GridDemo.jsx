@@ -1447,8 +1447,6 @@ export default function GridDemo() {
         </div>
 
         <div class="gridDemo_settings">
-          <p class="gridDemo_settings_title">Code format</p>
-
           <label class="gridDemo_settings_check">
             <input
               type="checkbox"
