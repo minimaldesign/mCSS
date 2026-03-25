@@ -68,6 +68,7 @@ const MIN_TRACK_PX = 20;
 const DEFAULT_COLS = 4;
 const DEFAULT_ROWS = 5;
 const DEFAULT_ITEMS = 3;
+const GRID_HEIGHT = "300px";
 
 function getItemLabel(index) {
   return ITEM_LABELS[index] || `Item ${index + 1}`;
@@ -430,7 +431,7 @@ export default function GridDemo() {
 
   const gap = "20px";
   const [gridWidth, setGridWidth] = useState(null);
-  const [gridHeight, setGridHeight] = useState(null);
+  const [gridHeight, setGridHeight] = useState(GRID_HEIGHT);
 
   const gridProps = useMemo(
     () =>
@@ -540,7 +541,7 @@ export default function GridDemo() {
       gridAutoFlow: "",
     });
     setGridWidth(null);
-    setGridHeight(null);
+    setGridHeight(GRID_HEIGHT);
     setTrackMenu(null);
   }
 
