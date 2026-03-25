@@ -42,8 +42,8 @@ input {
     height: var(--input-height);
   }
   &:where(
-      :not([type="color"], [type="file"], [type="reset"], [type="submit"])
-    ) {
+    :not([type="color"], [type="file"], [type="reset"], [type="submit"])
+  ) {
     padding: var(--input-padding);
   }
   &:where(:not([type="color"])) {
@@ -176,14 +176,18 @@ select {
   border: 1px solid var(--theme-border-color);
   border-radius: var(--input-border-radius);
   /* maybe I should just include a SVG 😅 */
-  background: linear-gradient(45deg, transparent 50%, var(--arrowColor) 50%),
+  background:
+    linear-gradient(45deg, transparent 50%, var(--arrowColor) 50%),
     linear-gradient(135deg, var(--arrowColor) 50%, transparent 50%),
     linear-gradient(var(--base-0), var(--base-100));
-  background-position: calc(100% - var(--arrowSize) - var(--input-padding))
-      var(--arrowY),
-    calc(100% - var(--input-padding)) var(--arrowY), bottom left;
-  background-size: var(--arrowSize) var(--arrowSize),
-    var(--arrowSize) var(--arrowSize), 100% var(--input-height);
+  background-position:
+    calc(100% - var(--arrowSize) - var(--input-padding)) var(--arrowY),
+    calc(100% - var(--input-padding)) var(--arrowY),
+    bottom left;
+  background-size:
+    var(--arrowSize) var(--arrowSize),
+    var(--arrowSize) var(--arrowSize),
+    100% var(--input-height);
   background-repeat: no-repeat;
   &::focus-visible {
     outline: none;
@@ -202,6 +206,7 @@ select {
 
 textarea {
   width: 100%;
+  padding: var(--xs3);
   border-radius: var(--input-border-radius);
   border: 1px solid var(--theme-border-color);
   resize: block;
