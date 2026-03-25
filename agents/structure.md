@@ -31,4 +31,5 @@ src/
 | New doc page             | `src/content/docs/`                 | Match schema (see agents/content.md)          |
 | New component doc        | `src/content/components/`           | Match schema incl. `type` field               |
 | New layout               | `src/layouts/`                      | Use from the relevant `pages/*` route         |
+| New SVG icon             | `src/assets/icons/`                 | Run `node src/tools/icons-cleanup.cjs` after   |
 | Config / integrations    | `astro.config.mjs`                  | —                                             |
