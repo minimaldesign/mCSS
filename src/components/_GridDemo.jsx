@@ -66,7 +66,7 @@ const TRACK_SNAP_NEXT_CENTER_WEIGHT = 0.75;
 const MIN_TRACK_PX = 20;
 
 const DEFAULT_COLS = 4;
-const DEFAULT_ROWS = 5;
+const DEFAULT_ROWS = 4;
 const DEFAULT_ITEMS = 3;
 const GRID_HEIGHT = "300px";
 
@@ -772,11 +772,32 @@ export default function GridDemo() {
     const el = gridRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
+
+    // Temporarily size the grid to its intrinsic minimum (width/height: min-content),
+    // read that width and height, restore the previous inline styles, and use the
+    // measured values as the smallest size the user can resize.
+    const prevW = el.style.width;
+    const prevH = el.style.height;
+    const prevMaxW = el.style.maxWidth;
+    const prevMaxH = el.style.maxHeight;
+    el.style.width = "min-content";
+    el.style.height = "min-content";
+    el.style.maxWidth = "none";
+    el.style.maxHeight = "none";
+    const minW = Math.max(MIN_TRACK_PX, el.offsetWidth);
+    const minH = Math.max(MIN_TRACK_PX, el.offsetHeight);
+    el.style.width = prevW;
+    el.style.height = prevH;
+    el.style.maxWidth = prevMaxW;
+    el.style.maxHeight = prevMaxH;
+
     gridResizeRef.current = {
       startX: e.clientX,
       startY: e.clientY,
       startW: rect.width,
       startH: rect.height,
+      minW,
+      minH,
     };
     e.currentTarget.classList.add("is-active");
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -787,11 +808,11 @@ export default function GridDemo() {
       const gr = gridResizeRef.current;
       if (!gr) return;
       const w = Math.max(
-        MIN_TRACK_PX,
+        gr.minW,
         Math.round(gr.startW + ev.clientX - gr.startX),
       );
       const h = Math.max(
-        MIN_TRACK_PX,
+        gr.minH,
         Math.round(gr.startH + ev.clientY - gr.startY),
       );
       setGridWidth(`${w}px`);
