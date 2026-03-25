@@ -89,10 +89,12 @@ xxl: 1920px
 
   /* Font Families */
   /* Local font stacks - More options @ https://modernfontstacks.com */
-  --display: Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro,
-    ui-sans-serif, sans-serif;
+  --display:
+    Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif,
+    sans-serif;
   --text: ui-sans-serif, system-ui, sans-serif;
-  --mono: Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono,
+  --mono:
+    Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono,
     Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono,
     ui-monospace, monospace;
 
@@ -216,15 +218,20 @@ xxl: 1920px
 
   /* DROP SHADOWS  */
 
-  --shadow-sm: 0 1px 3px 0 var(--theme-shadow-color),
+  --shadow-sm:
+    0 1px 3px 0 var(--theme-shadow-color),
     0 1px 2px -1px var(--theme-shadow-color);
-  --shadow-md: 0 4px 6px -1px var(--theme-shadow-color),
+  --shadow-md:
+    0 4px 6px -1px var(--theme-shadow-color),
     0 2px 4px -2px var(--theme-shadow-color);
-  --shadow-lg: 0 8px 13px -3px var(--theme-shadow-color),
+  --shadow-lg:
+    0 8px 13px -3px var(--theme-shadow-color),
     0 4px 6px -4px var(--theme-shadow-color);
-  --shadow-xl: 0 20px 20px -5px var(--theme-shadow-color),
+  --shadow-xl:
+    0 20px 20px -5px var(--theme-shadow-color),
     0 8px 10px -6px var(--theme-shadow-color);
-  --shadow-xxl: 0px 11px 8px -6px var(--theme-shadow-color),
+  --shadow-xxl:
+    0px 11px 8px -6px var(--theme-shadow-color),
     0 10px 15px 2px var(--theme-shadow-color);
 
   /* OPACITY */
