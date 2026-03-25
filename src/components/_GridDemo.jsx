@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from "preact/hooks";
 import plusIcon from "../assets/icons/plus.svg?raw";
 import minusIcon from "../assets/icons/minus.svg?raw";
+import resetIcon from "../assets/icons/rotate-ccw.svg?raw";
 
 const ITEM_LABELS = [
   "One",
@@ -523,11 +524,33 @@ export default function GridDemo() {
     setItems((prev) => prev.filter((i) => i.id !== itemId));
   }
 
+  function resetAll() {
+    setCols(DEFAULT_COLS);
+    setRows(DEFAULT_ROWS);
+    setColSizes(Array(DEFAULT_COLS).fill("1fr"));
+    setRowSizes(Array(DEFAULT_ROWS).fill("1fr"));
+    setItems(createDefaultItems(DEFAULT_ITEMS));
+    setSettings({
+      useShorthand: false,
+      useTemplateAreas: false,
+      justifyItems: "",
+      alignItems: "",
+      justifyContent: "",
+      alignContent: "",
+      gridAutoFlow: "",
+    });
+    setGridWidth(null);
+    setGridHeight(null);
+    setTrackMenu(null);
+  }
+
   const gridRef = useRef(null);
   const dragState = useRef(null);
   const reorderRef = useRef(null);
   const [draggingId, setDraggingId] = useState(null);
   const trackDragRef = useRef(null);
+  const [trackMenu, setTrackMenu] = useState(null);
+  const trackMenuRef = useRef(null);
   const [trackPositions, setTrackPositions] = useState({
     col: [],
     row: [],
@@ -697,6 +720,49 @@ export default function GridDemo() {
     document.addEventListener("pointermove", onMove);
     document.addEventListener("pointerup", onUp);
   }
+
+  function onGridContextMenu(e) {
+    e.preventDefault();
+    const boundaries = getTrackLines();
+    const colIndex = findTrackContaining(boundaries.colLines, e.clientX) - 1;
+    const rowIndex = findTrackContaining(boundaries.rowLines, e.clientY) - 1;
+    if (colSizes[colIndex] === "1fr" && rowSizes[rowIndex] === "1fr") return;
+    const parentRect = gridRef.current.parentElement.getBoundingClientRect();
+    setTrackMenu({
+      x: e.clientX - parentRect.left,
+      y: e.clientY - parentRect.top,
+      colIndex,
+      rowIndex,
+    });
+  }
+
+  function resetTrackSize(axis, index) {
+    const setter = axis === "col" ? setColSizes : setRowSizes;
+    setter((prev) => {
+      const next = [...prev];
+      next[index] = "1fr";
+      return next;
+    });
+    setTrackMenu(null);
+  }
+
+  useEffect(() => {
+    if (!trackMenu) return;
+    const onDismiss = (e) => {
+      if (trackMenuRef.current && trackMenuRef.current.contains(e.target))
+        return;
+      setTrackMenu(null);
+    };
+    const onKey = (e) => {
+      if (e.key === "Escape") setTrackMenu(null);
+    };
+    document.addEventListener("pointerdown", onDismiss);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDismiss);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [trackMenu]);
 
   const gridResizeRef = useRef(null);
 
@@ -1011,6 +1077,13 @@ export default function GridDemo() {
     return centers.length;
   }
 
+  function findTrackContaining(lines, pos) {
+    for (let i = 0; i < lines.length - 1; i++) {
+      if (pos <= lines[i + 1]) return i + 1;
+    }
+    return lines.length - 1;
+  }
+
   function onItemPointerDown(e, itemId) {
     if (dragState.current) return;
     if (
@@ -1225,10 +1298,20 @@ export default function GridDemo() {
             dangerouslySetInnerHTML={{ __html: plusIcon }}
           />
         </div>
+        <button
+          class="gridDemo_btn gridDemo_toolbar_reset"
+          onClick={resetAll}
+          title="Reset to defaults"
+          dangerouslySetInnerHTML={{ __html: resetIcon }}
+        />
       </div>
 
       <div class="gridDemo_main">
-        <ul class="gridDemo_main_grid" ref={gridRef}>
+        <ul
+          class="gridDemo_main_grid"
+          ref={gridRef}
+          onContextMenu={onGridContextMenu}
+        >
           {items.map((item) => {
             let cls = `gridDemo_item grid-item-${item.id}`;
             if (draggingId === item.id) cls += " is-dragging";
@@ -1293,6 +1376,31 @@ export default function GridDemo() {
           }}
           onPointerDown={onGridResizePointerDown}
         />
+
+        {trackMenu && (
+          <div
+            ref={trackMenuRef}
+            class="gridDemo_contextMenu"
+            style={{ left: `${trackMenu.x}px`, top: `${trackMenu.y}px` }}
+          >
+            {colSizes[trackMenu.colIndex] !== "1fr" && (
+              <button
+                class="gridDemo_contextMenu_btn"
+                onClick={() => resetTrackSize("col", trackMenu.colIndex)}
+              >
+                Reset column {trackMenu.colIndex + 1} to <code>1fr</code>
+              </button>
+            )}
+            {rowSizes[trackMenu.rowIndex] !== "1fr" && (
+              <button
+                class="gridDemo_contextMenu_btn"
+                onClick={() => resetTrackSize("row", trackMenu.rowIndex)}
+              >
+                Reset row {trackMenu.rowIndex + 1} to <code>1fr</code>
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       <div class="gridDemo_bottom">

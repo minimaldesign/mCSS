@@ -23,6 +23,10 @@
   gap: var(--xs2);
 }
 
+.gridDemo_toolbar_reset {
+  margin-left: auto;
+}
+
 .gridDemo_toolbar_label {
   font-size: var(--text-md);
   font-weight: var(--semi-bold);
@@ -320,6 +324,42 @@
 .gridDemo_gridResize.is-active {
   border-right-color: light-dark(var(--base-600), var(--base-300));
   border-bottom-color: light-dark(var(--base-600), var(--base-300));
+}
+
+/* Right-click context menu for resetting track sizes */
+
+.gridDemo_contextMenu {
+  position: absolute;
+  z-index: var(--z-3);
+  display: flex;
+  flex-direction: column;
+  min-width: max-content;
+  padding: var(--xs1) 0;
+  border: var(--border-sm) solid var(--base-600);
+  border-radius: var(--radius-lg);
+  background: var(--base-950);
+  box-shadow: var(--shadow-lg);
+}
+
+.gridDemo_contextMenu_btn {
+  padding: var(--xs2) var(--sm1);
+  border: none;
+  background: none;
+  text-align-last: left;
+  color: var(--base-300);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+
+  &:hover {
+    color: var(--base-0);
+  }
+
+  code {
+    font-size: 0.9em;
+    color: var(--primary-500);
+    background-color: var(--base-900);
+  }
 }
 
 /* Settings panel */
