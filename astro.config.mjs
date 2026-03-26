@@ -33,8 +33,7 @@ export default defineConfig({
         wrap: true, // Enable word wrap by default
         overridesByLang: {
           "ansi,bash,bat,batch,cmd,console,fish,nu,nushell,powershell,ps,ps1,psd1,psm1,sh,shell,shellscript,shellsession,zsh":
-            { frame: "none" }, // disable frames for terminal languages
-          "bash,ps,sh": { preserveIndent: false }, // disable line indentation for terminal languages
+            { frame: "none", preserveIndent: false },
         },
       },
     }),
