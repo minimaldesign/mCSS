@@ -4,10 +4,41 @@ import mdx from "@astrojs/mdx";
 
 import tunnel from "astro-tunnel";
 
+import expressiveCode from "astro-expressive-code";
+
 // import purgecss from "astro-purgecss";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://mcss.dev",
-  integrations: [preact(), mdx(), tunnel()],
+  integrations: [
+    preact(),
+    expressiveCode({
+      themes: ["github-dark"],
+      styleOverrides: {
+        codeFontFamily:
+          "Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, ui-monospace, monospace",
+        codeFontSize: "0.9rem",
+        codeBackground: "#353c45", // --base-900
+        uiFontFamily:
+          "Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif, sans-serif",
+        frames: {
+          terminalBackground: "#353c45", // --base-900
+          terminalTitlebarBackground: "#353c45", // --base-900
+          terminalTitlebarBorderBottomColor: "#23282e", // --base-950
+          shadowColor: "none",
+        },
+      },
+      defaultProps: {
+        wrap: true, // Enable word wrap by default
+        overridesByLang: {
+          "ansi,bash,bat,batch,cmd,console,fish,nu,nushell,powershell,ps,ps1,psd1,psm1,sh,shell,shellscript,shellsession,zsh":
+            { frame: "none" }, // disable frames for terminal languages
+          "bash,ps,sh": { preserveIndent: false }, // disable line indentation for terminal languages
+        },
+      },
+    }),
+    mdx(),
+    tunnel(),
+  ],
 });

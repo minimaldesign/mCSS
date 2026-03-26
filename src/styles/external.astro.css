@@ -17,3 +17,18 @@
   margin-top: var(--md3);
   margin-bottom: var(--md3);
 }
+
+/* astro-expressive-code bugs overrides */
+
+.expressive-code {
+  margin-block: var(--xs3);
+
+  .frame pre {
+    margin-block: 0;
+    border-radius: var(--radius-md);
+  }
+
+  .frame.is-terminal .header {
+    border-width: 0 !important;
+  }
+}
