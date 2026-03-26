@@ -27,6 +27,7 @@ export default defineConfig({
           terminalTitlebarBackground: "#353c45", // --base-900
           terminalTitlebarBorderBottomColor: "#23282e", // --base-950
           shadowColor: "none",
+          tooltipSuccessBackground: "#13886d", // --success-500
         },
       },
       defaultProps: {
