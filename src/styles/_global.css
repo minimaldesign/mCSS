@@ -47,6 +47,7 @@
 
 /*  Internal components (not part of the public Astro component library) */
 @import url(./component.colorPickerOklch.css);
+@import url(./component.copyButton.css);
 @import url(./component.gridDemo.css);
 
 /*  Page specific styles */

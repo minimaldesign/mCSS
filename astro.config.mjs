@@ -14,7 +14,7 @@ export default defineConfig({
   integrations: [
     preact(),
     expressiveCode({
-      themes: ["github-dark"],
+      themes: ["github-dark"], // Theme also needs to be imported in shikiHighlighter.js
       styleOverrides: {
         codeFontFamily:
           "Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, ui-monospace, monospace",

@@ -1,4 +1,5 @@
-import { useRef, useEffect, useState } from 'preact/hooks';
+import { useRef, useEffect, useState, useMemo } from "preact/hooks";
+import { useHighlightedCode } from "./_useHighlightedCode.js";
 
 function oklabToLinearRGB(L, a, b) {
   const l = L + 0.3963377774 * a + 0.2158037573 * b;
@@ -33,9 +34,12 @@ function isOutOfGamut(L, C, H) {
   const b = linearToSRGB(rgb[2]);
   const epsilon = 0.00001;
   return (
-    r < -epsilon || r > 1 + epsilon ||
-    g < -epsilon || g > 1 + epsilon ||
-    b < -epsilon || b > 1 + epsilon
+    r < -epsilon ||
+    r > 1 + epsilon ||
+    g < -epsilon ||
+    g > 1 + epsilon ||
+    b < -epsilon ||
+    b > 1 + epsilon
   );
 }
 
@@ -50,18 +54,26 @@ export default function ColorPickerOklch() {
 
   const colorString = `oklch(${lightness} ${chroma} ${hue.toFixed(2)})`;
   const outOfGamut = isOutOfGamut(lightness, chroma, hue);
+  const cssCode = useMemo(() => `.elem {\n  ${colorString}\n}`, [colorString]);
+  const highlightedCss = useHighlightedCode(cssCode, "css");
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     const cx = canvas.width / 2;
     const cy = canvas.height / 2;
     const r = canvas.width / 2;
     for (let angle = 0; angle < 360; angle++) {
       ctx.beginPath();
       ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, r, ((angle - 90) * Math.PI) / 180, ((angle + 1 - 90) * Math.PI) / 180);
+      ctx.arc(
+        cx,
+        cy,
+        r,
+        ((angle - 90) * Math.PI) / 180,
+        ((angle + 1 - 90) * Math.PI) / 180,
+      );
       ctx.closePath();
       ctx.fillStyle = `oklch(${lightness} ${chroma} ${angle})`;
       ctx.fill();
@@ -92,13 +104,13 @@ export default function ColorPickerOklch() {
       dragging.current = false;
     };
 
-    canvas.addEventListener('mousedown', onDown);
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
+    canvas.addEventListener("mousedown", onDown);
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
     return () => {
-      canvas.removeEventListener('mousedown', onDown);
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
+      canvas.removeEventListener("mousedown", onDown);
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
     };
   }, []);
 
@@ -108,17 +120,22 @@ export default function ColorPickerOklch() {
     const radius = cx * 0.9;
     const angle = ((hue - 90) * Math.PI) / 180;
     return {
-      left: cx + radius * Math.cos(angle) + 'px',
-      top: cx + radius * Math.sin(angle) + 'px',
+      left: cx + radius * Math.cos(angle) + "px",
+      top: cx + radius * Math.sin(angle) + "px",
     };
   }
 
   return (
-    <div class="colorPickerOklch">
+    <div class="colorPickerOklch not-prose">
       <div class="control-group">
         <div class="control-label" />
         <div class="color-wheel-container" ref={containerRef}>
-          <canvas class="color-wheel" ref={canvasRef} width={200} height={200} />
+          <canvas
+            class="color-wheel"
+            ref={canvasRef}
+            width={200}
+            height={200}
+          />
           <div class="color-wheel-center">
             <div>
               <div class="caption">Hue</div>
@@ -162,11 +179,17 @@ export default function ColorPickerOklch() {
       </div>
 
       <div class="color-display" style={{ backgroundColor: colorString }}>
-        <div class={`gamut-warning${outOfGamut ? ' show' : ''}`}>
+        <div class={`gamut-warning${outOfGamut ? " show" : ""}`}>
           ⚠️ Gamut correction
         </div>
       </div>
-      <pre class="color-value">{`.elem {\n  ${colorString}\n}`}</pre>
+      <pre class="color-value">
+        {highlightedCss ? (
+          <code dangerouslySetInnerHTML={{ __html: highlightedCss }} />
+        ) : (
+          <code>{cssCode}</code>
+        )}
+      </pre>
     </div>
   );
 }

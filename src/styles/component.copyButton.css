@@ -1,0 +1,81 @@
+/* Copy-to-clipboard button — matches Expressive Code UX. */
+/* Parent must be position: relative for absolute placement. */
+
+.copyBtn {
+  display: flex;
+  position: absolute;
+  z-index: var(--z-1);
+  inset-block-start: var(--xs2);
+  inset-inline-end: var(--xs2);
+}
+
+.copyBtn_trigger {
+  position: relative;
+  width: var(--lg1);
+  height: var(--lg1);
+  display: flex;
+  place-items: center;
+  border: none;
+  color: light-dark(var(--base-400), var(--base-400));
+  border-radius: var(--radius-md);
+  background: light-dark(var(--base-950), var(--base-900));
+  cursor: pointer;
+  transition:
+    opacity var(--transition),
+    background-color var(--transition);
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+    color: light-dark(var(--base-200), var(--base-200));
+    background: light-dark(var(--base-800), var(--base-700));
+  }
+
+  &:active {
+    opacity: 1;
+    background: light-dark(var(--base-700), var(--base-600));
+  }
+
+  svg {
+    width: var(--sm2);
+    height: var(--sm2);
+  }
+}
+
+/* On pointer devices: hide by default, reveal on parent hover */
+@media (hover: hover) {
+  .copyBtn_trigger {
+    opacity: 0;
+    width: var(--md2);
+    height: var(--md2);
+  }
+
+  /* Reveal when the copy button's grandparent (the code wrapper) is hovered,
+       or when a sibling is focused, or when feedback is visible */
+  :hover > .copyBtn .copyBtn_trigger:not(:hover),
+  :focus-within > .copyBtn .copyBtn_trigger:not(:hover),
+  .copyBtn:has(.is-visible) .copyBtn_trigger:not(:hover) {
+    opacity: 0.75;
+  }
+}
+
+/* "Copied!" */
+
+.copyBtn_feedback {
+  align-self: center;
+  margin-inline-end: var(--xs2);
+  padding: var(--xs1) var(--xs3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--base-100);
+  background-color: var(--yes-500);
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+  z-index: var(--z-2);
+  transition: opacity var(--transition);
+
+  &.is-visible {
+    opacity: 1;
+  }
+}

@@ -2,6 +2,8 @@ import { useState, useMemo, useRef, useEffect } from "preact/hooks";
 import plusIcon from "../assets/icons/plus.svg?raw";
 import minusIcon from "../assets/icons/minus.svg?raw";
 import resetIcon from "../assets/icons/rotate-ccw.svg?raw";
+import { useHighlightedCode } from "./_useHighlightedCode.js";
+import CopyButton from "./_CopyButton.jsx";
 
 const ITEM_LABELS = [
   "One",
@@ -454,6 +456,10 @@ export default function GridDemo() {
   const cssCode = useMemo(() => propsToCSS(gridProps), [gridProps]);
 
   const htmlCode = useMemo(() => generateHTML(items), [items]);
+
+  const activeCode = activeTab === "css" ? cssCode : htmlCode;
+  const activeLang = activeTab === "css" ? "css" : "html";
+  const highlightedHtml = useHighlightedCode(activeCode, activeLang);
 
   function addColumn() {
     setCols((c) => c + 1);
@@ -1441,9 +1447,16 @@ export default function GridDemo() {
               HTML
             </button>
           </div>
-          <pre class="gridDemo_code_block">
-            <code>{activeTab === "css" ? cssCode : htmlCode}</code>
-          </pre>
+          <div class="gridDemo_code_block">
+            <CopyButton code={activeCode} />
+            <pre>
+              {highlightedHtml ? (
+                <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
+              ) : (
+                <code>{activeCode}</code>
+              )}
+            </pre>
+          </div>
         </div>
 
         <div class="gridDemo_settings">

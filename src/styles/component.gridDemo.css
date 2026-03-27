@@ -1,6 +1,5 @@
 .gridDemo {
-  width: 100%;
-
+  margin-block: var(--lg3);
   &.is-itemDragged .gridDemo_trackHandle {
     pointer-events: none;
   }
@@ -10,16 +9,12 @@
 
 .gridDemo_toolbar {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--lg3);
+  gap: var(--lg1);
   margin-bottom: var(--sm2);
 }
 
 .gridDemo_toolbar_group {
   display: flex;
-  align-items: center;
   gap: var(--xs2);
 }
 
@@ -38,7 +33,6 @@
 
 .gridDemo_main {
   position: relative;
-  width: 100%;
   margin-bottom: var(--xl1);
 }
 
@@ -59,11 +53,11 @@
   font-size: var(--text-sm);
   user-select: none;
   cursor: grab;
-}
 
-.gridDemo_item.is-dragging {
-  opacity: var(--o-3);
-  cursor: grabbing;
+  &.is-dragging {
+    opacity: var(--o-3);
+    cursor: grabbing;
+  }
 }
 
 .gridDemo_ghost {
@@ -75,11 +69,13 @@
 /* Round +/- control buttons */
 
 .gridDemo_btn {
+  --gridBtSize: 28px;
+  --gridBtIconSize: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: var(--gridBtSize);
+  height: var(--gridBtSize);
   border-radius: var(--radius-round);
   border: var(--border-sm) solid var(--theme-border-color);
   background: light-dark(var(--base-0), var(--base-800));
@@ -92,11 +88,6 @@
     opacity var(--transition);
   padding: 0;
 
-  & svg {
-    width: 16px;
-    height: 16px;
-  }
-
   &:hover:not(:disabled) {
     background: light-dark(var(--base-100), var(--base-700));
     color: light-dark(var(--base-900), var(--base-0));
@@ -106,15 +97,18 @@
     opacity: var(--o-1);
     cursor: not-allowed;
   }
+
+  svg {
+    width: var(--gridBtIconSize);
+    height: var(--gridBtIconSize);
+  }
 }
 
 .gridDemo_btn-xs {
-  width: 20px;
-  height: 20px;
+  --gridBtSize: 20px;
 
-  & svg {
-    width: 14px;
-    height: 14px;
+  svg {
+    --gridBtIconSize: 14px;
   }
 }
 
@@ -138,10 +132,10 @@
 .gridDemo_bottom {
   display: flex;
   gap: var(--sm3);
-  align-items: flex-start;
+  flex-direction: column;
 
-  @media (--md-n-below) {
-    flex-direction: column;
+  @media (--md) {
+    flex-direction: row;
   }
 }
 
@@ -149,55 +143,42 @@
 
 .gridDemo_code {
   flex: 1;
-  min-width: 0;
 }
 
 .gridDemo_code_tabs {
   display: flex;
-  gap: 0;
+  column-gap: var(--xs1);
 }
 
 .gridDemo_code_tab {
   padding: var(--xs2) var(--sm1);
-  border: var(--border-sm) solid var(--theme-border-color);
+  border: var(--border-sm) solid light-dark(var(--base-100), var(--base-950));
   border-bottom: none;
   border-radius: var(--radius-md) var(--radius-md) 0 0;
-  background: light-dark(var(--base-100), var(--base-800));
-  color: light-dark(var(--base-500), var(--base-400));
+  background: light-dark(var(--base-100), var(--base-950));
+  color: light-dark(var(--base-500), var(--base-500));
   font-size: var(--text-sm);
   font-weight: var(--semi-bold);
   cursor: pointer;
   transition:
     background var(--transition),
+    border-color var(--transition),
     color var(--transition);
 
   &.is-active {
     background: light-dark(var(--base-950), var(--base-900));
-    color: light-dark(var(--base-0), var(--base-200));
-  }
-
-  & + & {
-    margin-left: calc(var(--border-sm) * -1);
+    border-color: light-dark(var(--base-950), var(--base-900));
+    color: light-dark(var(--base-0), var(--base-100));
   }
 }
 
 .gridDemo_code_block {
-  margin: 0;
-  padding: var(--sm1);
+  position: relative;
   border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
   background: light-dark(var(--base-950), var(--base-900));
-  color: light-dark(var(--base-200), var(--base-200));
-  font-family: var(--mono);
-  font-size: var(--text-sm);
-  line-height: var(--leading-lg);
-  overflow-x: auto;
-  white-space: pre;
 
-  code {
-    font-family: inherit;
-    background: none;
-    padding: 0;
-    color: inherit;
+  pre {
+    padding: var(--sm1);
   }
 }
 
@@ -206,12 +187,6 @@
 .gridDemo_handle {
   position: absolute;
   z-index: var(--z-1);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
-
-.gridDemo_item:hover .gridDemo_handle {
-  opacity: 1;
 }
 
 .gridDemo_handle-top,
@@ -273,23 +248,21 @@
   cursor: nwse-resize;
 }
 
-/* Track resize handles — visible strips on the gap between tracks
-   Disabled via pointer-events in .gridDemo.is-itemDragged on top of file */
+/* Track resize handles — visible strips on the gap between tracks */
+/* Disabled via pointer-events in .gridDemo.is-itemDragged on top of this file */
 
 .gridDemo_trackHandle {
   position: absolute;
   z-index: var(--z-2);
-  transition:
-    background var(--transition-fast),
-    opacity var(--transition-fast);
-}
+  transition: opacity var(--transition-fast);
 
-.gridDemo_trackHandle:hover {
-  border-color: var(--maybe-500);
-}
+  &:hover {
+    border-color: var(--maybe-500);
+  }
 
-.gridDemo_trackHandle.is-active {
-  border-color: var(--maybe-300);
+  &.is-active {
+    border-color: var(--maybe-300);
+  }
 }
 
 .gridDemo_trackHandle-col {
@@ -318,27 +291,27 @@
     light-dark(var(--base-400), var(--base-500));
   border-radius: 0 0 var(--radius-lg) 0;
   transition: border-color var(--transition-fast);
-}
 
-.gridDemo_gridResize:hover,
-.gridDemo_gridResize.is-active {
-  border-right-color: light-dark(var(--base-600), var(--base-300));
-  border-bottom-color: light-dark(var(--base-600), var(--base-300));
+  &:hover,
+  &.is-active {
+    border-right-color: light-dark(var(--base-600), var(--base-300));
+    border-bottom-color: light-dark(var(--base-600), var(--base-300));
+  }
 }
 
 /* Right-click context menu for resetting track sizes */
 
 .gridDemo_contextMenu {
   position: absolute;
-  z-index: var(--z-3);
   display: flex;
   flex-direction: column;
   min-width: max-content;
   padding: var(--xs1) 0;
   border: var(--border-sm) solid var(--base-600);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   background: var(--base-950);
   box-shadow: var(--shadow-lg);
+  z-index: var(--z-3);
 }
 
 .gridDemo_contextMenu_btn {
@@ -349,7 +322,7 @@
   color: var(--base-300);
   font-size: var(--text-sm);
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: color var(--transition);
 
   &:hover {
     color: var(--base-0);
@@ -365,11 +338,10 @@
 /* Settings panel */
 
 .gridDemo_settings {
-  width: 220px;
-  flex-shrink: 0;
+  font-size: var(--text-sm);
 
-  @media (--md-n-below) {
-    width: 100%;
+  @media (--md) {
+    width: 220px;
   }
 }
 
@@ -377,24 +349,18 @@
   display: flex;
   align-items: center;
   gap: var(--xs2);
-  font-size: var(--text-sm);
   cursor: pointer;
   margin-bottom: var(--xs2);
-
-  input {
-    margin: 0;
-  }
 }
 
 .gridDemo_settings_field {
-  margin-top: var(--xs3);
+  margin-top: var(--sm1);
 }
 
 .gridDemo_settings_label {
-  display: block;
-  font-size: var(--text-sm);
+  font-family: var(--mono);
   color: light-dark(var(--base-500), var(--base-400));
-  margin-bottom: var(--xs1);
+  margin-bottom: var(--xs2);
 }
 
 .gridDemo_settings_select {
@@ -404,5 +370,4 @@
   border: var(--border-sm) solid var(--theme-border-color);
   border-radius: var(--radius-md);
   background: light-dark(var(--base-0), var(--base-800));
-  color: inherit;
 }

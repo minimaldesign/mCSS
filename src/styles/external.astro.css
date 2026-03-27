@@ -1,15 +1,7 @@
-.astro-code {
-  margin-top: var(--prose-spacing);
-  margin-bottom: var(--prose-spacing);
-  padding: var(--sm1);
-  border-radius: var(--radius-md);
-  background-color: var(--astro-code-background-color) !important;
-
-  code {
-    /* override elements.text default */
-    padding: 0;
-    background-color: initial;
-  }
+/* shikiHighlighter.js adds .shiki to override elements.text <code> default */
+code:has(> .shiki) {
+  padding: 0;
+  background: none;
 }
 
 /* Codepen */
@@ -19,7 +11,6 @@
 }
 
 /* astro-expressive-code bugs overrides */
-
 .expressive-code {
   margin-block: var(--xs3);
 
