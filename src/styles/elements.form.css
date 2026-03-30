@@ -180,18 +180,11 @@ select {
   );
   mask-image:
     url("../assets/icons/chevron-down.svg"),
-    linear-gradient(
-      to right,
-      transparent 0 var(--split),
-      #fff var(--split) 100%
-    ),
-    linear-gradient(#fff, #fff);
-  mask-size:
-    var(--icon-size) var(--icon-size),
-    100% 100%,
-    100% 100%;
+    linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
+    linear-gradient(red 0 0);
+  mask-size: var(--icon-size), auto, auto;
   mask-position:
-    right center,
+    calc(100% - var(--xs1)) center,
     0 0,
     0 0;
   mask-repeat: no-repeat;
