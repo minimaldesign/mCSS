@@ -198,7 +198,17 @@ select {
   }
 
   &:disabled {
+    --disabled-color: light-dark(
+      hsl(from var(--text-color) h s 70%),
+      hsl(from var(--text-color) h s 40%)
+    );
     cursor: not-allowed;
+    color: var(--disabled-color);
+    background: linear-gradient(
+      to right,
+      var(--body-background-color) 0 var(--split),
+      var(--disabled-color) var(--split) 100%
+    );
   }
 
   &[multiple] {
