@@ -2,7 +2,7 @@
 
 :root {
   color-scheme: light dark;
-  
+
   --theme-border-color: light-dark(var(--base-200), var(--base-500));
   --theme-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
 }
@@ -15,7 +15,6 @@
   color-scheme: dark;
 }
 
-
 /* HTML ELEMENTS */
 
 :root {
@@ -25,7 +24,7 @@
 
   --input-height: var(--md3);
   --input-padding: var(--xs3);
-  --input-border-radius: var(--radius-lg);
+  --input-border-radius: var(--radius-md);
 
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
@@ -46,7 +45,10 @@
   --link-color-hover: var(--primary-500);
 
   --text-code-color: light-dark(var(--primary-600), var(--primary-400));
-  --text-code-background-color: light-dark(var(--primary-100), var(--primary-900));
+  --text-code-background-color: light-dark(
+    var(--primary-100),
+    var(--primary-900)
+  );
 
   /* .prose related stuff in GLOBAL */
 
@@ -89,7 +91,10 @@
   --bt-border-radius-lg: var(--radius-xl);
 
   --bt-outline-color-hover: light-dark(var(--base-950), var(--base-0));
-  --bt-outline-background-color-hover: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
+  --bt-outline-background-color-hover: light-dark(
+    rgb(0 0 0 / 0.1),
+    rgb(255 255 255 / 0.1)
+  );
   --bt-outline-border-color: light-dark(var(--base-950), var(--base-0));
   --bt-outline-border-color-hover: light-dark(var(--base-950), var(--base-0));
 
@@ -127,7 +132,10 @@
   --card-border-width: var(--border-sm);
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
-  --card-badge-bg: light-dark(var(--base-700), var(--base-600)); /* Default badge background */
+  --card-badge-bg: light-dark(
+    var(--base-700),
+    var(--base-600)
+  ); /* Default badge background */
   --card-badge-text-color: var(--base-0); /* Default badge text color */
   --card-loading-bg: light-dark(var(--base-200), var(--base-900));
 }

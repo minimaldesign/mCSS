@@ -164,43 +164,35 @@ progress {
 }
 
 select {
-  --arrowSize: calc((var(--input-height) / 4.5));
-  --arrowY: calc((var(--input-height) / 2) - (var(--arrowSize) / 2));
-  --arrowColor: var(--base-900);
-
-  display: block;
+  --icon-size: 24px;
+  --split: calc(100% - var(--icon-size));
+  display: flex;
   appearance: none;
   height: var(--input-height);
   padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
     var(--input-padding);
+  background-color: var(--body-background-color);
   border: 1px solid var(--theme-border-color);
   border-radius: var(--input-border-radius);
-  /* maybe I should just include a SVG 😅 */
-  background:
-    linear-gradient(45deg, transparent 50%, var(--arrowColor) 50%),
-    linear-gradient(135deg, var(--arrowColor) 50%, transparent 50%),
-    linear-gradient(var(--base-0), var(--base-100));
-  background-position:
-    calc(100% - var(--arrowSize) - var(--input-padding)) var(--arrowY),
-    calc(100% - var(--input-padding)) var(--arrowY),
-    bottom left;
-  background-size:
-    var(--arrowSize) var(--arrowSize),
-    var(--arrowSize) var(--arrowSize),
-    100% var(--input-height);
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' id='chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  &::focus-visible {
-    outline: none;
+  background-position: right var(--xs1) center;
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
   }
+
   &:disabled {
     cursor: not-allowed;
-    --arrowColor: var(--base-200);
   }
 
   &[multiple] {
     height: auto;
     padding: var(--input-padding);
-    background: var(--base-0);
+    background: var(--body-background-color);
+    mask-image: none;
   }
 }
 
