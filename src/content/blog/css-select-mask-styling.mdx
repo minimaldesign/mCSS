@@ -1,0 +1,172 @@
+---
+title: "Custom <select> styling with zero extra markup and one SVG"
+pubDate: 2026-03-29
+author: "Yann"
+tags:
+  [
+    "css",
+    "css mask",
+    "mask composite",
+    "svg",
+    "pure css",
+    "select styling",
+    "custom select",
+  ]
+description: "A pure CSS technique to style a native `<select>` element using layered masks and `mask-composite`. No wrapper elements, no JavaScript, and a single SVG that adapts to light and dark themes."
+---
+
+import SelectMask from "../../components/_SelectMask.jsx";
+
+## The problem
+
+Styling a native `<select>` dropdown HTML element is one of those things that _should_ be simple but never is. The common workarounds are clunky and usually require an extra wrapper. I really wanted [mCSS HTML elements](/docs/elements#form) to be customizable out of the box, without extra markup. Here were my requirements:
+
+1. No wrapper element around the `<select>`.
+2. Custom "chevron" icon that matches the text color in light/dark themes.
+3. Use a single SVG for the icon (no separate light/dark SVGs).
+
+The obvious solution, a `background-image` with an SVG, fails requirement #2. Inside a `url()` data URI, `currentColor` has no access to the page's `color` property. The SVG is a separate image document. You'd need to duplicate the asset and swap it per theme.
+
+The other obvious solution, a single `mask-image` of the chevron with a colored background, fails because `mask` applies to **everything** the element paints: background, border, and the selected option text. You end up with invisible text shaped like a chevron.
+
+## The idea: three mask layers
+
+The trick is to use **three** mask layers composited together so that different parts of the element are selectively revealed:
+
+1. **Layer 1 (top):** The chevron SVG, clipped to **padding-box**. This is the shape we want to reveal. Composited with **`add`**, it fills in the chevron strokes within the punch-out area created below.
+2. **Layer 2 (middle):** A gradient that is transparent on the left and opaque on the right (where the chevron sits), clipped to **padding-box**. Composited with **`exclude`**, this punches a hole in the right strip of the padding area, but _cannot touch the border_ because it is clipped to a smaller box.
+3. **Layer 3 (bottom):** A solid opaque fill covering the entire **border-box**. This is the base layer that keeps everything visible, including the border.
+
+### How mask-composite works
+
+`mask-composite` controls how each mask layer is blended with the accumulated result of all the layers below it, working from top to bottom. Think of it like blend modes in image editors: each layer either adds to, subtracts from, or modifies what the layers beneath have contributed.
+
+The two values used here:
+
+- **`add`**: The opaque areas of this layer are merged with the result below. Wherever this layer is opaque, the final result is opaque too. This is how the chevron strokes get added back.
+- **`exclude`**: This is a punchout operation. Where this layer is opaque _and_ the result below is also opaque, those pixels become transparent. Where either side is transparent, the other side passes through unchanged. This is how we carve the hole for the chevron indicator without affecting the left side (where the text lives) or the border (which is outside the clip area).
+
+### The result
+
+- **Left side (text):** Visible. Layer 3 makes it opaque; Layer 2 leaves it alone because it is transparent on the left.
+- **Right strip (chevron strokes):** Visible. Layer 2 punches the strip out, then Layer 1 adds the chevron back.
+- **Right strip (outside the chevron):** Transparent, showing the page background behind the element.
+- **Border:** Visible on all four sides. Layer 2 is clipped to `padding-box`, so it physically cannot reach the border area.
+
+Then a simple **background gradient** handles the coloring: `--body-background-color` on the left, `--text-color` on the right. The mask controls _where_ each color is visible. The chevron strokes reveal the text-color band. Since `--text-color` is a theme token, the chevron automatically adapts to the current theme.
+
+<SelectMask client:visible />
+
+## The implementation
+
+### The background gradient
+
+```css
+select {
+  background: linear-gradient(
+    to right,
+    var(--body-background-color) 0 var(--split),
+    var(--text-color) var(--split) 100%
+  );
+}
+```
+
+A hard-edge gradient with two bands. The left band matches the field background. The right band is the text color, which is the "paint" that shows through the chevron mask. Because `--text-color` is a theme-aware token, the chevron color follows the current theme automatically.
+
+**Note:** The background on the right side of the `select` (behind the icon) is transparent, so **you have to make sure** its background color (`--body-background-color` in our example) is the same as what's behind it.
+
+### The mask stack
+
+**Layer 3:** the solid base
+
+```css
+select {
+  mask-image: linear-gradient(red 0 0);
+}
+```
+
+`mask-image` does not accept a plain color; it needs an `<image>` value. A single-stop gradient is the most concise way to produce a solid opaque fill. The color itself is irrelevant (masks use the alpha channel, not the color). Using `red` here makes it obvious this is mask code and not a visible fill.
+
+This layer is clipped to **`border-box`** so it covers the border area too.
+
+**Layer 2:** the punch-out strip
+
+```css
+select {
+  mask-image: linear-gradient(
+    to right,
+    transparent calc(var(--split) - 1px),
+    red 0
+  );
+}
+```
+
+Transparent on the left, opaque on the right. Composited with **`exclude`** against the accumulated result of Layer 3:
+
+- Left side: Layer 2 is transparent, so the result from Layer 3 passes through unchanged. Text stays visible.
+- Right strip: Both Layer 2 and Layer 3 are opaque. The `exclude` operation makes those pixels transparent, punching the hole.
+- Border area: Layer 2 is clipped to `padding-box`, so it contributes nothing outside the padding. Layer 3 stays opaque there and the border remains visible.
+
+**Note:** `calc(var(--split) - 1px)` instead of just `var(--split)` prevents a hairline artifact at the boundary in Firefox.
+
+**Layer 1:** the chevron
+
+```css
+select {
+  mask-image: url("../assets/icons/chevron-down.svg");
+}
+```
+
+The SVG is loaded as an image. In alpha mask mode (the default for SVG used in `mask-image`), opaque stroke pixels have full alpha and everything else is transparent. Composited with **`add`**, it fills back the chevron shape within the punched-out strip.
+
+### Positioning the chevron
+
+```css
+select {
+  mask-position:
+    calc(100% - var(--xs1)) center,
+    0 0,
+    0 0;
+}
+```
+
+Only the chevron layer needs a positional offset. The gradient and solid layers fill their entire box, so `0 0` has no visible effect on them.
+
+Using `calc(100% - offset)` instead of the three-value `right <length> center` syntax keeps things reliable. A single `mask-position` value with multiple layers of different sizes can produce unexpected results: percentage math is resolved as `(container - image) * %`, which can shift full-size gradient layers in unexpected ways.
+
+### Putting is all together
+
+**Note:** this code sample is from the [mCSS source code](https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.form.css#L166) so it includes custom properties, but it should be simple enough not to be confusing.
+
+```css
+select {
+  --icon-size: 24px;
+  --split: calc(100% - var(--icon-size));
+
+  appearance: none;
+  border: 1px solid var(--theme-border-color);
+  border-radius: var(--input-border-radius);
+  padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
+    var(--input-padding);
+
+  background: linear-gradient(
+    to right,
+    var(--body-background-color) 0 var(--split),
+    var(--text-color) var(--split) 100%
+  );
+
+  mask-image:
+    url("../assets/icons/chevron-down.svg"),
+    linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
+    linear-gradient(red 0 0);
+  mask-size: var(--icon-size), auto, auto;
+  mask-position:
+    calc(100% - var(--xs1)) center,
+    0 0,
+    0 0;
+  mask-repeat: no-repeat;
+  mask-clip: padding-box, padding-box, border-box;
+  mask-origin: padding-box, padding-box, border-box;
+  mask-composite: add, exclude;
+}
+```

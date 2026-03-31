@@ -1,0 +1,133 @@
+.selectMask {
+  --sm-icon: 24px;
+  --sm-split-1px: calc(100% - var(--sm-icon) - 1px);
+  --sm-red: rgb(220 38 38 / 0.8);
+
+  margin: var(--md1) auto;
+  padding: var(--sm3);
+  background: light-dark(var(--base-50), var(--base-900));
+  border: var(--border-sm) solid var(--theme-border-color);
+  border-radius: var(--radius-lg);
+
+  .selectMask_legend {
+    margin-bottom: var(--sm2);
+    font-size: var(--text-sm);
+    font-weight: var(--bold);
+  }
+
+  .selectMask_layers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--xs3);
+    margin-bottom: var(--xs3);
+    @media (--md) {
+      flex-direction: row;
+    }
+  }
+
+  .selectMask_col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--xs2);
+  }
+
+  .selectMask_field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: var(--input-height);
+    padding-inline: var(--input-padding);
+    border: 1px dashed var(--base-300);
+    border-radius: var(--input-border-radius);
+    background: var(--body-background-color);
+    overflow: visible;
+  }
+
+  .selectMask_field-combined {
+    margin-top: var(--xs3);
+  }
+
+  /* No layers active: hide everything to show an empty field */
+  .sm_noMask .selectMask_redOverlay,
+  .sm_noMask .selectMask_fieldText {
+    visibility: hidden;
+  }
+
+  /* Layer previews: red background + mask to show each layer's shape */
+
+  /* Layer 1 (padding-box): only the chevron strokes */
+  .sm_l1 {
+    position: absolute;
+    inset: 0;
+    background: var(--sm-red);
+    mask-image: url("../assets/icons/chevron-down.svg");
+    mask-size: var(--sm-icon);
+    mask-position: calc(100% - var(--xs1)) center;
+    mask-repeat: no-repeat;
+  }
+
+  /* Layer 2 (padding-box): only the right strip */
+  .sm_l2 {
+    position: absolute;
+    inset: 0;
+    background: var(--sm-red);
+    mask-image: linear-gradient(
+      to right,
+      transparent var(--sm-split-1px),
+      red 0
+    );
+  }
+
+  /* Layer 3 (border-box): extends beyond the dotted border */
+  .sm_l3 {
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--input-border-radius);
+    background: var(--sm-red);
+  }
+
+  /* Combined view: mask applied via inline style on the field itself. */
+  /* Red overlay + text are both children, so both get clipped. */
+  .selectMask_redOverlay {
+    position: absolute;
+    inset: -1px;
+    background: var(--sm-red);
+    border-radius: inherit;
+  }
+
+  .selectMask_fieldText {
+    position: relative;
+    font-size: var(--text-sm);
+  }
+
+  .selectMask_toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--xs2);
+    cursor: pointer;
+
+    input {
+      margin-top: 3px;
+    }
+  }
+
+  .selectMask_info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: var(--text-sm);
+
+    span {
+      font-size: var(--text-xs);
+      color: light-dark(var(--base-500), var(--base-400));
+    }
+  }
+
+  .selectMask_caption {
+    font-size: var(--text-xs);
+    color: light-dark(var(--base-400), var(--base-500));
+    margin-top: var(--xs1);
+    text-align: center;
+  }
+}

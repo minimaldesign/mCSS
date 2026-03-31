@@ -49,6 +49,7 @@
 @import url(./component.colorPickerOklch.css);
 @import url(./component.copyButton.css);
 @import url(./component.gridDemo.css);
+@import url(./component.selectMask.css);
 
 /*  Page specific styles */
 /* (Use sparingly. Component is probably  the way to go) */
