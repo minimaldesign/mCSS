@@ -6,9 +6,12 @@ tags: ["css", "color"]
 description: "A fast-moving dive into the newest CSS color tools that are transforming how we design for the web. Learn how to build richer palettes, keep accessibility on point, and streamline your entire workflow. Packed with code samples and hands-on demos, this guide gives you exactly what you need and none of the fluff."
 ---
 
+import CanIUse from "../../components/_CanIUse.astro";
 import ColorPickerOklch from "../../components/_ColorPickerOklch.jsx";
 
 ## Use OKLCH color mode
+
+<CanIUse feature="css.types.color.oklch" />
 
 ### A little bit of history
 
@@ -111,6 +114,8 @@ OKLCH mental model is similar to LCH (but with perceptually uniform results): pi
 
 ## Use Oklab for gradients
 
+<CanIUse feature="css.types.color.oklab" />
+
 RGB is notorious for interpolating colors with the artistic flair of a vacuum cleaner. OKLCH is great, but it can lead to some unexpected results with gradients because of its polar coordinates underpinnings. Most of the time, Oklab will get you the best results.
 
 {/* prettier-ignore */}
@@ -174,6 +179,11 @@ For a cleaner syntax, you can drop the commas and units, and add the alpha chann
 ```
 
 ## Use relative colors
+
+<CanIUse
+  feature="css.types.color.hsl.relative_syntax"
+  title="HSL relative colors"
+/>
 
 [Relative colors][relative colors] let you create a color from another color.
 
