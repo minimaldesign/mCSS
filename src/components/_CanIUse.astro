@@ -27,11 +27,35 @@
  */
 
 import bcdData from '@mdn/browser-compat-data';
-import { agents } from 'caniuse-lite';
+import { agents as localAgents } from 'caniuse-lite';
+import externalLinkIcon from '../assets/icons/external-link.svg?raw';
 
 interface Props {
   feature: string;
 }
+
+// Module-level cache: fetched once per build, shared across all component renders.
+// Using `globalThis` so the cache survives across Astro's module boundaries.
+type AgentsMap = Record<string, { usage_global: Record<string, number> }>;
+const CANIUSE_DB_URL = 'https://cdn.jsdelivr.net/npm/caniuse-db/data.json';
+
+async function getUsageAgents(): Promise<AgentsMap> {
+  const g = globalThis as any;
+  if (g.__caniuseAgentsCache) return g.__caniuseAgentsCache;
+  try {
+    const res = await fetch(CANIUSE_DB_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    g.__caniuseAgentsCache = data.agents as AgentsMap;
+    console.log('[CanIUse] fetched fresh usage data from caniuse-db');
+  } catch (e) {
+    console.warn('[CanIUse] fetch failed, falling back to installed caniuse-lite:', (e as Error).message);
+    g.__caniuseAgentsCache = localAgents as unknown as AgentsMap;
+  }
+  return g.__caniuseAgentsCache;
+}
+
+const usageAgents = await getUsageAgents();
 
 const { feature } = Astro.props;
 
@@ -62,7 +86,7 @@ function resolveSupport(raw: any): { status: Status; version: string | null } {
   return { status: 'y', version: String(stmt.version_added) };
 }
 
-// BCD browser key → caniuse-lite agent key
+// BCD browser key → caniuse agent key
 const BCD_TO_CL: Record<string, string> = {
   chrome: 'chrome',
   chrome_android: 'and_chr',
@@ -74,25 +98,27 @@ const BCD_TO_CL: Record<string, string> = {
   samsunginternet_android: 'samsung',
   ie: 'ie',
   opera: 'opera',
+  opera_android: 'op_mob',
+  webview_android: 'android',
 };
 
-// Global usage %: sum caniuse-lite usage for all versions >= version_added
+// Global usage %: sum usage for all versions >= version_added
 let totalUsage = 0;
 if (compat) {
   for (const [bcdKey, clKey] of Object.entries(BCD_TO_CL)) {
     const { status, version } = resolveSupport(compat.support?.[bcdKey]);
     if (status !== 'y' || !version) continue;
-    const clAgent = (agents as any)[clKey];
-    if (!clAgent) continue;
+    const agent = usageAgents[clKey];
+    if (!agent) continue;
     const since = parseFloat(version);
-    for (const [v, u] of Object.entries(clAgent.usage_global as Record<string, number>)) {
+    for (const [v, u] of Object.entries(agent.usage_global)) {
       if (parseFloat(v) >= since) totalUsage += u;
     }
   }
 }
 
 function releaseDate(clKey: string, version: string): string | null {
-  const clAgent = (agents as any)[clKey];
+  const clAgent = (localAgents as any)[clKey];
   const ts: number | null = clAgent?.release_date?.[version] ?? null;
   if (!ts) return null;
   return new Date(ts * 1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
@@ -132,10 +158,13 @@ const browserData = BROWSERS.map(({ key, label, clKey }) => {
 <div class="canIUse">
   <div class="canIUse_header">
     <span class="canIUse_feature">{featureName}</span>
-    <div class="canIUse_meta">
-      {compat && <span class="canIUse_usage">Usage: {Math.round(totalUsage)}%</span>}
-      <a href={mdnUrl} class="canIUse_link" target="_blank" rel="noopener noreferrer">MDN ↗</a>
-    </div>
+    <span class="canIUse_meta">
+      {compat && <span class="canIUse_usage">Usage: {Math.round(Math.round(totalUsage * 100) / 100)}%</span>}
+    </span>
+    <a href={mdnUrl} class="canIUse_link" target="_blank" rel="noopener noreferrer">
+      <span class="canIUse_linkText">MDN</span>
+      <Fragment set:html={externalLinkIcon} />
+    </a>
   </div>
   <div class="canIUse_grid">
     {browserData.map(({ label, status, statusLabel, versionLabel, tooltip }) => (
