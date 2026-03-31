@@ -45,7 +45,10 @@
   }
 
   .selectMask_field-combined {
-    margin-top: var(--xs3);
+    margin: var(--md3) auto 0;
+    @media (--md) {
+      max-width: 250px;
+    }
   }
 
   /* No layers active: hide everything to show an empty field */

@@ -46,6 +46,8 @@ The two values used here:
 - **`add`**: The opaque areas of this layer are merged with the result below. Wherever this layer is opaque, the final result is opaque too. This is how the chevron strokes get added back.
 - **`exclude`**: This is a punchout operation. Where this layer is opaque _and_ the result below is also opaque, those pixels become transparent. Where either side is transparent, the other side passes through unchanged. This is how we carve the hole for the chevron indicator without affecting the left side (where the text lives) or the border (which is outside the clip area).
 
+<SelectMask client:visible />
+
 ### The result
 
 - **Left side (text):** Visible. Layer 3 makes it opaque; Layer 2 leaves it alone because it is transparent on the left.
@@ -54,8 +56,6 @@ The two values used here:
 - **Border:** Visible on all four sides. Layer 2 is clipped to `padding-box`, so it physically cannot reach the border area.
 
 Then a simple **background gradient** handles the coloring: `--body-background-color` on the left, `--text-color` on the right. The mask controls _where_ each color is visible. The chevron strokes reveal the text-color band. Since `--text-color` is a theme token, the chevron automatically adapts to the current theme.
-
-<SelectMask client:visible />
 
 ## The implementation
 
