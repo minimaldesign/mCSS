@@ -63,6 +63,9 @@ Then a simple **background gradient** handles the coloring: `--body-background-c
 
 ```css
 select {
+  --icon-size: 24px;
+  --split: calc(100% - var(--icon-size));
+
   background: linear-gradient(
     to right,
     var(--body-background-color) 0 var(--split),
@@ -93,6 +96,9 @@ This layer is clipped to **`border-box`** so it covers the border area too.
 
 ```css
 select {
+  --icon-size: 24px;
+  --split: calc(100% - var(--icon-size));
+
   mask-image: linear-gradient(
     to right,
     transparent calc(var(--split) - 1px),
