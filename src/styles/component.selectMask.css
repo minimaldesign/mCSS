@@ -1,7 +1,7 @@
 .selectMask {
   --sm-icon: 24px;
   --sm-split-1px: calc(100% - var(--sm-icon) - 1px);
-  --sm-red: rgb(220 38 38 / 0.8);
+  --sm-red: rgb(from var(--no-500) r g b / 0.7);
 
   margin: var(--md1) auto;
   padding: var(--sm3);
