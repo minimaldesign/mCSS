@@ -118,8 +118,16 @@ if (compat) {
 }
 
 function releaseDate(clKey: string, version: string): string | null {
-  const clAgent = (localAgents as any)[clKey];
-  const ts: number | null = clAgent?.release_date?.[version] ?? null;
+  const rd = (localAgents as any)[clKey]?.release_date;
+  if (!rd) return null;
+  // BCD and caniuse-lite version keys don't always match. Known mismatches:
+  //   1. Integer vs decimal: BCD "26" → caniuse-lite "26.0"
+  //   2. Range keys: BCD "14.5" → caniuse-lite "14.5-14.8"
+  const ts: number | null =
+    rd[version] ??
+    rd[`${version}.0`] ??
+    rd[Object.keys(rd).find((k) => k.startsWith(`${version}-`)) ?? ''] ??
+    null;
   if (!ts) return null;
   return new Date(ts * 1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 }
@@ -130,6 +138,11 @@ const BROWSERS: { key: string; label: string; clKey: string }[] = [
   { key: 'firefox',        label: 'Firefox',      clKey: 'firefox'  },
   { key: 'safari',         label: 'Safari',       clKey: 'safari'   },
   { key: 'safari_ios',     label: 'iOS Safari',   clKey: 'ios_saf'  },
+  // Chrome for Android (and_chr) auto-updates silently, so the entire user base
+  // is always on the latest version. caniuse-lite only tracks one entry for it —
+  // the current version — which means there's no release_date stored for older
+  // versions like "120". The version label still shows (e.g. "since 120"), but
+  // the date hover swap is unavailable since the historical data simply isn't there.
   { key: 'chrome_android', label: 'Android',      clKey: 'and_chr'  },
 ];
 
@@ -137,21 +150,21 @@ const browserData = BROWSERS.map(({ key, label, clKey }) => {
   const { status, version } = resolveSupport(compat?.support?.[key]);
   let statusLabel = '';
   let versionLabel = '';
-  let tooltip: string | null = null;
+  let date: string | null = null;
   if (status === 'y' && version) {
     statusLabel = 'since';
     versionLabel = version;
-    tooltip = releaseDate(clKey, version);
+    date = releaseDate(clKey, version);
   } else if (status === 'a' && version) {
     statusLabel = 'partial';
     versionLabel = version;
-    tooltip = releaseDate(clKey, version);
+    date = releaseDate(clKey, version);
   } else if (status === 'n') {
     versionLabel = 'No';
   } else {
-    versionLabel = '?';
+    versionLabel = 'Unknown';
   }
-  return { key, label, status, statusLabel, versionLabel, tooltip };
+  return { key, label, status, statusLabel, versionLabel, date };
 });
 ---
 
@@ -167,13 +180,13 @@ const browserData = BROWSERS.map(({ key, label, clKey }) => {
     </a>
   </div>
   <div class="canIUse_grid">
-    {browserData.map(({ label, status, statusLabel, versionLabel, tooltip }) => (
-      <div class={`canIUse_browser canIUse_browser-${status}${tooltip ? ' canIUse_browser-swappable' : ''}`}>
+    {browserData.map(({ label, status, statusLabel, versionLabel, date }) => (
+      <div class={`canIUse_browser canIUse_browser-${status}${date ? ' canIUse_browser-swappable' : ''}`}>
         <span class="canIUse_name">{label}</span>
         <span class="canIUse_version">
           {statusLabel && <small>{statusLabel}</small>}
           <span class="canIUse_versionNum">{versionLabel}</span>
-          {tooltip && <span class="canIUse_versionDate">{tooltip}</span>}
+          {date && <span class="canIUse_versionDate">{date}</span>}
         </span>
       </div>
     ))}
