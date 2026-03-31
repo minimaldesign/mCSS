@@ -50,6 +50,17 @@ The two values used here:
 
 ### The result
 
+Here's how it looks like (more [examples in mCSS docs](/docs/elements#form)):
+
+<select class="mt-sm3 mb-md1">
+  <option>Native Select…</option>
+  <option>Custom styling</option>
+  <option>No extra wrapper</option>
+  <option>No JavaScript</option>
+  <option>SVG icon in CSS</option>
+  <option>Light/dark theme</option>
+</select>
+
 - **Left side (text):** Visible. Layer 3 makes it opaque; Layer 2 leaves it alone because it is transparent on the left.
 - **Right strip (chevron strokes):** Visible. Layer 2 punches the strip out, then Layer 1 adds the chevron back.
 - **Right strip (outside the chevron):** Transparent, showing the page background behind the element.
@@ -141,17 +152,6 @@ Only the chevron layer needs a positional offset. The gradient and solid layers 
 Using `calc(100% - offset)` instead of the three-value `right <length> center` syntax keeps things reliable. A single `mask-position` value with multiple layers of different sizes can produce unexpected results: percentage math is resolved as `(container - image) * %`, which can shift full-size gradient layers in unexpected ways.
 
 ### Putting is all together
-
-Here's how it looks like (more [examples in mCSS docs](/docs/elements#form)):
-
-<select class="mt-sm3 mb-md1">
-  <option>Native Select…</option>
-  <option>Custom styling</option>
-  <option>No extra wrapper</option>
-  <option>No JavaScript</option>
-  <option>SVG icon in CSS</option>
-  <option>Light/dark theme</option>
-</select>
 
 **Note:** this code sample is from the [mCSS source code](https://github.com/minimaldesign/mCSS/blob/main/src/styles/elements.form.css#L166) so it includes custom properties, but it should be pretty self-explanatory…
 
