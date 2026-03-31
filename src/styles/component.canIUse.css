@@ -1,0 +1,131 @@
+.canIUse {
+  margin: var(--sm3) 0;
+  border: var(--border-sm) solid var(--theme-border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  /* Keep it from stretching to prose width */
+  max-width: 560px;
+}
+
+.canIUse_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--xs3);
+  padding: var(--xs2) var(--xs3);
+  border-bottom: 1px solid var(--theme-border-color);
+}
+
+.canIUse_feature {
+  font-size: var(--text-sm);
+  font-family: var(--mono);
+}
+
+.canIUse_meta {
+  display: flex;
+  align-items: center;
+  gap: var(--xs3);
+  white-space: nowrap;
+}
+
+.canIUse_usage {
+  color: var(--yes-500);
+  font-variant-numeric: tabular-nums;
+}
+
+.canIUse_link {
+  color: inherit;
+  opacity: 0.6;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.canIUse_grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.canIUse_browser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--xs1);
+  padding: var(--xs2) var(--xs1);
+  flex: 1;
+  min-width: 72px;
+  text-align: center;
+  border-right: 1px solid var(--theme-border-color);
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.canIUse_browser-y {
+  color: var(--base-950);
+  background-color: var(--yes-100);
+  border-color: var(--yes-200);
+
+  .canIUse_usage {
+    color: var(--yes-500);
+  }
+}
+
+.canIUse_browser-n {
+  color: var(--base-950);
+  background-color: var(--no-100);
+  border-color: var(--no-200);
+}
+
+.canIUse_browser-a {
+  color: var(--base-950);
+  background-color: var(--maybe-100);
+  border-color: var(--maybe-200);
+}
+
+.canIUse_browser-unknown {
+  color: var(--base-600);
+  background-color: var(--base-50);
+}
+
+.canIUse_name {
+  font-size: var(--text-sm);
+}
+
+.canIUse_version {
+  display: grid;
+  justify-items: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1.2;
+
+  small {
+    grid-row: 1;
+    font-size: var(--text-xs);
+    font-weight: 400;
+    opacity: 0.7;
+  }
+}
+
+.canIUse_versionNum,
+.canIUse_versionDate {
+  grid-row: 2;
+  grid-column: 1;
+  transition: opacity var(--transition-fast);
+}
+
+.canIUse_versionDate {
+  opacity: 0;
+}
+
+.canIUse_browser-swappable:hover {
+  .canIUse_versionNum {
+    opacity: 0;
+  }
+  .canIUse_versionDate {
+    opacity: 1;
+  }
+}

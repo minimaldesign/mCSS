@@ -1,0 +1,152 @@
+---
+/**
+ * Displays browser support for any web platform feature.
+ *
+ * Usage: <CanIUse feature="css.properties.mask-composite" />
+ *
+ * Finding the feature path
+ * ------------------------
+ * The `feature` prop is a dot-separated path into the MDN Browser Compat Data
+ * (BCD) dataset. The easiest way to find it:
+ *
+ *   1. Open the MDN docs page for the feature, e.g.
+ *      https://developer.mozilla.org/en-US/docs/Web/CSS/mask-composite
+ *   2. Scroll to the "Browser compatibility" section and click "Source on GitHub".
+ *      The URL will be something like:
+ *      github.com/mdn/browser-compat-data/blob/main/css/properties/mask-composite.json
+ *   3. Convert the file path to a dot-path, dropping the .json extension:
+ *      css/properties/mask-composite.json → css.properties.mask-composite
+ *
+ * Common patterns:
+ *   CSS property    → css.properties.<name>          e.g. css.properties.mask
+ *   CSS selector    → css.selectors.<name>           e.g. css.selectors.has
+ *   CSS at-rule     → css.at-rules.<name>            e.g. css.at-rules.container
+ *   HTML element    → html.elements.<name>           e.g. html.elements.dialog
+ *   JS built-in     → javascript.builtins.<path>     e.g. javascript.builtins.Array.at
+ *   Web API         → api.<Interface>.<member>       e.g. api.IntersectionObserver
+ */
+
+import bcdData from '@mdn/browser-compat-data';
+import { agents } from 'caniuse-lite';
+
+interface Props {
+  feature: string;
+}
+
+const { feature } = Astro.props;
+
+// Navigate BCD tree by dot-path: "css.properties.mask-composite"
+const parts = feature.split('.');
+let node: any = bcdData;
+for (const p of parts) node = node?.[p];
+const compat = node?.__compat as any;
+
+const featureName = parts[parts.length - 1];
+const mdnUrl =
+  compat?.mdn_url ??
+  `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(featureName)}`;
+
+type Status = 'y' | 'n' | 'a' | 'unknown';
+
+function resolveSupport(raw: any): { status: Status; version: string | null } {
+  if (!raw) return { status: 'unknown', version: null };
+  // Pick the best statement: unprefixed, no flags, actually added
+  const stmt = Array.isArray(raw)
+    ? (raw.find((s: any) => !s.prefix && !s.flags?.length && s.version_added !== false) ??
+       raw[0])
+    : raw;
+  if (stmt.version_added === false) return { status: 'n', version: null };
+  if (stmt.version_added === null) return { status: 'unknown', version: null };
+  if (stmt.flags?.length) return { status: 'a', version: String(stmt.version_added) };
+  if (stmt.prefix) return { status: 'a', version: String(stmt.version_added) };
+  return { status: 'y', version: String(stmt.version_added) };
+}
+
+// BCD browser key → caniuse-lite agent key
+const BCD_TO_CL: Record<string, string> = {
+  chrome: 'chrome',
+  chrome_android: 'and_chr',
+  edge: 'edge',
+  firefox: 'firefox',
+  firefox_android: 'and_ff',
+  safari: 'safari',
+  safari_ios: 'ios_saf',
+  samsunginternet_android: 'samsung',
+  ie: 'ie',
+  opera: 'opera',
+};
+
+// Global usage %: sum caniuse-lite usage for all versions >= version_added
+let totalUsage = 0;
+if (compat) {
+  for (const [bcdKey, clKey] of Object.entries(BCD_TO_CL)) {
+    const { status, version } = resolveSupport(compat.support?.[bcdKey]);
+    if (status !== 'y' || !version) continue;
+    const clAgent = (agents as any)[clKey];
+    if (!clAgent) continue;
+    const since = parseFloat(version);
+    for (const [v, u] of Object.entries(clAgent.usage_global as Record<string, number>)) {
+      if (parseFloat(v) >= since) totalUsage += u;
+    }
+  }
+}
+
+function releaseDate(clKey: string, version: string): string | null {
+  const clAgent = (agents as any)[clKey];
+  const ts: number | null = clAgent?.release_date?.[version] ?? null;
+  if (!ts) return null;
+  return new Date(ts * 1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+
+const BROWSERS: { key: string; label: string; clKey: string }[] = [
+  { key: 'chrome',         label: 'Chrome',      clKey: 'chrome'   },
+  { key: 'edge',           label: 'Edge',         clKey: 'edge'     },
+  { key: 'firefox',        label: 'Firefox',      clKey: 'firefox'  },
+  { key: 'safari',         label: 'Safari',       clKey: 'safari'   },
+  { key: 'safari_ios',     label: 'iOS Safari',   clKey: 'ios_saf'  },
+  { key: 'chrome_android', label: 'Android',      clKey: 'and_chr'  },
+];
+
+const browserData = BROWSERS.map(({ key, label, clKey }) => {
+  const { status, version } = resolveSupport(compat?.support?.[key]);
+  let statusLabel = '';
+  let versionLabel = '';
+  let tooltip: string | null = null;
+  if (status === 'y' && version) {
+    statusLabel = 'since';
+    versionLabel = version;
+    tooltip = releaseDate(clKey, version);
+  } else if (status === 'a' && version) {
+    statusLabel = 'partial';
+    versionLabel = version;
+    tooltip = releaseDate(clKey, version);
+  } else if (status === 'n') {
+    versionLabel = 'No';
+  } else {
+    versionLabel = '?';
+  }
+  return { key, label, status, statusLabel, versionLabel, tooltip };
+});
+---
+
+<div class="canIUse">
+  <div class="canIUse_header">
+    <span class="canIUse_feature">{featureName}</span>
+    <div class="canIUse_meta">
+      {compat && <span class="canIUse_usage">Usage: {Math.round(totalUsage)}%</span>}
+      <a href={mdnUrl} class="canIUse_link" target="_blank" rel="noopener noreferrer">MDN ↗</a>
+    </div>
+  </div>
+  <div class="canIUse_grid">
+    {browserData.map(({ label, status, statusLabel, versionLabel, tooltip }) => (
+      <div class={`canIUse_browser canIUse_browser-${status}${tooltip ? ' canIUse_browser-swappable' : ''}`}>
+        <span class="canIUse_name">{label}</span>
+        <span class="canIUse_version">
+          {statusLabel && <small>{statusLabel}</small>}
+          <span class="canIUse_versionNum">{versionLabel}</span>
+          {tooltip && <span class="canIUse_versionDate">{tooltip}</span>}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>

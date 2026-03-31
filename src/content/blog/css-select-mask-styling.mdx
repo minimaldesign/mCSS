@@ -16,6 +16,7 @@ description: "A pure CSS technique to style a native `<select>` element using la
 ---
 
 import SelectMask from "../../components/_SelectMask.jsx";
+import CanIUse from "../../components/_CanIUse.astro";
 
 ## The problem
 
@@ -40,6 +41,8 @@ The trick is to use **three** mask layers composited together so that different 
 ### How mask-composite works
 
 `mask-composite` controls how each mask layer is blended with the accumulated result of all the layers below it, working from top to bottom. Think of it like blend modes in image editors: each layer either adds to, subtracts from, or modifies what the layers beneath have contributed.
+
+<CanIUse feature="css.properties.mask-composite" />
 
 The two values used here:
 

@@ -22,5 +22,8 @@
     "preact": "^10.26.5",
     "purgecss": "^8.0.0",
     "shiki": "^4.0.2"
+  },
+  "devDependencies": {
+    "@mdn/browser-compat-data": "^7.3.9"
   }
 }

@@ -46,6 +46,7 @@
 @import url(./component.toc.css);
 
 /*  Internal components (not part of the public Astro component library) */
+@import url(./component.canIUse.css);
 @import url(./component.colorPickerOklch.css);
 @import url(./component.copyButton.css);
 @import url(./component.gridDemo.css);
