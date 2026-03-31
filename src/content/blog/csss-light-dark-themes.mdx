@@ -6,6 +6,8 @@ tags: ["css", "theming", "dark mode", "light mode"]
 description: "The best way to implement light/dark themes in 2026 is to use the `color-scheme` CSS property and the `light-dark()` CSS function."
 ---
 
+import CanIUse from "../../components/_CanIUse.astro";
+
 ## Before
 
 The common way to implement a CSS light/dark theme toggle is to declare your default theme custom properties at the root and change these values with a `.dark` (or similar) class:
@@ -68,6 +70,10 @@ Make sure to also include the `color-scheme` meta tag in the `<head>` of your HT
 ```html
 <meta name="color-scheme" content="light dark" />
 ```
+
+## Browser support
+
+<CanIUse feature="css.types.color.light-dark" />
 
 [1]: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme#formal_syntax
 [2]: https://drafts.csswg.org/css-color-adjust/#color-scheme-prop
