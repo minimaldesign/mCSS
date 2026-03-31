@@ -29,8 +29,7 @@
 }
 
 .canIUse_usage {
-  color: var(--yes-500);
-  font-variant-numeric: tabular-nums;
+  color: light-dark(var(--yes-500), var(--yes-400));
 }
 
 .canIUse_link {
@@ -68,10 +67,6 @@
   color: var(--base-950);
   background-color: var(--yes-100);
   border-color: var(--yes-200);
-
-  .canIUse_usage {
-    color: var(--yes-500);
-  }
 }
 
 .canIUse_browser-n {
