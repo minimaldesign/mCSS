@@ -33,6 +33,7 @@ import externalLinkIcon from '../assets/icons/external-link.svg?raw';
 interface Props {
   feature: string;
   title?: string;
+  mdnUrl?: string;
 }
 
 // Module-level cache: fetched once per build, shared across all component renders.
@@ -58,7 +59,7 @@ async function getUsageAgents(): Promise<AgentsMap> {
 
 const usageAgents = await getUsageAgents();
 
-const { feature, title } = Astro.props;
+const { feature, title, mdnUrl: mdnUrlOverride } = Astro.props;
 
 // Navigate BCD tree by dot-path: "css.properties.mask-composite"
 const parts = feature.split('.');
@@ -68,6 +69,7 @@ const compat = node?.__compat as any;
 
 const featureName = title ?? parts[parts.length - 1];
 const mdnUrl =
+  mdnUrlOverride ??
   compat?.mdn_url ??
   `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(featureName)}`;
 
