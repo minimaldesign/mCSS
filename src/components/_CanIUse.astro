@@ -123,13 +123,25 @@ if (compat) {
 function releaseDate(clKey: string, version: string): string | null {
   const rd = (localAgents as any)[clKey]?.release_date;
   if (!rd) return null;
-  // BCD and caniuse-lite version keys don't always match. Known mismatches:
-  //   1. Integer vs decimal: BCD "26" → caniuse-lite "26.0"
-  //   2. Range keys: BCD "14.5" → caniuse-lite "14.5-14.8"
+  // BCD and caniuse-lite version keys don't always match.
+  // Examples:
+  // - BCD "26" vs caniuse-lite "26.0"
+  // - BCD "9" vs caniuse-lite range "9.0-9.2"
+  const target = Number.parseFloat(version);
+  const rangeKey = Number.isFinite(target)
+    ? Object.keys(rd).find((k) => {
+        if (!k.includes('-')) return false;
+        const [startRaw, endRaw] = k.split('-', 2);
+        const start = Number.parseFloat(startRaw);
+        const end = Number.parseFloat(endRaw);
+        if (!Number.isFinite(start) || !Number.isFinite(end)) return false;
+        return target >= start && target <= end;
+      })
+    : undefined;
   const ts: number | null =
     rd[version] ??
     rd[`${version}.0`] ??
-    rd[Object.keys(rd).find((k) => k.startsWith(`${version}-`)) ?? ''] ??
+    rd[rangeKey ?? ''] ??
     null;
   if (!ts) return null;
   return new Date(ts * 1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
