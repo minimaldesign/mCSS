@@ -6,6 +6,11 @@ tags: ["css", "responsive design", "viewport units", "web dev", "front-end"]
 description: "CSS viewport units are essential for building responsive layouts, but with mobile browsers’ dynamic UI, using them efficiently can get tricky."
 ---
 
+import CanIUse from "../../components/_CanIUse.astro";
+
+export const mdnLink =
+  "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length#browser_compatibility";
+
 ## The problem with old viewport units
 
 The `vh` unit (and similarly `vw`) was originally defined as 1% of the initial containing block ([ICB](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display/Containing_block#identifying_the_containing_block)), which matches the viewport size. This worked well until mobile browsers began dynamically adjusting their UI, like toolbars, to maximize screen space. This dynamic resizing led to jarring content shifts. Using `vh` for properties like `font-size` would exacerbate this issue.
@@ -48,3 +53,14 @@ Use `vmax` for elements that must always cover the entire viewport, even if it m
 | `vmax` | Larger of `vw`/`vh`                  | Responsive typography,             |
 
 **Pro tip:** _Always_ [test on real devices](/blog/local-dev-tunnel) or else you'll miss something. Viewport behavior can still vary between browsers!
+
+## Browser support
+
+<CanIUse
+  feature="css.types.length.viewport_percentage_units_small"
+  title="viewport units"
+  mdnUrl={mdnLink}
+/>
+
+<CanIUse feature="css.types.length.vmin" mdnUrl={mdnLink} />
+<CanIUse feature="css.types.length.vmax" mdnUrl={mdnLink} />
