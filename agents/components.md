@@ -15,13 +15,13 @@
 
 Available page wrappers in `src/layouts/`:
 
-| Layout                  | Used for                    |
-| ----------------------- | --------------------------- |
-| `BaseLayout`            | Default page wrapper        |
-| `BlogPostLayout`        | Blog post pages             |
-| `DocsPostLayout`        | Documentation pages         |
-| `DocsComponentsLayout`  | Component documentation     |
-| `DemoLayout`            | Demo/example pages          |
+| Layout                 | Used for                |
+| ---------------------- | ----------------------- |
+| `BaseLayout`           | Default page wrapper    |
+| `BlogPostLayout`       | Blog post pages         |
+| `DocsPostLayout`       | Documentation pages     |
+| `DocsComponentsLayout` | Component documentation |
+| `DemoLayout`           | Demo/example pages      |
 
 ## Client Scripts
 
