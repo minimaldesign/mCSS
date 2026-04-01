@@ -1,0 +1,68 @@
+---
+import DemoLayout from '../../layouts/DemoLayout.astro';
+
+const title = 'HTML <select> element demo';
+---
+
+<DemoLayout title={title}>
+  <div class="selectDemoRoot selectDemoRoot-native">
+    <select>
+      <option>Native Select…</option>
+      <option>Custom styling</option>
+      <option>No extra wrapper</option>
+      <option>No JavaScript</option>
+      <option>SVG icon in CSS</option>
+      <option>Light/dark theme</option>
+    </select>
+  </div>
+</DemoLayout>
+
+<style>
+  /* Viewport centering lives on this page’s root only (scoped); does not target body. */
+  .selectDemoRoot {
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+  }
+
+  /* Modifier on wrapper only; <select> stays unadorned in the source. */
+  .selectDemoRoot.selectDemoRoot-native select {
+    all: revert;
+    -webkit-appearance: menulist;
+    appearance: auto;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var wrap = document.querySelector('.selectDemoRoot');
+    var select = wrap && wrap.querySelector('select');
+    if (!select || select.options.length < 2) return;
+
+    var root = document.documentElement;
+
+    /* First <option> only → native; every other index uses site select CSS (incl. theme row). */
+    function applyFromTreeIndex(i) {
+      wrap.classList.toggle('selectDemoRoot-native', i === 0);
+    }
+
+    function toggleTheme() {
+      var next = root.classList.contains('theme-dark') ? 'theme-light' : 'theme-dark';
+      root.classList.remove('theme-dark', 'theme-light');
+      root.classList.add(next);
+      try {
+        window.localStorage.setItem('theme', next);
+      } catch (e) {}
+    }
+
+    var themeIndex = select.options.length - 1;
+    applyFromTreeIndex(select.selectedIndex);
+
+    select.addEventListener('change', function () {
+      var i = select.selectedIndex;
+      if (i === themeIndex) toggleTheme();
+      applyFromTreeIndex(i);
+    });
+  })();
+</script>
