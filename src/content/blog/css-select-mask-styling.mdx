@@ -20,7 +20,14 @@ import CanIUse from "../../components/_CanIUse.astro";
 
 ## The problem
 
-Styling a native `<select>` dropdown HTML element is one of those things that _should_ be simple but never is. The common workarounds are clunky and usually require an extra wrapper. I really wanted [mCSS HTML elements](/docs/elements#form) to be customizable out of the box, without extra markup. Here were my requirements:
+Customizable `<select>` elements are coming, but we're not quite there yet 👇
+
+<CanIUse
+  feature="css.properties.appearance.base-select"
+  mdnUrl="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select#browser_compatibility"
+/>
+
+In the meantime, we're stuck with styling `<select>` elements the old way, which _should_ be simple but never is… The common workarounds are clunky and usually require an extra wrapper. I really wanted [mCSS HTML elements](/docs/elements#form) to be customizable out of the box, without extra markup. Here were my requirements:
 
 1. No wrapper element around the `<select>`.
 2. Custom "chevron" icon that matches the text color in light/dark themes.
