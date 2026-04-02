@@ -84,6 +84,7 @@ function resolveSupport(raw: any): { status: Status; version: string | null } {
     : raw;
   if (stmt.version_added === false) return { status: 'n', version: null };
   if (stmt.version_added === null) return { status: 'unknown', version: null };
+  if (stmt.version_added === 'preview') return { status: 'a', version: 'preview' };
   if (stmt.flags?.length) return { status: 'a', version: String(stmt.version_added) };
   if (stmt.prefix) return { status: 'a', version: String(stmt.version_added) };
   return { status: 'y', version: String(stmt.version_added) };
