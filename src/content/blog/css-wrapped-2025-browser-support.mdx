@@ -1,20 +1,24 @@
 ---
-title: "New CSS feature tracker (Chrome CSS Wrapped 2025)"
+title: "Chrome CSS Wrapped 2025: What You Can Actually Use Today"
 pubDate: 2026-04-01
 author: "Yann"
-tags: ["css", "browser support", "chrome"]
-description: "Short blurbs and live browser-support tables for every feature highlighted in *Chrome’s CSS Wrapped 2025*, so you can see what’s safe to use today."
+tags: ["css", "browser support", "chrome", "frontend", "webdev"]
+description: "A practical breakdown of every feature from *Chrome’s CSS Wrapped 2025*. What works today, what does not, and what is worth using right now, with up to date browser support data."
 ---
 
 import CanIUse from "../../components/_CanIUse.astro";
 
-Chrome’s yearly [CSS Wrapped 2025](https://chrome.dev/css-wrapped-2025/) highlights a lot of new CSS and UI features, but it is not always easy to see what is ready to use today. This post is a shorter tracker, with plain summaries and live support data from my `<CanIUse />` component.
+Chrome’s yearly [CSS Wrapped 2025](https://chrome.dev/css-wrapped-2025/) is packed with new features, but it does not tell you the one thing you actually need to know: can you use this in production today?
+
+This post is a practical tracker. Each feature is broken down into a quick, plain-English summary, paired with browser support data from my `<CanIUse />` component so you can decide in seconds whether it is worth reaching for.
 
 ## Customizable Components
 
+These features push more UI behavior into HTML and CSS. That means less JavaScript, fewer edge cases, and more native patterns.
+
 ### [Invoker Commands](https://chrome.dev/css-wrapped-2025/#invoker-commands)
 
-Invoker commands let buttons control dialogs and popovers with HTML alone. Instead of writing click handlers for common actions, you point a button at another element and tell it to open, close, or toggle.
+Invoker commands let buttons control dialogs and popovers with pure HTML. No click handlers and no wiring. You point a button at a target and declare whether it opens, closes, or toggles. For common UI patterns, this removes a surprising amount of JavaScript.
 
 <CanIUse
   feature="html.elements.button.command"
@@ -23,7 +27,7 @@ Invoker commands let buttons control dialogs and popovers with HTML alone. Inste
 
 ### [Dialog Light Dismiss](https://chrome.dev/css-wrapped-2025/#dialog-light-dismiss)
 
-The `closedby` attribute lets you decide how a `<dialog>` can be dismissed. You can allow Escape, outside clicks, both, or neither, depending on how strict or lightweight the interaction should feel.
+The `closedby` attribute lets you control exactly how a `<dialog>` can be dismissed. You can allow Escape, outside click, both, or neither. It is a small detail, but it gives you tighter control over UX without extra event handling.
 
 <CanIUse
   feature="html.elements.dialog.closedby"
@@ -32,7 +36,7 @@ The `closedby` attribute lets you decide how a `<dialog>` can be dismissed. You 
 
 ### [popover=hint](https://chrome.dev/css-wrapped-2025/#popover-hint)
 
-`popover="hint"` is meant for short-lived overlays such as tooltips, previews, and hover cards. A hint can open without closing other popovers, which makes layered UI much easier to build.
+`popover="hint"` is designed for lightweight UI like tooltips, previews, and hover cards. Unlike regular popovers, hints do not force others to close. This makes layered UI feel natural instead of fragile.
 
 <CanIUse
   feature="html.global_attributes.popover.hint"
@@ -41,7 +45,7 @@ The `closedby` attribute lets you decide how a `<dialog>` can be dismissed. You 
 
 ### [Customizable select](https://chrome.dev/css-wrapped-2025/#customizable-select)
 
-`appearance: base-select` gives `<select>` a new starting point that is meant to be styled. It opens the door to custom button and picker styling, richer option content, and better control without replacing the native element.
+`appearance: base-select` turns `<select>` into something you can actually style. You keep the native behavior, but gain control over the button, dropdown, and richer option content without rebuilding everything from scratch.
 
 <CanIUse
   feature="css.properties.appearance.base-select"
@@ -61,13 +65,13 @@ The `closedby` attribute lets you decide how a `<dialog>` can be dismissed. You 
 
 ### [scroll-target-group](https://chrome.dev/css-wrapped-2025/#scroll-target-group)
 
-`scroll-target-group` turns a group of links into scroll-aware navigation. It is useful for table-of-contents patterns and scroll spy UI, where the current link updates as the reader moves through the page.
+`scroll-target-group` turns a set of links into scroll-aware navigation. Think table of contents or scrollspy handled by the browser instead of custom JavaScript.
 
 <CanIUse feature="css.properties.scroll-target-group" />
 
 ### [Anchored container queries](https://chrome.dev/css-wrapped-2025/#anchored-container-queries)
 
-Anchored container queries let a positioned element react to the fallback position the browser actually picked. That makes small details, such as tooltip arrows, easier to keep in sync when a UI flips to fit the viewport.
+Anchored container queries let positioned elements react to where they actually end up after layout. This solves edge cases like tooltips flipping and keeps arrows and UI details aligned without hacks.
 
 <CanIUse
   feature="css.at-rules.container.anchor_position_queries"
@@ -76,7 +80,7 @@ Anchored container queries let a positioned element react to the fallback positi
 
 ### [Interest invokers](https://chrome.dev/css-wrapped-2025/#interest-invokers)
 
-`interestfor` lets UI respond to hover or focus before a full click happens. It is especially useful for tooltips, previews, and hover cards, and it works nicely with `popover="hint"`.
+`interestfor` lets UI respond to hover or focus before a full click happens. It pairs well with `popover="hint"` for previews, tooltips, and hover-driven UI.
 
 <CanIUse
   feature="html.elements.button.interestfor"
@@ -85,9 +89,11 @@ Anchored container queries let a positioned element react to the fallback positi
 
 ## Next-gen Interactions
 
+This is where CSS starts replacing JavaScript-heavy interaction patterns, especially anything tied to scroll, state, or layout awareness.
+
 ### [Scroll-state queries](https://chrome.dev/css-wrapped-2025/#scroll-state-queries)
 
-Scroll-state queries let CSS react when something is stuck, snapped, or scrollable. That makes it easier to style carousels, sticky headers, and other scroll-driven UI without watching scroll in JavaScript.
+Scroll-state queries let CSS respond when something is stuck, snapped, or scrollable. This replaces a class of scroll listeners with pure CSS, which is cleaner and easier to maintain.
 
 <CanIUse
   feature="css.at-rules.container.scroll-state_queries"
@@ -96,7 +102,7 @@ Scroll-state queries let CSS react when something is stuck, snapped, or scrollab
 
 ### [Tree counting functions](https://chrome.dev/css-wrapped-2025/#tree-counting-functions)
 
-`sibling-index()` and `sibling-count()` let CSS know where an item sits in a list and how many siblings it has. That is useful for staggered animations and layouts that should adapt automatically as the markup changes.
+`sibling-index()` and `sibling-count()` give CSS awareness of position and group size. This is useful for staggered animations and layouts that adapt automatically as content changes.
 
 <CanIUse feature="css.types.sibling-index" />
 
@@ -107,7 +113,7 @@ Scroll-state queries let CSS react when something is stuck, snapped, or scrollab
 
 ### [scrollIntoView() container](https://chrome.dev/css-wrapped-2025/#scrollintoview-container)
 
-The `container` option for `scrollIntoView()` limits the scroll to the nearest scrollable ancestor. That is handy in nested layouts, where you want to move one panel without also moving the whole page.
+The `container` option for `scrollIntoView()` limits scrolling to the nearest scrollable ancestor. This is useful in complex layouts where you want to move one panel without shifting the entire page.
 
 <CanIUse
   feature="api.Element.scrollIntoView.options_parameter.container_option"
@@ -116,7 +122,7 @@ The `container` option for `scrollIntoView()` limits the scroll to the nearest s
 
 ### [Nested View Transition Groups](https://chrome.dev/css-wrapped-2025/#nested-view-transition-groups)
 
-Nested view transition groups keep more of the original structure during a view transition. That helps preserve clipping and 3D effects on inner elements instead of flattening everything into one layer.
+Nested view transition groups preserve more of the original structure during transitions. This helps maintain clipping and 3D effects instead of flattening everything into a single layer.
 
 <CanIUse
   feature="css.properties.view-transition-group"
@@ -125,15 +131,17 @@ Nested view transition groups keep more of the original structure during a view 
 
 ### [DOM State-Preserving Move](https://chrome.dev/css-wrapped-2025/#dom-state-preserving-move)
 
-`moveBefore()` moves an element in the DOM without resetting it. Videos can keep playing, iframes can stay loaded, and form state or focus can survive the move.
+`moveBefore()` lets you move elements in the DOM without resetting them. Media keeps playing, iframes stay loaded, and form state survives.
 
 <CanIUse feature="api.Element.moveBefore" />
 
 ## Optimized ergonomics
 
+Smaller features, but high leverage. These are the ones that quietly reduce complexity across your codebase.
+
 ### [Advanced attr() function](https://chrome.dev/css-wrapped-2025/#advanced-attr-function)
 
-The upgraded `attr()` function can read an HTML `data-*` attribute and turn it into a real CSS value, not just text for `content`. In practice, that means an attribute can now drive things like colors, lengths, and identifiers directly in CSS, which makes small data-driven styling patterns much easier to write.
+The upgraded `attr()` turns HTML attributes into real CSS values instead of just text. This means attributes can drive colors, sizes, and more, which enables simple data-driven styling patterns without JavaScript.
 
 <CanIUse
   feature="css.types.attr.type_function"
@@ -142,19 +150,19 @@ The upgraded `attr()` function can read an HTML `data-*` attribute and turn it i
 
 ### [ToggleEvent.source](https://chrome.dev/css-wrapped-2025/#toggleevent-source)
 
-`ToggleEvent.source` tells you which element caused a popover, dialog, or `<details>` to open or close. That is useful when several controls can affect the same piece of UI.
+`ToggleEvent.source` tells you which element triggered a popover, dialog, or `<details>`. This is helpful when multiple controls can affect the same UI.
 
 <CanIUse feature="api.ToggleEvent.source" />
 
 ### [text-box features](https://chrome.dev/css-wrapped-2025/#text-box-features)
 
-`text-box` gives you better control over how text sits inside its box. It helps headings, buttons, and other single-line UI feel more visually centered, even when the font metrics are awkward.
+`text-box` gives you better control over how text sits inside its container. It helps headings and buttons feel visually centered, even with imperfect font metrics.
 
 <CanIUse feature="css.properties.text-box" />
 
 ### [shape() function](https://chrome.dev/css-wrapped-2025/#shape-function)
 
-`shape()` lets you describe more complex responsive shapes directly in CSS. It is a more flexible way to build clips and masks when a simple polygon is not enough.
+`shape()` lets you define more complex and responsive shapes directly in CSS. It is a flexible alternative to polygons for clipping and masking.
 
 <CanIUse
   feature="css.types.shape"
@@ -163,13 +171,13 @@ The upgraded `attr()` function can read an HTML `data-*` attribute and turn it i
 
 ### [if() statements](https://chrome.dev/css-wrapped-2025/#if-statements)
 
-`if()` brings small conditional logic into CSS values. It can choose between values based on media, supports, or style checks, which keeps simple branching close to the property it affects.
+`if()` brings conditional syntax similar to JavaScript's ternary operator to CSS. You can base your conditional on `media()`, `supports()`, or `style()` queries, and keep your logic close to the property it affects.
 
 <CanIUse feature="css.types.if" />
 
 ### [Custom Functions](https://chrome.dev/css-wrapped-2025/#custom-functions)
 
-`@function` lets you define reusable CSS functions with named inputs. It is a nice way to share calculations and reduce repeated logic in larger stylesheets.
+`@function` lets you define reusable CSS functions with named inputs. It is a clean way to share calculations and reduce repetition in larger stylesheets.
 
 <CanIUse
   feature="css.at-rules.function"
@@ -178,7 +186,7 @@ The upgraded `attr()` function can read an HTML `data-*` attribute and turn it i
 
 ### [Expanded range syntax](https://chrome.dev/css-wrapped-2025/#expanded-range-syntax)
 
-Range syntax lets style queries and `if()` compare values with operators such as `<` and `>`. That makes threshold-based styling much easier to express in pure CSS.
+Range syntax allows comparisons like `<` and `>` inside style queries and `if()`. This makes threshold-based styling easier to express in pure CSS.
 
 <CanIUse
   feature="css.at-rules.container.style_queries_for_custom_properties"
@@ -187,7 +195,7 @@ Range syntax lets style queries and `if()` compare values with operators such as
 
 ### [Stretch sizing keyword](https://chrome.dev/css-wrapped-2025/#stretch-sizing-keyword)
 
-The `stretch` keyword lets an element fill the available space of its container more directly. It is similar to `100%`, but behaves better in cases where margins and box sizing would otherwise get in the way.
+The `stretch` keyword lets elements fill available space more reliably than `100%`. It avoids common layout issues with margins and box sizing.
 
 <CanIUse
   feature="css.properties.width.stretch"
@@ -196,6 +204,6 @@ The `stretch` keyword lets an element fill the available space of its container 
 
 ### [corner-shape](https://chrome.dev/css-wrapped-2025/#corner-shape)
 
-`corner-shape` gives you more corner styles than a standard rounded radius. You can bevel, notch, scoop, or push corners toward squircles for a more distinctive look.
+`corner-shape` expands what you can do beyond simple rounded corners. You can bevel, notch, scoop, or create squircle-like shapes for more distinctive UI.
 
 <CanIUse feature="css.properties.corner-shape" />
