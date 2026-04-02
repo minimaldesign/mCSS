@@ -15,6 +15,10 @@ Collections are defined in `src/content.config.ts`. Files whose names start with
 | `image`       | `{url, alt}` | no       |
 | `tags`        | string[]     | yes      |
 
+#### Blog prose
+
+Do not use the em dash character (`—`) in blog posts. Use commas, a colon, parentheses, or separate sentences instead.
+
 ### Docs (`src/content/docs/`)
 
 | Field        | Type   | Required |
