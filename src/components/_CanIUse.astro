@@ -114,7 +114,7 @@ if (compat) {
     if (status !== 'y' || !version) continue;
     const agent = usageAgents[clKey];
     if (!agent) continue;
-    const since = parseFloat(version);
+    const since = parseFloat(version.replace(/^≤/, ''));
     for (const [v, u] of Object.entries(agent.usage_global)) {
       if (parseFloat(v) >= since) totalUsage += u;
     }
