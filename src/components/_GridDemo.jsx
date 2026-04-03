@@ -1431,106 +1431,104 @@ export default function GridDemo() {
         )}
       </div>
 
-      <div class="gridDemo_bottom">
-        <div class="gridDemo_code">
-          <div class="gridDemo_code_tabs">
-            <button
-              class={`gridDemo_code_tab${activeTab === "css" ? " is-active" : ""}`}
-              onClick={() => setActiveTab("css")}
-            >
-              CSS
-            </button>
-            <button
-              class={`gridDemo_code_tab${activeTab === "html" ? " is-active" : ""}`}
-              onClick={() => setActiveTab("html")}
-            >
-              HTML
-            </button>
-          </div>
-          <div class="gridDemo_code_block">
-            <CopyButton code={activeCode} />
-            <pre>
-              {highlightedHtml ? (
-                <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
-              ) : (
-                <code>{activeCode}</code>
-              )}
-            </pre>
-          </div>
+      <div class="gridDemo_settings">
+        <SettingsDropdown
+          label="justify-items"
+          value={settings.justifyItems}
+          options={["start", "end", "center", "stretch", "baseline"]}
+          onChange={(v) => setSettings((s) => ({ ...s, justifyItems: v }))}
+        />
+        <SettingsDropdown
+          label="align-items"
+          value={settings.alignItems}
+          options={["start", "end", "center", "stretch", "baseline"]}
+          onChange={(v) => setSettings((s) => ({ ...s, alignItems: v }))}
+        />
+        <SettingsDropdown
+          label="justify-content"
+          value={settings.justifyContent}
+          options={[
+            "start",
+            "end",
+            "center",
+            "stretch",
+            "space-between",
+            "space-around",
+            "space-evenly",
+          ]}
+          onChange={(v) => setSettings((s) => ({ ...s, justifyContent: v }))}
+        />
+        <SettingsDropdown
+          label="align-content"
+          value={settings.alignContent}
+          options={[
+            "start",
+            "end",
+            "center",
+            "stretch",
+            "space-between",
+            "space-around",
+            "space-evenly",
+          ]}
+          onChange={(v) => setSettings((s) => ({ ...s, alignContent: v }))}
+        />
+        <SettingsDropdown
+          label="grid-auto-flow"
+          value={settings.gridAutoFlow}
+          options={["row", "column", "dense", "row dense", "column dense"]}
+          onChange={(v) => setSettings((s) => ({ ...s, gridAutoFlow: v }))}
+        />
+      </div>
+      <div class="gridDemo_syntax">
+        <label class="gridDemo_settings_check">
+          <input
+            type="checkbox"
+            checked={settings.useShorthand}
+            onChange={(e) =>
+              setSettings((s) => ({ ...s, useShorthand: e.target.checked }))
+            }
+          />
+          Use shorthand
+        </label>
+
+        <label class="gridDemo_settings_check">
+          <input
+            type="checkbox"
+            checked={settings.useTemplateAreas}
+            onChange={(e) =>
+              setSettings((s) => ({
+                ...s,
+                useTemplateAreas: e.target.checked,
+              }))
+            }
+          />
+          Use template areas
+        </label>
+      </div>
+      <div class="gridDemo_code">
+        <div class="gridDemo_code_tabs">
+          <button
+            class={`gridDemo_code_tab${activeTab === "css" ? " is-active" : ""}`}
+            onClick={() => setActiveTab("css")}
+          >
+            CSS
+          </button>
+          <button
+            class={`gridDemo_code_tab${activeTab === "html" ? " is-active" : ""}`}
+            onClick={() => setActiveTab("html")}
+          >
+            HTML
+          </button>
         </div>
-
-        <div class="gridDemo_settings">
-          <label class="gridDemo_settings_check">
-            <input
-              type="checkbox"
-              checked={settings.useShorthand}
-              onChange={(e) =>
-                setSettings((s) => ({ ...s, useShorthand: e.target.checked }))
-              }
-            />
-            Use shorthand
-          </label>
-
-          <label class="gridDemo_settings_check">
-            <input
-              type="checkbox"
-              checked={settings.useTemplateAreas}
-              onChange={(e) =>
-                setSettings((s) => ({
-                  ...s,
-                  useTemplateAreas: e.target.checked,
-                }))
-              }
-            />
-            Use template areas
-          </label>
-
-          <SettingsDropdown
-            label="justify-items"
-            value={settings.justifyItems}
-            options={["start", "end", "center", "stretch", "baseline"]}
-            onChange={(v) => setSettings((s) => ({ ...s, justifyItems: v }))}
-          />
-          <SettingsDropdown
-            label="align-items"
-            value={settings.alignItems}
-            options={["start", "end", "center", "stretch", "baseline"]}
-            onChange={(v) => setSettings((s) => ({ ...s, alignItems: v }))}
-          />
-          <SettingsDropdown
-            label="justify-content"
-            value={settings.justifyContent}
-            options={[
-              "start",
-              "end",
-              "center",
-              "stretch",
-              "space-between",
-              "space-around",
-              "space-evenly",
-            ]}
-            onChange={(v) => setSettings((s) => ({ ...s, justifyContent: v }))}
-          />
-          <SettingsDropdown
-            label="align-content"
-            value={settings.alignContent}
-            options={[
-              "start",
-              "end",
-              "center",
-              "stretch",
-              "space-between",
-              "space-around",
-              "space-evenly",
-            ]}
-            onChange={(v) => setSettings((s) => ({ ...s, alignContent: v }))}
-          />
-          <SettingsDropdown
-            label="grid-auto-flow"
-            value={settings.gridAutoFlow}
-            options={["row", "column", "dense", "row dense", "column dense"]}
-            onChange={(v) => setSettings((s) => ({ ...s, gridAutoFlow: v }))}
-          />
+        <div class="gridDemo_code_block">
+          <CopyButton code={activeCode} />
+          <pre>
+            {highlightedHtml ? (
+              <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
+            ) : (
+              <code>{activeCode}</code>
+            )}
+          </pre>
         </div>
       </div>
     </div>
