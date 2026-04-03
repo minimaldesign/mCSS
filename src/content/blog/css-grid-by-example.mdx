@@ -14,13 +14,14 @@ import * as gridFig from "../../assets/images/css-grid/grid-blog-images";
 
 <GridDemo client:visible />
 
-<Notice title="Information" type="info">
-  For a detailed explanation of how CSS grids work, the **old** CSS Tricks
-  article was the gold standard. Unfortunately, they replaced it with this
-  [newer version](https://css-tricks.com/complete-guide-css-grid-layout/) which
-  is not that great… I found [the old
-  one](https://web.archive.org/web/20181231225204/https://css-tricks.com/snippets/css/complete-guide-grid/)
-  and copied (and updated when needed) it below, just in case… Enjoy!
+<Notice title="Where did the classic CSS Tricks guide go?" type="info">
+  The **old** CSS Tricks "A Complete Guide to Grid" was the gold standard.
+  Unfortunately, they replaced it with this [newer
+  version](https://css-tricks.com/complete-guide-css-grid-layout/) which is… Not
+  as good. Thankfully, I found [the old
+  version](https://web.archive.org/web/20181231225204/https://css-tricks.com/snippets/css/complete-guide-grid/)
+  and copied it below so it doesn't disappear forever. I also updated the
+  obsolete info but kept it as close to the original as possible. Enjoy!
 </Notice>
 
 ### Important Terminology
@@ -99,8 +100,6 @@ Values:
   display: grid | inline-grid;
 }
 ```
-
-Note: The ability to pass grid parameters down through nested elements (aka subgrids) has been moved to [level 2 of the CSS Grid specification.](https://web.archive.org/web/20181231225204/https://www.w3.org/TR/css-grid-2/#subgrids) Here's [a quick explanation](https://web.archive.org/web/20181231225204/https://css-tricks.com/grid-level-2-and-subgrid/).
 
 Defines the columns and rows of the grid with a space-separated list of values. The values represent the track size, and the space between them represents the grid line.
 
@@ -326,7 +325,7 @@ Example:
 
 The gutters are only created _between_ the columns/rows, not on the outer edges.
 
-Note: The `grid-` prefix will be removed and `grid-column-gap` and `grid-row-gap` renamed to `column-gap` and `row-gap`. The unprefixed properties are already supported in Chrome 68+, Safari 11.2 Release 50+ and Opera 54+.
+Note: Prefer the unprefixed **`column-gap`** and **`row-gap`** (from the Box Alignment spec). The older `grid-column-gap` and `grid-row-gap` names still work as aliases. All current evergreen browsers support the unprefixed properties.
 
 A shorthand for `grid-row-gap` and `grid-column-gap`
 
@@ -352,9 +351,9 @@ Example:
 
 If no `grid-row-gap` is specified, it's set to the same value as `grid-column-gap`
 
-Note: The `grid-` prefix will be removed and `grid-gap` renamed to `gap`. The unprefixed property is already supported in Chrome 68+, Safari 11.2 Release 50+ and Opera 54+.
+Note: Prefer the shorthand **`gap`** (and **`row-gap`** / **`column-gap`** when you need two values). **`grid-gap`** is a legacy alias. All current evergreen browsers support the unprefixed properties.
 
-Aligns grid items along the _inline (row)_ axis (as opposed to `align-items` which aligns along the _block (column)_ axis). This value applies to all grid items inside the container.
+Aligns grid items along the **inline axis** (as opposed to `align-items`, which aligns along the **block axis**). This value applies to all grid items inside the container.
 
 Values:
 
@@ -425,7 +424,7 @@ Examples:
 
 This behavior can also be set on individual grid items via the `justify-self` property.
 
-Aligns grid items along the _block (column)_ axis (as opposed to `justify-items` which aligns along the _inline (row)_ axis). This value applies to all grid items inside the container.
+Aligns grid items along the **block axis** (as opposed to `justify-items`, which aligns along the **inline axis**). This value applies to all grid items inside the container.
 
 Values:
 
@@ -502,11 +501,9 @@ Values:
 
 - `<align-items> / <justify-items>` - The first value sets `align-items`, the second value `justify-items`. If the second value is omitted, the first value is assigned to both properties.
 
-All major browsers except Edge support the `place-items` shorthand property.
-
 For more details, see [align-items](https://web.archive.org/web/20181231225204/https://css-tricks.com/snippets/css/complete-guide-grid/#prop-align-items) and [justify-items](https://web.archive.org/web/20181231225204/https://css-tricks.com/snippets/css/complete-guide-grid/#prop-justify-items).
 
-Sometimes the total size of your grid might be less than the size of its grid container. This could happen if all of your grid items are sized with non-flexible units like `px`. In this case you can set the alignment of the grid within the grid container. This property aligns the grid along the _inline (row)_ axis (as opposed to `align-content` which aligns the grid along the _block (column)_ axis).
+Sometimes the total size of your grid might be less than the size of its grid container. This could happen if all of your grid items are sized with non-flexible units like `px`. In this case you can set the alignment of the grid within the grid container. This property aligns the grid along the **inline axis** (as opposed to `align-content`, which aligns along the **block axis**).
 
 Values:
 
@@ -618,7 +615,7 @@ Examples:
   style={{ maxWidth: "350px", margin: "0 auto 36px" }}
 />
 
-Sometimes the total size of your grid might be less than the size of its grid container. This could happen if all of your grid items are sized with non-flexible units like `px`. In this case you can set the alignment of the grid within the grid container. This property aligns the grid along the _block (column)_ axis (as opposed to `justify-content` which aligns the grid along the _inline (row)_ axis).
+Sometimes the total size of your grid might be less than the size of its grid container. This could happen if all of your grid items are sized with non-flexible units like `px`. In this case you can set the alignment of the grid within the grid container. This property aligns the grid along the **block axis** (as opposed to `justify-content`, which aligns along the **inline axis**).
 
 Values:
 
@@ -736,8 +733,6 @@ Values:
 
 - `<align-content> / <justify-content>` - The first value sets `align-content`, the second value `justify-content`. If the second value is omitted, the first value is assigned to both properties.
 
-All major browsers except Edge support the `place-content` shorthand property.
-
 For more details, see [align-content](https://web.archive.org/web/20181231225204/https://css-tricks.com/snippets/css/complete-guide-grid/#prop-align-content) and [justify-content](https://web.archive.org/web/20181231225204/https://css-tricks.com/snippets/css/complete-guide-grid/#prop-justify-content).
 
 Specifies the size of any auto-generated grid tracks (aka _implicit grid tracks_). Implicit tracks get created when there are more grid items than cells in the grid or when a grid item is placed outside of the explicit grid. (see [The Difference Between Explicit and Implicit Grids](https://web.archive.org/web/20181231225204/https://css-tricks.com/difference-explicit-implicit-grids/))
@@ -791,7 +786,7 @@ But now imagine you use `grid-column` and `grid-row` to position your grid items
   style={{ maxWidth: "350px", margin: "0 auto 36px" }}
 />
 
-We told.item-b to start on column line 5 and end at column line 6, _but we never defined a column line 5 or 6_. Because we referenced lines that don't exist, implicit tracks with widths of 0 are created to fill in the gaps. We can use `grid-auto-columns` and `grid-auto-rows` to specify the widths of these implicit tracks:
+We told `.item-b` to start on column line 5 and end at column line 6, _but we never defined a column line 5 or 6_. Because we referenced lines that don't exist, implicit tracks with widths of 0 are created to fill in the gaps. We can use `grid-auto-columns` and `grid-auto-rows` to specify the widths of these implicit tracks:
 
 ```css
 .container {
@@ -1113,7 +1108,7 @@ As the short-shorthand for `grid-row-start` + `grid-column-start` + `grid-row-en
   style={{ maxWidth: "350px", margin: "0 auto 36px" }}
 />
 
-Aligns a grid item inside a cell along the _inline (row)_ axis (as opposed to `align-self` which aligns along the _block (column)_ axis). This value applies to a grid item inside a single cell.
+Aligns a grid item inside a cell along the **inline axis** (as opposed to `align-self`, which aligns along the **block axis**). This value applies to a grid item inside a single cell.
 
 Values:
 
@@ -1184,7 +1179,7 @@ Examples:
 
 To set alignment for _all_ the items in a grid, this behavior can also be set on the grid container via the `justify-items` property.
 
-Aligns a grid item inside a cell along the _block (column)_ axis (as opposed to `justify-self` which aligns along the _inline (row)_ axis). This value applies to the content inside a single grid item.
+Aligns a grid item inside a cell along the **block axis** (as opposed to `justify-self`, which aligns along the **inline axis**). This value applies to a grid item inside a single cell.
 
 Values:
 
@@ -1290,6 +1285,6 @@ Examples:
   style={{ maxWidth: "350px", margin: "0 auto 36px" }}
 />
 
-## Broswer support
+## Browser support
 
 <CanIUse feature="css.properties.grid" />
