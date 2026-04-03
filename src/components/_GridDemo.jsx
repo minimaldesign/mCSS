@@ -83,6 +83,8 @@ function createDefaultItems(count) {
     colEnd: null,
     rowStart: null,
     rowEnd: null,
+    justifySelf: "",
+    alignSelf: "",
   }));
 }
 
@@ -181,6 +183,13 @@ function buildGridProps(state) {
         if (colRule) props["grid-column"] = colRule;
         if (rowRule) props["grid-row"] = rowRule;
       }
+    }
+    if (settings.useShorthand && item.justifySelf && item.alignSelf) {
+      const ps = buildPlaceShorthand(item.alignSelf, item.justifySelf);
+      if (ps) props["place-self"] = ps;
+    } else {
+      if (item.justifySelf) props["justify-self"] = item.justifySelf;
+      if (item.alignSelf) props["align-self"] = item.alignSelf;
     }
     return { id: item.id, props };
   });
@@ -390,14 +399,17 @@ function generateHTML(items) {
   return lines.join("\n");
 }
 
-function SettingsDropdown({ label, value, options, onChange }) {
+function SettingsDropdown({ label, value, options, onChange, disabled }) {
   return (
-    <div class="gridDemo_settings_field">
+    <div
+      class={`gridDemo_settings_field${disabled ? " is-disabled" : ""}`}
+    >
       <label class="gridDemo_settings_label">{label}</label>
       <select
         class="gridDemo_settings_select"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
       >
         <option value="">Not selected</option>
         {options.map((opt) => (
@@ -430,6 +442,9 @@ export default function GridDemo() {
     alignContent: "",
     gridAutoFlow: "",
   });
+
+  const [selectedItemId, setSelectedItemId] = useState(null);
+  const selectedItem = items.find((i) => i.id === selectedItemId) || null;
 
   const gap = "20px";
   const [gridWidth, setGridWidth] = useState(null);
@@ -517,6 +532,8 @@ export default function GridDemo() {
         colEnd: null,
         rowStart: null,
         rowEnd: null,
+        justifySelf: "",
+        alignSelf: "",
       },
     ]);
   }
@@ -528,7 +545,27 @@ export default function GridDemo() {
 
   function removeSpecificItem(itemId) {
     if (items.length <= 1) return;
+    if (selectedItemId === itemId) setSelectedItemId(null);
     setItems((prev) => prev.filter((i) => i.id !== itemId));
+  }
+
+  function updateSelectedSelf(prop, value) {
+    if (!selectedItemId) return;
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === selectedItemId ? { ...item, [prop]: value } : item,
+      ),
+    );
+  }
+
+  function resetItemSelf(itemId) {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === itemId
+          ? { ...item, justifySelf: "", alignSelf: "" }
+          : item,
+      ),
+    );
   }
 
   function resetAll() {
@@ -549,6 +586,7 @@ export default function GridDemo() {
     setGridWidth(null);
     setGridHeight(GRID_HEIGHT);
     setTrackMenu(null);
+    setSelectedItemId(null);
   }
 
   const gridRef = useRef(null);
@@ -1244,6 +1282,10 @@ export default function GridDemo() {
               return item;
             }),
           );
+        } else {
+          setSelectedItemId((prev) =>
+            prev === rs.itemId ? null : rs.itemId,
+          );
         }
       }
       reorderRef.current = null;
@@ -1339,10 +1381,14 @@ export default function GridDemo() {
           class="gridDemo_main_grid"
           ref={gridRef}
           onContextMenu={onGridContextMenu}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSelectedItemId(null);
+          }}
         >
           {items.map((item) => {
             let cls = `gridDemo_item grid-item-${item.id}`;
             if (draggingId === item.id) cls += " is-dragging";
+            if (selectedItemId === item.id) cls += " is-selected";
             return (
               <li
                 key={item.id}
@@ -1364,6 +1410,17 @@ export default function GridDemo() {
                   title="Remove item"
                   dangerouslySetInnerHTML={{ __html: minusIcon }}
                 />
+                {(item.justifySelf || item.alignSelf) && (
+                  <button
+                    class="gridDemo_btn gridDemo_btn-xs gridDemo_itemSelfReset"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      resetItemSelf(item.id);
+                    }}
+                    title="Reset self-alignment"
+                    dangerouslySetInnerHTML={{ __html: resetIcon }}
+                  />
+                )}
               </li>
             );
           })}
@@ -1477,6 +1534,20 @@ export default function GridDemo() {
           value={settings.gridAutoFlow}
           options={["row", "column", "dense", "row dense", "column dense"]}
           onChange={(v) => setSettings((s) => ({ ...s, gridAutoFlow: v }))}
+        />
+        <SettingsDropdown
+          label="justify-self"
+          value={selectedItem?.justifySelf ?? ""}
+          options={["start", "end", "center", "stretch"]}
+          onChange={(v) => updateSelectedSelf("justifySelf", v)}
+          disabled={!selectedItemId}
+        />
+        <SettingsDropdown
+          label="align-self"
+          value={selectedItem?.alignSelf ?? ""}
+          options={["start", "end", "center", "stretch"]}
+          onChange={(v) => updateSelectedSelf("alignSelf", v)}
+          disabled={!selectedItemId}
         />
       </div>
       <div class="gridDemo_syntax">

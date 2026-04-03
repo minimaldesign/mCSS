@@ -58,6 +58,11 @@
     opacity: var(--o-3);
     cursor: grabbing;
   }
+
+  &.is-selected {
+    border-color: var(--primary-100);
+    filter: brightness(1.15);
+  }
 }
 
 .gridDemo_ghost {
@@ -125,6 +130,15 @@
 
 .gridDemo_item:hover .gridDemo_itemRemove {
   opacity: 1;
+}
+
+/* Per-item self-alignment reset — always visible when self-alignment is set */
+
+.gridDemo_itemSelfReset {
+  position: absolute;
+  bottom: var(--xs2);
+  right: var(--xs2);
+  z-index: var(--z-1);
 }
 
 /* Bottom row — code block + settings */
@@ -361,6 +375,9 @@
 }
 
 .gridDemo_settings_field {
+  &.is-disabled {
+    opacity: var(--o-2);
+  }
 }
 
 .gridDemo_settings_label {
@@ -376,4 +393,8 @@
   border: var(--border-sm) solid var(--theme-border-color);
   border-radius: var(--radius-md);
   background-color: light-dark(var(--base-0), var(--base-800));
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
