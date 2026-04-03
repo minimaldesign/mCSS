@@ -61,7 +61,7 @@
 
   &.is-selected {
     border-color: var(--primary-100);
-    filter: brightness(1.15);
+    background-color: var(--primary-400);
   }
 }
 

@@ -592,6 +592,7 @@ export default function GridDemo() {
   const gridRef = useRef(null);
   const dragState = useRef(null);
   const reorderRef = useRef(null);
+  const suppressClickRef = useRef(false);
   const [draggingId, setDraggingId] = useState(null);
   const trackDragRef = useRef(null);
   const [trackMenu, setTrackMenu] = useState(null);
@@ -957,6 +958,8 @@ export default function GridDemo() {
       ghost: null,
     };
     setDraggingId(itemId);
+    if (selectedItemId && selectedItemId !== itemId) setSelectedItemId(null);
+    suppressClickRef.current = true;
 
     const touchesCol =
       edge === "right" ||
@@ -1152,6 +1155,7 @@ export default function GridDemo() {
 
   function onItemPointerDown(e, itemId) {
     if (dragState.current) return;
+    if (e.button !== 0) return;
     if (
       e.target.closest(".gridDemo_btn") ||
       e.target.closest(".gridDemo_handle")
@@ -1198,6 +1202,8 @@ export default function GridDemo() {
           return;
         rs.activated = true;
         setDraggingId(itemId);
+        setSelectedItemId(null);
+        suppressClickRef.current = true;
 
         const ghost = li.cloneNode(true);
         ghost.className = "gridDemo_item gridDemo_ghost";
@@ -1283,9 +1289,7 @@ export default function GridDemo() {
             }),
           );
         } else {
-          setSelectedItemId((prev) =>
-            prev === rs.itemId ? null : rs.itemId,
-          );
+          setSelectedItemId(rs.itemId);
         }
       }
       reorderRef.current = null;
@@ -1382,6 +1386,10 @@ export default function GridDemo() {
           ref={gridRef}
           onContextMenu={onGridContextMenu}
           onClick={(e) => {
+            if (suppressClickRef.current) {
+              suppressClickRef.current = false;
+              return;
+            }
             if (e.target === e.currentTarget) setSelectedItemId(null);
           }}
         >
