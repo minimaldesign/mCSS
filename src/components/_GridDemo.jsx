@@ -401,9 +401,7 @@ function generateHTML(items) {
 
 function SettingsDropdown({ label, value, options, onChange, disabled }) {
   return (
-    <div
-      class={`gridDemo_settings_field${disabled ? " is-disabled" : ""}`}
-    >
+    <div class={`gridDemo_settings_field${disabled ? " is-disabled" : ""}`}>
       <label class="gridDemo_settings_label">{label}</label>
       <select
         class="gridDemo_settings_select"
@@ -422,7 +420,7 @@ function SettingsDropdown({ label, value, options, onChange, disabled }) {
   );
 }
 
-export default function GridDemo() {
+export default function GridDemo({ extraClass = "" }) {
   const [cols, setCols] = useState(DEFAULT_COLS);
   const [rows, setRows] = useState(DEFAULT_ROWS);
   const [colSizes, setColSizes] = useState(() =>
@@ -561,9 +559,7 @@ export default function GridDemo() {
   function resetItemSelf(itemId) {
     setItems((prev) =>
       prev.map((item) =>
-        item.id === itemId
-          ? { ...item, justifySelf: "", alignSelf: "" }
-          : item,
+        item.id === itemId ? { ...item, justifySelf: "", alignSelf: "" } : item,
       ),
     );
   }
@@ -1314,7 +1310,7 @@ export default function GridDemo() {
   ];
 
   return (
-    <div class={`gridDemo not-prose${draggingId ? " is-itemDragged" : ""}`}>
+    <div class={`gridDemo not-prose${draggingId ? " is-itemDragged" : ""}${extraClass ? ` ${extraClass}` : ""}`}>
       <style dangerouslySetInnerHTML={{ __html: liveCSS }} />
 
       <div class="gridDemo_toolbar">

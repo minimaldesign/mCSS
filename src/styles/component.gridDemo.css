@@ -1,5 +1,4 @@
 .gridDemo {
-  margin-block: var(--lg3);
   &.is-itemDragged .gridDemo_trackHandle {
     pointer-events: none;
   }
@@ -8,9 +7,16 @@
 /* Toolbar — rows / columns / items controls */
 
 .gridDemo_toolbar {
+  position: relative;
   display: flex;
-  gap: var(--lg1);
-  margin-bottom: var(--sm2);
+  flex-wrap: wrap;
+  gap: var(--sm1);
+  margin-block-end: var(--sm2);
+  padding-inline-end: var(--lg2);
+
+  @media (--md) {
+    gap: var(--lg1);
+  }
 }
 
 .gridDemo_toolbar_group {
@@ -19,7 +25,9 @@
 }
 
 .gridDemo_toolbar_reset {
-  margin-left: auto;
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0;
 }
 
 .gridDemo_toolbar_label {
@@ -153,11 +161,11 @@
 .gridDemo_syntax {
   margin: var(--md3) 0 var(--xs2);
   display: flex;
-  gap: var(--sm3);
   flex-direction: column;
 
   @media (--md) {
     flex-direction: row;
+    gap: var(--sm3);
   }
 }
 
@@ -182,10 +190,6 @@
   font-size: var(--text-sm);
   font-weight: var(--semi-bold);
   cursor: pointer;
-  transition:
-    background var(--transition),
-    border-color var(--transition),
-    color var(--transition);
 
   &.is-active {
     background: light-dark(var(--base-950), var(--base-900));
@@ -362,19 +366,27 @@
 .gridDemo_settings {
   display: grid;
   gap: var(--xs3);
-  grid: repeat(2, auto) / repeat(4, 1fr);
-  grid-auto-flow: column;
+  grid: repeat(4, auto) / repeat(2, 1fr);
   font-size: var(--text-sm);
+  @media (--md) {
+    grid-auto-flow: column;
+    grid: repeat(2, auto) / repeat(4, 1fr);
+  }
 }
 
 .gridDemo_settings_field {
   &:nth-child(6) {
-    color: red !important;
-    grid-area: 1 / 4 / 2 / 5;
+    grid-area: 4 / 1 / 5 / 2;
+    @media (--md) {
+      grid-area: 1 / 4 / 2 / 5;
+    }
   }
 
   &:nth-child(7) {
-    grid-area: 2 / 4 / 3 / 5;
+    grid-area: 4 / 2 / 5 / 3;
+    @media (--md) {
+      grid-area: 2 / 4 / 3 / 5;
+    }
   }
 
   &.is-disabled {
