@@ -11,8 +11,10 @@ code:has(> .shiki) {
 }
 
 /* astro-expressive-code bugs overrides */
+/* margin in relation to headings in global.prose.css */
 .expressive-code {
-  margin-block: var(--xs3);
+  margin-block-start: var(--xs3);
+  margin-block-end: var(--md1);
 
   .frame pre {
     margin-block: 0;
