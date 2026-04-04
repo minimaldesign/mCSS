@@ -1,5 +1,5 @@
 ---
-title: "Learn CSS Grid by Example"
+title: "Interactive CSS Grid Tutorial"
 pubDate: 2026-02-28
 author: "Yann"
 tags: ["css", "grid"]
@@ -10,11 +10,42 @@ import Notice from "../../components/Notice.astro";
 import CanIUse from "../../components/_CanIUse.astro";
 import GridDemo from "../../components/_GridDemo.jsx";
 
-import * as gridFig from "../../assets/images/css-grid/grid-blog-images";
+import * as gridFig from "../../assets/images/css-grid/grid-blog-images.js";
 
-<GridDemo client:visible />
+## Interactive CSS grid playground
 
-<Notice title="A Complete Guide to Grid by CSS Tricks" type="info">
+<GridDemo client:visible extraClass="mt-sm3 mb-md1" />
+
+The CSS grid model can be daunting to wrap your head around at first, and if you're not using it every day, it's easy to forget the exact syntax. For both of those reasons, I've built this interactive CSS grid playground.
+
+### Grid features
+
+- **Rows:** add/remove/resize
+- **Columns:** add/remove/resize
+- **Grid items:** add/remove/reorder/resize
+- **Grid items:** click to select (to set `justify-self`/`align-self` properties)
+- **Tracks:** right click within to reset row/col to `1fr` if needed
+- **Reset:** top right button resets to default
+- **Resize:** bottom right lets you resize grid dimensions
+
+### Settings
+
+You can change all the CSS properties like `justify-items`, `align-items`, etc. **The grid item's properties are only available when a grid item is selected.**
+
+### Code block
+
+Any changes you make to the grid is reflected instantly into the code block below. Don't miss the options there. You can:
+
+- Toggle shorthand syntax
+- Use template areas syntax
+
+## A Complete Guide to CSS Grid
+
+<Notice
+  title="A Complete Guide to Grid by CSS Tricks 👇"
+  type="info"
+  extraClass="mb-md1"
+>
   The old CSS Tricks article *"A Complete Guide to Grid"* was the gold standard.
   Unfortunately, they replaced it with this [newer
   version](https://css-tricks.com/complete-guide-css-grid-layout/) which is… Not
@@ -23,8 +54,6 @@ import * as gridFig from "../../assets/images/css-grid/grid-blog-images";
   and copied it below so it doesn't disappear forever. I also updated the info
   that was obsolete/missing but I kept that to a minimum. Enjoy!
 </Notice>
-
-## Important Terminology
 
 Before diving into the concepts of Grid it's important to understand the terminology. Since the terms involved here are all kinda conceptually similar, it's easy to confuse them with one another if you don't first memorize their meanings defined by the Grid specification. But don't worry, there aren't many of them.
 
