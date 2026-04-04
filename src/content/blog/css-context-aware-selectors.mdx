@@ -1,0 +1,41 @@
+---
+title: "Context-Aware CSS: Style Elements Differently Based on Where They Appear"
+description: "Learn how to use modern CSS selectors like :is() and :not() to apply context-aware styles—perfect for keeping global rules clean while excluding elements inside specific containers such as headings."
+pubDate: 2026-04-03
+author: "Yann"
+tags: ["CSS selectors", "frontend development", "modern CSS", "CSS tips"]
+---
+
+Before pseudo-selectors like `:is()` and `:has()` came along, targeting elements based on where they appear in your HTML was tricky. You could style everything globally, but making clean exceptions often meant adding extra classes to your markup.
+
+Here’s a common example. Suppose you have a global style for `<code>`, but you don’t want code snippets inside headings (`<h1>`, `<h2>`, etc.) to inherit that look. You want headings to stay clean, while inline code elsewhere keeps its distinctive formatting.
+
+You can do that with a single selector:
+
+```css
+:is(code, var, kbd):not(h1 *, h2 *, h3 *, h4 *, h5 *, h6 *) {
+  /* styles */
+}
+```
+
+This syntax combines three common selectors in a less common way:
+
+- `:is(code, var, kbd)` targets all code-related inline elements.
+- `:not(h1 *, h2 *, ...)` excludes any that appear inside headings.
+
+A quick mental model helps: `h1 *` means “any element inside an `<h1>`.” Adding that to `:not()` tells CSS to skip those entire contexts. Without the `*`, you’d only exclude the heading tag itself, not its descendants.
+
+**Example:**
+
+## Install with `npm install`
+
+Run `npm install` to begin.
+
+```html
+<h2>Install with <code>npm install</code></h2>
+<p>Run <code>npm install</code> to begin.</p>
+```
+
+In the heading, the code snippet stays unstyled; in the paragraph, it picks up your custom code formatting.
+
+This pattern gives you cleaner, context-sensitive styling — perfect when you want global consistency but with smart exceptions, no extra HTML classes required.
