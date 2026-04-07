@@ -26,8 +26,8 @@
 .footer_meta {
   grid-column: 1;
   grid-row: 1;
-  /* & is just to make syntax highlighter happy */
-  & p:last-child {
+
+  p:last-of-type {
     margin-top: 1em;
   }
 
@@ -46,6 +46,12 @@
     margin-right: 0.25em;
     width: 25px;
   }
+}
+
+.footer_meta_webring {
+  display: flex;
+  gap: var(--xs2);
+  margin-top: var(--md3);
 }
 
 .footer_nav > ul {
