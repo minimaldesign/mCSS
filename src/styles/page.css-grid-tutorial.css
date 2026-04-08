@@ -41,7 +41,7 @@
 
 /* Muted background cells (terms diagrams, item-spotlight diagrams) */
 .gridFig_cell-muted {
-  background-color: var(--primary-100);
+  background-color: light-dark(var(--primary-100), var(--base-800));
 }
 
 /* Highlighted / accent cell (the item being demonstrated) */
