@@ -9,8 +9,10 @@ description: "Learn how to use the CSS grid via examples."
 import Notice from "../../components/Notice.astro";
 import CanIUse from "../../components/_CanIUse.astro";
 import GridDemo from "../../components/_GridDemo.jsx";
-
-import * as gridFig from "../../assets/images/css-grid/grid-blog-images.js";
+import GridViz from "../../components/_GridViz.astro";
+import "../../styles/page.css-grid-tutorial.css";
+import templateColumnsRows01 from "../../assets/images/css-grid/template-columns-rows-01.svg";
+import templateColumnRows02 from "../../assets/images/css-grid/template-column-rows-02.svg";
 
 ## Interactive CSS grid playground
 
@@ -52,7 +54,9 @@ Any changes you make to the grid is reflected instantly into the code block belo
   as good. Thankfully, I found [the old
   version](https://web.archive.org/web/20181231225204/https://css-tricks.com/snippets/css/complete-guide-grid/)
   and copied it below so it doesn't disappear forever. I also updated the info
-  that was obsolete/missing but I kept that to a minimum. Enjoy!
+  that was obsolete/missing and replacedc the illustions with actual grids you
+  can inspect in devtools if you want to. I kept all other changes to a minimum.
+  Enjoy!
 </Notice>
 
 Before diving into the concepts of Grid it's important to understand the terminology. Since the terms involved here are all kinda conceptually similar, it's easy to confuse them with one another if you don't first memorize their meanings defined by the Grid specification. But don't worry, there aren't many of them.
@@ -85,43 +89,94 @@ The children (i.e. _direct_ descendants) of the grid container. Here the `item` 
 
 ### Grid line
 
-The dividing lines that make up the structure of the grid. They can be either vertical ("column grid lines") or horizontal ("row grid lines") and reside on either side of a row or column. Here the yellow line is an example of a column grid line.
+The dividing lines that make up the structure of the grid. They can be either vertical ("column grid lines") or horizontal ("row grid lines") and reside on either side of a row or column. Here the blue line is an example of a column grid line.
 
-<img
-  src={gridFig.termsGridLine.src}
-  alt="Diagram of a grid with a column grid line highlighted"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<div
+  class="gridFig gridFig-terminology"
+  style="grid-template-columns: 1fr 1fr 3px 1fr 1fr; grid-template-rows: repeat(3, 44px);"
+>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell-line"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell-line"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell-line"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+</div>
 
 ### Grid track
 
 The space between two adjacent grid lines. You can think of them like the columns or rows of the grid. Here's the grid track between the second and third row grid lines.
 
-<img
-  src={gridFig.termsGridTrack.src}
-  alt="Diagram of a grid track between two row lines"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<div
+  class="gridFig gridFig-terminology"
+  style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 44px);"
+>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+</div>
 
 ### Grid cell
 
 The space between two adjacent row and two adjacent column grid lines. It's a single "unit" of the grid. Here's the grid cell between row grid lines 1 and 2, and column grid lines 2 and 3.
 
-<img
-  src={gridFig.termsGridCell.src}
-  alt="Diagram of a single grid cell"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<div
+  class="gridFig gridFig-terminology"
+  style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 44px);"
+>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+</div>
 
 ### Grid area
 
 The total space surrounded by four grid lines. A grid area may be comprised of any number of grid cells. Here's the grid area between row grid lines 1 and 3, and column grid lines 1 and 3.
 
-<img
-  src={gridFig.termsGridArea.src}
-  alt="Diagram of a grid area spanning multiple cells"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<div
+  class="gridFig gridFig-terminology"
+  style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 44px);"
+>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-hi"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+  <div class="gridFig_cell gridFig_cell-muted"></div>
+</div>
 
 ## Properties for the Parent (Grid Container)
 
@@ -187,7 +242,7 @@ When you leave an empty space between the track values, the grid lines are autom
 ```
 
 <img
-  src={gridFig.templateColumnsRows01.src}
+  src={templateColumnsRows01.src}
   alt="Diagram of automatic positive and negative grid line numbers"
   style={{ maxWidth: "450px", margin: "0 auto 36px" }}
 />
@@ -202,7 +257,7 @@ But you can choose to explicitly name the lines. Note the bracket syntax for the
 ```
 
 <img
-  src={gridFig.templateColumnRows02.src}
+  src={templateColumnRows02.src}
   alt="Grid with user named lines"
   style={{ maxWidth: "600px", margin: "0 auto 36px" }}
 />
@@ -313,11 +368,22 @@ Example:
 
 That'll create a grid that's four columns wide by three rows tall. The entire top row will be comprised of the **header** area. The middle row will be comprised of two **main** areas, one empty cell, and one **sidebar** area. The last row is all **footer**.
 
-<img
-  src={gridFig.dddgridTemplateAreas.src}
-  alt="Example of grid-template-areas"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div class="gridFig gridFig-area">
+    <div class="gridFig_cell gridFig_cell-header">header</div>
+    <div class="gridFig_cell gridFig_cell-header"></div>
+    <div class="gridFig_cell gridFig_cell-header"></div>
+    <div class="gridFig_cell gridFig_cell-header"></div>
+    <div class="gridFig_cell gridFig_cell-main">main</div>
+    <div class="gridFig_cell gridFig_cell-main"></div>
+    <div class="gridFig_cell gridFig_cell-empty"></div>
+    <div class="gridFig_cell gridFig_cell-sidebar">sidebar</div>
+    <div class="gridFig_cell gridFig_cell-footer">footer</div>
+    <div class="gridFig_cell gridFig_cell-footer"></div>
+    <div class="gridFig_cell gridFig_cell-footer"></div>
+    <div class="gridFig_cell gridFig_cell-footer"></div>
+  </div>
+</GridViz>
 
 Each row in your declaration needs to have the same number of cells.
 
@@ -387,15 +453,26 @@ Example:
   grid-template-columns: 100px 50px 100px;
   grid-template-rows: 80px auto 80px;
   column-gap: 10px;
-  row-gap: 15px;
+  row-gap: 20px;
 }
 ```
 
-<img
-  src={gridFig.dddgridGap.src}
-  alt="Example of column-gap and row-gap"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 100px 50px 100px; grid-template-rows: 80px 40px 80px; column-gap: 10px; row-gap: 20px; max-width: 350px;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 The gutters are only created _between_ the columns/rows, not on the outer edges.
 
@@ -419,13 +496,28 @@ Example:
 .container {
   grid-template-columns: 100px 50px 100px;
   grid-template-rows: 80px auto 80px;
-  gap: 15px 10px;
+  gap: 10px 30px;
 }
 ```
 
-If only one value is provided, it applies to both row and column gaps.
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 100px 50px 100px; grid-template-rows: 80px 40px 80px; gap: 10px 30px; max-width: 350px;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
-Note: The older name `grid-gap` is a deprecated alias and should be avoided in new code.
+If only one value is provided, it applies to both row and column gaps.
 
 ### `justify-items`
 
@@ -453,11 +545,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyItemsStart.src}
-  alt="Example of justify-items set to start"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); justify-items: start;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -465,11 +565,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyItemsEnd.src}
-  alt="Example of justify-items set to end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); justify-items: end;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -477,11 +585,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyItemsCenter.src}
-  alt="Example of justify-items set to center"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); justify-items: center;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -489,11 +605,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyItemsStretch.src}
-  alt="Example of justify-items set to stretch"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); justify-items: stretch;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 This behavior can also be set on individual grid items via the `justify-self` property.
 
@@ -523,11 +647,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignItemsStart.src}
-  alt="Example of align-items set to start"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 80px); align-items: start;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -535,11 +667,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignItemsEnd.src}
-  alt="Example of align-items set to end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 80px); align-items: end;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -547,11 +687,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignItemsCenter.src}
-  alt="Example of align-items set to center"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 80px); align-items: center;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -559,11 +707,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignItemsStretch.src}
-  alt="Example of align-items set to stretch"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 80px); align-items: stretch;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 This behavior can also be set on individual grid items via the `align-self` property.
 
@@ -606,11 +762,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyContentStart.src}
-  alt="Example of justify-content set to start"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(2, 60px); justify-content: start;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -618,11 +782,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyContentEnd.src}
-  alt="Example of justify-content set to end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(2, 60px); justify-content: end;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -630,11 +802,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyContentCenter.src}
-  alt="Example of justify-content set to center"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(2, 60px); justify-content: center;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -642,11 +822,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyContentStretch.src}
-  alt="Example of justify-content set to stretch"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); justify-content: stretch;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -654,11 +842,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyContentSpaceAround.src}
-  alt="Example of justify-content set to space-around"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(2, 60px); justify-content: space-around;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -666,11 +862,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyContentSpaceBetween.src}
-  alt="Example of justify-content set to space-between"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(2, 60px); justify-content: space-between;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -678,11 +882,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifyContentSpaceEvenly.src}
-  alt="Example of justify-content set to space-evenly"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(2, 60px); justify-content: space-evenly;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ### `align-content`
 
@@ -713,11 +925,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignContentStart.src}
-  alt="Example of align-content set to start"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig gridFig-tall"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); align-content: start;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -725,11 +945,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignContentEnd.src}
-  alt="Example of align-content set to end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig gridFig-tall"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); align-content: end;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -737,11 +965,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignContentCenter.src}
-  alt="Example of align-content set to center"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig gridFig-tall"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); align-content: center;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -749,11 +985,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignContentStretch.src}
-  alt="Example of align-content set to stretch"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig gridFig-tall"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); align-content: stretch;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -761,11 +1005,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignContentSpaceAround.src}
-  alt="Example of align-content set to space-around"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig gridFig-tall"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); align-content: space-around;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -773,11 +1025,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignContentSpaceBetween.src}
-  alt="Example of align-content set to space-between"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig gridFig-tall"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); align-content: space-between;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ```css
 .container {
@@ -785,11 +1045,19 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignContentSpaceEvenly.src}
-  alt="Example of align-content set to space-evenly"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig gridFig-tall"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px); align-content: space-evenly;"
+  >
+    <div class="gridFig_cell">1</div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+  </div>
+</GridViz>
 
 ### `place-content`
 
@@ -823,11 +1091,17 @@ To illustrate how implicit grid tracks get created, think about this:
 }
 ```
 
-<img
-  src={gridFig.gridAutoColumnsRows01.src}
-  alt="Example of 2x2 grid"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 60px 60px; grid-template-rows: 90px 90px;"
+  >
+    <div class="gridFig_cell"></div>
+    <div class="gridFig_cell"></div>
+    <div class="gridFig_cell"></div>
+    <div class="gridFig_cell"></div>
+  </div>
+</GridViz>
 
 This creates a 2 x 2 grid.
 
@@ -844,13 +1118,21 @@ But now imagine you use `grid-column` and `grid-row` to position your grid items
 }
 ```
 
-<img
-  src={gridFig.gridAutoColumnsRows02.src}
-  alt="Example of implicit tracks"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 60px 60px; grid-template-rows: 90px 90px; max-width: 400px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 1; grid-row: 2;">
+      a
+    </div>
+    <div class="gridFig_cell" style="grid-column: 5 / 6; grid-row: 2;">
+      b
+    </div>
+  </div>
+</GridViz>
 
-We told `.item-b` to start on column line 5 and end at column line 6, _but we never defined a column line 5 or 6_. Because we referenced lines that don't exist, implicit tracks with widths of 0 are created to fill in the gaps. We can use `grid-auto-columns` and `grid-auto-rows` to specify the widths of these implicit tracks:
+We told `.item-b` to start on column line 5 and end at column line 6, _but we never defined a column line 5 or 6_. Because we referenced lines that don't exist, implicit tracks are created to fill in the gaps. We can use `grid-auto-columns` and `grid-auto-rows` to specify the widths of these implicit tracks:
 
 ```css
 .container {
@@ -858,11 +1140,19 @@ We told `.item-b` to start on column line 5 and end at column line 6, _but we ne
 }
 ```
 
-<img
-  src={gridFig.gridAutoColumnsRows03.src}
-  alt="grid-auto-columns-rows"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 60px 60px; grid-template-rows: 90px 90px; grid-auto-columns: 60px; max-width: 400px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 1; grid-row: 2;">
+      a
+    </div>
+    <div class="gridFig_cell" style="grid-column: 5 / 6; grid-row: 2;">
+      b
+    </div>
+  </div>
+</GridViz>
 
 ### `grid-auto-flow`
 
@@ -888,11 +1178,11 @@ Consider this HTML:
 
 ```html
 <section class="container">
-  <div class="item-a">item-a</div>
-  <div class="item-b">item-b</div>
-  <div class="item-c">item-c</div>
-  <div class="item-d">item-d</div>
-  <div class="item-e">item-e</div>
+  <div class="item-a">a</div>
+  <div class="item-b">b</div>
+  <div class="item-c">c</div>
+  <div class="item-d">d</div>
+  <div class="item-e">e</div>
 </section>
 ```
 
@@ -901,8 +1191,8 @@ You define a grid with five columns and two rows, and set `grid-auto-flow` to `r
 ```css
 .container {
   display: grid;
-  grid-template-columns: 60px 60px 60px 60px 60px;
-  grid-template-rows: 30px 30px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 60px);
   grid-auto-flow: row;
 }
 ```
@@ -922,28 +1212,51 @@ When placing the items on the grid, you only specify spots for two of them:
 
 Because we set `grid-auto-flow` to `row`, our grid will look like this. Notice how the three items we didn't place (**item-b**, **item-c** and **item-d**) flow across the available rows:
 
-<img
-  src={gridFig.gridAutoFlow01.src}
-  alt="Example of grid-auto-flow set to row"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 60px); grid-auto-flow: row; max-width: 320px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 1; grid-row: 1 / 3;">
+      a
+    </div>
+    <div class="gridFig_cell">b</div>
+    <div class="gridFig_cell">c</div>
+    <div class="gridFig_cell">d</div>
+    <div class="gridFig_cell" style="grid-column: 5; grid-row: 1 / 3;">
+      e
+    </div>
+  </div>
+</GridViz>
 
 If we instead set `grid-auto-flow` to `column`, **item-b**, **item-c** and **item-d** flow down the columns:
 
 ```css
 .container {
   display: grid;
-  grid-template-columns: 60px 60px 60px 60px 60px;
-  grid-template-rows: 30px 30px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 60px);
   grid-auto-flow: column;
 }
 ```
 
-<img
-  src={gridFig.gridAutoFlow02.src}
-  alt="Example of grid-auto-flow set to column"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 60px); grid-auto-flow: column; max-width: 320px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 1; grid-row: 1 / 3;">
+      a
+    </div>
+    <div class="gridFig_cell">b</div>
+    <div class="gridFig_cell">c</div>
+    <div class="gridFig_cell">d</div>
+    <div class="gridFig_cell" style="grid-column: 5; grid-row: 1 / 3;">
+      e
+    </div>
+  </div>
+</GridViz>
 
 ### `grid`
 
@@ -1081,11 +1394,16 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.gridColumnRowStartEnd01.src}
-  alt="Example of grid-row/column-start/end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 40px 50px 1fr 50px 40px; grid-template-rows: 70px 80px 50px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 2 / 5; grid-row: 1 / 3;">
+      item-a
+    </div>
+  </div>
+</GridViz>
 
 ```css
 .item-b {
@@ -1096,11 +1414,16 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.gridColumnRowStartEnd02.src}
-  alt="Example of grid-row/column-start/end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 40px 50px 1fr 50px 40px; grid-template-rows: 50px 70px 80px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 1 / 4; grid-row: 2 / 4;">
+      item-b
+    </div>
+  </div>
+</GridViz>
 
 If no `grid-column-end` / `grid-row-end` is declared, the item will span 1 track by default.
 
@@ -1130,11 +1453,16 @@ Example:
 }
 ```
 
-<img
-  src={gridFig.gridColumnRow.src}
-  alt="Example of grid-column/grid-row"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 40px 50px 1fr 50px 40px; grid-template-rows: 50px 60px 80px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 3 / 5; grid-row: 3;">
+      item-c
+    </div>
+  </div>
+</GridViz>
 
 If no end line value is declared, the item will span 1 track by default.
 
@@ -1171,11 +1499,16 @@ As the short-shorthand for `grid-row-start` + `grid-column-start` + `grid-row-en
 }
 ```
 
-<img
-  src={gridFig.gridArea.src}
-  alt="Example of grid-area"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: 40px 50px 1fr 50px 40px; grid-template-rows: 70px 70px 70px;"
+  >
+    <div class="gridFig_cell" style="grid-column: 4 / 6; grid-row: 1 / 4;">
+      item-d
+    </div>
+  </div>
+</GridViz>
 
 ### `justify-self`
 
@@ -1204,11 +1537,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifySelfStart.src}
-  alt="Example of justify-self set to start"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 60px);"
+  >
+    <div class="gridFig_cell" style="justify-self: start;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ```css
 .item-a {
@@ -1216,11 +1562,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifySelfEnd.src}
-  alt="Example of justify-self set to end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 60px);"
+  >
+    <div class="gridFig_cell" style="justify-self: end;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ```css
 .item-a {
@@ -1228,11 +1587,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifySelfCenter.src}
-  alt="Example of justify-self set to center"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 60px);"
+  >
+    <div class="gridFig_cell" style="justify-self: center;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ```css
 .item-a {
@@ -1240,11 +1612,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.justifySelfStretch.src}
-  alt="Example of justify-self set to stretch"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 60px);"
+  >
+    <div class="gridFig_cell" style="justify-self: stretch;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 To set alignment for _all_ the items in a grid, this behavior can also be set on the grid container via the `justify-items` property.
 
@@ -1275,11 +1660,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignSelfStart.src}
-  alt="Example of align-self set to start"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 80px);"
+  >
+    <div class="gridFig_cell" style="align-self: start;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ```css
 .item-a {
@@ -1287,11 +1685,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignSelfEnd.src}
-  alt="Example of align-self set to end"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 80px);"
+  >
+    <div class="gridFig_cell" style="align-self: end;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ```css
 .item-a {
@@ -1299,11 +1710,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignSelfCenter.src}
-  alt="Example of align-self set to center"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 80px);"
+  >
+    <div class="gridFig_cell" style="align-self: center;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ```css
 .item-a {
@@ -1311,11 +1735,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.alignSelfStretch.src}
-  alt="Example of align-self set to stretch"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 80px);"
+  >
+    <div class="gridFig_cell" style="align-self: stretch;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 To align _all_ the items in a grid, this behavior can also be set on the grid container via the `align-items` property.
 
@@ -1336,11 +1773,24 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.placeSelfCenter.src}
-  alt="place self set to center"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 80px);"
+  >
+    <div class="gridFig_cell" style="place-self: center;">
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ```css
 .item-a {
@@ -1348,11 +1798,27 @@ Examples:
 }
 ```
 
-<img
-  src={gridFig.placeSelfCenterStretch.src}
-  alt="place-self set to center stretch"
-  style={{ maxWidth: "350px", margin: "0 auto 36px" }}
-/>
+<GridViz>
+  <div
+    class="gridFig"
+    style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 80px);"
+  >
+    <div
+      class="gridFig_cell"
+      style="align-self: center; justify-self: stretch;"
+    >
+      a
+    </div>
+    <div class="gridFig_cell">2</div>
+    <div class="gridFig_cell">3</div>
+    <div class="gridFig_cell">4</div>
+    <div class="gridFig_cell">5</div>
+    <div class="gridFig_cell">6</div>
+    <div class="gridFig_cell">7</div>
+    <div class="gridFig_cell">8</div>
+    <div class="gridFig_cell">9</div>
+  </div>
+</GridViz>
 
 ## Browser support
 

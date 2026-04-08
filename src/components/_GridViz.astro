@@ -1,0 +1,155 @@
+---
+// Wraps any CSS grid element and overlays semi-transparent strips at every
+// grid-gap position — visible even through spanning items. Strips reflow
+// automatically on resize via ResizeObserver.
+//
+// Usage:
+//   <GridViz>
+//     <div class="grid">
+//       <div>1</div>
+//       ...
+//     </div>
+//   </GridViz>
+---
+
+<div class="gridViz">
+  <slot />
+</div>
+
+<style is:global>
+  .gridViz_gap {
+    position: absolute;
+    pointer-events: none;
+    z-index: var(--z-1);
+  }
+
+  .gridViz_gap-col {
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgb(from var(--maybe-500) r g b / 0.8) 0px,
+        rgb(from var(--maybe-500) r g b / 0.8) 1px,
+        transparent 1px,
+        transparent 6px
+      ),
+      rgb(from var(--maybe-500) r g b / 0.5);
+  }
+
+  .gridViz_gap-row {
+    background:
+      repeating-linear-gradient(
+        135deg,
+        rgb(from var(--maybe-500) r g b / 0.8) 0px,
+        rgb(from var(--maybe-500) r g b / 0.8) 1px,
+        transparent 1px,
+        transparent 6px
+      ),
+      rgb(from var(--maybe-500) r g b / 0.5);
+  }
+</style>
+
+<script>
+  function distribute(alignment, free, n, gap) {
+    if (free <= 0) return { offset: 0, gap };
+    switch (alignment) {
+      case "end":
+      case "flex-end":
+        return { offset: free, gap };
+      case "center":
+        return { offset: free / 2, gap };
+      case "space-between":
+        return { offset: 0, gap: gap + (n > 1 ? free / (n - 1) : 0) };
+      case "space-around":
+        return { offset: free / (2 * n), gap: gap + free / n };
+      case "space-evenly":
+        return { offset: free / (n + 1), gap: gap + free / (n + 1) };
+      default:
+        return { offset: 0, gap };
+    }
+  }
+
+  function updateOverlays(grid) {
+    grid.querySelectorAll(":scope > .gridViz_gap").forEach((el) => el.remove());
+
+    const cs = getComputedStyle(grid);
+    const cols = cs.gridTemplateColumns.split(/\s+/).map(parseFloat);
+    const rows = cs.gridTemplateRows.split(/\s+/).map(parseFloat);
+    const colGap = parseFloat(cs.columnGap) || 0;
+    const rowGap = parseFloat(cs.rowGap) || 0;
+
+    if (!colGap && !rowGap) return;
+
+    const padL = parseFloat(cs.paddingLeft) || 0;
+    const padR = parseFloat(cs.paddingRight) || 0;
+    const padT = parseFloat(cs.paddingTop) || 0;
+    const padB = parseFloat(cs.paddingBottom) || 0;
+    const availW = grid.clientWidth - padL - padR;
+    const availH = grid.clientHeight - padT - padB;
+
+    const sumCols = cols.reduce((a, b) => a + b, 0);
+    const sumRows = rows.reduce((a, b) => a + b, 0);
+    const numColGaps = Math.max(0, cols.length - 1);
+    const numRowGaps = Math.max(0, rows.length - 1);
+
+    const freeW = availW - sumCols - colGap * numColGaps;
+    const freeH = availH - sumRows - rowGap * numRowGaps;
+
+    const colDist = distribute(cs.justifyContent, freeW, cols.length, colGap);
+    const rowDist = distribute(cs.alignContent, freeH, rows.length, rowGap);
+
+    const totalW = sumCols + colDist.gap * numColGaps;
+    const totalH = sumRows + rowDist.gap * numRowGaps;
+
+    const frag = document.createDocumentFragment();
+
+    if (colDist.gap > 0) {
+      let x = colDist.offset;
+      for (let i = 0; i < cols.length; i++) {
+        x += cols[i];
+        if (i < numColGaps) {
+          const el = document.createElement("div");
+          el.className = "gridViz_gap gridViz_gap-col";
+          el.style.left = `${x}px`;
+          el.style.top = `${rowDist.offset}px`;
+          el.style.width = `${colDist.gap}px`;
+          el.style.height = `${totalH}px`;
+          frag.appendChild(el);
+          x += colDist.gap;
+        }
+      }
+    }
+
+    if (rowDist.gap > 0) {
+      let y = rowDist.offset;
+      for (let i = 0; i < rows.length; i++) {
+        y += rows[i];
+        if (i < numRowGaps) {
+          const el = document.createElement("div");
+          el.className = "gridViz_gap gridViz_gap-row";
+          el.style.left = `${colDist.offset}px`;
+          el.style.top = `${y}px`;
+          el.style.width = `${totalW}px`;
+          el.style.height = `${rowDist.gap}px`;
+          frag.appendChild(el);
+          y += rowDist.gap;
+        }
+      }
+    }
+
+    grid.appendChild(frag);
+  }
+
+  const ro = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      updateOverlays(entry.target);
+    }
+  });
+
+  document.querySelectorAll(".gridViz").forEach((wrapper) => {
+    const grid = wrapper.firstElementChild as HTMLElement | null;
+    if (!grid) return;
+    grid.style.position = "relative";
+    updateOverlays(grid);
+    ro.observe(grid);
+  });
+</script>

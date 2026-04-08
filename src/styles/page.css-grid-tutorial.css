@@ -1,0 +1,83 @@
+/* CSS Grid tutorial blog post */
+/* Imported directly in interactive-css-grid-tutorial.mdx. */
+/* NOT registered in _global.css (this is page-specific). */
+
+.gridFig {
+  display: grid;
+  gap: 4px;
+  max-width: 300px;
+  margin: 0 0 var(--md3);
+  overflow: hidden;
+  font-family: var(--mono);
+  background-color: light-dark(var(--primary-100), var(--base-900));
+  border: var(--border-sm) dashed var(--base-400);
+  border-radius: var(--radius-md);
+}
+
+.gridFig-terminology {
+  background-color: light-dark(var(--maybe-500), var(--maybe-500));
+}
+
+.gridFig-area {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 450px;
+
+  & > .gridFig_cell {
+    text-wrap: nowrap;
+  }
+}
+
+.gridFig_cell {
+  display: flex;
+  padding: var(--sm1);
+  color: var(--base-0);
+  background-color: var(--primary-500);
+
+  p {
+    /* Prettier forcer line return → extra <p> */
+    margin-bottom: 0;
+  }
+}
+
+/* Muted background cells (terms diagrams, item-spotlight diagrams) */
+.gridFig_cell-muted {
+  background-color: var(--primary-100);
+}
+
+/* Highlighted / accent cell (the item being demonstrated) */
+.gridFig_cell-hi {
+  background-color: var(--maybe-400);
+  border-bottom-color: var(--maybe-400);
+}
+
+/* Thin "grid line" column used in the terms-grid-line diagram */
+.gridFig_cell-line {
+  background-color: var(--maybe-400);
+}
+
+/* Named-area cells for the grid-template-areas demo */
+.gridFig_cell-header {
+  background-color: var(--primary-500);
+}
+
+.gridFig_cell-main {
+  background-color: var(--primary-300);
+}
+
+.gridFig_cell-sidebar {
+  background-color: var(--primary-700);
+}
+
+.gridFig_cell-footer {
+  background-color: var(--primary-900);
+}
+
+.gridFig_cell-empty {
+  background-color: var(--primary-100);
+}
+
+/* Taller container for align-content demos (needs extra height so align-content
+   has visible free space to distribute) */
+.gridFig-tall {
+  min-height: 260px;
+}
