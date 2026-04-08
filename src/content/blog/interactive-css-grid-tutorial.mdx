@@ -6,13 +6,14 @@ tags: ["css", "grid"]
 description: "Learn how to use the CSS grid via examples."
 ---
 
-import Notice from "../../components/Notice.astro";
+import "../../styles/page.css-grid-tutorial.css";
 import CanIUse from "../../components/_CanIUse.astro";
 import GridDemo from "../../components/_GridDemo.jsx";
 import GridViz from "../../components/_GridViz.astro";
-import "../../styles/page.css-grid-tutorial.css";
-import templateColumnsRows01 from "../../assets/images/css-grid/template-columns-rows-01.svg";
-import templateColumnRows02 from "../../assets/images/css-grid/template-column-rows-02.svg";
+import Notice from "../../components/Notice.astro";
+
+import templateColumnRows01 from "../../assets/images/template-column-rows-01.svg?raw";
+import templateColumnRows02 from "../../assets/images/template-column-rows-02.svg?raw";
 
 ## Interactive CSS grid playground
 
@@ -241,11 +242,12 @@ When you leave an empty space between the track values, the grid lines are autom
 }
 ```
 
-<img
-  src={templateColumnsRows01.src}
-  alt="Diagram of automatic positive and negative grid line numbers"
-  style={{ maxWidth: "450px", margin: "0 auto 36px" }}
-/>
+<div class="mb-lg1" style={{ maxWidth: "582px" }}>
+  <Fragment
+    set:html={templateColumnRows01}
+    alt="Diagram of automatic positive and negative grid line numbers"
+  />
+</div>
 
 But you can choose to explicitly name the lines. Note the bracket syntax for the line names:
 
@@ -256,11 +258,9 @@ But you can choose to explicitly name the lines. Note the bracket syntax for the
 }
 ```
 
-<img
-  src={templateColumnRows02.src}
-  alt="Grid with user named lines"
-  style={{ maxWidth: "600px", margin: "0 auto 36px" }}
-/>
+<div class="mb-lg1" style={{ maxWidth: "650px" }}>
+  <Fragment set:html={templateColumnRows02} alt="Grid with user named lines" />
+</div>
 
 Note that a line can have more than one name. For example, here the second line will have two names: row1-end and row2-start:
 
