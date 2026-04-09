@@ -369,8 +369,8 @@
   grid: repeat(4, auto) / repeat(2, 1fr);
   font-size: var(--text-sm);
   @media (--md) {
-    grid-auto-flow: column;
     grid: repeat(2, auto) / repeat(4, 1fr);
+    grid-auto-flow: column;
   }
 }
 
