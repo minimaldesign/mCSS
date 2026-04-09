@@ -56,19 +56,31 @@
 }
 
 /* Named-area cells for the grid-template-areas demo */
+.gridFig-area {
+  grid-template-columns: 1fr 1fr 1fr max-content;
+  grid-template-areas:
+    "header header header header"
+    "main main . sidebar"
+    "footer footer footer footer";
+}
+
 .gridFig_cell-header {
+  grid-area: header;
   background-color: var(--primary-500);
 }
 
 .gridFig_cell-main {
+  grid-area: main;
   background-color: var(--primary-300);
 }
 
 .gridFig_cell-sidebar {
+  grid-area: sidebar;
   background-color: var(--primary-700);
 }
 
 .gridFig_cell-footer {
+  grid-area: footer;
   background-color: var(--primary-900);
 }
 

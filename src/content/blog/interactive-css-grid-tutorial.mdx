@@ -357,8 +357,7 @@ Example:
 }
 
 .container {
-  grid-template-columns: 50px 50px 50px 50px;
-  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr max-content;
   grid-template-areas:
     "header header header header"
     "main main . sidebar"
@@ -371,17 +370,9 @@ That creates a grid that's four columns wide by three rows tall. The entire top 
 <GridViz>
   <div class="gridFig gridFig-area">
     <div class="gridFig_cell gridFig_cell-header">header</div>
-    <div class="gridFig_cell gridFig_cell-header"></div>
-    <div class="gridFig_cell gridFig_cell-header"></div>
-    <div class="gridFig_cell gridFig_cell-header"></div>
     <div class="gridFig_cell gridFig_cell-main">main</div>
-    <div class="gridFig_cell gridFig_cell-main"></div>
-    <div class="gridFig_cell gridFig_cell-empty"></div>
     <div class="gridFig_cell gridFig_cell-sidebar">sidebar</div>
     <div class="gridFig_cell gridFig_cell-footer">footer</div>
-    <div class="gridFig_cell gridFig_cell-footer"></div>
-    <div class="gridFig_cell gridFig_cell-footer"></div>
-    <div class="gridFig_cell gridFig_cell-footer"></div>
   </div>
 </GridViz>
 
