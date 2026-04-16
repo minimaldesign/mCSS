@@ -67,32 +67,37 @@ const BASELINE_ICONS = {
   high: baselineWidelyIcon,
 };
 
-// Module-level cache: fetched once per build, shared across all component renders.
-// Using `globalThis` so the cache survives across Astro's module boundaries.
+// Fetched once per build, shared across all component renders.
+// Caches the Promise (not just the result) so concurrent renders
+// that start before the first fetch resolves all share one request.
 const CANIUSE_DB_URL = 'https://cdn.jsdelivr.net/npm/caniuse-db/data.json';
 
-async function getUsageAgents() {
+function getUsageAgents() {
   const g = globalThis;
-  if (g.__caniuseAgentsCache) return g.__caniuseAgentsCache;
-  try {
-    const res = await fetch(CANIUSE_DB_URL);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    g.__caniuseAgentsCache = data.agents;
-    console.log('[CanIUse] fetched fresh usage data from caniuse-db');
-  } catch (e) {
-    console.warn(
-      '[CanIUse] fetch failed, falling back to installed caniuse-lite:',
-      e instanceof Error ? e.message : String(e),
-    );
-    g.__caniuseAgentsCache = localAgents;
+  if (!g.__caniuseAgentsPromise) {
+    g.__caniuseAgentsPromise = fetch(CANIUSE_DB_URL)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        console.log('[CanIUse] fetched fresh usage data from caniuse-db');
+        return data.agents;
+      })
+      .catch((e) => {
+        console.warn(
+          '[CanIUse] caniuse-db fetch failed, using bundled caniuse-lite:',
+          e instanceof Error ? e.message : String(e),
+        );
+        return localAgents;
+      });
   }
-  return g.__caniuseAgentsCache;
+  return g.__caniuseAgentsPromise;
 }
 
-const usageAgents = await getUsageAgents();
-
 const { feature, title, mdnUrl: mdnUrlOverride } = Astro.props;
+
+const usageAgents = await getUsageAgents();
 
 const baselineLookup = getBaselineLookup();
 const baselineInfo = baselineLookup.get(feature);
