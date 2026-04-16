@@ -13,7 +13,7 @@
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/preact": "^5.1.1",
     "@astrojs/rss": "^4.0.18",
-    "astro": "^6.1.6",
+    "astro": "^6.1.7",
     "astro-expressive-code": "^0.41.7",
     "astro-purgecss": "^6.0.0",
     "astro-tunnel": "^0.1.8",
@@ -21,7 +21,8 @@
     "postcss-preset-env": "^10.1.5",
     "preact": "^10.26.5",
     "purgecss": "^8.0.0",
-    "shiki": "^4.0.2"
+    "shiki": "^4.0.2",
+    "web-features": "^3.23.1"
   },
   "devDependencies": {
     "@mdn/browser-compat-data": "^7.3.9"
