@@ -1,11 +1,56 @@
-.canIUse {
+.canIUse_wrap {
+  --canIUse-bl-limited-front: light-dark(var(--maybe-500), var(--maybe-500));
+  --canIUse-bl-limited-back: light-dark(var(--base-300), var(--base-500));
+  --canIUse-bl-newly-front: light-dark(var(--primary-600), var(--primary-500));
+  --canIUse-bl-newly-back: light-dark(var(--primary-300), var(--primary-800));
+  --canIUse-bl-widely-front: light-dark(var(--yes-500), var(--yes-400));
+  --canIUse-bl-widely-back: light-dark(var(--yes-200), var(--base-500));
+
   margin: var(--sm3) 0;
+  max-width: 560px;
+}
+
+.canIUse {
   border: var(--border-sm) solid var(--theme-border-color);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   overflow: hidden;
-  /* Keep it from stretching to prose width */
-  max-width: 560px;
+}
+
+.canIUse_baseline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--xs3);
+  margin: 0 0 var(--sm1) var(--xs2);
+  color: light-dark(var(--base-500), var(--base-300));
+  text-decoration: none;
+  font-size: var(--text-sm);
+  line-height: 1;
+
+  &:hover {
+    color: light-dark(var(--link-color), var(--base-100));
+  }
+
+  svg {
+    width: 36px;
+    height: 20px;
+  }
+}
+
+.canIUse_baselineLabel {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.canIUse_baselineBadge {
+  margin-inline-start: var(--xs2);
+  padding: var(--xs1) var(--xs2);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  color: var(--base-100);
+  background: light-dark(var(--primary-700), var(--base-600));
+  border-radius: var(--radius-md);
 }
 
 .canIUse_header {
@@ -19,9 +64,6 @@
 .canIUse_feature {
   font-size: var(--text-sm);
   font-family: var(--mono);
-}
-
-.canIUse_meta {
 }
 
 .canIUse_usage {

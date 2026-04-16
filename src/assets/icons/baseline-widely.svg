@@ -1,0 +1,6 @@
+<svg viewBox="0 0 36 20" xmlns="http://www.w3.org/2000/svg">
+  <path fill="var(--canIUse-bl-widely-front)" d="M18 8L20 10L18 12L16 10L18 8Z"/>
+  <path fill="var(--canIUse-bl-widely-front)" d="M26 0L28 2L10 20L0 10L2 8L10 16L26 0Z"/>
+  <path fill="var(--canIUse-bl-widely-back)" d="M28 2L26 4L32 10L26 16L22 12L20 14L26 20L36 10L28 2Z"/>
+  <path fill="var(--canIUse-bl-widely-back)" d="M10 0L2 8L4 10L10 4L14 8L16 6L10 0Z"/>
+</svg>

@@ -1,8 +1,13 @@
 ---
+// @ts-nocheck
 /**
  * Displays browser support for any web platform feature.
  *
  * Usage: <CanIUse feature="css.properties.mask-composite" />
+ *
+ * Dependencies (npm packages this component imports)
+ * --------------------------------------------------
+ *   npm install @mdn/browser-compat-data web-features caniuse-lite
  *
  * Finding the feature path
  * ------------------------
@@ -27,32 +32,60 @@
  */
 
 import bcdData from '@mdn/browser-compat-data';
+import { features as webFeatures } from 'web-features';
 import { agents as localAgents } from 'caniuse-lite';
 import externalLinkIcon from '../assets/icons/external-link.svg?raw';
+import baselineLimitedIcon from '../assets/icons/baseline-limited.svg?raw';
+import baselineNewlyIcon from '../assets/icons/baseline-newly.svg?raw';
+import baselineWidelyIcon from '../assets/icons/baseline-widely.svg?raw';
 
-interface Props {
-  feature: string;
-  title?: string;
-  mdnUrl?: string;
+function getBaselineLookup() {
+  const g = globalThis;
+  if (g.__baselineLookup) return g.__baselineLookup;
+  const map = new Map();
+  for (const [id, feat] of Object.entries(webFeatures)) {
+    if (!('status' in feat) || !('name' in feat)) continue;
+    const bl = feat.status?.baseline;
+    const year = feat.status?.baseline_low_date?.split('-')[0];
+    const entry = {
+      id,
+      name: feat.name,
+      baseline: bl === 'high' ? 'high' : bl === 'low' ? 'low' : false,
+      year,
+    };
+    for (const key of feat.compat_features ?? []) {
+      map.set(key, entry);
+    }
+  }
+  g.__baselineLookup = map;
+  return map;
 }
+
+const BASELINE_ICONS = {
+  limited: baselineLimitedIcon,
+  low: baselineNewlyIcon,
+  high: baselineWidelyIcon,
+};
 
 // Module-level cache: fetched once per build, shared across all component renders.
 // Using `globalThis` so the cache survives across Astro's module boundaries.
-type AgentsMap = Record<string, { usage_global: Record<string, number> }>;
 const CANIUSE_DB_URL = 'https://cdn.jsdelivr.net/npm/caniuse-db/data.json';
 
-async function getUsageAgents(): Promise<AgentsMap> {
-  const g = globalThis as any;
+async function getUsageAgents() {
+  const g = globalThis;
   if (g.__caniuseAgentsCache) return g.__caniuseAgentsCache;
   try {
     const res = await fetch(CANIUSE_DB_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    g.__caniuseAgentsCache = data.agents as AgentsMap;
+    g.__caniuseAgentsCache = data.agents;
     console.log('[CanIUse] fetched fresh usage data from caniuse-db');
   } catch (e) {
-    console.warn('[CanIUse] fetch failed, falling back to installed caniuse-lite:', (e as Error).message);
-    g.__caniuseAgentsCache = localAgents as unknown as AgentsMap;
+    console.warn(
+      '[CanIUse] fetch failed, falling back to installed caniuse-lite:',
+      e instanceof Error ? e.message : String(e),
+    );
+    g.__caniuseAgentsCache = localAgents;
   }
   return g.__caniuseAgentsCache;
 }
@@ -61,25 +94,29 @@ const usageAgents = await getUsageAgents();
 
 const { feature, title, mdnUrl: mdnUrlOverride } = Astro.props;
 
+const baselineLookup = getBaselineLookup();
+const baselineInfo = baselineLookup.get(feature);
+const baselineYamlUrl = baselineInfo
+  ? `https://github.com/web-platform-dx/web-features/blob/main/features/${baselineInfo.id}.yml`
+  : undefined;
+
 // Navigate BCD tree by dot-path: "css.properties.mask-composite"
 const parts = feature.split('.');
-let node: any = bcdData;
+let node = bcdData;
 for (const p of parts) node = node?.[p];
-const compat = node?.__compat as any;
+const compat = node?.__compat;
 
-const featureName = title ?? parts[parts.length - 1];
+const featureName = title ?? baselineInfo?.name ?? parts[parts.length - 1];
 const mdnUrl =
   mdnUrlOverride ??
   compat?.mdn_url ??
   `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(featureName)}`;
 
-type Status = 'y' | 'n' | 'a' | 'unknown';
-
-function resolveSupport(raw: any): { status: Status; version: string | null } {
+function resolveSupport(raw) {
   if (!raw) return { status: 'unknown', version: null };
   // Pick the best statement: unprefixed, no flags, actually added
   const stmt = Array.isArray(raw)
-    ? (raw.find((s: any) => !s.prefix && !s.flags?.length && s.version_added !== false) ??
+    ? (raw.find((s) => !s.prefix && !s.flags?.length && s.version_added !== false) ??
        raw[0])
     : raw;
   if (stmt.version_added === false) return { status: 'n', version: null };
@@ -91,7 +128,7 @@ function resolveSupport(raw: any): { status: Status; version: string | null } {
 }
 
 // BCD browser key → caniuse agent key
-const BCD_TO_CL: Record<string, string> = {
+const BCD_TO_CL = {
   chrome: 'chrome',
   chrome_android: 'and_chr',
   edge: 'edge',
@@ -121,8 +158,8 @@ if (compat) {
   }
 }
 
-function releaseDate(clKey: string, version: string): string | null {
-  const rd = (localAgents as any)[clKey]?.release_date;
+function releaseDate(clKey, version) {
+  const rd = localAgents[clKey]?.release_date;
   if (!rd) return null;
   // BCD and caniuse-lite version keys don't always match.
   // Examples:
@@ -139,7 +176,7 @@ function releaseDate(clKey: string, version: string): string | null {
         return target >= start && target <= end;
       })
     : undefined;
-  const ts: number | null =
+  const ts =
     rd[version] ??
     rd[`${version}.0`] ??
     rd[rangeKey ?? ''] ??
@@ -148,7 +185,7 @@ function releaseDate(clKey: string, version: string): string | null {
   return new Date(ts * 1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 }
 
-const BROWSERS: { key: string; label: string; clKey: string }[] = [
+const BROWSERS = [
   { key: 'chrome',         label: 'Chrome',      clKey: 'chrome'   },
   { key: 'edge',           label: 'Edge',         clKey: 'edge'     },
   { key: 'firefox',        label: 'Firefox',      clKey: 'firefox'  },
@@ -166,7 +203,7 @@ const browserData = BROWSERS.map(({ key, label, clKey }) => {
   const { status, version } = resolveSupport(compat?.support?.[key]);
   let statusLabel = '';
   let versionLabel = '';
-  let date: string | null = null;
+  let date = null;
   if (status === 'y' && version) {
     statusLabel = 'since';
     versionLabel = version;
@@ -184,27 +221,51 @@ const browserData = BROWSERS.map(({ key, label, clKey }) => {
 });
 ---
 
-<div class="canIUse">
-  <div class="canIUse_header">
-    <span class="canIUse_feature">{featureName}</span>
-    <span class="canIUse_meta">
-      {compat && <span class="canIUse_usage">Usage: {Math.round(Math.round(totalUsage * 100) / 100)}%</span>}
-    </span>
-    <a href={mdnUrl} class="canIUse_link" target="_blank" rel="noopener noreferrer">
-      <span class="canIUse_linkText">MDN</span>
-      <Fragment set:html={externalLinkIcon} />
-    </a>
-  </div>
-  <div class="canIUse_grid">
-    {browserData.map(({ label, status, statusLabel, versionLabel, date }) => (
-      <div class={`canIUse_browser canIUse_browser-${status}${date ? ' canIUse_browser-swappable' : ''}`}>
-        <span class="canIUse_name">{label}</span>
-        <span class="canIUse_version">
-          {statusLabel && <small>{statusLabel}</small>}
-          <span class="canIUse_versionNum">{versionLabel}</span>
-          {date && <span class="canIUse_versionDate">{date}</span>}
+<div class="canIUse_wrap">
+  {baselineInfo && (
+    <a
+      href={baselineYamlUrl}
+      class={`canIUse_baseline canIUse_baseline-${baselineInfo.baseline || 'limited'}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Fragment set:html={BASELINE_ICONS[baselineInfo.baseline || 'limited']} />
+      {baselineInfo.baseline === 'high' && (
+        <span class="canIUse_baselineLabel">Baseline Widely available</span>
+      )}
+      {baselineInfo.baseline === 'low' && (
+        <span class="canIUse_baselineLabel">
+         Baseline {baselineInfo.year}
+          <span class="canIUse_baselineBadge">New</span>
         </span>
-      </div>
-    ))}
+      )}
+      {baselineInfo.baseline === false && (
+        <span class="canIUse_baselineLabel">Limited availability</span>
+      )}
+    </a>
+  )}
+  <div class="canIUse">
+    <div class="canIUse_header">
+      <span class="canIUse_feature">{featureName}</span>
+      <span class="canIUse_meta">
+        {compat && <span class="canIUse_usage">Usage: {Math.round(Math.round(totalUsage * 100) / 100)}%</span>}
+      </span>
+      <a href={mdnUrl} class="canIUse_link" target="_blank" rel="noopener noreferrer">
+        <span class="canIUse_linkText">MDN</span>
+        <Fragment set:html={externalLinkIcon} />
+      </a>
+    </div>
+    <div class="canIUse_grid">
+      {browserData.map(({ label, status, statusLabel, versionLabel, date }) => (
+        <div class={`canIUse_browser canIUse_browser-${status}${date ? ' canIUse_browser-swappable' : ''}`}>
+          <span class="canIUse_name">{label}</span>
+          <span class="canIUse_version">
+            {statusLabel && <small>{statusLabel}</small>}
+            <span class="canIUse_versionNum">{versionLabel}</span>
+            {date && <span class="canIUse_versionDate">{date}</span>}
+          </span>
+        </div>
+      ))}
+    </div>
   </div>
 </div>
