@@ -1,0 +1,25 @@
+---
+title: "Learn CSS Container Queries by Examples"
+pubDate: 2026-03-02
+author: "Yann"
+tags: ["css", "queries"]
+description: "Reading the specs and the nitty griddy details on MDN is great to get a solid understanding of container queries. But it's a lot faster to do if you got the gist of it through a few carefully selected examples that **show you** the basics."
+---
+
+import CanIUse from "../../components/_CanIUse.astro";
+
+With container queries, you'll be able to style an element base on its container's size, style, and scroll state, but for now (April 2026) only the `size` option works reliably accross all major browser, so I'll stick to that in this article.
+
+# Syntax
+
+The basics of a container queries are Very similar to media queries:
+
+```css
+@media (max-width: 60em) {
+  /* [styles] */
+}
+
+@container (width > 20em) {
+  /* [styles] */
+}
+```
