@@ -11,7 +11,13 @@ code:has(> .shiki) {
 }
 
 /* astro-expressive-code bugs overrides */
-/* margin in relation to headings in global.prose.css */
+/* margin in relation to headings mirrors the prose rhythm in global.prose.css */
+@scope (.prose) to (.not-prose) {
+  .expressive-code:has(+ :is(h1, h2, h3, h4)) {
+    margin-bottom: calc(var(--prose-spacing) * 2);
+  }
+}
+
 .expressive-code {
   margin-block-start: var(--xs3);
   margin-block-end: var(--md1);

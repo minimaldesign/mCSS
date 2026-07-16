@@ -1,9 +1,9 @@
 /* PROSE - Default style for text content */
 
 @scope (.prose) to (.not-prose) {
-  :is(p, ul, ol, blockquote, table, .expressive-code, .notice, .canIUse):has(
-    + :is(h1, h2, h3, h4)
-  ) {
+  /* Site-only blocks (.expressive-code, .canIUse) get the same treatment in
+     their own (unlayered) site CSS files. */
+  :is(p, ul, ol, blockquote, table, .notice):has(+ :is(h1, h2, h3, h4)) {
     margin-bottom: calc(var(--prose-spacing) * 2);
   }
 

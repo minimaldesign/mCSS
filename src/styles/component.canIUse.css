@@ -1,3 +1,10 @@
+/* heading-adjacent margin mirrors the prose rhythm in global.prose.css */
+@scope (.prose) to (.not-prose) {
+  .canIUse:has(+ :is(h1, h2, h3, h4)) {
+    margin-bottom: calc(var(--prose-spacing) * 2);
+  }
+}
+
 .canIUse_wrap {
   --canIUse-bl-limited-front: light-dark(var(--maybe-500), var(--maybe-500));
   --canIUse-bl-limited-back: light-dark(var(--base-300), var(--base-500));

@@ -1,2 +1,4 @@
-# Browserslist's default browsers (> 0.5%, last 2 versions, Firefox ESR, not dead).
-defaults
+# mCSS support floor: browsers with native cascade-layer support (~Baseline 2022+).
+# This keeps postcss-preset-env from polyfilling features the framework relies on
+# natively (see also the cascade-layers note in postcss.config.cjs).
+defaults and supports css-cascade-layers
