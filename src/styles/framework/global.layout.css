@@ -31,10 +31,10 @@
   .layout_content {
     @media (--md) {
       display: grid;
-      grid-template-columns: var(--layout_content_aside-width) minmax(0, 1fr);
+      grid-template-columns: var(--layout-aside-width) minmax(0, 1fr);
     }
     @media (--lg) {
-      grid-template-columns: var(--layout_content_aside-width) minmax(0, 77ch) 1fr;
+      grid-template-columns: var(--layout-aside-width) minmax(0, 77ch) 1fr;
     }
   }
 

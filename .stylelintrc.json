@@ -1,0 +1,44 @@
+{
+  "rules": {
+    "declaration-no-important": [
+      true,
+      {
+        "message": "Layer order replaces !important in mCSS (helpers are the last layer)."
+      }
+    ],
+    "custom-property-pattern": [
+      "^[a-z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*$",
+      {
+        "message": "Tokens follow --component-part-property (camelCase block names allowed, no underscores; see agents/css.md)."
+      }
+    ],
+    "no-duplicate-selectors": null,
+    "declaration-block-no-duplicate-properties": [
+      true,
+      {
+        "ignore": [
+          "consecutive-duplicates-with-different-syntaxes"
+        ]
+      }
+    ],
+    "no-descending-specificity": null
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/styles/site/**/*.css"
+      ],
+      "rules": {
+        "declaration-no-important": null
+      }
+    },
+    {
+      "files": [
+        "src/styles/framework/base.reset.css"
+      ],
+      "rules": {
+        "declaration-no-important": null
+      }
+    }
+  ]
+}

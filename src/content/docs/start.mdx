@@ -243,10 +243,27 @@ Any questions or feedback? Head over to the [Github discussions][discussions]!
 
 </section>
 
+## Browser support
+
+<section class="docs_section prose">
+
+mCSS targets **[Baseline](https://web.dev/baseline) 2024**: it freely uses cascade layers (`@layer`), nesting, `:has()`, `light-dark()`, `@scope`, `text-wrap: balance`, and relative color syntax — all natively, with no polyfills. In practice that means the current versions of Chrome, Edge, Firefox, and Safari, going back roughly two years.
+
+How things degrade in older browsers:
+
+- **Cascade layers, nesting, `:has()`** (2022–2023): load-bearing. Browsers without them are not supported.
+- **`light-dark()`** (mid-2024): colors fall back to the light palette.
+- **`@scope`** (mid-2024): only affects `.prose` internals; spacing between prose blocks and headings loses one refinement.
+- **Scroll-driven animations**: the [ReadProgressBar](/components/readprogressbar) component detects support and falls back to JavaScript automatically.
+
+The exact compile floor lives in `.browserslistrc` (`defaults and supports css-cascade-layers`).
+
+</section>
+
 [1]: /blog/what-is-itcss
 [2]: https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#css_rulesets
 [3]: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
-[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/site/_global.css
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css
 [5]: /docs/tokens
 [6]: /docs/media-queries
 [7]: https://github.com/postcss/postcss-mixins

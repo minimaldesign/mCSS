@@ -6,7 +6,8 @@ import tunnel from "astro-tunnel";
 
 import expressiveCode from "astro-expressive-code";
 
-// import purgecss from "astro-purgecss";
+// astro-tunnel is a dev-only tool; keep it out of production builds
+const isDev = process.env.NODE_ENV !== "production" && process.argv.includes("dev");
 
 // https://astro.build/config
 export default defineConfig({
@@ -46,6 +47,6 @@ export default defineConfig({
       },
     }),
     mdx(),
-    tunnel(),
+    ...(isDev ? [tunnel()] : []),
   ],
 });

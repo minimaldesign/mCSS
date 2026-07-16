@@ -5,7 +5,7 @@ import type { HTMLAttributes } from 'astro/types';
 interface Props extends HTMLAttributes<'ul'> {
   tagList?: string[]; // Array of tag names
   variant?: 'inline' | 'list';
-  url: string;
+  url?: string;
   sort?: boolean; // opt-in alphabetical sorting; input order is preserved by default
   'data-testid'?: string;
   ariaLabel?: string;

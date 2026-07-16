@@ -64,7 +64,7 @@ And please, don't order them alphabetically… Unless you're a robot, it won't h
 }
 ```
 
-[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/site/_global.css
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css
 [itcss]: /blog/what-is-itcss
 [graph]: https://jonassebastianohlsson.com/specificity-graph/
 [docs]: /docs/start

@@ -62,7 +62,8 @@ const {
 
 const filteredPlatforms = urls.map((entry) => {
   const url = typeof entry === 'string' ? entry : entry.url;
-  const platform = platforms.find((p) => p.match.test(url));
+  // the catch-all pattern guarantees a match
+  const platform = platforms.find((p) => p.match.test(url))!;
   return {
     url,
     icon: platform.icon,

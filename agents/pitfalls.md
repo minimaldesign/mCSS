@@ -6,7 +6,7 @@
 
 ## PurgeCSS
 
-PurgeCSS is installed but **disabled** (commented out in `astro.config.mjs`). If you enable it, ensure that dynamically-used class names (from components, CMS content, or JS-generated classes) are safelisted so they aren't purged.
+PurgeCSS was removed from dependencies (it was installed but disabled). If it ever comes back, dynamically-used class names (helpers in MDX, grid `col`/`span` attribute selectors, JS-toggled `is-*` classes) must be safelisted so they aren't purged.
 
 ## Content Slugs = File Paths
 

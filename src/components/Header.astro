@@ -21,6 +21,7 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
 
   function toggleClassOnScroll() {
     const header = document.querySelector('.header');
+    if (!header) return;
     if (window.scrollY === 0) {
       header.classList.add('is-top');
     } else {

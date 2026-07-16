@@ -9,7 +9,7 @@
   box-shadow: var(--shadow-sm);
   z-index: var(--z-5);
   @media (--md) {
-    grid-template-columns: var(--layout_content_aside-width) 1fr max-content;
+    grid-template-columns: var(--layout-aside-width) 1fr max-content;
   }
 
   &.is-top {

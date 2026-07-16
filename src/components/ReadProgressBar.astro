@@ -17,7 +17,7 @@
   }
 
   function updateProgressBar() {
-    const bar = document.querySelector('.readProgressBar > div');
+    const bar = document.querySelector<HTMLElement>('.readProgressBar > div');
     if (!bar) return;
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -26,11 +26,11 @@
   }
 
   function enableJSProgressBar() {
-    const bar = document.querySelector('.readProgressBar > div');
+    const bar = document.querySelector<HTMLElement>('.readProgressBar > div');
     if (!bar) return;
     // Remove any inline width set by CSS animation
     bar.style.animation = 'none';
-    bar.style.animationTimeline = 'none';
+    bar.style.setProperty('animation-timeline', 'none');
     updateProgressBar();
     const throttledUpdate = throttle(updateProgressBar, 10);
     window.addEventListener('scroll', throttledUpdate, { passive: true });

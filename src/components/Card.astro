@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { HTMLAttributes } from 'astro/types';
+import type { ImageMetadata } from 'astro';
 
 // Define badge type for multiple badges with customizable colors
 interface Badge {
@@ -16,7 +17,7 @@ interface Props extends HTMLAttributes<'article'> {
   href?: string;
   title?: string;
   subtitle?: string;
-  imageSrc?: string;
+  imageSrc?: ImageMetadata | string;
   imageAlt?: string;
   aspectRatio?: string;
   badges?: Badge[]; // Array of badge objects
@@ -98,7 +99,7 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
   {
     imageSrc && (
       <figure class="card_media" data-testid="card-media">
-        {isLoading ? <div class="card_placeholder" /> : <Image src={imageSrc} alt={imageAlt} class="card_image" loading="lazy" decoding="async" />}
+        {isLoading ? <div class="card_placeholder" /> : <Image src={imageSrc as ImageMetadata} alt={imageAlt} class="card_image" loading="lazy" decoding="async" />}
       </figure>
     )
   }

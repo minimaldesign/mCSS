@@ -90,8 +90,8 @@
   --wrap-lg-spacing: 0;
   --wrap-width: minmax(200px, 70ch);
 
-  --layout_content_aside-width: 245px;
-  --layout_content_aside-background-color: var(--base-100);
+  --layout-aside-width: 245px;
+  --layout-aside-background-color: var(--base-100);
 
   --prose-spacing: var(--sm1);
 }

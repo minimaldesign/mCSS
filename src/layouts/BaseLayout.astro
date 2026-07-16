@@ -29,8 +29,8 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={headDescription} />
     <meta property="og:image" content={headImage} />
-    <meta property="og:image:width" content={logoImg.width} />
-    <meta property="og:image:height" content={logoImg.height} />
+    <meta property="og:image:width" content={String(logoImg.width)} />
+    <meta property="og:image:height" content={String(logoImg.height)} />
     <meta property="og:site_name" content="mCSS" />
     <meta property="og:locale" content="en_US" />
 
@@ -72,7 +72,7 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
 
     <!-- Privacy-friendly analytics by Plausible -->
     <script defer data-domain="mcss.dev" src="https://analytics.minimaldesign.net/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
-    <script>
+    <script is:inline>
       window.plausible =
         window.plausible ||
         function () {

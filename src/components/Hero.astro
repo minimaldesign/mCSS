@@ -1,10 +1,11 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
 interface Media {
   type: 'image' | 'video' | 'gradient' | 'canvas';
-  src: string;
+  src: string | ImageMetadata;
   alt?: string;
   poster?: string;
 }
@@ -46,7 +47,7 @@ const {
   contentFirst = false,
   reversed = false,
   flush = false,
-  media = {},
+  media,
   parallax = false,
   height,
   overlayOpacity = 0,
@@ -86,13 +87,13 @@ const getMinHeightStyle = () => {
   {
     variant === 'full' && (
       <div class:list={['hero_wrap']} style={getMinHeightStyle()}>
-        {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
-        {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} aria-label={media.alt} autoplay muted loop playsinline />}
-        {media.type === 'gradient' && <div class="hero_bg" style={`background: ${media.src};`} />}
-        {media.type === 'canvas' && (
+        {media?.type === 'image' && <Image class="hero_bg" src={media.src as ImageMetadata} alt={media.alt ?? ''} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
+        {media?.type === 'video' && <video class="hero_bg" src={media.src as string} poster={media.poster} aria-label={media.alt ?? null} autoplay muted loop playsinline />}
+        {media?.type === 'gradient' && <div class="hero_bg" style={`background: ${media.src};`} />}
+        {media?.type === 'canvas' && (
           <>
             <canvas class="hero_bg" aria-hidden="true"></canvas>
-            {media.src && <script src={media.src} type="module"></script>}
+            {media.src && <script src={media.src as string} type="module"></script>}
           </>
         )}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
@@ -111,8 +112,8 @@ const getMinHeightStyle = () => {
           </div>
         )}
         <div class="hero_media">
-          {media.type === 'image' && <Image src={media.src} alt={media.alt} loading="lazy" />}
-          {media.type === 'video' && <video src={media.src} poster={media.poster} aria-label={media.alt} controls preload="none" />}
+          {media?.type === 'image' && <Image src={media.src as ImageMetadata} alt={media.alt ?? ''} loading="lazy" />}
+          {media?.type === 'video' && <video src={media.src as string} poster={media.poster} aria-label={media.alt ?? null} controls preload="none" />}
         </div>
         {!contentFirst && (
           <div class="hero_content" style={contentStyle}>
@@ -124,10 +125,10 @@ const getMinHeightStyle = () => {
   }
   {
     variant === 'slideshow' && (
-      <div class:list={['hero_wrap']} data-slideshow length={slideshowItems.length} style={`${getMinHeightStyle()} --slideshow-transition:${slideshowTransition}ms;`}>
+      <div class:list={['hero_wrap']} data-slideshow style={`${getMinHeightStyle()} --slideshow-transition:${slideshowTransition}ms;`}>
         {/* Render all media elements, only the active one is visible */}
-        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
-        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} aria-label={item.media.alt} autoplay muted loop playsinline data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src as ImageMetadata} alt={item.media.alt ?? ''} loading="lazy" data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src as string} poster={item.media.poster} aria-label={item.media.alt ?? null} autoplay muted loop playsinline data-slideshow-media={idx} />)}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'gradient' && <div class={`hero_bg${idx === 0 ? ' is-active' : ''}`} style={`background: ${item.media.src};`} data-slideshow-media={idx} />)}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
         <div class="hero_content" style={contentStyle}>
