@@ -137,7 +137,7 @@ components:
 
 mCSS is a utility-conscious CSS framework and documentation site with an ITCSS cascade, compact component classes, and design tokens stored as CSS custom properties. The visual identity is clean, technical, and documentation-first: blue interaction color, cool neutral surfaces, dense spacing, rounded-but-not-pill shapes, and system typography that keeps pages fast and readable.
 
-The canonical token sources are `src/styles/settings.tokens.css` for raw scales and `src/styles/settings.theme.default.css` for semantic theme and component defaults. This file translates those tokens into the DESIGN.md format for coding agents. When the CSS and this file disagree, the CSS source files win.
+The canonical token sources are `src/styles/framework/settings.tokens.css` for raw scales and `src/styles/framework/settings.theme.default.css` for semantic theme and component defaults. This file translates those tokens into the DESIGN.md format for coding agents. When the CSS and this file disagree, the CSS source files win.
 
 ## Colors
 
@@ -208,9 +208,9 @@ Class naming is BEM-like with mCSS separators: `.block`, `.block_element`, `.blo
 
 ## Do's and Don'ts
 
-Do preserve the strict ITCSS import order in `src/styles/_global.css`: settings, base, elements, global, atoms, components, pages, external, helpers, devtools.
+Do preserve the native cascade-layer setup: framework files import into named layers (`settings, base, elements, global, atoms, components, pages, helpers`) via `src/styles/framework/mcss.css`; site-only files import unlayered via `src/styles/_global.css`.
 
-Do add new CSS files with the correct layer prefix, such as `component.name.css`, `atom.name.css`, or `help.name.css`, then import them in the matching `_global.css` section.
+Do add new CSS files with the correct layer prefix, such as `component.name.css`, `atom.name.css`, or `help.name.css`, then import them with `layer(<name>)` in `framework/mcss.css` (framework) or plainly in `_global.css` (site).
 
 Do use semantic theme tokens when they exist. Raw palette tokens are fine for new semantic roles, but component CSS should converge on named component properties.
 

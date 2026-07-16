@@ -79,7 +79,7 @@ const commentedCssOutput = `/* HELPER SPACING */
 ${cssClasses}`;
 
 // Write the result to a text file
-fs.writeFile("../styles/help.spacing.css", commentedCssOutput, (err) => {
+fs.writeFile("../styles/framework/help.spacing.css", commentedCssOutput, (err) => {
   if (err) {
     console.error("Error writing to file:", err);
   } else {

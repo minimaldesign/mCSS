@@ -1,5 +1,9 @@
 # Pitfalls
 
+## Cascade-layers polyfill
+
+`postcss.config.cjs` sets `features: { "cascade-layers": false }` for postcss-preset-env. Without it, the polyfill **strips every `@layer` rule** from the build and replaces the cascade with `:not(#\#)` specificity hacks — the site still renders, but the layer semantics (and the "unlayered consumer CSS wins" guarantee) silently disappear. The browser floor lives in `.browserslistrc`.
+
 ## PurgeCSS
 
 PurgeCSS is installed but **disabled** (commented out in `astro.config.mjs`). If you enable it, ensure that dynamically-used class names (from components, CMS content, or JS-generated classes) are safelisted so they aren't purged.

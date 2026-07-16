@@ -1,0 +1,64 @@
+/*
+  mCSS framework entry point.
+
+  The framework lives in named cascade layers, declared here in priority
+  order (later wins). The layer name — not import order — decides priority.
+  Anything a consumer writes OUTSIDE these layers beats the framework by
+  default; to write CSS that helpers can still override, put it in a lower
+  layer (e.g. @layer pages { … }).
+*/
+@layer settings, base, elements, global, atoms, components, pages, helpers;
+
+/* Build-time only (@custom-media + mixin definitions, no runtime output) */
+@import url(./settings.media-queries.css);
+@import url(./settings.mixins.css);
+
+/* Settings */
+@import url(./settings.tokens.css) layer(settings);
+@import url(./settings.theme.default.css) layer(settings);
+/* @import url(./settings.theme.wireframe.css) layer(settings); */
+
+/* Reset & Normalize */
+@import url(./base.reset.css) layer(base);
+
+/* Global styles for HTML elements and their abstractions */
+/* https://developer.mozilla.org/en-US/docs/Web/HTML/Element */
+@import url(./elements.sectioning.css) layer(elements);
+@import url(./elements.text.css) layer(elements);
+@import url(./elements.text.quotes.css) layer(elements);
+@import url(./elements.media.css) layer(elements);
+@import url(./elements.table.css) layer(elements);
+@import url(./elements.form.css) layer(elements);
+@import url(./elements.interactive.css) layer(elements);
+
+/* Global styles */
+@import url(./global.a11y.css) layer(global);
+@import url(./global.animation.css) layer(global);
+@import url(./global.grid.css) layer(global);
+@import url(./global.layout.css) layer(global);
+@import url(./global.prose.css) layer(global);
+@import url(./global.wrap.css) layer(global);
+
+/* Atoms */
+@import url(./atom.button.css) layer(atoms);
+@import url(./atom.toggle.css) layer(atoms);
+/* @import url(./atom.input.css) layer(atoms); */
+
+/* Component library styles */
+@import url(./component.avatar.css) layer(components);
+@import url(./component.card.css) layer(components);
+@import url(./component.hero.css) layer(components);
+@import url(./component.readProgressBar.css) layer(components);
+@import url(./component.notice.css) layer(components);
+@import url(./component.socialMedia.css) layer(components);
+@import url(./component.tags.css) layer(components);
+@import url(./component.toc.css) layer(components);
+
+/* Helpers for local overrides (last layer: beats every other framework layer) */
+/* (Use VERY sparingly, or you might as well use Tailwind…) */
+@import url(./help.colors.css) layer(helpers);
+@import url(./help.layout.css) layer(helpers);
+@import url(./help.opacity.css) layer(helpers);
+@import url(./help.ratios.css) layer(helpers);
+@import url(./help.spacing.css) layer(helpers);
+@import url(./help.typography.css) layer(helpers);

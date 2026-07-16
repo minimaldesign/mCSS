@@ -1,23 +1,34 @@
 # CSS Architecture
 
-mCSS follows an ITCSS-inspired layer system. All styles are imported through a single entry point: `src/styles/_global.css`. Layer order is strict — it determines specificity and cascade behavior.
+mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired file structure. The framework and the docs site are split:
 
-## Layer Order
+- **`src/styles/framework/`** — the mCSS framework. Entry point `framework/mcss.css` declares the layer order and imports every framework file into its named layer. **The layer name, not import order, decides cascade priority.**
+- **`src/styles/site/`** — docs-site-only CSS (site chrome, internal components, page styles, third-party overrides). Imported **unlayered** by `src/styles/_global.css`, after the framework.
+- **`src/styles/_global.css`** — the site entry point (imported by `BaseLayout`/`DemoLayout`): framework first, then unlayered site files.
 
-When adding a new CSS file, place its `@import` in the correct layer block in `_global.css`.
+## Cascade rules (load-bearing)
 
-| #   | Layer      | Prefix        | Purpose                                                          |
-| --- | ---------- | ------------- | ---------------------------------------------------------------- |
-| 1   | Settings   | `settings.*`  | Tokens, media queries, mixins, themes                            |
-| 2   | Base       | `base.*`      | Reset only (`base.reset.css`)                                    |
-| 3   | Elements   | `elements.*`  | Bare HTML element styles (text, form, media)                     |
-| 4   | Global     | `global.*`    | Structural patterns (a11y, grid, layout, prose, wrap)            |
-| 5   | Atoms      | `atom.*`      | Small single-purpose UI (button, toggle)                         |
-| 6   | Components | `component.*` | Complex UI blocks (card, header, hero, etc.)                     |
-| 7   | Pages      | `page.*`      | Page-specific overrides (use sparingly)                          |
-| 8   | External   | `external.*`  | Third-party/plugin styles                                        |
-| 9   | Helpers    | `help.*`      | High-specificity utility overrides (colors, spacing, typography) |
-| 10  | Devtools   | `devtools.*`  | Development-only tooling styles                                  |
+1. Framework layers, in priority order (later wins):
+   `settings, base, elements, global, atoms, components, pages, helpers`
+2. **Unlayered CSS beats every layer.** That's the consumer guarantee ("your CSS wins") and why site CSS is unlayered. It also means unlayered site CSS beats helper classes.
+3. To write site CSS that helpers should still override, put the rule in a lower layer, e.g. `@layer pages { .docs_box { … } }` (see `site/page.docs.css`).
+4. `!important` is banned in helpers (layer order replaces it). The only exception is targeting third-party injected styles (see `site/external.astro.css`).
+5. `postcss.config.cjs` disables preset-env's `cascade-layers` polyfill. **Never remove that option** — the polyfill strips every `@layer` rule and silently replaces the cascade with specificity hacks. The browser floor is set in `.browserslistrc` (`defaults and supports css-cascade-layers`).
+
+## Layer table
+
+| Layer      | Prefix        | Purpose                                                     |
+| ---------- | ------------- | ----------------------------------------------------------- |
+| settings   | `settings.*`  | Tokens, themes (media queries + mixins import unlayered: build-time only) |
+| base       | `base.*`      | Reset only (`base.reset.css`)                               |
+| elements   | `elements.*`  | Bare HTML element styles (text, form, media)                |
+| global     | `global.*`    | Structural patterns (a11y, grid, layout, prose, wrap)       |
+| atoms      | `atom.*`      | Small single-purpose UI (button, toggle)                    |
+| components | `component.*` | Library components (card, hero, notice, …)                  |
+| pages      | `page.*`      | Page-specific styles that helpers may override              |
+| helpers    | `help.*`      | Utility overrides (colors, spacing, typography) — last layer, beats all other framework layers |
+
+Site-only files keep the same prefixes but live in `src/styles/site/` and import unlayered (`component.header.css`, `page.docs.css`, `external.astro.css`, `devtools.css`, …).
 
 ## Class Naming (BEM-like, different separators)
 
@@ -28,8 +39,10 @@ When adding a new CSS file, place its `@import` in the correct layer block in `_
 
 ## Adding Styles
 
-Create `src/styles/<prefix>.<name>.css` using the prefix from the layer table above, then add its `@import` in the matching layer block of `_global.css`.
+- Framework file: create `src/styles/framework/<prefix>.<name>.css` and add `@import url(./<file>) layer(<layer>);` in the matching block of `framework/mcss.css`.
+- Site file: create `src/styles/site/<prefix>.<name>.css` and add a plain `@import` in `_global.css` (unlayered).
+- Framework CSS must never reference site-only selectors (e.g. `.expressive-code`); the site file mirrors any shared pattern itself.
 
 ## PostCSS
 
-The project uses `postcss-mixins` and `postcss-preset-env` (stage 2). Config is in `postcss.config.cjs`.
+The project uses `postcss-mixins` and `postcss-preset-env` (stage 2). Config is in `postcss.config.cjs`. `help.colors.css` and `help.spacing.css` are generated by `src/tools/generate.help.*.cjs` — edit the generator, then re-run it, never the output.

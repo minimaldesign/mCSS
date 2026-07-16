@@ -74,7 +74,7 @@ const commentedCssOutput = `/* HELPER COLORS */
 ${cssClasses}`;
 
 // Write the result to a text file
-fs.writeFile("../styles/help.colors.css", commentedCssOutput, (err) => {
+fs.writeFile("../styles/framework/help.colors.css", commentedCssOutput, (err) => {
   if (err) {
     console.error("Error writing to file:", err);
   } else {

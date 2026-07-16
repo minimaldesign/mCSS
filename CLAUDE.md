@@ -20,12 +20,12 @@ mCSS is a CSS framework (ITCSS-based) paired with an Astro documentation site, c
 - **`src/content/`** — MDX collections (`blog`, `docs`, `components`) with Zod schemas in `src/content.config.ts`. Files prefixed with `_` are excluded from collections.
 - **`src/components/`** — Astro components (`.astro`) for static rendering; Preact components (`.jsx`) for interactive islands. Private/internal components are prefixed with `_`.
 - **`src/layouts/`** — Five wrappers: `BaseLayout` (applies global CSS, theme toggle, OG meta), plus blog, docs, component, and demo variants.
-- **`src/styles/`** — All CSS, imported in strict ITCSS layer order via `src/styles/_global.css`.
+- **`src/styles/`** — All CSS. `framework/` (the mCSS framework, in native `@layer` cascade layers, entry `framework/mcss.css`) and `site/` (docs-site-only CSS, imported unlayered). Site entry: `src/styles/_global.css`.
 - **`src/scripts/`** — Shared JS utilities (`utilities.js`) and the theme toggle (`globals.js`).
 
-## CSS layer order is load-bearing
+## CSS cascade layers are load-bearing
 
-Adding a CSS file without placing its `@import` in the correct position in `src/styles/_global.css` will silently break cascade specificity. Always consult [agents/css.md](agents/css.md) before adding or moving CSS files.
+The framework uses native `@layer`; the layer name (declared in `src/styles/framework/mcss.css`) decides priority, and unlayered site CSS beats every layer. Import new framework files with `layer(<name>)`; never re-enable preset-env's `cascade-layers` polyfill in `postcss.config.cjs`. Always consult [agents/css.md](agents/css.md) before adding or moving CSS files.
 
 ## Detailed reference docs
 
