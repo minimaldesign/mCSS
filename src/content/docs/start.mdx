@@ -19,52 +19,55 @@ Once you've read through the basics below, the best way to understand how it all
 
 <section class="docs_section prose">
 
-The file structure is based on [ITCSS][1], but with important differences detailed below. The basic idea is to organize your files in different [layers][layers] so that your CSS [rulesets][2] are organized from global low [specificity][3] to local high specificity. When done right, it takes care of all the common "shortcomings" of CSS such as specificity wars and cascading conflicts. Below is an overview of each layer. The full documentation of most layers is available from the sidebar.
+The file structure is based on [ITCSS][1], but with important differences detailed below. The basic idea is to organize your files in different [layers][layers] so that your CSS [rulesets][2] are organized from global low [specificity][3] to local high specificity. When done right, it takes care of all the common "shortcomings" of CSS such as specificity wars and cascading conflicts.
+
+mCSS implements this with **native [CSS cascade layers][cascade-layers]**: every framework file is imported into a named `@layer`, and the layer order — not the import order, and not specificity — decides who wins. Anything you write *outside* the layers beats the framework by default, so mCSS always gets out of your way. Below is an overview of each layer. The full documentation of most layers is available from the sidebar.
 
 This is how mCSS is organized. ([Github source][4].)
 
 ```css
-@import url(./settings.tokens.css);
+@layer settings, base, elements, global, atoms, components, pages, helpers;
+
+/* Build-time only (media queries + mixins definitions) */
 @import url(./settings.media-queries.css);
 @import url(./settings.mixins.css);
-@import url(./settings.theme.default.css);
 
-@import url(./base.reset.css);
+@import url(./settings.tokens.css) layer(settings);
+@import url(./settings.theme.default.css) layer(settings);
 
-@import url(./elements.sectioning.css);
-@import url(./elements.text.css);
-@import url(./elements.text.quotes.css);
-@import url(./elements.media.css);
-@import url(./elements.table.css);
-@import url(./elements.form.css);
-@import url(./elements.interactive.css);
+@import url(./base.reset.css) layer(base);
 
-@import url(./global.grid.css);
-@import url(./global.wrap.css);
-@import url(./global.layout.css);
-@import url(./global.prose.css);
-
-/* Your content - start. */
-
-@import url(./atom.button.css);
+@import url(./elements.sectioning.css) layer(elements);
+@import url(./elements.text.css) layer(elements);
 /* etc. */
 
-@import url(./component.header.css);
+@import url(./global.grid.css) layer(global);
+@import url(./global.wrap.css) layer(global);
 /* etc. */
 
-@import url(./page.blog.css);
+@import url(./atom.button.css) layer(atoms);
 /* etc. */
 
-@import url(./external.astro.css);
+@import url(./component.notice.css) layer(components);
 /* etc. */
 
-/* Your content - end. */
+@import url(./help.spacing.css) layer(helpers);
+/* etc. */
 
-@import url(./help.layout.css);
-@import url(./help.spacing.css);
-@import url(./help.typography.css);
-@import url(./help.colors.css);
+/* Your site's own CSS imports UNLAYERED, after the framework:
+   it wins over every mCSS layer without fighting specificity. */
+@import url(./site/myComponent.css);
 ```
+
+[cascade-layers]: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+
+The easiest ways to use mCSS in your own project:
+
+- **Drop-in file**: grab `dist/mcss.css` (or `dist/mcss.min.css`) — the whole framework in one file, no build step needed.
+- **Individual files**: every framework file is also available pre-processed in `dist/css/` (with `dist/css/mcss.css` as an `@import` index), so you can copy just the layers you need.
+- **Source files**: copy `src/styles/framework/` if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][7]).
+
+Run `npm run build:css` in the repo to produce `dist/` from source.
 
 ### Settings
 
@@ -116,15 +119,15 @@ See the [components section][components] for more info.
 
 ### Pages
 
-Page specific design elements and adjustments. These files are project specific and none are included in mCSS by default.
-
-### External
-
-The `external` layer is where all the CSS you don't have control over should go. This includes CSS from npm packages, plugins, etc.
+Page specific design elements and adjustments. These files are project specific and none are included in mCSS by default. The `pages` layer sits just below `helpers`, so it's also the right place for your own rules that helper classes should still be able to override (`@layer pages { … }`).
 
 ### Helpers
 
-[Helpers][helpers] provide high specificity classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Read [the docs][helpers] for more info on this.
+[Helpers][helpers] provide classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Because `helpers` is the last framework layer, they beat every other mCSS layer without needing `!important` — but your own unlayered CSS still beats them. Read [the docs][helpers] for more info on this.
+
+### Your CSS (unlayered)
+
+Everything you write outside the mCSS layers — your components, page styles, and any third-party CSS you don't control — simply imports after the framework, unlayered. Unlayered CSS wins over all layered CSS, so you never fight the framework's specificity.
 
 </section>
 

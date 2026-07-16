@@ -11,6 +11,9 @@ import expressiveCode from "astro-expressive-code";
 // https://astro.build/config
 export default defineConfig({
   site: "https://mcss.dev",
+  // dist/ is reserved for the framework CSS artifact (npm run build:css);
+  // the hosting platform's publish directory must point at _site/
+  outDir: "./_site",
   integrations: [
     preact(),
     expressiveCode({

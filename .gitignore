@@ -1,4 +1,6 @@
-# build output
+# Astro build output
+_site/
+# framework CSS artifact (npm run build:css; published to npm, not committed)
 dist/
 # generated types
 .astro/
