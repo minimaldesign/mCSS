@@ -1,15 +1,24 @@
 ---
 import { Image } from 'astro:assets';
+import type { HTMLAttributes } from 'astro/types';
 import { getInitials } from '../scripts/utilities';
+
+interface Props extends HTMLAttributes<'div'> {
+  status?: 'online' | 'offline';
+  imageSrc?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  'data-testid'?: string;
+}
+
 // prettier-ignore
 const {
-  online = false,
-  offline = false,
+  status,
   imageSrc,
   size,
-  extraClass = '',
+  class: className,
   'data-testid': testId = 'avatar',
-} = Astro.props;
+  ...rest
+} = Astro.props as Props;
 
 const slotContent = await Astro.slots.render('default');
 const initials = getInitials(slotContent);
@@ -21,13 +30,13 @@ const label = slotContent || 'User avatar';
   class:list={[
     'avatar',
     size && `avatar-${size}`,
-    online && 'avatar-online',
-    offline && 'avatar-offline',
-    extraClass,
+    status && `is-${status}`,
+    className,
   ]}
   role="img"
   aria-label={label}
   data-testid={testId}
+  {...rest}
 >
   <div>
     {imageSrc && <Image src={imageSrc} alt={label} width="256" />}

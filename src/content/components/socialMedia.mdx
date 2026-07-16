@@ -117,9 +117,10 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
 
 | Prop         | Type     | Default   | Description                                                 |
 | ------------ | -------- | --------- | ----------------------------------------------------------- |
-| `urls`       | `array`  | `[]`      | An array of social media urls.                              |
+| `urls`       | `array`  | `[]`      | An array of urls, or `{ url, label }` objects to override the accessible label (e.g. `"mCSS on GitHub"`). |
 | `size`       | `string` | undefined | `md`, `lg`, `xl`.                                           |
-| `extraClass` | `string` | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
+| `newTab`     | `boolean` | `true`   | Open links in a new tab. Set to `false` to opt out.         |
+| `class` | `string` | undefined | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 
 </div>
 </div>
@@ -134,7 +135,7 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
         "https://www.tiktok.com/@samdoesarts",
         "https://www.youtube.com/@ProkoTV",
       ]}
-      extraClass="mb-sm1"
+      class="mb-sm1"
     />
 
     ```astro
@@ -159,7 +160,7 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
         "https://github.com/minimaldesign",
         "https://www.youtube.com/@ProkoTV",
       ]}
-      extraClass="mb-sm1"
+      class="mb-sm1"
     />
 
     ```astro
@@ -189,23 +190,23 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
         "https://www.tiktok.com/@samdoesarts",
         "https://www.youtube.com/@ProkoTV",
       ]}
-      extraClass="mb-sm1"
+      class="mb-sm1"
     />
 
     ```html
     <ul class="socialMedia">
       <li>
-        <a href="https://www.instagram.com/amandaoleander/" title="Instagram" target="_blank" rel="noopener noreferrer" aria-label="https://www.instagram.com/amandaoleander/">
+        <a href="https://www.instagram.com/amandaoleander/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
          <svg>[…]</svg>
         </a>
       </li>
       <li>
-        <a href="https://www.tiktok.com/@samdoesarts" title="Tiktok" target="_blank" rel="noopener noreferrer" aria-label="https://www.tiktok.com/@samdoesarts">
+        <a href="https://www.tiktok.com/@samdoesarts" target="_blank" rel="noopener noreferrer" aria-label="Tiktok">
          <svg>[…]</svg>
         </a>
       </li>
       <li>
-        <a href="https://www.youtube.com/@ProkoTV" title="YouTube" target="_blank" rel="noopener noreferrer" aria-label="https://www.youtube.com/@ProkoTV">
+        <a href="https://www.youtube.com/@ProkoTV" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
          <svg>[…]</svg>
         </a>
       </li>
@@ -221,23 +222,23 @@ The Astro component ([Github](https://github.com/minimaldesign/mCSS/blob/main/sr
         "https://github.com/minimaldesign",
         "https://www.youtube.com/@ProkoTV",
       ]}
-      extraClass="mb-sm1"
+      class="mb-sm1"
     />
 
     ```html
     <ul class="socialMedia socialMedia-xl">
       <li>
-        <a href="https://x.com/_yannb_" title="X" target="_blank" rel="noopener noreferrer" aria-label="https://x.com/_yannb_">
+        <a href="https://x.com/_yannb_" target="_blank" rel="noopener noreferrer" aria-label="X">
          <svg>[…]</svg>
         </a>
       </li>
       <li>
-        <a href="https://github.com/minimaldesign" title="Github" target="_blank" rel="noopener noreferrer" aria-label="https://github.com/minimaldesign">
+        <a href="https://github.com/minimaldesign" target="_blank" rel="noopener noreferrer" aria-label="Github">
          <svg>[…]</svg>
         </a>
       </li>
       <li>
-        <a href="https://www.youtube.com/@ProkoTV" title="YouTube" target="_blank" rel="noopener noreferrer" aria-label="https://www.youtube.com/@ProkoTV">
+        <a href="https://www.youtube.com/@ProkoTV" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
          <svg>[…]</svg>
         </a>
       </li>

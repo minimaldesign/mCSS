@@ -1,7 +1,8 @@
 .toggle {
-  --toggle-w: 50px; /* width  */
-  --toggle-h: 28px; /* height */
-  --toggle-bd: 2px; /* border */
+  /* Themable via the --toggle-* tokens in settings.theme.default.css */
+  --toggle-w: var(--toggle-width);
+  --toggle-h: var(--toggle-height);
+  --toggle-bd: var(--toggle-border-width);
   position: relative;
   appearance: none;
   border: none;
@@ -10,7 +11,7 @@
   height: var(--toggle-h);
   border-radius: calc(var(--toggle-h) / 2);
   cursor: pointer;
-  background-color: light-dark(var(--base-300), var(--base-700));
+  background-color: var(--toggle-track-color);
 
   &::before {
     --diameter: calc(var(--toggle-h) - var(--toggle-bd) * 2);
@@ -22,13 +23,13 @@
     width: var(--diameter);
     height: var(--diameter);
     border-radius: var(--diameter);
-    background-color: var(--body-background-color);
+    background-color: var(--toggle-thumb-color);
     transition: all var(--transition);
     transform: translateX(0);
   }
 
   &:checked {
-    background-color: var(--yes-400);
+    background-color: var(--toggle-track-color-checked);
 
     &::before {
       left: calc(100% - var(--toggle-bd));

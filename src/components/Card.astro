@@ -5,7 +5,7 @@ import type { HTMLAttributes } from 'astro/types';
 // Define badge type for multiple badges with customizable colors
 interface Badge {
   label: string;
-  color?: string; // CSS color value (e.g., '#ffffff', 'white', 'rgb(255, 255, 255)')
+  color?: string; // CSS color value ('#fff', 'white') or token name ('--yes-500')
 }
 
 // Props definitions
@@ -21,7 +21,6 @@ interface Props extends HTMLAttributes<'article'> {
   aspectRatio?: string;
   badges?: Badge[]; // Array of badge objects
   'data-testid'?: string;
-  extraClass?: string;
 }
 
 // prettier-ignore
@@ -36,10 +35,13 @@ const {
   imageAlt = '',
   aspectRatio = 'golden',
   badges = [],
-  extraClass,
+  class: className,
   'data-testid': testId = 'card',
   ...rest
 } = Astro.props as Props;
+
+// Badge colors accept a raw CSS color or a token name ('--yes-500')
+const badgeColor = (color?: string) => (color ? (color.startsWith('--') ? `var(${color})` : color) : undefined);
 
 // Map aspect ratio to CSS value
 const aspectRatioMap = {
@@ -59,17 +61,15 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
       'card-filled': variant === 'filled',
       'card-raised': variant === 'raised',
       'is-disabled': isDisabled,
-      'is-loading': isLoading,
     },
-    extraClass,
+    className,
   ]}
   style={`--card-aspect-ratio: ${aspectRatioValue};`}
   data-testid={testId}
-  role={href && !isDisabled ? 'link' : undefined}
   aria-disabled={isDisabled ? 'true' : undefined}
   {...rest}>
   <!-- Clickable wrapper if href is provided -->
-  {href && !isDisabled && <a href={href} class="card_link" aria-label={title ? `${title} (actions in footer are separate)` : 'Card link (actions in footer are separate)'} />}
+  {href && !isDisabled && <a href={href} class="card_link" aria-label={title || 'Card link'} />}
 
   <!-- Header -->
   {
@@ -84,7 +84,7 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
         {badges.length > 0 && (
           <div class="card_badges" data-testid="card-badges">
             {badges.map((badge, index) => (
-              <span class="card_badge" style={badge.color ? `background: ${badge.color};` : ''} data-testid={`card-badge-${index}`}>
+              <span class="card_badge" style={badge.color ? `background: ${badgeColor(badge.color)};` : ''} data-testid={`card-badge-${index}`}>
                 {badge.label}
               </span>
             ))}

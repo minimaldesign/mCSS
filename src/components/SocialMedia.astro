@@ -1,4 +1,5 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import discordIcon from '../assets/icons/social-discord.svg?raw';
 import facebookIcon from '../assets/icons/social-facebook.svg?raw';
 import githubIcon from '../assets/icons/social-github.svg?raw';
@@ -42,14 +43,30 @@ const platforms = [
   { name: 'Social Media', icon: linkIcon, match: /.*/ },
 ];
 
-const { urls = [], size, extraClass } = Astro.props;
+interface Props extends HTMLAttributes<'ul'> {
+  urls?: (string | { url: string; label?: string })[];
+  size?: 'md' | 'lg' | 'xl';
+  newTab?: boolean;
+  'data-testid'?: string;
+}
 
-const filteredPlatforms = urls.map((url) => {
+// prettier-ignore
+const {
+  urls = [],
+  size,
+  newTab = true,
+  class: className,
+  'data-testid': testId = 'socialMedia',
+  ...rest
+} = Astro.props as Props;
+
+const filteredPlatforms = urls.map((entry) => {
+  const url = typeof entry === 'string' ? entry : entry.url;
   const platform = platforms.find((p) => p.match.test(url));
   return {
     url,
     icon: platform.icon,
-    key: platform.name,
+    key: (typeof entry === 'object' && entry.label) || platform.name,
   };
 });
 ---
@@ -59,15 +76,16 @@ const filteredPlatforms = urls.map((url) => {
   class:list={[
     'socialMedia',
     size && `socialMedia-${size}`,
-    extraClass,
+    className,
   ]}
+  data-testid={testId}
+  {...rest}
 >
   {
     filteredPlatforms.map(({ url, icon, key }) => (
       <li>
-        <a href={url} title={key} target="_blank" rel="noopener noreferrer" aria-label={key}>
+        <a href={url} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined} aria-label={key}>
           <Fragment set:html={icon} aria-hidden="true" />
-          <span class="a11y-srOnly">{key}</span>
         </a>
       </li>
     ))

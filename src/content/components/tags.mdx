@@ -12,7 +12,7 @@ import Tags from "../../components/Tags.astro";
   layouts, is accessible by default, and customizable via CSS custom properties.
 </div>
 
-<Tags tagList={["css", "astro", "basics"]} extraClass="mt-sm2 mb-sm2" />
+<Tags tagList={["css", "astro", "basics"]} class="mt-sm2 mb-sm2" />
 
 <div class="prose">
 
@@ -67,7 +67,8 @@ The following custom properties are available in the [default theme](/docs/theme
 | `tagList`     | `string[]` | `[]`        | Array of tag strings to display.                            |
 | `variant`     | `string`   | `inline`    | Inline or list layout.                                      |
 | `url`         | `string`   | `/tags`     | Base URL to prepend to each tag.                            |
-| `extraClass`  | `string`   | `undefined` | Additional CSS, useful for [helper classes](/docs/helpers). |
+| `sort`        | `boolean`  | `false`     | Sort tags alphabetically; input order is preserved by default. |
+| `class`  | `string`   | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 | `ariaLabel`   | `string`   | `'Tags'`    | Accessible label for the tag list.                          |
 | `data-testid` | `string`   | `'tags'`    | Test ID for testing purposes.                               |
 

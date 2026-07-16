@@ -78,6 +78,9 @@
 /* (Button defaults and primary button colors) */
 
 :root {
+  --bt-min-width: 101px;
+  --bt-min-width-md: 123px;
+  --bt-min-width-lg: 133px;
   --bt-font-size: var(--text-sm);
   --bt-font-size-lg: var(--text-md);
   --bt-font-weight: var(--semi-bold);
@@ -138,6 +141,20 @@
   ); /* Default badge background */
   --card-badge-text-color: var(--base-0); /* Default badge text color */
   --card-loading-bg: light-dark(var(--base-200), var(--base-900));
+  /* Default media aspect ratio; the Card component sets it inline from its
+     aspectRatio prop */
+  --card-aspect-ratio: var(--ar-golden);
+}
+
+/* Toggle */
+
+:root {
+  --toggle-width: 50px;
+  --toggle-height: 28px;
+  --toggle-border-width: 2px;
+  --toggle-track-color: light-dark(var(--base-300), var(--base-700));
+  --toggle-track-color-checked: var(--yes-400);
+  --toggle-thumb-color: var(--body-background-color);
 }
 
 /* Footer */

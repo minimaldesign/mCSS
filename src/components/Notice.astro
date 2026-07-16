@@ -1,25 +1,27 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import info from '../assets/icons/info.svg?raw';
 import danger from '../assets/icons/octagon-alert.svg?raw';
 import warning from '../assets/icons/triangle-alert.svg?raw';
 import confirm from '../assets/icons/circle-check.svg?raw';
 
-const { title, type = '', extraClass = '' } = Astro.props;
-
-let svgIcon;
-switch (type) {
-  case 'danger':
-    svgIcon = danger;
-    break;
-  case 'warning':
-    svgIcon = warning;
-    break;
-  case 'confirm':
-    svgIcon = confirm;
-    break;
-  default:
-    svgIcon = info;
+interface Props extends HTMLAttributes<'aside'> {
+  title?: string;
+  type?: 'info' | 'danger' | 'warning' | 'confirm';
+  'data-testid'?: string;
 }
+
+// prettier-ignore
+const {
+  title,
+  type,
+  class: className,
+  'data-testid': testId = 'notice',
+  ...rest
+} = Astro.props as Props;
+
+const icons = { info, danger, warning, confirm };
+const svgIcon = icons[type ?? 'info'];
 ---
 
 <!-- prettier-ignore -->
@@ -27,9 +29,11 @@ switch (type) {
   class:list={[
     'notice',
     type && `notice-${type}`,
-    extraClass,
+    className,
   ]}
-  role={type === 'danger' || type === 'warning' ? 'alert' : 'status'}
+  role="note"
+  data-testid={testId}
+  {...rest}
 >
   {
     title && (

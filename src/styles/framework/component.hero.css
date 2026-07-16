@@ -47,13 +47,16 @@
 }
 
 .hero-split {
+  /* set inline by the component from the ratio prop */
+  --hero-ratio-left: 62fr;
+  --hero-ratio-right: 38fr;
   display: grid;
   align-items: center;
-
   /* one column on mobile */
-  @media (--md-n-below) {
-    /* important to override the columns dynamically set inline */
-    grid-template-columns: 1fr !important;
+  grid-template-columns: 1fr;
+
+  @media (--md) {
+    grid-template-columns: var(--hero-ratio-left) var(--hero-ratio-right);
   }
 
   /* setup via direction prop in component */

@@ -1,5 +1,18 @@
 # Component Conventions
 
+## Component contract (every public library component)
+
+1. **Typed props**: `interface Props extends HTMLAttributes<'<root element>'>` from `astro/types`; variant-ish props use string-literal unions, never free strings.
+2. **`class` pass-through**: accept Astro's standard `class` prop (destructure as `class: className`) and merge it via `class:list`. Do **not** invent `extraClass`-style props.
+3. **Rest spread**: `{...rest}` on the root element so consumers can set any native attribute.
+4. **`data-testid`**: accepted as a prop with a sensible per-component default.
+5. **States vs modifiers**: runtime states are `.is-*` classes (`.is-active`, `.is-online`); build-time variants are block modifiers (`.card-filled`). Prefer styling ARIA attributes when one exists (`[aria-current]`, `[aria-disabled]`).
+6. **Theme tokens**: every themable knob has a declared default in `settings.theme.default.css`; local-only custom properties use descriptive names (`--avatar-size`, not `--w`).
+7. **Slots**: default slot for main content; named slots documented on the component's docs page.
+8. **A11y**: keyboard operable, labelled, JS motion gated on `prefers-reduced-motion`, no live-region roles on static content.
+
+`Card.astro` is the reference implementation of the shape; `Notice.astro` of the CSS variant pattern (variants only swap local custom properties).
+
 ## Astro vs Preact
 
 - **Astro (`.astro`)**: Default. Static UI, page structure, light interactivity via `<script>` (toggles, accordions).

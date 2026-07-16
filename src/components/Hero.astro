@@ -32,12 +32,15 @@ interface Props extends HTMLAttributes<'section'> {
   slideshowAutoplay?: boolean;
   slideshowInterval?: number;
   slideshowTransition?: number; // ms
-  extraClass?: string;
 }
+
+// Unique per instance so multiple heroes on one page never cross-wire;
+// pass an explicit id to override.
+const generatedId = `hero-${crypto.randomUUID().slice(0, 8)}`;
 
 // prettier-ignore
 const {
-  id = 'hero',
+  id = generatedId,
   variant = 'full',
   ratio = '62/38',
   contentFirst = false,
@@ -54,14 +57,16 @@ const {
   slideshowAutoplay = true,
   slideshowInterval = 5000,
   slideshowTransition = 600,
-  extraClass = '',
+  class: className,
   ...rest
 } = Astro.props as Props;
 
+// The ratio only feeds custom properties; the CSS consumes them inside a
+// media query, so no !important is needed to reset the layout on mobile.
 const getGridStyle = () => {
   if (variant === 'split') {
     const [left, right] = ratio.split('/').map(Number);
-    return `grid-template-columns: ${left}fr ${right}fr;`;
+    return `--hero-ratio-left: ${left}fr; --hero-ratio-right: ${right}fr;`;
   }
   return '';
 };
@@ -77,7 +82,7 @@ const getMinHeightStyle = () => {
 };
 ---
 
-<section id={id} class:list={[`hero hero-${variant}`, { 'hero-parallax': parallax, 'hero-flush': flush, 'hero-reversed': reversed, 'hero-roundCorners': roundCorners }, extraClass]} style={getGridStyle()} {...rest}>
+<section id={id} class:list={[`hero hero-${variant}`, { 'hero-parallax': parallax, 'hero-flush': flush, 'hero-reversed': reversed, 'hero-roundCorners': roundCorners }, className]} style={getGridStyle()} {...rest}>
   {
     variant === 'full' && (
       <div class:list={['hero_wrap']} style={getMinHeightStyle()}>

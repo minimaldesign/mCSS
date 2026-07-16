@@ -10,7 +10,6 @@ interface Props extends HTMLAttributes<'nav'> {
   description?: string;
   icon?: string;
   'data-testid'?: string;
-  extraClass?: string;
 }
 
 // prettier-ignore
@@ -22,7 +21,7 @@ const {
   scrollOffset = 0,
   description,
   icon = '',
-  extraClass,
+  class: className,
   'data-testid': testId = 'toc',
   ...rest
 } = Astro.props as Props;
@@ -36,9 +35,9 @@ const {
     {
       'toc-icon': icon,
     },
-    extraClass,
+    className,
   ]}
-  aria-label={description}
+  aria-label={description || 'Table of contents'}
   data-testid={testId}
   {...rest}
 ></nav>

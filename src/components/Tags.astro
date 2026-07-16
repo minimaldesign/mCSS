@@ -6,8 +6,8 @@ interface Props extends HTMLAttributes<'ul'> {
   tagList?: string[]; // Array of tag names
   variant?: 'inline' | 'list';
   url: string;
+  sort?: boolean; // opt-in alphabetical sorting; input order is preserved by default
   'data-testid'?: string;
-  extraClass?: string;
   ariaLabel?: string;
 }
 
@@ -16,11 +16,14 @@ const {
   tagList = [],
   variant = 'inline',
   url = "/tags",
-  extraClass,
+  sort = false,
+  class: className,
   'data-testid': testId = 'tags',
   ariaLabel = 'Tags',
   ...rest
 } = Astro.props as Props;
+
+const tags = sort ? [...tagList].sort((a, b) => a.localeCompare(b)) : tagList;
 
 function joinUrl(base: string, tag: string) {
   return base.endsWith('/') ? `${base}${tag}` : `${base}/${tag}`;
@@ -28,13 +31,15 @@ function joinUrl(base: string, tag: string) {
 ---
 
 {
-  tagList.length > 0 && (
-    <ul class:list={['tags', { 'tags-inline': variant === 'inline' }, extraClass]} data-testid={testId} aria-label={ariaLabel} {...rest}>
-      {[...tagList].sort((a, b) => a.localeCompare(b)).map((tag) => (
-        <li>
-          <a href={joinUrl(url, tag)}>{tag}</a>
-        </li>
-      ))}
-    </ul>
+  tags.length > 0 && (
+    <nav aria-label={ariaLabel}>
+      <ul class:list={['tags', { 'tags-inline': variant === 'inline' }, className]} data-testid={testId} {...rest}>
+        {tags.map((tag) => (
+          <li>
+            <a href={joinUrl(url, tag)}>{tag}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   )
 }

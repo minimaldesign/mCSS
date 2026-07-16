@@ -3,7 +3,7 @@
   display: inline flex;
   justify-content: center;
   align-items: center;
-  min-width: 101px;
+  min-width: var(--bt-min-width);
   min-height: var(--md3);
   padding-left: var(--xs3);
   padding-right: var(--xs3);
@@ -20,6 +20,7 @@
   &:where(:not(:disabled):hover) {
     color: var(--bt-color-hover);
     background-color: var(--bt-background-color-hover);
+    border-color: var(--bt-border-color-hover, var(--bt-border-color));
   }
 
   &:where(:not(:disabled):active) {
@@ -50,124 +51,113 @@
   }
 
   /* Colors */
+  /* Variants only swap the local custom properties (see agents/components.md) */
 
   &.bt-outline {
-    border-color: var(--bt-outline-border-color);
-    &:hover {
-      color: var(--bt-outline-color-hover);
-      background-color: var(--bt-outline-background-color-hover);
-      border-color: var(--bt-outline-border-color-hover);
-    }
+    --bt-background-color: transparent;
+    --bt-border-color: var(--bt-outline-border-color);
+    --bt-color-hover: var(--bt-outline-color-hover);
+    --bt-background-color-hover: var(--bt-outline-background-color-hover);
+    --bt-border-color-hover: var(--bt-outline-border-color-hover);
   }
 
   &.bt-text {
-    border-color: transparent;
-    background-color: transparent;
-    &:hover {
-      color: var(--link-color);
-    }
+    --bt-border-color: transparent;
+    --bt-background-color: transparent;
+    --bt-color-hover: var(--link-color);
+    --bt-background-color-hover: transparent;
+    --bt-border-color-hover: transparent;
   }
 
   &.bt-outline-white {
-    color: var(--base-0);
-    background-color: transparent;
-    border-color: var(--base-0);
-    &:hover {
-      background-color: rgb(255 255 255 / 0.1);
-    }
+    --bt-color: var(--base-0);
+    --bt-color-hover: var(--base-0);
+    --bt-background-color: transparent;
+    --bt-background-color-hover: rgb(255 255 255 / 0.1);
+    --bt-border-color: var(--base-0);
+    --bt-border-color-hover: var(--base-0);
   }
 
   &.bt-primary {
-    color: var(--bt-primary-color);
-    background-color: var(--bt-primary-background-color);
-    border-color: var(--bt-primary-border-color);
-    &:hover {
-      background-color: var(--bt-primary-background-color-hover);
-      border-color: var(--bt-primary-background-color-hover);
-    }
+    --bt-color: var(--bt-primary-color);
+    --bt-color-hover: var(--bt-primary-color-hover);
+    --bt-background-color: var(--bt-primary-background-color);
+    --bt-background-color-hover: var(--bt-primary-background-color-hover);
+    --bt-border-color: var(--bt-primary-border-color);
+    --bt-border-color-hover: var(--bt-primary-background-color-hover);
+
     &.bt-outline {
-      color: var(--bt-primary-background-color);
-      &:hover {
-        color: var(--bt-primary-color);
-        background-color: var(--bt-primary-background-color);
-        border-color: var(--bt-primary-border-color-hover);
-      }
+      --bt-color: var(--bt-primary-background-color);
+      --bt-color-hover: var(--bt-primary-color);
+      --bt-background-color: transparent;
+      --bt-background-color-hover: var(--bt-primary-background-color);
+      --bt-border-color-hover: var(--bt-primary-border-color-hover);
     }
   }
 
   &.bt-yes {
-    color: var(--base-0);
-    background-color: var(--yes-500);
-    border-color: var(--yes-500);
-    &:hover {
-      color: var(--yes-500);
-      background-color: var(--yes-100);
-      border-color: var(--yes-100);
-    }
+    --bt-color: var(--base-0);
+    --bt-color-hover: var(--yes-500);
+    --bt-background-color: var(--yes-500);
+    --bt-background-color-hover: var(--yes-100);
+    --bt-border-color: var(--yes-500);
+    --bt-border-color-hover: var(--yes-100);
+
     &.bt-outline {
-      color: var(--yes-500);
-      &:hover {
-        color: var(--base-0);
-        background-color: var(--yes-500);
-        border-color: var(--yes-500);
-      }
+      --bt-color: var(--yes-500);
+      --bt-color-hover: var(--base-0);
+      --bt-background-color: transparent;
+      --bt-background-color-hover: var(--yes-500);
+      --bt-border-color-hover: var(--yes-500);
     }
   }
 
   &.bt-no {
-    color: var(--base-0);
-    background-color: var(--no-500);
-    border-color: var(--no-500);
-    &:hover {
-      color: var(--no-500);
-      background-color: var(--no-100);
-      border-color: var(--no-100);
-    }
+    --bt-color: var(--base-0);
+    --bt-color-hover: var(--no-500);
+    --bt-background-color: var(--no-500);
+    --bt-background-color-hover: var(--no-100);
+    --bt-border-color: var(--no-500);
+    --bt-border-color-hover: var(--no-100);
+
     &.bt-outline {
-      color: var(--no-500);
-      &:hover {
-        color: var(--base-0);
-        background-color: var(--no-500);
-        border-color: var(--no-500);
-      }
+      --bt-color: var(--no-500);
+      --bt-color-hover: var(--base-0);
+      --bt-background-color: transparent;
+      --bt-background-color-hover: var(--no-500);
+      --bt-border-color-hover: var(--no-500);
     }
   }
 
   &.bt-maybe {
-    color: var(--base-0);
-    background-color: var(--maybe-500);
-    border-color: var(--maybe-500);
-    &:hover {
-      color: var(--maybe-500);
-      background-color: var(--maybe-100);
-      border-color: var(--maybe-100);
-    }
+    --bt-color: var(--base-0);
+    --bt-color-hover: var(--maybe-500);
+    --bt-background-color: var(--maybe-500);
+    --bt-background-color-hover: var(--maybe-100);
+    --bt-border-color: var(--maybe-500);
+    --bt-border-color-hover: var(--maybe-100);
+
     &.bt-outline {
-      color: var(--maybe-500);
-      &:hover {
-        color: var(--base-0);
-        background-color: var(--maybe-500);
-        border-color: var(--maybe-500);
-      }
+      --bt-color: var(--maybe-500);
+      --bt-color-hover: var(--base-0);
+      --bt-background-color: transparent;
+      --bt-background-color-hover: var(--maybe-500);
+      --bt-border-color-hover: var(--maybe-500);
     }
   }
-}
-
-:is(.bt-outline, .bt-outline:hover) {
-  background-color: transparent;
 }
 
 /* Sizes */
 
 .bt-md {
-  min-width: 123px;
+  min-width: var(--bt-min-width-md);
   min-height: var(--lg2);
   padding-left: var(--xs3);
   padding-right: var(--xs3);
 }
 
 .bt-lg {
-  min-width: 133px;
+  min-width: var(--bt-min-width-lg);
   min-height: var(--xl1);
   padding-left: var(--sm2);
   padding-right: var(--sm2);

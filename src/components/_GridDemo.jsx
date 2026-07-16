@@ -420,7 +420,7 @@ function SettingsDropdown({ label, value, options, onChange, disabled }) {
   );
 }
 
-export default function GridDemo({ extraClass = "" }) {
+export default function GridDemo({ class: className = "" }) {
   const [cols, setCols] = useState(DEFAULT_COLS);
   const [rows, setRows] = useState(DEFAULT_ROWS);
   const [colSizes, setColSizes] = useState(() =>
@@ -1310,7 +1310,7 @@ export default function GridDemo({ extraClass = "" }) {
   ];
 
   return (
-    <div class={`gridDemo not-prose${draggingId ? " is-itemDragged" : ""}${extraClass ? ` ${extraClass}` : ""}`}>
+    <div class={`gridDemo not-prose${draggingId ? " is-itemDragged" : ""}${className ? ` ${className}` : ""}`}>
       <style dangerouslySetInnerHTML={{ __html: liveCSS }} />
 
       <div class="gridDemo_toolbar">

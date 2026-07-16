@@ -14,7 +14,7 @@ The `.avatar` component is a visual representation of a user. It shows the user'
 Its default size is 56px. (See the [HTML](#html) section below for all options.)
 
 {/* prettier-ignore */}
-<Avatar online size="xl" imageSrc={imageSrc}>SR</Avatar>
+<Avatar status="online" size="xl" imageSrc={imageSrc}>SR</Avatar>
 
 <div class="docs_oversizedTable">
 
@@ -43,8 +43,8 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
 | `.avatar` + `.avatar-md`      | Medium - 36px              |
 | `.avatar` + `.avatar-lg`      | Large - 80px               |
 | `.avatar` + `.avatar-xl`      | Extra large - 128px        |
-| `.avatar` + `.avatar-online`  | User is online - green dot |
-| `.avatar` + `.avatar-offline` | User is offline - grey dot |
+| `.avatar` + `.is-online`  | User is online - green dot |
+| `.avatar` + `.is-offline` | User is offline - grey dot |
 
 </div>
 
@@ -76,9 +76,8 @@ The following custom properties are available in the [default theme](/docs/theme
 | ------------ | --------- | --------- | ----------------------------------------------------------- |
 | `size`       | `string`  | undefined | `sm`, `md`, `lg`, `xl` ([px values](#html))                 |
 | `imageSrc`   | `string`  | undefined | Optional image.                                             |
-| `online`     | `boolean` | `false`   | User is online - green dot                                  |
-| `offline`    | `boolean` | `false`   | User is offline - grey dot                                  |
-| `extraClass` | `string`  | undefined | Additional CSS, useful for [helper classes](/docs/helpers). |
+| `status`     | `'online' \| 'offline'` | `undefined` | Shows a status dot (green online / grey offline)   |
+| `class` | `string`  | undefined | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 
 </div>
 
@@ -96,8 +95,8 @@ The following custom properties are available in the [default theme](/docs/theme
   <li><Avatar size="lg">SR</Avatar></li>
   <li><Avatar size="xl" imageSrc={imageSrc}>SR</Avatar></li>
   <li><Avatar size="xl">SR</Avatar></li>
-  <li><Avatar offline size="xl" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar online size="xl">SR</Avatar></li>
+  <li><Avatar status="offline" size="xl" imageSrc={imageSrc}>SR</Avatar></li>
+  <li><Avatar status="online" size="xl">SR</Avatar></li>
 </ul>
 
 ## Examples
@@ -122,14 +121,14 @@ The following custom properties are available in the [default theme](/docs/theme
   <li>
     ### Offline large avatar
 
-    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
+    <Avatar status="offline" size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
 
     ```astro
     ---
     import Avatar from "../../components/Avatar.astro";
     import imageSrc from "../../assets/images/sonny.png";
     ---
-    <Avatar offline size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
+    <Avatar status="offline" size="lg" imageSrc={imageSrc}>Sonny Rollins</Avatar>
     ```
 
   </li>
@@ -150,10 +149,10 @@ The following custom properties are available in the [default theme](/docs/theme
 
   </li>
   <li>
-    <Avatar online size="xl" imageSrc={imageSrc}>Sonny Rollins</Avatar>
+    <Avatar status="online" size="xl" imageSrc={imageSrc}>Sonny Rollins</Avatar>
 
     ```html
-    <div class="avatar avatar-xl avatar-online">
+    <div class="avatar avatar-xl is-online">
       <div>
         <img src="/assets/images/sonny.png" alt="Sonny Rollins">
       </div>

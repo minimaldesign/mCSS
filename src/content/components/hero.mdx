@@ -24,7 +24,7 @@ The `Hero` component offers highly flexible, accessible hero sections for landin
   overlayColor="--primary-950"
   roundCorners
   textColor="--base-0"
-  extraClass="mt-sm3"
+  class="mt-sm3"
 >
   <h1>Example Hero</h1>
   <p>This hero uses an animated canvas element as background.</p>
@@ -53,14 +53,13 @@ The Split layout features an asymmetric split (e.g., `70/30`, `80/20`, etc.) wit
 The Slideshow layout features rotating content and background (same options available as for the Full layout) with pagination dots. Each slide can have its own media and content.
 
 <Notice
-  type="warning"
+  type="info"
   title="Multiple Heroes on a single page"
-  extraClass="mt-md3"
+  class="mt-md3"
 >
-  For `Hero` components that require JavaScript (such as canvas backgrounds or
-  slideshows), including more than one Hero may duplicate JavaScript execution.
-  Make sure to add a unique `id` to each instance to ensure scripts target the
-  correct element.
+  Each `Hero` instance generates its own unique `id`, so multiple heroes on one
+  page (including JavaScript-driven ones like slideshows) never cross-wire. Pass
+  an explicit `id` prop only if you need a stable anchor to link to.
 </Notice>
 
 </section>
@@ -102,7 +101,7 @@ The following custom properties are available in the [default theme](/docs/theme
 | `media`        | object  | —       | Image, video, gradient, or canvas background.                 |
 | `roundCorners` | boolean | `false` | Whether the hero media has rounded corners.                   |
 | `textColor`    | string  | —       | Text color (CSS variable or value).                           |
-| `extraClass`   | string  | —       | Additional CSS classes (see [helper classes](/docs/helpers)). |
+| `class`   | string  | —       | Additional CSS classes (see [helper classes](/docs/helpers)). |
 
 </div>
 
