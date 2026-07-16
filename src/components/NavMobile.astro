@@ -105,28 +105,28 @@ const navItems = [
 ---
 
 <nav class="header_navMobile" role="navigation" aria-label="Main menu">
-  <button aria-expanded="false">
+  <button aria-expanded="false" aria-label="Open menu">
     <Fragment set:html={menuIcon} />
   </button>
   <div>
     <div class="header_navMobile_themeToggle">
       <ThemeToggle />
     </div>
-    <button>
+    <button aria-label="Close menu">
       <Fragment set:html={closeIcon} />
     </button>
     <ul>
       {
         navItems.map((item) => (
           <li>
-            <a class={item.id == currentPath && 'is-active'} href={`/${item.url ? item.url : item.id}${item.top ? '' : '/start'}`}>
+            <a class:list={[{ 'is-active': item.id == currentPath }]} href={`/${item.url ? item.url : item.id}${item.top ? '' : '/start'}`}>
               {item.data.title}
             </a>
             {item.subsection && (
               <ul>
                 {item.subsection.map((sub) => (
                   <li>
-                    <a class={sub.id == currentPath && 'is-active'} href={`/${item.url ? item.url : item.id}/${sub.id}`}>
+                    <a class:list={[{ 'is-active': sub.id == currentPath }]} href={`/${item.url ? item.url : item.id}/${sub.id}`}>
                       {sub.data.title}
                     </a>
                   </li>
@@ -141,15 +141,27 @@ const navItems = [
 </nav>
 
 <script is:inline>
-  const button = document.querySelector('.header_navMobile > button');
-  const menu = document.querySelector('.header_navMobile > div');
-  const closeButton = document.querySelector('.header_navMobile > div button');
+  (() => {
+    const button = document.querySelector('.header_navMobile > button');
+    const menu = document.querySelector('.header_navMobile > div');
+    const closeButton = document.querySelector('.header_navMobile > div button');
 
-  const handleToggleNav = () => {
-    menu.classList.toggle('is-open');
-    menu.classList.toggle('body-is-locked');
-  };
+    const setOpen = (open) => {
+      menu.classList.toggle('is-open', open);
+      menu.classList.toggle('body-is-locked', open);
+      button.setAttribute('aria-expanded', String(open));
+      // Move focus into the menu on open; return it to the trigger on close.
+      if (open) {
+        closeButton.focus();
+      } else {
+        button.focus();
+      }
+    };
 
-  button.addEventListener('click', handleToggleNav);
-  closeButton.addEventListener('click', handleToggleNav);
+    button.addEventListener('click', () => setOpen(true));
+    closeButton.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) setOpen(false);
+    });
+  })();
 </script>

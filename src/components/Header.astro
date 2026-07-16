@@ -27,38 +27,6 @@ import logoImg from '../assets/ui/mcss-logo.svg?raw';
       header.classList.remove('is-top');
     }
   }
-  window.onscroll = throttle(toggleClassOnScroll, 100);
-</script>
-
-<script is:inline>
-  // Dark/light Theme switcher
-  // sessionStorage and <html> class set in BaseLayout to alleviate FOUC
-  // Theme only persists during session
-  const currentTheme = sessionStorage.getItem('theme') || 
-    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'theme-dark' : 'theme-light');
-  const checkboxes = document.querySelectorAll('.js-theme-checkbox');
-  document.getElementById('js-theme').textContent = currentTheme.replace('theme-', '');
-
-  // if dark theme is set, checkbox is checked
-  const isDark = currentTheme === 'theme-dark';
-  // we have to set both checkboxes to checked, because the theme is set on both the mobile and desktop nav
-  checkboxes.forEach((el) => {
-    el.checked = isDark;
-  });
-
-  function handleToggleClick() {
-    const isDark = this.checked;
-
-    checkboxes.forEach((el) => {
-      el.checked = isDark;
-    });
-    document.documentElement.classList.remove('theme-light', 'theme-dark');
-    document.documentElement.classList.add(isDark ? 'theme-dark' : 'theme-light');
-    document.getElementById('js-theme').textContent = isDark ? 'dark' : 'light';
-    sessionStorage.setItem('theme', isDark ? 'theme-dark' : 'theme-light');
-  }
-
-  checkboxes.forEach((el) => {
-    el.addEventListener('click', handleToggleClick);
-  });
+  // addEventListener (not window.onscroll =) so other scroll handlers survive
+  window.addEventListener('scroll', throttle(toggleClassOnScroll, 100), { passive: true });
 </script>

@@ -14,4 +14,4 @@ URLs for blog posts, docs, and component pages are derived from their file paths
 
 ## Theme Toggle
 
-The light/dark toggle uses **`sessionStorage`** (not localStorage) — the choice resets when the browser closes. The inline script in `BaseLayout.astro` applies the class before paint to avoid FOUC. Don't introduce a second theme mechanism.
+The light/dark toggle persists in **`localStorage`** (key `theme`). The inline script in `BaseLayout.astro` applies the class before paint to avoid FOUC; the toggle behavior itself lives in `ThemeToggle.astro` (self-contained; rendered twice, its module script runs once). Don't introduce a second theme mechanism.

@@ -1,6 +1,36 @@
 ---
-
+// Self-contained theme switch. Rendered twice (desktop header + mobile menu);
+// the script below is an Astro module script, so it runs once and keeps all
+// instances in sync. Theme is applied before paint by the inline script in
+// BaseLayout.astro to avoid FOUC.
 ---
 
-<input class="toggle root-theme js-theme-checkbox" name="theme" type="checkbox" />
-<span class="header_navMobile_themeToggle_text">current theme: <span id="js-theme">placeholder</span></span>
+<label class="themeToggle">
+  <input class="toggle root-theme js-theme-checkbox" name="theme" type="checkbox" role="switch" />
+  <span class="themeToggle_text">current theme: <span class="js-theme-name">light</span></span>
+  <span class="a11y-srOnly">Use dark theme</span>
+</label>
+
+<script>
+  const checkboxes = document.querySelectorAll<HTMLInputElement>('.js-theme-checkbox');
+  const names = document.querySelectorAll('.js-theme-name');
+
+  const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'theme-dark' : 'theme-light');
+
+  function render(isDark: boolean) {
+    checkboxes.forEach((el) => (el.checked = isDark));
+    names.forEach((el) => (el.textContent = isDark ? 'dark' : 'light'));
+  }
+
+  render(currentTheme === 'theme-dark');
+
+  checkboxes.forEach((el) => {
+    el.addEventListener('change', () => {
+      const isDark = el.checked;
+      render(isDark);
+      document.documentElement.classList.remove('theme-light', 'theme-dark');
+      document.documentElement.classList.add(isDark ? 'theme-dark' : 'theme-light');
+      localStorage.setItem('theme', isDark ? 'theme-dark' : 'theme-light');
+    });
+  });
+</script>

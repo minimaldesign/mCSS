@@ -137,8 +137,6 @@
 }
 
 .header_navMobile_themeToggle {
-  display: flex;
-  gap: var(--sm3);
   margin-right: var(--sm1);
   padding: var(--xs3);
   border: 1px solid var(--theme-border-color);
@@ -146,7 +144,15 @@
   background-color: var(--body-background-color);
 }
 
-.header_navMobile_themeToggle_text {
+/* ThemeToggle component (rendered in the header and the mobile menu) */
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sm3);
+  cursor: pointer;
+}
+
+.themeToggle_text {
   @media (--md) {
     display: none;
   }

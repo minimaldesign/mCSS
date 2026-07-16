@@ -149,22 +149,68 @@
   bottom: var(--md1);
   display: flex;
   justify-content: center;
-  gap: var(--xs3);
+  align-items: center;
+  gap: var(--xs1);
   z-index: 2;
 }
 
+/* 24px minimum hit target (WCAG 2.5.8); the visible dot keeps its size */
 .hero_pagination_dot {
-  width: var(--hero-pagination-dot);
-  height: var(--hero-pagination-dot);
-  border-radius: var(--radius-round);
-  background: var(--hero-pagination-dot-color);
-  opacity: var(--hero-pagination-opacity);
+  display: grid;
+  place-items: center;
+  width: max(var(--hero-pagination-dot), 24px);
+  height: max(var(--hero-pagination-dot), 24px);
+  padding: 0;
+  background: transparent;
   border: none;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition);
-  &.is-active {
+
+  &::before {
+    content: "";
+    width: var(--hero-pagination-dot);
+    height: var(--hero-pagination-dot);
+    border-radius: var(--radius-round);
+    background: var(--hero-pagination-dot-color);
+    opacity: var(--hero-pagination-opacity);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
+  }
+  &.is-active::before {
     opacity: 1;
     background: var(--hero-pagination-dot-active-color);
+  }
+}
+
+.hero_pagination_playPause {
+  display: grid;
+  place-items: center;
+  width: max(var(--hero-pagination-dot), 24px);
+  height: max(var(--hero-pagination-dot), 24px);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: var(--hero-pagination-opacity);
+  transition: opacity var(--transition);
+
+  svg {
+    fill: var(--hero-pagination-dot-active-color);
+    filter: drop-shadow(var(--shadow-sm));
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .hero_pagination_playPause_play {
+    display: none;
+  }
+  &.is-paused {
+    .hero_pagination_playPause_pause {
+      display: none;
+    }
+    .hero_pagination_playPause_play {
+      display: block;
+    }
   }
 }

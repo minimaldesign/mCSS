@@ -1,3 +1,10 @@
+/* Unified keyboard focus ring (themable via the --focus-ring-* tokens).
+   Applies everywhere so keyboard users get one consistent treatment. */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
 /* hide in browser but accessible in screen readers */
 .a11y-srOnly {
   position: absolute;

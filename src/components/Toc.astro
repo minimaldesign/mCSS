@@ -100,11 +100,13 @@ const {
 
     tocRoot.innerHTML = renderToc(buildTocTree(headingsEls), true);
 
-    function updateActiveLink() {
-      const hash = decodeURIComponent(window.location.hash);
+    function updateActiveLink(activeId) {
+      // Falls back to the URL hash when no explicit id is given (initial
+      // load, hashchange); scroll tracking passes the id directly so the
+      // URL/history is never rewritten while scrolling.
+      const id = activeId ?? decodeURIComponent(window.location.hash).slice(1);
       tocRoot.querySelectorAll('a[data-toc-link]').forEach((link) => {
-        const href = link.getAttribute('href');
-        if (hash && href === hash) {
+        if (id && link.getAttribute('data-toc-link') === id) {
           link.classList.add('is-active');
           link.setAttribute('aria-current', 'true');
         } else {
@@ -162,11 +164,7 @@ const {
             window.requestAnimationFrame(() => {
               const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.target.offsetTop - b.target.offsetTop)[0];
               if (visible) {
-                const id = visible.target.id;
-                if (window.location.hash !== '#' + id) {
-                  history.replaceState(null, '', '#' + id);
-                  updateActiveLink();
-                }
+                updateActiveLink(visible.target.id);
               }
               ticking = false;
             });

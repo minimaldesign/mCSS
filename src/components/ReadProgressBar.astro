@@ -35,6 +35,15 @@
     const throttledUpdate = throttle(updateProgressBar, 10);
     window.addEventListener('scroll', throttledUpdate, { passive: true });
     window.addEventListener('resize', throttledUpdate);
+    // remove listeners to prevent leaks with view transitions
+    window.addEventListener(
+      'astro:before-swap',
+      () => {
+        window.removeEventListener('scroll', throttledUpdate);
+        window.removeEventListener('resize', throttledUpdate);
+      },
+      { once: true }
+    );
   }
 
   if (typeof window !== 'undefined' && !supportsScrollTimeline()) {

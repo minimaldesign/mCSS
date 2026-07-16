@@ -134,6 +134,12 @@ const getMinHeightStyle = () => {
           <slot />
         </div>
         <div class="hero_pagination">
+          {slideshowAutoplay && (
+            <button class="hero_pagination_playPause" aria-label="Pause slideshow" aria-pressed="false" type="button" data-slideshow-playpause>
+              <svg class="hero_pagination_playPause_pause" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="2" y="2" width="4" height="12" /><rect x="10" y="2" width="4" height="12" /></svg>
+              <svg class="hero_pagination_playPause_play" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 2l11 6-11 6z" /></svg>
+            </button>
+          )}
           {slideshowItems.map((_, idx) => (
             <button class={`hero_pagination_dot${idx === 0 ? ' is-active' : ''}`} aria-label={`Go to slide ${idx + 1}`} type="button" />
           ))}
@@ -169,7 +175,9 @@ const getMinHeightStyle = () => {
 {variant === 'full' && parallax && (
   <script type="module" define:vars={{ id }}>
     const root = document.querySelector(`#${id}.hero-parallax .hero_bg`);
-    if (root) {
+    // JS-driven motion respects prefers-reduced-motion (the CSS reset only
+    // covers CSS animation)
+    if (root && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const onScroll = () => {
         const rect = root.getBoundingClientRect();
         const offset = Math.max(0, 0 - rect.top) * 0.3;
@@ -194,10 +202,15 @@ const getMinHeightStyle = () => {
     if (root) {
       let active = 0;
       const dots = root.querySelectorAll('.hero_pagination_dot');
+      const playPause = root.querySelector('[data-slideshow-playpause]');
       const mediaEls = root.querySelectorAll('.hero_bg');
       const ul = root.querySelector('.hero_content ul');
       const lis = ul ? Array.from(ul.children) : [];
       let autoplayIntervalId = null;
+      // WCAG 2.2.2: auto-advancing content must be pausable, and JS-driven
+      // motion respects prefers-reduced-motion (autoplay stays off; the user
+      // can still start it with the play button)
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const show = (idx) => {
         mediaEls.forEach((el, i) => {
           el.classList.toggle('is-active', i === idx);
@@ -210,11 +223,25 @@ const getMinHeightStyle = () => {
         });
         active = idx;
       };
+      const renderPlayPause = (playing) => {
+        if (!playPause) return;
+        playPause.classList.toggle('is-paused', !playing);
+        playPause.setAttribute('aria-label', playing ? 'Pause slideshow' : 'Play slideshow');
+        playPause.setAttribute('aria-pressed', String(!playing));
+      };
+      const startAutoplay = () => {
+        if (autoplayIntervalId) return;
+        autoplayIntervalId = setInterval(() => {
+          show((active + 1) % slideshowItems.length);
+        }, slideshowInterval);
+        renderPlayPause(true);
+      };
       const stopAutoplay = () => {
         if (autoplayIntervalId) {
           clearInterval(autoplayIntervalId);
           autoplayIntervalId = null;
         }
+        renderPlayPause(false);
       };
       dots.forEach((dot, idx) => {
         dot.addEventListener('click', () => {
@@ -222,10 +249,19 @@ const getMinHeightStyle = () => {
           stopAutoplay();
         });
       });
-      if (slideshowAutoplay) {
-        autoplayIntervalId = setInterval(() => {
-          show((active + 1) % slideshowItems.length);
-        }, slideshowInterval);
+      if (playPause) {
+        playPause.addEventListener('click', () => {
+          if (autoplayIntervalId) {
+            stopAutoplay();
+          } else {
+            startAutoplay();
+          }
+        });
+      }
+      if (slideshowAutoplay && !prefersReducedMotion) {
+        startAutoplay();
+      } else {
+        renderPlayPause(false);
       }
       show(0);
     }

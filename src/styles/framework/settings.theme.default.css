@@ -5,6 +5,11 @@
 
   --theme-border-color: light-dark(var(--base-200), var(--base-500));
   --theme-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
+
+  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css) */
+  --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
 }
 
 :root.theme-light {

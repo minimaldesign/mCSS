@@ -192,10 +192,7 @@ select {
   mask-origin: padding-box, padding-box, border-box;
   mask-composite: add, exclude;
 
-  &:focus-visible {
-    outline: 2px solid var(--primary-500);
-    outline-offset: 2px;
-  }
+  /* focus ring comes from the global :focus-visible rule (global.a11y.css) */
 
   &:disabled {
     --disabled-color: light-dark(
