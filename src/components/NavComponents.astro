@@ -19,7 +19,7 @@ const componentPosts = filterAndSort(allPosts, 'component');
     {
       atomPosts.map((post) => (
         <li>
-          <a class={post.id == currentPath && 'is-active'} href={`/components/${post.id}`}>
+          <a class:list={[{ 'is-active': post.id == currentPath }]} href={`/components/${post.id}`}>
             <Fragment set:html={arrow} />
             {post.data.title}
           </a>
@@ -32,7 +32,7 @@ const componentPosts = filterAndSort(allPosts, 'component');
     {
       componentPosts.map((post) => (
         <li>
-          <a class={post.id == currentPath && 'is-active'} href={`/components/${post.id}`}>
+          <a class:list={[{ 'is-active': post.id == currentPath }]} href={`/components/${post.id}`}>
             <Fragment set:html={arrow} />
             {post.data.title}
           </a>

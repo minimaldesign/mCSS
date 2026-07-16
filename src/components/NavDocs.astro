@@ -20,7 +20,7 @@ const subSections = [
     {
       subSections.map((currentSubSection) => (
         <li>
-          <a class={currentSubSection[0] == currentPath && 'is-active'} href={`/docs/${currentSubSection[0]}`}>
+          <a class:list={[{ 'is-active': currentSubSection[0] == currentPath }]} href={`/docs/${currentSubSection[0]}`}>
             <Fragment set:html={arrow} />
             {currentSubSection[1]}
           </a>

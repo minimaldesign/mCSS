@@ -37,6 +37,21 @@ Site-only files keep the same prefixes but live in `src/styles/site/` and import
 - **Modifier**: `.componentName-modifier` (single hyphen)
 - **State**: `.is-*` composed inside the block (`&.is-disabled { ... }`)
 
+### States vs modifiers (CC-5)
+
+- `.is-*` for anything that can change at **runtime** (`.is-active`, `.is-open`, `.is-online`), always scoped inside the block.
+- Block modifiers (`.card-filled`, `.bt-primary`) for **build-time variants** chosen by props/markup.
+- Prefer styling an ARIA attribute when one exists: `[aria-current="true"]`, `[aria-expanded="true"]`, `[aria-disabled="true"]` beat inventing a parallel class.
+- Element chains cap at `block_element`. Grandchildren **re-block** (`.themeToggle_text`, not `.header_navMobile_themeToggle_text`).
+
+### Token naming grammar
+
+Theme tokens are the public API of every component; they follow `--component-part-property`, longhand, kebab-case:
+
+- `--bt-background-color-hover`, `--notice-border-width`, `--avatar-status-dot-color-online`
+- No abbreviations (`--card-bg-color` is legacy; new tokens spell out `background-color`), no camelCase, no underscores.
+- Feedback colors: prefer the semantic aliases `--success-*` / `--danger-*` / `--warning-*` over the raw `--yes/no/maybe-*` scales.
+
 ## Adding Styles
 
 - Framework file: create `src/styles/framework/<prefix>.<name>.css` and add `@import url(./<file>) layer(<layer>);` in the matching block of `framework/mcss.css`.

@@ -36,4 +36,8 @@ Do not use the em dash character (`—`) in blog posts. Use commas, a colon, par
 | `version`    | number                                 | yes      |
 | `type`       | `"intro"` \| `"atom"` \| `"component"` | yes      |
 
+`version` tracks the maturity of the documented component itself (not the doc): `< 1` = API may still change, `1.0` = stable contract, bump on breaking changes. Keep it honest — a component with open bugs isn't `1.0`.
+
+Component doc filenames are **all lowercase** (`readprogressbar.mdx`, not `ReadProgressBar.mdx`): slugs are path-derived and become public URLs.
+
 Slug = file path without extension. Renaming/moving a content file changes its URL (see also `agents/pitfalls.md`).

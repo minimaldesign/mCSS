@@ -25,9 +25,13 @@ Example of how to override tokens to customize basic settings like colors and ty
 
 }
 
-
+/*
+Element rules don't belong in a settings-layer file: themes override tokens
+only. To restyle elements (e.g. gradient h1 headings), do it in your own
+unlayered CSS:
 
 h1 {
   @mixin display-gradient var(--gradient-primary);
   font-size: var(--display-xl);
 }
+*/

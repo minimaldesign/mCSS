@@ -40,7 +40,7 @@
   }
 }
 
-.footer_meta_version {
+.footer_version {
   svg {
     display: inline-block;
     margin-right: 0.25em;
@@ -48,7 +48,7 @@
   }
 }
 
-.footer_meta_webring {
+.webring {
   display: flex;
   gap: var(--xs2);
   margin-top: var(--md3);

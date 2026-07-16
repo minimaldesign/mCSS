@@ -10,6 +10,25 @@
   --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
+
+  /* Semantic feedback aliases over the raw feedback palettes.
+     Prefer these in components and themes; a theme can restyle feedback by
+     overriding the aliases without touching the raw scales. */
+  --success-100: var(--yes-100);
+  --success-200: var(--yes-200);
+  --success-300: var(--yes-300);
+  --success-400: var(--yes-400);
+  --success-500: var(--yes-500);
+  --danger-100: var(--no-100);
+  --danger-200: var(--no-200);
+  --danger-300: var(--no-300);
+  --danger-400: var(--no-400);
+  --danger-500: var(--no-500);
+  --warning-100: var(--maybe-100);
+  --warning-200: var(--maybe-200);
+  --warning-300: var(--maybe-300);
+  --warning-400: var(--maybe-400);
+  --warning-500: var(--maybe-500);
 }
 
 :root.theme-light {

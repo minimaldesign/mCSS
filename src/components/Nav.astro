@@ -7,7 +7,7 @@ const sections = ['Docs', 'Components', 'Blog'];
 <nav class="header_nav">
   <ul>
     <li>
-      <a class={'' == currentPath && 'is-active'} href="/">Home</a>
+      <a class:list={[{ 'is-active': '' == currentPath }]} href="/">Home</a>
     </li>
     {
       sections.map((current) => {
@@ -15,7 +15,7 @@ const sections = ['Docs', 'Components', 'Blog'];
         const isDocs = current == 'Components' || current == 'Docs';
         return (
           <li>
-            <a class={path == currentPath && 'is-active'} href={`/${path}${isDocs ? '/start' : ''}`}>
+            <a class:list={[{ 'is-active': path == currentPath }]} href={`/${path}${isDocs ? '/start' : ''}`}>
               {current}
             </a>
           </li>

@@ -4,17 +4,14 @@
 
 /* FONT FAMILY */
 
-.text,
 .font-text {
   font-family: var(--text);
 }
 
-.display,
 .font-display {
   font-family: var(--display);
 }
 
-.mono,
 .font-mono {
   font-family: var(--mono);
 }
@@ -31,32 +28,26 @@
 
 /* FONT WEIGHTS */
 
-.extra-light,
 .font-extra-light {
   font-weight: var(--extra-light);
 }
 
-.light,
 .font-light {
   font-weight: var(--light);
 }
 
-.book,
 .font-book {
   font-weight: var(--book);
 }
 
-.semi-bold,
 .font-semi-bold {
   font-weight: var(--semi-bold);
 }
 
-.bold,
 .font-bold {
   font-weight: var(--bold);
 }
 
-.black,
 .font-black {
   font-weight: var(--black);
 }

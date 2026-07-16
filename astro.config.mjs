@@ -14,6 +14,10 @@ export default defineConfig({
   // dist/ is reserved for the framework CSS artifact (npm run build:css);
   // the hosting platform's publish directory must point at _site/
   outDir: "./_site",
+  redirects: {
+    // slug lowercased for consistency with the other component docs
+    "/components/ReadProgressBar": "/components/readprogressbar",
+  },
   integrations: [
     preact(),
     expressiveCode({

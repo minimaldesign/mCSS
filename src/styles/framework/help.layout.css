@@ -77,44 +77,36 @@
 
 /* HELPER POSITION */
 
-.static,
 .position-static {
   position: static;
 }
 
-.fixed,
 .position-fixed {
   position: fixed;
 }
 
-.absolute,
 .position-absolute {
   position: absolute;
 }
 
-.relative,
 .position-relative {
   position: relative;
 }
 
-.sticky,
 .position-sticky {
   position: sticky;
 }
 
 /* HELPER VISIBILITY  */
 
-.visible,
 .visibility-visible {
   visibility: visible;
 }
 
-.hidden,
 .visibility-hidden {
   visibility: hidden;
 }
 
-.collapse,
 .visibility-collapse {
   visibility: collapse;
 }
