@@ -30,7 +30,7 @@
     li {
       margin-bottom: 0.5em;
       &::marker {
-        color: var(--base-300);
+        color: light-dark(var(--base-300), var(--base-600));
       }
     }
   }

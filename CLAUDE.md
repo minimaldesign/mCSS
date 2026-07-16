@@ -39,7 +39,7 @@ All architectural detail is in the `agents/` directory — read these before mak
 
 ## Formatting
 
-- 2 spaces in `.astro` / `.js` / `.ts`; **4 spaces in `.css`** (enforced by `.editorconfig`).
+- 2 spaces everywhere, including `.css` (enforced by `.editorconfig`).
 - Relative imports for all local Astro components.
 - JSX targets Preact (`jsxImportSource: "preact"` in `tsconfig.json`) — do not import from React.
 

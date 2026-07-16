@@ -6,8 +6,8 @@ dialog {
   min-width: var(--tera1);
   max-width: var(--tera3);
   padding: var(--lg1) var(--md1);
-  border: 1px solid var(--base-200);
-  background-color: var(--base-50);
+  border: 1px solid light-dark(var(--base-200), var(--base-800));
+  background-color: light-dark(var(--base-50), var(--base-900));
   border-radius: var(--radius-lg);
 
   &::backdrop {
@@ -33,8 +33,8 @@ dialog {
 
 details {
   padding: var(--sm1) var(--sm1);
-  border: 1px solid var(--base-200);
-  background-color: var(--base-50);
+  border: 1px solid light-dark(var(--base-200), var(--base-800));
+  background-color: light-dark(var(--base-50), var(--base-900));
   border-radius: var(--radius-lg);
   cursor: pointer;
 

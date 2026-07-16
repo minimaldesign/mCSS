@@ -246,6 +246,8 @@ i {
 
 ins {
   padding: 0.15em 0.3em;
+  /* pastel bg stays light in both modes, so pin a dark text color */
+  color: var(--base-950);
   background-color: var(--yes-200);
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -286,7 +288,7 @@ q {
 }
 
 s {
-  text-decoration-color: var(--base-950);
+  text-decoration-color: light-dark(var(--base-950), var(--base-50));
   text-decoration-style: wavy;
 }
 

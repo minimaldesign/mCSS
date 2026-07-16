@@ -146,6 +146,8 @@
   --footer-background-color: light-dark(var(--primary-600), var(--base-950));
   --footer-text-color: light-dark(var(--base-0), var(--base-200));
   --footer-border-color: light-dark(transparent, var(--base-700));
+  --footer-link-color: light-dark(var(--base-0), var(--base-200));
+  --footer-link-color-hover: light-dark(var(--primary-200), var(--base-0));
 }
 
 /* Header */

@@ -90,6 +90,8 @@
 
   > div {
     display: none;
+    /* Deliberately dark in both themes: the full-screen mobile menu is an
+       always-dark surface, so raw palette tokens are intentional here. */
     background-color: var(--base-950);
     position: fixed;
     top: 0;

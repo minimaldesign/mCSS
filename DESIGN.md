@@ -214,7 +214,7 @@ Do add new CSS files with the correct layer prefix, such as `component.name.css`
 
 Do use semantic theme tokens when they exist. Raw palette tokens are fine for new semantic roles, but component CSS should converge on named component properties.
 
-Do keep CSS formatting at 4 spaces and Astro/JS/TS formatting at 2 spaces.
+Do keep all formatting at 2 spaces (CSS, Astro, JS, TS), per `.editorconfig`.
 
 Don't use page-specific CSS when a reusable component or atom is the better fit.
 

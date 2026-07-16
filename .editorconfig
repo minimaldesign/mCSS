@@ -12,8 +12,8 @@ indent_style = space
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*. css]
-indent_size = 4
+[*.css]
+indent_size = 2
 
-[*.{astro, js}]
+[*.{astro,js,ts,jsx,mjs,cjs}]
 indent_size = 2
