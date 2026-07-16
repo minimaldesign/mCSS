@@ -2,157 +2,157 @@
 
 .of-auto,
 .overflow-auto {
-  overflow: auto !important;
+  overflow: auto;
 }
 
 .of-hidden,
 .overflow-hidden {
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 .of-clip,
 .overflow-clip {
-  overflow: clip !important;
+  overflow: clip;
 }
 
 .of-visible,
 .overflow-visible {
-  overflow: visible !important;
+  overflow: visible;
 }
 
 .of-scroll,
 .overflow-scroll {
-  overflow: scroll !important;
+  overflow: scroll;
 }
 
 .of-x-auto,
 .overflow-x-auto {
-  overflow-x: auto !important;
+  overflow-x: auto;
 }
 
 .of-y-auto,
 .overflow-y-auto {
-  overflow-y: auto !important;
+  overflow-y: auto;
 }
 
 .of-x-hidden,
 .overflow-x-hidden {
-  overflow-x: hidden !important;
+  overflow-x: hidden;
 }
 
 .of-y-hidden,
 .overflow-y-hidden {
-  overflow-y: hidden !important;
+  overflow-y: hidden;
 }
 
 .of-x-clip,
 .overflow-x-clip {
-  overflow-x: clip !important;
+  overflow-x: clip;
 }
 
 .of-y-clip,
 .overflow-y-clip {
-  overflow-y: clip !important;
+  overflow-y: clip;
 }
 
 .of-x-visible,
 .overflow-x-visible {
-  overflow-x: visible !important;
+  overflow-x: visible;
 }
 
 .of-y-visible,
 .overflow-y-visible {
-  overflow-y: visible !important;
+  overflow-y: visible;
 }
 
 .of-x-scroll,
 .overflow-x-scroll {
-  overflow-x: scroll !important;
+  overflow-x: scroll;
 }
 
 .of-y-scroll,
 .overflow-y-scroll {
-  overflow-y: scroll !important;
+  overflow-y: scroll;
 }
 
 /* HELPER POSITION */
 
 .static,
 .position-static {
-  position: static !important;
+  position: static;
 }
 
 .fixed,
 .position-fixed {
-  position: fixed !important;
+  position: fixed;
 }
 
 .absolute,
 .position-absolute {
-  position: absolute !important;
+  position: absolute;
 }
 
 .relative,
 .position-relative {
-  position: relative !important;
+  position: relative;
 }
 
 .sticky,
 .position-sticky {
-  position: sticky !important;
+  position: sticky;
 }
 
 /* HELPER VISIBILITY  */
 
 .visible,
 .visibility-visible {
-  visibility: visible !important;
+  visibility: visible;
 }
 
 .hidden,
 .visibility-hidden {
-  visibility: hidden !important;
+  visibility: hidden;
 }
 
 .collapse,
 .visibility-collapse {
-  visibility: collapse !important;
+  visibility: collapse;
 }
 
 /* HELPER Z-INDEX  */
 
 .z-auto {
-  z-index: auto !important;
+  z-index: auto;
 }
 
 .z-bottom {
-  z-index: var(--z-bottom) !important;
+  z-index: var(--z-bottom);
 }
 
 .z-0 {
-  z-index: var(--z-0) !important;
+  z-index: var(--z-0);
 }
 
 .z-1 {
-  z-index: var(--z-1) !important;
+  z-index: var(--z-1);
 }
 
 .z-2 {
-  z-index: var(--z-2) !important;
+  z-index: var(--z-2);
 }
 
 .z-3 {
-  z-index: var(--z-3) !important;
+  z-index: var(--z-3);
 }
 
 .z-4 {
-  z-index: var(--z-4) !important;
+  z-index: var(--z-4);
 }
 
 .z-5 {
-  z-index: var(--z-5) !important;
+  z-index: var(--z-5);
 }
 
 .z-top {
-  z-index: var(--z-top) !important;
+  z-index: var(--z-top);
 }

@@ -89,9 +89,13 @@ ul.docs_section_media {
   }
 }
 
-.docs_box {
-  height: var(--md1);
-  background-color: var(--primary-500);
+/* In @layer pages (below helpers) so bgc- and w- helper classes on the same
+   element keep winning; unlayered site CSS would beat the helpers layer. */
+@layer pages {
+  .docs_box {
+    height: var(--md1);
+    background-color: var(--primary-500);
+  }
 }
 
 .docs_lineHeightDemo {
