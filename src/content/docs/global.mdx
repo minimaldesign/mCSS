@@ -127,7 +127,7 @@ The following example goes from 1 → 4 → 9 → 12 columns. (Resize window to 
 
 The `.wrap` global class is a simple content wrapper that will center your content on the page and add some left/right padding on small viewports.
 
-The default `.wrap_content` has a max width of `800px` by default (see below to customize) and there is a modifier `.wrap_content-fullBleed` that will extend to the full size of the viewport. See [demo](/demos/wrap).
+The default `.wrap_content` has a width of `minmax(200px, 70ch)` by default (see below to customize) and there is a modifier `.wrap_content-fullBleed` that will extend to the full size of the viewport. See [demo](/demos/wrap).
 
 ### Syntax
 
@@ -153,9 +153,9 @@ You can customize 3 diffent sizes of left/right padding for responsive designs a
 
 | token             | value                 | Description                      |
 | ----------------- | --------------------- | -------------------------------- |
-| `wrap-padding`    | `var(--sm1)`          | default left/right padding       |
-| `wrap-md-padding` | `var(--sm3)`          | left/right padding tablet and up |
-| `wrap-lg-padding` | `0`                   | left/right padding laptop and up |
+| `wrap-spacing`    | `var(--sm1)`          | default left/right padding       |
+| `wrap-md-spacing` | `var(--sm3)`          | left/right padding tablet and up |
+| `wrap-lg-spacing` | `0`                   | left/right padding laptop and up |
 | `wrap-width`      | `minmax(200px, 70ch)` | 200px minimum, 70ch maximum      |
 
 </div>

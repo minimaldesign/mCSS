@@ -18,7 +18,7 @@ table {
 
 th,
 td {
-  text-align-last: left;
+  text-align: left;
   padding: var(--table-padding);
   border-bottom: 1px solid var(--table-border-color);
   border-left: 1px solid var(--table-border-color);

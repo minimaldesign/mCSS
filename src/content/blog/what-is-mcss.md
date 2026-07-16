@@ -27,7 +27,7 @@ The mCSS framework is pure CSS. So you can use it with absolutely any tech stack
 Also… If you want to add a button to your app, your code will look like that:
 
 ```html
-<button class="btn btn-primary">mCSS Button</button>
+<button class="bt bt-primary">mCSS Button</button>
 ```
 
 **Not** like that…

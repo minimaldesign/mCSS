@@ -1,7 +1,8 @@
 /* SECTIONING ROOT */
 
 body {
-  /* Consistent line-spacing, even when inline elements have different line-heights. */
+  /* line-sizing is a CSSWG draft with no browser support yet; kept as intent
+     for consistent line-spacing once it ships. */
   line-sizing: normal;
   /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
   text-size-adjust: none;

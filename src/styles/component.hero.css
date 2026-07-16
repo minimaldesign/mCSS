@@ -130,7 +130,7 @@
     transition-property: opacity;
     transition-timing-function: ease-in-out;
     /* set inline via slideshowTransition prop */
-    transition-duration: var(--slideshow-transition, 220);
+    transition-duration: var(--slideshow-transition, 220ms);
 
     &.is-active {
       opacity: 1;

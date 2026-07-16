@@ -41,7 +41,7 @@
       color: var(--toc-color-hover);
       svg {
         transform: translateX(calc(var(--xs1) * -1));
-        opacity: var(--opacity-5);
+        opacity: var(--o-5);
       }
     }
   }

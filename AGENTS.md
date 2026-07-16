@@ -1,6 +1,6 @@
 # AGENTS.md
 
-mCSS is a CSS framework (ITCSS-based) with an Astro 5 documentation site, component library, and blog built on top of it.
+mCSS is a CSS framework (ITCSS-based) with an Astro 6 documentation site, component library, and blog built on top of it.
 
 ## Build
 
@@ -9,7 +9,7 @@ mCSS is a CSS framework (ITCSS-based) with an Astro 5 documentation site, compon
 | `npm run dev`   | Astro dev server     |
 | `npm run build` | Production build     |
 
-Stack: Astro 5, Preact, MDX, PostCSS. No test runner.
+Stack: Astro 6, Preact, MDX, PostCSS. No test runner.
 
 ## Critical Rule
 

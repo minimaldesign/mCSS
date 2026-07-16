@@ -39,7 +39,7 @@ interface Props extends HTMLAttributes<'section'> {
 const {
   id = 'hero',
   variant = 'full',
-  ratio = '38/62',
+  ratio = '62/38',
   contentFirst = false,
   reversed = false,
   flush = false,
@@ -66,6 +66,9 @@ const getGridStyle = () => {
   return '';
 };
 
+// Only emit a color declaration when textColor is set (avoids `color: var(undefined)`)
+const contentStyle = textColor ? `color: var(${textColor});` : undefined;
+
 const getMinHeightStyle = () => {
   if (typeof height === 'number' && height > 0 && height <= 100) {
     return ` min-height: ${height}svh;`;
@@ -79,7 +82,7 @@ const getMinHeightStyle = () => {
     variant === 'full' && (
       <div class:list={['hero_wrap']} style={getMinHeightStyle()}>
         {media.type === 'image' && <Image class="hero_bg" src={media.src} alt={media.alt} loading="lazy" style={parallax ? 'will-change: transform;' : ''} />}
-        {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} alt={media.alt} autoPlay muted loop playsInline loading="lazy" />}
+        {media.type === 'video' && <video class="hero_bg" src={media.src} poster={media.poster} aria-label={media.alt} autoplay muted loop playsinline />}
         {media.type === 'gradient' && <div class="hero_bg" style={`background: ${media.src};`} />}
         {media.type === 'canvas' && (
           <>
@@ -88,7 +91,7 @@ const getMinHeightStyle = () => {
           </>
         )}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
-        <div class="hero_content" style={`color: var(${textColor});`}>
+        <div class="hero_content" style={contentStyle}>
           <slot />
         </div>
       </div>
@@ -98,16 +101,16 @@ const getMinHeightStyle = () => {
     variant === 'split' && (
       <>
         {contentFirst && (
-          <div class="hero_content" style={`color: var(${textColor});`}>
+          <div class="hero_content" style={contentStyle}>
             <slot />
           </div>
         )}
         <div class="hero_media">
           {media.type === 'image' && <Image src={media.src} alt={media.alt} loading="lazy" />}
-          {media.type === 'video' && <video src={media.src} poster={media.poster} alt={media.alt} controls loading="lazy" />}
+          {media.type === 'video' && <video src={media.src} poster={media.poster} aria-label={media.alt} controls preload="none" />}
         </div>
         {!contentFirst && (
-          <div class="hero_content" style={`color: var(${textColor});`}>
+          <div class="hero_content" style={contentStyle}>
             <slot />
           </div>
         )}
@@ -119,10 +122,10 @@ const getMinHeightStyle = () => {
       <div class:list={['hero_wrap']} data-slideshow length={slideshowItems.length} style={`${getMinHeightStyle()} --slideshow-transition:${slideshowTransition}ms;`}>
         {/* Render all media elements, only the active one is visible */}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'image' && <Image class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src} alt={item.media.alt} loading="lazy" data-slideshow-media={idx} />)}
-        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} alt={item.media.alt} autoPlay muted loop playsInline loading="lazy" data-slideshow-media={idx} />)}
+        {slideshowItems.map((item, idx) => item?.media && item.media.type === 'video' && <video class={`hero_bg${idx === 0 ? ' is-active' : ''}`} src={item.media.src} poster={item.media.poster} aria-label={item.media.alt} autoplay muted loop playsinline data-slideshow-media={idx} />)}
         {slideshowItems.map((item, idx) => item?.media && item.media.type === 'gradient' && <div class={`hero_bg${idx === 0 ? ' is-active' : ''}`} style={`background: ${item.media.src};`} data-slideshow-media={idx} />)}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
-        <div class="hero_content" style={`color: var(${textColor});`}>
+        <div class="hero_content" style={contentStyle}>
           <slot />
         </div>
         <div class="hero_pagination">

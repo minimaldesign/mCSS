@@ -1,7 +1,9 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 // Props definitions
 interface Props extends HTMLAttributes<'ul'> {
-  tagList?: Tag[]; // Array of badge objects
+  tagList?: string[]; // Array of tag names
   variant?: 'inline' | 'list';
   url: string;
   'data-testid'?: string;
@@ -29,7 +31,7 @@ function joinUrl(base: string, tag: string) {
   tagList.length > 0 && (
     <ul class:list={['tags', { 'tags-inline': variant === 'inline' }, extraClass]} data-testid={testId} aria-label={ariaLabel} {...rest}>
       {[...tagList].sort((a, b) => a.localeCompare(b)).map((tag) => (
-        <li class="tag" key={tag}>
+        <li>
           <a href={joinUrl(url, tag)}>{tag}</a>
         </li>
       ))}

@@ -179,7 +179,7 @@
     height: var(--sm3);
   }
 
-  &.bt-iconTight {
+  &.bt-tightIcon {
     svg {
       margin-left: calc(var(--xs3) * -1);
     }
