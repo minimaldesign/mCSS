@@ -33,6 +33,10 @@ xxl: 1920px
   position: relative;
   appearance: none;
   border: none;
+  /* The generic input padding (elements.form.css) survives appearance: none;
+     with border-box sizing it floors the track at 24px, so any toggle themed
+     below that squashes and loses its pill ends */
+  padding: 0;
   display: block;
   width: var(--toggle-w);
   height: var(--toggle-h);
