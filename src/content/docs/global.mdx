@@ -28,6 +28,21 @@ It's composed of 2 classes: `.grid` for the container, and `.grid_item` for each
 
 The default grid gap is defined as a custom property in the [default theme](/docs/themes) and is responsive: `16px` (`--sm1`) on small screens, stepping up to `24px` (`--sm3`) at the `--md` breakpoint (768px). You can override `--grid-column-gap` and `--grid-row-gap` globally in your own theme, or on a specific `.grid` element. A `grid-flush` modifier is available if you don't want any gap.
 
+Because `.grid` reads its gaps from those two custom properties, overriding a specific grid is just a matter of setting them on the element. Add a class of your own:
+
+```css
+.photoWall {
+  --grid-column-gap: var(--xs2);
+  --grid-row-gap: var(--xs2);
+}
+```
+
+```html
+<ul class="grid photoWall" col="2" col-lg="4">
+  ...
+</ul>
+```
+
 You define the amount of columns of your grid with a custom `col` attribute and the position/width of your grid_items with the custom `span` attribute.
 
 The `span` property syntax follows these 5 patterns:
