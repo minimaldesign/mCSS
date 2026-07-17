@@ -1,0 +1,48 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'section'> {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  variant?: 'filled' | 'primary';
+  width?: 'wide';
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  eyebrow,
+  title,
+  lede,
+  variant,
+  width,
+  class: className,
+  'data-testid': testId = 'section',
+  ...rest
+} = Astro.props as Props;
+---
+
+<!-- prettier-ignore -->
+<section
+  class:list={[
+    'section',
+    'wrap',
+    variant && `section-${variant}`,
+    width && `section-${width}`,
+    className,
+  ]}
+  data-testid={testId}
+  {...rest}
+>
+  {
+    (eyebrow || title || lede) && (
+      <header class="section_header">
+        {eyebrow && <p class="section_eyebrow">{eyebrow}</p>}
+        {title && <h2 class="section_title">{title}</h2>}
+        {lede && <p class="section_lede">{lede}</p>}
+      </header>
+    )
+  }
+  <slot />
+</section>

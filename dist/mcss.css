@@ -498,6 +498,78 @@ xxl: 1920px
 
 /* ATOMS */
 
+/* Badge */
+
+:root {
+  --badge-font-size: var(--text-sm);
+  --badge-border-radius: var(--radius-md);
+  --badge-color: var(--base-0);
+  --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--base-600);
+  --badge-background-color: var(--csstools-light-dark-toggle--9, var(--base-700));
+
+  --badge-primary-color: var(--base-0);
+  --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--primary-500);
+  --badge-primary-background-color: var(--csstools-light-dark-toggle--10, var(--primary-600));
+  --csstools-light-dark-toggle--11: var(--csstools-color-scheme--light) var(--base-0);
+  --badge-success-color: var(--csstools-light-dark-toggle--11, var(--success-500));
+  --csstools-light-dark-toggle--12: var(--csstools-color-scheme--light) var(--success-500);
+  --badge-success-background-color: var(--csstools-light-dark-toggle--12, var(--success-100));
+  --csstools-light-dark-toggle--13: var(--csstools-color-scheme--light) var(--base-0);
+  --badge-danger-color: var(--csstools-light-dark-toggle--13, var(--danger-500));
+  --csstools-light-dark-toggle--14: var(--csstools-color-scheme--light) var(--danger-500);
+  --badge-danger-background-color: var(--csstools-light-dark-toggle--14, var(--danger-100));
+  --csstools-light-dark-toggle--15: var(--csstools-color-scheme--light) var(--base-950);
+  --badge-warning-color: var(--csstools-light-dark-toggle--15, var(--warning-500));
+  --csstools-light-dark-toggle--16: var(--csstools-color-scheme--light) var(--warning-500);
+  --badge-warning-background-color: var(--csstools-light-dark-toggle--16, var(--warning-100));
+}
+
+@supports (color: light-dark(red, red)){
+:root {
+  --badge-background-color: light-dark(var(--base-700), var(--base-600));
+  --badge-primary-background-color: light-dark(
+    var(--primary-600),
+    var(--primary-500)
+  );
+  --badge-success-color: light-dark(var(--success-500), var(--base-0));
+  --badge-success-background-color: light-dark(
+    var(--success-100),
+    var(--success-500)
+  );
+  --badge-danger-color: light-dark(var(--danger-500), var(--base-0));
+  --badge-danger-background-color: light-dark(
+    var(--danger-100),
+    var(--danger-500)
+  );
+  --badge-warning-color: light-dark(var(--warning-500), var(--base-950));
+  --badge-warning-background-color: light-dark(
+    var(--warning-100),
+    var(--warning-500)
+  );
+}
+}
+  @supports not (color: light-dark(tan, tan)){
+
+:root *{
+  --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--base-600);
+  --badge-background-color: var(--csstools-light-dark-toggle--9, var(--base-700));
+  --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--primary-500);
+  --badge-primary-background-color: var(--csstools-light-dark-toggle--10, var(--primary-600));
+  --csstools-light-dark-toggle--11: var(--csstools-color-scheme--light) var(--base-0);
+  --badge-success-color: var(--csstools-light-dark-toggle--11, var(--success-500));
+  --csstools-light-dark-toggle--12: var(--csstools-color-scheme--light) var(--success-500);
+  --badge-success-background-color: var(--csstools-light-dark-toggle--12, var(--success-100));
+  --csstools-light-dark-toggle--13: var(--csstools-color-scheme--light) var(--base-0);
+  --badge-danger-color: var(--csstools-light-dark-toggle--13, var(--danger-500));
+  --csstools-light-dark-toggle--14: var(--csstools-color-scheme--light) var(--danger-500);
+  --badge-danger-background-color: var(--csstools-light-dark-toggle--14, var(--danger-100));
+  --csstools-light-dark-toggle--15: var(--csstools-color-scheme--light) var(--base-950);
+  --badge-warning-color: var(--csstools-light-dark-toggle--15, var(--warning-500));
+  --csstools-light-dark-toggle--16: var(--csstools-color-scheme--light) var(--warning-500);
+  --badge-warning-background-color: var(--csstools-light-dark-toggle--16, var(--warning-100));
+}
+}
+
 /* Button */
 /* (Button defaults and primary button colors) */
 
@@ -509,26 +581,26 @@ xxl: 1920px
   --bt-font-size-lg: var(--text-md);
   --bt-font-weight: var(--semi-bold);
   --bt-color: var(--text-color);
-  --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--base-0);
-  --bt-color-hover: var(--csstools-light-dark-toggle--9, var(--text-color));
-  --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--base-800);
-  --bt-background-color: var(--csstools-light-dark-toggle--10, var(--base-0));
-  --csstools-light-dark-toggle--11: var(--csstools-color-scheme--light) var(--base-900);
-  --bt-background-color-hover: var(--csstools-light-dark-toggle--11, var(--base-50));
+  --csstools-light-dark-toggle--17: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-color-hover: var(--csstools-light-dark-toggle--17, var(--text-color));
+  --csstools-light-dark-toggle--18: var(--csstools-color-scheme--light) var(--base-800);
+  --bt-background-color: var(--csstools-light-dark-toggle--18, var(--base-0));
+  --csstools-light-dark-toggle--19: var(--csstools-color-scheme--light) var(--base-900);
+  --bt-background-color-hover: var(--csstools-light-dark-toggle--19, var(--base-50));
   --bt-border-color: var(--theme-border-color);
   --bt-border-width: var(--border-sm);
   --bt-border-radius: var(--radius-lg);
   --bt-border-radius-lg: var(--radius-xl);
 
-  --csstools-light-dark-toggle--12: var(--csstools-color-scheme--light) var(--base-0);
+  --csstools-light-dark-toggle--20: var(--csstools-color-scheme--light) var(--base-0);
 
-  --bt-outline-color-hover: var(--csstools-light-dark-toggle--12, var(--base-950));
-  --csstools-light-dark-toggle--13: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.1);
-  --bt-outline-background-color-hover: var(--csstools-light-dark-toggle--13, rgb(0 0 0 / 0.1));
-  --csstools-light-dark-toggle--14: var(--csstools-color-scheme--light) var(--base-0);
-  --bt-outline-border-color: var(--csstools-light-dark-toggle--14, var(--base-950));
-  --csstools-light-dark-toggle--15: var(--csstools-color-scheme--light) var(--base-0);
-  --bt-outline-border-color-hover: var(--csstools-light-dark-toggle--15, var(--base-950));
+  --bt-outline-color-hover: var(--csstools-light-dark-toggle--20, var(--base-950));
+  --csstools-light-dark-toggle--21: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.1);
+  --bt-outline-background-color-hover: var(--csstools-light-dark-toggle--21, rgb(0 0 0 / 0.1));
+  --csstools-light-dark-toggle--22: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color: var(--csstools-light-dark-toggle--22, var(--base-950));
+  --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color-hover: var(--csstools-light-dark-toggle--23, var(--base-950));
 
   --bt-primary-color: var(--base-0);
   --bt-primary-color-hover: var(--base-0);
@@ -566,22 +638,22 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--base-0);
-  --bt-color-hover: var(--csstools-light-dark-toggle--9, var(--text-color));
-  --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--base-800);
-  --bt-background-color: var(--csstools-light-dark-toggle--10, var(--base-0));
-  --csstools-light-dark-toggle--11: var(--csstools-color-scheme--light) var(--base-900);
-  --bt-background-color-hover: var(--csstools-light-dark-toggle--11, var(--base-50));
+  --csstools-light-dark-toggle--17: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-color-hover: var(--csstools-light-dark-toggle--17, var(--text-color));
+  --csstools-light-dark-toggle--18: var(--csstools-color-scheme--light) var(--base-800);
+  --bt-background-color: var(--csstools-light-dark-toggle--18, var(--base-0));
+  --csstools-light-dark-toggle--19: var(--csstools-color-scheme--light) var(--base-900);
+  --bt-background-color-hover: var(--csstools-light-dark-toggle--19, var(--base-50));
 
-  --csstools-light-dark-toggle--12: var(--csstools-color-scheme--light) var(--base-0);
+  --csstools-light-dark-toggle--20: var(--csstools-color-scheme--light) var(--base-0);
 
-  --bt-outline-color-hover: var(--csstools-light-dark-toggle--12, var(--base-950));
-  --csstools-light-dark-toggle--13: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.1);
-  --bt-outline-background-color-hover: var(--csstools-light-dark-toggle--13, rgb(0 0 0 / 0.1));
-  --csstools-light-dark-toggle--14: var(--csstools-color-scheme--light) var(--base-0);
-  --bt-outline-border-color: var(--csstools-light-dark-toggle--14, var(--base-950));
-  --csstools-light-dark-toggle--15: var(--csstools-color-scheme--light) var(--base-0);
-  --bt-outline-border-color-hover: var(--csstools-light-dark-toggle--15, var(--base-950));
+  --bt-outline-color-hover: var(--csstools-light-dark-toggle--20, var(--base-950));
+  --csstools-light-dark-toggle--21: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.1);
+  --bt-outline-background-color-hover: var(--csstools-light-dark-toggle--21, rgb(0 0 0 / 0.1));
+  --csstools-light-dark-toggle--22: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color: var(--csstools-light-dark-toggle--22, var(--base-950));
+  --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color-hover: var(--csstools-light-dark-toggle--23, var(--base-950));
 }
 }
 
@@ -592,8 +664,8 @@ xxl: 1920px
 :root {
   --avatar-color: var(--base-0);
   --avatar-background-color: var(--base-400);
-  --csstools-light-dark-toggle--16: var(--csstools-color-scheme--light) var(--base-500);
-  --avatar-border-color: var(--csstools-light-dark-toggle--16, var(--base-0));
+  --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-500);
+  --avatar-border-color: var(--csstools-light-dark-toggle--24, var(--base-0));
   --avatar-border-width: var(--border-sm);
   --avatar-radius: var(--radius-round);
   --avatar-status-dot-color-offline: var(--base-300);
@@ -608,8 +680,8 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--16: var(--csstools-color-scheme--light) var(--base-500);
-  --avatar-border-color: var(--csstools-light-dark-toggle--16, var(--base-0));
+  --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-500);
+  --avatar-border-color: var(--csstools-light-dark-toggle--24, var(--base-0));
 }
 }
 
@@ -618,20 +690,17 @@ xxl: 1920px
 :root {
   --card-spacing: var(--sm3);
   --card-color: var(--text-color);
-  --csstools-light-dark-toggle--17: var(--csstools-color-scheme--light) var(--base-500);
-  --card-secondary-text-color: var(--csstools-light-dark-toggle--17, var(--base-400));
-  --csstools-light-dark-toggle--18: var(--csstools-color-scheme--light) var(--base-900);
-  --card-bg-color: var(--csstools-light-dark-toggle--18, var(--base-100));
+  --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-500);
+  --card-secondary-text-color: var(--csstools-light-dark-toggle--25, var(--base-400));
+  --csstools-light-dark-toggle--26: var(--csstools-color-scheme--light) var(--base-900);
+  --card-bg-color: var(--csstools-light-dark-toggle--26, var(--base-100));
   --card-border-radius: var(--radius-lg);
   --card-border-color: var(--theme-border-color);
   --card-border-width: var(--border-sm);
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
-  --csstools-light-dark-toggle--19: var(--csstools-color-scheme--light) var(--base-600);
-  --card-badge-bg: var(--csstools-light-dark-toggle--19, var(--base-700)); /* Default badge background */
-  --card-badge-text-color: var(--base-0); /* Default badge text color */
-  --csstools-light-dark-toggle--20: var(--csstools-color-scheme--light) var(--base-900);
-  --card-loading-bg: var(--csstools-light-dark-toggle--20, var(--base-200));
+  --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-900);
+  --card-loading-bg: var(--csstools-light-dark-toggle--27, var(--base-200));
   /* Default media aspect ratio; the Card component sets it inline from its
      aspectRatio prop */
   --card-aspect-ratio: var(--ar-golden);
@@ -641,24 +710,18 @@ xxl: 1920px
 :root {
   --card-secondary-text-color: light-dark(var(--base-400), var(--base-500));
   --card-bg-color: light-dark(var(--base-100), var(--base-900));
-  --card-badge-bg: light-dark(
-    var(--base-700),
-    var(--base-600)
-  );
   --card-loading-bg: light-dark(var(--base-200), var(--base-900));
 }
 }
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--17: var(--csstools-color-scheme--light) var(--base-500);
-  --card-secondary-text-color: var(--csstools-light-dark-toggle--17, var(--base-400));
-  --csstools-light-dark-toggle--18: var(--csstools-color-scheme--light) var(--base-900);
-  --card-bg-color: var(--csstools-light-dark-toggle--18, var(--base-100));
-  --csstools-light-dark-toggle--19: var(--csstools-color-scheme--light) var(--base-600);
-  --card-badge-bg: var(--csstools-light-dark-toggle--19, var(--base-700));
-  --csstools-light-dark-toggle--20: var(--csstools-color-scheme--light) var(--base-900);
-  --card-loading-bg: var(--csstools-light-dark-toggle--20, var(--base-200));
+  --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-500);
+  --card-secondary-text-color: var(--csstools-light-dark-toggle--25, var(--base-400));
+  --csstools-light-dark-toggle--26: var(--csstools-color-scheme--light) var(--base-900);
+  --card-bg-color: var(--csstools-light-dark-toggle--26, var(--base-100));
+  --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-900);
+  --card-loading-bg: var(--csstools-light-dark-toggle--27, var(--base-200));
 }
 }
 
@@ -668,8 +731,8 @@ xxl: 1920px
   --toggle-width: 50px;
   --toggle-height: 28px;
   --toggle-border-width: 2px;
-  --csstools-light-dark-toggle--21: var(--csstools-color-scheme--light) var(--base-700);
-  --toggle-track-color: var(--csstools-light-dark-toggle--21, var(--base-300));
+  --csstools-light-dark-toggle--28: var(--csstools-color-scheme--light) var(--base-700);
+  --toggle-track-color: var(--csstools-light-dark-toggle--28, var(--base-300));
   --toggle-track-color-checked: var(--yes-400);
   --toggle-thumb-color: var(--body-background-color);
 }
@@ -682,25 +745,56 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--21: var(--csstools-color-scheme--light) var(--base-700);
-  --toggle-track-color: var(--csstools-light-dark-toggle--21, var(--base-300));
+  --csstools-light-dark-toggle--28: var(--csstools-color-scheme--light) var(--base-700);
+  --toggle-track-color: var(--csstools-light-dark-toggle--28, var(--base-300));
+}
+}
+
+/* FeatureGrid */
+
+:root {
+  --featureItem-icon-box-size: var(--lg3);
+  --featureItem-icon-size: var(--sm3);
+  --csstools-light-dark-toggle--29: var(--csstools-color-scheme--light) var(--primary-300);
+  --featureItem-icon-color: var(--csstools-light-dark-toggle--29, var(--primary-600));
+  --csstools-light-dark-toggle--30: var(--csstools-color-scheme--light) var(--primary-900);
+  --featureItem-icon-background-color: var(--csstools-light-dark-toggle--30, var(--primary-100));
+  --featureItem-icon-border-radius: var(--radius-lg);
+}
+
+@supports (color: light-dark(red, red)){
+:root {
+  --featureItem-icon-color: light-dark(var(--primary-600), var(--primary-300));
+  --featureItem-icon-background-color: light-dark(
+    var(--primary-100),
+    var(--primary-900)
+  );
+}
+}
+  @supports not (color: light-dark(tan, tan)){
+
+:root *{
+  --csstools-light-dark-toggle--29: var(--csstools-color-scheme--light) var(--primary-300);
+  --featureItem-icon-color: var(--csstools-light-dark-toggle--29, var(--primary-600));
+  --csstools-light-dark-toggle--30: var(--csstools-color-scheme--light) var(--primary-900);
+  --featureItem-icon-background-color: var(--csstools-light-dark-toggle--30, var(--primary-100));
 }
 }
 
 /* Footer */
 
 :root {
-  --csstools-light-dark-toggle--22: var(--csstools-color-scheme--light) var(--base-950);
-  --footer-background-color: var(--csstools-light-dark-toggle--22, var(--primary-600));
-  --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-text-color: var(--csstools-light-dark-toggle--23, var(--base-0));
+  --csstools-light-dark-toggle--31: var(--csstools-color-scheme--light) var(--base-950);
+  --footer-background-color: var(--csstools-light-dark-toggle--31, var(--primary-600));
+  --csstools-light-dark-toggle--32: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-text-color: var(--csstools-light-dark-toggle--32, var(--base-0));
   --footer-border-width: var(--border-md);
-  --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-700);
-  --footer-border-color: var(--csstools-light-dark-toggle--24, transparent);
-  --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-link-color: var(--csstools-light-dark-toggle--25, var(--base-0));
-  --csstools-light-dark-toggle--26: var(--csstools-color-scheme--light) var(--base-0);
-  --footer-link-color-hover: var(--csstools-light-dark-toggle--26, var(--primary-200));
+  --csstools-light-dark-toggle--33: var(--csstools-color-scheme--light) var(--base-700);
+  --footer-border-color: var(--csstools-light-dark-toggle--33, transparent);
+  --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-link-color: var(--csstools-light-dark-toggle--34, var(--base-0));
+  --csstools-light-dark-toggle--35: var(--csstools-color-scheme--light) var(--base-0);
+  --footer-link-color-hover: var(--csstools-light-dark-toggle--35, var(--primary-200));
 }
 
 @supports (color: light-dark(red, red)){
@@ -715,16 +809,16 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--22: var(--csstools-color-scheme--light) var(--base-950);
-  --footer-background-color: var(--csstools-light-dark-toggle--22, var(--primary-600));
-  --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-text-color: var(--csstools-light-dark-toggle--23, var(--base-0));
-  --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-700);
-  --footer-border-color: var(--csstools-light-dark-toggle--24, transparent);
-  --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-link-color: var(--csstools-light-dark-toggle--25, var(--base-0));
-  --csstools-light-dark-toggle--26: var(--csstools-color-scheme--light) var(--base-0);
-  --footer-link-color-hover: var(--csstools-light-dark-toggle--26, var(--primary-200));
+  --csstools-light-dark-toggle--31: var(--csstools-color-scheme--light) var(--base-950);
+  --footer-background-color: var(--csstools-light-dark-toggle--31, var(--primary-600));
+  --csstools-light-dark-toggle--32: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-text-color: var(--csstools-light-dark-toggle--32, var(--base-0));
+  --csstools-light-dark-toggle--33: var(--csstools-color-scheme--light) var(--base-700);
+  --footer-border-color: var(--csstools-light-dark-toggle--33, transparent);
+  --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-link-color: var(--csstools-light-dark-toggle--34, var(--base-0));
+  --csstools-light-dark-toggle--35: var(--csstools-color-scheme--light) var(--base-0);
+  --footer-link-color-hover: var(--csstools-light-dark-toggle--35, var(--primary-200));
 }
 }
 
@@ -743,8 +837,8 @@ xxl: 1920px
   }
 
 :root {
-  --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-950);
-  --header-background-color: var(--csstools-light-dark-toggle--27, var(--base-0));
+  --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--base-950);
+  --header-background-color: var(--csstools-light-dark-toggle--36, var(--base-0));
 
   /* The mobile menu is an always-dark surface by design, so these are raw
      palette values on purpose; override them to retheme the menu. */
@@ -763,8 +857,8 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-950);
-  --header-background-color: var(--csstools-light-dark-toggle--27, var(--base-0));
+  --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--base-950);
+  --header-background-color: var(--csstools-light-dark-toggle--36, var(--base-0));
 }
 }
 
@@ -783,12 +877,12 @@ xxl: 1920px
 
 :root {
   --notice-spacing: var(--sm1);
-  --csstools-light-dark-toggle--28: var(--csstools-color-scheme--light) var(--base-0);
-  --notice-text-color: var(--csstools-light-dark-toggle--28, var(--base-950));
-  --csstools-light-dark-toggle--29: var(--csstools-color-scheme--light) var(--base-800);
-  --notice-background-color: var(--csstools-light-dark-toggle--29, var(--base-50));
-  --csstools-light-dark-toggle--30: var(--csstools-color-scheme--light) var(--base-500);
-  --notice-border-color: var(--csstools-light-dark-toggle--30, var(--base-200));
+  --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--base-0);
+  --notice-text-color: var(--csstools-light-dark-toggle--37, var(--base-950));
+  --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-800);
+  --notice-background-color: var(--csstools-light-dark-toggle--38, var(--base-50));
+  --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) var(--base-500);
+  --notice-border-color: var(--csstools-light-dark-toggle--39, var(--base-200));
   --notice-border-width: var(--border-sm);
   --notice-border-radius: var(--radius-lg);
 }
@@ -803,12 +897,12 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--28: var(--csstools-color-scheme--light) var(--base-0);
-  --notice-text-color: var(--csstools-light-dark-toggle--28, var(--base-950));
-  --csstools-light-dark-toggle--29: var(--csstools-color-scheme--light) var(--base-800);
-  --notice-background-color: var(--csstools-light-dark-toggle--29, var(--base-50));
-  --csstools-light-dark-toggle--30: var(--csstools-color-scheme--light) var(--base-500);
-  --notice-border-color: var(--csstools-light-dark-toggle--30, var(--base-200));
+  --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--base-0);
+  --notice-text-color: var(--csstools-light-dark-toggle--37, var(--base-950));
+  --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-800);
+  --notice-background-color: var(--csstools-light-dark-toggle--38, var(--base-50));
+  --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) var(--base-500);
+  --notice-border-color: var(--csstools-light-dark-toggle--39, var(--base-200));
 }
 }
 
@@ -823,17 +917,63 @@ xxl: 1920px
   );
 }
 
+/* Section */
+
+:root {
+  --section-spacing: var(--xl3);
+  --section-header-spacing: var(--lg3);
+  --section-wide-width: 1080px;
+  --csstools-light-dark-toggle--40: var(--csstools-color-scheme--light) var(--primary-400);
+  --section-eyebrow-color: var(--csstools-light-dark-toggle--40, var(--primary-600));
+  --csstools-light-dark-toggle--41: var(--csstools-color-scheme--light) var(--base-400);
+  --section-lede-color: var(--csstools-light-dark-toggle--41, var(--base-500));
+  --csstools-light-dark-toggle--42: var(--csstools-color-scheme--light) var(--base-900);
+  --section-filled-background-color: var(--csstools-light-dark-toggle--42, var(--base-50));
+  --csstools-light-dark-toggle--43: var(--csstools-color-scheme--light) var(--primary-900);
+  --section-primary-background-color: var(--csstools-light-dark-toggle--43, var(--primary-600));
+  --section-primary-text-color: var(--base-0);
+  --section-primary-link-color: var(--primary-100);
+  --section-primary-link-color-hover: var(--base-0);
+  --section-primary-eyebrow-color: var(--primary-200);
+  --section-primary-lede-color: var(--primary-100);
+}
+
+@supports (color: light-dark(red, red)){
+:root {
+  --section-eyebrow-color: light-dark(var(--primary-600), var(--primary-400));
+  --section-lede-color: light-dark(var(--base-500), var(--base-400));
+  --section-filled-background-color: light-dark(var(--base-50), var(--base-900));
+  --section-primary-background-color: light-dark(
+    var(--primary-600),
+    var(--primary-900)
+  );
+}
+}
+  @supports not (color: light-dark(tan, tan)){
+
+:root *{
+  --csstools-light-dark-toggle--40: var(--csstools-color-scheme--light) var(--primary-400);
+  --section-eyebrow-color: var(--csstools-light-dark-toggle--40, var(--primary-600));
+  --csstools-light-dark-toggle--41: var(--csstools-color-scheme--light) var(--base-400);
+  --section-lede-color: var(--csstools-light-dark-toggle--41, var(--base-500));
+  --csstools-light-dark-toggle--42: var(--csstools-color-scheme--light) var(--base-900);
+  --section-filled-background-color: var(--csstools-light-dark-toggle--42, var(--base-50));
+  --csstools-light-dark-toggle--43: var(--csstools-color-scheme--light) var(--primary-900);
+  --section-primary-background-color: var(--csstools-light-dark-toggle--43, var(--primary-600));
+}
+}
+
 /* Tags */
 
 :root {
   --tags-padding: var(--xs2);
   --tags-font-size: var(--text-sm);
-  --csstools-light-dark-toggle--31: var(--csstools-color-scheme--light) var(--base-400);
-  --tags-color: var(--csstools-light-dark-toggle--31, var(--base-500));
-  --csstools-light-dark-toggle--32: var(--csstools-color-scheme--light) var(--base-800);
-  --tags-background-color: var(--csstools-light-dark-toggle--32, var(--base-100));
-  --csstools-light-dark-toggle--33: var(--csstools-color-scheme--light) var(--base-950);
-  --tags-background-color-hover: var(--csstools-light-dark-toggle--33, var(--base-200));
+  --csstools-light-dark-toggle--44: var(--csstools-color-scheme--light) var(--base-400);
+  --tags-color: var(--csstools-light-dark-toggle--44, var(--base-500));
+  --csstools-light-dark-toggle--45: var(--csstools-color-scheme--light) var(--base-800);
+  --tags-background-color: var(--csstools-light-dark-toggle--45, var(--base-100));
+  --csstools-light-dark-toggle--46: var(--csstools-color-scheme--light) var(--base-950);
+  --tags-background-color-hover: var(--csstools-light-dark-toggle--46, var(--base-200));
   --tags-radius: var(--radius-md);
 }
 
@@ -847,12 +987,12 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--31: var(--csstools-color-scheme--light) var(--base-400);
-  --tags-color: var(--csstools-light-dark-toggle--31, var(--base-500));
-  --csstools-light-dark-toggle--32: var(--csstools-color-scheme--light) var(--base-800);
-  --tags-background-color: var(--csstools-light-dark-toggle--32, var(--base-100));
-  --csstools-light-dark-toggle--33: var(--csstools-color-scheme--light) var(--base-950);
-  --tags-background-color-hover: var(--csstools-light-dark-toggle--33, var(--base-200));
+  --csstools-light-dark-toggle--44: var(--csstools-color-scheme--light) var(--base-400);
+  --tags-color: var(--csstools-light-dark-toggle--44, var(--base-500));
+  --csstools-light-dark-toggle--45: var(--csstools-color-scheme--light) var(--base-800);
+  --tags-background-color: var(--csstools-light-dark-toggle--45, var(--base-100));
+  --csstools-light-dark-toggle--46: var(--csstools-color-scheme--light) var(--base-950);
+  --tags-background-color-hover: var(--csstools-light-dark-toggle--46, var(--base-200));
 }
 }
 
@@ -869,8 +1009,8 @@ xxl: 1920px
 /* EXTERNAL PLUGINS */
 
 :root {
-  --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--34, var(--base-950));
+  --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-900);
+  --astro-code-background-color: var(--csstools-light-dark-toggle--47, var(--base-950));
 }
 
 @supports (color: light-dark(red, red)){
@@ -881,8 +1021,8 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--34, var(--base-950));
+  --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-900);
+  --astro-code-background-color: var(--csstools-light-dark-toggle--47, var(--base-950));
 }
 }
 }
@@ -1013,8 +1153,8 @@ address {
   max-width: 100%;
   padding: var(--sm1) var(--sm3);
   font-style: normal;
-  --csstools-light-dark-toggle--35: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--35, var(--base-50));
+  --csstools-light-dark-toggle--48: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--48, var(--base-50));
   border: var(--xs2) solid transparent;
   border-image: 8
     repeating-linear-gradient(
@@ -1072,8 +1212,8 @@ blockquote {
   margin-bottom: var(--prose-spacing);
   padding: var(--sm1) var(--sm3) var(--sm1) var(--md1) ;
   font-style: italic;
-  --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--primary-900);
-  background-color: var(--csstools-light-dark-toggle--38, var(--primary-50));
+  --csstools-light-dark-toggle--51: var(--csstools-color-scheme--light) var(--primary-900);
+  background-color: var(--csstools-light-dark-toggle--51, var(--primary-50));
   border-radius: var(--radius-md);
 }
 
@@ -1113,8 +1253,8 @@ code, var, kbd {
   font-family: var(--mono);
   font-size: 0.9em;
   font-style: normal;
-  --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--base-300);
-  color: var(--csstools-light-dark-toggle--36, var(--base-500));
+  --csstools-light-dark-toggle--49: var(--csstools-color-scheme--light) var(--base-300);
+  color: var(--csstools-light-dark-toggle--49, var(--base-500));
 }
 
 @supports (color: light-dark(red, red)){
@@ -1308,8 +1448,8 @@ q {
 }
 
 s {
-  --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--base-50);
-  text-decoration-color: var(--csstools-light-dark-toggle--37, var(--base-950));
+  --csstools-light-dark-toggle--50: var(--csstools-color-scheme--light) var(--base-50);
+  text-decoration-color: var(--csstools-light-dark-toggle--50, var(--base-950));
   text-decoration-style: wavy;
 }
 
@@ -1877,8 +2017,8 @@ select {
 }
 
   select:disabled {
-    --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--39, hsl(from var(--text-color) h s 70%));
+    --csstools-light-dark-toggle--52: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--52, hsl(from var(--text-color) h s 70%));
     cursor: not-allowed;
     color: var(--disabled-color);
     background: linear-gradient(
@@ -1899,8 +2039,8 @@ select:disabled {
     @supports not (color: light-dark(tan, tan)){
 
   select:disabled *{
-    --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--39, hsl(from var(--text-color) h s 70%));
+    --csstools-light-dark-toggle--52: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--52, hsl(from var(--text-color) h s 70%));
 }
 }
 
@@ -1933,10 +2073,10 @@ dialog {
   min-width: var(--tera1);
   max-width: var(--tera3);
   padding: var(--lg1) var(--md1);
-  --csstools-light-dark-toggle--40: var(--csstools-color-scheme--light) var(--base-800);
-  border: 1px solid var(--csstools-light-dark-toggle--40, var(--base-200));
-  --csstools-light-dark-toggle--41: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--41, var(--base-50));
+  --csstools-light-dark-toggle--53: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--53, var(--base-200));
+  --csstools-light-dark-toggle--54: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--54, var(--base-50));
   border-radius: var(--radius-lg);
 }
 
@@ -1969,10 +2109,10 @@ dialog {
 
 details {
   padding: var(--sm1) var(--sm1);
-  --csstools-light-dark-toggle--42: var(--csstools-color-scheme--light) var(--base-800);
-  border: 1px solid var(--csstools-light-dark-toggle--42, var(--base-200));
-  --csstools-light-dark-toggle--43: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--43, var(--base-50));
+  --csstools-light-dark-toggle--55: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--55, var(--base-200));
+  --csstools-light-dark-toggle--56: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--56, var(--base-50));
   border-radius: var(--radius-lg);
   cursor: pointer;
 }
@@ -2552,8 +2692,8 @@ details {
       margin-bottom: 0.5em;
     }
       :is(:is(ul,ol) li)::marker {
-        --csstools-light-dark-toggle--44: var(--csstools-color-scheme--light) var(--base-600);
-        color: var(--csstools-light-dark-toggle--44, var(--base-300));
+        --csstools-light-dark-toggle--57: var(--csstools-color-scheme--light) var(--base-600);
+        color: var(--csstools-light-dark-toggle--57, var(--base-300));
       }
 
 @supports (color: light-dark(red, red)){
@@ -2623,6 +2763,44 @@ details {
 }
 
 /* Atoms */
+
+@layer atoms{
+
+/* BADGE */
+
+.badge {
+  display: inline-block;
+  padding: var(--xs1) var(--xs2);
+  font-size: var(--badge-font-size);
+  font-weight: var(--semi-bold);
+  line-height: var(--leading-sm);
+  color: var(--badge-color);
+  background: var(--badge-background-color);
+  border-radius: var(--badge-border-radius);
+
+  /* Variants only swap the local custom properties (see agents/components.md) */
+}
+
+  .badge.badge-primary {
+    --badge-color: var(--badge-primary-color);
+    --badge-background-color: var(--badge-primary-background-color);
+  }
+
+  .badge.badge-success {
+    --badge-color: var(--badge-success-color);
+    --badge-background-color: var(--badge-success-background-color);
+  }
+
+  .badge.badge-danger {
+    --badge-color: var(--badge-danger-color);
+    --badge-background-color: var(--badge-danger-background-color);
+  }
+
+  .badge.badge-warning {
+    --badge-color: var(--badge-warning-color);
+    --badge-background-color: var(--badge-warning-background-color);
+  }
+}
 
 @layer atoms{
 
@@ -2988,14 +3166,8 @@ details {
   transform: translate(var(--xs2), calc(var(--xs2) * -1));
 }
 
-.card_badge {
-  padding: var(--xs1) var(--xs2);
-  font-size: var(--text-sm);
-  font-weight: var(--semi-bold);
-  color: var(--card-badge-text-color);
-  background: var(--card-badge-bg);
-  border-radius: var(--radius-md);
-}
+/* Badge visuals come from the .badge atom (atom.badge.css); the Card
+   component renders class="badge card_badge" on each badge. */
 
 .card_media {
   margin-bottom: var(--card-spacing);
@@ -3058,6 +3230,44 @@ details {
     opacity: 1;
   }
 }
+}
+
+@layer components{
+
+/* FEATURE GRID */
+
+.featureGrid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.featureItem_icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--featureItem-icon-box-size);
+  height: var(--featureItem-icon-box-size);
+  margin-bottom: var(--sm1);
+  color: var(--featureItem-icon-color);
+  background-color: var(--featureItem-icon-background-color);
+  border-radius: var(--featureItem-icon-border-radius);
+}
+
+  .featureItem_icon svg {
+    width: var(--featureItem-icon-size);
+    height: var(--featureItem-icon-size);
+  }
+
+.featureItem_title {
+  margin-bottom: var(--xs2);
+  font-size: var(--text-lg);
+  font-weight: var(--semi-bold);
+}
+  .featureItem_text p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
+  }
 }
 
 @layer components{
@@ -3294,6 +3504,62 @@ details {
 .header_menuExtra {
   display: flex;
   margin-bottom: var(--sm3);
+}
+}
+
+@layer components{
+
+/* SECTION */
+
+.section {
+  padding-block: var(--section-spacing);
+}
+
+/* Variants only swap the local custom properties (see agents/components.md) */
+
+.section-filled {
+  background-color: var(--section-filled-background-color);
+}
+
+.section-primary {
+  background-color: var(--section-primary-background-color);
+  color: var(--section-primary-text-color);
+  /* Children (links, buttons, eyebrow…) follow the inverted surface */
+  --text-color: var(--section-primary-text-color);
+  --link-color: var(--section-primary-link-color);
+  --link-color-hover: var(--section-primary-link-color-hover);
+  --section-eyebrow-color: var(--section-primary-eyebrow-color);
+  --section-lede-color: var(--section-primary-lede-color);
+}
+
+/* Width presets: .section composes .wrap, so widening is just a matter of
+   overriding the wrap column for this section's children. */
+.section-wide {
+  --wrap-width: minmax(200px, var(--section-wide-width));
+}
+
+.section_header {
+  margin-bottom: var(--section-header-spacing);
+  text-align: center;
+}
+
+.section_eyebrow {
+  margin-bottom: var(--xs2);
+  font-size: var(--text-sm);
+  font-weight: var(--semi-bold);
+  letter-spacing: var(--tracking-lg);
+  text-transform: uppercase;
+  color: var(--section-eyebrow-color);
+}
+
+.section_title {
+  margin-bottom: var(--xs3);
+  font-size: var(--display-md);
+}
+
+.section_lede {
+  font-size: var(--text-lg);
+  color: var(--section-lede-color);
 }
 }
 

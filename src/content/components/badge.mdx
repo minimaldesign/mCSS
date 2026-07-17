@@ -1,0 +1,88 @@
+---
+title: "Badge"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "atom"
+---
+
+<section class="prose">
+
+The `.badge` atom is a small label for statuses, categories, and "new" markers: in [cards](/components/card), pricing tiers, nav items, article lists… It is pure CSS; there is no Astro component because a `<span>` with a class is already the whole API.
+
+<p>
+  <span class="badge">default</span>&ensp;
+  <span class="badge badge-primary">primary</span>&ensp;
+  <span class="badge badge-success">success</span>&ensp;
+  <span class="badge badge-danger">danger</span>&ensp;
+  <span class="badge badge-warning">warning</span>
+</p>
+
+### What to copy
+
+<div class="docs_oversizedTable">
+
+| File                               | What it is                     | Source      |
+| ---------------------------------- | ------------------------------ | ----------- |
+| `atom.badge.css`                   | All badge styles               | [Github][1] |
+| `--badge-*` block in default theme | Theme tokens (see table below) | [Github][2] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/atom.badge.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<span class="badge">default</span>
+<span class="badge badge-success">shipped</span>
+```
+
+### Available modifiers
+
+<div class="docs_oversizedTable">
+
+| Class                        | Description                       |
+| ---------------------------- | --------------------------------- |
+| `.badge`                     | Default style. Neutral colors.    |
+| `.badge` + `.badge-primary`  | Primary colors.                   |
+| `.badge` + `.badge-success`  | Positive feedback. Greens.        |
+| `.badge` + `.badge-danger`   | Negative feedback. Reds.          |
+| `.badge` + `.badge-warning`  | Warning. Oranges.                 |
+
+</div>
+
+One-off colors work like every other variant in mCSS: override the local custom property.
+
+```html
+<span class="badge" style="--badge-background-color: rebeccapurple">custom</span>
+```
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+<div class="docs_oversizedTable">
+
+| Property                             | Description                    |
+| ------------------------------------ | ------------------------------ |
+| `--badge-font-size`                  | Font size.                     |
+| `--badge-border-radius`              | Border radius.                 |
+| `--badge-color`                      | Default text color.            |
+| `--badge-background-color`           | Default background color.      |
+| `--badge-primary-color`              | Primary variant text color.    |
+| `--badge-primary-background-color`   | Primary variant background.    |
+| `--badge-success-color`              | Success variant text color.    |
+| `--badge-success-background-color`   | Success variant background.    |
+| `--badge-danger-color`               | Danger variant text color.     |
+| `--badge-danger-background-color`    | Danger variant background.     |
+| `--badge-warning-color`              | Warning variant text color.    |
+| `--badge-warning-background-color`   | Warning variant background.    |
+
+</div>
+
+</section>

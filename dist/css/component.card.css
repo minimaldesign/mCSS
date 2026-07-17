@@ -90,14 +90,8 @@ xxl: 1920px
   transform: translate(var(--xs2), calc(var(--xs2) * -1));
 }
 
-.card_badge {
-  padding: var(--xs1) var(--xs2);
-  font-size: var(--text-sm);
-  font-weight: var(--semi-bold);
-  color: var(--card-badge-text-color);
-  background: var(--card-badge-bg);
-  border-radius: var(--radius-md);
-}
+/* Badge visuals come from the .badge atom (atom.badge.css); the Card
+   component renders class="badge card_badge" on each badge. */
 
 .card_media {
   margin-bottom: var(--card-spacing);

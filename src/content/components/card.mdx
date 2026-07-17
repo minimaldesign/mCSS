@@ -78,9 +78,9 @@ The following custom properties are available in the [default theme](/docs/theme
 | `--card-border-width`         | Border width.                                |
 | `--card-shadow`               | Default drop shadow or the "raised" variant. |
 | `--card-shadow-hover`         | Hover state drop shadow.                     |
-| `--card-badge-bg`             | Default badge background.                    |
-| `--card-badge-text-color`     | Badge text color.                            |
 | `--card-loading-bg`           | Loading skeleton background color.           |
+
+Badge colors come from the [badge atom](/components/badge)'s `--badge-*` tokens.
 
 </div>
 
@@ -129,7 +129,7 @@ It is recommended to use the [button atom](/components/button) in the `actions` 
 
 ### Badge Styling
 
-The `badges` prop takes an array of objects. Each object consists of a `label` property which defines the badge's text, and an optional `color` property that defines the badge's background color. If no `color` is provided, it defaults to `--card-badge-bg` defined in the [default theme](/docs/themes).
+The `badges` prop takes an array of objects. Each object consists of a `label` property which defines the badge's text, and an optional `color` property that defines the badge's background color. If no `color` is provided, it defaults to `--badge-background-color` from the [badge atom](/components/badge).
 
 {/* prettier-ignore */}
 <div class="grid" col="1" col-md="3">
@@ -360,14 +360,14 @@ import Card from '../../components/Card.astro';
   <a
     class="card_link"
     href="/product/123"
-    aria-label="Product Name (actions in footer are separate)"
+    aria-label="Product Name"
   ></a>
   <header class="card_header">
     <div class="card_header_text">
       <h2>Product Name</h2>
       <p>Category</p>
     </div>
-    <div class="card_badges"><span class="card_badge">new</span></div>
+    <div class="card_badges"><span class="badge card_badge">new</span></div>
   </header>
   <figure class="card_media">
     <img

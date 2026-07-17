@@ -1,15 +1,18 @@
 /*! mCSS v0.9.0 | MIT | https://mcss.dev */
 @layer settings, base, elements, global, atoms, components, pages, helpers;
+@import url(./atom.badge.css) layer(atoms);
 @import url(./atom.button.css) layer(atoms);
 @import url(./atom.toggle.css) layer(atoms);
 @import url(./base.reset.css) layer(base);
 @import url(./component.avatar.css) layer(components);
 @import url(./component.card.css) layer(components);
+@import url(./component.featureGrid.css) layer(components);
 @import url(./component.footer.css) layer(components);
 @import url(./component.header.css) layer(components);
 @import url(./component.hero.css) layer(components);
 @import url(./component.notice.css) layer(components);
 @import url(./component.readProgressBar.css) layer(components);
+@import url(./component.section.css) layer(components);
 @import url(./component.socialMedia.css) layer(components);
 @import url(./component.tags.css) layer(components);
 @import url(./component.toc.css) layer(components);

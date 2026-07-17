@@ -85,7 +85,7 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
         {badges.length > 0 && (
           <div class="card_badges" data-testid="card-badges">
             {badges.map((badge, index) => (
-              <span class="card_badge" style={badge.color ? `background: ${badgeColor(badge.color)};` : ''} data-testid={`card-badge-${index}`}>
+              <span class="badge card_badge" style={badge.color ? `--badge-background-color: ${badgeColor(badge.color)};` : ''} data-testid={`card-badge-${index}`}>
                 {badge.label}
               </span>
             ))}

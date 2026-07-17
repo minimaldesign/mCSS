@@ -98,6 +98,36 @@
 
 /* ATOMS */
 
+/* Badge */
+
+:root {
+  --badge-font-size: var(--text-sm);
+  --badge-border-radius: var(--radius-md);
+  --badge-color: var(--base-0);
+  --badge-background-color: light-dark(var(--base-700), var(--base-600));
+
+  --badge-primary-color: var(--base-0);
+  --badge-primary-background-color: light-dark(
+    var(--primary-600),
+    var(--primary-500)
+  );
+  --badge-success-color: light-dark(var(--success-500), var(--base-0));
+  --badge-success-background-color: light-dark(
+    var(--success-100),
+    var(--success-500)
+  );
+  --badge-danger-color: light-dark(var(--danger-500), var(--base-0));
+  --badge-danger-background-color: light-dark(
+    var(--danger-100),
+    var(--danger-500)
+  );
+  --badge-warning-color: light-dark(var(--warning-500), var(--base-950));
+  --badge-warning-background-color: light-dark(
+    var(--warning-100),
+    var(--warning-500)
+  );
+}
+
 /* Button */
 /* (Button defaults and primary button colors) */
 
@@ -159,11 +189,6 @@
   --card-border-width: var(--border-sm);
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
-  --card-badge-bg: light-dark(
-    var(--base-700),
-    var(--base-600)
-  ); /* Default badge background */
-  --card-badge-text-color: var(--base-0); /* Default badge text color */
   --card-loading-bg: light-dark(var(--base-200), var(--base-900));
   /* Default media aspect ratio; the Card component sets it inline from its
      aspectRatio prop */
@@ -179,6 +204,19 @@
   --toggle-track-color: light-dark(var(--base-300), var(--base-700));
   --toggle-track-color-checked: var(--yes-400);
   --toggle-thumb-color: var(--body-background-color);
+}
+
+/* FeatureGrid */
+
+:root {
+  --featureItem-icon-box-size: var(--lg3);
+  --featureItem-icon-size: var(--sm3);
+  --featureItem-icon-color: light-dark(var(--primary-600), var(--primary-300));
+  --featureItem-icon-background-color: light-dark(
+    var(--primary-100),
+    var(--primary-900)
+  );
+  --featureItem-icon-border-radius: var(--radius-lg);
 }
 
 /* Footer */
@@ -243,6 +281,26 @@
     var(--primary-600) 0%,
     var(--primary-400) 100%
   );
+}
+
+/* Section */
+
+:root {
+  --section-spacing: var(--xl3);
+  --section-header-spacing: var(--lg3);
+  --section-wide-width: 1080px;
+  --section-eyebrow-color: light-dark(var(--primary-600), var(--primary-400));
+  --section-lede-color: light-dark(var(--base-500), var(--base-400));
+  --section-filled-background-color: light-dark(var(--base-50), var(--base-900));
+  --section-primary-background-color: light-dark(
+    var(--primary-600),
+    var(--primary-900)
+  );
+  --section-primary-text-color: var(--base-0);
+  --section-primary-link-color: var(--primary-100);
+  --section-primary-link-color-hover: var(--base-0);
+  --section-primary-eyebrow-color: var(--primary-200);
+  --section-primary-lede-color: var(--primary-100);
 }
 
 /* Tags */
