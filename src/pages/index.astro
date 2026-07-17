@@ -1,37 +1,377 @@
 ---
-import { Image } from 'astro:assets';
+import { Code } from 'astro:components';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-const title = 'The library for CSS lovers | mCSS';
-const header = 'mCSS';
-import mcssImg from '../assets/ui/mcss-logo.svg';
-import waterfallImg from '../assets/images/illustration-waterfall.svg?raw';
+import Section from '../components/Section.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import FeatureItem from '../components/FeatureItem.astro';
+import Card from '../components/Card.astro';
+import PricingCard from '../components/PricingCard.astro';
+import Testimonial from '../components/Testimonial.astro';
+import Faq from '../components/Faq.astro';
+import FaqItem from '../components/FaqItem.astro';
+import Field from '../components/Field.astro';
+import Pagination from '../components/Pagination.astro';
+import CopyButton from '../components/_CopyButton.jsx';
+import BaselineBadge from '../components/_BaselineBadge.astro';
+
+import githubIcon from '../assets/icons/social-github.svg?raw';
+import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
+
+const title = 'mCSS: One class. Not forty.';
+const description =
+  'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
+
+const installSnippet = '<link rel="stylesheet" href="mcss.min.css">';
+
+// §5 diff panes, rendered with Shiki (github-dark) at build time.
+// Each list matches the overrides in page.home.css line for line.
+const themeDiffs = {
+  default: `/* settings.theme.default.css, as shipped */
+:root {
+  --heading-font: var(--display);
+  --text-color: light-dark(#23282e, #d6dbe1);
+  --card-bg-color: light-dark(#edeef1, #353c45);
+  --card-border-radius: 8px;
+  --card-shadow: var(--shadow-md);
+  --bt-primary-background-color: #0284c7;
+  --bt-primary-background-color-hover: #0ea5e9;
+  --bt-primary-border-color: #0284c7;
+  --bt-primary-border-color-hover: #0284c7;
+  --bt-border-radius: 8px;
+  --input-border-radius: 5px;
+  --link-color: light-dark(#0284c7, #38bdf8);
+}`,
+  wireframe: `/* wireframe: the entire diff */
+:root {
+  --heading-font: ui-rounded, "Arial Rounded MT Bold", Calibri, sans-serif;
+  --text-color: light-dark(#404040, #d4d4d4);
+  --card-bg-color: light-dark(#f5f5f5, #171717);
+  --card-border-radius: 0;
+  --card-shadow: none;
+  --bt-primary-background-color: #525252;
+  --bt-primary-background-color-hover: #737373;
+  --bt-primary-border-color: #525252;
+  --bt-primary-border-color-hover: #525252;
+  --bt-border-radius: 0;
+  --input-border-radius: 0;
+  --link-color: light-dark(#525252, #a3a3a3);
+}`,
+  sunset: `/* sunset: the entire diff */
+:root {
+  --heading-font: "Iowan Old Style", Georgia, serif;
+  --text-color: light-dark(#431407, #ffedd5);
+  --card-bg-color: light-dark(#fff7ed, #431407);
+  --card-border-radius: 16px;
+  --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
+  --bt-primary-background-color: #ea580c;
+  --bt-primary-background-color-hover: #f97316;
+  --bt-primary-border-color: #ea580c;
+  --bt-primary-border-color-hover: #ea580c;
+  --bt-border-radius: 1e5px;
+  --input-border-radius: 1e5px;
+  --link-color: light-dark(#c2410c, #fb923c);
+}`,
+};
 ---
 
-<BaseLayout title={title} header={header} bodyClass="home">
-  <div class="wrap">
-    <section class="wrap_content wrap_content-fullBleed home_hero">
-      <h1>The framework that makes the cascade work for you.</h1>
-      <!-- <Image src={waterfallImg} width="800" alt="Illustration of a waterfall" /> -->
-      <Fragment set:html={waterfallImg} />
-      <ul>
-        <li>Easy</li>
-        <li>Fast</li>
-        <li>Scalable</li>
-        <li>Elegant</li>
+<BaseLayout title={title} bodyClass="home" frontmatter={{ description }}>
+  {/* §1: Hero */}
+  <section class="homeHero" aria-labelledby="homeHero-title">
+    <div class="homeHero_inner">
+      <div class="homeHero_copy">
+        <h1 id="homeHero-title">One class. Not&nbsp;forty.</h1>
+        <p class="homeHero_subhead">mCSS is a modern CSS framework and component library for websites. Real CSS, real markup, zero build step. Built on what browsers can finally do.</p>
+        <p class="homeHero_actions">
+          <a class="bt bt-lg bt-primary" href="/docs/start">Get started</a>
+          <a class="bt bt-lg" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
+        </p>
+        <p class="homeHero_fineprint">MIT licensed&ensp;·&ensp;No dependencies&ensp;·&ensp;It’s just CSS</p>
+      </div>
+
+      {/* The code morph. The animated block is decorative for AT; the srOnly
+          line below carries the argument. */}
+      <div class="homeMorph">
+        <div class="homeMorph_canvas" aria-hidden="true">
+          <span class="homeMorph_canvasLabel">output</span>
+          <button type="button" class="bt bt-primary" tabindex="-1">Demo button</button>
+        </div>
+        <div class="homeMorph_connector" aria-hidden="true"></div>
+
+        <figure class="homeMorph_editor" aria-hidden="true">
+          <div class="homeMorph_chrome"><i></i><i></i><i></i></div>
+          {/* The invisible sizer keeps the box at the "before" height at every
+              width, so the collapse never shifts layout. Syntax spans fake
+              Shiki's github-dark (the real thing can't tokenize around the
+              animation spans). */}
+          <div class="homeMorph_frame">
+            <pre class="homeMorph_code"><code>&lt;<span class="homeMorph_tag">button</span> <span class="homeMorph_attr">class</span>=<span class="homeMorph_str">"</span><span class="homeMorph_after">bt bt-primary</span><span class="homeMorph_g homeMorph_g-1"><span class="homeMorph_gt">bg-primary-600</span> </span><span class="homeMorph_g homeMorph_g-2"><span class="homeMorph_gt">px-4</span> </span><span class="homeMorph_g homeMorph_g-3"><span class="homeMorph_gt">py-3</span> </span><span class="homeMorph_g homeMorph_g-4"><span class="homeMorph_gt">text-sm</span> </span><span class="homeMorph_g homeMorph_g-5"><span class="homeMorph_gt">font-semibold</span> </span><span class="homeMorph_g homeMorph_g-6"><span class="homeMorph_gt">text-white</span> </span><span class="homeMorph_g homeMorph_g-7"><span class="homeMorph_gt">rounded-md</span> </span><span class="homeMorph_g homeMorph_g-8"><span class="homeMorph_gt">transition</span> </span><span class="homeMorph_g homeMorph_g-9"><span class="homeMorph_gt">duration-200</span> </span><span class="homeMorph_g homeMorph_g-10"><span class="homeMorph_gt">hover:bg-primary-700</span> </span><span class="homeMorph_g homeMorph_g-11"><span class="homeMorph_gt">focus-visible:ring-2</span> </span><span class="homeMorph_g homeMorph_g-12"><span class="homeMorph_gt">focus-visible:ring-offset-2</span> </span><span class="homeMorph_g homeMorph_g-13"><span class="homeMorph_gt">active:scale-95</span></span><span class="homeMorph_str">"</span>&gt;
+  Demo button
+&lt;/<span class="homeMorph_tag">button</span>&gt;</code></pre>
+            <pre class="homeMorph_code homeMorph_sizer"><code>&lt;button class="bg-primary-600 px-4 py-3 text-sm font-semibold text-white rounded-md transition duration-200 hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-95"&gt;
+  Demo button
+&lt;/button&gt;</code></pre>
+          </div>
+          <p class="homeMorph_counter"><span class="homeMorph_count"></span> characters</p>
+        </figure>
+
+        {/* Reduced-motion: static before/after with the final numbers */}
+        <div class="homeMorph_static" aria-hidden="true">
+          <p class="homeMorph_staticArrow">↓</p>
+          <pre class="homeMorph_code homeMorph_code-after"><code>&lt;<span class="homeMorph_tag">button</span> <span class="homeMorph_attr">class</span>=<span class="homeMorph_str">"</span><span class="homeMorph_keep">bt bt-primary</span><span class="homeMorph_str">"</span>&gt;
+  Demo button
+&lt;/<span class="homeMorph_tag">button</span>&gt;</code></pre>
+          <p class="homeMorph_staticCount">219 → 54 characters</p>
+        </div>
+
+        <p class="a11y-srOnly">Two mCSS classes replace forty utility classes: the same rendered button, from markup you can read.</p>
+
+        <button type="button" class="homeMorph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
+      </div>
+    </div>
+  </section>
+
+  {/* §2: Proof strip: the install is one line */}
+  <Section class="homeProof" data-testid="home-proof">
+    <div class="homeProof_inner homeReveal">
+      <div class="homeProof_install">
+        <Code code={installSnippet} lang="html" theme="github-dark" />
+        <CopyButton client:visible code={installSnippet} />
+      </div>
+      <p class="homeProof_caption">
+        That’s the install. Download <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css"><code>dist/mcss.min.css</code></a> or copy the source files. Every modern browser understands them as-is: no compiler, no config, no <code>node_modules</code>.
+      </p>
+      <ul class="homeProof_facts">
+        <li>~21 KB min+gzip</li>
+        <li>0 dependencies</li>
+        <li><a href="/docs/start#browser-support">Baseline 2024</a></li>
       </ul>
-      <!-- <Image src={mcssImg} width="300" alt="mCSS Logo" /> -->
-    </section>
-    <section class="wrap_content prose">
-      <h2>Embrace CSS true power</h2>
-      <p>Discover a CSS framework that honors the essence of the language rather than attempting to “fix” it. <strong>mCSS</strong> empowers front-end developers to harness the full potential of CSS with ease, efficiency, and elegance.</p>
-      <h2>Simplify your workflow</h2>
-      <p>Say goodbye to tedious tasks and hello to efficiency! With <strong>mCSS</strong>, you can dive into your projects within minutes. Since it’s built on pure CSS, there’s no steep learning curve—just seamless integration into your existing workflow.</p>
-      <h2>Versatile for any project</h2>
-      <p>Whether you’re creating a quick static HTML mockup, enhancing a legacy PHP application, or building a component-based React app, <strong>mCSS</strong> is your go-to solution. Its flexibility allows you to adapt it for virtually any project that utilizes CSS.</p>
-      <h2>Perfect for teams of all sizes</h2>
-      <p><strong>mCSS</strong> features a modular architecture designed for scalability, making it ideal for both small teams and large collaborative projects. Enjoy the benefits of organized code and effortless teamwork as you bring your projects to life.</p>
-    </section>
-    <p class="home_cta"><a class="bt bt-lg bt-primary" href="/docs/start">Get started in 10 mn or less</a></p>
-  </div>
+    </div>
+  </Section>
+
+  {/* §3: Philosophy */}
+  <Section class="homePhilosophy" variant="filled" eyebrow="Philosophy" title="Made for humans who write CSS" lede="CSS isn’t broken, and you don’t need to be protected from it. mCSS takes care of the tedious parts (resets, tokens, a sane cascade) and gets out of the way.">
+    <FeatureGrid class="homePillars homeReveal" cols={3}>
+      <FeatureItem title="It’s actual CSS.">
+        <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <path d="M88 24 C74 24 70 32 70 43 L70 55 C70 64 64 69 57 70 C64 71 70 76 70 85 L70 97 C70 108 74 116 88 116" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" />
+          <path d="M132 24 C146 24 150 32 150 43 L150 55 C150 64 156 69 163 70 C156 71 150 76 150 85 L150 97 C150 108 146 116 132 116" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" />
+          <circle cx="110" cy="58" r="7" fill="#0369a1" />
+          <circle cx="110" cy="84" r="7" fill="#0369a1" />
+        </svg>
+        No pseudo-syntax, no new mental model. If you know CSS, you already know mCSS, and everything you learn here works everywhere, forever.
+      </FeatureItem>
+      <FeatureItem title="The cascade is a feature.">
+        <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <path d="M110 20 L152 42 L110 64 L68 42 Z" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M68 70 L110 92 L152 70" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M68 98 L110 120 L152 98" stroke="#bae6fd" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Native <code>@layer</code> keeps specificity conflicts from ever starting: anything you write outside mCSS’s layers wins automatically. No <code>!important</code>, no fighting your framework.
+      </FeatureItem>
+      <FeatureItem title="Markup you can read.">
+        <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <rect x="64" y="10" width="92" height="120" rx="10" fill="#e0f2fe" />
+          <rect x="80" y="28" width="32" height="7" rx="3.5" fill="#38bdf8" />
+          <path d="M94 56 L81 68 L94 80" stroke="#0369a1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M126 56 L139 68 L126 80" stroke="#0369a1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M116 51 L104 85" stroke="#0ea5e9" stroke-width="8" stroke-linecap="round" />
+          <rect x="80" y="100" width="60" height="7" rx="3.5" fill="#7dd3fc" />
+          <rect x="80" y="113" width="40" height="7" rx="3.5" fill="#bae6fd" />
+        </svg>
+        One semantic class per element. Your HTML describes what things <em>are</em>, and six months from now you’ll still understand it.
+      </FeatureItem>
+    </FeatureGrid>
+  </Section>
+
+  {/* §4: Modern CSS showcase */}
+  <Section class="homeShowcase" eyebrow="Modern CSS" title="Built on what browsers can do now" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
+    <ul class="homeShowcase_grid grid homeReveal" col="1" col-md="2" col-lg="3">
+      <li class="homeShowcase_card">
+        <h3 class="homeShowcase_name"><code>@layer</code></h3>
+        <p>The whole architecture. Import order stops mattering, and your overrides always win.</p>
+        <BaselineBadge feature="cascade-layers" />
+      </li>
+      <li class="homeShowcase_card homeShowcase_card-lightDark">
+        <h3 class="homeShowcase_name"><code>light-dark()</code></h3>
+        <p>Dark mode is one token file, not a parallel stylesheet.</p>
+        <label class="homeShowcase_mini">
+          <input class="toggle" type="checkbox" role="switch" />
+          <span>Flip this card’s <code>color-scheme</code></span>
+        </label>
+        <BaselineBadge feature="light-dark" />
+      </li>
+      <li class="homeShowcase_card">
+        <h3 class="homeShowcase_name"><code>:has()</code> &amp; nesting</h3>
+        <p>Components with zero specificity hacks, written the way you’d write them yourself.</p>
+        <BaselineBadge feature="has" />
+      </li>
+      <li class="homeShowcase_card">
+        <h3 class="homeShowcase_name"><code>@scope</code></h3>
+        <p>Prose styling that can’t leak into your components.</p>
+        <BaselineBadge feature="scope" />
+      </li>
+      <li class="homeShowcase_card">
+        <h3 class="homeShowcase_name">Scroll-driven animations</h3>
+        <p>The reading progress bar on this very site: pure CSS in modern browsers, a graceful fallback elsewhere.</p>
+        <BaselineBadge feature="scroll-driven-animations" />
+      </li>
+      <li class="homeShowcase_card">
+        <h3 class="homeShowcase_name">Three-tier tokens</h3>
+        <p>Raw scales → semantic theme → per-component properties. Change one value; the system follows.</p>
+        <BaselineBadge feature="custom-properties" />
+      </li>
+    </ul>
+    <p class="homeShowcase_kicker">Every technique is documented on the blog. The framework practices what it teaches. <a href="/blog">Read the blog →</a></p>
+  </Section>
+
+  {/* §5: Theming demo (radio + :has(), zero JS) */}
+  <Section class="homeThemer" variant="filled" eyebrow="Theming" title="Theme with variables, not variants" lede="Every color, size, and radius flows from one token file. Edit it and the whole system follows, light and dark.">
+    <fieldset class="homeThemer_switcher">
+      <legend class="a11y-srOnly">Pick a demo theme</legend>
+      <label class="homeThemer_swatch homeThemer_swatch-default">
+        <input type="radio" name="homeTheme" value="default" checked />
+        <i aria-hidden="true"></i><span>Default</span>
+      </label>
+      <label class="homeThemer_swatch homeThemer_swatch-wireframe">
+        <input type="radio" name="homeTheme" value="wireframe" />
+        <i aria-hidden="true"></i><span>Wireframe</span>
+      </label>
+      <label class="homeThemer_swatch homeThemer_swatch-sunset">
+        <input type="radio" name="homeTheme" value="sunset" />
+        <i aria-hidden="true"></i><span>Sunset</span>
+      </label>
+    </fieldset>
+
+    <div class="homeThemer_split homeReveal">
+      <div class="homeThemer_stage">
+        <Card title="Game night" subtitle="Friday 8pm at Maria’s place">
+          <p>Bring a snack and your best poker face. Newcomers welcome.</p>
+          <Fragment slot="actions">
+            <button type="button" class="bt">Details</button>
+            <button type="button" class="bt bt-primary">RSVP</button>
+          </Fragment>
+        </Card>
+        <div class="homeThemer_formRow">
+          <Field label="Email" name="homeThemer-email" type="email" placeholder="you@example.com" hint="We’ll never share it." />
+          <button type="button" class="bt bt-primary">Subscribe</button>
+        </div>
+      </div>
+
+      <div class="homeThemer_diff">
+        <div class="homeThemer_pane homeThemer_pane-default"><Code code={themeDiffs.default} lang="css" theme="github-dark" /></div>
+        <div class="homeThemer_pane homeThemer_pane-wireframe"><Code code={themeDiffs.wireframe} lang="css" theme="github-dark" /></div>
+        <div class="homeThemer_pane homeThemer_pane-sunset"><Code code={themeDiffs.sunset} lang="css" theme="github-dark" /></div>
+      </div>
+    </div>
+
+    {/* Below --lg the same panes live in a collapsed details */}
+    <details class="homeThemer_diffDetails">
+      <summary>Show the diff</summary>
+      <div class="homeThemer_pane homeThemer_pane-default"><Code code={themeDiffs.default} lang="css" theme="github-dark" /></div>
+      <div class="homeThemer_pane homeThemer_pane-wireframe"><Code code={themeDiffs.wireframe} lang="css" theme="github-dark" /></div>
+      <div class="homeThemer_pane homeThemer_pane-sunset"><Code code={themeDiffs.sunset} lang="css" theme="github-dark" /></div>
+    </details>
+
+    <p class="homeThemer_caption">Radio buttons and <code>:has()</code>: this demo runs on zero JavaScript.</p>
+  </Section>
+
+  {/* §6: Component gallery */}
+  <Section class="homeGallery" eyebrow="Component library" title="Components for real websites" lede="Header to footer: heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, pagination. Built for marketing sites, blogs, and docs. Ships as plain HTML or Astro, whichever you write.">
+    <ul class="homeGallery_grid homeReveal">
+      <li class="homeGallery_cell">
+        <div class="homeGallery_thumb" inert>
+          <Card title="Field notes" subtitle="Issue #12">
+            <p>A monthly dispatch on modern CSS, real-world markup, and the odd bird photo.</p>
+            <Fragment slot="actions"><button type="button" class="bt bt-primary">Read it</button></Fragment>
+          </Card>
+        </div>
+        <div class="homeGallery_meta"><span class="homeGallery_name">Card</span><span class="badge badge-success">Zero JS</span></div>
+        <a class="homeGallery_link" href="/components/card"><span class="a11y-srOnly">Card component documentation</span></a>
+      </li>
+      <li class="homeGallery_cell">
+        <div class="homeGallery_thumb" inert>
+          <PricingCard name="Indie" price="$0" period="/ forever" description="Everything, for everyone." features={['All components', 'Light & dark themes', 'MIT license']} ctaLabel="Copy the files" ctaHref="#" highlighted badge="MIT" />
+        </div>
+        <div class="homeGallery_meta"><span class="homeGallery_name">Pricing</span><span class="badge badge-success">Zero JS</span></div>
+        <a class="homeGallery_link" href="/components/pricing"><span class="a11y-srOnly">Pricing component documentation</span></a>
+      </li>
+      <li class="homeGallery_cell">
+        <div class="homeGallery_thumb" inert>
+          <Testimonial name="Ada Lindgren" role="Front-end lead">
+            <p>I stopped fighting my framework. There was nothing left to fight.</p>
+          </Testimonial>
+        </div>
+        <div class="homeGallery_meta"><span class="homeGallery_name">Testimonial</span><span class="badge badge-success">Zero JS</span></div>
+        <a class="homeGallery_link" href="/components/testimonial"><span class="a11y-srOnly">Testimonial component documentation</span></a>
+      </li>
+      <li class="homeGallery_cell">
+        <div class="homeGallery_thumb" inert>
+          <Faq>
+            <FaqItem question="Do I need a build step?" name="homeFaq" open>No. Link one file and start writing HTML.</FaqItem>
+            <FaqItem question="Can I override anything?" name="homeFaq">Yes: unlayered CSS always beats the framework.</FaqItem>
+          </Faq>
+        </div>
+        <div class="homeGallery_meta"><span class="homeGallery_name">FAQ</span><span class="badge badge-success">Zero JS</span></div>
+        <a class="homeGallery_link" href="/components/faq"><span class="a11y-srOnly">FAQ component documentation</span></a>
+      </li>
+      <li class="homeGallery_cell">
+        <div class="homeGallery_thumb" inert>
+          <div class="homeGallery_formDemo">
+            <Field label="Work email" name="homeGallery-email" type="email" placeholder="you@work.com" hint="One email a month, no noise." />
+            <button type="button" class="bt bt-primary">Sign up</button>
+          </div>
+        </div>
+        <div class="homeGallery_meta"><span class="homeGallery_name">Form field</span><span class="badge badge-success">Zero JS</span></div>
+        <a class="homeGallery_link" href="/components/field"><span class="a11y-srOnly">Field component documentation</span></a>
+      </li>
+      <li class="homeGallery_cell">
+        <div class="homeGallery_thumb homeGallery_thumb-wide" inert>
+          <Pagination currentPage={4} lastPage={9} baseUrl="/blog" />
+        </div>
+        <div class="homeGallery_meta"><span class="homeGallery_name">Pagination</span><span class="badge badge-success">Zero JS</span></div>
+        <a class="homeGallery_link" href="/components/pagination"><span class="a11y-srOnly">Pagination component documentation</span></a>
+      </li>
+    </ul>
+    <p class="homeGallery_kicker">Nearly everything is zero-JavaScript. The mobile menu and the dismissible banner are the exceptions, and they’re tiny.</p>
+    <div class="homeGallery_template homeReveal">
+      <h3>Start from a whole site, not a blank file.</h3>
+      <p>This site (the docs, the blog, and the page you’re reading) is built from the same library. <a href="/components/start">Browse the components →</a></p>
+    </div>
+  </Section>
+
+  {/* §7: Ownership */}
+  <Section class="homeOwn" variant="filled" eyebrow="Ownership" title="You own the code">
+    <div class="homeOwn_body homeReveal">
+      <p>mCSS isn’t a dependency. It’s a starting point. Copy the files into your project and edit them like the code you wrote yourself, because now it is. Styling disagreements end with you changing a line, not filing an issue.</p>
+      <p>MIT licensed. Versioned releases when you want to pull updates. No lock-in, because there’s nothing to be locked into.</p>
+    </div>
+    <ul class="homeOwn_facts homeReveal">
+      <li><strong>MIT</strong><span>Use it anywhere. Keep it forever.</span></li>
+      <li><strong>Versioned releases</strong><span>Pull updates when you choose to.</span></li>
+      <li><strong>One token file</strong><span>Edit <code>settings.tokens.css</code>, not <code>node_modules</code>.</span></li>
+    </ul>
+  </Section>
+
+  {/* §8: Final CTA */}
+  <Section class="homeCta" variant="primary" title="Give your CSS its cascade back" lede="Read the methodology, copy the files, ship something.">
+    <div class="section_actions">
+      <a class="bt bt-lg homeCta_btMain" href="/docs/start">Get started in 10 minutes</a>
+      <a class="bt bt-lg bt-outline-white" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />Star on GitHub</a>
+    </div>
+    <p class="homeCta_newsletter">Prefer email? <a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Join the mailing list</a>: new components and modern-CSS write-ups, no noise.</p>
+  </Section>
 </BaseLayout>
+
+{/* The one allowed JS nicety: restart the hero loop. */}
+<script>
+  const morph = document.querySelector('.homeMorph');
+  const replay = document.querySelector('.js-morphReplay');
+  if (morph && replay) {
+    replay.addEventListener('click', () => {
+      morph.classList.add('is-resetting');
+      void (morph as HTMLElement).offsetWidth;
+      morph.classList.remove('is-resetting');
+    });
+  }
+</script>

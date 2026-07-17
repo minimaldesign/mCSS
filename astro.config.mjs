@@ -18,6 +18,9 @@ export default defineConfig({
   redirects: {
     // slug lowercased for consistency with the other component docs
     "/components/ReadProgressBar": "/components/readprogressbar",
+    // tags pages moved under /blog so the Blog nav item highlights on them
+    "/tags": "/blog/tags",
+    "/tags/[tag]": "/blog/tags/[tag]",
   },
   integrations: [
     preact(),
