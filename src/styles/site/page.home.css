@@ -607,7 +607,7 @@
   }
   /* Breathing room between the three pillars on desktop */
   @media (--lg) {
-    --grid-column-gap: var(--xl1);
+    --grid-column-gap: var(--xl2);
   }
 
   .featureItem_title {

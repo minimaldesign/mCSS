@@ -164,9 +164,9 @@ const themeDiffs = {
       <FeatureItem title="It’s actual CSS">
         <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
           <path d="M88 24 C74 24 70 32 70 43 L70 55 C70 64 64 69 57 70 C64 71 70 76 70 85 L70 97 C70 108 74 116 88 116" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round"></path>
-          <path d="M132 24 C146 24 150 32 150 43 L150 55 C150 64 156 69 163 70 C156 71 150 76 150 85 L150 97 C150 108 146 116 132 116" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round"></path>
-          <circle cx="110" cy="58" r="7" fill="#0369a1"></circle>
-          <circle cx="110" cy="84" r="7" fill="#0369a1"></circle>
+          <path d="M132 24 C146 24 150 32 150 43 L150 55 C150 64 156 69 163 70 C156 71 150 76 150 85 L150 97 C150 108 146 116 132 116" stroke="#bae6fd" stroke-width="10" stroke-linecap="round"></path>
+          <circle cx="110" cy="58" r="7" fill="#7dd3fc"></circle>
+          <circle cx="110" cy="84" r="7" fill="#7dd3fc"></circle>
         </svg>
         No pseudo-syntax, no new mental model. If you know CSS, you already know mCSS, and everything you learn here works everywhere, forever.
       </FeatureItem>
@@ -181,8 +181,8 @@ const themeDiffs = {
       <FeatureItem title="Markup you can read">
         <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
           <path d="M82 34 L52 70 L82 106" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M138 34 L168 70 L138 106" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M122 30 L98 110" stroke="#bae6fd" stroke-width="10" stroke-linecap="round"></path>
+          <path d="M138 34 L168 70 L138 106" stroke="#bae6fd" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M122 30 L98 110" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round"></path>
         </svg>
         One semantic class per element. Your HTML describes what things <em>are</em>, and six months from now you’ll still understand it.
       </FeatureItem>
@@ -227,7 +227,10 @@ const themeDiffs = {
         <BaselineBadge feature="custom-properties" />
       </li>
     </ul>
-    <p class="homeShowcase_kicker">Every technique is documented on the blog. The framework practices what it teaches. <a href="/blog">Read the blog →</a></p>
+    <div class="homeShowcase_kicker">
+      <p>Every technique is documented on the blog. The framework practices what it teaches.</p>
+      <p><a href="/blog">Read the blog →</a></p>
+    </div>
   </Section>
 
   {/* §5: Theming demo (radio + :has(), zero JS) */}
@@ -341,7 +344,8 @@ const themeDiffs = {
     <p class="homeGallery_kicker">Nearly everything is zero-JavaScript. The mobile menu and the dismissible banner are the exceptions, and they’re tiny.</p>
     <div class="homeGallery_template homeReveal">
       <h3>Start from a whole site, not a blank file.</h3>
-      <p>This site (the docs, the blog, and the page you’re reading) is built from the same library. <a href="/components/start">Browse the components →</a></p>
+      <p>This site (docs, blog, the page you’re reading) is built from mCSS.</p>
+      <p><a href="/components/start">Browse the components →</a></p>
     </div>
   </Section>
 
@@ -361,7 +365,7 @@ const themeDiffs = {
   {/* §8: Final CTA */}
   <Section class="homeCta" variant="primary" title="Give your CSS its cascade back" lede="Read the methodology, copy the files, ship something.">
     <div class="section_actions">
-      <a class="bt bt-lg homeCta_btMain" href="/docs/start">Get started in 10 minutes</a>
+      <a class="bt bt-lg homeCta_btMain" href="/docs/start">Get started in 10 mn</a>
       <a class="bt bt-lg bt-outline-white" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />Star on GitHub</a>
     </div>
     <p class="homeCta_newsletter">Prefer email? <a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Join the mailing list</a>: new components and modern-CSS write-ups, no noise.</p>
