@@ -97,9 +97,11 @@ A lone next link keeps its right-hand column.
 
 ## Astro component
 
-<div class="docs_oversizedTable prose">
+<section class="prose">
 
 **Pagination**
+
+<div class="docs_oversizedTable">
 
 | Prop          | Type                       | Default          | Description                                              |
 | ------------- | -------------------------- | ---------------- | --------------------------------------------------------- |
@@ -110,9 +112,13 @@ A lone next link keeps its right-hand column.
 | `windowSize`  | `number`                   | `1`              | Pages shown on each side of the current one.              |
 | `ariaLabel`   | `string`                   | `"Pagination"`   | The nav's accessible name.                                |
 
+</div>
+
 With Astro's `paginate()`, pass `page.currentPage`, `page.lastPage`, and your index route as `baseUrl`.
 
 **PrevNext**
+
+<div class="docs_oversizedTable">
 
 | Prop        | Type                       | Default               | Description                       |
 | ----------- | -------------------------- | --------------------- | ---------------------------------- |
@@ -122,9 +128,11 @@ With Astro's `paginate()`, pass `page.currentPage`, `page.lastPage`, and your in
 | `nextLabel` | `string`                   | `"Next"`              | Small label above the next title.  |
 | `ariaLabel` | `string`                   | `"Previous and next"` | The nav's accessible name.         |
 
+</div>
+
 Renders nothing when both links are missing.
 
-</div>
+</section>
 
 ## Examples
 

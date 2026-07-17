@@ -1,0 +1,107 @@
+---
+title: "Banner"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Banner from "../../components/Banner.astro";
+
+<section class="prose">
+
+The `.banner` component is the thin announcement bar at the very top of the page, optionally dismissible. The dismissal is remembered in `localStorage`, and the one small inline script removes an already-dismissed banner before paint, so it never flashes.
+
+Looking for the big closing call-to-action band instead? That's a [Section recipe](/components/section), not a separate component.
+
+<Banner>
+  <p>mCSS v1 is out! <a href="#">Read the announcement</a></p>
+</Banner>
+
+### What to copy
+
+<div class="docs_oversizedTable">
+
+| File                                | What it is                     | Source      |
+| ----------------------------------- | ------------------------------ | ----------- |
+| `component.banner.css`              | All banner styles              | [Github][1] |
+| `Banner.astro`                      | The Astro component            | [Github][2] |
+| `icons/x.svg`                       | Dismiss icon                   | [Github][3] |
+| `--banner-*` block in default theme | Theme tokens (see table below) | [Github][4] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.banner.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Banner.astro
+[3]: https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<aside class="banner">
+  <div class="banner_content">
+    <p>mCSS v1 is out! <a href="/blog/v1">Read the announcement</a></p>
+  </div>
+  <button class="banner_close" aria-label="Dismiss announcement"><svg>[…]</svg></button>
+</aside>
+```
+
+For a dismissible plain-HTML banner, copy the small inline script from the bottom of [Banner.astro][2]: it removes the banner when the stored key exists and stores the key on click.
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+<div class="docs_oversizedTable">
+
+| Property                    | Description         |
+| --------------------------- | ------------------- |
+| `--banner-color`            | Banner text color.  |
+| `--banner-background-color` | Banner background.  |
+
+</div>
+
+</section>
+
+## Astro component
+
+<section class="prose">
+
+<div class="docs_oversizedTable">
+
+| Prop           | Type      | Default                   | Description                                             |
+| -------------- | --------- | ------------------------- | -------------------------------------------------------- |
+| `id`           | `string`  | `undefined`               | Required when dismissible; keys the `localStorage` entry (`mcss-banner-<id>`). Use a new id per campaign so a new announcement shows again. |
+| `dismissible`  | `boolean` | `false`                   | Adds the close button + persistence script.              |
+| `dismissLabel` | `string`  | `"Dismiss announcement"`  | Accessible name of the close button.                     |
+| `class`        | `string`  | `undefined`               | Additional CSS classes.                                  |
+
+</div>
+
+The default slot is the banner content. Place the banner as the first child of `<body>`, above the header.
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Banner dismissible id="docs-demo">
+      <p>A dismissible banner. Close it and it stays closed on reload (per browser).</p>
+    </Banner>
+
+    ```astro
+    ---
+    import Banner from "../components/Banner.astro";
+    ---
+    <Banner dismissible id="v1-launch">
+      <p>mCSS v1 is out! <a href="/blog/v1">Read the announcement</a></p>
+    </Banner>
+    ```
+
+  </li>
+</ul>

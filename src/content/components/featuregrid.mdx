@@ -39,9 +39,9 @@ The `.featureGrid` component is the classic marketing "three columns of icon + t
 | `FeatureGrid.astro`, `FeatureItem.astro` | The Astro components           | [Github][2] |
 | `--featureItem-*` block in default theme | Theme tokens (see table below) | [Github][3] |
 
-Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours to bring; [Lucide](https://lucide.dev/) is a great resource.
-
 </div>
+
+Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours to bring; [Lucide](https://lucide.dev/) is a great resource.
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.featureGrid.css
 [2]: https://github.com/minimaldesign/mCSS/tree/main/src/components
@@ -88,21 +88,31 @@ The following custom properties are available in the [default theme](/docs/theme
 
 ## Astro component
 
-<div class="docs_oversizedTable prose">
+<section class="prose">
 
 **FeatureGrid**
+
+<div class="docs_oversizedTable">
 
 | Prop    | Type     | Default     | Description                                                         |
 | ------- | -------- | ----------- | ------------------------------------------------------------------- |
 | `cols`  | `number` | `3`         | Columns from the `--lg` breakpoint: `2`, `3`, or `4`.               |
 | `class` | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 
+</div>
+
 **FeatureItem**
+
+<div class="docs_oversizedTable">
 
 | Prop    | Type     | Default     | Description                              |
 | ------- | -------- | ----------- | ---------------------------------------- |
 | `title` | `string` | `undefined` | The item's `h3`.                         |
 | `class` | `string` | `undefined` | Additional CSS classes.                  |
+
+</div>
+
+<div class="docs_oversizedTable">
 
 | Slot      | Description                                          |
 | --------- | ---------------------------------------------------- |
@@ -110,6 +120,8 @@ The following custom properties are available in the [default theme](/docs/theme
 | (default) | The item's body text.                                |
 
 </div>
+
+</section>
 
 ## Examples
 

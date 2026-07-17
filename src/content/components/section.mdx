@@ -25,9 +25,9 @@ The `.section` component is the workhorse wrapper marketing pages are made of: a
 | `Section.astro`                      | The Astro component            | [Github][2] |
 | `--section-*` block in default theme | Theme tokens (see table below) | [Github][3] |
 
-Depends on `.wrap` (`global.wrap.css`), part of the mCSS core.
-
 </div>
+
+Depends on `.wrap` (`global.wrap.css`), part of the mCSS core.
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.section.css
 [2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Section.astro
@@ -63,6 +63,20 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core.
 
 </div>
 
+### Elements
+
+<div class="docs_oversizedTable">
+
+| Class              | Description                                                     |
+| ------------------ | ---------------------------------------------------------------- |
+| `.section_header`  | Centered eyebrow/title/lede block.                               |
+| `.section_eyebrow` | Small uppercase kicker.                                          |
+| `.section_title`   | The `h2`.                                                        |
+| `.section_lede`    | Intro paragraph.                                                 |
+| `.section_actions` | Centered, wrapping button row (see the closing-CTA recipe below). |
+
+</div>
+
 ### Custom properties
 
 The following custom properties are available in the [default theme](/docs/themes):
@@ -90,7 +104,9 @@ The following custom properties are available in the [default theme](/docs/theme
 
 ## Astro component
 
-<div class="docs_oversizedTable prose">
+<section class="prose">
+
+<div class="docs_oversizedTable">
 
 | Prop      | Type     | Default     | Description                                                         |
 | --------- | -------- | ----------- | ------------------------------------------------------------------- |
@@ -101,9 +117,11 @@ The following custom properties are available in the [default theme](/docs/theme
 | `width`   | `string` | `undefined` | `wide`.                                                             |
 | `class`   | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 
+</div>
+
 Any other attribute is passed through to the root `<section>` element (handy for `id` anchors). The default slot is the section content.
 
-</div>
+</section>
 
 ## Examples
 
@@ -135,6 +153,24 @@ Any other attribute is passed through to the root `<section>` element (handy for
     ```astro
     <Section title="Wide section" width="wide" variant="filled">
       <div class="grid" col="3">…</div>
+    </Section>
+    ```
+
+  </li>
+  <li>
+    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary" style="border-radius: var(--radius-lg);">
+      <div class="section_actions">
+        <a class="bt bt-lg bt-outline-white" href="#">Get started</a>
+      </div>
+    </Section>
+
+    The closing CTA every marketing page ends on is not a separate component; it is a Section with a `.section_actions` row:
+
+    ```astro
+    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary">
+      <div class="section_actions">
+        <a class="bt bt-lg bt-outline-white" href="/docs/start">Get started</a>
+      </div>
     </Section>
     ```
 

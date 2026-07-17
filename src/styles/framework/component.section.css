@@ -50,3 +50,11 @@
   font-size: var(--text-lg);
   color: var(--section-lede-color);
 }
+
+/* Centered button row: the "closing CTA" is a Section with one of these */
+.section_actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--xs3);
+}

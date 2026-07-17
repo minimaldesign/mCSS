@@ -84,17 +84,19 @@ Accessibility note: the card carries **one** link — the title, stretched over 
 | ----------------------------------- | ------------------------------------------------- |
 | `--articleCard-image-aspect-ratio`  | Cover image ratio (defaults to `--ar-golden`).    |
 
-Everything else (borders, radius, colors, spacing) comes from the [card tokens](/components/card).
-
 </div>
+
+Everything else (borders, radius, colors, spacing) comes from the [card tokens](/components/card).
 
 </section>
 
 ## Astro component
 
-<div class="docs_oversizedTable prose">
+<section class="prose">
 
 **ArticleCard**
+
+<div class="docs_oversizedTable">
 
 | Prop        | Type                      | Default     | Description                                        |
 | ----------- | ------------------------- | ----------- | -------------------------------------------------- |
@@ -111,17 +113,23 @@ Everything else (borders, radius, colors, spacing) comes from the [card tokens](
 | `variant`   | `string`                  | `undefined` | Card variant pass-through: `filled`, `raised`.     |
 | `class`     | `string`                  | `undefined` | Additional CSS classes.                            |
 
+</div>
+
 The default slot is the description (rich HTML welcome).
 
 **PostList**
+
+<div class="docs_oversizedTable">
 
 | Prop   | Type     | Default | Description                                     |
 | ------ | -------- | ------- | ------------------------------------------------ |
 | `cols` | `number` | `2`     | Columns from `--lg`: `1`, `2`, or `3`.           |
 
+</div>
+
 Children go in the default slot; wrap each card in an `<li>`.
 
-</div>
+</section>
 
 ## Examples
 

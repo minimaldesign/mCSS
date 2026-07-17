@@ -70,7 +70,9 @@ The error message is always in the markup and revealed by `.field:has(:user-inva
 
 ## Astro component
 
-<div class="docs_oversizedTable prose">
+<section class="prose">
+
+<div class="docs_oversizedTable">
 
 | Prop       | Type      | Default                | Description                                                        |
 | ---------- | --------- | ---------------------- | ------------------------------------------------------------------ |
@@ -78,6 +80,8 @@ The error message is always in the markup and revealed by `.field:has(:user-inva
 | `hint`     | `string`  | `undefined`            | Help text under the control.                                       |
 | `error`    | `string`  | `"Please fill out…"`   | Message revealed when the control is `:user-invalid`.              |
 | `class`    | `string`  | `undefined`            | Additional CSS classes on the `.field` wrapper.                    |
+
+</div>
 
 Everything else (`type`, `name`, `placeholder`, `required`, `pattern`, `minlength`…) is passed through to the `<input>`. The label's `for` uses `id`, falling back to `name` — set at least one.
 
@@ -89,7 +93,7 @@ To use another control (textarea, select…), put it in the default slot and giv
 </Field>
 ```
 
-</div>
+</section>
 
 ## Recipes
 

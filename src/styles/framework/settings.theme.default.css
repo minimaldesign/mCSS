@@ -229,21 +229,6 @@
   --toggle-thumb-color: var(--body-background-color);
 }
 
-/* CTA */
-
-:root {
-  --cta-spacing: var(--xl3);
-  --cta-text-color: light-dark(var(--base-500), var(--base-400));
-  --cta-filled-background-color: light-dark(var(--base-50), var(--base-900));
-  --cta-primary-background-color: light-dark(
-    var(--primary-600),
-    var(--primary-900)
-  );
-  --cta-primary-text-color: var(--base-0);
-  --cta-primary-link-color: var(--primary-100);
-  --cta-primary-link-color-hover: var(--base-0);
-}
-
 /* FAQ */
 
 :root {

@@ -75,19 +75,21 @@ The `name` attribute is a progressive enhancement: browsers that don't support e
 | --------------- | ------------------- |
 | `--faq-spacing` | Gap between items.  |
 
-The item visuals come from the `details` element styling; there is nothing FAQ-specific to retheme.
-
 </div>
+
+The item visuals come from the `details` element styling; there is nothing FAQ-specific to retheme.
 
 </section>
 
 ## Astro component
 
-<div class="docs_oversizedTable prose">
+<section class="prose">
 
 **Faq** takes only `class` and passes everything else to its root `<div>`. Items go in the default slot.
 
 **FaqItem**
+
+<div class="docs_oversizedTable">
 
 | Prop       | Type      | Default     | Description                                                      |
 | ---------- | --------- | ----------- | ---------------------------------------------------------------- |
@@ -96,9 +98,11 @@ The item visuals come from the `details` element styling; there is nothing FAQ-s
 | `name`     | `string`  | `undefined` | Same name on every item of a group = native exclusive-open.      |
 | `class`    | `string`  | `undefined` | Additional CSS classes.                                          |
 
+</div>
+
 The default slot is the answer.
 
-</div>
+</section>
 
 ## Examples
 
