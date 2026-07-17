@@ -31,19 +31,29 @@ const {
   ...rest
 } = Astro.props as Props;
 
-// aria-current: "page" for an exact match, "true" when the link's first path
-// segment matches the current page's (section-level highlighting; top-level
-// items only — child links must match exactly or every sibling lights up).
+// aria-current: "page" for an exact match; "true" marks the current section.
+// An item whose children contain the exact current page owns the section
+// (several items may share a URL segment, so explicit children beat the
+// heuristic); only when no item claims the page does first-path-segment
+// matching kick in. Child links must match exactly or every sibling lights up.
 const trim = (path: string) => (path !== '/' && path.endsWith('/') ? path.slice(0, -1) : path);
 const segment = (path: string) => path.split('/')[1] ?? '';
-function current(href: string): 'page' | 'true' | undefined {
-  if (trim(href) === trim(currentPath)) return 'page';
-  if (segment(href) && segment(href) === segment(currentPath)) return 'true';
-  return undefined;
+const isExact = (href: string) => trim(href) === trim(currentPath);
+const currentExact = (href: string) => (isExact(href) ? 'page' : undefined);
+
+function makeCurrent(items: NavItem[]) {
+  const owner = items.find((item) => (item.children ?? []).some((sub) => isExact(sub.href)));
+  return (item: NavItem): 'page' | 'true' | undefined => {
+    if (isExact(item.href)) return 'page';
+    if (owner) return item === owner ? 'true' : undefined;
+    if (segment(item.href) && segment(item.href) === segment(currentPath)) return 'true';
+    return undefined;
+  };
 }
-const currentExact = (href: string) => (trim(href) === trim(currentPath) ? 'page' : undefined);
 
 const desktopItems = navItems.filter((item) => !item.mobileOnly);
+const desktopCurrent = makeCurrent(desktopItems);
+const mobileCurrent = makeCurrent(navItems);
 ---
 
 <!-- prettier-ignore -->
@@ -64,7 +74,7 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
         <ul>
           {desktopItems.map((item) => (
             <li>
-              <a href={item.href} aria-current={current(item.href)}>
+              <a href={item.href} aria-current={desktopCurrent(item)}>
                 {item.label}
               </a>
             </li>
@@ -91,7 +101,7 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
           <ul>
             {navItems.map((item) => (
               <li>
-                <a href={item.href} aria-current={current(item.href)}>
+                <a href={item.href} aria-current={mobileCurrent(item)}>
                   {item.label}
                 </a>
                 {item.children && item.children.length > 0 && (

@@ -121,7 +121,7 @@ The mobile menu deliberately keeps the same dark surface in both themes; retheme
 | ------------- | ----------- | ------------------- | ----------------------------------------------------------------- |
 | `navItems`    | `NavItem[]` | `[]`                | `{ label, href, children?, mobileOnly? }`. `children` renders as a sub-list in the mobile menu only; `mobileOnly` items are skipped in the desktop nav. |
 | `sticky`      | `boolean`   | `false`             | Sticky positioning + scroll shadow.                               |
-| `currentPath` | `string`    | `Astro.url.pathname`| Used to set `aria-current` (exact match: `page`; same first path segment: `true`). |
+| `currentPath` | `string`    | `Astro.url.pathname`| Used to set `aria-current`: exact match gets `page`; the item whose `children` contain the page gets `true` (falling back to first-path-segment matching when none does). |
 | `navLabel`    | `string`    | `"Main"`            | `aria-label` for the desktop nav.                                 |
 | `menuLabel`   | `string`    | `"Main menu"`       | `aria-label` for the mobile nav.                                  |
 | `class`       | `string`    | `undefined`         | Additional CSS classes, useful for [helper classes](/docs/helpers). |
