@@ -204,6 +204,23 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 
 </div>
 
+### Heading sizes
+
+Headings use dedicated fluid tokens: each `--heading-*` interpolates with `clamp()` from a minimum size (at 480px viewports and below) to a maximum size (from 1024px up), so the type scale tightens on small screens without media queries. The preferred value mixes `rem` with `vw`, which keeps browser text zoom working. Override any of these in your own theme to change how a heading level scales.
+
+<div class="docs_oversizedTable">
+
+| Token       | Min (≤480px)         | Max (≥1024px)           |
+| ----------- | -------------------- | ----------------------- |
+| `heading-1` | `text-xl` (1.44rem)  | `display-md` (2.074rem) |
+| `heading-2` | `text-lg` (1.2rem)   | `display-sm` (1.728rem) |
+| `heading-3` | `text-lg` (1.2rem)   | `text-xl` (1.44rem)     |
+| `heading-4` | `text-md` (1rem)     | `text-lg` (1.2rem)      |
+| `heading-5` | `text-md` (1rem)     | `text-md` (static)      |
+| `heading-6` | `text-md` (1rem)     | `text-md` (static)      |
+
+</div>
+
 ### Font weight
 
 | Token         | Value | Demo                                            |

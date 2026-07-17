@@ -234,39 +234,27 @@ h6, .h6 {
 }
 
 h1, .h1 {
-  font-size: var(--text-xl);
+  font-size: var(--heading-1);
 }
-  @media (width >= 768px) {
-
-h1, .h1 {
-    font-size: var(--display-md);
-}
-  }
 
 h2, .h2 {
-  font-size: var(--text-lg);
+  font-size: var(--heading-2);
 }
-  @media (width >= 768px){
-
-h2, .h2 {
-    font-size: var(--display-sm);
-}
-  }
 
 h3, .h3 {
-  font-size: var(--text-xl);
+  font-size: var(--heading-3);
 }
 
 h4, .h4 {
-  font-size: var(--text-lg);
+  font-size: var(--heading-4);
 }
 
 h5, .h5 {
-  font-size: var(--text-md);
+  font-size: var(--heading-5);
 }
 
 h6, .h6 {
-  font-size: var(--text-md);
+  font-size: var(--heading-6);
 }
 
 hr {
