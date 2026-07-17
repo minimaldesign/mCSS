@@ -13,7 +13,7 @@ Stack: Astro 6, Preact, MDX, PostCSS. No test runner.
 
 ## Critical Rule
 
-CSS layer order in `src/styles/_global.css` is load-bearing. When adding any new CSS file, you **must** add its `@import` in the correct layer position in that file. See [agents/css.md](agents/css.md) for the full layer order.
+mCSS uses native CSS cascade layers. Framework files import with `layer(<name>)` in `src/styles/framework/mcss.css`; site-only files import unlayered in `src/styles/_global.css`. The layer name (not import order) decides priority, and the preset-env `cascade-layers` polyfill must stay disabled in `postcss.config.cjs`. See [agents/css.md](agents/css.md) for the full rules.
 
 ## Formatting
 

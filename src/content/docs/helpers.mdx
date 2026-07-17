@@ -5,7 +5,7 @@ version: 0.1
 ---
 
 <section class="prose">
-Helpers are classes with high specificity for very targeted "one-off" local overrides. They should be used as little as possible, but they're useful for things like:
+Helpers are classes for very targeted "one-off" local overrides. They live in the last mCSS [cascade layer](/docs/start#mcss-file-structure), so they beat every other framework layer without needing high specificity or `!important` (your own unlayered CSS still beats them). They should be used as little as possible, but they're useful for things like:
 
 - Designer's request to "make an exception"
 - Quick fix until refactor

@@ -8,17 +8,19 @@ description: "An overview of how and why mCSS file structure is organized the wa
 
 ## File structure
 
-If you look at the imports in `_global.css` [on Github][1], you'll get the basic idea behind mCSS structure. The order in which the files are imported is critical. It keeps CSS specificity working _for_ us as opposed to specificity wars and cascading conflicts. This architecture is based on [ITCSS][itcss]. The basic idea is to organize CSS from least specific/broadest reach to most specific/local override so you get a smooth [specificity graph][graph] trending upward.
+> **Update (2026):** mCSS now uses native [CSS cascade layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer): each file is imported into a named `@layer`, and the layer name decides priority instead of the import order. The layer structure below is unchanged, but the mechanism is more robust (and your own unlayered CSS always wins over the framework). See the [Getting Started docs][docs] for the current setup.
 
-- Tokens: where all the global variables are set.
-- Themes: easy way to override tokens globally.
+If you look at the imports in `mcss.css` [on Github][1], you'll get the basic idea behind mCSS structure. Each file belongs to a layer, and the layers keep the cascade working _for_ us as opposed to specificity wars and cascading conflicts. This architecture is based on [ITCSS][itcss]. The basic idea is to organize CSS from least specific/broadest reach to most specific/local override so you get a smooth [specificity graph][graph] trending upward.
+
+- Tokens & Themes (`settings`): where all the global variables are set, and easy ways to override them.
 - Base: your reset and normalize rules.
 - Elements: HTML elements defaults, without any classes.
 - Global: layouts like `.wrap` and `.grid` and global styling like `.prose`.
-- Pages: page specific styling.
+- Atoms: the smallest styling units, like `.bt` buttons.
 - Components: component specific styling.
-- External: code from plugins, other libraries, etc.
-- Helpers: high specificity local overrides.
+- Pages: page specific styling.
+- Helpers: local overrides (last layer, so they beat everything above).
+- Your own CSS imports unlayered, after the framework, and wins over all of it.
 
 For more details on what each section does, have a look [in the docs][docs].
 
@@ -64,7 +66,7 @@ And please, don't order them alphabetically… Unless you're a robot, it won't h
 }
 ```
 
-[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.css
 [itcss]: /blog/what-is-itcss
 [graph]: https://jonassebastianohlsson.com/specificity-graph/
 [docs]: /docs/start
