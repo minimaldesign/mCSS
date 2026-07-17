@@ -1,0 +1,152 @@
+---
+title: "Pagination"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Pagination from "../../components/Pagination.astro";
+import PrevNext from "../../components/PrevNext.astro";
+
+<section class="prose">
+
+Two navigation patterns for content sites: `.pagination` is the numbered kind for blog indexes (windowed around the current page, so long lists stay short), and `.prevNext` is the pair of cards at the bottom of a post or docs page. Both are pure HTML and CSS.
+
+<Pagination currentPage={5} lastPage={12} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
+
+<PrevNext class="mt-sm3" prev={{ title: "Designing with cascade layers", href: "#" }} next={{ title: "Tokens all the way down", href: "#" }} />
+
+### What to copy
+
+<div class="docs_oversizedTable">
+
+| File                                          | What it is                     | Source      |
+| --------------------------------------------- | ------------------------------ | ----------- |
+| `component.pagination.css`                    | Numbered pagination styles     | [Github][1] |
+| `component.prevNext.css`                      | Prev/next styles               | [Github][2] |
+| `Pagination.astro`, `PrevNext.astro`          | The Astro components           | [Github][3] |
+| `icons/chevron-down.svg`                      | Arrow icon (rotated in CSS)    | [Github][4] |
+| `--pagination-*`, `--prevNext-*` theme blocks | Theme tokens (see table below) | [Github][5] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.pagination.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.prevNext.css
+[3]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+[4]: https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons
+[5]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<nav class="pagination" aria-label="Pagination">
+  <ul>
+    <li><a class="pagination_arrow pagination_arrow-prev" href="/blog/4" aria-label="Previous page"><svg>[…]</svg></a></li>
+    <li><a href="/blog" aria-label="Page 1">1</a></li>
+    <li><span class="pagination_ellipsis" aria-hidden="true">…</span></li>
+    <li><a href="/blog/4" aria-label="Page 4">4</a></li>
+    <li><a href="/blog/5" aria-current="page" aria-label="Page 5">5</a></li>
+    <li><a href="/blog/6" aria-label="Page 6">6</a></li>
+    <li><span class="pagination_ellipsis" aria-hidden="true">…</span></li>
+    <li><a href="/blog/12" aria-label="Page 12">12</a></li>
+    <li><a class="pagination_arrow pagination_arrow-next" href="/blog/6" aria-label="Next page"><svg>[…]</svg></a></li>
+  </ul>
+</nav>
+```
+
+At the ends, the arrows stay in place but become disabled `<span aria-disabled="true">` elements instead of links, so the layout never jumps. Every target is at least `--pagination-size` (36px) square.
+
+```html
+<nav class="prevNext" aria-label="Previous and next">
+  <a class="prevNext_link prevNext_link-prev" href="/blog/layers">
+    <small>Previous</small>
+    <span>Designing with cascade layers</span>
+  </a>
+  <a class="prevNext_link prevNext_link-next" href="/blog/tokens">
+    <small>Next</small>
+    <span>Tokens all the way down</span>
+  </a>
+</nav>
+```
+
+A lone next link keeps its right-hand column.
+
+### Custom properties
+
+<div class="docs_oversizedTable">
+
+| Property                               | Description                       |
+| -------------------------------------- | --------------------------------- |
+| `--pagination-size`                    | Minimum width/height of a target. |
+| `--pagination-border-radius`           | Target border radius.             |
+| `--pagination-color`                   | Number/arrow color.               |
+| `--pagination-color-current`           | Current page text color.          |
+| `--pagination-background-color-current`| Current page background.          |
+| `--pagination-background-color-hover`  | Hover background.                 |
+| `--prevNext-border-color`              | Card border.                      |
+| `--prevNext-border-color-hover`        | Card border on hover.             |
+| `--prevNext-label-color`               | "Previous"/"Next" label color.    |
+
+</div>
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+**Pagination**
+
+| Prop          | Type                       | Default          | Description                                              |
+| ------------- | -------------------------- | ---------------- | --------------------------------------------------------- |
+| `currentPage` | `number`                   | —                | The page being rendered. Required.                        |
+| `lastPage`    | `number`                   | —                | Total number of pages. Required.                          |
+| `baseUrl`     | `string`                   | —                | Index URL; page 1 is `baseUrl`, page n is `baseUrl/n`.    |
+| `pageUrl`     | `(page: number) => string` | see `baseUrl`    | Override the URL scheme entirely.                         |
+| `windowSize`  | `number`                   | `1`              | Pages shown on each side of the current one.              |
+| `ariaLabel`   | `string`                   | `"Pagination"`   | The nav's accessible name.                                |
+
+With Astro's `paginate()`, pass `page.currentPage`, `page.lastPage`, and your index route as `baseUrl`.
+
+**PrevNext**
+
+| Prop        | Type                       | Default               | Description                       |
+| ----------- | -------------------------- | --------------------- | ---------------------------------- |
+| `prev`      | `{ title, href }`          | `undefined`           | Previous post link.                |
+| `next`      | `{ title, href }`          | `undefined`           | Next post link.                    |
+| `prevLabel` | `string`                   | `"Previous"`          | Small label above the prev title.  |
+| `nextLabel` | `string`                   | `"Next"`              | Small label above the next title.  |
+| `ariaLabel` | `string`                   | `"Previous and next"` | The nav's accessible name.         |
+
+Renders nothing when both links are missing.
+
+</div>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Pagination currentPage={1} lastPage={3} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
+
+    ```astro
+    ---
+    import Pagination from "../components/Pagination.astro";
+    const { page } = Astro.props; // from paginate()
+    ---
+    <Pagination currentPage={page.currentPage} lastPage={page.lastPage} baseUrl="/blog" />
+    ```
+
+  </li>
+  <li>
+    <PrevNext next={{ title: "Only a next link", href: "#" }} />
+
+    ```astro
+    <PrevNext next={{ title: "Only a next link", href: "/blog/tokens" }} />
+    ```
+
+  </li>
+</ul>

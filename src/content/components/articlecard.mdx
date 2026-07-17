@@ -1,0 +1,144 @@
+---
+title: "Article Card"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import ArticleCard from "../../components/ArticleCard.astro";
+import PostList from "../../components/PostList.astro";
+
+<section class="prose">
+
+The `.articleCard` component is the blog-index pattern: image, tags, title, description, and a byline with avatar and date. It extends the [card](/components/card) (same border, radius, and tokens) and composes [Tags](/components/tags) and [Avatar](/components/avatar). `.postList` is its companion: a `ul` over the [grid system](/docs/global#grid) that lays cards out in equal-height responsive columns. This site's own [blog index](/blog) is built from exactly these two components.
+
+Accessibility note: the card carries **one** link — the title, stretched over the whole card with a `::after` — so screen readers hear one link named by the title, and the tags stay independently clickable above it.
+
+<PostList cols={2}>
+  <li>
+    <ArticleCard href="#" title="Designing with cascade layers" tags={["css", "learn"]} author="Sonny Mueller" date={new Date("2026-05-02")}>
+      <p>Why layer order beats specificity wars, and how mCSS hands the final word to your unlayered CSS.</p>
+    </ArticleCard>
+  </li>
+  <li>
+    <ArticleCard href="#" title="Tokens all the way down" tags={["design"]} author="Ada Chen" date={new Date("2026-06-11")}>
+      <p>One file of custom properties is the whole theming story.</p>
+    </ArticleCard>
+  </li>
+</PostList>
+
+### What to copy
+
+<div class="docs_oversizedTable">
+
+| File                                    | What it is                          | Source      |
+| --------------------------------------- | ----------------------------------- | ----------- |
+| `component.articleCard.css`              | ArticleCard + PostList styles       | [Github][1] |
+| `component.card.css`                     | Base card visuals (dependency)      | [Github][2] |
+| `ArticleCard.astro`, `PostList.astro`    | The Astro components                | [Github][3] |
+| `Tags.astro`, `Avatar.astro`             | Composed components (dependencies)  | [Github][3] |
+| `--articleCard-*` block in default theme | Theme token (see below)             | [Github][4] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.articleCard.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.card.css
+[3]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<ul class="postList grid" col="1" col-md="2" col-lg="2">
+  <li>
+    <article class="card articleCard">
+      <figure class="articleCard_media">
+        <img class="articleCard_image" src="cover.jpg" alt="" loading="lazy" />
+      </figure>
+      <nav aria-label="Tags"><ul class="tags tags-inline articleCard_tags">
+        <li><a href="/tags/css">css</a></li>
+      </ul></nav>
+      <h3 class="articleCard_title"><a href="/blog/my-post">Designing with cascade layers</a></h3>
+      <div class="articleCard_description"><p>Why layer order beats specificity wars.</p></div>
+      <footer class="articleCard_byline">
+        <!-- avatar markup, see the Avatar docs -->
+        <div>
+          <span class="articleCard_author">Sonny Mueller</span>
+          <time datetime="2026-05-02">May 2, 2026</time>
+        </div>
+      </footer>
+    </article>
+  </li>
+</ul>
+```
+
+### Custom properties
+
+<div class="docs_oversizedTable">
+
+| Property                            | Description                                       |
+| ----------------------------------- | ------------------------------------------------- |
+| `--articleCard-image-aspect-ratio`  | Cover image ratio (defaults to `--ar-golden`).    |
+
+Everything else (borders, radius, colors, spacing) comes from the [card tokens](/components/card).
+
+</div>
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+**ArticleCard**
+
+| Prop        | Type                      | Default     | Description                                        |
+| ----------- | ------------------------- | ----------- | -------------------------------------------------- |
+| `href`      | `string`                  | —           | Post URL. Required.                                |
+| `title`     | `string`                  | —           | Post title (the card's single link). Required.     |
+| `imageSrc`  | `ImageMetadata \| string` | `undefined` | Cover image (imported asset or URL/path).          |
+| `imageAlt`  | `string`                  | `""`        | Cover image alt text.                              |
+| `tags`      | `string[]`                | `[]`        | Tag names, rendered with the Tags component.       |
+| `tagsUrl`   | `string`                  | `"/tags"`   | Base URL for tag links.                            |
+| `author`    | `string`                  | `undefined` | Byline name (also feeds the Avatar initials).      |
+| `avatarSrc` | `ImageMetadata \| string` | `undefined` | Byline avatar image.                               |
+| `date`      | `Date`                    | `undefined` | Publication date, rendered as a `<time>`.          |
+| `locale`    | `string`                  | `"en-US"`   | Locale for the formatted date.                     |
+| `variant`   | `string`                  | `undefined` | Card variant pass-through: `filled`, `raised`.     |
+| `class`     | `string`                  | `undefined` | Additional CSS classes.                            |
+
+The default slot is the description (rich HTML welcome).
+
+**PostList**
+
+| Prop   | Type     | Default | Description                                     |
+| ------ | -------- | ------- | ------------------------------------------------ |
+| `cols` | `number` | `2`     | Columns from `--lg`: `1`, `2`, or `3`.           |
+
+Children go in the default slot; wrap each card in an `<li>`.
+
+</div>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <ArticleCard href="#" title="A minimal card" variant="filled">
+      <p>Only `href` and `title` are required; everything else is optional.</p>
+    </ArticleCard>
+
+    ```astro
+    ---
+    import ArticleCard from "../components/ArticleCard.astro";
+    ---
+    <ArticleCard href="/blog/my-post" title="A minimal card" variant="filled">
+      <p>Only `href` and `title` are required.</p>
+    </ArticleCard>
+    ```
+
+  </li>
+</ul>

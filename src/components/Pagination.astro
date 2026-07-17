@@ -1,0 +1,83 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import chevron from '../assets/icons/chevron-down.svg?raw';
+
+interface Props extends HTMLAttributes<'nav'> {
+  currentPage: number;
+  lastPage: number;
+  baseUrl: string;
+  pageUrl?: (page: number) => string;
+  windowSize?: number;
+  ariaLabel?: string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  currentPage,
+  lastPage,
+  baseUrl,
+  pageUrl = (page: number) => (page === 1 ? baseUrl : `${baseUrl.replace(/\/$/, '')}/${page}`),
+  windowSize = 1,
+  ariaLabel = 'Pagination',
+  class: className,
+  'data-testid': testId = 'pagination',
+  ...rest
+} = Astro.props as Props;
+
+// Window the page numbers around the current one: 1 … 4 [5] 6 … 12
+const pages: (number | 'gap')[] = [];
+for (let p = 1; p <= lastPage; p++) {
+  if (p === 1 || p === lastPage || Math.abs(p - currentPage) <= windowSize) {
+    pages.push(p);
+  } else if (pages[pages.length - 1] !== 'gap') {
+    pages.push('gap');
+  }
+}
+---
+
+<!-- prettier-ignore -->
+<nav
+  class:list={['pagination', className]}
+  aria-label={ariaLabel}
+  data-testid={testId}
+  {...rest}
+>
+  <ul>
+    <li>
+      {currentPage > 1 ? (
+        <a class="pagination_arrow pagination_arrow-prev" href={pageUrl(currentPage - 1)} aria-label="Previous page">
+          <Fragment set:html={chevron} />
+        </a>
+      ) : (
+        <span class="pagination_arrow pagination_arrow-prev" aria-disabled="true">
+          <Fragment set:html={chevron} />
+        </span>
+      )}
+    </li>
+    {
+      pages.map((page) =>
+        page === 'gap' ? (
+          <li><span class="pagination_ellipsis" aria-hidden="true">…</span></li>
+        ) : (
+          <li>
+            <a href={pageUrl(page)} aria-current={page === currentPage ? 'page' : undefined} aria-label={`Page ${page}`}>
+              {page}
+            </a>
+          </li>
+        )
+      )
+    }
+    <li>
+      {currentPage < lastPage ? (
+        <a class="pagination_arrow pagination_arrow-next" href={pageUrl(currentPage + 1)} aria-label="Next page">
+          <Fragment set:html={chevron} />
+        </a>
+      ) : (
+        <span class="pagination_arrow pagination_arrow-next" aria-disabled="true">
+          <Fragment set:html={chevron} />
+        </span>
+      )}
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,64 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props extends HTMLAttributes<'nav'> {
+  items: Crumb[];
+  ariaLabel?: string;
+  jsonLd?: boolean;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  items,
+  ariaLabel = 'Breadcrumbs',
+  jsonLd = false,
+  class: className,
+  'data-testid': testId = 'breadcrumbs',
+  ...rest
+} = Astro.props as Props;
+
+const schema = jsonLd
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.label,
+        ...(item.href ? { item: new URL(item.href, Astro.url.origin).href } : {}),
+      })),
+    })
+  : undefined;
+---
+
+<!-- prettier-ignore -->
+<nav
+  class:list={['breadcrumbs', className]}
+  aria-label={ariaLabel}
+  data-testid={testId}
+  {...rest}
+>
+  <ol>
+    {
+      items.map((item, i) => {
+        const isLast = i === items.length - 1;
+        return (
+          <li>
+            {item.href && !isLast ? (
+              <a href={item.href}>{item.label}</a>
+            ) : (
+              <span aria-current={isLast ? 'page' : undefined}>{item.label}</span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+{schema && <script type="application/ld+json" set:html={schema} />}

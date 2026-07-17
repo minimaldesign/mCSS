@@ -166,6 +166,12 @@
 
 /* COMPONENTS */
 
+/* ArticleCard */
+
+:root {
+  --articleCard-image-aspect-ratio: var(--ar-golden);
+}
+
 /* Avatar */
 
 :root {
@@ -176,6 +182,15 @@
   --avatar-radius: var(--radius-round);
   --avatar-status-dot-color-offline: var(--base-300);
   --avatar-status-dot-color-online: var(--yes-400);
+}
+
+/* Breadcrumbs */
+
+:root {
+  --breadcrumbs-separator: "/";
+  --breadcrumbs-separator-color: light-dark(var(--base-300), var(--base-600));
+  --breadcrumbs-color: light-dark(var(--base-500), var(--base-400));
+  --breadcrumbs-color-current: var(--text-color);
 }
 
 /* Card */
@@ -275,6 +290,31 @@
   --hero-pagination-dot-color: var(--base-0);
   --hero-pagination-dot-active-color: var(--primary-600);
   --hero-pagination-opacity: var(--o-4);
+}
+
+/* Pagination */
+
+:root {
+  --pagination-size: var(--md3);
+  --pagination-border-radius: var(--radius-md);
+  --pagination-color: var(--text-color);
+  --pagination-color-current: var(--base-0);
+  --pagination-background-color-current: light-dark(
+    var(--primary-600),
+    var(--primary-500)
+  );
+  --pagination-background-color-hover: light-dark(
+    var(--base-100),
+    var(--base-800)
+  );
+}
+
+/* PrevNext */
+
+:root {
+  --prevNext-border-color: var(--theme-border-color);
+  --prevNext-border-color-hover: var(--link-color);
+  --prevNext-label-color: light-dark(var(--base-400), var(--base-500));
 }
 
 /* Notice */

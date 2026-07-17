@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'ul'> {
+  cols?: 1 | 2 | 3;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  cols = 2,
+  class: className,
+  'data-testid': testId = 'postList',
+  ...rest
+} = Astro.props as Props;
+
+// The grid system's responsive column attributes (see global.grid.css)
+const gridCols: Record<string, string> = { col: '1', 'col-md': String(Math.min(cols, 2)), 'col-lg': String(cols) };
+---
+
+<!-- prettier-ignore -->
+<ul
+  class:list={['postList', 'grid', className]}
+  {...gridCols}
+  data-testid={testId}
+  {...rest}
+>
+  <slot />
+</ul>
