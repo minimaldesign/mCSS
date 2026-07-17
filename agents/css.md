@@ -42,6 +42,7 @@ Site-only files keep the same prefixes but live in `src/styles/site/` and import
 - `.is-*` for anything that can change at **runtime** (`.is-active`, `.is-open`, `.is-online`), always scoped inside the block.
 - Block modifiers (`.card-filled`, `.bt-primary`) for **build-time variants** chosen by props/markup.
 - Prefer styling an ARIA attribute when one exists: `[aria-current="true"]`, `[aria-expanded="true"]`, `[aria-disabled="true"]` beat inventing a parallel class.
+- Nested states compile to two-class selectors (`.avatar.is-online`) that out-specify single-class modifiers (`.avatar-xl`). So declare custom-property **defaults on the block**, let modifiers override them, and only **consume** the properties inside state blocks — never declare defaults there (that's how the avatar status-dot regression happened).
 - Element chains cap at `block_element`. Grandchildren **re-block** (`.themeToggle_text`, not `.header_navMobile_themeToggle_text`).
 
 ### Token naming grammar

@@ -185,6 +185,28 @@ CSS:
 }
 ```
 
+**One gotcha to keep in mind:** nesting a state inside its block compiles to a two-class selector (`.formSubmit.is-disabled`), which beats single-class modifiers like `.formSubmit-lg`. That's usually what you want: states describe what's happening *right now*, so they should win. But it means a state block is the wrong place to declare default values for custom properties. Declare defaults on the block itself, let modifiers override them, and only *use* the properties inside the state. Otherwise your size and color modifiers will mysteriously stop working the moment the state class shows up.
+
+```css
+.avatar {
+  /* ✅ defaults live on the block… */
+  --status-dot-size: 12px;
+
+  &.is-online {
+    /* ❌ …not here: this would override .avatar-xl's dot size */
+    &::after {
+      /* ✅ states just consume the properties */
+      width: var(--status-dot-size);
+    }
+  }
+}
+
+.avatar-xl {
+  /* modifiers can now override the default */
+  --status-dot-size: 20px;
+}
+```
+
 </section>
 
 ## Components
