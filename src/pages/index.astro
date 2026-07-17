@@ -17,6 +17,7 @@ import BaselineBadge from '../components/_BaselineBadge.astro';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
+import arrowIcon from '../assets/icons/arrow-right.svg?raw';
 
 const title = 'mCSS: One class. Not forty.';
 const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
@@ -91,7 +92,11 @@ const themeDiffs = {
           <a class="bt bt-lg bt-primary" href="/docs/start">Get started</a>
           <a class="bt bt-lg" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
         </p>
-        <p class="homeHero_fineprint">MIT licensed&ensp;·&ensp;No dependencies&ensp;·&ensp;It’s just CSS</p>
+        <p class="homeHero_fineprint">
+          <span><Fragment set:html={arrowIcon} />MIT licensed</span>
+          <span><Fragment set:html={arrowIcon} />No dependencies</span>
+          <span><Fragment set:html={arrowIcon} />It’s just CSS</span>
+        </p>
       </div>
 
       {
@@ -99,12 +104,6 @@ const themeDiffs = {
           line below carries the argument. */
       }
       <div class="homeMorph">
-        <div class="homeMorph_canvas" aria-hidden="true">
-          <span class="homeMorph_canvasLabel">output</span>
-          <button type="button" class="bt bt-primary" tabindex="-1">Demo button</button>
-        </div>
-        <div class="homeMorph_connector" aria-hidden="true"></div>
-
         <figure class="homeMorph_editor" aria-hidden="true">
           <div class="homeMorph_chrome"><i></i><i></i><i></i></div>
           {
@@ -134,7 +133,7 @@ const themeDiffs = {
           <p class="homeMorph_staticCount">219 → 54 characters</p>
         </div>
 
-        <p class="a11y-srOnly">Two mCSS classes replace forty utility classes: the same rendered button, from markup you can read.</p>
+        <p class="a11y-srOnly">Two mCSS classes replace forty utility classes: the same button, from markup you can read.</p>
 
         <button type="button" class="homeMorph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
       </div>
