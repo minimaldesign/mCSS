@@ -9,7 +9,7 @@ import Field from "../../components/Field.astro";
 
 <section class="prose">
 
-mCSS styles the bare [form elements](/docs/elements) already; the `.field` component adds the missing composition layer: label + control + hint + error message, with validation states driven entirely by CSS. Errors use `:user-invalid`, so a pristine form never lights up red — only fields the user actually touched and got wrong.
+The `.field` component composes the bare [form elements](/docs/elements) into label + control + hint + error message, with validation states driven entirely by CSS.
 
 <form>
   <Field label="Email" name="demo-email" type="email" required hint="We'll never share it." placeholder="you@example.com" error="That doesn't look like an email address." />
@@ -17,11 +17,9 @@ mCSS styles the bare [form elements](/docs/elements) already; the `.field` compo
 
 Type something that isn't an email address and tab away: the hint swaps for the error and the border turns red, no JavaScript involved.
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                | What it is                              | Source      |
+| File                                | Description                             | Source      |
 | ----------------------------------- | ---------------------------------------- | ----------- |
 | `component.field.css`               | Field + fieldRow composition and states  | [Github][1] |
 | `elements.form.css`                 | Bare element styles + `:user-invalid` border | [Github][2] |
@@ -43,14 +41,14 @@ Type something that isn't an email address and tab away: the hint swaps for the 
 
 ```html
 <div class="field">
-  <label for="email">Email <span class="field_required" aria-hidden="true">*</span></label>
+  <label for="email">Email</label>
   <input id="email" name="email" type="email" required aria-describedby="email-hint" />
   <small class="field_hint" id="email-hint">We'll never share it.</small>
   <small class="field_error">That doesn't look like an email address.</small>
 </div>
 ```
 
-The error message is always in the markup and revealed by `.field:has(:user-invalid)`. It is deliberately **not** referenced by `aria-describedby`: screen readers get the browser's native validation message on submit, so wiring the visual error in as a description would double-announce it.
+Errors use `:user-invalid`, so a pristine form never lights up red — only fields the user actually touched and got wrong. The error message is always in the markup and revealed by `.field:has(:user-invalid)`. It is deliberately **not** referenced by `aria-describedby`: screen readers get the browser's native validation message on submit, so wiring the visual error in as a description would double-announce it.
 
 ### Custom properties
 
@@ -61,7 +59,6 @@ The error message is always in the markup and revealed by `.field:has(:user-inva
 | `--field-spacing`              | Gap between label, control, and messages.  |
 | `--field-hint-color`           | Hint text color.                           |
 | `--field-error-color`          | Error text color.                          |
-| `--field-required-color`       | Color of the `*` required marker.          |
 | `--input-border-color-invalid` | Border color of a `:user-invalid` control. |
 
 </div>

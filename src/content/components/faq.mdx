@@ -10,7 +10,7 @@ import FaqItem from "../../components/FaqItem.astro";
 
 <section class="prose">
 
-The `.faq` component groups `details`/`summary` disclosures into the classic FAQ accordion. It is pure HTML and CSS: the disclosure behavior is native, the chevron and open state come from mCSS's [element styles](/docs/elements), and giving every item the same `name` makes the group exclusive-open (opening one closes the others) with zero JavaScript.
+The `.faq` component groups `details`/`summary` disclosures into the classic FAQ accordion — native behavior, zero JavaScript.
 
 <Faq>
   <FaqItem question="Does this need JavaScript?" name="demo">
@@ -24,11 +24,9 @@ The `.faq` component groups `details`/`summary` disclosures into the classic FAQ
   </FaqItem>
 </Faq>
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                             | What it is                              | Source      |
+| File                             | Description                             | Source      |
 | -------------------------------- | --------------------------------------- | ----------- |
 | `component.faq.css`              | Group spacing                            | [Github][1] |
 | `elements.interactive.css`       | The `details`/`summary` styling + chevron | [Github][2] |
@@ -65,7 +63,7 @@ The `.faq` component groups `details`/`summary` disclosures into the classic FAQ
 </div>
 ```
 
-The `name` attribute is a progressive enhancement: browsers that don't support exclusive accordions simply let several items stay open, which is a perfectly fine FAQ too.
+Giving every item the same `name` makes the group exclusive-open (opening one closes the others). It is a progressive enhancement: browsers that don't support exclusive accordions simply let several items stay open, which is a perfectly fine FAQ too.
 
 ### Custom properties
 

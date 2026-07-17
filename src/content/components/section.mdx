@@ -9,17 +9,15 @@ import Section from "../../components/Section.astro";
 
 <section class="prose">
 
-The `.section` component is the workhorse wrapper marketing pages are made of: a full-width band with vertical rhythm, an optional eyebrow/title/lede header, and background variants. It composes [`.wrap`](/docs/global), so its children align to the same content column as the rest of the page, and a `wide` preset lets grids and galleries escape the reading column.
+The `.section` component is the workhorse wrapper marketing pages are made of: a full-width band with vertical rhythm, an optional eyebrow/title/lede header, and background variants.
 
 <Section eyebrow="Why mCSS" title="Everything is a section" lede="Stack a few of these and you have a landing page." variant="filled" style="border-radius: var(--radius-lg);">
   <p class="text-center">Section content goes here.</p>
 </Section>
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                 | What it is                     | Source      |
+| File                                 | Description                    | Source      |
 | ------------------------------------ | ------------------------------ | ----------- |
 | `component.section.css`              | All section styles             | [Github][1] |
 | `Section.astro`                      | The Astro component            | [Github][2] |
@@ -27,7 +25,7 @@ The `.section` component is the workhorse wrapper marketing pages are made of: a
 
 </div>
 
-Depends on `.wrap` (`global.wrap.css`), part of the mCSS core.
+Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to the same content column as the rest of the page, and the `wide` preset lets grids escape the reading column.
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.section.css
 [2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Section.astro
@@ -158,13 +156,13 @@ Any other attribute is passed through to the root `<section>` element (handy for
 
   </li>
   <li>
+    The closing CTA every marketing page ends on is not a separate component; it is a Section with a `.section_actions` row:
+
     <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary" style="border-radius: var(--radius-lg);">
       <div class="section_actions">
         <a class="bt bt-lg bt-outline-white" href="#">Get started</a>
       </div>
     </Section>
-
-    The closing CTA every marketing page ends on is not a separate component; it is a Section with a `.section_actions` row:
 
     ```astro
     <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary">

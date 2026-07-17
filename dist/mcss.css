@@ -823,15 +823,12 @@ xxl: 1920px
   --field-hint-color: var(--csstools-light-dark-toggle--33, var(--base-400));
   --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--danger-300);
   --field-error-color: var(--csstools-light-dark-toggle--34, var(--danger-500));
-  --csstools-light-dark-toggle--35: var(--csstools-color-scheme--light) var(--danger-300);
-  --field-required-color: var(--csstools-light-dark-toggle--35, var(--danger-500));
 }
 
 @supports (color: light-dark(red, red)){
 :root {
   --field-hint-color: light-dark(var(--base-400), var(--base-500));
   --field-error-color: light-dark(var(--danger-500), var(--danger-300));
-  --field-required-color: light-dark(var(--danger-500), var(--danger-300));
 }
 }
   @supports not (color: light-dark(tan, tan)){
@@ -841,8 +838,6 @@ xxl: 1920px
   --field-hint-color: var(--csstools-light-dark-toggle--33, var(--base-400));
   --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--danger-300);
   --field-error-color: var(--csstools-light-dark-toggle--34, var(--danger-500));
-  --csstools-light-dark-toggle--35: var(--csstools-color-scheme--light) var(--danger-300);
-  --field-required-color: var(--csstools-light-dark-toggle--35, var(--danger-500));
 }
 }
 
@@ -851,10 +846,10 @@ xxl: 1920px
 :root {
   --featureItem-icon-box-size: var(--lg3);
   --featureItem-icon-size: var(--sm3);
-  --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--primary-300);
-  --featureItem-icon-color: var(--csstools-light-dark-toggle--36, var(--primary-600));
-  --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--primary-900);
-  --featureItem-icon-background-color: var(--csstools-light-dark-toggle--37, var(--primary-100));
+  --csstools-light-dark-toggle--35: var(--csstools-color-scheme--light) var(--primary-300);
+  --featureItem-icon-color: var(--csstools-light-dark-toggle--35, var(--primary-600));
+  --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--primary-900);
+  --featureItem-icon-background-color: var(--csstools-light-dark-toggle--36, var(--primary-100));
   --featureItem-icon-border-radius: var(--radius-lg);
 }
 
@@ -870,27 +865,27 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--primary-300);
-  --featureItem-icon-color: var(--csstools-light-dark-toggle--36, var(--primary-600));
-  --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--primary-900);
-  --featureItem-icon-background-color: var(--csstools-light-dark-toggle--37, var(--primary-100));
+  --csstools-light-dark-toggle--35: var(--csstools-color-scheme--light) var(--primary-300);
+  --featureItem-icon-color: var(--csstools-light-dark-toggle--35, var(--primary-600));
+  --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--primary-900);
+  --featureItem-icon-background-color: var(--csstools-light-dark-toggle--36, var(--primary-100));
 }
 }
 
 /* Footer */
 
 :root {
-  --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-950);
-  --footer-background-color: var(--csstools-light-dark-toggle--38, var(--primary-600));
-  --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-text-color: var(--csstools-light-dark-toggle--39, var(--base-0));
+  --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--base-950);
+  --footer-background-color: var(--csstools-light-dark-toggle--37, var(--primary-600));
+  --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-text-color: var(--csstools-light-dark-toggle--38, var(--base-0));
   --footer-border-width: var(--border-md);
-  --csstools-light-dark-toggle--40: var(--csstools-color-scheme--light) var(--base-700);
-  --footer-border-color: var(--csstools-light-dark-toggle--40, transparent);
-  --csstools-light-dark-toggle--41: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-link-color: var(--csstools-light-dark-toggle--41, var(--base-0));
-  --csstools-light-dark-toggle--42: var(--csstools-color-scheme--light) var(--base-0);
-  --footer-link-color-hover: var(--csstools-light-dark-toggle--42, var(--primary-200));
+  --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) var(--base-700);
+  --footer-border-color: var(--csstools-light-dark-toggle--39, transparent);
+  --csstools-light-dark-toggle--40: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-link-color: var(--csstools-light-dark-toggle--40, var(--base-0));
+  --csstools-light-dark-toggle--41: var(--csstools-color-scheme--light) var(--base-0);
+  --footer-link-color-hover: var(--csstools-light-dark-toggle--41, var(--primary-200));
 }
 
 @supports (color: light-dark(red, red)){
@@ -905,16 +900,16 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-950);
-  --footer-background-color: var(--csstools-light-dark-toggle--38, var(--primary-600));
-  --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-text-color: var(--csstools-light-dark-toggle--39, var(--base-0));
-  --csstools-light-dark-toggle--40: var(--csstools-color-scheme--light) var(--base-700);
-  --footer-border-color: var(--csstools-light-dark-toggle--40, transparent);
-  --csstools-light-dark-toggle--41: var(--csstools-color-scheme--light) var(--base-200);
-  --footer-link-color: var(--csstools-light-dark-toggle--41, var(--base-0));
-  --csstools-light-dark-toggle--42: var(--csstools-color-scheme--light) var(--base-0);
-  --footer-link-color-hover: var(--csstools-light-dark-toggle--42, var(--primary-200));
+  --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--base-950);
+  --footer-background-color: var(--csstools-light-dark-toggle--37, var(--primary-600));
+  --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-text-color: var(--csstools-light-dark-toggle--38, var(--base-0));
+  --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) var(--base-700);
+  --footer-border-color: var(--csstools-light-dark-toggle--39, transparent);
+  --csstools-light-dark-toggle--40: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-link-color: var(--csstools-light-dark-toggle--40, var(--base-0));
+  --csstools-light-dark-toggle--41: var(--csstools-color-scheme--light) var(--base-0);
+  --footer-link-color-hover: var(--csstools-light-dark-toggle--41, var(--primary-200));
 }
 }
 
@@ -933,8 +928,8 @@ xxl: 1920px
   }
 
 :root {
-  --csstools-light-dark-toggle--43: var(--csstools-color-scheme--light) var(--base-950);
-  --header-background-color: var(--csstools-light-dark-toggle--43, var(--base-0));
+  --csstools-light-dark-toggle--42: var(--csstools-color-scheme--light) var(--base-950);
+  --header-background-color: var(--csstools-light-dark-toggle--42, var(--base-0));
 
   /* The mobile menu is an always-dark surface by design, so these are raw
      palette values on purpose; override them to retheme the menu. */
@@ -953,8 +948,8 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--43: var(--csstools-color-scheme--light) var(--base-950);
-  --header-background-color: var(--csstools-light-dark-toggle--43, var(--base-0));
+  --csstools-light-dark-toggle--42: var(--csstools-color-scheme--light) var(--base-950);
+  --header-background-color: var(--csstools-light-dark-toggle--42, var(--base-0));
 }
 }
 
@@ -976,10 +971,10 @@ xxl: 1920px
   --pagination-border-radius: var(--radius-md);
   --pagination-color: var(--text-color);
   --pagination-color-current: var(--base-0);
-  --csstools-light-dark-toggle--44: var(--csstools-color-scheme--light) var(--primary-500);
-  --pagination-background-color-current: var(--csstools-light-dark-toggle--44, var(--primary-600));
-  --csstools-light-dark-toggle--45: var(--csstools-color-scheme--light) var(--base-800);
-  --pagination-background-color-hover: var(--csstools-light-dark-toggle--45, var(--base-100));
+  --csstools-light-dark-toggle--43: var(--csstools-color-scheme--light) var(--primary-500);
+  --pagination-background-color-current: var(--csstools-light-dark-toggle--43, var(--primary-600));
+  --csstools-light-dark-toggle--44: var(--csstools-color-scheme--light) var(--base-800);
+  --pagination-background-color-hover: var(--csstools-light-dark-toggle--44, var(--base-100));
 }
 
 @supports (color: light-dark(red, red)){
@@ -997,10 +992,10 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--44: var(--csstools-color-scheme--light) var(--primary-500);
-  --pagination-background-color-current: var(--csstools-light-dark-toggle--44, var(--primary-600));
-  --csstools-light-dark-toggle--45: var(--csstools-color-scheme--light) var(--base-800);
-  --pagination-background-color-hover: var(--csstools-light-dark-toggle--45, var(--base-100));
+  --csstools-light-dark-toggle--43: var(--csstools-color-scheme--light) var(--primary-500);
+  --pagination-background-color-current: var(--csstools-light-dark-toggle--43, var(--primary-600));
+  --csstools-light-dark-toggle--44: var(--csstools-color-scheme--light) var(--base-800);
+  --pagination-background-color-hover: var(--csstools-light-dark-toggle--44, var(--base-100));
 }
 }
 
@@ -1009,8 +1004,8 @@ xxl: 1920px
 :root {
   --prevNext-border-color: var(--theme-border-color);
   --prevNext-border-color-hover: var(--link-color);
-  --csstools-light-dark-toggle--46: var(--csstools-color-scheme--light) var(--base-500);
-  --prevNext-label-color: var(--csstools-light-dark-toggle--46, var(--base-400));
+  --csstools-light-dark-toggle--45: var(--csstools-color-scheme--light) var(--base-500);
+  --prevNext-label-color: var(--csstools-light-dark-toggle--45, var(--base-400));
 }
 
 @supports (color: light-dark(red, red)){
@@ -1021,8 +1016,8 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--46: var(--csstools-color-scheme--light) var(--base-500);
-  --prevNext-label-color: var(--csstools-light-dark-toggle--46, var(--base-400));
+  --csstools-light-dark-toggle--45: var(--csstools-color-scheme--light) var(--base-500);
+  --prevNext-label-color: var(--csstools-light-dark-toggle--45, var(--base-400));
 }
 }
 
@@ -1030,12 +1025,12 @@ xxl: 1920px
 
 :root {
   --notice-spacing: var(--sm1);
-  --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-0);
-  --notice-text-color: var(--csstools-light-dark-toggle--47, var(--base-950));
-  --csstools-light-dark-toggle--48: var(--csstools-color-scheme--light) var(--base-800);
-  --notice-background-color: var(--csstools-light-dark-toggle--48, var(--base-50));
-  --csstools-light-dark-toggle--49: var(--csstools-color-scheme--light) var(--base-500);
-  --notice-border-color: var(--csstools-light-dark-toggle--49, var(--base-200));
+  --csstools-light-dark-toggle--46: var(--csstools-color-scheme--light) var(--base-0);
+  --notice-text-color: var(--csstools-light-dark-toggle--46, var(--base-950));
+  --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-800);
+  --notice-background-color: var(--csstools-light-dark-toggle--47, var(--base-50));
+  --csstools-light-dark-toggle--48: var(--csstools-color-scheme--light) var(--base-500);
+  --notice-border-color: var(--csstools-light-dark-toggle--48, var(--base-200));
   --notice-border-width: var(--border-sm);
   --notice-border-radius: var(--radius-lg);
 }
@@ -1050,22 +1045,22 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-0);
-  --notice-text-color: var(--csstools-light-dark-toggle--47, var(--base-950));
-  --csstools-light-dark-toggle--48: var(--csstools-color-scheme--light) var(--base-800);
-  --notice-background-color: var(--csstools-light-dark-toggle--48, var(--base-50));
-  --csstools-light-dark-toggle--49: var(--csstools-color-scheme--light) var(--base-500);
-  --notice-border-color: var(--csstools-light-dark-toggle--49, var(--base-200));
+  --csstools-light-dark-toggle--46: var(--csstools-color-scheme--light) var(--base-0);
+  --notice-text-color: var(--csstools-light-dark-toggle--46, var(--base-950));
+  --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-800);
+  --notice-background-color: var(--csstools-light-dark-toggle--47, var(--base-50));
+  --csstools-light-dark-toggle--48: var(--csstools-color-scheme--light) var(--base-500);
+  --notice-border-color: var(--csstools-light-dark-toggle--48, var(--base-200));
 }
 }
 
 /* Pricing */
 
 :root {
-  --csstools-light-dark-toggle--50: var(--csstools-color-scheme--light) var(--primary-400);
-  --pricingCard-highlight-border-color: var(--csstools-light-dark-toggle--50, var(--primary-600));
-  --csstools-light-dark-toggle--51: var(--csstools-color-scheme--light) var(--success-400);
-  --pricingCard-check-color: var(--csstools-light-dark-toggle--51, var(--success-500));
+  --csstools-light-dark-toggle--49: var(--csstools-color-scheme--light) var(--primary-400);
+  --pricingCard-highlight-border-color: var(--csstools-light-dark-toggle--49, var(--primary-600));
+  --csstools-light-dark-toggle--50: var(--csstools-color-scheme--light) var(--success-400);
+  --pricingCard-check-color: var(--csstools-light-dark-toggle--50, var(--success-500));
 }
 
 @supports (color: light-dark(red, red)){
@@ -1080,10 +1075,10 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--50: var(--csstools-color-scheme--light) var(--primary-400);
-  --pricingCard-highlight-border-color: var(--csstools-light-dark-toggle--50, var(--primary-600));
-  --csstools-light-dark-toggle--51: var(--csstools-color-scheme--light) var(--success-400);
-  --pricingCard-check-color: var(--csstools-light-dark-toggle--51, var(--success-500));
+  --csstools-light-dark-toggle--49: var(--csstools-color-scheme--light) var(--primary-400);
+  --pricingCard-highlight-border-color: var(--csstools-light-dark-toggle--49, var(--primary-600));
+  --csstools-light-dark-toggle--50: var(--csstools-color-scheme--light) var(--success-400);
+  --pricingCard-check-color: var(--csstools-light-dark-toggle--50, var(--success-500));
 }
 }
 
@@ -1104,14 +1099,14 @@ xxl: 1920px
   --section-spacing: var(--xl3);
   --section-header-spacing: var(--lg3);
   --section-wide-width: 1080px;
-  --csstools-light-dark-toggle--52: var(--csstools-color-scheme--light) var(--primary-400);
-  --section-eyebrow-color: var(--csstools-light-dark-toggle--52, var(--primary-600));
-  --csstools-light-dark-toggle--53: var(--csstools-color-scheme--light) var(--base-400);
-  --section-lede-color: var(--csstools-light-dark-toggle--53, var(--base-500));
-  --csstools-light-dark-toggle--54: var(--csstools-color-scheme--light) var(--base-900);
-  --section-filled-background-color: var(--csstools-light-dark-toggle--54, var(--base-50));
-  --csstools-light-dark-toggle--55: var(--csstools-color-scheme--light) var(--primary-900);
-  --section-primary-background-color: var(--csstools-light-dark-toggle--55, var(--primary-600));
+  --csstools-light-dark-toggle--51: var(--csstools-color-scheme--light) var(--primary-400);
+  --section-eyebrow-color: var(--csstools-light-dark-toggle--51, var(--primary-600));
+  --csstools-light-dark-toggle--52: var(--csstools-color-scheme--light) var(--base-400);
+  --section-lede-color: var(--csstools-light-dark-toggle--52, var(--base-500));
+  --csstools-light-dark-toggle--53: var(--csstools-color-scheme--light) var(--base-900);
+  --section-filled-background-color: var(--csstools-light-dark-toggle--53, var(--base-50));
+  --csstools-light-dark-toggle--54: var(--csstools-color-scheme--light) var(--primary-900);
+  --section-primary-background-color: var(--csstools-light-dark-toggle--54, var(--primary-600));
   --section-primary-text-color: var(--base-0);
   --section-primary-link-color: var(--primary-100);
   --section-primary-link-color-hover: var(--base-0);
@@ -1133,22 +1128,22 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--52: var(--csstools-color-scheme--light) var(--primary-400);
-  --section-eyebrow-color: var(--csstools-light-dark-toggle--52, var(--primary-600));
-  --csstools-light-dark-toggle--53: var(--csstools-color-scheme--light) var(--base-400);
-  --section-lede-color: var(--csstools-light-dark-toggle--53, var(--base-500));
-  --csstools-light-dark-toggle--54: var(--csstools-color-scheme--light) var(--base-900);
-  --section-filled-background-color: var(--csstools-light-dark-toggle--54, var(--base-50));
-  --csstools-light-dark-toggle--55: var(--csstools-color-scheme--light) var(--primary-900);
-  --section-primary-background-color: var(--csstools-light-dark-toggle--55, var(--primary-600));
+  --csstools-light-dark-toggle--51: var(--csstools-color-scheme--light) var(--primary-400);
+  --section-eyebrow-color: var(--csstools-light-dark-toggle--51, var(--primary-600));
+  --csstools-light-dark-toggle--52: var(--csstools-color-scheme--light) var(--base-400);
+  --section-lede-color: var(--csstools-light-dark-toggle--52, var(--base-500));
+  --csstools-light-dark-toggle--53: var(--csstools-color-scheme--light) var(--base-900);
+  --section-filled-background-color: var(--csstools-light-dark-toggle--53, var(--base-50));
+  --csstools-light-dark-toggle--54: var(--csstools-color-scheme--light) var(--primary-900);
+  --section-primary-background-color: var(--csstools-light-dark-toggle--54, var(--primary-600));
 }
 }
 
 /* Testimonial */
 
 :root {
-  --csstools-light-dark-toggle--56: var(--csstools-color-scheme--light) var(--base-500);
-  --testimonial-role-color: var(--csstools-light-dark-toggle--56, var(--base-400));
+  --csstools-light-dark-toggle--55: var(--csstools-color-scheme--light) var(--base-500);
+  --testimonial-role-color: var(--csstools-light-dark-toggle--55, var(--base-400));
 }
 
 @supports (color: light-dark(red, red)){
@@ -1159,8 +1154,8 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--56: var(--csstools-color-scheme--light) var(--base-500);
-  --testimonial-role-color: var(--csstools-light-dark-toggle--56, var(--base-400));
+  --csstools-light-dark-toggle--55: var(--csstools-color-scheme--light) var(--base-500);
+  --testimonial-role-color: var(--csstools-light-dark-toggle--55, var(--base-400));
 }
 }
 
@@ -1169,12 +1164,12 @@ xxl: 1920px
 :root {
   --tags-padding: var(--xs2);
   --tags-font-size: var(--text-sm);
-  --csstools-light-dark-toggle--57: var(--csstools-color-scheme--light) var(--base-400);
-  --tags-color: var(--csstools-light-dark-toggle--57, var(--base-500));
-  --csstools-light-dark-toggle--58: var(--csstools-color-scheme--light) var(--base-800);
-  --tags-background-color: var(--csstools-light-dark-toggle--58, var(--base-100));
-  --csstools-light-dark-toggle--59: var(--csstools-color-scheme--light) var(--base-950);
-  --tags-background-color-hover: var(--csstools-light-dark-toggle--59, var(--base-200));
+  --csstools-light-dark-toggle--56: var(--csstools-color-scheme--light) var(--base-400);
+  --tags-color: var(--csstools-light-dark-toggle--56, var(--base-500));
+  --csstools-light-dark-toggle--57: var(--csstools-color-scheme--light) var(--base-800);
+  --tags-background-color: var(--csstools-light-dark-toggle--57, var(--base-100));
+  --csstools-light-dark-toggle--58: var(--csstools-color-scheme--light) var(--base-950);
+  --tags-background-color-hover: var(--csstools-light-dark-toggle--58, var(--base-200));
   --tags-radius: var(--radius-md);
 }
 
@@ -1188,12 +1183,12 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--57: var(--csstools-color-scheme--light) var(--base-400);
-  --tags-color: var(--csstools-light-dark-toggle--57, var(--base-500));
-  --csstools-light-dark-toggle--58: var(--csstools-color-scheme--light) var(--base-800);
-  --tags-background-color: var(--csstools-light-dark-toggle--58, var(--base-100));
-  --csstools-light-dark-toggle--59: var(--csstools-color-scheme--light) var(--base-950);
-  --tags-background-color-hover: var(--csstools-light-dark-toggle--59, var(--base-200));
+  --csstools-light-dark-toggle--56: var(--csstools-color-scheme--light) var(--base-400);
+  --tags-color: var(--csstools-light-dark-toggle--56, var(--base-500));
+  --csstools-light-dark-toggle--57: var(--csstools-color-scheme--light) var(--base-800);
+  --tags-background-color: var(--csstools-light-dark-toggle--57, var(--base-100));
+  --csstools-light-dark-toggle--58: var(--csstools-color-scheme--light) var(--base-950);
+  --tags-background-color-hover: var(--csstools-light-dark-toggle--58, var(--base-200));
 }
 }
 
@@ -1210,8 +1205,8 @@ xxl: 1920px
 /* EXTERNAL PLUGINS */
 
 :root {
-  --csstools-light-dark-toggle--60: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--60, var(--base-950));
+  --csstools-light-dark-toggle--59: var(--csstools-color-scheme--light) var(--base-900);
+  --astro-code-background-color: var(--csstools-light-dark-toggle--59, var(--base-950));
 }
 
 @supports (color: light-dark(red, red)){
@@ -1222,8 +1217,8 @@ xxl: 1920px
   @supports not (color: light-dark(tan, tan)){
 
 :root *{
-  --csstools-light-dark-toggle--60: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--60, var(--base-950));
+  --csstools-light-dark-toggle--59: var(--csstools-color-scheme--light) var(--base-900);
+  --astro-code-background-color: var(--csstools-light-dark-toggle--59, var(--base-950));
 }
 }
 }
@@ -1354,8 +1349,8 @@ address {
   max-width: 100%;
   padding: var(--sm1) var(--sm3);
   font-style: normal;
-  --csstools-light-dark-toggle--61: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--61, var(--base-50));
+  --csstools-light-dark-toggle--60: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--60, var(--base-50));
   border: var(--xs2) solid transparent;
   border-image: 8
     repeating-linear-gradient(
@@ -1413,8 +1408,8 @@ blockquote {
   margin-bottom: var(--prose-spacing);
   padding: var(--sm1) var(--sm3) var(--sm1) var(--md1) ;
   font-style: italic;
-  --csstools-light-dark-toggle--64: var(--csstools-color-scheme--light) var(--primary-900);
-  background-color: var(--csstools-light-dark-toggle--64, var(--primary-50));
+  --csstools-light-dark-toggle--63: var(--csstools-color-scheme--light) var(--primary-900);
+  background-color: var(--csstools-light-dark-toggle--63, var(--primary-50));
   border-radius: var(--radius-md);
 }
 
@@ -1454,8 +1449,8 @@ code, var, kbd {
   font-family: var(--mono);
   font-size: 0.9em;
   font-style: normal;
-  --csstools-light-dark-toggle--62: var(--csstools-color-scheme--light) var(--base-300);
-  color: var(--csstools-light-dark-toggle--62, var(--base-500));
+  --csstools-light-dark-toggle--61: var(--csstools-color-scheme--light) var(--base-300);
+  color: var(--csstools-light-dark-toggle--61, var(--base-500));
 }
 
 @supports (color: light-dark(red, red)){
@@ -1649,8 +1644,8 @@ q {
 }
 
 s {
-  --csstools-light-dark-toggle--63: var(--csstools-color-scheme--light) var(--base-50);
-  text-decoration-color: var(--csstools-light-dark-toggle--63, var(--base-950));
+  --csstools-light-dark-toggle--62: var(--csstools-color-scheme--light) var(--base-50);
+  text-decoration-color: var(--csstools-light-dark-toggle--62, var(--base-950));
   text-decoration-style: wavy;
 }
 
@@ -2223,8 +2218,8 @@ select {
 }
 
   select:disabled {
-    --csstools-light-dark-toggle--65: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--65, hsl(from var(--text-color) h s 70%));
+    --csstools-light-dark-toggle--64: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--64, hsl(from var(--text-color) h s 70%));
     cursor: not-allowed;
     color: var(--disabled-color);
     background: linear-gradient(
@@ -2245,8 +2240,8 @@ select:disabled {
     @supports not (color: light-dark(tan, tan)){
 
   select:disabled *{
-    --csstools-light-dark-toggle--65: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--65, hsl(from var(--text-color) h s 70%));
+    --csstools-light-dark-toggle--64: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--64, hsl(from var(--text-color) h s 70%));
 }
 }
 
@@ -2279,10 +2274,10 @@ dialog {
   min-width: var(--tera1);
   max-width: var(--tera3);
   padding: var(--lg1) var(--md1);
-  --csstools-light-dark-toggle--66: var(--csstools-color-scheme--light) var(--base-800);
-  border: 1px solid var(--csstools-light-dark-toggle--66, var(--base-200));
-  --csstools-light-dark-toggle--67: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--67, var(--base-50));
+  --csstools-light-dark-toggle--65: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--65, var(--base-200));
+  --csstools-light-dark-toggle--66: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--66, var(--base-50));
   border-radius: var(--radius-lg);
 }
 
@@ -2315,10 +2310,10 @@ dialog {
 
 details {
   padding: var(--sm1) var(--sm1);
-  --csstools-light-dark-toggle--68: var(--csstools-color-scheme--light) var(--base-800);
-  border: 1px solid var(--csstools-light-dark-toggle--68, var(--base-200));
-  --csstools-light-dark-toggle--69: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--69, var(--base-50));
+  --csstools-light-dark-toggle--67: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--67, var(--base-200));
+  --csstools-light-dark-toggle--68: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--68, var(--base-50));
   border-radius: var(--radius-lg);
   cursor: pointer;
 }
@@ -2898,8 +2893,8 @@ details {
       margin-bottom: 0.5em;
     }
       :is(:is(ul,ol) li)::marker {
-        --csstools-light-dark-toggle--70: var(--csstools-color-scheme--light) var(--base-600);
-        color: var(--csstools-light-dark-toggle--70, var(--base-300));
+        --csstools-light-dark-toggle--69: var(--csstools-color-scheme--light) var(--base-600);
+        color: var(--csstools-light-dark-toggle--69, var(--base-300));
       }
 
 @supports (color: light-dark(red, red)){
@@ -3701,10 +3696,6 @@ details {
     margin-bottom: 0;
   }
 
-.field_required {
-  color: var(--field-required-color);
-}
-
 .field_hint,
 .field_error {
   font-size: var(--text-sm);
@@ -3787,6 +3778,10 @@ details {
   padding: 0;
   list-style: none;
 }
+
+  :is(.footer_nav ul) li {
+    margin: 0;
+  }
   @media (width >= 768px) {
 
 .footer_nav > ul {
@@ -3864,6 +3859,10 @@ details {
     padding: 0;
     list-style: none;
   }
+
+    :is(.header_nav ul) li {
+      margin: 0;
+    }
 
     :is(.header_nav ul) a {
       display: flex;
@@ -3955,6 +3954,10 @@ details {
       padding: 0;
       list-style: none;
     }
+
+      :is(:is(.header_navMobile > div) ul) li {
+        margin: 0;
+      }
 
     :is(.header_navMobile > div)  > ul {
       font-size: var(--text-lg);
@@ -4485,7 +4488,9 @@ details {
     height: 100%;
     background: var(--readProgressBar-color);
     animation: bar linear;
-    animation-timeline: scroll(y);
+    /* root, not nearest: the bar tracks the page, so the timeline must not
+       depend on where in the DOM the component happens to be rendered */
+    animation-timeline: scroll(root y);
   }
 
 @keyframes bar {

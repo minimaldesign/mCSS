@@ -28,10 +28,7 @@ const hintId = hint ? `${fieldId}-hint` : undefined;
 
 <!-- prettier-ignore -->
 <div class:list={['field', className]} data-testid={testId}>
-  <label for={fieldId}>
-    {label}
-    {required && <span class="field_required" aria-hidden="true">*</span>}
-  </label>
+  <label for={fieldId}>{label}</label>
   <slot>
     <input id={fieldId} name={name} required={required} aria-describedby={hintId} {...rest} />
   </slot>

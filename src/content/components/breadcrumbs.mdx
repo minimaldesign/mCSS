@@ -9,7 +9,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 <section class="prose">
 
-The `.breadcrumbs` component is a `nav > ol` trail with CSS-only separators. The last crumb is text, not a link, marked with `aria-current="page"`; the separators are generated content with empty alt text, so screen readers read the trail as a clean list. Optional [BreadcrumbList JSON-LD](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb) for search engines.
+The `.breadcrumbs` component is a `nav > ol` trail with CSS-only separators, and optional [BreadcrumbList JSON-LD](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb) for search engines.
 
 <Breadcrumbs items={[
   { label: "Home", href: "/" },
@@ -17,11 +17,9 @@ The `.breadcrumbs` component is a `nav > ol` trail with CSS-only separators. The
   { label: "Breadcrumbs" },
 ]} />
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                     | What it is                     | Source      |
+| File                                     | Description                    | Source      |
 | ---------------------------------------- | ------------------------------ | ----------- |
 | `component.breadcrumbs.css`              | All breadcrumb styles          | [Github][1] |
 | `Breadcrumbs.astro`                      | The Astro component            | [Github][2] |
@@ -49,7 +47,7 @@ The `.breadcrumbs` component is a `nav > ol` trail with CSS-only separators. The
 </nav>
 ```
 
-The separator lives in CSS, not the markup — change it by overriding one token:
+The last crumb is text, not a link, marked with `aria-current="page"`; the separators are generated content with empty alt text, so screen readers read the trail as a clean list. The separator lives in CSS, not the markup — change it by overriding one token:
 
 ```css
 :root {

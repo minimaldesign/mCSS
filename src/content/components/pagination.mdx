@@ -10,17 +10,15 @@ import PrevNext from "../../components/PrevNext.astro";
 
 <section class="prose">
 
-Two navigation patterns for content sites: `.pagination` is the numbered kind for blog indexes (windowed around the current page, so long lists stay short), and `.prevNext` is the pair of cards at the bottom of a post or docs page. Both are pure HTML and CSS.
+Two navigation patterns for content sites: `.pagination` is the numbered kind for blog indexes, `.prevNext` the pair of cards at the bottom of a post. Both are pure HTML and CSS.
 
 <Pagination currentPage={5} lastPage={12} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
 
 <PrevNext class="mt-sm3" prev={{ title: "Designing with cascade layers", href: "#" }} next={{ title: "Tokens all the way down", href: "#" }} />
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                          | What it is                     | Source      |
+| File                                          | Description                    | Source      |
 | --------------------------------------------- | ------------------------------ | ----------- |
 | `component.pagination.css`                    | Numbered pagination styles     | [Github][1] |
 | `component.prevNext.css`                      | Prev/next styles               | [Github][2] |
@@ -41,6 +39,8 @@ Two navigation patterns for content sites: `.pagination` is the numbered kind fo
 ## HTML
 
 <section class="prose">
+
+The numbers are windowed around the current page, so long lists stay short.
 
 ```html
 <nav class="pagination" aria-label="Pagination">

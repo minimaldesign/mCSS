@@ -12,7 +12,7 @@ export const check = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height=
 
 <section class="prose">
 
-The `.featureGrid` component is the classic marketing "three columns of icon + title + text" pattern. It is a documented composition over the mCSS [grid system](/docs/global#grid): one item per `<li>`, one column on mobile, two from `--md`, and 2/3/4 (your pick) from `--lg`.
+The `.featureGrid` component is the classic marketing "three columns of icon + title + text" pattern, composed over the mCSS [grid system](/docs/global#grid).
 
 <FeatureGrid>
   <FeatureItem title="Zero JavaScript">
@@ -29,11 +29,9 @@ The `.featureGrid` component is the classic marketing "three columns of icon + t
   </FeatureItem>
 </FeatureGrid>
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                     | What it is                     | Source      |
+| File                                     | Description                    | Source      |
 | ---------------------------------------- | ------------------------------ | ----------- |
 | `component.featureGrid.css`              | Feature grid + item styles     | [Github][1] |
 | `FeatureGrid.astro`, `FeatureItem.astro` | The Astro components           | [Github][2] |
@@ -52,6 +50,8 @@ Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours t
 ## HTML
 
 <section class="prose">
+
+One item per `<li>`: one column on mobile, two from `--md`, and 2/3/4 (your pick) from `--lg`.
 
 ```html
 <ul class="featureGrid grid" col="1" col-md="2" col-lg="3">

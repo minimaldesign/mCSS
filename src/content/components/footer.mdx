@@ -9,13 +9,33 @@ import Footer from "../../components/Footer.astro";
 
 <section class="prose">
 
-The `.footer` component is the site-wide bottom section: link columns on the right, a meta area (copyright, credits, version…) on the left. Columns stack on small screens and spread into a responsive grid from the `--md` breakpoint up. It is pure HTML and CSS, no JavaScript.
+The `.footer` component is the site-wide bottom section: link columns on the right, a meta area (copyright, credits, version…) on the left. Pure HTML and CSS, no JavaScript.
 
-### What to copy
+<Footer style="border-radius: var(--radius-lg);">
+  <ul>
+    <li>
+      <h5>Product</h5>
+      <ul>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+      </ul>
+    </li>
+    <li>
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </li>
+  </ul>
+  <Fragment slot="meta">
+    <p>© 2026 Acme Inc.</p>
+  </Fragment>
+</Footer>
 
 <div class="docs_oversizedTable">
 
-| File                                | What it is                     | Source      |
+| File                                | Description                    | Source      |
 | ----------------------------------- | ------------------------------ | ----------- |
 | `component.footer.css`              | All footer styles              | [Github][1] |
 | `Footer.astro`                      | The Astro component            | [Github][2] |

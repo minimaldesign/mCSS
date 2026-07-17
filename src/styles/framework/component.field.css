@@ -10,10 +10,6 @@
   }
 }
 
-.field_required {
-  color: var(--field-required-color);
-}
-
 .field_hint,
 .field_error {
   font-size: var(--text-sm);

@@ -10,9 +10,7 @@ import PostList from "../../components/PostList.astro";
 
 <section class="prose">
 
-The `.articleCard` component is the blog-index pattern: image, tags, title, description, and a byline with avatar and date. It extends the [card](/components/card) (same border, radius, and tokens) and composes [Tags](/components/tags) and [Avatar](/components/avatar). `.postList` is its companion: a `ul` over the [grid system](/docs/global#grid) that lays cards out in equal-height responsive columns. This site's own [blog index](/blog) is built from exactly these two components.
-
-Accessibility note: the card carries **one** link — the title, stretched over the whole card with a `::after` — so screen readers hear one link named by the title, and the tags stay independently clickable above it.
+The `.articleCard` component is the blog-index pattern: image, tags, title, description, and a byline with avatar and date. `.postList` lays the cards out in equal-height responsive columns; this site's own [blog index](/blog) is built from exactly these two components.
 
 <PostList cols={2}>
   <li>
@@ -27,11 +25,9 @@ Accessibility note: the card carries **one** link — the title, stretched over 
   </li>
 </PostList>
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                    | What it is                          | Source      |
+| File                                    | Description                         | Source      |
 | --------------------------------------- | ----------------------------------- | ----------- |
 | `component.articleCard.css`              | ArticleCard + PostList styles       | [Github][1] |
 | `component.card.css`                     | Base card visuals (dependency)      | [Github][2] |
@@ -51,6 +47,8 @@ Accessibility note: the card carries **one** link — the title, stretched over 
 ## HTML
 
 <section class="prose">
+
+ArticleCard extends the [card](/components/card) (same border, radius, tokens) and composes [Tags](/components/tags) and [Avatar](/components/avatar); PostList is a `ul` over the [grid system](/docs/global#grid). The card carries **one** link — the title, stretched over the whole card with a `::after` — so screen readers hear one link named by the title, and the tags stay independently clickable above it.
 
 ```html
 <ul class="postList grid" col="1" col-md="2" col-lg="2">

@@ -9,19 +9,15 @@ import Banner from "../../components/Banner.astro";
 
 <section class="prose">
 
-The `.banner` component is the thin announcement bar at the very top of the page, optionally dismissible. The dismissal is remembered in `localStorage`, and the one small inline script removes an already-dismissed banner before paint, so it never flashes.
-
-Looking for the big closing call-to-action band instead? That's a [Section recipe](/components/section), not a separate component.
+The `.banner` component is the thin announcement bar at the very top of the page, optionally dismissible (remembered in `localStorage`).
 
 <Banner>
   <p>mCSS v1 is out! <a href="#">Read the announcement</a></p>
 </Banner>
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                | What it is                     | Source      |
+| File                                | Description                    | Source      |
 | ----------------------------------- | ------------------------------ | ----------- |
 | `component.banner.css`              | All banner styles              | [Github][1] |
 | `Banner.astro`                      | The Astro component            | [Github][2] |
@@ -50,7 +46,9 @@ Looking for the big closing call-to-action band instead? That's a [Section recip
 </aside>
 ```
 
-For a dismissible plain-HTML banner, copy the small inline script from the bottom of [Banner.astro][2]: it removes the banner when the stored key exists and stores the key on click.
+For a dismissible plain-HTML banner, copy the small inline script from the bottom of [Banner.astro][2]: it removes the banner when the stored key exists (before paint, so an already-dismissed banner never flashes) and stores the key on click.
+
+Looking for the big closing call-to-action band instead? That's a [Section recipe](/components/section), not a separate component.
 
 ### Custom properties
 

@@ -241,7 +241,6 @@
   --field-spacing: var(--xs1);
   --field-hint-color: light-dark(var(--base-400), var(--base-500));
   --field-error-color: light-dark(var(--danger-500), var(--danger-300));
-  --field-required-color: light-dark(var(--danger-500), var(--danger-300));
 }
 
 /* FeatureGrid */

@@ -23,9 +23,9 @@ import ReadProgressBar from "../../components/ReadProgressBar.astro";
 
 <div class="docs_oversizedTable">
 
-| File Name                       | class              | Source      |
-| ------------------------------- | ------------------ | ----------- |
-| `component.readProgressBar.css` | `.readProgressBar` | [Github][1] |
+| File                            | Description | Source      |
+| ------------------------------- | ----------- | ----------- |
+| `component.readProgressBar.css` | All progress bar styles (`.readProgressBar`) | [Github][1] |
 
 </div>
 
@@ -101,7 +101,7 @@ function throttle(func, delay) {
 }
 
 function supportsScrollTimeline() {
-  return CSS.supports("animation-timeline: scroll(y)");
+  return CSS.supports("animation-timeline: scroll(root y)");
 }
 
 function updateProgressBar() {

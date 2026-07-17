@@ -1,35 +1,36 @@
-/* Site-specific overrides of the library header (framework/component.header.css) */
+/* Site-specific overrides of the library header (framework/component.header.css).
+   Scoped to .siteHeader so headers embedded in docs demos stay untouched. */
 
-.header {
+.header.siteHeader {
   @media (--md) {
     display: grid;
     grid-template-columns: var(--layout-aside-width) 1fr max-content;
     padding-inline: 0;
   }
-}
 
-.header_logo {
-  --logo-size: 35px;
+  .header_logo {
+    --logo-size: 35px;
 
-  @media (--md) {
-    margin-left: var(--md3);
+    @media (--md) {
+      margin-left: var(--md3);
+    }
+
+    svg {
+      width: var(--logo-size);
+      height: var(--logo-size);
+    }
   }
 
-  svg {
-    width: var(--logo-size);
-    height: var(--logo-size);
+  .header_nav {
+    @media (--md) {
+      justify-self: end;
+    }
   }
-}
 
-.header_nav {
-  @media (--md) {
-    justify-self: end;
-  }
-}
-
-.header_actions {
-  @media (--md) {
-    padding-right: var(--sm3);
+  .header_actions {
+    @media (--md) {
+      padding-right: var(--sm3);
+    }
   }
 }
 

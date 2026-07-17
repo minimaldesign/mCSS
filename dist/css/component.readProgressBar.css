@@ -39,7 +39,9 @@ xxl: 1920px
     height: 100%;
     background: var(--readProgressBar-color);
     animation: bar linear;
-    animation-timeline: scroll(y);
+    /* root, not nearest: the bar tracks the page, so the timeline must not
+       depend on where in the DOM the component happens to be rendered */
+    animation-timeline: scroll(root y);
   }
 
 @keyframes bar {

@@ -9,17 +9,15 @@ import Testimonial from "../../components/Testimonial.astro";
 
 <section class="prose">
 
-The `.testimonial` component is a quote with attribution: a `figure` wrapping mCSS's already-styled `blockquote` and a byline composed from the [Avatar](/components/avatar) component (initials appear automatically when there is no photo). Pure HTML and CSS.
+The `.testimonial` component is a quote with attribution: a `figure` wrapping mCSS's already-styled `blockquote`, plus an [Avatar](/components/avatar) byline. Pure HTML and CSS.
 
 <Testimonial name="Sonny Mueller" role="Design lead, Acme">
   <p>We deleted four hundred lines of utility classes the week we switched. The cascade does the work now.</p>
 </Testimonial>
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                    | What it is                            | Source      |
+| File                                    | Description                           | Source      |
 | --------------------------------------- | ------------------------------------- | ----------- |
 | `component.testimonial.css`              | Layout + byline styles                | [Github][1] |
 | `elements.text.css`                      | The `blockquote` styling (dependency) | [Github][2] |
@@ -76,7 +74,7 @@ The quote itself is themed by the `blockquote` element styles.
 
 | Prop        | Type                      | Default     | Description                                     |
 | ----------- | ------------------------- | ----------- | ------------------------------------------------ |
-| `name`      | `string`                  | —           | Who said it. Required (also feeds the initials). |
+| `name`      | `string`                  | —           | Who said it. Required (also feeds the Avatar initials when there is no photo). |
 | `role`      | `string`                  | `undefined` | Title/company line.                              |
 | `avatarSrc` | `ImageMetadata \| string` | `undefined` | Photo for the Avatar.                            |
 | `class`     | `string`                  | `undefined` | Additional CSS classes.                          |
@@ -89,28 +87,33 @@ The default slot is the quote.
 
 ## Examples
 
-A wall of quotes is just testimonials on the [grid](/docs/global#grid):
+<ul class="docs_examples">
+  <li>
+    A wall of quotes is just testimonials on the [grid](/docs/global#grid):
 
-<div class="grid" col="1" col-md="3">
-  <Testimonial name="Ada Chen" role="Freelance">
-    <p>The copy-paste model means I actually own my components.</p>
-  </Testimonial>
-  <Testimonial name="Sam Ortiz">
-    <p>Readable class names. Imagine that.</p>
-  </Testimonial>
-  <Testimonial name="Mia Kim" role="Founder, Studio K">
-    <p>Shipped our marketing site in a weekend.</p>
-  </Testimonial>
-</div>
+    <div class="grid" col="1" col-md="3">
+      <Testimonial name="Ada Chen" role="Freelance">
+        <p>The copy-paste model means I actually own my components.</p>
+      </Testimonial>
+      <Testimonial name="Sam Ortiz">
+        <p>Readable class names. Imagine that.</p>
+      </Testimonial>
+      <Testimonial name="Mia Kim" role="Founder, Studio K">
+        <p>Shipped our marketing site in a weekend.</p>
+      </Testimonial>
+    </div>
 
-```astro
----
-import Testimonial from "../components/Testimonial.astro";
----
-<div class="grid" col="1" col-md="3">
-  <Testimonial name="Ada Chen" role="Freelance">
-    <p>The copy-paste model means I actually own my components.</p>
-  </Testimonial>
-  <!-- … -->
-</div>
-```
+    ```astro
+    ---
+    import Testimonial from "../components/Testimonial.astro";
+    ---
+    <div class="grid" col="1" col-md="3">
+      <Testimonial name="Ada Chen" role="Freelance">
+        <p>The copy-paste model means I actually own my components.</p>
+      </Testimonial>
+      <!-- … -->
+    </div>
+    ```
+
+  </li>
+</ul>

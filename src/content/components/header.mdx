@@ -9,7 +9,7 @@ import Header from "../../components/Header.astro";
 
 <section class="prose">
 
-The `.header` component is the site-wide top bar: logo, primary navigation, optional actions (theme toggle, CTA button), and a built-in mobile menu behind a hamburger button. The mobile menu is keyboard operable (focus moves into the menu on open and back to the trigger on close, `Escape` closes it) and reflects its state with `aria-expanded`.
+The `.header` component is the site-wide top bar: logo, primary navigation, optional actions, and a built-in mobile menu behind a hamburger button.
 
 <Header
   navItems={[
@@ -24,11 +24,9 @@ The `.header` component is the site-wide top bar: logo, primary navigation, opti
   <a slot="actions" class="bt bt-primary" href="#">Sign up</a>
 </Header>
 
-### What to copy
-
 <div class="docs_oversizedTable">
 
-| File                                | What it is                       | Source      |
+| File                                | Description                      | Source      |
 | ----------------------------------- | -------------------------------- | ----------- |
 | `component.header.css`              | All header styles                | [Github][1] |
 | `Header.astro`                      | The Astro component              | [Github][2] |
@@ -75,7 +73,7 @@ The header is a flex row: logo first, desktop nav pushed to the right, actions l
 </header>
 ```
 
-When using plain HTML you also need the small script that wires the hamburger (toggle `.is-open` and `aria-expanded`, move focus, close on `Escape`); copy it from the bottom of [Header.astro][2].
+When using plain HTML you also need the small script that wires the hamburger; copy it from the bottom of [Header.astro][2]. It keeps the menu keyboard operable: `aria-expanded` reflects the state, focus moves into the menu on open and back to the trigger on close, and `Escape` closes it.
 
 ### Available modifiers
 
