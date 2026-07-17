@@ -173,7 +173,9 @@
     background: var(--hero-pagination-dot-color);
     opacity: var(--hero-pagination-opacity);
     box-shadow: var(--shadow-sm);
-    transition: all var(--transition);
+    transition:
+      opacity var(--transition),
+      background-color var(--transition);
   }
   &.is-active::before {
     opacity: 1;

@@ -42,7 +42,7 @@ xxl: 1920px
     color: var(--tags-color);
     border-radius: var(--tags-radius);
     background-color: var(--tags-background-color);
-    transition: all var(--transition);
+    transition: background-color var(--transition);
   }
     :is(.tags a):hover {
       background-color: var(--tags-background-color-hover);

@@ -26,7 +26,7 @@
     padding-bottom: calc(var(--toc-spacing) / 2);
     text-decoration: none;
     color: var(--toc-color);
-    transition: all var(--transition);
+    transition: color var(--transition);
     &:hover {
       color: var(--toc-color-hover);
     }
