@@ -154,6 +154,16 @@ xxl: 1920px
   --display-mega: 3.583rem;
   --display-giga: 4.299rem;
 
+  /* Heading Sizes */
+  /* Fluid: interpolate from a min size (at 480px) to a max size (at 1024px). */
+  /* clamp(MIN, INTERCEPT + SLOPEvw, MAX) — the rem term keeps text zoom working. */
+  --heading-1: clamp(var(--text-xl), 0.881rem + 1.865vw, var(--display-md)); /* 1.44rem → 2.074rem */
+  --heading-2: clamp(var(--text-lg), 0.734rem + 1.553vw, var(--display-sm)); /* 1.2rem → 1.728rem */
+  --heading-3: clamp(var(--text-lg), 0.988rem + 0.706vw, var(--text-xl)); /* 1.2rem → 1.44rem */
+  --heading-4: clamp(var(--text-md), 0.824rem + 0.588vw, var(--text-lg)); /* 1rem → 1.2rem */
+  --heading-5: var(--text-md);
+  --heading-6: var(--text-md);
+
   /* Font Weights */
   --extra-light: 200;
   --light: 300;
@@ -1545,39 +1555,27 @@ h6, .h6 {
 }
 
 h1, .h1 {
-  font-size: var(--text-xl);
+  font-size: var(--heading-1);
 }
-  @media (width >= 768px) {
-
-h1, .h1 {
-    font-size: var(--display-md);
-}
-  }
 
 h2, .h2 {
-  font-size: var(--text-lg);
+  font-size: var(--heading-2);
 }
-  @media (width >= 768px){
-
-h2, .h2 {
-    font-size: var(--display-sm);
-}
-  }
 
 h3, .h3 {
-  font-size: var(--text-xl);
+  font-size: var(--heading-3);
 }
 
 h4, .h4 {
-  font-size: var(--text-lg);
+  font-size: var(--heading-4);
 }
 
 h5, .h5 {
-  font-size: var(--text-md);
+  font-size: var(--heading-5);
 }
 
 h6, .h6 {
-  font-size: var(--text-md);
+  font-size: var(--heading-6);
 }
 
 hr {
