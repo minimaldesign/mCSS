@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'input'> {
+  label: string;
+  hint?: string;
+  error?: string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  label,
+  hint,
+  error = 'Please fill out this field correctly.',
+  id,
+  name,
+  required,
+  class: className,
+  'data-testid': testId = 'field',
+  ...rest
+} = Astro.props as Props;
+
+// The label needs a control id; fall back to the input's name.
+const fieldId = id ?? name;
+const hintId = hint ? `${fieldId}-hint` : undefined;
+---
+
+<!-- prettier-ignore -->
+<div class:list={['field', className]} data-testid={testId}>
+  <label for={fieldId}>
+    {label}
+    {required && <span class="field_required" aria-hidden="true">*</span>}
+  </label>
+  <slot>
+    <input id={fieldId} name={name} required={required} aria-describedby={hintId} {...rest} />
+  </slot>
+  {hint && <small class="field_hint" id={hintId}>{hint}</small>}
+  <small class="field_error">{error}</small>
+</div>

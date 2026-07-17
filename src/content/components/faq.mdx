@@ -1,0 +1,132 @@
+---
+title: "FAQ"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Faq from "../../components/Faq.astro";
+import FaqItem from "../../components/FaqItem.astro";
+
+<section class="prose">
+
+The `.faq` component groups `details`/`summary` disclosures into the classic FAQ accordion. It is pure HTML and CSS: the disclosure behavior is native, the chevron and open state come from mCSS's [element styles](/docs/elements), and giving every item the same `name` makes the group exclusive-open (opening one closes the others) with zero JavaScript.
+
+<Faq>
+  <FaqItem question="Does this need JavaScript?" name="demo">
+    <p>No. The browser's own <code>details</code> element does all the work.</p>
+  </FaqItem>
+  <FaqItem question="How does exclusive-open work?" name="demo">
+    <p>Every item in this group shares <code>name="demo"</code>, so the browser only keeps one open. Remove the name and items open independently.</p>
+  </FaqItem>
+  <FaqItem question="Is it keyboard accessible?" name="demo">
+    <p>Natively: the summary is focusable and toggles with <kbd>Enter</kbd>/<kbd>Space</kbd>.</p>
+  </FaqItem>
+</Faq>
+
+### What to copy
+
+<div class="docs_oversizedTable">
+
+| File                             | What it is                              | Source      |
+| -------------------------------- | --------------------------------------- | ----------- |
+| `component.faq.css`              | Group spacing                            | [Github][1] |
+| `elements.interactive.css`       | The `details`/`summary` styling + chevron | [Github][2] |
+| `Faq.astro`, `FaqItem.astro`     | The Astro components                     | [Github][3] |
+| `--faq-spacing` in default theme | Theme token                              | [Github][4] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.faq.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/elements.interactive.css
+[3]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<div class="faq">
+  <details class="faq_item" name="faq">
+    <summary>Does this need JavaScript?</summary>
+    <div class="faq_content">
+      <p>No. The browser's own details element does all the work.</p>
+    </div>
+  </details>
+  <details class="faq_item" name="faq" open>
+    <summary>How does exclusive-open work?</summary>
+    <div class="faq_content">
+      <p>Every item shares the same name attribute.</p>
+    </div>
+  </details>
+</div>
+```
+
+The `name` attribute is a progressive enhancement: browsers that don't support exclusive accordions simply let several items stay open, which is a perfectly fine FAQ too.
+
+### Custom properties
+
+<div class="docs_oversizedTable">
+
+| Property        | Description         |
+| --------------- | ------------------- |
+| `--faq-spacing` | Gap between items.  |
+
+The item visuals come from the `details` element styling; there is nothing FAQ-specific to retheme.
+
+</div>
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+**Faq** takes only `class` and passes everything else to its root `<div>`. Items go in the default slot.
+
+**FaqItem**
+
+| Prop       | Type      | Default     | Description                                                      |
+| ---------- | --------- | ----------- | ---------------------------------------------------------------- |
+| `question` | `string`  | —           | The summary text. Required.                                      |
+| `open`     | `boolean` | `false`     | Render the item open.                                            |
+| `name`     | `string`  | `undefined` | Same name on every item of a group = native exclusive-open.      |
+| `class`    | `string`  | `undefined` | Additional CSS classes.                                          |
+
+The default slot is the answer.
+
+</div>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Faq>
+      <FaqItem question="Independent items" open>
+        <p>No `name`, so this group lets several items stay open at once.</p>
+      </FaqItem>
+      <FaqItem question="Pre-opened with the `open` prop">
+        <p>The first item above renders open.</p>
+      </FaqItem>
+    </Faq>
+
+    ```astro
+    ---
+    import Faq from "../components/Faq.astro";
+    import FaqItem from "../components/FaqItem.astro";
+    ---
+    <Faq>
+      <FaqItem question="Independent items" open>
+        <p>No `name`, so several items can stay open at once.</p>
+      </FaqItem>
+      <FaqItem question="Pre-opened with the `open` prop">
+        <p>The first item above renders open.</p>
+      </FaqItem>
+    </Faq>
+    ```
+
+  </li>
+</ul>

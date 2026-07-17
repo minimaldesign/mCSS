@@ -37,6 +37,11 @@ fieldset {
   }
 }
 
+/* Only flag fields the user has actually interacted with */
+:is(input, select, textarea):user-invalid {
+  border-color: var(--input-border-color-invalid);
+}
+
 input {
   &:where(:not([type="checkbox"], [type="radio"])) {
     height: var(--input-height);

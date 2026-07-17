@@ -49,6 +49,7 @@
   --input-height: var(--md3);
   --input-padding: var(--xs3);
   --input-border-radius: var(--radius-md);
+  --input-border-color-invalid: light-dark(var(--danger-500), var(--danger-400));
 
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
@@ -204,6 +205,21 @@
   --toggle-track-color: light-dark(var(--base-300), var(--base-700));
   --toggle-track-color-checked: var(--yes-400);
   --toggle-thumb-color: var(--body-background-color);
+}
+
+/* FAQ */
+
+:root {
+  --faq-spacing: var(--xs3);
+}
+
+/* Field */
+
+:root {
+  --field-spacing: var(--xs1);
+  --field-hint-color: light-dark(var(--base-400), var(--base-500));
+  --field-error-color: light-dark(var(--danger-500), var(--danger-300));
+  --field-required-color: light-dark(var(--danger-500), var(--danger-300));
 }
 
 /* FeatureGrid */

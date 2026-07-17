@@ -63,6 +63,11 @@ fieldset {
     font-size: var(--text-lg);
     grid-column: 1 / -1;
   }
+
+/* Only flag fields the user has actually interacted with */
+:is(input, select, textarea):user-invalid {
+  border-color: var(--input-border-color-invalid);
+}
   input:where(:not([type="checkbox"]):not([type="radio"])) {
     height: var(--input-height);
   }
