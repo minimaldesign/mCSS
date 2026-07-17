@@ -53,6 +53,10 @@ Theme tokens are the public API of every component; they follow `--component-par
 - No abbreviations (`--card-bg-color` is legacy; new tokens spell out `background-color`), no camelCase, no underscores.
 - Feedback colors: prefer the semantic aliases `--success-*` / `--danger-*` / `--warning-*` over the raw `--yes/no/maybe-*` scales.
 
+### Transitions
+
+Never `transition: all` — it also transitions layout properties, so any late-arriving style change (dev-server style injection, HMR) animates on page load instead of just applying. List the properties the state change actually animates (`transition: color var(--transition)`).
+
 ## Adding Styles
 
 - Framework file: create `src/styles/framework/<prefix>.<name>.css` and add `@import url(./<file>) layer(<layer>);` in the matching block of `framework/mcss.css`.
