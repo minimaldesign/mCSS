@@ -1,0 +1,114 @@
+---
+title: "Breadcrumbs"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+<section class="prose">
+
+The `.breadcrumbs` component is a `nav > ol` trail with CSS-only separators, and optional [BreadcrumbList JSON-LD](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb) for search engines.
+
+<Breadcrumbs items={[
+  { label: "Home", href: "/" },
+  { label: "Components", href: "/components/start" },
+  { label: "Breadcrumbs" },
+]} />
+
+<div class="docs_oversizedTable">
+
+| File                                     | Description                    | Source      |
+| ---------------------------------------- | ------------------------------ | ----------- |
+| `component.breadcrumbs.css`              | All breadcrumb styles          | [Github][1] |
+| `Breadcrumbs.astro`                      | The Astro component            | [Github][2] |
+| `--breadcrumbs-*` block in default theme | Theme tokens (see table below) | [Github][3] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.breadcrumbs.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Breadcrumbs.astro
+[3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<nav class="breadcrumbs" aria-label="Breadcrumbs">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/components/start">Components</a></li>
+    <li><span aria-current="page">Breadcrumbs</span></li>
+  </ol>
+</nav>
+```
+
+The last crumb is text, not a link, marked with `aria-current="page"`; the separators are generated content with empty alt text, so screen readers read the trail as a clean list. The separator lives in CSS, not the markup — change it by overriding one token:
+
+```css
+:root {
+  --breadcrumbs-separator: "→";
+}
+```
+
+### Custom properties
+
+<div class="docs_oversizedTable">
+
+| Property                        | Description                        |
+| ------------------------------- | ---------------------------------- |
+| `--breadcrumbs-separator`       | Separator string (default `/`).    |
+| `--breadcrumbs-separator-color` | Separator color.                   |
+| `--breadcrumbs-color`           | Link color.                        |
+| `--breadcrumbs-color-current`   | Current page (last crumb) color.   |
+
+</div>
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop        | Type                        | Default         | Description                                                        |
+| ----------- | --------------------------- | --------------- | ------------------------------------------------------------------ |
+| `items`     | `{ label, href? }[]`        | —               | The trail. The last item (or any item without `href`) is text.     |
+| `ariaLabel` | `string`                    | `"Breadcrumbs"` | The nav's accessible name.                                          |
+| `jsonLd`    | `boolean`                   | `false`         | Emit BreadcrumbList structured data (hrefs resolved to absolute).   |
+| `class`     | `string`                    | `undefined`     | Additional CSS classes.                                             |
+
+</div>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Breadcrumbs
+      style="--breadcrumbs-separator: '→'"
+      items={[
+        { label: "Docs", href: "/docs/start" },
+        { label: "Global Styles", href: "/docs/global" },
+        { label: "Grid" },
+      ]}
+    />
+
+    ```astro
+    ---
+    import Breadcrumbs from "../components/Breadcrumbs.astro";
+    ---
+    <Breadcrumbs
+      jsonLd
+      items={[
+        { label: "Docs", href: "/docs/start" },
+        { label: "Global Styles", href: "/docs/global" },
+        { label: "Grid" },
+      ]}
+    />
+    ```
+
+  </li>
+</ul>

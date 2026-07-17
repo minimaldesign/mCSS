@@ -1,14 +1,6 @@
 /* INDEX */
 
-.blog_postListing {
-  margin-top: var(--md1);
-  li {
-    margin-bottom: var(--md1);
-  }
-  p:first-child {
-    margin-bottom: var(--xs1);
-  }
-}
+/* The post listing is the PostList/ArticleCard library components. */
 
 /* SINGLE ARTICLE  */
 

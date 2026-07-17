@@ -1,33 +1,172 @@
 ---
-import Nav from '../components/Nav.astro';
-import NavMobile from '../components/NavMobile.astro';
-import ThemeToggle from './ThemeToggle.astro';
-import logoImg from '../assets/ui/mcss-logo.svg?raw';
+import type { HTMLAttributes } from 'astro/types';
+import menuIcon from '../assets/icons/menu.svg?raw';
+import closeIcon from '../assets/icons/x.svg?raw';
+
+export interface NavItem {
+  label: string;
+  href: string;
+  children?: NavItem[]; // rendered as a sub-list in the mobile menu only
+  mobileOnly?: boolean; // skipped in the desktop nav
+}
+
+interface Props extends HTMLAttributes<'header'> {
+  navItems?: NavItem[];
+  sticky?: boolean;
+  currentPath?: string;
+  navLabel?: string;
+  menuLabel?: string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  navItems = [],
+  sticky = false,
+  currentPath = Astro.url.pathname,
+  navLabel = 'Main',
+  menuLabel = 'Main menu',
+  class: className,
+  'data-testid': testId = 'header',
+  ...rest
+} = Astro.props as Props;
+
+// aria-current: "page" for an exact match; "true" marks the current section.
+// An item whose children contain the exact current page owns the section
+// (several items may share a URL segment, so explicit children beat the
+// heuristic); only when no item claims the page does first-path-segment
+// matching kick in. Child links must match exactly or every sibling lights up.
+const trim = (path: string) => (path !== '/' && path.endsWith('/') ? path.slice(0, -1) : path);
+const segment = (path: string) => path.split('/')[1] ?? '';
+const isExact = (href: string) => trim(href) === trim(currentPath);
+const currentExact = (href: string) => (isExact(href) ? 'page' : undefined);
+
+function makeCurrent(items: NavItem[]) {
+  const owner = items.find((item) => (item.children ?? []).some((sub) => isExact(sub.href)));
+  return (item: NavItem): 'page' | 'true' | undefined => {
+    if (isExact(item.href)) return 'page';
+    if (owner) return item === owner ? 'true' : undefined;
+    if (segment(item.href) && segment(item.href) === segment(currentPath)) return 'true';
+    return undefined;
+  };
+}
+
+const desktopItems = navItems.filter((item) => !item.mobileOnly);
+const desktopCurrent = makeCurrent(desktopItems);
+const mobileCurrent = makeCurrent(navItems);
 ---
 
-<header class="header is-top">
-  <a class="header_logo" href="/">
-    <Fragment set:html={logoImg} /> mCSS
-  </a>
-  <Nav />
-  <NavMobile />
-  <div class="header_toggle">
-    <ThemeToggle />
-  </div>
+<!-- prettier-ignore -->
+<header
+  class:list={[
+    'header',
+    'is-top',
+    { 'header-sticky': sticky },
+    className,
+  ]}
+  data-testid={testId}
+  {...rest}
+>
+  <slot name="logo" />
+  {
+    desktopItems.length > 0 && (
+      <nav class="header_nav" aria-label={navLabel}>
+        <ul>
+          {desktopItems.map((item) => (
+            <li>
+              <a href={item.href} aria-current={desktopCurrent(item)}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+  {
+    navItems.length > 0 && (
+      <nav class="header_navMobile" aria-label={menuLabel}>
+        <button aria-expanded="false" aria-label="Open menu">
+          <Fragment set:html={menuIcon} />
+        </button>
+        <div>
+          {Astro.slots.has('menu') && (
+            <div class="header_menuExtra">
+              <slot name="menu" />
+            </div>
+          )}
+          <button aria-label="Close menu">
+            <Fragment set:html={closeIcon} />
+          </button>
+          <ul>
+            {navItems.map((item) => (
+              <li>
+                <a href={item.href} aria-current={mobileCurrent(item)}>
+                  {item.label}
+                </a>
+                {item.children && item.children.length > 0 && (
+                  <ul>
+                    {item.children.map((sub) => (
+                      <li>
+                        <a href={sub.href} aria-current={currentExact(sub.href)}>
+                          {sub.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    )
+  }
+  {
+    Astro.slots.has('actions') && (
+      <div class="header_actions">
+        <slot name="actions" />
+      </div>
+    )
+  }
 </header>
 
 <script>
   import { throttle } from '../scripts/utilities';
 
-  function toggleClassOnScroll() {
-    const header = document.querySelector('.header');
-    if (!header) return;
-    if (window.scrollY === 0) {
-      header.classList.add('is-top');
-    } else {
-      header.classList.remove('is-top');
-    }
+  // Mobile menu: open/close with focus management and Escape.
+  document.querySelectorAll('.header .header_navMobile').forEach((root) => {
+    const trigger = root.querySelector<HTMLButtonElement>(':scope > button');
+    const menu = root.querySelector<HTMLElement>(':scope > div');
+    const closeButton = menu?.querySelector<HTMLButtonElement>(':scope > button');
+    if (!trigger || !menu || !closeButton) return;
+
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('is-open', open);
+      menu.classList.toggle('body-is-locked', open);
+      trigger.setAttribute('aria-expanded', String(open));
+      // Move focus into the menu on open; return it to the trigger on close.
+      if (open) {
+        closeButton.focus();
+      } else {
+        trigger.focus();
+      }
+    };
+
+    trigger.addEventListener('click', () => setOpen(true));
+    closeButton.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) setOpen(false);
+    });
+  });
+
+  // Sticky headers drop their shadow while the page is scrolled to the top.
+  const stickyHeaders = document.querySelectorAll('.header-sticky');
+  if (stickyHeaders.length > 0) {
+    const toggleClassOnScroll = () => {
+      stickyHeaders.forEach((header) => header.classList.toggle('is-top', window.scrollY === 0));
+    };
+    // addEventListener (not window.onscroll =) so other scroll handlers survive
+    window.addEventListener('scroll', throttle(toggleClassOnScroll, 100), { passive: true });
   }
-  // addEventListener (not window.onscroll =) so other scroll handlers survive
-  window.addEventListener('scroll', throttle(toggleClassOnScroll, 100), { passive: true });
 </script>

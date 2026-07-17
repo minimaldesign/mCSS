@@ -1,0 +1,91 @@
+/* ARTICLE CARD */
+
+.articleCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.articleCard_media {
+  /* edge-to-edge image on top of the card */
+  margin: calc(var(--card-spacing) * -1);
+  margin-bottom: var(--card-spacing);
+  overflow: hidden;
+  border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
+}
+
+.articleCard_image {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--articleCard-image-aspect-ratio);
+}
+
+.articleCard_tags {
+  /* keep the tags clickable above the stretched title link */
+  position: relative;
+  z-index: var(--z-1);
+  margin-bottom: var(--xs3);
+}
+
+.articleCard_title {
+  margin-bottom: var(--xs2);
+  font-size: var(--text-lg);
+  font-weight: var(--semi-bold);
+
+  a {
+    color: var(--card-color);
+    text-decoration: none;
+    transition: color var(--transition);
+
+    /* the single card link, stretched over the whole card */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+
+    &:hover {
+      color: var(--link-color);
+    }
+  }
+}
+
+.articleCard_description {
+  margin-bottom: var(--sm1);
+
+  p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
+  }
+}
+
+.articleCard_byline {
+  /* margin-top: auto pins bylines to the bottom, so a row of cards lines up */
+  display: flex;
+  align-items: center;
+  gap: var(--xs2);
+  margin-top: auto;
+  font-size: var(--text-sm);
+
+  time {
+    color: var(--card-secondary-text-color);
+  }
+}
+
+.articleCard_author {
+  display: block;
+  font-weight: var(--semi-bold);
+}
+
+/* POST LIST */
+
+.postList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    /* grid items stretch, so cards in a row share the same height */
+    display: grid;
+  }
+}

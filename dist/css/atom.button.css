@@ -44,7 +44,13 @@ xxl: 1920px
   border: var(--bt-border-width) solid var(--bt-border-color);
   border-radius: var(--bt-border-radius);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  /* hover swaps the colors, :active scales; "all" would also animate
+     late-arriving layout changes (dev-server style injection, HMR) */
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
   :is(.button,.bt):where(:not(:disabled):hover) {

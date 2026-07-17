@@ -1,0 +1,70 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import closeIcon from '../assets/icons/x.svg?raw';
+
+interface Props extends HTMLAttributes<'aside'> {
+  id?: string; // required when dismissible: it keys the localStorage entry
+  dismissible?: boolean;
+  dismissLabel?: string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  id,
+  dismissible = false,
+  dismissLabel = 'Dismiss announcement',
+  class: className,
+  'data-testid': testId = 'banner',
+  ...rest
+} = Astro.props as Props;
+
+if (dismissible && !id) {
+  throw new Error('Banner: a dismissible banner needs an `id` (it keys the localStorage entry).');
+}
+
+const storageKey = dismissible ? `mcss-banner-${id}` : undefined;
+---
+
+<!-- prettier-ignore -->
+<aside
+  class:list={['banner', className]}
+  id={id}
+  data-testid={testId}
+  {...rest}
+>
+  <div class="banner_content">
+    <slot />
+  </div>
+  {
+    dismissible && (
+      <button class="banner_close" aria-label={dismissLabel} data-banner-key={storageKey}>
+        <Fragment set:html={closeIcon} />
+      </button>
+    )
+  }
+</aside>
+{
+  dismissible && (
+    <script is:inline define:vars={{ storageKey }}>
+      {/* Inline + right after the markup: an already-dismissed banner is removed before paint. */}
+      (() => {
+        const button = document.querySelector(`[data-banner-key="${storageKey}"]`);
+        const banner = button && button.closest('.banner');
+        if (!banner) return;
+        try {
+          if (localStorage.getItem(storageKey)) {
+            banner.remove();
+            return;
+          }
+        } catch (e) {}
+        button.addEventListener('click', () => {
+          try {
+            localStorage.setItem(storageKey, String(Date.now()));
+          } catch (e) {}
+          banner.remove();
+        });
+      })();
+    </script>
+  )
+}

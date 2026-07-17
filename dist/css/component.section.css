@@ -1,0 +1,89 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+/* SECTION */
+
+.section {
+  padding-block: var(--section-spacing);
+}
+
+/* Variants only swap the local custom properties (see agents/components.md) */
+
+.section-filled {
+  background-color: var(--section-filled-background-color);
+}
+
+.section-primary {
+  background-color: var(--section-primary-background-color);
+  color: var(--section-primary-text-color);
+  /* Children (links, buttons, eyebrow…) follow the inverted surface */
+  --text-color: var(--section-primary-text-color);
+  --link-color: var(--section-primary-link-color);
+  --link-color-hover: var(--section-primary-link-color-hover);
+  --section-eyebrow-color: var(--section-primary-eyebrow-color);
+  --section-lede-color: var(--section-primary-lede-color);
+}
+
+/* Width presets: .section composes .wrap, so widening is just a matter of
+   overriding the wrap column for this section's children. */
+.section-wide {
+  --wrap-width: minmax(200px, var(--section-wide-width));
+}
+
+.section_header {
+  margin-bottom: var(--section-header-spacing);
+  text-align: center;
+}
+
+.section_eyebrow {
+  margin-bottom: var(--xs2);
+  font-size: var(--text-sm);
+  font-weight: var(--semi-bold);
+  letter-spacing: var(--tracking-lg);
+  text-transform: uppercase;
+  color: var(--section-eyebrow-color);
+}
+
+.section_title {
+  margin-bottom: var(--xs3);
+  font-size: var(--display-md);
+}
+
+.section_lede {
+  font-size: var(--text-lg);
+  color: var(--section-lede-color);
+}
+
+/* Centered button row: the "closing CTA" is a Section with one of these */
+.section_actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--xs3);
+}
+
+}

@@ -1,0 +1,113 @@
+---
+title: "Pricing"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import PricingCard from "../../components/PricingCard.astro";
+
+<section class="prose">
+
+The `.pricingCard` component is one tier of a pricing table: name, price, feature list, and a CTA pinned to the bottom so a row of tiers lines up. A pricing table is a row of these on the [grid](/docs/global#grid), with `highlighted` marking the recommended tier.
+
+<div class="grid" col="1" col-md="3">
+  <PricingCard name="Starter" price="$0" period="/month" description="For side projects." features={["1 site", "Community support"]} ctaHref="#" />
+  <PricingCard name="Pro" price="$29" period="/month" description="For professionals." features={["10 sites", "Email support", "Custom themes"]} ctaHref="#" highlighted badge="Popular" />
+  <PricingCard name="Team" price="$99" period="/month" description="For agencies." features={["Unlimited sites", "Priority support", "Custom themes", "SSO"]} ctaHref="#" />
+</div>
+
+<div class="docs_oversizedTable">
+
+| File                                      | Description                         | Source      |
+| ------------------------------------------ | ----------------------------------- | ----------- |
+| `component.pricing.css`                    | Tier layout + highlight styles      | [Github][1] |
+| `component.card.css`, `atom.badge.css`, `atom.button.css` | Base visuals (dependencies) | [Github][2] |
+| `PricingCard.astro`                        | The Astro component                 | [Github][3] |
+| `icons/check.svg`                          | Feature list check icon             | [Github][4] |
+| `--pricingCard-*` block in default theme   | Theme tokens (see table below)      | [Github][5] |
+
+</div>
+
+It extends the [card](/components/card) and uses the [badge](/components/badge) and [button](/components/button) atoms.
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.pricing.css
+[2]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
+[3]: https://github.com/minimaldesign/mCSS/blob/main/src/components/PricingCard.astro
+[4]: https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons
+[5]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<article class="card pricingCard pricingCard-highlighted">
+  <header class="pricingCard_header">
+    <h3 class="pricingCard_name">Pro</h3>
+    <span class="badge badge-primary">Popular</span>
+  </header>
+  <p class="pricingCard_price">
+    <span class="pricingCard_amount">$29</span>
+    <span class="pricingCard_period">/month</span>
+  </p>
+  <p class="pricingCard_description">For professionals.</p>
+  <ul class="pricingCard_features">
+    <li><span class="pricingCard_check" aria-hidden="true"><svg>[…]</svg></span>10 sites</li>
+    <li><span class="pricingCard_check" aria-hidden="true"><svg>[…]</svg></span>Email support</li>
+  </ul>
+  <div class="pricingCard_cta">
+    <a class="bt bt-primary" href="/signup">Get started</a>
+  </div>
+</article>
+```
+
+The highlight is a border-color swap plus a same-color ring (`box-shadow`), so the highlighted tier doesn't shift the row's layout.
+
+### Custom properties
+
+<div class="docs_oversizedTable">
+
+| Property                              | Description                          |
+| ------------------------------------- | ------------------------------------ |
+| `--pricingCard-highlight-border-color` | Border/ring color of the highlight.  |
+| `--pricingCard-check-color`            | Feature list check icon color.       |
+
+</div>
+
+Everything else comes from the [card tokens](/components/card).
+
+</section>
+
+## Astro component
+
+<section class="prose">
+
+<div class="docs_oversizedTable">
+
+| Prop          | Type       | Default         | Description                                            |
+| ------------- | ---------- | --------------- | ------------------------------------------------------- |
+| `name`        | `string`   | —               | Tier name. Required.                                    |
+| `price`       | `string`   | —               | Price as text (`"$29"`, `"Free"`…). Required.           |
+| `period`      | `string`   | `undefined`     | Suffix after the price (`"/month"`).                    |
+| `description` | `string`   | `undefined`     | One-liner under the price.                              |
+| `features`    | `string[]` | `[]`            | Feature list, one check per entry.                      |
+| `ctaLabel`    | `string`   | `"Get started"` | CTA button text.                                        |
+| `ctaHref`     | `string`   | `undefined`     | CTA link; no CTA renders without it (or the `cta` slot).|
+| `highlighted` | `boolean`  | `false`         | Recommended tier: primary ring + primary CTA.           |
+| `badge`       | `string`   | `undefined`     | Badge text next to the name (`"Popular"`).              |
+| `class`       | `string`   | `undefined`     | Additional CSS classes.                                 |
+
+</div>
+
+<div class="docs_oversizedTable">
+
+| Slot  | Description                                          |
+| ----- | ----------------------------------------------------- |
+| `cta` | Replace the default CTA button with your own markup.  |
+
+</div>
+
+</section>

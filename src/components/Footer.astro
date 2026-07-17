@@ -1,54 +1,38 @@
 ---
-import logoImg from '../assets/ui/mcss-logo.svg?raw';
-import heartIcon from '../assets/icons/heart.svg?raw';
-import SocialMedia from './SocialMedia.astro';
+import type { HTMLAttributes } from 'astro/types';
 
-import { VERSION } from '../scripts/globals';
+interface Props extends HTMLAttributes<'footer'> {
+  navLabel?: string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  navLabel = 'Footer',
+  class: className,
+  'data-testid': testId = 'footer',
+  ...rest
+} = Astro.props as Props;
 ---
 
-<footer class="footer">
-  <nav class="footer_nav">
-    <ul>
-      <li>
-        <h5>Documentation</h5>
-        <ul>
-          <li><a href="/docs/start">mCSS methodology</a></li>
-          <li><a href="/docs/tokens">Tokens</a></li>
-          <li><a href="/docs/media-queries">Responsive design</a></li>
-          <li><a href="/docs/global#grid">Grid system</a></li>
-          <li><a href="/docs/helpers">Utility classes</a></li>
-          <li><a href="/components/start">Component library</a></li>
-        </ul>
-      </li>
-      <li>
-        <h5>Learn</h5>
-        <ul>
-          <li><a href="https://github.com/minimaldesign/mCSS/tree/main/src/styles">Code base</a></li>
-          <li><a href="https://github.com/minimaldesign/mCSS/issues">Issue tracker</a></li>
-          <li><a href="/tags/learn">Tutorials, tips & tricks</a></li>
-          <li><a href="https://www.youtube.com/">YouTube</a></li>
-        </ul>
-      </li>
-      <li>
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="https://github.com/minimaldesign/mCSS/discussions">Discussions</a></li>
-          <li><a href="https://x.com/_yannb_">Twitter</a></li>
-          <li><a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Mailing list</a></li>
-          <li><a href="mailto:hello@mcss.dev">Email</a></li>
-        </ul>
-        <SocialMedia class="mt-sm1" urls={['https://x.com/_yannb_', 'https://github.com/minimaldesign/mCSS', 'https://www.youtube.com/']} />
-      </li>
-    </ul>
-  </nav>
-  <section class="footer_meta">
-    <p>Made with <Fragment set:html={heartIcon} /> in California by <a href="http://minimaldesign.net">minimal design</a></p>
-    <p><a href="https://github.com/minimaldesign/mCSS/blob/main/LICENSE">Licensed under MIT</a></p>
-    <p class="footer_version"><Fragment set:html={logoImg} /> mCSS v.{VERSION}</p>
-    <ul class="webring">
-      <li><a href="https://webri.ng/webring/cssjoy/previous?via=https://mcss.dev" title="Previous site in the CSS Joy webring">←</a></li>
-      <li><a href="https://cs.sjoy.lol/" title="About the CSS Joy Webring">CSS Joy Webring</a></li>
-      <li><a href="https://webri.ng/webring/cssjoy/next?via=https://mcss.dev" title="Next site in the CSS Joy webring">→</a></li>
-    </ul>
-  </section>
+<!-- prettier-ignore -->
+<footer
+  class:list={['footer', className]}
+  data-testid={testId}
+  {...rest}
+>
+  {
+    Astro.slots.has('default') && (
+      <nav class="footer_nav" aria-label={navLabel}>
+        <slot />
+      </nav>
+    )
+  }
+  {
+    Astro.slots.has('meta') && (
+      <section class="footer_meta">
+        <slot name="meta" />
+      </section>
+    )
+  }
 </footer>

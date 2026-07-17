@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Header from './Header.astro';
+import type { NavItem } from './Header.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { filterAndSort } from '../scripts/utilities';
+import logoImg from '../assets/ui/mcss-logo.svg?raw';
+
+const componentList = await getCollection('components');
+const atomPosts = filterAndSort(componentList, 'atom');
+const componentPosts = filterAndSort(componentList, 'component');
+
+const docsPages = [
+  { id: 'start', title: 'Getting Started' },
+  { id: 'tokens', title: 'Tokens' },
+  { id: 'media-queries', title: 'Media Queries' },
+  { id: 'themes', title: 'Themes' },
+  { id: 'reset', title: 'Reset' },
+  { id: 'elements', title: 'HTML Elements' },
+  { id: 'global', title: 'Global Styles' },
+  { id: 'helpers', title: 'Helpers' },
+];
+
+const navItems: NavItem[] = [
+  { label: 'Home', href: '/' },
+  {
+    label: 'Docs',
+    href: '/docs/start',
+    children: docsPages.map((page) => ({ label: page.title, href: `/docs/${page.id}` })),
+  },
+  {
+    label: 'Atoms',
+    href: '/components/start',
+    mobileOnly: true,
+    children: atomPosts.map((post) => ({ label: post.data.title, href: `/components/${post.id}` })),
+  },
+  {
+    label: 'Components',
+    href: '/components/start',
+    children: componentPosts.map((post) => ({ label: post.data.title, href: `/components/${post.id}` })),
+  },
+  { label: 'Blog', href: '/blog' },
+];
+---
+
+<Header navItems={navItems} sticky class="siteHeader">
+  <a slot="logo" class="header_logo" href="/">
+    <Fragment set:html={logoImg} /> mCSS
+  </a>
+  <ThemeToggle slot="actions" />
+  <div slot="menu" class="siteHeader_themeToggle">
+    <ThemeToggle />
+  </div>
+</Header>

@@ -1,0 +1,75 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+/* BREADCRUMBS */
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--xs2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+  }
+
+  .breadcrumbs li {
+    display: flex;
+    align-items: center;
+    gap: var(--xs2);
+  }
+
+  /* separator between crumbs; the / "" alt text keeps it out of the
+     accessibility tree in browsers that support the syntax */
+  .breadcrumbs li + li::before {
+    content: var(--breadcrumbs-separator);
+    color: var(--breadcrumbs-separator-color);
+  }
+
+@supports (content: "a" / "a") {
+.breadcrumbs li + li::before {
+    content: var(--breadcrumbs-separator) / "";
+  }
+}
+
+  .breadcrumbs a {
+    color: var(--breadcrumbs-color);
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+    :is(.breadcrumbs a):hover {
+      color: var(--link-color);
+    }
+
+  .breadcrumbs [aria-current="page"] {
+    color: var(--breadcrumbs-color-current);
+    font-weight: var(--semi-bold);
+  }
+
+}

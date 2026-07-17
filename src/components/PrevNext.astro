@@ -1,0 +1,48 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface PostLink {
+  title: string;
+  href: string;
+}
+
+interface Props extends HTMLAttributes<'nav'> {
+  prev?: PostLink;
+  next?: PostLink;
+  prevLabel?: string;
+  nextLabel?: string;
+  ariaLabel?: string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  prev,
+  next,
+  prevLabel = 'Previous',
+  nextLabel = 'Next',
+  ariaLabel = 'Previous and next',
+  class: className,
+  'data-testid': testId = 'prevNext',
+  ...rest
+} = Astro.props as Props;
+---
+
+{
+  (prev || next) && (
+    <nav class:list={['prevNext', className]} aria-label={ariaLabel} data-testid={testId} {...rest}>
+      {prev && (
+        <a class="prevNext_link prevNext_link-prev" href={prev.href}>
+          <small>{prevLabel}</small>
+          <span>{prev.title}</span>
+        </a>
+      )}
+      {next && (
+        <a class="prevNext_link prevNext_link-next" href={next.href}>
+          <small>{nextLabel}</small>
+          <span>{next.title}</span>
+        </a>
+      )}
+    </nav>
+  )
+}

@@ -1,0 +1,178 @@
+---
+title: "Header"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Header from "../../components/Header.astro";
+
+<section class="prose">
+
+The `.header` component is the site-wide top bar: logo, primary navigation, optional actions, and a built-in mobile menu behind a hamburger button.
+
+<Header
+  navItems={[
+    { label: "Home", href: "#" },
+    { label: "Features", href: "#features" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Blog", href: "#blog" },
+  ]}
+  style="border: 1px solid var(--theme-border-color); border-radius: var(--radius-lg);"
+>
+  <a slot="logo" class="header_logo" href="#">✻ Acme</a>
+  <a slot="actions" class="bt bt-primary" href="#">Sign up</a>
+</Header>
+
+<div class="docs_oversizedTable">
+
+| File                                | Description                      | Source      |
+| ----------------------------------- | -------------------------------- | ----------- |
+| `component.header.css`              | All header styles                | [Github][1] |
+| `Header.astro`                      | The Astro component              | [Github][2] |
+| `icons/menu.svg`, `icons/x.svg`     | Mobile menu open/close icons     | [Github][3] |
+| `--header-*` block in default theme | Theme tokens (see table below)   | [Github][4] |
+| `scripts/utilities.js` (`throttle`) | Used by the sticky-shadow script | [Github][5] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.header.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Header.astro
+[3]: https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+[5]: https://github.com/minimaldesign/mCSS/blob/main/src/scripts/utilities.js
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+The header is a flex row: logo first, desktop nav pushed to the right, actions last. Below the `--md` breakpoint the desktop nav and actions hide and the hamburger appears.
+
+```html
+<header class="header is-top header-sticky">
+  <a class="header_logo" href="/">✻ Acme</a>
+  <nav class="header_nav" aria-label="Main">
+    <ul>
+      <li><a href="/" aria-current="page">Home</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+    </ul>
+  </nav>
+  <nav class="header_navMobile" aria-label="Main menu">
+    <button aria-expanded="false" aria-label="Open menu"><svg>[…]</svg></button>
+    <div>
+      <button aria-label="Close menu"><svg>[…]</svg></button>
+      <ul>
+        <li><a href="/" aria-current="page">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="header_actions"><!-- theme toggle, CTA… --></div>
+</header>
+```
+
+When using plain HTML you also need the small script that wires the hamburger; copy it from the bottom of [Header.astro][2]. It keeps the menu keyboard operable: `aria-expanded` reflects the state, focus moves into the menu on open and back to the trigger on close, and `Escape` closes it.
+
+### Available modifiers
+
+<div class="docs_oversizedTable">
+
+| Class / state                | Description                                                                |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| `.header`                    | Base block. Flex row, `--header-height` tall.                              |
+| `.header` + `.header-sticky` | Sticks to the top of the viewport with a shadow once the page is scrolled. |
+| `.is-top`                    | State set by the script while the page is scrolled to the very top (hides the sticky shadow). |
+| `a[aria-current]`            | Current page (`page`) or section (`true`) links are highlighted.           |
+
+</div>
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+<div class="docs_oversizedTable">
+
+| Property                         | Description                                        |
+| -------------------------------- | -------------------------------------------------- |
+| `--header-height`                | Header height (grows at the `--md` breakpoint).    |
+| `--header-padding`               | Horizontal padding.                                |
+| `--header-background-color`      | Background color.                                  |
+| `--header-menu-background-color` | Mobile menu background (always dark by design).    |
+| `--header-menu-color`            | Mobile menu link color.                            |
+| `--header-menu-color-current`    | Mobile menu current-page link color.               |
+| `--header-menu-secondary-color`  | Mobile menu sub-item link color.                   |
+| `--header-menu-border-color`     | Mobile menu sub-list border.                       |
+
+</div>
+
+The mobile menu deliberately keeps the same dark surface in both themes; retheme it through the `--header-menu-*` tokens rather than a `light-dark()` override.
+
+</section>
+
+## Astro component
+
+<section class="prose">
+
+<div class="docs_oversizedTable">
+
+| Prop          | Type        | Default             | Description                                                       |
+| ------------- | ----------- | ------------------- | ----------------------------------------------------------------- |
+| `navItems`    | `NavItem[]` | `[]`                | `{ label, href, children?, mobileOnly? }`. `children` renders as a sub-list in the mobile menu only; `mobileOnly` items are skipped in the desktop nav. |
+| `sticky`      | `boolean`   | `false`             | Sticky positioning + scroll shadow.                               |
+| `currentPath` | `string`    | `Astro.url.pathname`| Used to set `aria-current`: exact match gets `page`; the item whose `children` contain the page gets `true` (falling back to first-path-segment matching when none does). |
+| `navLabel`    | `string`    | `"Main"`            | `aria-label` for the desktop nav.                                 |
+| `menuLabel`   | `string`    | `"Main menu"`       | `aria-label` for the mobile nav.                                  |
+| `class`       | `string`    | `undefined`         | Additional CSS classes, useful for [helper classes](/docs/helpers). |
+
+</div>
+
+Any other attribute is passed through to the root `<header>` element.
+
+<div class="docs_oversizedTable">
+
+| Slot      | Description                                                        |
+| --------- | ------------------------------------------------------------------ |
+| `logo`    | Brand link. Use `class="header_logo"` on it to pick up the styles. |
+| `actions` | Right-hand side extras (theme toggle, CTA). Desktop only.          |
+| `menu`    | Extra content at the top of the mobile menu (e.g. a theme toggle). |
+
+</div>
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Header
+      navItems={[
+        { label: "Docs", href: "#docs" },
+        { label: "Blog", href: "#blog" },
+      ]}
+      style="border: 1px solid var(--theme-border-color); border-radius: var(--radius-lg);"
+    >
+      <a slot="logo" class="header_logo" href="#">✻ Acme</a>
+    </Header>
+
+    ```astro
+    ---
+    import Header from "../components/Header.astro";
+    ---
+    <Header
+      sticky
+      navItems={[
+        { label: "Docs", href: "/docs" },
+        { label: "Blog", href: "/blog" },
+      ]}
+    >
+      <a slot="logo" class="header_logo" href="/">✻ Acme</a>
+    </Header>
+    ```
+
+  </li>
+  <li>
+    This site's own header is the same component; see [SiteHeader.astro](https://github.com/minimaldesign/mCSS/blob/main/src/components/SiteHeader.astro) for a full example with nested mobile navigation, `mobileOnly` sections, and theme toggles in the `actions` and `menu` slots.
+  </li>
+</ul>

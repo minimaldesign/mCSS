@@ -1,0 +1,79 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+/* PAGINATION */
+  .pagination ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--xs1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pagination a,.pagination span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--pagination-size);
+    min-height: var(--pagination-size);
+    font-size: var(--text-sm);
+    font-weight: var(--semi-bold);
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    color: var(--pagination-color);
+    border-radius: var(--pagination-border-radius);
+    transition: background-color var(--transition-fast);
+  }
+
+  .pagination a:hover {
+    background-color: var(--pagination-background-color-hover);
+  }
+
+  .pagination a[aria-current="page"] {
+    color: var(--pagination-color-current);
+    background-color: var(--pagination-background-color-current);
+  }
+  .pagination_arrow svg {
+    width: var(--sm1);
+    height: var(--sm1);
+  }
+
+  .pagination_arrow[aria-disabled="true"] {
+    opacity: var(--o-2);
+  }
+
+.pagination_arrow-prev svg {
+  rotate: 90deg;
+}
+
+.pagination_arrow-next svg {
+  rotate: -90deg;
+}
+
+}

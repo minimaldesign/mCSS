@@ -1,0 +1,51 @@
+/* FIELD */
+
+.field {
+  display: grid;
+  gap: var(--field-spacing);
+
+  label {
+    /* the grid gap handles spacing (overrides the elements-layer margin) */
+    margin-bottom: 0;
+  }
+}
+
+.field_hint,
+.field_error {
+  font-size: var(--text-sm);
+}
+
+.field_hint {
+  color: var(--field-hint-color);
+}
+
+.field_error {
+  display: none;
+  color: var(--field-error-color);
+}
+
+/* Native validation: reveal the error message once the control has been
+   interacted with and is invalid (:user-invalid, not :invalid, so pristine
+   forms don't light up red). The border color comes from elements.form.css. */
+.field:has(:user-invalid) {
+  .field_error {
+    display: block;
+  }
+
+  &:has(.field_error) .field_hint {
+    display: none;
+  }
+}
+
+/* Inline composition: fields and buttons on one wrapping row
+   (newsletter signup, search bar…) */
+.fieldRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--xs3);
+
+  .field {
+    flex: 1 1 200px;
+  }
+}

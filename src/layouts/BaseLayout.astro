@@ -3,8 +3,8 @@ import '../styles/_global.css';
 
 import logoImg from '../assets/ui/mcss-logo.png';
 
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const { title, bodyClass, frontmatter } = Astro.props;
 
@@ -81,10 +81,10 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     </script>
   </head>
   <body class={bodyClass}>
-    <Header />
+    <SiteHeader />
     <div class="layout_content">
       <slot />
     </div>
-    <Footer />
+    <SiteFooter />
   </body>
 </html>

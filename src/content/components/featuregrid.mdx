@@ -1,0 +1,158 @@
+---
+title: "Feature Grid"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import FeatureGrid from "../../components/FeatureGrid.astro";
+import FeatureItem from "../../components/FeatureItem.astro";
+
+export const check = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`;
+
+<section class="prose">
+
+The `.featureGrid` component is the classic marketing "three columns of icon + title + text" pattern, composed over the mCSS [grid system](/docs/global#grid).
+
+<FeatureGrid>
+  <FeatureItem title="Zero JavaScript">
+    <Fragment slot="icon" set:html={check} />
+    <p>Just an unordered list and the grid you already have.</p>
+  </FeatureItem>
+  <FeatureItem title="Responsive by default">
+    <Fragment slot="icon" set:html={check} />
+    <p>1, 2, then n columns as the viewport grows.</p>
+  </FeatureItem>
+  <FeatureItem title="Tokenized icons">
+    <Fragment slot="icon" set:html={check} />
+    <p>Icon box size and colors come from the theme.</p>
+  </FeatureItem>
+</FeatureGrid>
+
+<div class="docs_oversizedTable">
+
+| File                                     | Description                    | Source      |
+| ---------------------------------------- | ------------------------------ | ----------- |
+| `component.featureGrid.css`              | Feature grid + item styles     | [Github][1] |
+| `FeatureGrid.astro`, `FeatureItem.astro` | The Astro components           | [Github][2] |
+| `--featureItem-*` block in default theme | Theme tokens (see table below) | [Github][3] |
+
+</div>
+
+Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours to bring; [Lucide](https://lucide.dev/) is a great resource.
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.featureGrid.css
+[2]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+[3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+One item per `<li>`: one column on mobile, two from `--md`, and 2/3/4 (your pick) from `--lg`.
+
+```html
+<ul class="featureGrid grid" col="1" col-md="2" col-lg="3">
+  <li class="featureItem">
+    <div class="featureItem_icon" aria-hidden="true"><svg>[…]</svg></div>
+    <h3 class="featureItem_title">Zero JavaScript</h3>
+    <div class="featureItem_text">
+      <p>Just an unordered list and the grid you already have.</p>
+    </div>
+  </li>
+  <!-- more items… -->
+</ul>
+```
+
+The icon box is `aria-hidden`: feature icons are decoration next to a real heading, so screen readers skip them.
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+<div class="docs_oversizedTable">
+
+| Property                             | Description                 |
+| ------------------------------------ | --------------------------- |
+| `--featureItem-icon-box-size`        | Icon container width/height. |
+| `--featureItem-icon-size`            | SVG width/height.           |
+| `--featureItem-icon-color`           | Icon (stroke/fill) color.   |
+| `--featureItem-icon-background-color`| Icon container background.  |
+| `--featureItem-icon-border-radius`   | Icon container radius.      |
+
+</div>
+
+</section>
+
+## Astro component
+
+<section class="prose">
+
+**FeatureGrid**
+
+<div class="docs_oversizedTable">
+
+| Prop    | Type     | Default     | Description                                                         |
+| ------- | -------- | ----------- | ------------------------------------------------------------------- |
+| `cols`  | `number` | `3`         | Columns from the `--lg` breakpoint: `2`, `3`, or `4`.               |
+| `class` | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
+
+</div>
+
+**FeatureItem**
+
+<div class="docs_oversizedTable">
+
+| Prop    | Type     | Default     | Description                              |
+| ------- | -------- | ----------- | ---------------------------------------- |
+| `title` | `string` | `undefined` | The item's `h3`.                         |
+| `class` | `string` | `undefined` | Additional CSS classes.                  |
+
+</div>
+
+<div class="docs_oversizedTable">
+
+| Slot      | Description                                          |
+| --------- | ---------------------------------------------------- |
+| `icon`    | An SVG icon, rendered in the tokenized icon box.     |
+| (default) | The item's body text.                                |
+
+</div>
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <FeatureGrid cols={2}>
+      <FeatureItem title="Two columns">
+        <Fragment slot="icon" set:html={check} />
+        <p>Set `cols` for the large-screen column count.</p>
+      </FeatureItem>
+      <FeatureItem title="No icon required">
+        <p>Skip the `icon` slot and the box disappears.</p>
+      </FeatureItem>
+    </FeatureGrid>
+
+    ```astro
+    ---
+    import FeatureGrid from "../components/FeatureGrid.astro";
+    import FeatureItem from "../components/FeatureItem.astro";
+    import zap from "../assets/icons/zap.svg?raw";
+    ---
+    <FeatureGrid cols={2}>
+      <FeatureItem title="Two columns">
+        <Fragment slot="icon" set:html={zap} />
+        <p>Set `cols` for the large-screen column count.</p>
+      </FeatureItem>
+      <FeatureItem title="No icon required">
+        <p>Skip the `icon` slot and the box disappears.</p>
+      </FeatureItem>
+    </FeatureGrid>
+    ```
+
+  </li>
+</ul>

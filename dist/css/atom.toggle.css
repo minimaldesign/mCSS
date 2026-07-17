@@ -52,7 +52,10 @@ xxl: 1920px
     height: var(--diameter);
     border-radius: var(--diameter);
     background-color: var(--toggle-thumb-color);
-    transition: all var(--transition);
+    transition:
+      left var(--transition),
+      transform var(--transition),
+      width var(--transition);
     transform: translateX(0);
   }
 

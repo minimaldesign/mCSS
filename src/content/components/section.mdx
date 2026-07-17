@@ -1,0 +1,176 @@
+---
+title: "Section"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Section from "../../components/Section.astro";
+
+<section class="prose">
+
+The `.section` component is the workhorse wrapper marketing pages are made of: a full-width band with vertical rhythm, an optional eyebrow/title/lede header, and background variants.
+
+<Section eyebrow="Why mCSS" title="Everything is a section" lede="Stack a few of these and you have a landing page." variant="filled" style="border-radius: var(--radius-lg);">
+  <p class="text-center">Section content goes here.</p>
+</Section>
+
+<div class="docs_oversizedTable">
+
+| File                                 | Description                    | Source      |
+| ------------------------------------ | ------------------------------ | ----------- |
+| `component.section.css`              | All section styles             | [Github][1] |
+| `Section.astro`                      | The Astro component            | [Github][2] |
+| `--section-*` block in default theme | Theme tokens (see table below) | [Github][3] |
+
+</div>
+
+Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to the same content column as the rest of the page, and the `wide` preset lets grids escape the reading column.
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.section.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Section.astro
+[3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<section class="section wrap section-filled">
+  <header class="section_header">
+    <p class="section_eyebrow">Why mCSS</p>
+    <h2 class="section_title">Everything is a section</h2>
+    <p class="section_lede">Stack a few of these and you have a landing page.</p>
+  </header>
+  <!-- content: paragraphs, grids, cards… -->
+</section>
+```
+
+### Available modifiers
+
+<div class="docs_oversizedTable">
+
+| Class                             | Description                                                        |
+| --------------------------------- | ------------------------------------------------------------------ |
+| `.section`                        | Default. Transparent background, `--section-spacing` vertical padding. |
+| `.section` + `.section-filled`    | Subtle filled band.                                                |
+| `.section` + `.section-primary`   | Primary-colored band; text and links switch to the inverted colors. |
+| `.section` + `.section-wide`      | Widens the content column to `--section-wide-width`.               |
+
+</div>
+
+### Elements
+
+<div class="docs_oversizedTable">
+
+| Class              | Description                                                     |
+| ------------------ | ---------------------------------------------------------------- |
+| `.section_header`  | Centered eyebrow/title/lede block.                               |
+| `.section_eyebrow` | Small uppercase kicker.                                          |
+| `.section_title`   | The `h2`.                                                        |
+| `.section_lede`    | Intro paragraph.                                                 |
+| `.section_actions` | Centered, wrapping button row (see the closing-CTA recipe below). |
+
+</div>
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+<div class="docs_oversizedTable">
+
+| Property                             | Description                              |
+| ------------------------------------ | ---------------------------------------- |
+| `--section-spacing`                  | Vertical padding of the band.            |
+| `--section-header-spacing`           | Space between the header and content.    |
+| `--section-wide-width`               | Content column width of the wide preset. |
+| `--section-eyebrow-color`            | Eyebrow text color.                      |
+| `--section-lede-color`               | Lede text color.                         |
+| `--section-filled-background-color`  | Background of the filled variant.        |
+| `--section-primary-background-color` | Background of the primary variant.       |
+| `--section-primary-text-color`       | Text color on the primary variant.       |
+| `--section-primary-link-color`       | Link color on the primary variant.       |
+| `--section-primary-link-color-hover` | Link hover color on the primary variant. |
+| `--section-primary-eyebrow-color`    | Eyebrow color on the primary variant.    |
+| `--section-primary-lede-color`       | Lede color on the primary variant.       |
+
+</div>
+
+</section>
+
+## Astro component
+
+<section class="prose">
+
+<div class="docs_oversizedTable">
+
+| Prop      | Type     | Default     | Description                                                         |
+| --------- | -------- | ----------- | ------------------------------------------------------------------- |
+| `eyebrow` | `string` | `undefined` | Small uppercase kicker above the title.                             |
+| `title`   | `string` | `undefined` | The section's `h2`.                                                 |
+| `lede`    | `string` | `undefined` | Intro paragraph under the title.                                    |
+| `variant` | `string` | `undefined` | `filled`, `primary`.                                                |
+| `width`   | `string` | `undefined` | `wide`.                                                             |
+| `class`   | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
+
+</div>
+
+Any other attribute is passed through to the root `<section>` element (handy for `id` anchors). The default slot is the section content.
+
+</section>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Section eyebrow="Pricing" title="Primary band" variant="primary" style="border-radius: var(--radius-lg);">
+      <p class="text-center">Text and <a href="#">links</a> flip to the inverted palette.</p>
+    </Section>
+
+    ```astro
+    ---
+    import Section from "../components/Section.astro";
+    ---
+    <Section eyebrow="Pricing" title="Primary band" variant="primary">
+      <p>Text and <a href="/docs">links</a> flip to the inverted palette.</p>
+    </Section>
+    ```
+
+  </li>
+  <li>
+    <Section title="Wide section" width="wide" variant="filled" style="border-radius: var(--radius-lg);">
+      <div class="grid" col="3">
+        <div class="docs_box">1</div>
+        <div class="docs_box">2</div>
+        <div class="docs_box">3</div>
+      </div>
+    </Section>
+
+    ```astro
+    <Section title="Wide section" width="wide" variant="filled">
+      <div class="grid" col="3">…</div>
+    </Section>
+    ```
+
+  </li>
+  <li>
+    The closing CTA every marketing page ends on is not a separate component; it is a Section with a `.section_actions` row:
+
+    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary" style="border-radius: var(--radius-lg);">
+      <div class="section_actions">
+        <a class="bt bt-lg bt-outline-white" href="#">Get started</a>
+      </div>
+    </Section>
+
+    ```astro
+    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary">
+      <div class="section_actions">
+        <a class="bt bt-lg bt-outline-white" href="/docs/start">Get started</a>
+      </div>
+    </Section>
+    ```
+
+  </li>
+</ul>
