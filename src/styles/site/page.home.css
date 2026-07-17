@@ -1,162 +1,1010 @@
-.home {
-  h1,
-  h2 {
-    color: transparent;
-    background: linear-gradient(90deg, var(--primary-950), var(--primary-400));
-    background-clip: text;
-    text-fill-color: transparent;
+/* HOMEPAGE */
+
+/*
+  The homepage is the first template demo: every section is built from the v1
+  library (Section, FeatureGrid, Card, Field, badges) plus the page styles
+  below. Section numbers (§1 to §9) reference mcss-homepage-content-map.md.
+*/
+
+/* Poster-grade vertical rhythm (denser than the docs pages) */
+.home .section {
+  --section-spacing: var(--xl1);
+  @media (--lg) {
+    --section-spacing: var(--xxl1);
   }
 }
 
-:root:has(.root-theme:checked) .home {
-  h1,
-  h2 {
-    color: var(--primary-400);
+/* §3 to §6: narrow header, wide content. These blocks escape the wrap
+   column and center at up to 1150px. */
+.homePillars,
+.homeShowcase_grid,
+.homeThemer_split,
+.homeGallery_grid {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 1150px;
+  margin-inline: auto;
+  @media (--lg) {
+    padding-left: var(--sm3);
+    padding-right: var(--sm3);
   }
 }
 
-/* INDEX */
+/* Scroll reveal: one effect, used consistently. Decoration only; browsers
+   without scroll-driven animations simply show the content. */
+@media (--motionOK) {
+  @supports (animation-timeline: view()) {
+    .homeReveal,
+    .home .section_header {
+      animation: homeReveal linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 40%;
+    }
+  }
+}
 
-.home_hero {
-  text-align: center;
-  margin: var(--lg1) 0;
+@keyframes homeReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* §1 HERO */
+
+.homeHero {
+  display: grid;
+  align-content: center;
+  min-height: calc(72svh - var(--header-height));
+  padding-block: var(--lg1) var(--sm3);
+  padding-inline: var(--sm1);
   @media (--md) {
-    margin-top: var(--xl3);
-    margin-bottom: var(--xl3);
+    padding-inline: var(--sm3);
   }
+}
 
+.homeHero_inner {
+  width: 100%;
+  max-width: 1150px;
+  margin-inline: auto;
+  display: grid;
+  gap: var(--lg3);
+  @media (--lg) {
+    grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
+    align-items: center;
+    gap: var(--xl2);
+  }
+}
+
+.homeHero_copy {
   h1 {
-    font-size: var(--display-md);
-    font-weight: var(--black);
+    /* Gradient-clipped text; light-dark() per stop keeps both themes AA
+       (postcss-mixins can't see display-gradient from another file).
+       fit-content, not max-content: max-content inflates the hero grid's
+       min-content size and overflows small viewports */
+    width: fit-content;
+    max-width: 100%;
+    color: transparent;
+    /* background-image longhand: preset-env's light-dark polyfill re-emits
+       shorthands after this rule, which would reset background-clip */
+    background-image: linear-gradient(
+      90deg,
+      light-dark(var(--primary-950), var(--primary-300)),
+      light-dark(var(--primary-500), var(--primary-500))
+    );
+    background-clip: text;
+    /* The gradient only paints the box; at line-height 1 the descenders
+       poke below it and vanish, so extend the box under the last line */
+    padding-bottom: 0.12em;
+    font-size: var(--display-lg);
     line-height: var(--leading-xs);
-    padding: var(--xs1);
     @media (--md) {
+      font-size: var(--display-mega);
+    }
+    @media (--lg) {
       font-size: var(--display-giga);
     }
   }
+}
 
-  /* prettier-ignore */
+.homeHero_subhead {
+  max-width: 38ch;
+  margin-top: var(--sm1);
+  font-size: var(--text-lg);
+  color: light-dark(var(--base-500), var(--base-400));
+  @media (--md) {
+    font-size: var(--text-xl);
+  }
+}
+
+.homeHero_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs3);
+  margin-top: var(--md2);
+}
+
+.homeHero_fineprint {
+  margin-top: var(--sm1);
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  color: light-dark(var(--base-500), var(--base-400));
+}
+
+/* §1 THE CODE MORPH */
+
+/* Animated character counter (219 to 54). The unregistered fallback below
+   keeps the number correct in engines without @property (it just steps
+   instead of ticking). */
+@property --morph-n {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 219;
+}
+
+.homeMorph {
+  display: flex;
+  flex-direction: column;
+  /* The editor surface is github-dark in both site themes */
+  --morph-duration: 20s;
+  --morph-strike: var(--no-400);
+  --morph-pulse: rgb(19 136 109 / 0.45);
+}
+
+/* The live render floats on the page; the dashed connector ties it to the
+   editor that produces it. The 1fr/auto/1fr grid keeps the button itself on
+   the center axis (where the connector is), label trailing to its left. */
+.homeMorph_canvas {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--sm1);
+  padding-block: var(--xs2);
+}
+
+.homeMorph_canvasLabel {
+  justify-self: end;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-lg);
+  text-transform: uppercase;
+  color: light-dark(var(--base-400), var(--base-500));
+}
+
+.homeMorph_connector {
+  align-self: center;
+  height: var(--md1);
+  border-left: var(--border-md) dashed light-dark(var(--base-300), var(--base-600));
+}
+
+/* The editor fakes Shiki's github-dark (colors below match the theme the §5
+   panes get from the real Shiki), in both site themes */
+.homeMorph_editor {
+  margin: 0;
+  padding: var(--sm3);
+  background-color: #24292e;
+  border: var(--border-sm) solid rgb(255 255 255 / 0.12);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  animation: morphFade var(--morph-duration) linear infinite;
+}
+
+.homeMorph_chrome {
+  display: flex;
+  gap: var(--xs2);
+  margin-bottom: var(--sm1);
+
+  i {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-round);
+    opacity: var(--o-4);
+    &:nth-child(1) { background: var(--no-300); }
+    &:nth-child(2) { background: var(--maybe-300); }
+    &:nth-child(3) { background: var(--yes-300); }
+  }
+}
+
+/* Both morph states share one grid cell; the hidden sizer (full "before"
+   text) reserves that state's height at every width, so CLS is ~0 */
+.homeMorph_frame {
+  display: grid;
+
+  > pre {
+    grid-area: 1 / 1;
+  }
+}
+
+.homeMorph_sizer {
+  visibility: hidden;
+}
+
+.homeMorph_code {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-xl);
+  color: #e1e4e8;
+  overflow-wrap: anywhere;
+}
+
+/* github-dark syntax roles */
+.homeMorph_tag { color: #85e89d; }
+.homeMorph_attr { color: #b392f0; }
+.homeMorph_str { color: #9ecbff; }
+
+/* Strike color channel: animated on the class span, painted only over the
+   class text (not its trailing space) by the inner span's gradient stripe,
+   which we can center on the glyphs (text-decoration draws too low). */
+@property --morph-strike-now {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+.homeMorph_g {
+  color: #9ecbff;
+  animation: var(--morph-duration) linear infinite;
+}
+
+.homeMorph_gt {
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(54% - 1.5px),
+    var(--morph-strike-now) calc(54% - 1.5px) calc(54% + 1.5px),
+    transparent calc(54% + 1.5px)
+  );
+}
+
+.homeMorph_g-1 { animation-name: morphC1; }
+.homeMorph_g-2 { animation-name: morphC2; }
+.homeMorph_g-3 { animation-name: morphC3; }
+.homeMorph_g-4 { animation-name: morphC4; }
+.homeMorph_g-5 { animation-name: morphC5; }
+.homeMorph_g-6 { animation-name: morphC6; }
+.homeMorph_g-7 { animation-name: morphC7; }
+.homeMorph_g-8 { animation-name: morphC8; }
+.homeMorph_g-9 { animation-name: morphC9; }
+.homeMorph_g-10 { animation-name: morphC10; }
+.homeMorph_g-11 { animation-name: morphC11; }
+.homeMorph_g-12 { animation-name: morphC12; }
+.homeMorph_g-13 { animation-name: morphC13; }
+
+.homeMorph_after,
+.homeMorph_keep {
+  color: #9ecbff;
+  font-weight: var(--semi-bold);
+}
+
+.homeMorph_after {
+  font-size: 0;
+  opacity: 0;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  animation: morphAfter var(--morph-duration) linear infinite;
+}
+
+.homeMorph_counter {
+  margin: var(--xs2) 0 0;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
+  font-weight: var(--bold);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: #8b949e;
+}
+
+.homeMorph_count {
+  --morph-n: 219;
+  animation: morphCount var(--morph-duration) linear infinite;
+
+  &::after {
+    counter-reset: morphN calc(var(--morph-n));
+    content: counter(morphN);
+  }
+}
+
+.homeMorph_replay {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--xs1);
+  align-self: flex-end;
+  margin-top: var(--xs3);
+  padding: var(--xs1) var(--xs2);
+  border: none;
+  background: none;
+  font-size: var(--text-sm);
+  color: light-dark(var(--base-500), var(--base-400));
+  cursor: pointer;
+  transition: color var(--transition-fast);
+
   svg {
-    width: 800px;
-    margin: var(--md3) auto;
-
-    .cls-1 { fill: #082f49; }
-    .cls-2 { fill: #123750; }
-    .cls-3 { fill: #095b86; }
-    .cls-4 { fill: #0a314b; }
-    .cls-5 { fill: #0f354e; }
-    .cls-6 { fill: #143952; }
-    .cls-7 { fill: #35b3ed; }
-    .cls-8 { fill: #0d334d; }
-    .cls-9 { fill: #41b8ee; }
-    .cls-10{ fill: #1d6890; }
-    .cls-11{ fill: #86d6fc; }
-    .cls-12{ fill: #0369a1; }
-    .cls-13{ fill: #48bbee; }
-    .cls-14{ fill: #16638c; }
-    .cls-15{ fill: #2c7297; }
-    .cls-16{ fill: #226b92; }
-    .cls-17{ fill: #0d6fa5; }
-    .cls-18{ fill: #bce7fd; }
-    .cls-19{ fill: #cfeefe; }
-    .cls-20{ fill: #30b2ec; }
-    .cls-21{ fill: #11608a; }
-    .cls-22{ fill: #1272a7; }
-    .cls-23{ fill: #13618b; }
-    .cls-24{ fill: #3385b3; }
-    .cls-25{ fill: #32b2ec; }
-    .cls-26{ fill: #7dd3fc; }
-    .cls-27{ fill: #e1f2fe; }
-    .cls-28{ fill: #075985; }
-    .cls-29{ fill: #2f7499; }
-    .cls-30{ fill: #267eae; }
-    .cls-31{ fill: #b2e5fd; }
-    .cls-32{ fill: #2a7096; }
-    .cls-33{ fill: #d5f0fe; }
-    .cls-34{ fill: #92dafc; }
-    .cls-35{ fill: #93dafd; }
-    .cls-36{ fill: #086ca3; }
-    .cls-37{ fill: #10a6e9; }
-    .cls-38{ fill: #0ea5e9; }
-    .cls-39{ fill: #0e5e89; }
-    .cls-40{ fill: #1775a9; }
-    .cls-41{ fill: #13a7e9; }
-    .cls-42{ fill: #9addfd; }
-    .cls-43{ fill: #18658e; }
-    .cls-44{ fill: #066aa2; }
-    .cls-45{ fill: #1b668f; }
-    .cls-46{ fill: #b5e6fd; }
-    .cls-47{ fill: #fbfdff; }
-    .cls-48{ fill: #c7ebfd; }
-    .cls-49{ fill: #ebf7fe; }
-    .cls-50{ fill: #e5f4fe; }
-    .cls-51{ fill: #2bb0ec; }
-    .cls-52{ fill: #f0f9ff; }
-    .cls-53{ fill: #d2effe; }
-    .cls-54{ fill: #d4effe; }
-    .cls-55{ fill: #b4e5fd; }
-    .cls-56{ fill: #c2e9fd; }
-    .cls-57{ fill: #eff8fe; }
-    .cls-58{ fill: #2b81b0; }
-    .cls-59{ fill: #f5fbff; }
-    .cls-60{ fill: #e0f2fe; }
-    .cls-61{ fill: #c1e8fd; }
-    .cls-62{ fill: #e7f5fe; }
-    .cls-63{ fill: #80d4fc; }
-    .cls-64{ fill: #bae6fd; }
+    width: 14px;
+    height: 14px;
   }
 
-  ul {
-    display: flex;
-    justify-content: center;
-    padding: 0 var(--md1);
-    font-size: var(--text-lg);
-    font-weight: var(--bold);
-    @media (--md) {
-      font-size: var(--display-sm);
-    }
-    li {
-      &:nth-child(n + 2) {
-        &::before {
-          content: "•";
-          padding: 0 var(--xs2);
-          color: var(--primary-700);
-          @media (--md) {
-            padding-left: var(--xs3);
-            padding-right: var(--xs3);
-          }
-        }
-      }
-      &:nth-child(1) {
-        color: var(--primary-900);
-      }
-      &:nth-child(2) {
-        color: var(--primary-800);
-      }
-      &:nth-child(3) {
-        color: var(--primary-700);
-      }
-      &:nth-child(4) {
-        color: var(--primary-600);
-      }
-    }
+  &:hover {
+    color: var(--text-color);
   }
 }
 
-:root:has(.root-theme:checked) .home {
-  ul {
-    li {
-      &:nth-child(1),
-      &:nth-child(2),
-      &:nth-child(3),
-      &:nth-child(4) {
-        color: var(--primary-400);
-      }
-    }
-  }
+/* Reduced-motion after-state (hidden while the animation runs) */
+.homeMorph_static {
+  display: none;
 }
 
-.home_cta {
+.homeMorph_staticArrow {
+  margin: var(--xs3) 0;
   text-align: center;
-  margin: var(--lg3) 0 var(--xl3);
+  font-size: var(--text-xl);
+  color: light-dark(var(--base-400), var(--base-500));
+}
+
+.homeMorph_static .homeMorph_code {
+  padding: var(--sm3);
+  background-color: #24292e;
+  border: var(--border-sm) solid rgb(255 255 255 / 0.12);
+  border-radius: var(--radius-xl);
+}
+
+.homeMorph_staticCount {
+  margin: var(--xs2) 0 0;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  text-align: right;
+  color: light-dark(var(--base-500), var(--base-400));
+}
+
+/* Hovering the editor pauses the loop (no focusables inside; keyboard users
+   get the replay button) */
+.homeMorph_editor:hover,
+.homeMorph_editor:hover :is(.homeMorph_g, .homeMorph_after, .homeMorph_count) {
+  animation-play-state: paused;
+}
+
+/* Replay: the page script toggles this class to restart every animation */
+.homeMorph.is-resetting :is(.homeMorph_editor, .homeMorph_g, .homeMorph_after, .homeMorph_count) {
+  animation-name: none;
+}
+
+@media (--motionNotOK) {
+  .homeMorph_editor,
+  .homeMorph_g,
+  .homeMorph_after,
+  .homeMorph_count {
+    animation: none;
+  }
+
+  /* Static before/after stacked with an arrow and the final numbers */
+  .homeMorph_counter,
+  .homeMorph_replay {
+    display: none;
+  }
+
+  .homeMorph_static {
+    display: block;
+  }
+}
+
+/* Timeline, per 20s loop: 1.2s settle, then each of the 13 classes gets a
+   0.7s slot (strike, fade, snap collapse) from 6% to 51.5%, survivors expand
+   and pulse at 52% to 62%, long hold, crossfade reset at the end. Slot i runs
+   A to B where A = 6 + 3.5(i-1) and B = A + 3.5 (percent). */
+
+@keyframes morphFade {
+  0%, 93.5% { opacity: 1; }
+  95.5%, 98.5% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes morphC1 {
+  0%, 6% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  7%, 8.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  9.4% { opacity: 0; font-size: 1em; }
+  9.5%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC2 {
+  0%, 9.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  10.5%, 11.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  12.9% { opacity: 0; font-size: 1em; }
+  13%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC3 {
+  0%, 13% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  14%, 15.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  16.4% { opacity: 0; font-size: 1em; }
+  16.5%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC4 {
+  0%, 16.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  17.5%, 18.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  19.9% { opacity: 0; font-size: 1em; }
+  20%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC5 {
+  0%, 20% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  21%, 22.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  23.4% { opacity: 0; font-size: 1em; }
+  23.5%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC6 {
+  0%, 23.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  24.5%, 25.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  26.9% { opacity: 0; font-size: 1em; }
+  27%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC7 {
+  0%, 27% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  28%, 29.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  30.4% { opacity: 0; font-size: 1em; }
+  30.5%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC8 {
+  0%, 30.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  31.5%, 32.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  33.9% { opacity: 0; font-size: 1em; }
+  34%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC9 {
+  0%, 34% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  35%, 36.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  37.4% { opacity: 0; font-size: 1em; }
+  37.5%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC10 {
+  0%, 37.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  38.5%, 39.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  40.9% { opacity: 0; font-size: 1em; }
+  41%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC11 {
+  0%, 41% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  42%, 43.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  44.4% { opacity: 0; font-size: 1em; }
+  44.5%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC12 {
+  0%, 44.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  45.5%, 46.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  47.9% { opacity: 0; font-size: 1em; }
+  48%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphC13 {
+  0%, 48% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  49%, 50.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
+  51.4% { opacity: 0; font-size: 1em; }
+  51.5%, 96% { opacity: 0; font-size: 0; }
+  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+}
+
+@keyframes morphAfter {
+  0%, 51.5% { font-size: 0; opacity: 0; background-color: transparent; }
+  52% { font-size: 1em; opacity: 0; }
+  53% { opacity: 1; background-color: var(--morph-pulse); }
+  62%, 96% { font-size: 1em; opacity: 1; background-color: transparent; }
+  96.5%, 100% { font-size: 0; opacity: 0; }
+}
+
+@keyframes morphCount {
+  0%, 8.8% { --morph-n: 219; }
+  9.5%, 12.3% { --morph-n: 204; }
+  13%, 15.8% { --morph-n: 199; }
+  16.5%, 19.3% { --morph-n: 194; }
+  20%, 22.8% { --morph-n: 186; }
+  23.5%, 26.3% { --morph-n: 172; }
+  27%, 29.8% { --morph-n: 161; }
+  30.5%, 33.3% { --morph-n: 150; }
+  34%, 36.8% { --morph-n: 139; }
+  37.5%, 40.3% { --morph-n: 126; }
+  41%, 43.8% { --morph-n: 105; }
+  44.5%, 47.3% { --morph-n: 84; }
+  48%, 50.8% { --morph-n: 56; }
+  51.5%, 52.2% { --morph-n: 41; }
+  53%, 96% { --morph-n: 54; }
+  96.5%, 100% { --morph-n: 219; }
+}
+
+/* §2 PROOF STRIP */
+
+.homeProof {
+  --section-spacing: var(--xl1);
+  padding-block-start: 0;
+}
+
+.homeProof_install {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+/* Shiki (github-dark) one-liner; padding leaves room for the copy button */
+.homeProof_install pre {
+  margin: 0;
+  padding: var(--sm1) var(--xl1) var(--sm1) var(--sm3);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-lg);
+  @media (--md) {
+    font-size: var(--text-md);
+  }
+}
+
+.homeProof_caption {
+  max-width: 60ch;
+  margin: var(--sm3) auto 0;
+  text-align: center;
+  color: light-dark(var(--base-500), var(--base-400));
+}
+
+.homeProof_facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--xs3) var(--md2);
+  margin: var(--sm3) 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  color: light-dark(var(--base-500), var(--base-400));
+  @media (--sm-n-below) {
+    flex-direction: column;
+  }
+}
+
+/* §3 PHILOSOPHY */
+
+/* prettier-ignore */
+.homePillars {
+  @media (--md) {
+    --grid-tc: repeat(3, 1fr);
+  }
+
+  /* Large flat illustrations instead of the 48px icon box */
+  .featureItem_icon {
+    width: 100%;
+    height: 140px;
+    margin-bottom: var(--sm1);
+    background: none;
+    border-radius: 0;
+
+    svg {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+    }
+  }
+
+}
+
+/* §4 MODERN CSS SHOWCASE */
+
+.homeShowcase_grid {
+  /* margin-block only: the shared wide rule above owns margin-inline: auto */
+  margin-block: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.homeShowcase_card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--xs3);
+  padding: var(--sm3);
+  color: var(--text-color);
+  background-color: light-dark(var(--base-50), var(--base-900));
+  border-radius: var(--radius-lg);
+
+  p {
+    flex: 1;
+    margin: 0;
+  }
+}
+
+.homeShowcase_name {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--text-lg);
+  font-weight: var(--bold);
+
+  code {
+    font-size: inherit;
+  }
+}
+
+/* The light-dark() card flips its own color-scheme: zero JS, fully contained */
+.homeShowcase_mini {
+  display: flex;
+  align-items: center;
+  gap: var(--xs2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  --toggle-width: 36px;
+  --toggle-height: 20px;
+}
+
+:root:not(.theme-dark) .homeShowcase_card-lightDark:has(input:checked) {
+  color-scheme: dark;
+}
+
+:root.theme-dark .homeShowcase_card-lightDark:has(input:checked) {
+  color-scheme: light;
+}
+
+.homeShowcase_kicker {
+  margin-top: var(--lg1);
+  text-align: center;
+  color: light-dark(var(--base-500), var(--base-400));
+}
+
+/* Baseline badge (see _BaselineBadge.astro) */
+
+.baselineBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--xs2);
+  font-size: var(--text-xs);
+  color: light-dark(var(--base-500), var(--base-400));
+  text-decoration: none;
+
+  svg {
+    width: 22px;
+    height: auto;
+    flex: none;
+  }
+
+  &:hover span {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+}
+
+/* §5 THEMING DEMO */
+
+.homeThemer_switcher {
+  display: flex;
+  justify-content: center;
+  gap: var(--md2);
+  margin: 0 0 var(--md2);
+  padding: 0;
+  border: none;
+}
+
+.homeThemer_swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--xs2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  i {
+    width: var(--md1);
+    height: var(--md1);
+    border-radius: var(--radius-round);
+    border: var(--border-md) solid var(--theme-border-color);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  input:checked ~ i {
+    border-color: var(--text-color);
+    box-shadow: 0 0 0 2px var(--body-background-color) inset;
+  }
+
+  input:focus-visible ~ i {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+.homeThemer_swatch-default i { background: var(--primary-500); }
+.homeThemer_swatch-wireframe i { background: #a3a3a3; }
+.homeThemer_swatch-sunset i { background: #ea580c; }
+
+.homeThemer_split {
+  display: grid;
+  gap: var(--md2);
+  @media (--lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.homeThemer_stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md2);
+  padding: var(--md2);
+  background-color: light-dark(var(--base-0), var(--base-950));
+  border: var(--border-sm) solid var(--theme-border-color);
+  border-radius: var(--radius-lg);
+}
+
+.homeThemer_formRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm1);
+
+  .bt {
+    align-self: flex-start;
+  }
+}
+
+/* Demo themes: each override list below matches its diff pane exactly.
+   Semantic tokens only; that's the theming API. */
+
+.homeThemer:has(input[value="wireframe"]:checked) .homeThemer_stage {
+  --heading-font: ui-rounded, "Arial Rounded MT Bold", Calibri, sans-serif;
+  --text-color: light-dark(#404040, #d4d4d4);
+  --card-bg-color: light-dark(#f5f5f5, #171717);
+  --card-border-radius: 0;
+  --card-shadow: none;
+  --bt-primary-background-color: #525252;
+  --bt-primary-background-color-hover: #737373;
+  --bt-primary-border-color: #525252;
+  --bt-primary-border-color-hover: #525252;
+  --bt-border-radius: 0;
+  --input-border-radius: 0;
+  --link-color: light-dark(#525252, #a3a3a3);
+}
+
+.homeThemer:has(input[value="sunset"]:checked) .homeThemer_stage {
+  --heading-font: "Iowan Old Style", Georgia, serif;
+  --text-color: light-dark(#431407, #ffedd5);
+  --card-bg-color: light-dark(#fff7ed, #431407);
+  --card-border-radius: 16px;
+  --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
+  --bt-primary-background-color: #ea580c;
+  --bt-primary-background-color-hover: #f97316;
+  --bt-primary-border-color: #ea580c;
+  --bt-primary-border-color-hover: #ea580c;
+  --bt-border-radius: 1e5px;
+  --input-border-radius: 1e5px;
+  --link-color: light-dark(#c2410c, #fb923c);
+}
+
+/* Diff panes: Shiki (github-dark) output, one pane per theme */
+
+.homeThemer_pane {
+  display: none;
+
+  pre {
+    margin: 0;
+    padding: var(--sm3);
+    font-size: var(--text-md);
+    line-height: var(--leading-xl);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+  }
+}
+
+.homeThemer:has(input[value="default"]:checked) .homeThemer_pane-default,
+.homeThemer:has(input[value="wireframe"]:checked) .homeThemer_pane-wireframe,
+.homeThemer:has(input[value="sunset"]:checked) .homeThemer_pane-sunset {
+  display: block;
+}
+
+/* Desktop: diff always visible. Mobile: collapsed details (same panes). */
+.homeThemer_diff {
+  display: none;
+  @media (--lg) {
+    display: block;
+  }
+}
+
+.homeThemer_diffDetails {
+  @media (--lg) {
+    display: none;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: var(--semi-bold);
+  }
+
+  .homeThemer_pane {
+    margin-top: var(--sm1);
+  }
+}
+
+.homeThemer_caption {
+  margin-top: var(--sm3);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: light-dark(var(--base-500), var(--base-400));
+}
+
+/* §6 COMPONENT GALLERY */
+
+.homeGallery_grid {
+  display: grid;
+  gap: var(--sm3);
+  margin-block: 0;
+  padding: 0;
+  list-style: none;
+  @media (--md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (--lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.homeGallery_cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.homeGallery_thumb {
+  flex: 1;
+  display: grid;
+  align-items: center;
+  padding: var(--sm3);
+  background-color: light-dark(var(--base-50), var(--base-900));
+  border: var(--border-sm) solid var(--theme-border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+  zoom: 0.85;
+}
+
+.homeGallery_cell:hover .homeGallery_thumb {
+  border-color: var(--link-color);
+}
+
+/* Wide component demos (pagination) shrink further to fit their cell */
+.homeGallery_thumb-wide {
+  zoom: 0.62;
+  justify-items: center;
+}
+
+.homeGallery_meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--xs3);
+}
+
+.homeGallery_name {
+  font-weight: var(--semi-bold);
+}
+
+.homeGallery_link {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-1);
+  border-radius: var(--radius-lg);
+}
+
+.homeGallery_formDemo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm1);
+
+  .bt {
+    align-self: flex-start;
+  }
+}
+
+.homeGallery_kicker {
+  margin-top: var(--md2);
+  text-align: center;
+  color: light-dark(var(--base-500), var(--base-400));
+}
+
+.homeGallery_template {
+  margin-top: var(--xl1);
+  text-align: center;
+
+  p {
+    max-width: 55ch;
+    margin-inline: auto;
+    color: light-dark(var(--base-500), var(--base-400));
+  }
+}
+
+/* §7 OWNERSHIP: the exhale before the CTA */
+
+.homeOwn {
+  --section-spacing: var(--xl1);
+}
+
+.homeOwn_body {
+  max-width: 55ch;
+  margin-inline: auto;
+
+  p + p {
+    margin-top: var(--sm1);
+  }
+}
+
+.homeOwn_facts {
+  display: grid;
+  gap: var(--sm3);
+  max-width: 720px;
+  margin: var(--lg3) auto 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  @media (--md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--xs1);
+  }
+
+  strong {
+    font-size: var(--text-lg);
+  }
+
+  span {
+    font-size: var(--text-sm);
+    color: light-dark(var(--base-500), var(--base-400));
+  }
+}
+
+/* §8 FINAL CTA: full-bleed #2, the second and last gradient */
+
+.homeCta {
+  --section-spacing: var(--xl2);
+  background: linear-gradient(105deg, var(--primary-950), var(--primary-600));
+
+  .section_header {
+    margin-bottom: var(--md2);
+  }
+}
+
+.homeCta_btMain {
+  --bt-color: var(--primary-700);
+  --bt-color-hover: var(--primary-600);
+  --bt-background-color: var(--base-0);
+  --bt-background-color-hover: var(--primary-50);
+  --bt-border-color: var(--base-0);
+  --bt-border-color-hover: var(--base-0);
+}
+
+.homeCta_newsletter {
+  margin-top: var(--md2);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--primary-100);
+
+  a {
+    color: var(--base-0);
+  }
 }
