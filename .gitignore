@@ -1,7 +1,7 @@
 # Astro build output
 _site/
-# framework CSS artifact (npm run build:css; published to npm, not committed)
-dist/
+# dist/ (the framework CSS artifact) IS committed: consumers copy it straight
+# from GitHub. Regenerate with `npm run build:css`; CI fails if it's stale.
 # generated types
 .astro/
 

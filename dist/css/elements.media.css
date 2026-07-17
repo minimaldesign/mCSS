@@ -1,0 +1,92 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer elements {
+/* ELEMENTS MEDIA/EMBEDDED */
+
+/* better media defaults */
+audio,
+canvas,
+embed,
+iframe,
+img,
+object,
+picture,
+svg,
+video {
+  display: block;
+  vertical-align: middle; /* removes strange space-below if display changes */
+  max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+  height: auto; /* maintain intrinsic aspect ratios when `max-width` is applied. */
+}
+
+audio {
+  width: 100%; /* remove default 300px */
+  max-width: var(--tera1);
+}
+
+audio:not([controls]) {
+  display: none;
+}
+
+canvas {
+}
+
+figcaption {
+  font-style: italic;
+  font-size: var(--text-sm);
+}
+  /* caption at bottom or top */
+    figure:has(* + figcaption) figcaption {
+      margin-top: var(--xs2);
+    }
+    figure:has(figcaption + *) figcaption {
+      margin-bottom: var(--xs2);
+    }
+
+iframe {
+  border: 1px solid var(--theme-border-color);
+}
+
+img {
+}
+
+picture {
+}
+
+svg {
+}
+
+video {
+}
+
+}

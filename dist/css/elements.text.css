@@ -1,0 +1,375 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer elements {
+/* ELEMENTS TEXT */
+
+:where(a, u, ins, abbr) {
+  text-underline-offset: 2px;
+}
+
+a {
+  font-weight: var(--semi-bold);
+  color: var(--link-color);
+}
+  a:where(:hover) {
+    color: var(--link-color-hover);
+    -webkit-text-decoration: none;
+    text-decoration: none;
+  }
+
+address {
+  width: max-content;
+  max-width: 100%;
+  padding: var(--sm1) var(--sm3);
+  font-style: normal;
+  --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--0, var(--base-50));
+  border: var(--xs2) solid transparent;
+  border-image: 8
+    repeating-linear-gradient(
+      -45deg,
+      var(--no-500) 0,
+      var(--no-500) var(--xs2),
+      transparent 0,
+      transparent calc(var(--xs2) * 2),
+      var(--primary-500) 0,
+      var(--primary-500) calc(var(--xs2) * 3),
+      transparent 0,
+      transparent calc(var(--xs2) * 4)
+    );
+}
+
+@supports (color: light-dark(red, red)) {
+address {
+  background-color: light-dark(var(--base-50), var(--base-900));
+}
+}
+
+abbr {
+  position: relative;
+  cursor: help;
+}
+  abbr:after {
+    position: relative;
+    top: calc(var(--xs1) * -1);
+    width: var(--sm1);
+    height: var(--sm1);
+    display: inline-block;
+    content: '';
+    background:  url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='circle-help'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Cpath%20d='M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203'/%3E%3Cpath%20d='M12%2017h.01'/%3E%3C/svg%3E");
+    background-size: contain;
+  }
+  abbr:hover:before {
+    width: max-content;
+    max-width: 400px;
+    position: absolute;
+    left: 50%;
+    padding: var(--xs1) var(--xs3);
+    content: attr(title);
+    color: var(--base-0);
+    background-color: var(--base-900);
+    opacity: var(--o-4);
+    border-radius: var(--radius-sm);
+    transform: translate(-50%, -2em);
+  }
+
+b {
+}
+
+blockquote {
+  position: relative;
+  margin-bottom: var(--prose-spacing);
+  padding: var(--sm1) var(--sm3) var(--sm1) var(--md1) ;
+  font-style: italic;
+  --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--primary-900);
+  background-color: var(--csstools-light-dark-toggle--3, var(--primary-50));
+  border-radius: var(--radius-md);
+}
+
+@supports (color: light-dark(red, red)) {
+blockquote {
+  background-color: light-dark(var(--primary-50), var(--primary-900));
+}
+}
+  blockquote::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--xs2);
+    height: 100%;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    background-image: linear-gradient(var(--primary-800), var(--primary-500));
+  }
+    :is(blockquote p):first-child::before {
+      content: open-quote;
+    }
+    :is(blockquote p):last-child {
+      margin-bottom: 0;
+    }
+      :is(blockquote p):last-child::after {
+        content: close-quote;
+      }
+
+br {
+}
+
+cite {
+  font-style: italic;
+}
+
+code, var, kbd {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  font-style: normal;
+  --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) var(--base-300);
+  color: var(--csstools-light-dark-toggle--1, var(--base-500));
+}
+
+@supports (color: light-dark(red, red)) {
+code, var, kbd {
+  color: light-dark(var(--base-500), var(--base-300));
+}
+}
+
+:is(code, var, kbd):not(h1 *):not(h2 *):not(h3 *):not(h4 *):not(h5 *):not(h6 *):not(pre *) {
+  padding: 0.15em 0.3em;
+  color: var(--text-code-color);
+  background-color:  var(--text-code-background-color);
+  border-radius: var(--radius-sm);
+}
+
+data {
+}
+
+dl {
+}
+
+dt {
+  font-weight: var(--bold);
+}
+
+dd {
+}
+
+dd + dt {
+  margin-top: .5em;
+}
+
+del {
+  text-decoration-color: var(--no-500);
+  text-decoration-style: wavy;
+}
+
+dfn {
+}
+
+em {
+}
+
+/* figcaption and figure are in elements.media.css */
+
+/* Technically, headings should be in elements.sectioning but I'm guessing that's where most people would expect this to be */
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  overflow-wrap: break-word; /* Avoid text overflows */
+  text-wrap: balance;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4 {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  margin-bottom: var(--sm1);
+}
+
+h4, .h4 {
+  margin-bottom: var(--sm2);
+}
+
+h5, .h5,
+h6, .h6 {
+  margin-bottom: var(--xs2);
+}
+
+/* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
+:where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
+  margin-bottom: var(--sm2);
+}
+
+h1, .h1 {
+  font-size: var(--text-xl);
+}
+  @media (width >= 768px) {
+
+h1, .h1 {
+    font-size: var(--display-md);
+}
+  }
+
+h2, .h2 {
+  font-size: var(--text-lg);
+}
+  @media (width >= 768px){
+
+h2, .h2 {
+    font-size: var(--display-sm);
+}
+  }
+
+h3, .h3 {
+  font-size: var(--text-xl);
+}
+
+h4, .h4 {
+  font-size: var(--text-lg);
+}
+
+h5, .h5 {
+  font-size: var(--text-md);
+}
+
+h6, .h6 {
+  font-size: var(--text-md);
+}
+
+hr {
+  --content: "";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0;
+  border-style: solid;
+  border-width: 1px 0 0;
+  color: var(--theme-border-color);
+  overflow: visible;
+}
+  hr::after {
+    content: var(--content);
+    padding: 0 var(--xs1);
+    line-height: 1;
+    letter-spacing: var(--tracking-sm);
+    background-color: var(--body-background-color);
+  }
+
+:where(hr):has(+ :is(p)) {
+  margin-bottom: var(--prose-spacing);
+}
+
+
+i {
+}
+
+ins {
+  padding: 0.15em 0.3em;
+  /* pastel bg stays light in both modes, so pin a dark text color */
+  color: var(--base-950);
+  background-color: var(--yes-200);
+  border-radius: var(--radius-sm);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+  ins::before {
+    content: "+ ";
+  }
+
+mark {
+  padding: 0.15em 0.5em;
+  background: var(--marker-color);
+  border-radius: 1em 0;
+}
+
+menu {
+}
+
+:where(ol, ul) {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+}
+
+p {
+}
+
+pre {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  white-space: pre-wrap; /* override overflow default */
+}
+
+q {
+  /* see: elements.text.quotes.css */
+  font-style: italic;
+}
+
+s {
+  --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-50);
+  text-decoration-color: var(--csstools-light-dark-toggle--2, var(--base-950));
+  text-decoration-style: wavy;
+}
+
+@supports (color: light-dark(red, red)) {
+s {
+  text-decoration-color: light-dark(var(--base-950), var(--base-50));
+}
+}
+
+samp {
+}
+
+small {
+}
+
+strong {
+}
+
+sub {
+  line-height: 1;
+}
+
+sup {
+  line-height: 1;
+}
+
+time {
+}
+
+}

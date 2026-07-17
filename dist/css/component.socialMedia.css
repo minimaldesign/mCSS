@@ -1,0 +1,65 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+.socialMedia {
+  --icon-size: var(--sm3);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sm1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+  .socialMedia a {
+    display: block;
+    width: var(--icon-size);
+    height: var(--icon-size);
+
+    /* in case SVG has dimensions specified in its code */
+  }
+    :is(.socialMedia a) svg {
+      width: var(--icon-size);
+      height: var(--icon-size);
+    }
+
+.socialMedia-md {
+  --icon-size: var(--md2);
+}
+
+.socialMedia-lg {
+  --icon-size: var(--lg2);
+  gap: var(--sm2);
+}
+
+.socialMedia-xl {
+  --icon-size: var(--xl2);
+  gap: var(--md2);
+}
+
+}

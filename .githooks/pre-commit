@@ -1,0 +1,12 @@
+#!/bin/sh
+# Rebuild the committed dist/ artifact whenever framework CSS (or the build
+# script / package version) is part of the commit, and stage the result.
+# Activated by `npm install` (the prepare script sets core.hooksPath).
+# CI independently fails if dist/ is stale, so skipping with --no-verify
+# only defers the error.
+
+if git diff --cached --name-only | grep -qE '^(src/styles/framework/|src/tools/build-css\.mjs|package\.json)'; then
+  echo "pre-commit: framework CSS changed, rebuilding dist/ …"
+  npm run --silent build:css || exit 1
+  git add dist
+fi

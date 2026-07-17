@@ -1,0 +1,97 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+.avatar {
+  --avatar-size: var(--xl1);
+  --avatar-font-size: var(--text-md);
+  /* Status dot defaults live on the block (not on .is-online/.is-offline,
+     which would out-specify them) so the size modifiers below can override. */
+  --status-dot-size: var(--xs3);
+  --status-dot-position: 4%;
+  --status-dot-border-width: 2px;
+  --status-dot-border-color: var(--body-background-color);
+  position: relative;
+  display: inline-block;
+  width: var(--avatar-size);
+}
+
+  .avatar  > div {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 1;
+    align-items: center;
+    border-radius: var(--avatar-radius);
+    font-size: var(--avatar-font-size);
+    line-height: 1;
+    background-color: var(--avatar-background-color);
+    border: var(--avatar-border-width) solid var(--avatar-border-color);
+    color: var(--avatar-color);
+    overflow: hidden;
+  }
+    :is(.avatar.is-online,.avatar.is-offline):after {
+      content: "";
+      display: block;
+      width: var(--status-dot-size);
+      aspect-ratio: 1;
+      position: absolute;
+      top: var(--status-dot-position);
+      right: var(--status-dot-position);
+      border: var(--status-dot-border-width) solid var(--status-dot-border-color);
+      border-radius: var(--radius-round);
+      background-color: var(--avatar-status-dot-color-offline);
+    }
+  .avatar.is-online:after {
+    background-color: var(--avatar-status-dot-color-online);
+  }
+
+.avatar-sm {
+  --avatar-size: var(--sm3);
+  --avatar-font-size: var(--text-xs);
+  --status-dot-size: var(--xs2);
+  --status-dot-position: 0;
+  --status-dot-border-width: 1px;
+}
+.avatar-md {
+  --avatar-size: var(--md3);
+  --avatar-font-size: var(--text-sm);
+  --status-dot-size: var(--xs2);
+  --status-dot-border-width: 1px;
+}
+.avatar-lg {
+  --avatar-size: var(--xl3);
+  --avatar-font-size: var(--text-xl);
+  --status-dot-size: var(--xs3);
+  --status-dot-position: 7%;
+}
+.avatar-xl {
+  --avatar-size: var(--xxl3);
+  --avatar-font-size: var(--display-lg);
+  --status-dot-size: var(--sm2);
+  --status-dot-position: 7%;
+}
+
+}

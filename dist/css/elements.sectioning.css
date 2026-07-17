@@ -1,0 +1,84 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer elements {
+/* SECTIONING ROOT */
+
+body {
+  /* line-sizing is a CSSWG draft with no browser support yet; kept as intent
+     for consistent line-spacing once it ships. */
+  line-sizing: normal;
+  /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
+  -webkit-text-size-adjust: none;
+     -moz-text-size-adjust: none;
+          text-size-adjust: none;
+  background-color: var(--body-background-color);
+  color: var(--text-color);
+  font-family: var(--text);
+  line-height: 1.5;
+
+  /* for elements like dialog etc. that require scrolling turned off */
+}
+  body:has(.body-is-locked) {
+    overflow: hidden;
+  }
+
+/* CONTENT SECTIONING ELEMENTS */
+
+address {
+  /* moved to elements.text.css where most people would assume it is */
+}
+
+article {
+}
+
+aside {
+}
+
+footer {
+}
+
+header {
+}
+
+/* Technically headings (h1, h2, h3, etc.) should be here, but I think it makes more sense to keep them in the elements.text file */
+
+hgroup {
+}
+
+main {
+}
+
+nav {
+}
+
+section {
+}
+
+search {
+}
+
+}

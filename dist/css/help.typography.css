@@ -1,0 +1,216 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer helpers {
+/* HELPER TYPOGRAPHY */
+
+/* .h1, .h2, .h3, .h4, .h5, .h6 are in elements.text */
+
+/* FONT FAMILY */
+
+.font-text {
+  font-family: var(--text);
+}
+
+.font-display {
+  font-family: var(--display);
+}
+
+.font-mono {
+  font-family: var(--mono);
+}
+
+/* FONT STYLE */
+
+.font-italic {
+  font-style: italic;
+}
+
+.font-normal {
+  font-style: normal;
+}
+
+/* FONT WEIGHTS */
+
+.font-extra-light {
+  font-weight: var(--extra-light);
+}
+
+.font-light {
+  font-weight: var(--light);
+}
+
+.font-book {
+  font-weight: var(--book);
+}
+
+.font-semi-bold {
+  font-weight: var(--semi-bold);
+}
+
+.font-bold {
+  font-weight: var(--bold);
+}
+
+.font-black {
+  font-weight: var(--black);
+}
+
+/* FONT SIZES */
+
+.text-xs {
+  font-size: var(--text-xs);
+}
+
+.text-sm {
+  font-size: var(--text-sm);
+}
+
+.text-md {
+  font-size: var(--text-md);
+}
+
+.text-lg {
+  font-size: var(--text-lg);
+}
+
+.text-xl {
+  font-size: var(--text-xl);
+}
+
+.display-sm {
+  font-size: var(--display-sm);
+}
+
+.display-md {
+  font-size: var(--display-md);
+}
+
+.display-lg {
+  font-size: var(--display-lg);
+}
+
+.display-xl {
+  font-size: var(--display-xl);
+}
+
+.display-mega {
+  font-size: var(--display-mega);
+}
+
+.display-giga {
+  font-size: var(--display-giga);
+}
+
+/* LETTER SPACING */
+
+.tracking-sm {
+  letter-spacing: var(--tracking-sm);
+}
+
+.tracking-md {
+  letter-spacing: var(--tracking-md);
+}
+
+.tracking-lg {
+  letter-spacing: var(--tracking-lg);
+}
+
+.tracking-xl {
+  letter-spacing: var(--tracking-xl);
+}
+
+.tracking-xxl {
+  letter-spacing: var(--tracking-xxl);
+}
+
+/* LINE HEIGHT */
+
+.leading-xs {
+  line-height: var(--leading-xs);
+}
+
+.leading-sm {
+  line-height: var(--leading-sm);
+}
+
+.leading-md {
+  line-height: var(--leading-md);
+}
+
+.leading-lg {
+  line-height: var(--leading-lg);
+}
+
+.leading-xl {
+  line-height: var(--leading-xl);
+}
+
+.leading-xxl {
+  line-height: var(--leading-xxl);
+}
+
+/* TEXT ALIGN */
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-start {
+  text-align: start;
+}
+
+.text-end {
+  text-align: end;
+}
+
+/* TEXT TRANSFORM */
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+}

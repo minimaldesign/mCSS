@@ -11,7 +11,8 @@
     "astro": "astro",
     "build:css": "node src/tools/build-css.mjs",
     "check": "astro check",
-    "lint:css": "stylelint \"src/styles/**/*.css\""
+    "lint:css": "stylelint \"src/styles/**/*.css\"",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",

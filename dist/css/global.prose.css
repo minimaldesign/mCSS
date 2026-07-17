@@ -1,0 +1,83 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer global {
+/* PROSE - Default style for text content */
+
+@scope (.prose) to (.not-prose) {
+  /* Site-only blocks (.expressive-code, .canIUse) get the same treatment in
+     their own (unlayered) site CSS files. */
+  :is(p, ul, ol, blockquote, table, .notice):has(+ :is(h1, h2, h3, h4)) {
+    margin-bottom: calc(var(--prose-spacing) * 2);
+  }
+
+  p,
+  ul,
+  ol,
+  dl {
+    margin-bottom: var(--prose-spacing);
+  }
+    :is(p,ul,ol,dl) p,:is(p,ul,ol,dl) ul,:is(p,ul,ol,dl) ol,:is(p,ul,ol,dl) dl {
+      margin-bottom: 0;
+    }
+    :is(ul,ol) ul,:is(ul,ol) ol {
+      margin-left: 0;
+      padding-left: var(--sm2);
+    }
+    :is(ul,ol) li {
+      margin-bottom: 0.5em;
+    }
+      :is(:is(ul,ol) li)::marker {
+        --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-600);
+        color: var(--csstools-light-dark-toggle--0, var(--base-300));
+      }
+
+@supports (color: light-dark(red, red)) {
+:is(:is(ul,ol) li)::marker {
+        color: light-dark(var(--base-300), var(--base-600));
+      }
+}
+
+  ul {
+    margin-left: var(--sm2);
+    list-style-type: "→ ";
+  }
+
+  ol {
+    margin-left: var(--md2);
+    list-style-type: decimal-leading-zero;
+  }
+    ol li::marker {
+      font-size: var(--text-sm);
+    }
+
+  table {
+    margin-top: var(--md1);
+    margin-bottom: var(--md1);
+  }
+}
+
+}

@@ -1,0 +1,290 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer settings {
+/* SETTINGS TOKENS */
+
+/*
+Can't use var() inside media queries, so breakpoints are hard coded in settings.media-queries.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/*
+
+• Globals
+
+• Margin
+• Padding
+• Width
+• Height
+
+• Font size
+• Font weight
+• Line height
+
+• Colors
+
+• Box shadows
+• Border radius
+• Border width
+• Opacity
+*/
+
+:root {
+  /* GLOBALS */
+  --baseline: 8;
+
+  /* DIMENSIONS */
+
+  /* Sizes */
+
+  --xs1: 4px;
+  --xs2: 8px;
+  --xs3: 12px;
+
+  --sm1: 16px;
+  --sm2: 20px;
+  --sm3: 24px;
+
+  --md1: 28px;
+  --md2: 32px;
+  --md3: 36px;
+
+  --lg1: 40px;
+  --lg2: 44px;
+  --lg3: 48px;
+
+  --xl1: 56px;
+  --xl2: 64px;
+  --xl3: 80px;
+
+  --xxl1: 96px;
+  --xxl2: 112px;
+  --xxl3: 128px;
+
+  --mega1: 160px;
+  --mega2: 192px;
+  --mega3: 224px;
+
+  --giga1: 256px;
+  --giga2: 288px;
+  --giga3: 320px;
+
+  --tera1: 384px;
+  --tera2: 480px;
+  --tera3: 520px;
+
+  /* Aspect Ratios */
+  --ar-square: 1;
+  --ar-landscape: 4/3;
+  --ar-portrait: 3/4;
+  --ar-widescreen: 16/9;
+  --ar-golden: 1.618/1;
+
+  /* TYPOGRAPHY */
+  /* See also elements.text & help.text */
+
+  /* Font Families */
+  /* Local font stacks - More options @ https://modernfontstacks.com */
+  --display:
+    Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif,
+    sans-serif;
+  --text: ui-sans-serif, system-ui, sans-serif;
+  --mono:
+    Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono,
+    Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono,
+    ui-monospace, monospace;
+
+  /* Font Sizes */
+  /* Create your own sizes @ https://typescale.com */
+  --text-xs: 0.694rem;
+  --text-sm: 0.833rem;
+  --text-md: 1rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.44rem;
+  --display-sm: 1.728rem;
+  --display-md: 2.074rem;
+  --display-lg: 2.488rem;
+  --display-xl: 2.986rem;
+  --display-mega: 3.583rem;
+  --display-giga: 4.299rem;
+
+  /* Font Weights */
+  --extra-light: 200;
+  --light: 300;
+  --book: 400;
+  --semi-bold: 600;
+  --bold: 700;
+  --black: 900;
+
+  /* Letter Spacing */
+  --tracking-sm: -0.05em;
+  --tracking-md: 0.025em;
+  --tracking-lg: 0.05em;
+  --tracking-xl: 0.075em;
+  --tracking-xxl: 0.15em;
+
+  /* TODO add display tracking */
+  --tracking-display-md: 0.5em;
+  --tracking-display-lg: 0.75em;
+
+  /* Line Height */
+  --leading-xs: 1;
+  --leading-sm: 1.15;
+  --leading-md: 1.375;
+  --leading-lg: 1.5;
+  --leading-xl: 1.75;
+  --leading-xxl: 2;
+
+  /* COLORS */
+  /* Make your own palettes programmatically: https://www.tints.dev */
+
+  /* Base */
+
+  --base-0: #fff;
+  --base-50: #f6f7f9;
+  --base-100: #edeef1;
+  --base-200: #d6dbe1;
+  --base-300: #b2bbc7;
+  --base-400: #8897a8;
+  --base-500: #697a8e;
+  --base-600: #546375;
+  --base-700: #4a5666;
+  --base-800: #3c4550;
+  --base-900: #353c45;
+  --base-950: #23282e;
+
+  /* Primary */
+
+  --primary-50: #f0f9ff;
+  --primary-100: #e0f2fe;
+  --primary-200: #bae6fd;
+  --primary-300: #7dd3fc;
+  --primary-400: #38bdf8;
+  --primary-500: #0ea5e9;
+  --primary-600: #0284c7;
+  --primary-700: #0369a1;
+  --primary-800: #075985;
+  --primary-900: #0c4a6e;
+  --primary-950: #082f49;
+
+  /* Secondary and/or Highlight goes here */
+
+  /* Feedback */
+
+  --yes-100: #d5f6e8;
+  --yes-200: #afebd4;
+  --yes-300: #7adbbd;
+  --yes-400: #46c4a0;
+  --yes-500: #13886d;
+
+  --no-100: #ffe4e6;
+  --no-200: #fecdd3;
+  --no-300: #fda4af;
+  --no-400: #fb7185;
+  --no-500: #e11d48;
+
+  --maybe-100: #fff7d6;
+  --maybe-200: #fff0b3;
+  --maybe-300: #ffd64a;
+  --maybe-400: #ffc220;
+  --maybe-500: #f9a007;
+
+  /* GRADIENTS */
+
+  --gradient-primary: linear-gradient(
+    90deg,
+    var(--primary-950) 0%,
+    var(--primary-400) 100%
+  );
+
+  /* BORDERS */
+
+  --border-sm: 1px;
+  --border-md: 2px;
+  --border-lg: 4px;
+  --border-xl: 8px;
+  --border-xxl: 12px;
+
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-xxl: 16px;
+  --radius-round: 1e5px;
+
+  /* DROP SHADOWS  */
+
+  --shadow-sm:
+    0 1px 3px 0 var(--theme-shadow-color),
+    0 1px 2px -1px var(--theme-shadow-color);
+  --shadow-md:
+    0 4px 6px -1px var(--theme-shadow-color),
+    0 2px 4px -2px var(--theme-shadow-color);
+  --shadow-lg:
+    0 8px 13px -3px var(--theme-shadow-color),
+    0 4px 6px -4px var(--theme-shadow-color);
+  --shadow-xl:
+    0 20px 20px -5px var(--theme-shadow-color),
+    0 8px 10px -6px var(--theme-shadow-color);
+  --shadow-xxl:
+    0px 11px 8px -6px var(--theme-shadow-color),
+    0 10px 15px 2px var(--theme-shadow-color);
+
+  /* OPACITY */
+
+  --o-0: 0; /* overkill for consistency */
+  --o-1: 0.2;
+  --o-2: 0.4;
+  --o-3: 0.6;
+  --o-4: 0.8;
+  --o-5: 1;
+
+  /* Z-INDEX */
+
+  --z-bottom: -1000000000;
+  --z-0: 0; /* overkill for consistency */
+  --z-1: 10;
+  --z-2: 20;
+  --z-3: 30;
+  --z-4: 40;
+  --z-5: 50;
+  --z-top: 1000000000;
+
+  /* TRANSITIONS */
+
+  --transition: 220ms ease-in-out;
+  --transition-fast: 100ms ease-in-out;
+}
+
+}

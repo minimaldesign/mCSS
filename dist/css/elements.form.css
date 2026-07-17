@@ -1,0 +1,279 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer elements {
+/* ELEMENTS FORM */
+
+::placeholder {
+  opacity: var(--o-4);
+}
+
+/* Remove built-in form typography styles */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: var(--text-color);
+}
+
+button {
+  color: var(--text-color);
+}
+
+datalist {
+}
+
+fieldset {
+  border: 1px solid var(--theme-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--sm3);
+}
+
+  fieldset ul:has([type="checkbox"],[type="radio"]) {
+    padding-left: 0;
+  }
+
+  fieldset  > [aria-hidden] {
+    /* legend replacement  */
+    margin-bottom: var(--sm3);
+    font-size: var(--text-lg);
+    grid-column: 1 / -1;
+  }
+  input:where(:not([type="checkbox"]):not([type="radio"])) {
+    height: var(--input-height);
+  }
+  input:where(:not([type="color"]):not([type="file"]):not([type="reset"]):not([type="submit"])) {
+    padding: var(--input-padding);
+  }
+  input:where(:not([type="color"])) {
+    border-radius: var(--input-border-radius);
+  }
+  input:where(:not([type="file"])) {
+    border: 1px solid var(--theme-border-color);
+  }
+  input[type="file"] {
+    width: 100%;
+    accent-color: var(--text-color);
+  }
+  input[type="number"] {
+    padding-right: var(--xs1);
+  }
+
+label {
+  display: block;
+}
+  label:has( + :is(input,select,textarea)) {
+    margin-bottom: var(--xs1);
+  }
+
+legend {
+  /*  Visually hidden  */
+  /* replaced by fieldset > [aria-hidden] above */
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+}
+
+meter {
+  --meter-height: var(--sm1);
+  --meter-color: var(--primary-500);
+  --meter-radius: var(--radius-md);
+  --meter-color-track: var(--primary-100);
+  --meter-color-low: var(--no-400);
+  --meter-color-med: var(--maybe-400);
+  --meter-color-high: var(--yes-400);
+  width: 100%;
+  background: var(--meter-color-track);
+  border-radius: var(--meter-radius);
+  height: var(--meter-height);
+  /* webkit */
+}
+  meter::-webkit-meter-bar {
+    background: var(--meter-color-track);
+  }
+  meter::-webkit-meter-bar,meter::-webkit-meter-optimum-value,meter::-webkit-meter-suboptimum-value,meter::-webkit-meter-even-less-good-value {
+    height: var(--meter-height);
+    border: none;
+    border-radius: var(--meter-radius);
+  }
+  meter::-webkit-meter-even-less-good-value {
+    background: var(--meter-color-low);
+  }
+  meter::-webkit-meter-suboptimum-value {
+    background: var(--meter-color-med);
+  }
+  meter::-webkit-meter-optimum-value {
+    background: var(--meter-color-high);
+  }
+  /* mozilla */
+  meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: var(--meter-color-low);
+  }
+  meter:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: var(--meter-color-med);
+  }
+  meter:-moz-meter-optimum::-moz-meter-bar {
+    background: var(--meter-color-high);
+  }
+
+optgroup {
+}
+
+option {
+}
+
+output {
+}
+
+progress {
+  --progress-height: var(--sm1);
+  --progress-color: var(--primary-500);
+  --progress-track-color: var(--primary-100);
+  --progress-radius: var(--radius-md);
+  appearance: none;
+  width: 100%;
+  /* mozilla */
+  height: var(--progress-height);
+  background: var(--progress-track-color);
+  border-radius: var(--progress-radius);
+  border: none;
+}
+  progress::-moz-progress-bar {
+    background: var(--progress-color);
+    border-radius: var(--progress-radius);
+  }
+  /* webkit */
+  progress::-webkit-progress-bar {
+    width: 100%;
+    background: var(--progress-track-color);
+    border-radius: var(--progress-radius);
+    height: var(--progress-height);
+  }
+  progress::-webkit-progress-value {
+    background: var(--progress-color);
+    border-radius: var(--progress-radius);
+  }
+
+select {
+  --icon-size: 24px;
+  --split: calc(100% - var(--icon-size));
+  display: flex;
+  appearance: none;
+  height: var(--input-height);
+  padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
+    var(--input-padding);
+  border: 1px solid var(--theme-border-color);
+  border-radius: var(--input-border-radius);
+  background: linear-gradient(
+    to right,
+    var(--body-background-color) 0 var(--split),
+    var(--text-color) var(--split) 100%
+  );
+  -webkit-mask-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
+    linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
+    linear-gradient(red 0 0);
+          mask-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
+    linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
+    linear-gradient(red 0 0);
+  -webkit-mask-size: var(--icon-size), auto, auto;
+          mask-size: var(--icon-size), auto, auto;
+  -webkit-mask-position:
+    calc(100% - var(--xs1)) center,
+    0 0,
+    0 0;
+          mask-position:
+    calc(100% - var(--xs1)) center,
+    0 0,
+    0 0;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-clip: padding-box, padding-box, border-box;
+          mask-clip: padding-box, padding-box, border-box;
+  -webkit-mask-origin: padding-box, padding-box, border-box;
+          mask-origin: padding-box, padding-box, border-box;
+  -webkit-mask-composite: source-over, xor;
+          mask-composite: add, exclude;
+
+  /* focus ring comes from the global :focus-visible rule (global.a11y.css) */
+}
+
+  select:disabled {
+    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--0, hsl(from var(--text-color) h s 70%));
+    cursor: not-allowed;
+    color: var(--disabled-color);
+    background: linear-gradient(
+      to right,
+      var(--body-background-color) 0 var(--split),
+      var(--disabled-color) var(--split) 100%
+    );
+  }
+
+@supports (color: lab(from red l 1 1% / calc(alpha + 0.1))) and (color: light-dark(red, red)) {
+select:disabled {
+    --disabled-color: light-dark(
+      hsl(from var(--text-color) h s 70%),
+      hsl(from var(--text-color) h s 40%)
+    );
+  }
+}
+    @supports not (color: light-dark(tan, tan)) {
+
+  select:disabled * {
+    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--0, hsl(from var(--text-color) h s 70%));
+
+}
+
+}
+
+  select[multiple] {
+    height: auto;
+    padding: var(--input-padding);
+    background: var(--body-background-color);
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+
+textarea {
+  width: 100%;
+  padding: var(--xs3);
+  border-radius: var(--input-border-radius);
+  border: 1px solid var(--theme-border-color);
+  resize: vertical;
+}
+  textarea:not([rows]) {
+    min-height: 6em;
+  }
+
+}

@@ -1,0 +1,103 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+.notice {
+  --bg-color: var(--notice-background-color);
+  --bd-color: var(--notice-border-color);
+  --svg-color: inherit;
+  --code-color: inherit;
+  --code-bg-color: inherit;
+
+  padding: var(--notice-spacing);
+  border: var(--notice-border-width) solid var(--bd-color);
+  border-radius: var(--notice-border-radius);
+  color: var(--notice-text-color);
+  background-color: var(--bg-color);
+}
+
+  .notice code {
+    background-color: var(--code-bg-color);
+    color: var(--code-color);
+  }
+
+  .notice p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
+  }
+
+.notice_title {
+  display: flex;
+}
+
+  .notice_title svg {
+    margin-bottom: var(--xs3);
+    margin-right: 0.5em;
+    color: var(--svg-color);
+  }
+
+  .notice_title strong {
+    display: block;
+    margin-bottom: var(--xs1);
+  }
+
+.notice-info {
+  color: var(--base-950);
+  --bg-color: var(--primary-100);
+  --bd-color: var(--primary-300);
+  --svg-color: var(--primary-400);
+  --code-color: var(--primary-600);
+  --code-bg-color: var(--primary-200);
+}
+
+.notice-danger {
+  color: var(--base-950);
+  --bg-color: var(--no-200);
+  --bd-color: var(--no-500);
+  --svg-color: var(--no-500);
+  --code-color: var(--no-500);
+  --code-bg-color: var(--no-100);
+}
+
+.notice-warning {
+  color: var(--base-950);
+  --bg-color: var(--maybe-200);
+  --bd-color: var(--maybe-500);
+  --svg-color: var(--maybe-400);
+  --code-color: var(--maybe-500);
+  --code-bg-color: var(--maybe-100);
+}
+
+.notice-confirm {
+  color: var(--base-950);
+  --bg-color: var(--yes-100);
+  --bd-color: var(--yes-500);
+  --svg-color: var(--yes-400);
+  --code-color: var(--yes-500);
+  --code-bg-color: var(--yes-200);
+}
+
+}

@@ -1,0 +1,115 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer elements {
+/* ELEMENTS INTERACTIVE */
+
+dialog {
+  /* body scrolling is stopped by adding .body-is-locked on <dialog> */
+  /* But it can be added to any element. See elements.sectioning.css > body { … }  */
+  min-width: var(--tera1);
+  max-width: var(--tera3);
+  padding: var(--lg1) var(--md1);
+  --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--0, var(--base-200));
+  --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--1, var(--base-50));
+  border-radius: var(--radius-lg);
+}
+
+@supports (color: light-dark(red, red)) {
+dialog {
+  border: 1px solid light-dark(var(--base-200), var(--base-800));
+  background-color: light-dark(var(--base-50), var(--base-900));
+}
+}
+
+  dialog::backdrop {
+    background: var(--dialog-backdrop-color);
+    opacity: var(--dialog-backdrop-opacity);
+  }
+
+  dialog [aria-label="close pop-up"] {
+    position: absolute;
+    top: var(--xs3);
+    right: var(--xs3);
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  dialog p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
+  }
+
+details {
+  padding: var(--sm1) var(--sm1);
+  --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--2, var(--base-200));
+  --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--3, var(--base-50));
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+}
+
+@supports (color: light-dark(red, red)) {
+details {
+  border: 1px solid light-dark(var(--base-200), var(--base-800));
+  background-color: light-dark(var(--base-50), var(--base-900));
+}
+}
+
+  details summary {
+    display: flex;
+    justify-content: space-between;
+    font-weight: var(--bold);
+  }
+    :is(details summary)::-webkit-details-marker {
+      display: none;
+    }
+    :is(details summary)::after {
+      content: "";
+      width: 24px;
+      height: 24px;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E") no-repeat;
+      transition: var(--transition);
+    }
+
+  details[open] > summary {
+    margin-bottom: var(--xs3);
+  }
+    :is(details[open] > summary)::after {
+      transform: rotate(180deg);
+    }
+
+  details p:last-of-type {
+    /* in case it's inside a .prose context */
+    margin-bottom: 0;
+  }
+
+}

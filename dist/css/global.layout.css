@@ -1,0 +1,117 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer global {
+.layout {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+}
+  .layout .layout_content {
+    flex: 1;
+  }
+  .layout-centered .layout_content {
+    display: grid;
+    gap: var(--sm3);
+    grid-template-columns: 1fr minmax(0, 70ch) 1fr;
+    margin-top: var(--lg1);
+    margin-bottom: var(--sm1);
+  }
+    @media (width >= 768px) {
+  .layout-centered .layout_content {
+      margin-top: var(--xl3);
+      margin-bottom: var(--md3);
+      gap: var(--md3);
+  }
+    }
+
+  .layout-centered .layout_content_main {
+    grid-column: 2/2;
+  }
+    @media (width >= 768px) {
+  .layout-sidebar .layout_content {
+      display: grid;
+      grid-template-columns: var(--layout-aside-width) minmax(0, 1fr);
+  }
+    }
+    @media (width >= 1024px) {
+  .layout-sidebar .layout_content {
+      grid-template-columns: var(--layout-aside-width) minmax(0, 77ch) 1fr;
+  }
+    }
+
+  .layout-sidebar .layout_content_main {
+    order: 2;
+    padding: var(--sm2);
+  }
+
+    @media (width >= 768px) {
+
+  .layout-sidebar .layout_content_main {
+      padding: var(--lg1) var(--md2);
+  }
+    }
+
+  .layout-sidebar .layout_content_aside {
+    display: none;
+    padding: var(--lg1) var(--md3);
+  }
+    @media (width >= 768px) {
+
+  .layout-sidebar .layout_content_aside {
+      display: block;
+  }
+    }
+
+    :is(.layout-sidebar .layout_content_aside):nth-of-type(1) {
+      order: 1;
+    }
+
+    /* TOC */
+    :is(.layout-sidebar .layout_content_aside):nth-of-type(2) {
+      display: none;
+    }
+      @media (width >= 1024px) {
+    :is(.layout-sidebar .layout_content_aside):nth-of-type(2) {
+        display: initial;
+    }
+      }
+    :is(.layout-sidebar .layout_content_aside):nth-of-type(2) {
+      order: 3;
+      padding-top: var(--lg1);
+    }
+      :is(.layout-sidebar .layout_content_aside):nth-of-type(2) nav {
+        padding-top: var(--xs2);
+      }
+
+    :is(.layout-sidebar .layout_content_aside) nav {
+      /* sticky for every nav, not just .navDocs */
+      position: sticky;
+      top: var(--header-height);
+    }
+
+}
