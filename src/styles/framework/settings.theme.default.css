@@ -83,8 +83,9 @@
 /* GLOBAL */
 
 :root {
-  --grid-column-gap: var(--sm3);
-  --grid-row-gap: var(--sm3);
+  /* Mobile-first: tighter gutters on small screens, 24px from --md up */
+  --grid-column-gap: var(--sm1);
+  --grid-row-gap: var(--sm1);
 
   --wrap-spacing: var(--sm1);
   --wrap-md-spacing: var(--sm3);
@@ -95,6 +96,13 @@
   --layout-aside-background-color: var(--base-100);
 
   --prose-spacing: var(--sm1);
+}
+
+@media (--md) {
+  :root {
+    --grid-column-gap: var(--sm3);
+    --grid-row-gap: var(--sm3);
+  }
 }
 
 /* ATOMS */
