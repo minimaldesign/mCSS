@@ -17,10 +17,10 @@ import BaselineBadge from '../components/_BaselineBadge.astro';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
+import arrowIcon from '../assets/icons/arrow-right.svg?raw';
 
 const title = 'mCSS: One class. Not forty.';
-const description =
-  'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
+const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
 
 const installSnippet = '<link rel="stylesheet" href="mcss.min.css">';
 
@@ -30,6 +30,9 @@ const themeDiffs = {
   default: `/* settings.theme.default.css, as shipped */
 :root {
   --heading-font: var(--display);
+  --text: ui-sans-serif, system-ui, sans-serif;
+  --text-md: 1rem;
+  --text-lg: 1.2rem;
   --text-color: light-dark(#23282e, #d6dbe1);
   --card-bg-color: light-dark(#edeef1, #353c45);
   --card-border-radius: 8px;
@@ -60,8 +63,11 @@ const themeDiffs = {
   sunset: `/* sunset: the entire diff */
 :root {
   --heading-font: "Iowan Old Style", Georgia, serif;
+  --text: Georgia, "Times New Roman", serif;
+  --text-md: 1.05rem;
+  --text-lg: 1.3rem;
   --text-color: light-dark(#431407, #ffedd5);
-  --card-bg-color: light-dark(#fff7ed, #431407);
+  --card-bg-color: light-dark(#fef9c3, #431407);
   --card-border-radius: 16px;
   --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
   --bt-primary-background-color: #ea580c;
@@ -86,26 +92,29 @@ const themeDiffs = {
           <a class="bt bt-lg bt-primary" href="/docs/start">Get started</a>
           <a class="bt bt-lg" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
         </p>
-        <p class="homeHero_fineprint">MIT licensed&ensp;·&ensp;No dependencies&ensp;·&ensp;It’s just CSS</p>
+        <p class="homeHero_fineprint">
+          <span><Fragment set:html={arrowIcon} />MIT licensed</span>
+          <span><Fragment set:html={arrowIcon} />No dependencies</span>
+          <span><Fragment set:html={arrowIcon} />It’s just CSS</span>
+        </p>
       </div>
 
-      {/* The code morph. The animated block is decorative for AT; the srOnly
-          line below carries the argument. */}
+      {
+        /* The code morph. The animated block is decorative for AT; the srOnly
+          line below carries the argument. */
+      }
       <div class="homeMorph">
-        <div class="homeMorph_canvas" aria-hidden="true">
-          <span class="homeMorph_canvasLabel">output</span>
-          <button type="button" class="bt bt-primary" tabindex="-1">Demo button</button>
-        </div>
-        <div class="homeMorph_connector" aria-hidden="true"></div>
-
         <figure class="homeMorph_editor" aria-hidden="true">
           <div class="homeMorph_chrome"><i></i><i></i><i></i></div>
-          {/* The invisible sizer keeps the box at the "before" height at every
+          {
+            /* The invisible sizer keeps the box at the "before" height at every
               width, so the collapse never shifts layout. Syntax spans fake
               Shiki's github-dark (the real thing can't tokenize around the
-              animation spans). */}
+              animation spans). */
+          }
           <div class="homeMorph_frame">
-            <pre class="homeMorph_code"><code>&lt;<span class="homeMorph_tag">button</span> <span class="homeMorph_attr">class</span>=<span class="homeMorph_str">"</span><span class="homeMorph_after">bt bt-primary</span><span class="homeMorph_g homeMorph_g-1"><span class="homeMorph_gt">bg-primary-600</span> </span><span class="homeMorph_g homeMorph_g-2"><span class="homeMorph_gt">px-4</span> </span><span class="homeMorph_g homeMorph_g-3"><span class="homeMorph_gt">py-3</span> </span><span class="homeMorph_g homeMorph_g-4"><span class="homeMorph_gt">text-sm</span> </span><span class="homeMorph_g homeMorph_g-5"><span class="homeMorph_gt">font-semibold</span> </span><span class="homeMorph_g homeMorph_g-6"><span class="homeMorph_gt">text-white</span> </span><span class="homeMorph_g homeMorph_g-7"><span class="homeMorph_gt">rounded-md</span> </span><span class="homeMorph_g homeMorph_g-8"><span class="homeMorph_gt">transition</span> </span><span class="homeMorph_g homeMorph_g-9"><span class="homeMorph_gt">duration-200</span> </span><span class="homeMorph_g homeMorph_g-10"><span class="homeMorph_gt">hover:bg-primary-700</span> </span><span class="homeMorph_g homeMorph_g-11"><span class="homeMorph_gt">focus-visible:ring-2</span> </span><span class="homeMorph_g homeMorph_g-12"><span class="homeMorph_gt">focus-visible:ring-offset-2</span> </span><span class="homeMorph_g homeMorph_g-13"><span class="homeMorph_gt">active:scale-95</span></span><span class="homeMorph_str">"</span>&gt;
+            <pre
+              class="homeMorph_code"><code>&lt;<span class="homeMorph_tag">button</span> <span class="homeMorph_attr">class</span>=<span class="homeMorph_str">"</span><span class="homeMorph_after">bt bt-primary</span><span class="homeMorph_g homeMorph_g-1"><span class="homeMorph_gt">bg-primary-600</span> </span><span class="homeMorph_g homeMorph_g-2"><span class="homeMorph_gt">px-4</span> </span><span class="homeMorph_g homeMorph_g-3"><span class="homeMorph_gt">py-3</span> </span><span class="homeMorph_g homeMorph_g-4"><span class="homeMorph_gt">text-sm</span> </span><span class="homeMorph_g homeMorph_g-5"><span class="homeMorph_gt">font-semibold</span> </span><span class="homeMorph_g homeMorph_g-6"><span class="homeMorph_gt">text-white</span> </span><span class="homeMorph_g homeMorph_g-7"><span class="homeMorph_gt">rounded-md</span> </span><span class="homeMorph_g homeMorph_g-8"><span class="homeMorph_gt">transition</span> </span><span class="homeMorph_g homeMorph_g-9"><span class="homeMorph_gt">duration-200</span> </span><span class="homeMorph_g homeMorph_g-10"><span class="homeMorph_gt">hover:bg-primary-700</span> </span><span class="homeMorph_g homeMorph_g-11"><span class="homeMorph_gt">focus-visible:ring-2</span> </span><span class="homeMorph_g homeMorph_g-12"><span class="homeMorph_gt">focus-visible:ring-offset-2</span> </span><span class="homeMorph_g homeMorph_g-13"><span class="homeMorph_gt">active:scale-95</span></span><span class="homeMorph_str">"</span>&gt;
   Demo button
 &lt;/<span class="homeMorph_tag">button</span>&gt;</code></pre>
             <pre class="homeMorph_code homeMorph_sizer"><code>&lt;button class="bg-primary-600 px-4 py-3 text-sm font-semibold text-white rounded-md transition duration-200 hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-95"&gt;
@@ -124,7 +133,7 @@ const themeDiffs = {
           <p class="homeMorph_staticCount">219 → 54 characters</p>
         </div>
 
-        <p class="a11y-srOnly">Two mCSS classes replace forty utility classes: the same rendered button, from markup you can read.</p>
+        <p class="a11y-srOnly">Two mCSS classes replace forty utility classes: the same button, from markup you can read.</p>
 
         <button type="button" class="homeMorph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
       </div>
@@ -152,32 +161,28 @@ const themeDiffs = {
   {/* §3: Philosophy */}
   <Section class="homePhilosophy" variant="filled" eyebrow="Philosophy" title="Made for humans who write CSS" lede="CSS isn’t broken, and you don’t need to be protected from it. mCSS takes care of the tedious parts (resets, tokens, a sane cascade) and gets out of the way.">
     <FeatureGrid class="homePillars homeReveal" cols={3}>
-      <FeatureItem title="It’s actual CSS.">
-        <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <path d="M88 24 C74 24 70 32 70 43 L70 55 C70 64 64 69 57 70 C64 71 70 76 70 85 L70 97 C70 108 74 116 88 116" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" />
-          <path d="M132 24 C146 24 150 32 150 43 L150 55 C150 64 156 69 163 70 C156 71 150 76 150 85 L150 97 C150 108 146 116 132 116" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" />
-          <circle cx="110" cy="58" r="7" fill="#0369a1" />
-          <circle cx="110" cy="84" r="7" fill="#0369a1" />
+      <FeatureItem title="It’s actual CSS">
+        <svg slot="icon" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <path d="M55 12 C40 12 36 21 36 33 L36 55 C36 65 29 70 21 71 C29 72 36 77 36 87 L36 109 C36 121 40 128 55 128" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round"></path>
+          <path d="M85 12 C100 12 104 21 104 33 L104 55 C104 65 111 70 119 71 C111 72 104 77 104 87 L104 109 C104 121 100 128 85 128" stroke="#bae6fd" stroke-width="10" stroke-linecap="round"></path>
+          <circle cx="70" cy="57" r="7" fill="#7dd3fc"></circle>
+          <circle cx="70" cy="83" r="7" fill="#7dd3fc"></circle>
         </svg>
         No pseudo-syntax, no new mental model. If you know CSS, you already know mCSS, and everything you learn here works everywhere, forever.
       </FeatureItem>
-      <FeatureItem title="The cascade is a feature.">
-        <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <path d="M110 20 L152 42 L110 64 L68 42 Z" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M68 70 L110 92 L152 70" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M68 98 L110 120 L152 98" stroke="#bae6fd" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+      <FeatureItem title="The cascade is a feature">
+        <svg slot="icon" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <path d="M70 10 L125 38 L70 66 L15 38 Z" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M15 72 L70 100 L125 72" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M15 100 L70 128 L125 100" stroke="#bae6fd" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
         Native <code>@layer</code> keeps specificity conflicts from ever starting: anything you write outside mCSS’s layers wins automatically. No <code>!important</code>, no fighting your framework.
       </FeatureItem>
-      <FeatureItem title="Markup you can read.">
-        <svg slot="icon" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <rect x="64" y="10" width="92" height="120" rx="10" fill="#e0f2fe" />
-          <rect x="80" y="28" width="32" height="7" rx="3.5" fill="#38bdf8" />
-          <path d="M94 56 L81 68 L94 80" stroke="#0369a1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M126 56 L139 68 L126 80" stroke="#0369a1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M116 51 L104 85" stroke="#0ea5e9" stroke-width="8" stroke-linecap="round" />
-          <rect x="80" y="100" width="60" height="7" rx="3.5" fill="#7dd3fc" />
-          <rect x="80" y="113" width="40" height="7" rx="3.5" fill="#bae6fd" />
+      <FeatureItem title="Markup you can read">
+        <svg slot="icon" viewBox="0 0 190 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <path d="M56 20 L14 70 L56 120" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M134 20 L176 70 L134 120" stroke="#bae6fd" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M111 14 L78 126" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round"></path>
         </svg>
         One semantic class per element. Your HTML describes what things <em>are</em>, and six months from now you’ll still understand it.
       </FeatureItem>
@@ -222,7 +227,10 @@ const themeDiffs = {
         <BaselineBadge feature="custom-properties" />
       </li>
     </ul>
-    <p class="homeShowcase_kicker">Every technique is documented on the blog. The framework practices what it teaches. <a href="/blog">Read the blog →</a></p>
+    <div class="homeShowcase_kicker">
+      <p>Every technique is documented on the blog. The framework practices what it teaches.</p>
+      <p><a href="/blog">Read the blog →</a></p>
+    </div>
   </Section>
 
   {/* §5: Theming demo (radio + :has(), zero JS) */}
@@ -245,8 +253,8 @@ const themeDiffs = {
 
     <div class="homeThemer_split homeReveal">
       <div class="homeThemer_stage">
-        <Card title="Game night" subtitle="Friday 8pm at Maria’s place">
-          <p>Bring a snack and your best poker face. Newcomers welcome.</p>
+        <Card variant="filled" title="You’re invited!" subtitle="Sam turns 30 · Saturday 4pm">
+          <p>Cake, candles, and questionable karaoke. No gifts, just bring yourself.</p>
           <Fragment slot="actions">
             <button type="button" class="bt">Details</button>
             <button type="button" class="bt bt-primary">RSVP</button>
@@ -336,7 +344,8 @@ const themeDiffs = {
     <p class="homeGallery_kicker">Nearly everything is zero-JavaScript. The mobile menu and the dismissible banner are the exceptions, and they’re tiny.</p>
     <div class="homeGallery_template homeReveal">
       <h3>Start from a whole site, not a blank file.</h3>
-      <p>This site (the docs, the blog, and the page you’re reading) is built from the same library. <a href="/components/start">Browse the components →</a></p>
+      <p>This site (docs, blog, the page you’re reading) is built from mCSS.</p>
+      <p><a href="/components/start">Browse the components →</a></p>
     </div>
   </Section>
 
@@ -356,7 +365,7 @@ const themeDiffs = {
   {/* §8: Final CTA */}
   <Section class="homeCta" variant="primary" title="Give your CSS its cascade back" lede="Read the methodology, copy the files, ship something.">
     <div class="section_actions">
-      <a class="bt bt-lg homeCta_btMain" href="/docs/start">Get started in 10 minutes</a>
+      <a class="bt bt-lg homeCta_btMain" href="/docs/start">Get started in 10 mn</a>
       <a class="bt bt-lg bt-outline-white" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />Star on GitHub</a>
     </div>
     <p class="homeCta_newsletter">Prefer email? <a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Join the mailing list</a>: new components and modern-CSS write-ups, no noise.</p>

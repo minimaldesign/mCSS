@@ -9,6 +9,8 @@
 /* Poster-grade vertical rhythm (denser than the docs pages) */
 .home .section {
   --section-spacing: var(--xl1);
+  /* Mobile gutters match the footer's (24px) so every section aligns */
+  --wrap-spacing: var(--sm3);
   @media (--lg) {
     --section-spacing: var(--xxl1);
   }
@@ -24,10 +26,9 @@
   width: 100%;
   max-width: 1150px;
   margin-inline: auto;
-  @media (--lg) {
-    padding-left: var(--sm3);
-    padding-right: var(--sm3);
-  }
+  /* Same gutters as the footer at every width */
+  padding-left: var(--sm3);
+  padding-right: var(--sm3);
 }
 
 /* Scroll reveal: one effect, used consistently. Decoration only; browsers
@@ -57,10 +58,7 @@
   align-content: center;
   min-height: calc(72svh - var(--header-height));
   padding-block: var(--lg1) var(--sm3);
-  padding-inline: var(--sm1);
-  @media (--md) {
-    padding-inline: var(--sm3);
-  }
+  padding-inline: var(--sm3);
 }
 
 .homeHero_inner {
@@ -69,6 +67,11 @@
   margin-inline: auto;
   display: grid;
   gap: var(--lg3);
+  /* Below --lg the copy dissolves (display: contents below) and the items
+     own their spacing through margins, so the grid gap goes away */
+  @media (--lg-n-below) {
+    gap: 0;
+  }
   @media (--lg) {
     grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
     align-items: center;
@@ -77,6 +80,32 @@
 }
 
 .homeHero_copy {
+  /* Below the two-column layout the copy centers, and it dissolves into the
+     hero grid so the editor can slot in after the subhead, before the
+     buttons (source order stays copy-first for AT and desktop) */
+  @media (--lg-n-below) {
+    display: contents;
+    text-align: center;
+
+    h1 {
+      margin-inline: auto;
+    }
+
+    .homeHero_subhead {
+      margin-inline: auto;
+    }
+
+    .homeHero_actions {
+      justify-content: center;
+      order: 2;
+    }
+
+    .homeHero_fineprint {
+      justify-content: center;
+      order: 3;
+    }
+  }
+
   h1 {
     /* Gradient-clipped text; light-dark() per stop keeps both themes AA
        (postcss-mixins can't see display-gradient from another file).
@@ -101,9 +130,6 @@
     @media (--md) {
       font-size: var(--display-mega);
     }
-    @media (--lg) {
-      font-size: var(--display-giga);
-    }
   }
 }
 
@@ -125,10 +151,25 @@
 }
 
 .homeHero_fineprint {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs2) var(--sm1);
   margin-top: var(--sm1);
   font-family: var(--mono);
   font-size: var(--text-xs);
   color: light-dark(var(--base-500), var(--base-400));
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--xs1);
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+    color: light-dark(var(--primary-600), var(--primary-400));
+  }
 }
 
 /* §1 THE CODE MORPH */
@@ -149,32 +190,12 @@
   --morph-duration: 20s;
   --morph-strike: var(--no-400);
   --morph-pulse: rgb(19 136 109 / 0.45);
-}
-
-/* The live render floats on the page; the dashed connector ties it to the
-   editor that produces it. The 1fr/auto/1fr grid keeps the button itself on
-   the center axis (where the connector is), label trailing to its left. */
-.homeMorph_canvas {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: var(--sm1);
-  padding-block: var(--xs2);
-}
-
-.homeMorph_canvasLabel {
-  justify-self: end;
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-lg);
-  text-transform: uppercase;
-  color: light-dark(var(--base-400), var(--base-500));
-}
-
-.homeMorph_connector {
-  align-self: center;
-  height: var(--md1);
-  border-left: var(--border-md) dashed light-dark(var(--base-300), var(--base-600));
+  /* Stacked layout: slot between the subhead (order 0) and the buttons
+     (order 2, see .homeHero_copy) */
+  @media (--lg-n-below) {
+    order: 1;
+    margin-top: var(--md2);
+  }
 }
 
 /* The editor fakes Shiki's github-dark (colors below match the theme the §5
@@ -571,8 +592,9 @@
   font-family: var(--mono);
   font-size: var(--text-xs);
   color: light-dark(var(--base-500), var(--base-400));
-  @media (--sm-n-below) {
-    flex-direction: column;
+  /* Stays on one line on small screens (like the hero fineprint) */
+  @media (--md-n-below) {
+    gap: var(--xs3);
   }
 }
 
@@ -583,11 +605,28 @@
   @media (--md) {
     --grid-tc: repeat(3, 1fr);
   }
+  /* Breathing room between the three pillars on desktop */
+  @media (--lg) {
+    --grid-column-gap: var(--xl2);
+  }
 
-  /* Large flat illustrations instead of the 48px icon box */
+  .featureItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .featureItem_title {
+    font-size: var(--text-xl);
+  }
+
+  /* Large flat illustrations instead of the 48px icon box. Every SVG draws
+     on a 140-unit-tall viewBox with matching margins, so all three render
+     at the same height and the box hugs the artwork (the brackets one is
+     wider by design), which keeps them easy to align anywhere */
   .featureItem_icon {
-    width: 100%;
-    height: 140px;
+    width: fit-content;
+    height: 120px;
     margin-bottom: var(--sm1);
     background: none;
     border-radius: 0;
@@ -595,7 +634,6 @@
     svg {
       width: auto;
       height: 100%;
-      max-width: 100%;
     }
   }
 
@@ -604,9 +642,10 @@
 /* §4 MODERN CSS SHOWCASE */
 
 .homeShowcase_grid {
-  /* margin-block only: the shared wide rule above owns margin-inline: auto */
+  /* margin-block and padding-block only: the shared wide rule above owns
+     margin-inline: auto and the inline padding */
   margin-block: 0;
-  padding: 0;
+  padding-block: 0;
   list-style: none;
 }
 
@@ -745,6 +784,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--md2);
+  /* Re-declared from the tokens so the demo themes can override the body
+     font and base size (body resolves --text at :root, out of demo reach) */
+  font-family: var(--text);
+  font-size: var(--text-md);
   padding: var(--md2);
   background-color: light-dark(var(--base-0), var(--base-950));
   border: var(--border-sm) solid var(--theme-border-color);
@@ -781,8 +824,11 @@
 
 .homeThemer:has(input[value="sunset"]:checked) .homeThemer_stage {
   --heading-font: "Iowan Old Style", Georgia, serif;
+  --text: Georgia, "Times New Roman", serif;
+  --text-md: 1.05rem;
+  --text-lg: 1.3rem;
   --text-color: light-dark(#431407, #ffedd5);
-  --card-bg-color: light-dark(#fff7ed, #431407);
+  --card-bg-color: light-dark(#fef9c3, #431407);
   --card-border-radius: 16px;
   --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
   --bt-primary-background-color: #ea580c;
@@ -851,7 +897,7 @@
   display: grid;
   gap: var(--sm3);
   margin-block: 0;
-  padding: 0;
+  padding-block: 0;
   list-style: none;
   @media (--md) {
     grid-template-columns: repeat(2, 1fr);
