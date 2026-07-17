@@ -427,6 +427,7 @@ xxl: 1920px
   --footer-background-color: var(--csstools-light-dark-toggle--22, var(--primary-600));
   --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-200);
   --footer-text-color: var(--csstools-light-dark-toggle--23, var(--base-0));
+  --footer-border-width: var(--border-md);
   --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-700);
   --footer-border-color: var(--csstools-light-dark-toggle--24, transparent);
   --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-200);
@@ -479,6 +480,14 @@ xxl: 1920px
 :root {
   --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-950);
   --header-background-color: var(--csstools-light-dark-toggle--27, var(--base-0));
+
+  /* The mobile menu is an always-dark surface by design, so these are raw
+     palette values on purpose; override them to retheme the menu. */
+  --header-menu-background-color: var(--base-950);
+  --header-menu-color: var(--base-0);
+  --header-menu-color-current: var(--primary-400);
+  --header-menu-secondary-color: var(--base-300);
+  --header-menu-border-color: var(--base-500);
 }
 
 @supports (color: light-dark(red, red)) {

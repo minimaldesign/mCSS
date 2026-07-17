@@ -1,0 +1,195 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--sm3);
+  height: var(--header-height);
+  padding-inline: var(--header-padding);
+  background-color: var(--header-background-color);
+}
+
+.header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-5);
+  box-shadow: var(--shadow-sm);
+}
+
+  .header-sticky.is-top {
+    box-shadow: none;
+  }
+
+.header_logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sm2);
+  font-size: var(--text-md);
+  font-weight: var(--semi-bold);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.header_nav {
+  display: none;
+  margin-left: auto;
+}
+  @media (width >= 768px) {
+
+.header_nav {
+    display: block;
+}
+  }
+
+  .header_nav ul {
+    display: flex;
+    gap: var(--md3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+    :is(.header_nav ul) a {
+      display: flex;
+      align-items: center;
+      height: var(--header-height);
+      font-size: var(--text-sm);
+      font-weight: var(--bold);
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: color var(--transition);
+    }
+      :is(:is(.header_nav ul) a):hover,[aria-current]:is(:is(.header_nav ul) a) {
+        color: var(--link-color);
+      }
+
+.header_actions {
+  display: none;
+}
+  @media (width >= 768px) {
+
+.header_actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sm3);
+}
+  }
+
+.header_navMobile {
+  margin-left: auto;
+}
+  @media (width >= 768px) {
+
+.header_navMobile {
+    display: none;
+}
+  }
+
+  .header_navMobile button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--sm3);
+    min-height: var(--sm3);
+    padding: var(--xs2);
+    color: var(--text-color);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .header_navMobile  > div {
+    /* The full-screen menu is an always-dark surface by design; it does not
+       follow the light theme. Retheme it via the --header-menu-* tokens. */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100svh;
+    overflow-y: auto;
+    padding: var(--lg3);
+    background-color: var(--header-menu-background-color);
+    z-index: var(--z-5);
+  }
+    .is-open:is(.header_navMobile > div) {
+      display: block;
+    }
+
+    :is(.header_navMobile > div) button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: var(--sm1) var(--sm3);
+      color: var(--header-menu-color);
+    }
+
+    :is(.header_navMobile > div) a {
+      color: var(--header-menu-color);
+      -webkit-text-decoration: none;
+      text-decoration: none;
+    }
+      [aria-current]:is(:is(.header_navMobile > div) a) {
+        color: var(--header-menu-color-current);
+      }
+
+    :is(.header_navMobile > div) ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    :is(.header_navMobile > div)  > ul {
+      font-size: var(--text-lg);
+    }
+
+      :is(:is(.header_navMobile > div) > ul) li {
+        margin-top: var(--sm1);
+      }
+
+      :is(:is(.header_navMobile > div) > ul) ul {
+        padding-left: var(--sm1);
+        border-left: 1px solid var(--header-menu-border-color);
+      }
+        :is(:is(:is(.header_navMobile > div) > ul) ul) a {
+          color: var(--header-menu-secondary-color);
+        }
+          [aria-current]:is(:is(:is(:is(.header_navMobile > div) > ul) ul) a) {
+            color: var(--header-menu-color-current);
+          }
+
+.header_menuExtra {
+  display: flex;
+  margin-bottom: var(--sm3);
+}
+
+}

@@ -1,34 +1,16 @@
-.header {
-  position: sticky;
-  top: 0;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  height: var(--header-height);
-  background-color: var(--header-background-color);
-  box-shadow: var(--shadow-sm);
-  z-index: var(--z-5);
-  @media (--md) {
-    grid-template-columns: var(--layout-aside-width) 1fr max-content;
-  }
+/* Site-specific overrides of the library header (framework/component.header.css) */
 
-  &.is-top {
-    box-shadow: none;
+.header {
+  @media (--md) {
+    display: grid;
+    grid-template-columns: var(--layout-aside-width) 1fr max-content;
+    padding-inline: 0;
   }
 }
 
 .header_logo {
   --logo-size: 35px;
 
-  display: grid;
-  grid-template-columns: var(--logo-size) 1fr;
-  align-items: center;
-  gap: var(--sm2);
-  margin-left: var(--header-padding);
-  text-decoration: none;
-  font-size: var(--text-md);
-  font-weight: var(--semi-bold);
-  color: var(--text-color);
   @media (--md) {
     margin-left: var(--md3);
   }
@@ -40,104 +22,19 @@
 }
 
 .header_nav {
-  display: none;
   @media (--md) {
-    display: grid;
     justify-self: end;
-    width: max-content;
-  }
-
-  ul {
-    display: flex;
-    gap: var(--md3);
-
-    a {
-      position: relative;
-      display: grid;
-      align-items: center;
-      height: 100%;
-      text-decoration: none;
-      font-size: var(--text-sm);
-      font-weight: var(--bold);
-      color: var(--text-color);
-      transition: all var(--transition);
-      &:hover,
-      &.is-active {
-        color: var(--link-color);
-      }
-    }
   }
 }
 
-.header_toggle {
-  display: none;
+.header_actions {
   @media (--md) {
-    display: block;
-    padding: 0 var(--sm3);
+    padding-right: var(--sm3);
   }
 }
 
-.header_navMobile {
-  @media (--md) {
-    display: none;
-  }
-
-  button {
-    background-color: var(--body-background-color);
-    border-width: 0;
-    padding: 0 var(--header-padding);
-  }
-
-  > div {
-    display: none;
-    /* Deliberately dark in both themes: the full-screen mobile menu is an
-       always-dark surface, so raw palette tokens are intentional here. */
-    background-color: var(--base-950);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100svh;
-    overflow-y: auto;
-    padding: var(--lg3);
-    &.is-open {
-      display: block;
-    }
-
-    button {
-      position: fixed;
-      top: 0;
-      right: 0;
-      padding: var(--sm1) var(--sm3);
-      background-color: transparent;
-      color: var(--base-0);
-    }
-
-    a {
-      color: var(--base-0);
-      text-decoration: none;
-    }
-
-    > ul {
-      font-size: var(--text-lg);
-
-      li {
-        margin-top: var(--sm1);
-      }
-
-      ul {
-        padding-left: var(--sm1);
-        border-left: 1px solid var(--base-500);
-        a {
-          color: var(--base-300);
-        }
-      }
-    }
-  }
-}
-
-.header_navMobile_themeToggle {
-  margin-right: var(--sm1);
+/* Theme toggle wrapper inside the mobile menu (Header's "menu" slot) */
+.siteHeader_themeToggle {
   padding: var(--xs3);
   border: 1px solid var(--theme-border-color);
   border-radius: var(--radius-lg);

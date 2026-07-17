@@ -47,6 +47,8 @@
 /* Component library styles */
 @import url(./component.avatar.css) layer(components);
 @import url(./component.card.css) layer(components);
+@import url(./component.footer.css) layer(components);
+@import url(./component.header.css) layer(components);
 @import url(./component.hero.css) layer(components);
 @import url(./component.readProgressBar.css) layer(components);
 @import url(./component.notice.css) layer(components);

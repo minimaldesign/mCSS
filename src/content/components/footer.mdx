@@ -1,0 +1,150 @@
+---
+title: "Footer"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Footer from "../../components/Footer.astro";
+
+<section class="prose">
+
+The `.footer` component is the site-wide bottom section: link columns on the right, a meta area (copyright, credits, version…) on the left. Columns stack on small screens and spread into a responsive grid from the `--md` breakpoint up. It is pure HTML and CSS, no JavaScript.
+
+### What to copy
+
+<div class="docs_oversizedTable">
+
+| File                                | What it is                     | Source      |
+| ----------------------------------- | ------------------------------ | ----------- |
+| `component.footer.css`              | All footer styles              | [Github][1] |
+| `Footer.astro`                      | The Astro component            | [Github][2] |
+| `--footer-*` block in default theme | Theme tokens (see table below) | [Github][3] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.footer.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Footer.astro
+[3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+The footer expects two regions: a `nav` with one `<ul>` whose `<li>` children are the columns (a heading plus a link list each), and a `.footer_meta` section.
+
+```html
+<footer class="footer">
+  <nav class="footer_nav" aria-label="Footer">
+    <ul>
+      <li>
+        <h5>Documentation</h5>
+        <ul>
+          <li><a href="/docs">Getting started</a></li>
+          <li><a href="/docs/tokens">Tokens</a></li>
+        </ul>
+      </li>
+      <li>
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://github.com/…">Github</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <section class="footer_meta">
+    <p>© 2026 Acme Inc.</p>
+  </section>
+</footer>
+```
+
+### Custom properties
+
+The following custom properties are available in the [default theme](/docs/themes):
+
+<div class="docs_oversizedTable">
+
+| Property                    | Description                                     |
+| --------------------------- | ----------------------------------------------- |
+| `--footer-background-color` | Background color.                               |
+| `--footer-text-color`       | Text color.                                     |
+| `--footer-border-width`     | Top border width.                               |
+| `--footer-border-color`     | Top border color (transparent in light theme).  |
+| `--footer-link-color`       | Link color.                                     |
+| `--footer-link-color-hover` | Link hover color.                               |
+
+</div>
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop       | Type     | Default     | Description                                                         |
+| ---------- | -------- | ----------- | ------------------------------------------------------------------- |
+| `navLabel` | `string` | `"Footer"`  | `aria-label` for the footer nav.                                    |
+| `class`    | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
+
+Any other attribute is passed through to the root `<footer>` element.
+
+| Slot      | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| (default) | The link columns: one `<ul>` with one `<li>` per column (heading + `<ul>`). |
+| `meta`    | The meta area: copyright, credits, socials…                                  |
+
+</div>
+
+## Examples
+
+<ul class="docs_examples">
+  <li>
+    <Footer style="border-radius: var(--radius-lg);">
+      <ul>
+        <li>
+          <h5>Product</h5>
+          <ul>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </li>
+        <li>
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </li>
+      </ul>
+      <Fragment slot="meta">
+        <p>© 2026 Acme Inc.</p>
+      </Fragment>
+    </Footer>
+
+    ```astro
+    ---
+    import Footer from "../components/Footer.astro";
+    ---
+    <Footer>
+      <ul>
+        <li>
+          <h5>Product</h5>
+          <ul>
+            <li><a href="/features">Features</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </li>
+      </ul>
+      <Fragment slot="meta">
+        <p>© 2026 Acme Inc.</p>
+      </Fragment>
+    </Footer>
+    ```
+
+  </li>
+  <li>
+    This site's own footer is the same component; see [SiteFooter.astro](https://github.com/minimaldesign/mCSS/blob/main/src/components/SiteFooter.astro) for a full example with social icons and a version line in the `meta` slot.
+  </li>
+</ul>

@@ -694,6 +694,7 @@ xxl: 1920px
   --footer-background-color: var(--csstools-light-dark-toggle--22, var(--primary-600));
   --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-200);
   --footer-text-color: var(--csstools-light-dark-toggle--23, var(--base-0));
+  --footer-border-width: var(--border-md);
   --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-700);
   --footer-border-color: var(--csstools-light-dark-toggle--24, transparent);
   --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-200);
@@ -744,6 +745,14 @@ xxl: 1920px
 :root {
   --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-950);
   --header-background-color: var(--csstools-light-dark-toggle--27, var(--base-0));
+
+  /* The mobile menu is an always-dark surface by design, so these are raw
+     palette values on purpose; override them to retheme the menu. */
+  --header-menu-background-color: var(--base-950);
+  --header-menu-color: var(--base-0);
+  --header-menu-color-current: var(--primary-400);
+  --header-menu-secondary-color: var(--base-300);
+  --header-menu-border-color: var(--base-500);
 }
 
 @supports (color: light-dark(red, red)){
@@ -3048,6 +3057,243 @@ details {
   100% {
     opacity: 1;
   }
+}
+}
+
+@layer components{
+
+/* FOOTER */
+
+.footer {
+  padding: var(--md3) var(--sm3);
+  line-height: var(--leading-xl);
+  color: var(--footer-text-color);
+  background-color: var(--footer-background-color);
+  border-top: var(--footer-border-width) dashed var(--footer-border-color);
+  transition: background-color var(--transition);
+}
+  @media (width >= 768px) {
+
+.footer {
+    display: grid;
+    gap: var(--md3);
+    grid-template-columns: 25% 1fr;
+    padding: var(--lg3) var(--md3);
+}
+  }
+
+  .footer a {
+    color: var(--footer-link-color);
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    font-weight: var(--book);
+    transition: color var(--transition);
+  }
+    :is(.footer a):hover {
+      color: var(--footer-link-color-hover);
+    }
+
+.footer_meta {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.footer_nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+  @media (width >= 768px) {
+
+.footer_nav > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--sm3);
+}
+  }
+
+  :is(.footer_nav > ul) ul {
+    margin-bottom: var(--md3);
+  }
+    @media (width >= 768px) {
+
+  :is(.footer_nav > ul) ul {
+      margin-bottom: 0;
+  }
+    }
+
+    :is(:is(.footer_nav > ul) ul) li:not(:last-child) {
+      margin-bottom: var(--xs1);
+    }
+}
+
+@layer components{
+
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--sm3);
+  height: var(--header-height);
+  padding-inline: var(--header-padding);
+  background-color: var(--header-background-color);
+}
+
+.header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-5);
+  box-shadow: var(--shadow-sm);
+}
+
+  .header-sticky.is-top {
+    box-shadow: none;
+  }
+
+.header_logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sm2);
+  font-size: var(--text-md);
+  font-weight: var(--semi-bold);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.header_nav {
+  display: none;
+  margin-left: auto;
+}
+  @media (width >= 768px) {
+
+.header_nav {
+    display: block;
+}
+  }
+
+  .header_nav ul {
+    display: flex;
+    gap: var(--md3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+    :is(.header_nav ul) a {
+      display: flex;
+      align-items: center;
+      height: var(--header-height);
+      font-size: var(--text-sm);
+      font-weight: var(--bold);
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: color var(--transition);
+    }
+      :is(:is(.header_nav ul) a):hover,[aria-current]:is(:is(.header_nav ul) a) {
+        color: var(--link-color);
+      }
+
+.header_actions {
+  display: none;
+}
+  @media (width >= 768px) {
+
+.header_actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sm3);
+}
+  }
+
+.header_navMobile {
+  margin-left: auto;
+}
+  @media (width >= 768px) {
+
+.header_navMobile {
+    display: none;
+}
+  }
+
+  .header_navMobile button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--sm3);
+    min-height: var(--sm3);
+    padding: var(--xs2);
+    color: var(--text-color);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .header_navMobile  > div {
+    /* The full-screen menu is an always-dark surface by design; it does not
+       follow the light theme. Retheme it via the --header-menu-* tokens. */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100svh;
+    overflow-y: auto;
+    padding: var(--lg3);
+    background-color: var(--header-menu-background-color);
+    z-index: var(--z-5);
+  }
+    .is-open:is(.header_navMobile > div) {
+      display: block;
+    }
+
+    :is(.header_navMobile > div) button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: var(--sm1) var(--sm3);
+      color: var(--header-menu-color);
+    }
+
+    :is(.header_navMobile > div) a {
+      color: var(--header-menu-color);
+      -webkit-text-decoration: none;
+      text-decoration: none;
+    }
+      [aria-current]:is(:is(.header_navMobile > div) a) {
+        color: var(--header-menu-color-current);
+      }
+
+    :is(.header_navMobile > div) ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    :is(.header_navMobile > div)  > ul {
+      font-size: var(--text-lg);
+    }
+
+      :is(:is(.header_navMobile > div) > ul) li {
+        margin-top: var(--sm1);
+      }
+
+      :is(:is(.header_navMobile > div) > ul) ul {
+        padding-left: var(--sm1);
+        border-left: 1px solid var(--header-menu-border-color);
+      }
+        :is(:is(:is(.header_navMobile > div) > ul) ul) a {
+          color: var(--header-menu-secondary-color);
+        }
+          [aria-current]:is(:is(:is(:is(.header_navMobile > div) > ul) ul) a) {
+            color: var(--header-menu-color-current);
+          }
+
+.header_menuExtra {
+  display: flex;
+  margin-bottom: var(--sm3);
 }
 }
 

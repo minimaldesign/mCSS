@@ -186,6 +186,7 @@
 :root {
   --footer-background-color: light-dark(var(--primary-600), var(--base-950));
   --footer-text-color: light-dark(var(--base-0), var(--base-200));
+  --footer-border-width: var(--border-md);
   --footer-border-color: light-dark(transparent, var(--base-700));
   --footer-link-color: light-dark(var(--base-0), var(--base-200));
   --footer-link-color-hover: light-dark(var(--primary-200), var(--base-0));
@@ -201,6 +202,14 @@
     --header-padding: var(--sm3);
   }
   --header-background-color: light-dark(var(--base-0), var(--base-950));
+
+  /* The mobile menu is an always-dark surface by design, so these are raw
+     palette values on purpose; override them to retheme the menu. */
+  --header-menu-background-color: var(--base-950);
+  --header-menu-color: var(--base-0);
+  --header-menu-color-current: var(--primary-400);
+  --header-menu-secondary-color: var(--base-300);
+  --header-menu-border-color: var(--base-500);
 }
 
 /* Hero */
