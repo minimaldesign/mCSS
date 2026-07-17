@@ -39,6 +39,7 @@ All architectural detail is in the `agents/` directory — read these before mak
 
 ## Formatting
 
+- Never use em dashes in prose (site copy, docs, comments, commit messages). Use periods, commas, colons, or parentheses instead.
 - 2 spaces everywhere, including `.css` (enforced by `.editorconfig`).
 - Relative imports for all local Astro components.
 - JSX targets Preact (`jsxImportSource: "preact"` in `tsconfig.json`) — do not import from React.

@@ -66,7 +66,7 @@ The following custom properties are available in the [default theme](/docs/theme
 | ------------- | ---------- | ----------- | ----------------------------------------------------------- |
 | `tagList`     | `string[]` | `[]`        | Array of tag strings to display.                            |
 | `variant`     | `string`   | `inline`    | Inline or list layout.                                      |
-| `url`         | `string`   | `/tags`     | Base URL to prepend to each tag.                            |
+| `url`         | `string`   | `/blog/tags`     | Base URL to prepend to each tag.                            |
 | `sort`        | `boolean`  | `false`     | Sort tags alphabetically; input order is preserved by default. |
 | `class`  | `string`   | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 | `ariaLabel`   | `string`   | `'Tags'`    | Accessible label for the tag list.                          |
@@ -81,14 +81,14 @@ The following custom properties are available in the [default theme](/docs/theme
 
 ### Astro example (frontmatter metadata)
 
-<Tags tagList={["css", "astro", "basics"]} url="/tags" />
+<Tags tagList={["css", "astro", "basics"]} url="/blog/tags" />
 
 ```astro
 ---
 import Tags from '../components/Tags.astro';
 const { frontmatter } = Astro.props;
 ---
-<Tags tagList={frontmatter.tags} url="/tags" />
+<Tags tagList={frontmatter.tags} url="/blog/tags" />
 ```
 
 </li>
@@ -99,26 +99,26 @@ const { frontmatter } = Astro.props;
 
 <ul class="tags">
   <li>
-    <a href="/tags/css">css</a>
+    <a href="/blog/tags/css">css</a>
   </li>
   <li>
-    <a href="/tags/astro">astro</a>
+    <a href="/blog/tags/astro">astro</a>
   </li>
   <li>
-    <a href="/tags/basics">basics</a>
+    <a href="/blog/tags/basics">basics</a>
   </li>
 </ul>
 
 ```html
 <ul class="tags">
   <li>
-    <a href="/tags/css">css</a>
+    <a href="/blog/tags/css">css</a>
   </li>
   <li>
-    <a href="/tags/astro">astro</a>
+    <a href="/blog/tags/astro">astro</a>
   </li>
   <li>
-    <a href="/tags/basics">basics</a>
+    <a href="/blog/tags/basics">basics</a>
   </li>
 </ul>
 ```
@@ -130,26 +130,26 @@ const { frontmatter } = Astro.props;
 
 <ul class="tags tags-inline">
   <li>
-    <a href="/tags/css">css</a>
+    <a href="/blog/tags/css">css</a>
   </li>
   <li>
-    <a href="/tags/astro">astro</a>
+    <a href="/blog/tags/astro">astro</a>
   </li>
   <li>
-    <a href="/tags/basics">basics</a>
+    <a href="/blog/tags/basics">basics</a>
   </li>
 </ul>
 
 ```html
 <ul class="tags tags-inline">
   <li>
-    <a href="/tags/css">css</a>
+    <a href="/blog/tags/css">css</a>
   </li>
   <li>
-    <a href="/tags/astro">astro</a>
+    <a href="/blog/tags/astro">astro</a>
   </li>
   <li>
-    <a href="/tags/basics">basics</a>
+    <a href="/blog/tags/basics">basics</a>
   </li>
 </ul>
 ```

@@ -48,7 +48,7 @@ The `.articleCard` component is the blog-index pattern: image, tags, title, desc
 
 <section class="prose">
 
-ArticleCard extends the [card](/components/card) (same border, radius, tokens) and composes [Tags](/components/tags) and [Avatar](/components/avatar); PostList is a `ul` over the [grid system](/docs/global#grid). The card carries **one** link — the title, stretched over the whole card with a `::after` — so screen readers hear one link named by the title, and the tags stay independently clickable above it.
+ArticleCard extends the [card](/components/card) (same border, radius, tokens) and composes [Tags](/components/blog/tags) and [Avatar](/components/avatar); PostList is a `ul` over the [grid system](/docs/global#grid). The card carries **one** link — the title, stretched over the whole card with a `::after` — so screen readers hear one link named by the title, and the tags stay independently clickable above it.
 
 ```html
 <ul class="postList grid" col="1" col-md="2" col-lg="2">
@@ -58,7 +58,7 @@ ArticleCard extends the [card](/components/card) (same border, radius, tokens) a
         <img class="articleCard_image" src="cover.jpg" alt="" loading="lazy" />
       </figure>
       <nav aria-label="Tags"><ul class="tags tags-inline articleCard_tags">
-        <li><a href="/tags/css">css</a></li>
+        <li><a href="/blog/tags/css">css</a></li>
       </ul></nav>
       <h3 class="articleCard_title"><a href="/blog/my-post">Designing with cascade layers</a></h3>
       <div class="articleCard_description"><p>Why layer order beats specificity wars.</p></div>
@@ -103,7 +103,7 @@ Everything else (borders, radius, colors, spacing) comes from the [card tokens](
 | `imageSrc`  | `ImageMetadata \| string` | `undefined` | Cover image (imported asset or URL/path).          |
 | `imageAlt`  | `string`                  | `""`        | Cover image alt text.                              |
 | `tags`      | `string[]`                | `[]`        | Tag names, rendered with the Tags component.       |
-| `tagsUrl`   | `string`                  | `"/tags"`   | Base URL for tag links.                            |
+| `tagsUrl`   | `string`                  | `"/blog/tags"`   | Base URL for tag links.                            |
 | `author`    | `string`                  | `undefined` | Byline name (also feeds the Avatar initials).      |
 | `avatarSrc` | `ImageMetadata \| string` | `undefined` | Byline avatar image.                               |
 | `date`      | `Date`                    | `undefined` | Publication date, rendered as a `<time>`.          |
