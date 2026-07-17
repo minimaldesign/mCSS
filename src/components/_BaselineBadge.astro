@@ -1,0 +1,27 @@
+---
+// Compact Baseline-status badge (homepage §4 showcase).
+// Same web-features dataset as _CanIUse.astro, badge only — receipts, not claims.
+import { features as webFeatures } from 'web-features';
+import baselineLimitedIcon from '../assets/icons/baseline-limited.svg?raw';
+import baselineNewlyIcon from '../assets/icons/baseline-newly.svg?raw';
+import baselineWidelyIcon from '../assets/icons/baseline-widely.svg?raw';
+
+interface Props {
+  // A web-features id, e.g. "cascade-layers", "light-dark"
+  feature: string;
+}
+
+const { feature } = Astro.props;
+const feat = (webFeatures as Record<string, any>)[feature];
+const baseline = feat?.status?.baseline ?? false; // 'high' | 'low' | false
+const year = feat?.status?.baseline_low_date?.split('-')[0];
+
+const icon = baseline === 'high' ? baselineWidelyIcon : baseline === 'low' ? baselineNewlyIcon : baselineLimitedIcon;
+const label = baseline === 'high' ? 'Baseline Widely available' : baseline === 'low' ? `Baseline ${year}` : 'Limited availability';
+const url = feat ? `https://github.com/web-platform-dx/web-features/blob/main/features/${feature}.yml` : undefined;
+---
+
+<a class={`baselineBadge baselineBadge-${baseline || 'limited'}`} href={url} target="_blank" rel="noopener noreferrer">
+  <Fragment set:html={icon} />
+  <span>{label}</span>
+</a>
