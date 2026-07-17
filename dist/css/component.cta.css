@@ -1,0 +1,71 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+/* CTA */
+
+.cta {
+  padding-block: var(--cta-spacing);
+  text-align: center;
+}
+
+/* Variants only swap the local custom properties (see agents/components.md) */
+
+.cta-filled {
+  background-color: var(--cta-filled-background-color);
+}
+
+.cta-primary {
+  background-color: var(--cta-primary-background-color);
+  color: var(--cta-primary-text-color);
+  /* Children (links, buttons…) follow the inverted surface */
+  --text-color: var(--cta-primary-text-color);
+  --link-color: var(--cta-primary-link-color);
+  --link-color-hover: var(--cta-primary-link-color-hover);
+  --cta-text-color: var(--cta-primary-text-color);
+}
+
+.cta_title {
+  margin-bottom: var(--xs3);
+  font-size: var(--display-md);
+}
+
+.cta_text {
+  max-width: 60ch;
+  margin-inline: auto;
+  margin-bottom: var(--sm3);
+  font-size: var(--text-lg);
+  color: var(--cta-text-color);
+}
+
+.cta_actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--xs3);
+}
+
+}

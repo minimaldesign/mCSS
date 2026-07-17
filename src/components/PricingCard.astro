@@ -1,0 +1,80 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import check from '../assets/icons/circle-check.svg?raw';
+
+interface Props extends HTMLAttributes<'article'> {
+  name: string;
+  price: string;
+  period?: string;
+  description?: string;
+  features?: string[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  highlighted?: boolean;
+  badge?: string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  name,
+  price,
+  period,
+  description,
+  features = [],
+  ctaLabel = 'Get started',
+  ctaHref,
+  highlighted = false,
+  badge,
+  class: className,
+  'data-testid': testId = 'pricingCard',
+  ...rest
+} = Astro.props as Props;
+---
+
+<!-- prettier-ignore -->
+<article
+  class:list={[
+    'card',
+    'pricingCard',
+    { 'pricingCard-highlighted': highlighted },
+    className,
+  ]}
+  data-testid={testId}
+  {...rest}
+>
+  <header class="pricingCard_header">
+    <h3 class="pricingCard_name">{name}</h3>
+    {badge && <span class="badge badge-primary">{badge}</span>}
+  </header>
+  <p class="pricingCard_price">
+    <span class="pricingCard_amount">{price}</span>
+    {period && <span class="pricingCard_period">{period}</span>}
+  </p>
+  {description && <p class="pricingCard_description">{description}</p>}
+  {
+    features.length > 0 && (
+      <ul class="pricingCard_features">
+        {features.map((feature) => (
+          <li>
+            <span class="pricingCard_check" aria-hidden="true">
+              <Fragment set:html={check} />
+            </span>
+            {feature}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    (ctaHref || Astro.slots.has('cta')) && (
+      <div class="pricingCard_cta">
+        <slot name="cta">
+          <a class:list={['bt', highlighted ? 'bt-primary' : 'bt-outline']} href={ctaHref}>
+            {ctaLabel}
+          </a>
+        </slot>
+      </div>
+    )
+  }
+</article>

@@ -184,6 +184,13 @@
   --avatar-status-dot-color-online: var(--yes-400);
 }
 
+/* Banner */
+
+:root {
+  --banner-color: var(--base-0);
+  --banner-background-color: light-dark(var(--primary-600), var(--primary-800));
+}
+
 /* Breadcrumbs */
 
 :root {
@@ -220,6 +227,21 @@
   --toggle-track-color: light-dark(var(--base-300), var(--base-700));
   --toggle-track-color-checked: var(--yes-400);
   --toggle-thumb-color: var(--body-background-color);
+}
+
+/* CTA */
+
+:root {
+  --cta-spacing: var(--xl3);
+  --cta-text-color: light-dark(var(--base-500), var(--base-400));
+  --cta-filled-background-color: light-dark(var(--base-50), var(--base-900));
+  --cta-primary-background-color: light-dark(
+    var(--primary-600),
+    var(--primary-900)
+  );
+  --cta-primary-text-color: var(--base-0);
+  --cta-primary-link-color: var(--primary-100);
+  --cta-primary-link-color-hover: var(--base-0);
 }
 
 /* FAQ */
@@ -328,6 +350,16 @@
   --notice-border-radius: var(--radius-lg);
 }
 
+/* Pricing */
+
+:root {
+  --pricingCard-highlight-border-color: light-dark(
+    var(--primary-600),
+    var(--primary-400)
+  );
+  --pricingCard-check-color: light-dark(var(--success-500), var(--success-400));
+}
+
 /* Read Progress Bar */
 
 :root {
@@ -357,6 +389,12 @@
   --section-primary-link-color-hover: var(--base-0);
   --section-primary-eyebrow-color: var(--primary-200);
   --section-primary-lede-color: var(--primary-100);
+}
+
+/* Testimonial */
+
+:root {
+  --testimonial-role-color: light-dark(var(--base-400), var(--base-500));
 }
 
 /* Tags */

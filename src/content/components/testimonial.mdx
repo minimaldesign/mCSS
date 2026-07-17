@@ -1,0 +1,112 @@
+---
+title: "Testimonial"
+lastUpdate: 2026-07-16
+version: 0.5
+type: "component"
+---
+
+import Testimonial from "../../components/Testimonial.astro";
+
+<section class="prose">
+
+The `.testimonial` component is a quote with attribution: a `figure` wrapping mCSS's already-styled `blockquote` and a byline composed from the [Avatar](/components/avatar) component (initials appear automatically when there is no photo). Pure HTML and CSS.
+
+<Testimonial name="Sonny Mueller" role="Design lead, Acme">
+  <p>We deleted four hundred lines of utility classes the week we switched. The cascade does the work now.</p>
+</Testimonial>
+
+### What to copy
+
+<div class="docs_oversizedTable">
+
+| File                                    | What it is                            | Source      |
+| --------------------------------------- | ------------------------------------- | ----------- |
+| `component.testimonial.css`              | Layout + byline styles                | [Github][1] |
+| `elements.text.css`                      | The `blockquote` styling (dependency) | [Github][2] |
+| `Testimonial.astro`, `Avatar.astro`      | The Astro components                  | [Github][3] |
+| `--testimonial-role-color` in default theme | Theme token                       | [Github][4] |
+
+</div>
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.testimonial.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/elements.text.css
+[3]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+
+</section>
+
+## HTML
+
+<section class="prose">
+
+```html
+<figure class="testimonial">
+  <blockquote class="testimonial_quote">
+    <p>We deleted four hundred lines of utility classes the week we switched.</p>
+  </blockquote>
+  <figcaption class="testimonial_byline">
+    <!-- avatar markup, see the Avatar docs -->
+    <div>
+      <span class="testimonial_name">Sonny Mueller</span>
+      <span class="testimonial_role">Design lead, Acme</span>
+    </div>
+  </figcaption>
+</figure>
+```
+
+### Custom properties
+
+<div class="docs_oversizedTable">
+
+| Property                   | Description       |
+| -------------------------- | ----------------- |
+| `--testimonial-role-color` | Role text color.  |
+
+The quote itself is themed by the `blockquote` element styles.
+
+</div>
+
+</section>
+
+## Astro component
+
+<div class="docs_oversizedTable prose">
+
+| Prop        | Type                      | Default     | Description                                     |
+| ----------- | ------------------------- | ----------- | ------------------------------------------------ |
+| `name`      | `string`                  | —           | Who said it. Required (also feeds the initials). |
+| `role`      | `string`                  | `undefined` | Title/company line.                              |
+| `avatarSrc` | `ImageMetadata \| string` | `undefined` | Photo for the Avatar.                            |
+| `class`     | `string`                  | `undefined` | Additional CSS classes.                          |
+
+The default slot is the quote.
+
+</div>
+
+## Examples
+
+A wall of quotes is just testimonials on the [grid](/docs/global#grid):
+
+<div class="grid" col="1" col-md="3">
+  <Testimonial name="Ada Chen" role="Freelance">
+    <p>The copy-paste model means I actually own my components.</p>
+  </Testimonial>
+  <Testimonial name="Sam Ortiz">
+    <p>Readable class names. Imagine that.</p>
+  </Testimonial>
+  <Testimonial name="Mia Kim" role="Founder, Studio K">
+    <p>Shipped our marketing site in a weekend.</p>
+  </Testimonial>
+</div>
+
+```astro
+---
+import Testimonial from "../components/Testimonial.astro";
+---
+<div class="grid" col="1" col-md="3">
+  <Testimonial name="Ada Chen" role="Freelance">
+    <p>The copy-paste model means I actually own my components.</p>
+  </Testimonial>
+  <!-- … -->
+</div>
+```

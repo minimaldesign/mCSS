@@ -1,0 +1,41 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { ImageMetadata } from 'astro';
+import Avatar from './Avatar.astro';
+
+// `role` here is the person's job title, so the ARIA attribute is omitted
+interface Props extends Omit<HTMLAttributes<'figure'>, 'role'> {
+  name: string;
+  role?: string;
+  avatarSrc?: ImageMetadata | string;
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  name,
+  role,
+  avatarSrc,
+  class: className,
+  'data-testid': testId = 'testimonial',
+  ...rest
+} = Astro.props as Props;
+---
+
+<!-- prettier-ignore -->
+<figure
+  class:list={['testimonial', className]}
+  data-testid={testId}
+  {...rest}
+>
+  <blockquote class="testimonial_quote">
+    <slot />
+  </blockquote>
+  <figcaption class="testimonial_byline">
+    <Avatar size="sm" imageSrc={avatarSrc}>{name}</Avatar>
+    <div>
+      <span class="testimonial_name">{name}</span>
+      {role && <span class="testimonial_role">{role}</span>}
+    </div>
+  </figcaption>
+</figure>

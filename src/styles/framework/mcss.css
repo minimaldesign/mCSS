@@ -48,8 +48,10 @@
 /* Component library styles */
 @import url(./component.articleCard.css) layer(components);
 @import url(./component.avatar.css) layer(components);
+@import url(./component.banner.css) layer(components);
 @import url(./component.breadcrumbs.css) layer(components);
 @import url(./component.card.css) layer(components);
+@import url(./component.cta.css) layer(components);
 @import url(./component.faq.css) layer(components);
 @import url(./component.featureGrid.css) layer(components);
 @import url(./component.field.css) layer(components);
@@ -59,6 +61,8 @@
 @import url(./component.hero.css) layer(components);
 @import url(./component.pagination.css) layer(components);
 @import url(./component.prevNext.css) layer(components);
+@import url(./component.pricing.css) layer(components);
+@import url(./component.testimonial.css) layer(components);
 @import url(./component.readProgressBar.css) layer(components);
 @import url(./component.notice.css) layer(components);
 @import url(./component.socialMedia.css) layer(components);
