@@ -21,7 +21,8 @@ Type something that isn't an email address and tab away: the hint swaps for the 
 
 | File                                | Description                             | Source      |
 | ----------------------------------- | ---------------------------------------- | ----------- |
-| `component.field.css`               | Field + fieldRow composition and states  | [Github][1] |
+| `component.field.css`               | Field structure and states               | [Github][1] |
+| `component.fieldRow.css`            | fieldRow composition (own block)         | [Github][5] |
 | `elements.form.css`                 | Bare element styles + `:user-invalid` border | [Github][2] |
 | `Field.astro`                       | The Astro component                      | [Github][3] |
 | `--field-*` block in default theme  | Theme tokens (see table below)           | [Github][4] |
@@ -32,6 +33,7 @@ Type something that isn't an email address and tab away: the hint swaps for the 
 [2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/elements.form.css
 [3]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Field.astro
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+[5]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.fieldRow.css
 
 </section>
 
@@ -98,16 +100,16 @@ To use another control (textarea, select…), put it in the default slot and giv
 
 ### Newsletter signup
 
-`.fieldRow` lines fields and buttons up on one wrapping row:
+`.fieldRow` lines fields and buttons up on one wrapping row. Mix `.fieldRow_field` onto each field that should stretch:
 
 <form class="fieldRow">
-  <Field label="Email" name="newsletter-email" type="email" required placeholder="you@example.com" error="That doesn't look like an email address." />
+  <Field class="fieldRow_field" label="Email" name="newsletter-email" type="email" required placeholder="you@example.com" error="That doesn't look like an email address." />
   <button class="bt bt-primary" type="submit">Subscribe</button>
 </form>
 
 ```html
 <form class="fieldRow" method="post" action="/subscribe">
-  <div class="field">
+  <div class="field fieldRow_field">
     <label for="email">Email</label>
     <input id="email" name="email" type="email" required />
   </div>

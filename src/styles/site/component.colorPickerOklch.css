@@ -18,7 +18,7 @@
     gap: var(--sm2);
   }
 
-  .caption {
+  .colorPickerOklch_caption {
     font-weight: var(--bold);
     text-transform: uppercase;
     letter-spacing: var(--tracking-lg);
@@ -26,14 +26,14 @@
   }
 
   /* HUE */
-  .color-wheel-container {
+  .colorPickerOklch_wheelContainer {
     position: relative;
     width: 220px;
     height: 220px;
     margin: 24px auto;
   }
 
-  .color-wheel {
+  .colorPickerOklch_wheel {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -45,7 +45,7 @@
     border: 1px solid rgba(0, 0, 0, 0.06);
   }
 
-  .color-wheel-center {
+  .colorPickerOklch_wheelCenter {
     position: absolute;
     width: 170px;
     aspect-ratio: 1/1;
@@ -62,7 +62,7 @@
     }
   }
 
-  .hue-marker {
+  .colorPickerOklch_hueMarker {
     position: absolute;
     width: 18px;
     height: 18px;
@@ -78,13 +78,13 @@
 
   /* LIGHTNESS / CHROMA */
 
-  .sliders > div {
+  .colorPickerOklch_sliders > div {
     &:first-child {
       margin-bottom: var(--md2);
     }
   }
 
-  .control-label {
+  .colorPickerOklch_controlLabel {
     display: flex;
     justify-content: space-between;
 
@@ -162,7 +162,7 @@
 
   /* SWATCH & VALUES */
 
-  .color-display {
+  .colorPickerOklch_colorDisplay {
     position: relative;
     height: 100%;
     min-height: 100px;
@@ -174,7 +174,7 @@
     }
   }
 
-  .gamut-warning {
+  .colorPickerOklch_gamutWarning {
     display: none;
     position: absolute;
     top: var(--xs3);
@@ -188,12 +188,12 @@
     animation: gamutWarningFadeIn var(--transition);
   }
 
-  .gamut-warning.show {
+  .colorPickerOklch_gamutWarning.is-visible {
     display: flex;
     align-items: center;
   }
 
-  .color-value {
+  .colorPickerOklch_colorValue {
     padding: var(--sm1);
     border-radius: var(--radius-sm);
     background-color: var(--base-900);

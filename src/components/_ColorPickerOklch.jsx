@@ -127,28 +127,28 @@ export default function ColorPickerOklch() {
 
   return (
     <div class="colorPickerOklch not-prose">
-      <div class="control-group">
-        <div class="control-label" />
-        <div class="color-wheel-container" ref={containerRef}>
+      <div class="colorPickerOklch_controlGroup">
+        <div class="colorPickerOklch_controlLabel" />
+        <div class="colorPickerOklch_wheelContainer" ref={containerRef}>
           <canvas
-            class="color-wheel"
+            class="colorPickerOklch_wheel"
             ref={canvasRef}
             width={200}
             height={200}
           />
-          <div class="color-wheel-center">
+          <div class="colorPickerOklch_wheelCenter">
             <div>
-              <div class="caption">Hue</div>
+              <div class="colorPickerOklch_caption">Hue</div>
               <div>{hue.toFixed(2)}&deg;</div>
             </div>
           </div>
-          <div class="hue-marker" style={getMarkerStyle()} />
+          <div class="colorPickerOklch_hueMarker" style={getMarkerStyle()} />
         </div>
       </div>
 
-      <div class="sliders">
-        <div class="control-group">
-          <div class="control-label">
+      <div class="colorPickerOklch_sliders">
+        <div class="colorPickerOklch_controlGroup">
+          <div class="colorPickerOklch_controlLabel">
             <span>Lightness</span>
             <span>{lightness.toFixed(2)}</span>
           </div>
@@ -162,8 +162,8 @@ export default function ColorPickerOklch() {
           />
         </div>
 
-        <div class="control-group">
-          <div class="control-label">
+        <div class="colorPickerOklch_controlGroup">
+          <div class="colorPickerOklch_controlLabel">
             <span>Chroma</span>
             <span>{chroma.toFixed(2)}</span>
           </div>
@@ -178,12 +178,12 @@ export default function ColorPickerOklch() {
         </div>
       </div>
 
-      <div class="color-display" style={{ backgroundColor: colorString }}>
-        <div class={`gamut-warning${outOfGamut ? " show" : ""}`}>
+      <div class="colorPickerOklch_colorDisplay" style={{ backgroundColor: colorString }}>
+        <div class={`colorPickerOklch_gamutWarning${outOfGamut ? " is-visible" : ""}`}>
           ⚠️ Gamut correction
         </div>
       </div>
-      <pre class="color-value">
+      <pre class="colorPickerOklch_colorValue">
         {highlightedCss ? (
           <code dangerouslySetInnerHTML={{ __html: highlightedCss }} />
         ) : (

@@ -1,0 +1,15 @@
+/* FIELD ROW */
+
+/* Inline composition: fields and buttons on one wrapping row
+   (newsletter signup, search bar…). Mix .fieldRow_field onto each field:
+   fieldRow never reaches into the field block itself. */
+.fieldRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--xs3);
+}
+
+.fieldRow_field {
+  flex: 1 1 200px;
+}

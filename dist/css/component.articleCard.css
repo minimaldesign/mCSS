@@ -105,17 +105,4 @@ xxl: 1920px
   font-weight: var(--semi-bold);
 }
 
-/* POST LIST */
-
-.postList {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-  .postList  > li {
-    /* grid items stretch, so cards in a row share the same height */
-    display: grid;
-  }
-
 }

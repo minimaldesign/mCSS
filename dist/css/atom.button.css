@@ -110,6 +110,16 @@ xxl: 1920px
     --bt-border-color-hover: var(--base-0);
   }
 
+  /* Solid inverse for colored/gradient surfaces (pairs with bt-outline-white) */
+  .bt-white:is(.button,.bt) {
+    --bt-color: var(--primary-700);
+    --bt-color-hover: var(--primary-600);
+    --bt-background-color: var(--base-0);
+    --bt-background-color-hover: var(--primary-50);
+    --bt-border-color: var(--base-0);
+    --bt-border-color-hover: var(--base-0);
+  }
+
   .bt-primary:is(.button,.bt) {
     --bt-color: var(--bt-primary-color);
     --bt-color-hover: var(--bt-primary-color-hover);

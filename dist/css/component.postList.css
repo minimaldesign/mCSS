@@ -25,12 +25,17 @@ xxl: 1920px
 /* truncate single line of text and adds … */
 
 @layer components {
-/* FEATURE GRID */
+/* POST LIST */
 
-.featureGrid {
+.postList {
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
+  .postList  > li {
+    /* grid items stretch, so cards in a row share the same height */
+    display: grid;
+  }
 
 }

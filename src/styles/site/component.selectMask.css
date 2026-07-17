@@ -1,7 +1,7 @@
 .selectMask {
-  --sm-icon: 24px;
-  --sm-split-1px: calc(100% - var(--sm-icon) - 1px);
-  --sm-red: rgb(from var(--no-500) r g b / 0.7);
+  --selectMask-icon: 24px;
+  --selectMask-split-1px: calc(100% - var(--selectMask-icon) - 1px);
+  --selectMask-red: rgb(from var(--no-500) r g b / 0.7);
 
   margin: var(--md1) auto;
   padding: var(--sm3);
@@ -57,42 +57,41 @@
   }
 
   /* No layers active: hide everything to show an empty field */
-  .sm_noMask .selectMask_redOverlay,
-  .sm_noMask .selectMask_fieldText {
+  .selectMask_field.is-noMask :is(.selectMask_redOverlay, .selectMask_fieldText) {
     visibility: hidden;
   }
 
   /* Layer previews: red background + mask to show each layer's shape */
 
   /* Layer 1 (padding-box): only the chevron strokes */
-  .sm_l1 {
+  .selectMask_l1 {
     position: absolute;
     inset: 0;
-    background: var(--sm-red);
+    background: var(--selectMask-red);
     mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E");
-    mask-size: var(--sm-icon);
+    mask-size: var(--selectMask-icon);
     mask-position: calc(100% - var(--xs1)) center;
     mask-repeat: no-repeat;
   }
 
   /* Layer 2 (padding-box): only the right strip */
-  .sm_l2 {
+  .selectMask_l2 {
     position: absolute;
     inset: 0;
-    background: var(--sm-red);
+    background: var(--selectMask-red);
     mask-image: linear-gradient(
       to right,
-      transparent var(--sm-split-1px),
+      transparent var(--selectMask-split-1px),
       red 0
     );
   }
 
   /* Layer 3 (border-box): extends beyond the dotted border */
-  .sm_l3 {
+  .selectMask_l3 {
     position: absolute;
     inset: -1px;
     border-radius: var(--input-border-radius);
-    background: var(--sm-red);
+    background: var(--selectMask-red);
   }
 
   /* Combined view: mask applied via inline style on the field itself. */
@@ -100,7 +99,7 @@
   .selectMask_redOverlay {
     position: absolute;
     inset: -1px;
-    background: var(--sm-red);
+    background: var(--selectMask-red);
     border-radius: inherit;
   }
 

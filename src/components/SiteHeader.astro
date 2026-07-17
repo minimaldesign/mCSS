@@ -43,12 +43,12 @@ const navItems: NavItem[] = [
 ];
 ---
 
-<Header navItems={navItems} sticky class="siteHeader">
+<Header navItems={navItems} sticky class="header-site">
   <a slot="logo" class="header_logo" href="/">
     <Fragment set:html={logoImg} /> mCSS
   </a>
   <ThemeToggle slot="actions" />
-  <div slot="menu" class="siteHeader_themeToggle">
+  <div slot="menu" class="menuThemeToggle">
     <ThemeToggle />
   </div>
 </Header>

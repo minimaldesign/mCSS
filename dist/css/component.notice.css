@@ -100,4 +100,12 @@ xxl: 1920px
   --code-bg-color: var(--yes-200);
 }
 
+/* Heading-adjacent margin mirrors the prose rhythm in global.prose.css
+   (prose can't reach into component classes, so the notice owns this rule) */
+@scope (.prose) to (.not-prose) {
+  .notice:has(+ :is(h1, h2, h3, h4)) {
+    margin-bottom: calc(var(--prose-spacing) * 2);
+  }
+}
+
 }

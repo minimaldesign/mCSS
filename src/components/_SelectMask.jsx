@@ -75,7 +75,7 @@ export default function SelectMask() {
         {LAYERS.map(({ key, label, sub }) => (
           <div key={key} class="selectMask_col">
             <div class="selectMask_field">
-              <div class={`sm_${key}`} />
+              <div class={`selectMask_${key}`} />
             </div>
             <label class="selectMask_toggle">
               <input
@@ -92,7 +92,7 @@ export default function SelectMask() {
         ))}
       </div>
       <div
-        class={`selectMask_field selectMask_field-combined${anyOn ? "" : " sm_noMask"}`}
+        class={`selectMask_field selectMask_field-combined${anyOn ? "" : " is-noMask"}`}
         style={maskStyle}
       >
         <div class="selectMask_redOverlay" />

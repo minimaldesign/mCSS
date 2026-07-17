@@ -1,7 +1,8 @@
 /* Site-specific overrides of the library header (framework/component.header.css).
-   Scoped to .siteHeader so headers embedded in docs demos stay untouched. */
+   Applied as the .header-site modifier so headers embedded in docs demos
+   stay untouched. */
 
-.header.siteHeader {
+.header-site {
   @media (--md) {
     display: grid;
     grid-template-columns: var(--layout-aside-width) 1fr max-content;
@@ -31,27 +32,5 @@
     @media (--md) {
       padding-right: var(--sm3);
     }
-  }
-}
-
-/* Theme toggle wrapper inside the mobile menu (Header's "menu" slot) */
-.siteHeader_themeToggle {
-  padding: var(--xs3);
-  border: 1px solid var(--theme-border-color);
-  border-radius: var(--radius-lg);
-  background-color: var(--body-background-color);
-}
-
-/* ThemeToggle component (rendered in the header and the mobile menu) */
-.themeToggle {
-  display: flex;
-  align-items: center;
-  gap: var(--sm3);
-  cursor: pointer;
-}
-
-.themeToggle_text {
-  @media (--md) {
-    display: none;
   }
 }
