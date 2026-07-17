@@ -9,6 +9,8 @@
 /* Poster-grade vertical rhythm (denser than the docs pages) */
 .home .section {
   --section-spacing: var(--xl1);
+  /* Mobile gutters match the footer's (24px) so every section aligns */
+  --wrap-spacing: var(--sm3);
   @media (--lg) {
     --section-spacing: var(--xxl1);
   }
@@ -24,10 +26,9 @@
   width: 100%;
   max-width: 1150px;
   margin-inline: auto;
-  @media (--lg) {
-    padding-left: var(--sm3);
-    padding-right: var(--sm3);
-  }
+  /* Same gutters as the footer at every width */
+  padding-left: var(--sm3);
+  padding-right: var(--sm3);
 }
 
 /* Scroll reveal: one effect, used consistently. Decoration only; browsers
@@ -57,10 +58,7 @@
   align-content: center;
   min-height: calc(72svh - var(--header-height));
   padding-block: var(--lg1) var(--sm3);
-  padding-inline: var(--sm1);
-  @media (--md) {
-    padding-inline: var(--sm3);
-  }
+  padding-inline: var(--sm3);
 }
 
 .homeHero_inner {
@@ -77,6 +75,23 @@
 }
 
 .homeHero_copy {
+  /* Below the two-column layout the copy centers */
+  @media (--lg-n-below) {
+    text-align: center;
+
+    h1 {
+      margin-inline: auto;
+    }
+
+    .homeHero_subhead {
+      margin-inline: auto;
+    }
+
+    .homeHero_actions {
+      justify-content: center;
+    }
+  }
+
   h1 {
     /* Gradient-clipped text; light-dark() per stop keeps both themes AA
        (postcss-mixins can't see display-gradient from another file).
@@ -571,8 +586,9 @@
   font-family: var(--mono);
   font-size: var(--text-xs);
   color: light-dark(var(--base-500), var(--base-400));
-  @media (--sm-n-below) {
-    flex-direction: column;
+  /* Stays on one line on small screens (like the hero fineprint) */
+  @media (--md-n-below) {
+    gap: var(--xs3);
   }
 }
 
@@ -582,6 +598,10 @@
 .homePillars {
   @media (--md) {
     --grid-tc: repeat(3, 1fr);
+  }
+
+  .featureItem_title {
+    text-align: center;
   }
 
   /* Large flat illustrations instead of the 48px icon box */
@@ -604,9 +624,10 @@
 /* §4 MODERN CSS SHOWCASE */
 
 .homeShowcase_grid {
-  /* margin-block only: the shared wide rule above owns margin-inline: auto */
+  /* margin-block and padding-block only: the shared wide rule above owns
+     margin-inline: auto and the inline padding */
   margin-block: 0;
-  padding: 0;
+  padding-block: 0;
   list-style: none;
 }
 
@@ -745,6 +766,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--md2);
+  /* Re-declared from the tokens so the demo themes can override the body
+     font and base size (body resolves --text at :root, out of demo reach) */
+  font-family: var(--text);
+  font-size: var(--text-md);
   padding: var(--md2);
   background-color: light-dark(var(--base-0), var(--base-950));
   border: var(--border-sm) solid var(--theme-border-color);
@@ -781,8 +806,11 @@
 
 .homeThemer:has(input[value="sunset"]:checked) .homeThemer_stage {
   --heading-font: "Iowan Old Style", Georgia, serif;
+  --text: Georgia, "Times New Roman", serif;
+  --text-md: 1.05rem;
+  --text-lg: 1.3rem;
   --text-color: light-dark(#431407, #ffedd5);
-  --card-bg-color: light-dark(#fff7ed, #431407);
+  --card-bg-color: light-dark(#fef9c3, #431407);
   --card-border-radius: 16px;
   --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
   --bt-primary-background-color: #ea580c;
@@ -851,7 +879,7 @@
   display: grid;
   gap: var(--sm3);
   margin-block: 0;
-  padding: 0;
+  padding-block: 0;
   list-style: none;
   @media (--md) {
     grid-template-columns: repeat(2, 1fr);
