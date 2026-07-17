@@ -1,6 +1,12 @@
 .avatar {
   --avatar-size: var(--xl1);
   --avatar-font-size: var(--text-md);
+  /* Status dot defaults live on the block (not on .is-online/.is-offline,
+     which would out-specify them) so the size modifiers below can override. */
+  --status-dot-size: var(--xs3);
+  --status-dot-position: 4%;
+  --status-dot-border-width: 2px;
+  --status-dot-border-color: var(--body-background-color);
   position: relative;
   display: inline-block;
   width: var(--avatar-size);
@@ -21,11 +27,6 @@
 
   &.is-online,
   &.is-offline {
-    --status-dot-size: var(--xs3);
-    --status-dot-position: 4%;
-    --status-dot-border-width: 2px;
-    --status-dot-border-color: var(--body-background-color);
-
     &:after {
       content: "";
       display: block;
