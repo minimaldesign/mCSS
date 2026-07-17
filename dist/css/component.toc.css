@@ -1,0 +1,88 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer components {
+  /* we hide the TOC if there is less than 2 item */
+  .toc:not(:has(li:nth-of-type(2))) {
+    display: none;
+  }
+
+  .toc p {
+    margin-bottom: var(--xs2);
+  }
+
+  .toc ul {
+    font-size: var(--text-sm);
+  }
+    :is(.toc ul) ul {
+      margin-left: var(--toc-indentation);
+    }
+
+  .toc > ul > li:first-child > a:first-child {
+    padding-top: 0;
+  }
+
+  .toc a {
+    display: flex;
+    align-items: center;
+    padding-top: calc(var(--toc-spacing) / 2);
+    padding-bottom: calc(var(--toc-spacing) / 2);
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    color: var(--toc-color);
+    transition: all var(--transition);
+  }
+    :is(.toc a):hover {
+      color: var(--toc-color-hover);
+    }
+
+    :is(.toc a) span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .is-active:is(.toc a) {
+      color: var(--toc-color-hover);
+    }
+      .is-active:is(.toc a) svg {
+        transform: translateX(calc(var(--xs1) * -1));
+        opacity: var(--o-5);
+      }
+  .toc-icon a {
+    margin-left: calc(var(--toc-icon-size) * -1);
+  }
+
+  .toc-icon svg {
+    width: var(--toc-icon-size);
+    height: var(--toc-icon-size);
+    flex-shrink: 0;
+    opacity: var(--o-0);
+    transform: translateX(calc(var(--toc-icon-size) * -1));
+    transition: opacity var(--transition), transform var(--transition);
+  }
+
+}

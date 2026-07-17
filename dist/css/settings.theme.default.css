@@ -1,0 +1,623 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer settings {
+/* DEFAULT THEME */
+
+:root {
+  --csstools-color-scheme--light: initial;
+  color-scheme: light dark;
+
+  --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-500);
+
+  --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-200));
+  --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(0 0 0 / 0.6);
+  --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.1));
+
+  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css) */
+  --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--primary-400);
+  --focus-ring-color: var(--csstools-light-dark-toggle--2, var(--primary-500));
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Semantic feedback aliases over the raw feedback palettes.
+     Prefer these in components and themes; a theme can restyle feedback by
+     overriding the aliases without touching the raw scales. */
+  --success-100: var(--yes-100);
+  --success-200: var(--yes-200);
+  --success-300: var(--yes-300);
+  --success-400: var(--yes-400);
+  --success-500: var(--yes-500);
+  --danger-100: var(--no-100);
+  --danger-200: var(--no-200);
+  --danger-300: var(--no-300);
+  --danger-400: var(--no-400);
+  --danger-500: var(--no-500);
+  --warning-100: var(--maybe-100);
+  --warning-200: var(--maybe-200);
+  --warning-300: var(--maybe-300);
+  --warning-400: var(--maybe-400);
+  --warning-500: var(--maybe-500);
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+
+  --theme-border-color: light-dark(var(--base-200), var(--base-500));
+}
+}
+
+@supports (color: light-dark(red, red)) and (color: rgb(0 0 0 / 0)) {
+:root {
+  --theme-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
+}
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+
+  --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-500);
+
+  --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-200));
+  --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(0 0 0 / 0.6);
+  --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.1));
+  --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--primary-400);
+  --focus-ring-color: var(--csstools-light-dark-toggle--2, var(--primary-500));
+
+}
+
+}
+
+@media (prefers-color-scheme: dark) {
+
+:root {
+  --csstools-color-scheme--light:  ;
+}
+
+}
+
+:root.theme-light {
+  --csstools-color-scheme--light: initial;
+  color-scheme: light;
+}
+
+:root.theme-dark {
+  --csstools-color-scheme--light:  ;
+  color-scheme: dark;
+}
+
+/* HTML ELEMENTS */
+
+:root {
+  accent-color: var(--primary-500);
+
+  --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-950);
+
+  --body-background-color: var(--csstools-light-dark-toggle--3, var(--base-0));
+
+  --input-height: var(--md3);
+  --input-padding: var(--xs3);
+  --input-border-radius: var(--radius-md);
+
+  --dialog-backdrop-color: var(--base-950);
+  --dialog-backdrop-opacity: var(--o-4);
+
+  --table-padding: var(--xs2) var(--sm1);
+  --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) var(--base-700);
+  --table-border-color: var(--csstools-light-dark-toggle--4, var(--base-100));
+  --table-border-radius: var(--radius-md);
+  --table-background-color: none;
+
+  /* Text */
+
+  --heading-font: var(--display);
+  --heading-weight: var(--black);
+  --heading-line-height: var(--leading-sm);
+
+  --csstools-light-dark-toggle--5: var(--csstools-color-scheme--light) var(--base-200);
+
+  --text-color: var(--csstools-light-dark-toggle--5, var(--base-950));
+  --csstools-light-dark-toggle--6: var(--csstools-color-scheme--light) var(--primary-400);
+  --link-color: var(--csstools-light-dark-toggle--6, var(--primary-600));
+  --link-color-hover: var(--primary-500);
+
+  --csstools-light-dark-toggle--7: var(--csstools-color-scheme--light) var(--primary-400);
+
+  --text-code-color: var(--csstools-light-dark-toggle--7, var(--primary-600));
+  --csstools-light-dark-toggle--8: var(--csstools-color-scheme--light) var(--primary-900);
+  --text-code-background-color: var(--csstools-light-dark-toggle--8, var(--primary-100));
+
+  /* .prose related stuff in GLOBAL */
+
+  --marker-color: #ffee00;
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+
+  --body-background-color: light-dark(var(--base-0), var(--base-950));
+  --table-border-color: light-dark(var(--base-100), var(--base-700));
+
+  --text-color: light-dark(var(--base-950), var(--base-200));
+  --link-color: light-dark(var(--primary-600), var(--primary-400));
+
+  --text-code-color: light-dark(var(--primary-600), var(--primary-400));
+  --text-code-background-color: light-dark(
+    var(--primary-100),
+    var(--primary-900)
+  );
+}
+}
+
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+
+  --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-950);
+
+  --body-background-color: var(--csstools-light-dark-toggle--3, var(--base-0));
+  --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) var(--base-700);
+  --table-border-color: var(--csstools-light-dark-toggle--4, var(--base-100));
+
+  --csstools-light-dark-toggle--5: var(--csstools-color-scheme--light) var(--base-200);
+
+  --text-color: var(--csstools-light-dark-toggle--5, var(--base-950));
+  --csstools-light-dark-toggle--6: var(--csstools-color-scheme--light) var(--primary-400);
+  --link-color: var(--csstools-light-dark-toggle--6, var(--primary-600));
+
+  --csstools-light-dark-toggle--7: var(--csstools-color-scheme--light) var(--primary-400);
+
+  --text-code-color: var(--csstools-light-dark-toggle--7, var(--primary-600));
+  --csstools-light-dark-toggle--8: var(--csstools-color-scheme--light) var(--primary-900);
+  --text-code-background-color: var(--csstools-light-dark-toggle--8, var(--primary-100));
+
+}
+
+}
+
+/* GLOBAL */
+
+:root {
+  --grid-column-gap: var(--sm3);
+  --grid-row-gap: var(--sm3);
+
+  --wrap-spacing: var(--sm1);
+  --wrap-md-spacing: var(--sm3);
+  --wrap-lg-spacing: 0;
+  --wrap-width: minmax(200px, 70ch);
+
+  --layout-aside-width: 245px;
+  --layout-aside-background-color: var(--base-100);
+
+  --prose-spacing: var(--sm1);
+}
+
+/* ATOMS */
+
+/* Button */
+/* (Button defaults and primary button colors) */
+
+:root {
+  --bt-min-width: 101px;
+  --bt-min-width-md: 123px;
+  --bt-min-width-lg: 133px;
+  --bt-font-size: var(--text-sm);
+  --bt-font-size-lg: var(--text-md);
+  --bt-font-weight: var(--semi-bold);
+  --bt-color: var(--text-color);
+  --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-color-hover: var(--csstools-light-dark-toggle--9, var(--text-color));
+  --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--base-800);
+  --bt-background-color: var(--csstools-light-dark-toggle--10, var(--base-0));
+  --csstools-light-dark-toggle--11: var(--csstools-color-scheme--light) var(--base-900);
+  --bt-background-color-hover: var(--csstools-light-dark-toggle--11, var(--base-50));
+  --bt-border-color: var(--theme-border-color);
+  --bt-border-width: var(--border-sm);
+  --bt-border-radius: var(--radius-lg);
+  --bt-border-radius-lg: var(--radius-xl);
+
+  --csstools-light-dark-toggle--12: var(--csstools-color-scheme--light) var(--base-0);
+
+  --bt-outline-color-hover: var(--csstools-light-dark-toggle--12, var(--base-950));
+  --csstools-light-dark-toggle--13: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.1);
+  --bt-outline-background-color-hover: var(--csstools-light-dark-toggle--13, rgb(0 0 0 / 0.1));
+  --csstools-light-dark-toggle--14: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color: var(--csstools-light-dark-toggle--14, var(--base-950));
+  --csstools-light-dark-toggle--15: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color-hover: var(--csstools-light-dark-toggle--15, var(--base-950));
+
+  --bt-primary-color: var(--base-0);
+  --bt-primary-color-hover: var(--base-0);
+  --bt-primary-background-color: var(--primary-600);
+  --bt-primary-background-color-hover: var(--primary-500);
+  --bt-primary-border-color: var(--primary-600);
+  --bt-primary-border-color-hover: var(--primary-600);
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --bt-color-hover: light-dark(var(--text-color), var(--base-0));
+  --bt-background-color: light-dark(var(--base-0), var(--base-800));
+  --bt-background-color-hover: light-dark(var(--base-50), var(--base-900));
+
+  --bt-outline-color-hover: light-dark(var(--base-950), var(--base-0));
+}
+}
+
+@supports (color: light-dark(red, red)) and (color: rgb(0 0 0 / 0)) {
+:root {
+  --bt-outline-background-color-hover: light-dark(
+    rgb(0 0 0 / 0.1),
+    rgb(255 255 255 / 0.1)
+  );
+}
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --bt-outline-border-color: light-dark(var(--base-950), var(--base-0));
+  --bt-outline-border-color-hover: light-dark(var(--base-950), var(--base-0));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-color-hover: var(--csstools-light-dark-toggle--9, var(--text-color));
+  --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--base-800);
+  --bt-background-color: var(--csstools-light-dark-toggle--10, var(--base-0));
+  --csstools-light-dark-toggle--11: var(--csstools-color-scheme--light) var(--base-900);
+  --bt-background-color-hover: var(--csstools-light-dark-toggle--11, var(--base-50));
+
+  --csstools-light-dark-toggle--12: var(--csstools-color-scheme--light) var(--base-0);
+
+  --bt-outline-color-hover: var(--csstools-light-dark-toggle--12, var(--base-950));
+  --csstools-light-dark-toggle--13: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.1);
+  --bt-outline-background-color-hover: var(--csstools-light-dark-toggle--13, rgb(0 0 0 / 0.1));
+  --csstools-light-dark-toggle--14: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color: var(--csstools-light-dark-toggle--14, var(--base-950));
+  --csstools-light-dark-toggle--15: var(--csstools-color-scheme--light) var(--base-0);
+  --bt-outline-border-color-hover: var(--csstools-light-dark-toggle--15, var(--base-950));
+
+}
+
+}
+
+/* COMPONENTS */
+
+/* Avatar */
+
+:root {
+  --avatar-color: var(--base-0);
+  --avatar-background-color: var(--base-400);
+  --csstools-light-dark-toggle--16: var(--csstools-color-scheme--light) var(--base-500);
+  --avatar-border-color: var(--csstools-light-dark-toggle--16, var(--base-0));
+  --avatar-border-width: var(--border-sm);
+  --avatar-radius: var(--radius-round);
+  --avatar-status-dot-color-offline: var(--base-300);
+  --avatar-status-dot-color-online: var(--yes-400);
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --avatar-border-color: light-dark(var(--base-0), var(--base-500));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--16: var(--csstools-color-scheme--light) var(--base-500);
+  --avatar-border-color: var(--csstools-light-dark-toggle--16, var(--base-0));
+
+}
+
+}
+
+/* Card */
+
+:root {
+  --card-spacing: var(--sm3);
+  --card-color: var(--text-color);
+  --csstools-light-dark-toggle--17: var(--csstools-color-scheme--light) var(--base-500);
+  --card-secondary-text-color: var(--csstools-light-dark-toggle--17, var(--base-400));
+  --csstools-light-dark-toggle--18: var(--csstools-color-scheme--light) var(--base-900);
+  --card-bg-color: var(--csstools-light-dark-toggle--18, var(--base-100));
+  --card-border-radius: var(--radius-lg);
+  --card-border-color: var(--theme-border-color);
+  --card-border-width: var(--border-sm);
+  --card-shadow: var(--shadow-md);
+  --card-shadow-hover: var(--shadow-xl);
+  --csstools-light-dark-toggle--19: var(--csstools-color-scheme--light) var(--base-600);
+  --card-badge-bg: var(--csstools-light-dark-toggle--19, var(--base-700)); /* Default badge background */
+  --card-badge-text-color: var(--base-0); /* Default badge text color */
+  --csstools-light-dark-toggle--20: var(--csstools-color-scheme--light) var(--base-900);
+  --card-loading-bg: var(--csstools-light-dark-toggle--20, var(--base-200));
+  /* Default media aspect ratio; the Card component sets it inline from its
+     aspectRatio prop */
+  --card-aspect-ratio: var(--ar-golden);
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --card-secondary-text-color: light-dark(var(--base-400), var(--base-500));
+  --card-bg-color: light-dark(var(--base-100), var(--base-900));
+  --card-badge-bg: light-dark(
+    var(--base-700),
+    var(--base-600)
+  );
+  --card-loading-bg: light-dark(var(--base-200), var(--base-900));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--17: var(--csstools-color-scheme--light) var(--base-500);
+  --card-secondary-text-color: var(--csstools-light-dark-toggle--17, var(--base-400));
+  --csstools-light-dark-toggle--18: var(--csstools-color-scheme--light) var(--base-900);
+  --card-bg-color: var(--csstools-light-dark-toggle--18, var(--base-100));
+  --csstools-light-dark-toggle--19: var(--csstools-color-scheme--light) var(--base-600);
+  --card-badge-bg: var(--csstools-light-dark-toggle--19, var(--base-700));
+  --csstools-light-dark-toggle--20: var(--csstools-color-scheme--light) var(--base-900);
+  --card-loading-bg: var(--csstools-light-dark-toggle--20, var(--base-200));
+
+}
+
+}
+
+/* Toggle */
+
+:root {
+  --toggle-width: 50px;
+  --toggle-height: 28px;
+  --toggle-border-width: 2px;
+  --csstools-light-dark-toggle--21: var(--csstools-color-scheme--light) var(--base-700);
+  --toggle-track-color: var(--csstools-light-dark-toggle--21, var(--base-300));
+  --toggle-track-color-checked: var(--yes-400);
+  --toggle-thumb-color: var(--body-background-color);
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --toggle-track-color: light-dark(var(--base-300), var(--base-700));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--21: var(--csstools-color-scheme--light) var(--base-700);
+  --toggle-track-color: var(--csstools-light-dark-toggle--21, var(--base-300));
+
+}
+
+}
+
+/* Footer */
+
+:root {
+  --csstools-light-dark-toggle--22: var(--csstools-color-scheme--light) var(--base-950);
+  --footer-background-color: var(--csstools-light-dark-toggle--22, var(--primary-600));
+  --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-text-color: var(--csstools-light-dark-toggle--23, var(--base-0));
+  --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-700);
+  --footer-border-color: var(--csstools-light-dark-toggle--24, transparent);
+  --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-link-color: var(--csstools-light-dark-toggle--25, var(--base-0));
+  --csstools-light-dark-toggle--26: var(--csstools-color-scheme--light) var(--base-0);
+  --footer-link-color-hover: var(--csstools-light-dark-toggle--26, var(--primary-200));
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --footer-background-color: light-dark(var(--primary-600), var(--base-950));
+  --footer-text-color: light-dark(var(--base-0), var(--base-200));
+  --footer-border-color: light-dark(transparent, var(--base-700));
+  --footer-link-color: light-dark(var(--base-0), var(--base-200));
+  --footer-link-color-hover: light-dark(var(--primary-200), var(--base-0));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--22: var(--csstools-color-scheme--light) var(--base-950);
+  --footer-background-color: var(--csstools-light-dark-toggle--22, var(--primary-600));
+  --csstools-light-dark-toggle--23: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-text-color: var(--csstools-light-dark-toggle--23, var(--base-0));
+  --csstools-light-dark-toggle--24: var(--csstools-color-scheme--light) var(--base-700);
+  --footer-border-color: var(--csstools-light-dark-toggle--24, transparent);
+  --csstools-light-dark-toggle--25: var(--csstools-color-scheme--light) var(--base-200);
+  --footer-link-color: var(--csstools-light-dark-toggle--25, var(--base-0));
+  --csstools-light-dark-toggle--26: var(--csstools-color-scheme--light) var(--base-0);
+  --footer-link-color-hover: var(--csstools-light-dark-toggle--26, var(--primary-200));
+
+}
+
+}
+
+/* Header */
+
+:root {
+  --header-height: var(--xl1);
+  --header-padding: var(--sm1);
+}
+  @media (width >= 768px) {
+
+:root {
+    --header-height: var(--xl2);
+    --header-padding: var(--sm3);
+}
+  }
+
+:root {
+  --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-950);
+  --header-background-color: var(--csstools-light-dark-toggle--27, var(--base-0));
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --header-background-color: light-dark(var(--base-0), var(--base-950));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--27: var(--csstools-color-scheme--light) var(--base-950);
+  --header-background-color: var(--csstools-light-dark-toggle--27, var(--base-0));
+
+}
+
+}
+
+/* Hero */
+
+:root {
+  --hero-radius: var(--radius-xl);
+  --hero-content-padding: var(--md3);
+  --hero-pagination-dot: var(--sm1);
+  --hero-pagination-dot-color: var(--base-0);
+  --hero-pagination-dot-active-color: var(--primary-600);
+  --hero-pagination-opacity: var(--o-4);
+}
+
+/* Notice */
+
+:root {
+  --notice-spacing: var(--sm1);
+  --csstools-light-dark-toggle--28: var(--csstools-color-scheme--light) var(--base-0);
+  --notice-text-color: var(--csstools-light-dark-toggle--28, var(--base-950));
+  --csstools-light-dark-toggle--29: var(--csstools-color-scheme--light) var(--base-800);
+  --notice-background-color: var(--csstools-light-dark-toggle--29, var(--base-50));
+  --csstools-light-dark-toggle--30: var(--csstools-color-scheme--light) var(--base-500);
+  --notice-border-color: var(--csstools-light-dark-toggle--30, var(--base-200));
+  --notice-border-width: var(--border-sm);
+  --notice-border-radius: var(--radius-lg);
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --notice-text-color: light-dark(var(--base-950), var(--base-0));
+  --notice-background-color: light-dark(var(--base-50), var(--base-800));
+  --notice-border-color: light-dark(var(--base-200), var(--base-500));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--28: var(--csstools-color-scheme--light) var(--base-0);
+  --notice-text-color: var(--csstools-light-dark-toggle--28, var(--base-950));
+  --csstools-light-dark-toggle--29: var(--csstools-color-scheme--light) var(--base-800);
+  --notice-background-color: var(--csstools-light-dark-toggle--29, var(--base-50));
+  --csstools-light-dark-toggle--30: var(--csstools-color-scheme--light) var(--base-500);
+  --notice-border-color: var(--csstools-light-dark-toggle--30, var(--base-200));
+
+}
+
+}
+
+/* Read Progress Bar */
+
+:root {
+  --readProgressBar-height: var(--xs1);
+  --readProgressBar-color: linear-gradient(
+    90deg,
+    var(--primary-600) 0%,
+    var(--primary-400) 100%
+  );
+}
+
+/* Tags */
+
+:root {
+  --tags-padding: var(--xs2);
+  --tags-font-size: var(--text-sm);
+  --csstools-light-dark-toggle--31: var(--csstools-color-scheme--light) var(--base-400);
+  --tags-color: var(--csstools-light-dark-toggle--31, var(--base-500));
+  --csstools-light-dark-toggle--32: var(--csstools-color-scheme--light) var(--base-800);
+  --tags-background-color: var(--csstools-light-dark-toggle--32, var(--base-100));
+  --csstools-light-dark-toggle--33: var(--csstools-color-scheme--light) var(--base-950);
+  --tags-background-color-hover: var(--csstools-light-dark-toggle--33, var(--base-200));
+  --tags-radius: var(--radius-md);
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --tags-color: light-dark(var(--base-500), var(--base-400));
+  --tags-background-color: light-dark(var(--base-100), var(--base-800));
+  --tags-background-color-hover: light-dark(var(--base-200), var(--base-950));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--31: var(--csstools-color-scheme--light) var(--base-400);
+  --tags-color: var(--csstools-light-dark-toggle--31, var(--base-500));
+  --csstools-light-dark-toggle--32: var(--csstools-color-scheme--light) var(--base-800);
+  --tags-background-color: var(--csstools-light-dark-toggle--32, var(--base-100));
+  --csstools-light-dark-toggle--33: var(--csstools-color-scheme--light) var(--base-950);
+  --tags-background-color-hover: var(--csstools-light-dark-toggle--33, var(--base-200));
+
+}
+
+}
+
+/* TOC */
+
+:root {
+  --toc-color: var(--link-color);
+  --toc-color-hover: var(--link-color-hover);
+  --toc-spacing: var(--xs1);
+  --toc-indentation: var(--xs3);
+  --toc-icon-size: 16px;
+}
+
+/* EXTERNAL PLUGINS */
+
+:root {
+  --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--base-900);
+  --astro-code-background-color: var(--csstools-light-dark-toggle--34, var(--base-950));
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+  --astro-code-background-color: light-dark(var(--base-950), var(--base-900));
+}
+}
+  @supports not (color: light-dark(tan, tan)) {
+
+:root * {
+  --csstools-light-dark-toggle--34: var(--csstools-color-scheme--light) var(--base-900);
+  --astro-code-background-color: var(--csstools-light-dark-toggle--34, var(--base-950));
+
+}
+
+}
+
+}

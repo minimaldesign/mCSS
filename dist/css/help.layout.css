@@ -1,0 +1,179 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer helpers {
+/* HELPER OVERFLOW */
+
+.of-auto,
+.overflow-auto {
+  overflow: auto;
+}
+
+.of-hidden,
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.of-clip,
+.overflow-clip {
+  overflow: clip;
+}
+
+.of-visible,
+.overflow-visible {
+  overflow: visible;
+}
+
+.of-scroll,
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.of-x-auto,
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.of-y-auto,
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.of-x-hidden,
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.of-y-hidden,
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.of-x-clip,
+.overflow-x-clip {
+  overflow-x: clip;
+}
+
+.of-y-clip,
+.overflow-y-clip {
+  overflow-y: clip;
+}
+
+.of-x-visible,
+.overflow-x-visible {
+  overflow-x: visible;
+}
+
+.of-y-visible,
+.overflow-y-visible {
+  overflow-y: visible;
+}
+
+.of-x-scroll,
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.of-y-scroll,
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+/* HELPER POSITION */
+
+.position-static {
+  position: static;
+}
+
+.position-fixed {
+  position: fixed;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-sticky {
+  position: sticky;
+}
+
+/* HELPER VISIBILITY  */
+
+.visibility-visible {
+  visibility: visible;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.visibility-collapse {
+  visibility: collapse;
+}
+
+/* HELPER Z-INDEX  */
+
+.z-auto {
+  z-index: auto;
+}
+
+.z-bottom {
+  z-index: var(--z-bottom);
+}
+
+.z-0 {
+  z-index: var(--z-0);
+}
+
+.z-1 {
+  z-index: var(--z-1);
+}
+
+.z-2 {
+  z-index: var(--z-2);
+}
+
+.z-3 {
+  z-index: var(--z-3);
+}
+
+.z-4 {
+  z-index: var(--z-4);
+}
+
+.z-5 {
+  z-index: var(--z-5);
+}
+
+.z-top {
+  z-index: var(--z-top);
+}
+
+}

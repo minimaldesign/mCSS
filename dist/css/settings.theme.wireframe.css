@@ -1,0 +1,66 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer settings {
+/* THEME WIREFRAME */
+
+/*
+Example of how to override tokens to customize basic settings like colors and typography.
+*/
+
+:root {
+  /* COLORS */
+
+  --base-50: #fafafa;
+  --base-100: #f5f5f5;
+  --base-200: #e5e5e5;
+  --base-300: #d4d4d4;
+  --base-400: #a3a3a3;
+  --base-500: #737373;
+  --base-600: #525252;
+  --base-700: #404040;
+  --base-800: #262626;
+  --base-900: #171717;
+  --base-950: #0a0a0a;
+
+  /* TYPOGRAPHY */
+
+  --text: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+
+}
+
+/*
+Element rules don't belong in a settings-layer file: themes override tokens
+only. To restyle elements (e.g. gradient h1 headings), do it in your own
+unlayered CSS:
+
+h1 {
+  @mixin display-gradient var(--gradient-primary);
+  font-size: var(--display-xl);
+}
+*/
+
+}

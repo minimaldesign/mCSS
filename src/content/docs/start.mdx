@@ -63,11 +63,17 @@ This is how mCSS is organized. ([Github source][4].)
 
 The easiest ways to use mCSS in your own project:
 
-- **Drop-in file**: grab `dist/mcss.css` (or `dist/mcss.min.css`), the whole framework in one file, no build step needed.
-- **Individual files**: every framework file is also available pre-processed in `dist/css/` (with `dist/css/mcss.css` as an `@import` index), so you can copy just the layers you need.
-- **Source files**: copy `src/styles/framework/` if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][7]).
+- **Drop-in file**: grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed.
+- **Individual files**: every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
+- **Source files**: copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][7]).
 
 Run `npm run build:css` in the repo to produce `dist/` from source.
+
+[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
+[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
+[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
+[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
+[framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
 
 ### Settings
 

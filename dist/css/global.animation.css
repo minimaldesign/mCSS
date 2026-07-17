@@ -1,0 +1,52 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer global {
+@keyframes fadeFromOpaque {
+  from {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeToOpaque {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeFromTransparent {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeToTransparent {
+  to {
+    opacity: 0;
+  }
+}
+
+}

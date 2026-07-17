@@ -1,0 +1,65 @@
+/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*
+SETTINGS MEDIA QUERIES
+
+https://github.com/argyleink/open-props/blob/main/src/props.media.css
+https://open-props.style/#media-queries
+
+Can't use var() inside media queries 🤦‍♂️
+https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
+so breakpoints are not in settings.tokens.css
+
+xxs: 240px
+xs: 360px
+sm: 480px
+md: 768px
+lg: 1024px
+xl: 1440px
+xxl: 1920px
+*/
+
+/* https://github.com/postcss/postcss-mixins */
+
+/* Example */
+
+/* truncate single line of text and adds … */
+
+@layer global {
+/* LAYOUT WRAP */
+
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr var(--wrap-width) 1fr;
+}
+
+  .wrap  > *,.wrap  > astro-island > *,.wrap  > astro-slot > *,.wrap  > astro-static-slot > * {
+    grid-column: 2;
+    padding-left: var(--wrap-spacing);
+    padding-right: var(--wrap-spacing);
+  }
+    @media (width >= 768px) {
+
+  .wrap  > *,.wrap  > astro-island > *,.wrap  > astro-slot > *,.wrap  > astro-static-slot > * {
+      padding-left: var(--wrap-md-spacing);
+      padding-right: var(--wrap-md-spacing);
+  }
+    }
+    @media (width >= 1024px) {
+
+  .wrap  > *,.wrap  > astro-island > *,.wrap  > astro-slot > *,.wrap  > astro-static-slot > * {
+      padding-left: var(--wrap-lg-spacing);
+      padding-right: var(--wrap-lg-spacing);
+  }
+    }
+
+.wrap_content {
+  /* default doesn't need styling */
+}
+
+.wrap_content-fullBleed {
+  grid-column: 1 / -1;
+  width: 100%;
+  object-fit: cover;
+}
+
+}
