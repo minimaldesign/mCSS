@@ -610,13 +610,22 @@
     --grid-column-gap: var(--xl2);
   }
 
+  .featureItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .featureItem_title {
     font-size: var(--text-xl);
   }
 
-  /* Large flat illustrations instead of the 48px icon box */
+  /* Large flat illustrations instead of the 48px icon box. Every SVG draws
+     on a 140-unit-tall viewBox with matching margins, so all three render
+     at the same height and the box hugs the artwork (the brackets one is
+     wider by design), which keeps them easy to align anywhere */
   .featureItem_icon {
-    width: 100%;
+    width: fit-content;
     height: 120px;
     margin-bottom: var(--sm1);
     background: none;
@@ -625,7 +634,6 @@
     svg {
       width: auto;
       height: 100%;
-      max-width: 100%;
     }
   }
 
