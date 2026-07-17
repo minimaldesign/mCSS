@@ -32,7 +32,8 @@ const {
 } = Astro.props as Props;
 
 // aria-current: "page" for an exact match, "true" when the link's first path
-// segment matches the current page's (section-level highlighting).
+// segment matches the current page's (section-level highlighting; top-level
+// items only — child links must match exactly or every sibling lights up).
 const trim = (path: string) => (path !== '/' && path.endsWith('/') ? path.slice(0, -1) : path);
 const segment = (path: string) => path.split('/')[1] ?? '';
 function current(href: string): 'page' | 'true' | undefined {
@@ -40,6 +41,7 @@ function current(href: string): 'page' | 'true' | undefined {
   if (segment(href) && segment(href) === segment(currentPath)) return 'true';
   return undefined;
 }
+const currentExact = (href: string) => (trim(href) === trim(currentPath) ? 'page' : undefined);
 
 const desktopItems = navItems.filter((item) => !item.mobileOnly);
 ---
@@ -96,7 +98,7 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
                   <ul>
                     {item.children.map((sub) => (
                       <li>
-                        <a href={sub.href} aria-current={current(sub.href)}>
+                        <a href={sub.href} aria-current={currentExact(sub.href)}>
                           {sub.label}
                         </a>
                       </li>
