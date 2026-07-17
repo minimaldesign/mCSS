@@ -1,24 +1,23 @@
 ---
 title: "Getting started"
-lastUpdate: 2024-09-02
+lastUpdate: 2026-07-16
 version: 1.0
 type: "intro"
 ---
-
-import Notice from "../../components/Notice.astro";
 
 <section class="prose">
 
 ## HTML/Astro UI component library
 
-<Notice type="warning" title="Work in progress" class="mt-md1 mb-md1">
-  The component library is being actively worked on. The `button` and `.notice`
-  components included here are meant to be used as examples on how to build your
-  own.
-</Notice>
+The mCSS component library is entirely built with the [mCSS framework](/docs/start), and you **own the code**: instead of installing a package, you copy the pieces you want into your project and edit them like anything else you wrote. Every component's docs page has a "What to copy" table listing exactly which files, icons, and theme tokens it needs.
 
-The mCSS component library is entirely built with the [mCSS framework](/docs/start). As long as you include **mCSS** in your project, all you have to do is copy + paste the HTML/CSS in your project, regardless of what framework you're using, and it will work out of the box.
+Each component comes in two flavors:
 
-An [Astro](https://astro.build) version of the component library is being worked on in parallel. If you'd like to be notified when it's ready (and/or beta test it), you can [sign up for my mailing list here](https://mcss.ck.page/900e1d8f88).
+- **Plain HTML + CSS.** Copy the `component.*.css` file (or grab the compiled version from [`dist/css/`](https://github.com/minimaldesign/mCSS/tree/main/dist/css)) and use the documented markup. Works with any framework, or none.
+- **Astro.** Copy the `.astro` file(s) for typed props, slots, and sensible accessibility defaults out of the box.
+
+Components stay deliberately close to the platform: almost everything here is zero-JavaScript (the exceptions are the [header](/components/header)'s mobile menu and the dismissible [banner](/components/cta), a few lines each). Styling lives in [cascade layers](/docs/start), so your own unlayered CSS always wins, and every visual knob is a documented `--component-*` token in the [default theme](/docs/themes).
+
+Spotted a bug, or built something worth sharing? [Issues and discussions](https://github.com/minimaldesign/mCSS/issues) are open.
 
 </section>
