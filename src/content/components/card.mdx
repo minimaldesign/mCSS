@@ -1,13 +1,14 @@
 ---
 title: "Card"
-lastUpdate: 2025-05-20
-version: 0.1
+lastUpdate: 2026-07-18
+version: 0.6
 type: "component"
 ---
 
 import Card from "../../components/Card.astro";
-import placeholder from "../../assets/images/triangle-39337866.svg";
+import CardList from "../../components/CardList.astro";
 import Playground from "../../components/_Playground.jsx";
+import placeholder from "../../assets/images/triangle-39337866.svg";
 
 <section class="prose">
 
@@ -17,7 +18,7 @@ The `.card` component, in its simplest form, is a container with 3 style options
 - **Filled:** solid background color.
 - **Raised:** drop shadow and hover effect.
 
-Additional features include: header with title and subtitle, image with predefined aspect ratios, footer, custom badges, clickable body, disabled state, and loading state with skeleton UI. The Astro component makes it easy to use all those features.
+Every part is optional: header with title and subtitle, image (inset, or edge-to-edge with the flush modifier), badges, tags, byline with avatar and date, actions footer, clickable body, disabled state, and loading state with skeleton UI. The Astro component makes it easy to use all those features, and `CardList` lays cards out in equal-height responsive columns. This site's own [blog index](/blog) is built from exactly these two components.
 
 {/* prettier-ignore */}
 <div class="grid" col="1" col-md="2">
@@ -35,13 +36,20 @@ Additional features include: header with title and subtitle, image with predefin
 
 <div class="docs_oversizedTable">
 
-| File                 | Description | Source      |
-| -------------------- | ----------- | ----------- |
-| `component.card.css` | All card styles (`.card`) | [Github][1] |
+| File                                | Description                        | Source      |
+| ----------------------------------- | ---------------------------------- | ----------- |
+| `component.card.css`                | All card styles (`.card`)          | [Github][1] |
+| `component.cardList.css`            | Equal-height list layout           | [Github][2] |
+| `Card.astro`, `CardList.astro`      | The Astro components               | [Github][3] |
+| `Tags.astro`, `Avatar.astro`        | Composed components (dependencies) | [Github][3] |
+| `--card-*` block in default theme   | Theme tokens (see below)           | [Github][4] |
 
 </div>
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.card.css
+[2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.cardList.css
+[3]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+[4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
 
@@ -49,26 +57,38 @@ Additional features include: header with title and subtitle, image with predefin
 
 <Playground
   client:visible
-  template={`<article class="{classes}">
+  template={`<article class="{classes}">{media}{tags}
   <header class="card_header">
     <div class="card_header_text">
-      <h2>{title}</h2>
+      <h2 class="card_title">{title}</h2>
       <p>{subtitle}</p>
     </div>{badges}
-  </header>{media}
+  </header>
   <section class="card_content">
     <p>{body}</p>
-  </section>{actions}
+  </section>{byline}{actions}
 </article>`}
   baseClasses="card"
   snippets={{
+    mediaInset: {
+      preview: `<figure class="card_media"><img class="card_image" src="${placeholder.src}" alt="" loading="lazy" /></figure>`,
+      code: `<figure class="card_media"><img class="card_image" src="image.jpg" alt="" loading="lazy" /></figure>`,
+    },
+    mediaFlush: {
+      preview: `<figure class="card_media card_media-flush"><img class="card_image" src="${placeholder.src}" alt="" loading="lazy" /></figure>`,
+      code: `<figure class="card_media card_media-flush"><img class="card_image" src="cover.jpg" alt="" loading="lazy" /></figure>`,
+    },
     badges: {
       preview: '<div class="card_badges"><span class="badge card_badge">new</span></div>',
       code: '<div class="card_badges"><span class="badge card_badge">new</span></div>',
     },
-    media: {
-      preview: `<figure class="card_media"><img class="card_image" src="${placeholder.src}" alt="Product image" /></figure>`,
-      code: `<figure class="card_media"><img class="card_image" src="image.jpg" alt="Product image" /></figure>`,
+    tags: {
+      preview: '<nav aria-label="Tags"><ul class="tags tags-inline card_tags"><li><a href="#">css</a></li><li><a href="#">learn</a></li></ul></nav>',
+      code: '<nav aria-label="Tags"><ul class="tags tags-inline card_tags"><li><a href="#">css</a></li><li><a href="#">learn</a></li></ul></nav>',
+    },
+    byline: {
+      preview: '<footer class="card_byline"><div class="avatar avatar-sm"><div><span>SM</span></div></div><div><span class="card_author">Sonny Mueller</span><time datetime="2026-05-02">May 2, 2026</time></div></footer>',
+      code: '<footer class="card_byline"><div class="avatar avatar-sm"><div><span>SM</span></div></div><div><span class="card_author">Sonny Mueller</span><time datetime="2026-05-02">May 2, 2026</time></div></footer>',
     },
     actions: {
       preview: '<footer class="card_actions"><a class="bt bt-text" href="#">Details</a><button class="bt bt-primary">Add to cart</button></footer>',
@@ -82,10 +102,16 @@ Additional features include: header with title and subtitle, image with predefin
         { label: "Filled", value: "card-filled" },
         { label: "Raised", value: "card-raised" },
       ]},
+      { type: "select", name: "media", label: "Image", default: "", snippet: "media", options: [
+        { label: "None", value: "" },
+        { label: "Inset", value: "inset", class: "", snippet: "mediaInset" },
+        { label: "Flush", value: "flush", class: "", snippet: "mediaFlush" },
+      ]},
     ]},
     { heading: "Parts", items: [
-      { type: "checkbox", name: "media", label: "Image", snippet: "media", default: false },
       { type: "checkbox", name: "badges", label: "Badges", snippet: "badges", default: false },
+      { type: "checkbox", name: "tags", label: "Tags", snippet: "tags", default: false },
+      { type: "checkbox", name: "byline", label: "Byline", snippet: "byline", default: false },
       { type: "checkbox", name: "actions", label: "Actions", snippet: "actions", default: false },
     ]},
     { heading: "State", items: [
@@ -107,14 +133,47 @@ Additional features include: header with title and subtitle, image with predefin
 
 <div class="docs_oversizedTable">
 
-| Available modifiers      | Description                                        |
-| ------------------------ | -------------------------------------------------- |
-| `.card`                  | Default style. Transparent background with border. |
-| `.card` + `.card-filled` | Filled with a background color.                    |
-| `.card` + `.card-raised` | Drop shadow, animated on hover.                    |
-| `.card` + `.is-disabled` | Lowered opacity. Interactivity disabled.           |
+| Available modifiers                | Description                                        |
+| ---------------------------------- | -------------------------------------------------- |
+| `.card`                            | Default style. Transparent background with border. |
+| `.card` + `.card-filled`           | Filled with a background color.                    |
+| `.card` + `.card-raised`           | Drop shadow, animated on hover.                    |
+| `.card` + `.is-disabled`           | Lowered opacity. Interactivity disabled.           |
+| `.card_media` + `.card_media-flush`| Edge-to-edge image on top of the card.             |
 
 </div>
+
+### Clickable cards
+
+A card carries **one** link: put `.card_link` on a real anchor (usually the title link) and it stretches over the whole card with a `::after`, so screen readers hear one link named by the title. Actions stay clickable because `.card_actions` is positioned and comes later in the DOM; tags stay clickable through their own z-index bump. The blog-index pattern combines this with a flush image, tags, and a byline, wrapped in a `.cardList` over the [grid system](/docs/global#grid):
+
+```html
+<ul class="cardList grid" col="1" col-md="2" col-lg="2">
+  <li>
+    <article class="card">
+      <figure class="card_media card_media-flush">
+        <img class="card_image" src="cover.jpg" alt="" loading="lazy" />
+      </figure>
+      <nav aria-label="Tags"><ul class="tags tags-inline card_tags">
+        <li><a href="/blog/tags/css">css</a></li>
+      </ul></nav>
+      <header class="card_header">
+        <div class="card_header_text">
+          <h3 class="card_title"><a class="card_link" href="/blog/my-post">Designing with cascade layers</a></h3>
+        </div>
+      </header>
+      <div class="card_content"><p>Why layer order beats specificity wars.</p></div>
+      <footer class="card_byline">
+        <!-- avatar markup, see the Avatar docs -->
+        <div>
+          <span class="card_author">Sonny Mueller</span>
+          <time datetime="2026-05-02">May 2, 2026</time>
+        </div>
+      </footer>
+    </article>
+  </li>
+</ul>
+```
 
 ### Custom properties
 
@@ -126,13 +185,14 @@ The following custom properties are available in the [default theme](/docs/theme
 | ----------------------------- | -------------------------------------------- |
 | `--card-spacing`              | General padding inside the card.             |
 | `--card-color`                | Text color.                                  |
-| `--card-secondary-text-color` | Subtitle color.                              |
+| `--card-secondary-text-color` | Subtitle, date, and secondary text color.    |
 | `--card-bg-color`             | Background color of the "filled" variant.    |
 | `--card-border-radius`        | Border radius.                               |
 | `--card-border-color`         | Border color.                                |
 | `--card-border-width`         | Border width.                                |
 | `--card-shadow`               | Default drop shadow or the "raised" variant. |
 | `--card-shadow-hover`         | Hover state drop shadow.                     |
+| `--card-aspect-ratio`         | Image aspect ratio (defaults to `--ar-golden`). |
 | `--card-loading-bg`           | Loading skeleton background color.           |
 
 </div>
@@ -143,24 +203,56 @@ Badge colors come from the [badge atom](/components/badge)'s `--badge-*` tokens.
 
 ## Astro component
 
+<section class="prose">
+
+**Card**
+
+Every part is optional; render only what you pass. Badges and tags can coexist, but they compete for attention: badges are non-interactive status labels pinned top-right, tags are taxonomy links in the content flow. Prefer one or the other on a given card.
+
+</section>
+
 <div class="docs_oversizedTable prose">
 
-| Prop          | Type      | Default   | Description                                                 |
-| ------------- | --------- | --------- | ----------------------------------------------------------- |
-| `variant`     | `string`  | undefined | Card’s visual style: `filled`, `raised`.                    |
-| `isDisabled`  | `boolean` | `false`   | Disabled style. Disabled interactions.                      |
-| `isLoading`   | `boolean` | `false`   | Loading state with skeleton UI.                             |
-| `href`        | `string`  | undefined | Makes card clickable.                                       |
-| `title`       | `string`  | undefined | Header title text.                                          |
-| `subtitle`    | `string`  | undefined | Header subtitle text.                                       |
-| `imageSrc`    | `string`  | undefined | Add an image to card.                                       |
-| `imageAlt`    | `string`  | `''`      | Alt text for the image.                                     |
-| `aspectRatio` | `string`  | `golden`  | Image aspect ratio (available [aspect ratios][ar]).         |
-| `badges`      | `array`   | `[]`      | Array of objects (see example below).                       |
-| `data-testid` | `string`  | `'card'`  | Test ID for testing frameworks.                             |
-| `class`  | `string`  | undefined | Additional CSS classes, useful for [helper classes](/docs/helpers). |
+| Prop           | Type                      | Default        | Description                                                         |
+| -------------- | ------------------------- | -------------- | ------------------------------------------------------------------- |
+| `variant`      | `string`                  | undefined      | Card’s visual style: `filled`, `raised`.                            |
+| `isDisabled`   | `boolean`                 | `false`        | Disabled style. Disabled interactions.                              |
+| `isLoading`    | `boolean`                 | `false`        | Loading state with skeleton UI.                                     |
+| `href`         | `string`                  | undefined      | Makes the whole card clickable (through the title link, if any).    |
+| `title`        | `string`                  | undefined      | Header title text.                                                  |
+| `subtitle`     | `string`                  | undefined      | Header subtitle text.                                               |
+| `headingLevel` | `number`                  | `2`            | Heading level of the title: `2`, `3`, or `4`.                       |
+| `imageSrc`     | `ImageMetadata \| string` | undefined      | Add an image to the card (imported asset or URL/path).              |
+| `imageAlt`     | `string`                  | `''`           | Alt text for the image.                                             |
+| `aspectRatio`  | `string`                  | `golden`       | Image aspect ratio (available [aspect ratios][ar]).                 |
+| `flushImage`   | `boolean`                 | `false`        | Edge-to-edge image on top of the card instead of inset.             |
+| `badges`       | `array`                   | `[]`           | Array of objects (see example below).                               |
+| `tags`         | `string[]`                | `[]`           | Tag names, rendered with the Tags component.                        |
+| `tagsUrl`      | `string`                  | `'/blog/tags'` | Base URL for tag links.                                             |
+| `author`       | `string`                  | undefined      | Byline name (also feeds the Avatar initials).                       |
+| `avatarSrc`    | `ImageMetadata \| string` | undefined      | Byline avatar image.                                                |
+| `date`         | `Date`                    | undefined      | Publication date, rendered as a `<time>` in the byline.             |
+| `locale`       | `string`                  | `'en-US'`      | Locale for the formatted date.                                      |
+| `data-testid`  | `string`                  | `'card'`       | Test ID for testing frameworks.                                     |
+| `class`        | `string`                  | undefined      | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 
 [ar]: /docs/tokens#aspect-ratio
+
+</div>
+
+<section class="prose">
+
+**CardList**
+
+A `ul` over the [grid system](/docs/global#grid) whose items stretch, so cards in a row share the same height. Children go in the default slot; wrap each card in an `<li>`.
+
+</section>
+
+<div class="docs_oversizedTable prose">
+
+| Prop   | Type     | Default | Description                            |
+| ------ | -------- | ------- | -------------------------------------- |
+| `cols` | `number` | `2`     | Columns from `--lg`: `1`, `2`, or `3`. |
 
 </div>
 
@@ -223,6 +315,49 @@ The `badges` prop takes an array of objects. Each object consists of a `label` p
 
 <ul class="docs_examples">
 
+<li>
+
+### Blog-index pattern
+
+The article-card recipe: flush image, tags, stretched title link, description, and byline, in a `CardList`.
+
+<CardList cols={2}>
+  <li>
+    <Card href="#" headingLevel={3} flushImage imageSrc={placeholder.src} title="Designing with cascade layers" tags={["css", "learn"]} author="Sonny Mueller" date={new Date("2026-05-02")}>
+      <p>Why layer order beats specificity wars, and how mCSS hands the final word to your unlayered CSS.</p>
+    </Card>
+  </li>
+  <li>
+    <Card href="#" headingLevel={3} flushImage imageSrc={placeholder.src} title="Tokens all the way down" tags={["design"]} author="Ada Chen" date={new Date("2026-06-11")}>
+      <p>One file of custom properties is the whole theming story.</p>
+    </Card>
+  </li>
+</CardList>
+
+```astro
+---
+import Card from '../components/Card.astro';
+import CardList from '../components/CardList.astro';
+---
+<CardList cols={2}>
+  <li>
+    <Card
+      href="/blog/my-post"
+      headingLevel={3}
+      flushImage
+      imageSrc={cover}
+      title="Designing with cascade layers"
+      tags={["css", "learn"]}
+      author="Sonny Mueller"
+      date={new Date("2026-05-02")}
+    >
+      <p>Why layer order beats specificity wars.</p>
+    </Card>
+  </li>
+</CardList>
+```
+
+</li>
 <li>
 
 ### Card with image and actions
@@ -367,19 +502,12 @@ import Card from '../../components/Card.astro';
 </div>
 
 ```html
-<article
-  class="card card-raised"
-  style="--card-aspect-ratio: var(--ar-golden)"
-  role="link"
->
-  <a
-    class="card_link"
-    href="/product/123"
-    aria-label="Product Name"
-  ></a>
+<article class="card card-raised" style="--card-aspect-ratio: var(--ar-golden)">
   <header class="card_header">
     <div class="card_header_text">
-      <h2>Product Name</h2>
+      <h2 class="card_title">
+        <a class="card_link" href="/product/123">Product Name</a>
+      </h2>
       <p>Category</p>
     </div>
     <div class="card_badges"><span class="badge card_badge">new</span></div>
@@ -397,7 +525,7 @@ import Card from '../../components/Card.astro';
     <p>This is a extremely detailed description of the product.</p>
   </section>
   <footer class="card_actions">
-    <a class="bt bt-text" href="/details"><p>View Details</p></a>
+    <a class="bt bt-text" href="/details">View Details</a>
     <button class="bt bt-primary">Add to Cart</button>
   </footer>
 </article>

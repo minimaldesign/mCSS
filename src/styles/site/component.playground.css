@@ -69,6 +69,13 @@
   border: none;
 }
 
+/* Radio groups are fieldsets; back-to-back they read as one long list, so
+   draw a divider between them (checkbox/text controls are divs, unaffected) */
+fieldset.playground_settings_field + fieldset.playground_settings_field {
+  padding-block-start: var(--xs2);
+  border-block-start: var(--border-sm) solid var(--playground-border-color);
+}
+
 .playground_settings_label {
   color: light-dark(var(--base-500), var(--base-400));
 }

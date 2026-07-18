@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import type { HTMLAttributes } from 'astro/types';
 import type { ImageMetadata } from 'astro';
+import Avatar from './Avatar.astro';
+import Tags from './Tags.astro';
 
 // Define badge type for multiple badges with customizable colors
 interface Badge {
@@ -17,10 +19,18 @@ interface Props extends HTMLAttributes<'article'> {
   href?: string;
   title?: string;
   subtitle?: string;
+  headingLevel?: 2 | 3 | 4;
   imageSrc?: ImageMetadata | string;
   imageAlt?: string;
   aspectRatio?: string;
+  flushImage?: boolean;
   badges?: Badge[]; // Array of badge objects
+  tags?: string[];
+  tagsUrl?: string;
+  author?: string;
+  avatarSrc?: ImageMetadata | string;
+  date?: Date;
+  locale?: string;
   'data-testid'?: string;
 }
 
@@ -32,10 +42,18 @@ const {
   href,
   title,
   subtitle,
+  headingLevel = 2,
   imageSrc,
   imageAlt = '',
   aspectRatio = 'golden',
+  flushImage = false,
   badges = [],
+  tags = [],
+  tagsUrl = '/blog/tags',
+  author,
+  avatarSrc,
+  date,
+  locale = 'en-US',
   class: className,
   'data-testid': testId = 'card',
   ...rest
@@ -53,6 +71,18 @@ const aspectRatioMap = {
   golden: 'var(--ar-golden)',
 };
 const aspectRatioValue = aspectRatioMap[aspectRatio];
+
+const Heading = `h${headingLevel}`;
+
+// The whole card is clickable through one stretched .card_link. When there is
+// a title, the title anchor carries it so its text names the link; otherwise
+// an empty labelled anchor takes over.
+const linked = href && !isDisabled;
+const titleLink = linked && title;
+const overlayLink = linked && !title;
+
+const dateText = date && date.toLocaleDateString(locale, { dateStyle: 'medium' });
+const dateTime = date && date.toISOString().split('T')[0];
 ---
 
 <article
@@ -69,8 +99,24 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
   data-testid={testId}
   aria-disabled={isDisabled ? 'true' : undefined}
   {...rest}>
-  <!-- Clickable wrapper if href is provided -->
-  {href && !isDisabled && <a href={href} class="card_link" aria-label={title || 'Card link'} />}
+  {overlayLink && <a href={href} class="card_link" aria-label="Card link" />}
+
+  <!-- Flush media sits edge-to-edge on top of the card -->
+  {
+    imageSrc && flushImage && (
+      <figure class="card_media card_media-flush" data-testid="card-media">
+        {isLoading ? (
+          <div class="card_placeholder" />
+        ) : typeof imageSrc === 'string' ? (
+          <img class="card_image" src={imageSrc} alt={imageAlt} loading="lazy" decoding="async" />
+        ) : (
+          <Image class="card_image" src={imageSrc} alt={imageAlt} loading="lazy" decoding="async" />
+        )}
+      </figure>
+    )
+  }
+
+  {tags.length > 0 && <Tags class="card_tags" tagList={tags} url={tagsUrl} />}
 
   <!-- Header -->
   {
@@ -78,7 +124,9 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
       <header class="card_header" data-testid="card-header">
         {(title || subtitle) && (
           <div class="card_header_text">
-            {title && <h2>{title}</h2>}
+            {title && (
+              <Heading class="card_title">{titleLink ? <a href={href} class="card_link">{title}</a> : title}</Heading>
+            )}
             {subtitle && <p>{subtitle}</p>}
           </div>
         )}
@@ -95,28 +143,49 @@ const aspectRatioValue = aspectRatioMap[aspectRatio];
     )
   }
 
-  <!-- Media -->
+  <!-- Inset media -->
   {
-    imageSrc && (
+    imageSrc && !flushImage && (
       <figure class="card_media" data-testid="card-media">
-        {isLoading ? <div class="card_placeholder" /> : <Image src={imageSrc as ImageMetadata} alt={imageAlt} class="card_image" loading="lazy" decoding="async" />}
+        {isLoading ? (
+          <div class="card_placeholder" />
+        ) : typeof imageSrc === 'string' ? (
+          <img class="card_image" src={imageSrc} alt={imageAlt} loading="lazy" decoding="async" />
+        ) : (
+          <Image class="card_image" src={imageSrc} alt={imageAlt} loading="lazy" decoding="async" />
+        )}
       </figure>
     )
   }
 
   <!-- Content -->
-  <section class="card_content" data-testid="card-content">
-    {
-      isLoading ? (
-        <div class="card_loading">
-          <div class="card_loadingLine" />
-          <div class="card_loadingLine card_loadingLine-short" />
+  {
+    (isLoading || Astro.slots.has('default')) && (
+      <section class="card_content" data-testid="card-content">
+        {isLoading ? (
+          <div class="card_loading">
+            <div class="card_loadingLine" />
+            <div class="card_loadingLine card_loadingLine-short" />
+          </div>
+        ) : (
+          <slot />
+        )}
+      </section>
+    )
+  }
+
+  <!-- Byline -->
+  {
+    (author || date) && (
+      <footer class="card_byline" data-testid="card-byline">
+        {author && <Avatar size="sm" imageSrc={avatarSrc}>{author}</Avatar>}
+        <div>
+          {author && <span class="card_author">{author}</span>}
+          {date && <time datetime={dateTime}>{dateText}</time>}
         </div>
-      ) : (
-        <slot />
-      )
-    }
-  </section>
+      </footer>
+    )
+  }
 
   <!-- Actions: Only render footer if actions slot is provided -->
   {

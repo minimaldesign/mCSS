@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostList from '../../components/PostList.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
+import CardList from '../../components/CardList.astro';
+import Card from '../../components/Card.astro';
 
 const title = 'mCSS Blog';
 const allPosts = await getCollection('blog');
@@ -20,16 +20,16 @@ for (const post of allPosts) {
 <BaseLayout title={title} bodyClass="layout layout-centered">
   <main class="blog layout_content_main">
     <h1 class="h3">Latest updates, tutorials, tips and tricks, and the occasional rant.</h1>
-    <PostList cols={2} class="mt-md1">
+    <CardList cols={2} class="mt-md1">
       {
         allPosts.map((post) => (
           <li>
-            <ArticleCard href={`/blog/${post.id}`} title={post.data.title} tags={post.data.tags} author={post.data.author} date={post.data.pubDate} imageSrc={post.data.image?.url} imageAlt={post.data.image?.alt}>
+            <Card href={`/blog/${post.id}`} title={post.data.title} headingLevel={3} flushImage tags={post.data.tags} author={post.data.author} date={post.data.pubDate} imageSrc={post.data.image?.url} imageAlt={post.data.image?.alt}>
               <Fragment set:html={descriptions.get(post.id)} />
-            </ArticleCard>
+            </Card>
           </li>
         ))
       }
-    </PostList>
+    </CardList>
   </main>
 </BaseLayout>

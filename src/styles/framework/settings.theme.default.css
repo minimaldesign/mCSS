@@ -174,12 +174,6 @@
 
 /* COMPONENTS */
 
-/* ArticleCard */
-
-:root {
-  --articleCard-image-aspect-ratio: var(--ar-golden);
-}
-
 /* Avatar */
 
 :root {
