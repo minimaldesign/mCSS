@@ -1,12 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 
 import arrow from '../assets/icons/mail.svg?raw';
 import ReadProgressBar from '../components/ReadProgressBar.astro';
 import Tags from '../components/Tags.astro';
 
-const allPosts = await getCollection('blog');
 const { frontmatter } = Astro.props;
 ---
 

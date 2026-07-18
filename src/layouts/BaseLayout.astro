@@ -71,7 +71,7 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     </script>
 
     <!-- Privacy-friendly analytics by Plausible -->
-    <script defer data-domain="mcss.dev" src="https://analytics.minimaldesign.net/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script is:inline defer data-domain="mcss.dev" src="https://analytics.minimaldesign.net/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
     <script is:inline>
       window.plausible =
         window.plausible ||

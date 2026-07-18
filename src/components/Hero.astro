@@ -93,7 +93,7 @@ const getMinHeightStyle = () => {
         {media?.type === 'canvas' && (
           <>
             <canvas class="hero_bg" aria-hidden="true"></canvas>
-            {media.src && <script src={media.src as string} type="module"></script>}
+            {media.src && <script is:inline src={media.src as string} type="module"></script>}
           </>
         )}
         {overlayOpacity > 0 && <div class="hero_overlay" style={`opacity: ${overlayOpacity}; background: var(${overlayColor});`} />}
@@ -152,7 +152,7 @@ const getMinHeightStyle = () => {
 
 {/* Only include split ratio validation for split variant in dev */}
 {import.meta.env.DEV && variant === 'split' && (
-  <script type="module" define:vars={{ id, ratio }}>
+  <script is:inline type="module" define:vars={{ id, ratio }}>
     function isValidRatio(ratio) {
       const match = ratio && ratio.match(/^([1-9][0-9]?)\/([1-9][0-9]?)$/);
       if (!match) return false;
@@ -174,7 +174,7 @@ const getMinHeightStyle = () => {
 
 {/* Only include parallax JS for full variant with parallax enabled */}
 {variant === 'full' && parallax && (
-  <script type="module" define:vars={{ id }}>
+  <script is:inline type="module" define:vars={{ id }}>
     const root = document.querySelector(`#${id}.hero-parallax .hero_bg`);
     // JS-driven motion respects prefers-reduced-motion (the CSS reset only
     // covers CSS animation)
@@ -198,7 +198,7 @@ const getMinHeightStyle = () => {
 
 {/* Only include slideshow JS for slideshow variant */}
 {variant === 'slideshow' && (
-  <script type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransition, slideshowItems }}>
+  <script is:inline type="module" define:vars={{ id, slideshowAutoplay, slideshowInterval, slideshowTransition, slideshowItems }}>
     const root = document.querySelector(`#${id} .hero_wrap`);
     if (root) {
       let active = 0;

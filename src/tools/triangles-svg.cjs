@@ -35,7 +35,7 @@ function lerpColor(a, b, t) {
     .padStart(2, "0")}${b_.toString(16).padStart(2, "0")}`;
 }
 
-function randomGrid(seed = 0, time = 0) {
+function randomGrid(seed = 0, _time = 0) {
   // Simple seeded random
   let s = seed;
   function rand() {
