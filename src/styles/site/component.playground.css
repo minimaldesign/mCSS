@@ -54,6 +54,7 @@
 }
 
 .playground_settings_heading {
+  margin-bottom: 0;
   font-size: var(--text-sm);
   font-weight: var(--semi-bold);
   color: light-dark(var(--base-600), var(--base-300));
