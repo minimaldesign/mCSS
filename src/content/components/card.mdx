@@ -54,20 +54,39 @@ Additional features include: header with title and subtitle, image with predefin
     <div class="card_header_text">
       <h2>{title}</h2>
       <p>{subtitle}</p>
-    </div>
-  </header>
+    </div>{badges}
+  </header>{media}
   <section class="card_content">
     <p>{body}</p>
-  </section>
+  </section>{actions}
 </article>`}
   baseClasses="card"
+  snippets={{
+    badges: {
+      preview: '<div class="card_badges"><span class="badge card_badge">new</span></div>',
+      code: '<div class="card_badges"><span class="badge card_badge">new</span></div>',
+    },
+    media: {
+      preview: `<figure class="card_media"><img class="card_image" src="${placeholder.src}" alt="Product image" /></figure>`,
+      code: `<figure class="card_media"><img class="card_image" src="image.jpg" alt="Product image" /></figure>`,
+    },
+    actions: {
+      preview: '<footer class="card_actions"><a class="bt bt-text" href="#">Details</a><button class="bt bt-primary">Add to cart</button></footer>',
+      code: '<footer class="card_actions"><a class="bt bt-text" href="#">Details</a><button class="bt bt-primary">Add to cart</button></footer>',
+    },
+  }}
   controls={[
-    { heading: "Variant", items: [
-      { type: "select", name: "variant", default: "", options: [
+    { heading: "Variation", items: [
+      { type: "select", name: "variant", label: "Variant", default: "", options: [
         { label: "Default", value: "" },
         { label: "Filled", value: "card-filled" },
         { label: "Raised", value: "card-raised" },
       ]},
+    ]},
+    { heading: "Parts", items: [
+      { type: "checkbox", name: "media", label: "Image", snippet: "media", default: false },
+      { type: "checkbox", name: "badges", label: "Badges", snippet: "badges", default: false },
+      { type: "checkbox", name: "actions", label: "Actions", snippet: "actions", default: false },
     ]},
     { heading: "State", items: [
       { type: "checkbox", name: "disabled", label: "Disabled", value: "is-disabled", default: false },

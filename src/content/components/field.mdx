@@ -50,9 +50,10 @@ Type something that isn't an email address and tab away: the hint swaps for the 
 </div>`}
   baseClasses="field"
   controls={[
-    { heading: "Attributes", items: [
+    { heading: "State", items: [
       { type: "checkbox", name: "required", label: "Required", attr: "required", default: true },
       { type: "checkbox", name: "disabled", label: "Disabled", attr: "disabled", default: false },
+      { type: "checkbox", name: "invalid", label: "Invalid", value: "is-invalid", default: false },
     ]},
     { heading: "Content", items: [
       { type: "text", name: "label", label: "Label", default: "Email" },
@@ -75,7 +76,7 @@ Type something that isn't an email address and tab away: the hint swaps for the 
 </div>
 ```
 
-Errors use `:user-invalid`, so a pristine form never lights up red — only fields the user actually touched and got wrong. The error message is always in the markup and revealed by `.field:has(:user-invalid)`. It is deliberately **not** referenced by `aria-describedby`: screen readers get the browser's native validation message on submit, so wiring the visual error in as a description would double-announce it.
+Errors use `:user-invalid`, so a pristine form never lights up red: only fields the user actually touched and got wrong. The error message is always in the markup and revealed by `.field:has(:user-invalid)`. Add `.is-invalid` on the `.field` wrapper to force the same presentation from markup, for server-side validation results, tests, and demos (that's what the playground's Invalid checkbox does). It is deliberately **not** referenced by `aria-describedby`: screen readers get the browser's native validation message on submit, so wiring the visual error in as a description would double-announce it.
 
 ### Custom properties
 

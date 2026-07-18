@@ -37,15 +37,13 @@ For accessibility, use `<button>` for actions and `<a>` for navigation. If you u
   baseClasses="bt"
   snippets={{ icon: { preview: mail, code: "<svg>[…]</svg> " } }}
   controls={[
-    { heading: "Size", items: [
-      { type: "select", name: "size", default: "", options: [
+    { heading: "Variation", items: [
+      { type: "select", name: "size", label: "Size", default: "", options: [
         { label: "Default", value: "" },
         { label: "Medium", value: "bt-md" },
         { label: "Large", value: "bt-lg" },
       ]},
-    ]},
-    { heading: "Color", items: [
-      { type: "select", name: "color", default: "", options: [
+      { type: "select", name: "color", label: "Color", default: "", options: [
         { label: "Default", value: "" },
         { label: "Primary", value: "bt-primary" },
         { label: "Yes", value: "bt-yes" },
@@ -63,6 +61,8 @@ For accessibility, use `<button>` for actions and `<a>` for navigation. If you u
     ]},
     { heading: "Content", items: [
       { type: "text", name: "label", label: "Label", default: "Button" },
+    ]},
+    { heading: "State", items: [
       { type: "checkbox", name: "disabled", label: "Disabled", attr: "disabled", default: false },
     ]},
   ]}

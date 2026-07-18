@@ -7,6 +7,8 @@ type: "component"
 
 import ArticleCard from "../../components/ArticleCard.astro";
 import PostList from "../../components/PostList.astro";
+import Playground from "../../components/_Playground.jsx";
+import placeholder from "../../assets/images/triangle-39337866.svg";
 
 <section class="prose">
 
@@ -43,7 +45,48 @@ The `.articleCard` component is the blog-index pattern: image, tags, title, desc
 [3]: https://github.com/minimaldesign/mCSS/tree/main/src/components
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
+## Playground
 
+<Playground
+  client:visible
+  template={`<article class="{classes}">{media}{tags}
+  <h3 class="articleCard_title"><a href="#">{title}</a></h3>
+  <div class="articleCard_description"><p>{description}</p></div>{byline}
+</article>`}
+  baseClasses="card articleCard"
+  snippets={{
+    media: {
+      preview: `<figure class="articleCard_media"><img class="articleCard_image" src="${placeholder.src}" alt="" loading="lazy" /></figure>`,
+      code: `<figure class="articleCard_media"><img class="articleCard_image" src="cover.jpg" alt="" loading="lazy" /></figure>`,
+    },
+    tags: {
+      preview: '<nav aria-label="Tags"><ul class="tags tags-inline articleCard_tags"><li><a href="#">css</a></li><li><a href="#">learn</a></li></ul></nav>',
+      code: '<nav aria-label="Tags"><ul class="tags tags-inline articleCard_tags"><li><a href="#">css</a></li><li><a href="#">learn</a></li></ul></nav>',
+    },
+    byline: {
+      preview: '<footer class="articleCard_byline"><div class="avatar avatar-sm"><div><span>SM</span></div></div><div><span class="articleCard_author">Sonny Mueller</span><time datetime="2026-05-02">May 2, 2026</time></div></footer>',
+      code: '<footer class="articleCard_byline"><div class="avatar avatar-sm"><div><span>SM</span></div></div><div><span class="articleCard_author">Sonny Mueller</span><time datetime="2026-05-02">May 2, 2026</time></div></footer>',
+    },
+  }}
+  controls={[
+    { heading: "Variation", items: [
+      { type: "select", name: "variant", label: "Variant", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Filled", value: "card-filled" },
+        { label: "Raised", value: "card-raised" },
+      ]},
+    ]},
+    { heading: "Parts", items: [
+      { type: "checkbox", name: "media", label: "Image", snippet: "media", default: true },
+      { type: "checkbox", name: "tags", label: "Tags", snippet: "tags", default: true },
+      { type: "checkbox", name: "byline", label: "Byline", snippet: "byline", default: true },
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "title", label: "Title", default: "Designing with cascade layers" },
+      { type: "text", name: "description", label: "Description", default: "Why layer order beats specificity wars." },
+    ]},
+  ]}
+/>
 
 ## HTML
 

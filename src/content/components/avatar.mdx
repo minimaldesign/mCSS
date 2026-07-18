@@ -45,8 +45,8 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
     },
   }}
   controls={[
-    { heading: "Size", items: [
-      { type: "select", name: "size", default: "", options: [
+    { heading: "Variation", items: [
+      { type: "select", name: "size", label: "Size", default: "", options: [
         { label: "Default", value: "" },
         { label: "Small", value: "avatar-sm" },
         { label: "Medium", value: "avatar-md" },
@@ -54,15 +54,15 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
         { label: "Extra large", value: "avatar-xl" },
       ]},
     ]},
-    { heading: "Status", items: [
-      { type: "select", name: "status", default: "", options: [
+    { heading: "State", items: [
+      { type: "select", name: "status", label: "Status", default: "", options: [
         { label: "None", value: "" },
         { label: "Online", value: "is-online" },
         { label: "Offline", value: "is-offline" },
       ]},
     ]},
     { heading: "Content", items: [
-      { type: "select", name: "content", snippet: "content", default: "initials", options: [
+      { type: "select", name: "content", label: "Show", snippet: "content", default: "initials", options: [
         { label: "Initials", value: "initials", class: "", snippet: "initials" },
         { label: "Image", value: "image", class: "", snippet: "image" },
       ]},
