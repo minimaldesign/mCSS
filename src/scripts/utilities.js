@@ -46,6 +46,12 @@ export function getInitials(name = ":)") {
   return initials.toUpperCase();
 }
 
+/**
+ * @template {{ data: { type: string, title: string } }} T
+ * @param {T[]} source
+ * @param {string} type
+ * @returns {T[]}
+ */
 export function filterAndSort(source, type) {
   return source
     .filter((post) => post.data.type === type)

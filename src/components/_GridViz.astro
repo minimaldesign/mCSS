@@ -49,7 +49,7 @@
 </style>
 
 <script>
-  function distribute(alignment, free, n, gap) {
+  function distribute(alignment: string, free: number, n: number, gap: number) {
     if (free <= 0) return { offset: 0, gap };
     switch (alignment) {
       case "end":
@@ -68,7 +68,7 @@
     }
   }
 
-  function updateOverlays(grid) {
+  function updateOverlays(grid: HTMLElement) {
     grid.querySelectorAll(":scope > .gridViz_gap").forEach((el) => el.remove());
 
     const cs = getComputedStyle(grid);
@@ -141,7 +141,7 @@
 
   const ro = new ResizeObserver((entries) => {
     for (const entry of entries) {
-      updateOverlays(entry.target);
+      updateOverlays(entry.target as HTMLElement);
     }
   });
 

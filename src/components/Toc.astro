@@ -42,7 +42,7 @@ const {
   {...rest}
 ></nav>
 
-<script type="module" define:vars={{ id, selector, headings, baseUrl, scrollOffset, description, icon }}>
+<script is:inline type="module" define:vars={{ id, selector, headings, baseUrl, scrollOffset, description, icon }}>
   const tocRoot = document.getElementById(id);
 
   let suppressObserver = false;

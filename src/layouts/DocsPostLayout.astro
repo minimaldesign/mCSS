@@ -1,12 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import NavDocs from '../components/NavDocs.astro';
 import Toc from '../components/Toc.astro';
 
 import arrow from '../assets/icons/arrow-right-small.svg?raw';
 
-const allPosts = await getCollection('docs');
 const { frontmatter } = Astro.props;
 ---
 
