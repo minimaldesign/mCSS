@@ -1007,7 +1007,7 @@
 
 .home_cta {
   --section-spacing: var(--xl2);
-  background: linear-gradient(105deg, var(--primary-950), var(--primary-600));
+  background: light-dark(var(--primary-700), var(--base-950));
 }
 
 /* Mixed onto the Section header via headerClass */
