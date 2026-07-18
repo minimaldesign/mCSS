@@ -6,6 +6,7 @@ type: "component"
 ---
 
 import Field from "../../components/Field.astro";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -36,6 +37,30 @@ Type something that isn't an email address and tab away: the hint swaps for the 
 [5]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.fieldRow.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<div class="{classes}">
+  <label for="pg-email">{label}</label>
+  <input id="pg-email" name="email" type="email"{attrs} aria-describedby="pg-email-hint" />
+  <small class="field_hint" id="pg-email-hint">{hint}</small>
+  <small class="field_error">{error}</small>
+</div>`}
+  baseClasses="field"
+  controls={[
+    { heading: "Attributes", items: [
+      { type: "checkbox", name: "required", label: "Required", attr: "required", default: true },
+      { type: "checkbox", name: "disabled", label: "Disabled", attr: "disabled", default: false },
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "label", label: "Label", default: "Email" },
+      { type: "text", name: "hint", label: "Hint", default: "We'll never share it." },
+      { type: "text", name: "error", label: "Error", default: "That doesn't look like an email address." },
+    ]},
+  ]}
+/>
 
 ## HTML
 

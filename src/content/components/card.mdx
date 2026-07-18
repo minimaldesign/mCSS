@@ -7,6 +7,7 @@ type: "component"
 
 import Card from "../../components/Card.astro";
 import placeholder from "../../assets/images/triangle-39337866.svg";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -43,6 +44,41 @@ Additional features include: header with title and subtitle, image with predefin
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.card.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<article class="{classes}">
+  <header class="card_header">
+    <div class="card_header_text">
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+    </div>
+  </header>
+  <section class="card_content">
+    <p>{body}</p>
+  </section>
+</article>`}
+  baseClasses="card"
+  controls={[
+    { heading: "Variant", items: [
+      { type: "select", name: "variant", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Filled", value: "card-filled" },
+        { label: "Raised", value: "card-raised" },
+      ]},
+    ]},
+    { heading: "State", items: [
+      { type: "checkbox", name: "disabled", label: "Disabled", value: "is-disabled", default: false },
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "title", label: "Title", default: "Card title" },
+      { type: "text", name: "subtitle", label: "Subtitle", default: "Category" },
+      { type: "text", name: "body", label: "Body", default: "This is where the content goes!" },
+    ]},
+  ]}
+/>
 
 ## HTML
 
@@ -168,46 +204,6 @@ The `badges` prop takes an array of objects. Each object consists of a `label` p
 
 <ul class="docs_examples">
 
-<li>
-
-### Basic Cards
-
-<div class="grid" col="1" col-md="3">
-  <div class="grid_item">
-    <Card title="Default style">
-      <p>This is where the content goes!</p>
-    </Card>
-  </div>
-  <div class="grid_item">
-    <Card variant="filled" title="Filled style">
-      <p>This is where the content goes!</p>
-    </Card>
-  </div>
-  <div class="grid_item">
-    <Card variant="raised" title="Raised style">
-      <p>This is where the content goes!</p>
-    </Card>
-  </div>
-</div>
-
-```astro
----
-import Card from '../../components/Card.astro';
----
-<Card title="Default style">
-  <p>This is where the content goes!</p>
-</Card>
-
-<Card variant="filled" title="Filled style">
-  <p>This is where the content goes!</p>
-</Card>
-
-<Card variant="raised" title="Raised style">
-  <p>This is where the content goes!</p>
-</Card>
-```
-
-</li>
 <li>
 
 ### Card with image and actions

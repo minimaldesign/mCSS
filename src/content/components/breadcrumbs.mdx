@@ -6,6 +6,7 @@ type: "component"
 ---
 
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -32,6 +33,25 @@ The `.breadcrumbs` component is a `nav > ol` trail with CSS-only separators, and
 [3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<nav class="{classes}" aria-label="Breadcrumbs" style="--breadcrumbs-separator: '{sep}'">
+  <ol>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Components</a></li>
+    <li><span aria-current="page">Breadcrumbs</span></li>
+  </ol>
+</nav>`}
+  baseClasses="breadcrumbs"
+  controls={[
+    { heading: "Separator", items: [
+      { type: "text", name: "sep", default: "/" },
+    ]},
+  ]}
+/>
 
 ## HTML
 

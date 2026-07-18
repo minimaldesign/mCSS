@@ -7,6 +7,7 @@ type: "component"
 
 import Faq from "../../components/Faq.astro";
 import FaqItem from "../../components/FaqItem.astro";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -41,6 +42,36 @@ The `.faq` component groups `details`/`summary` disclosures into the classic FAQ
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<div class="faq">
+  <details class="faq_item"{group}{open}>
+    <summary>Does this need JavaScript?</summary>
+    <div class="faq_content">
+      <p>No. The browser's own details element does all the work.</p>
+    </div>
+  </details>
+  <details class="faq_item"{group}>
+    <summary>How does exclusive-open work?</summary>
+    <div class="faq_content">
+      <p>Every item shares the same name attribute.</p>
+    </div>
+  </details>
+</div>`}
+  snippets={{
+    group: { preview: ' name="faq"', code: ' name="faq"' },
+    open: { preview: " open", code: " open" },
+  }}
+  controls={[
+    { heading: "Behavior", items: [
+      { type: "checkbox", name: "group", label: "Exclusive open", snippet: "group", default: true },
+      { type: "checkbox", name: "open", label: "First item open", snippet: "open", default: false },
+    ]},
+  ]}
+/>
 
 ## HTML
 

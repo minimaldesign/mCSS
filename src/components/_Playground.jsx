@@ -19,13 +19,20 @@ import CopyButton from "./_CopyButton.jsx";
     grid columns: 2 on mobile, 4 from the --md breakpoint up (see
     component.playground.css). Consecutive ungrouped controls collect into
     one implicit group, which keeps flat configs working.
-  - snippets: { name: { preview, code } } markup for snippet toggles; the
-    live preview uses `preview` (real SVG), the code panel uses `code`
-    (abbreviated, e.g. "<svg>[…]</svg> ").
+  - snippets: { name: { preview, code } } markup with different preview
+    (real SVG) and code (abbreviated, e.g. "<svg>[…]</svg> ") forms.
+    Snippets referenced by a control substitute when that control is
+    active; any snippet no control consumed substitutes {name} statically
+    (for constant markup like Social Media's icons).
 
   Control types:
   - { type: "select", name, label, default, options: [{ label, value }] }
     mutually exclusive modifier group; radios up to 4 options, <select> above.
+    `value` is the option's state key AND the class it contributes; set an
+    explicit `class` (e.g. "") when they differ. Options can also carry
+    `attr` (contributed to {attrs}) and, when the control declares
+    snippet: "<placeholder>", a `snippet` key into the snippets map that
+    fills that placeholder (e.g. Notice's per-type icon).
   - { type: "checkbox", name, label, value: "bt-outline", default }
     boolean modifier, contributes `value` to {classes} when checked.
   - { type: "checkbox", name, label, attr: "disabled", default }
@@ -87,11 +94,29 @@ function buildHtml({ template, baseClasses, controls, snippets, values, mode }) 
   const classes = baseClasses ? [baseClasses] : [];
   const attrs = [];
   const substitutions = {};
+  const consumedSnippets = new Set();
+  for (const control of controls) {
+    if (control.type === "checkbox" && control.snippet) {
+      consumedSnippets.add(control.snippet);
+    }
+    if (control.type === "select" && control.snippet) {
+      for (const option of control.options) {
+        if (option.snippet) consumedSnippets.add(option.snippet);
+      }
+    }
+  }
 
   for (const control of controls) {
     const value = values[control.name];
     if (control.type === "select") {
-      if (value) classes.push(value);
+      const selected = control.options.find((option) => option.value === value);
+      const cls = selected?.class !== undefined ? selected.class : value;
+      if (cls) classes.push(cls);
+      if (selected?.attr) attrs.push(selected.attr);
+      if (control.snippet) {
+        const snippet = selected?.snippet ? (snippets[selected.snippet] ?? {}) : {};
+        substitutions[control.snippet] = snippet[mode] ?? "";
+      }
     } else if (control.type === "checkbox") {
       if (control.snippet) {
         const snippet = snippets[control.snippet] ?? {};
@@ -102,6 +127,13 @@ function buildHtml({ template, baseClasses, controls, snippets, values, mode }) 
       }
     } else if (control.type === "text") {
       substitutions[control.name] = escapeHtml(String(value ?? ""));
+    }
+  }
+
+  // Snippets no control consumed are static markup, substituted as-is.
+  for (const [name, snippet] of Object.entries(snippets)) {
+    if (!consumedSnippets.has(name) && !(name in substitutions)) {
+      substitutions[name] = snippet[mode] ?? "";
     }
   }
 

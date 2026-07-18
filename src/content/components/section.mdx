@@ -6,6 +6,7 @@ type: "component"
 ---
 
 import Section from "../../components/Section.astro";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -32,6 +33,38 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
 [3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<section class="{classes}">
+  <header class="section_header">
+    <p class="section_eyebrow">{eyebrow}</p>
+    <h2 class="section_title">{title}</h2>
+    <p class="section_lede">{lede}</p>
+  </header>
+  <p class="text-center">Section content goes here.</p>
+</section>`}
+  baseClasses="section wrap"
+  controls={[
+    { heading: "Variant", items: [
+      { type: "select", name: "variant", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Filled", value: "section-filled" },
+        { label: "Primary", value: "section-primary" },
+      ]},
+    ]},
+    { heading: "Width", items: [
+      { type: "checkbox", name: "wide", label: "Wide", value: "section-wide", default: false },
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "eyebrow", label: "Eyebrow", default: "Why mCSS" },
+      { type: "text", name: "title", label: "Title", default: "Everything is a section" },
+      { type: "text", name: "lede", label: "Lede", default: "Stack a few of these and you have a landing page." },
+    ]},
+  ]}
+/>
 
 ## HTML
 

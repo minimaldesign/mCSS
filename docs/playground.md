@@ -51,9 +51,16 @@ Control types:
 
 Control `label`s are optional: skip them when a group `heading` already says the same thing.
 
+Select option fields, beyond `label` and `value`:
+
+- `value` is the option's state key and doubles as the class it contributes to `{classes}`. When they differ, set an explicit `class` (usually `""`), e.g. the Avatar page's initials-vs-image options.
+- `attr` contributes an attribute string to `{attrs}` while selected, e.g. the Feature Grid page's `col-lg="3"` options.
+- `snippet` names a key in the snippets map. It requires the control to declare `snippet: "<placeholder>"`; the selected option's markup fills that placeholder, e.g. the Notice page's per-type icon.
+
 ## Snippets and dark surfaces
 
-- `snippets={{ icon: { preview: mailSvgRaw, code: "<svg>[…]</svg> " } }}` gives snippet toggles different markup for the live preview (the real SVG, imported with `?raw`) and the code panel (the abbreviated form used across the docs).
+- `snippets={{ icon: { preview: mailSvgRaw, code: "<svg>[…]</svg> " } }}` gives snippets different markup for the live preview (the real SVG, imported with `?raw`) and the code panel (the abbreviated form used across the docs).
+- Snippets referenced by a control substitute only while that control is active. Snippets no control consumes substitute `{name}` statically, for constant markup like the Social Media page's icons.
 - An option or checkbox control can set `previewSurface: "dark"` to render the preview on a dark surface while active, which keeps `.bt-white` and friends visible.
 
 ## Example

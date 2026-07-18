@@ -7,6 +7,7 @@ type: "component"
 
 import FeatureGrid from "../../components/FeatureGrid.astro";
 import FeatureItem from "../../components/FeatureItem.astro";
+import Playground from "../../components/_Playground.jsx";
 
 export const check = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`;
 
@@ -46,6 +47,48 @@ Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours t
 [3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<ul class="{classes}" col="1" col-md="2"{attrs}>
+  <li class="featureItem">
+    <div class="featureItem_icon" aria-hidden="true">{check}</div>
+    <h3 class="featureItem_title">Zero JavaScript</h3>
+    <div class="featureItem_text">
+      <p>Just an unordered list and the grid you already have.</p>
+    </div>
+  </li>
+  <li class="featureItem">
+    <div class="featureItem_icon" aria-hidden="true">{check}</div>
+    <h3 class="featureItem_title">Responsive by default</h3>
+    <div class="featureItem_text">
+      <p>1, 2, then n columns as the viewport grows.</p>
+    </div>
+  </li>
+  <li class="featureItem">
+    <div class="featureItem_icon" aria-hidden="true">{check}</div>
+    <h3 class="featureItem_title">Tokenized icons</h3>
+    <div class="featureItem_text">
+      <p>Icon box size and colors come from the theme.</p>
+    </div>
+  </li>
+</ul>`}
+  baseClasses="featureGrid grid"
+  snippets={{
+    check: { preview: check, code: "<svg>[…]</svg>" },
+  }}
+  controls={[
+    { heading: "Columns (from --lg)", items: [
+      { type: "select", name: "cols", default: "cols3", options: [
+        { label: "2", value: "cols2", class: "", attr: 'col-lg="2"' },
+        { label: "3", value: "cols3", class: "", attr: 'col-lg="3"' },
+        { label: "4", value: "cols4", class: "", attr: 'col-lg="4"' },
+      ]},
+    ]},
+  ]}
+/>
 
 ## HTML
 

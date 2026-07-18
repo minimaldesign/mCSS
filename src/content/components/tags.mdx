@@ -6,6 +6,7 @@ type: "component"
 ---
 
 import Tags from "../../components/Tags.astro";
+import Playground from "../../components/_Playground.jsx";
 
 <div class="prose">
   The `.tags` component styles a list of tags. It supports both list and inline
@@ -27,6 +28,26 @@ import Tags from "../../components/Tags.astro";
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.tags.css
 
 </div>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<ul class="{classes}">
+  <li><a href="#">css</a></li>
+  <li><a href="#">astro</a></li>
+  <li><a href="#">basics</a></li>
+</ul>`}
+  baseClasses="tags"
+  controls={[
+    { heading: "Layout", items: [
+      { type: "select", name: "layout", default: "", options: [
+        { label: "List", value: "" },
+        { label: "Inline", value: "tags-inline" },
+      ]},
+    ]},
+  ]}
+/>
 
 ## HTML
 
@@ -111,37 +132,6 @@ const { frontmatter } = Astro.props;
 
 ```html
 <ul class="tags">
-  <li>
-    <a href="/blog/tags/css">css</a>
-  </li>
-  <li>
-    <a href="/blog/tags/astro">astro</a>
-  </li>
-  <li>
-    <a href="/blog/tags/basics">basics</a>
-  </li>
-</ul>
-```
-
-</li>
-<li>
-
-### HTML example (inline layout)
-
-<ul class="tags tags-inline">
-  <li>
-    <a href="/blog/tags/css">css</a>
-  </li>
-  <li>
-    <a href="/blog/tags/astro">astro</a>
-  </li>
-  <li>
-    <a href="/blog/tags/basics">basics</a>
-  </li>
-</ul>
-
-```html
-<ul class="tags tags-inline">
   <li>
     <a href="/blog/tags/css">css</a>
   </li>
