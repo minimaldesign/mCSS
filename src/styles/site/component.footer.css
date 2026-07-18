@@ -1,7 +1,7 @@
 /* Site-specific overrides of the library footer (framework/component.footer.css) */
 
 .footer_meta {
-  p:last-of-type {
+  p {
     margin-top: 1em;
   }
 
