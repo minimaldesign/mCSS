@@ -1,0 +1,138 @@
+/* Component playground island (_Playground.jsx). Docs site only. */
+
+.playground {
+  /* Matches the docs tables (--table-border-color) so the playground chrome
+     doesn't look heavier than the rest of the page, esp. in dark mode */
+  --playground-border-color: light-dark(var(--base-100), var(--base-700));
+
+  margin-block: var(--sm3);
+}
+
+/* Preview — live rendering of the configured markup */
+
+.playground_preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sm1);
+  min-height: var(--xl3);
+  padding: var(--md1);
+  border: var(--border-sm) solid var(--playground-border-color);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+
+  /* Dark in both themes, for .bt-white and friends */
+  &.is-darkSurface {
+    background-color: var(--base-950);
+    border-color: light-dark(var(--base-950), var(--base-700));
+  }
+}
+
+/* Settings — control groups in columns, reset pinned to the corner */
+
+.playground_settings {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  @media (--md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  gap: var(--sm2) var(--sm3);
+  padding: var(--sm1);
+  padding-inline-end: var(--lg2);
+  border: var(--border-sm) solid var(--playground-border-color);
+  border-block-start: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  font-size: var(--text-sm);
+}
+
+.playground_settings_group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs3);
+  min-width: 0;
+}
+
+.playground_settings_heading {
+  margin-bottom: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--semi-bold);
+  color: light-dark(var(--base-600), var(--base-300));
+}
+
+.playground_settings_field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs2);
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.playground_settings_label {
+  color: light-dark(var(--base-500), var(--base-400));
+}
+
+.playground_settings_check {
+  display: flex;
+  align-items: center;
+  gap: var(--xs2);
+  cursor: pointer;
+}
+
+.playground_settings_select,
+.playground_settings_input {
+  padding: var(--xs1) var(--xs2);
+  font-size: var(--text-sm);
+  border: var(--border-sm) solid var(--playground-border-color);
+  border-radius: var(--radius-md);
+  background-color: light-dark(var(--base-0), var(--base-900));
+}
+
+.playground_settings_reset {
+  position: absolute;
+  inset-inline-end: var(--xs2);
+  inset-block-start: var(--xs2);
+}
+
+.playground_btn {
+  --playgroundBtnSize: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--playgroundBtnSize);
+  height: var(--playgroundBtnSize);
+  padding: 0;
+  border-radius: var(--radius-round);
+  border: var(--border-sm) solid var(--playground-border-color);
+  background: light-dark(var(--base-0), var(--base-900));
+  color: light-dark(var(--base-600), var(--base-300));
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    color var(--transition);
+
+  &:hover {
+    background: light-dark(var(--base-100), var(--base-700));
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Code — generated HTML, Shiki-highlighted after hydration */
+
+.playground_code {
+  position: relative;
+  margin-block-start: var(--xs2);
+  border-radius: var(--radius-md);
+  background: light-dark(var(--base-950), var(--base-900));
+
+  pre {
+    padding: var(--sm1);
+    overflow-x: auto;
+  }
+}

@@ -6,6 +6,8 @@ type: "component"
 ---
 
 import PricingCard from "../../components/PricingCard.astro";
+import Playground from "../../components/_Playground.jsx";
+import checkIcon from "../../assets/icons/check.svg?raw";
 
 <section class="prose">
 
@@ -38,6 +40,45 @@ It extends the [card](/components/card) and uses the [badge](/components/badge) 
 [5]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<article class="{classes}">
+  <header class="pricingCard_header">
+    <h3 class="pricingCard_name">{name}</h3>{badge}
+  </header>
+  <p class="pricingCard_price">
+    <span class="pricingCard_amount">{price}</span>
+    <span class="pricingCard_period">/month</span>
+  </p>
+  <p class="pricingCard_description">{description}</p>
+  <ul class="pricingCard_features">
+    <li><span class="pricingCard_check" aria-hidden="true">{check}</span>10 sites</li>
+    <li><span class="pricingCard_check" aria-hidden="true">{check}</span>Email support</li>
+  </ul>
+  <div class="pricingCard_cta">
+    <a class="bt bt-primary" href="#">Get started</a>
+  </div>
+</article>`}
+  baseClasses="card pricingCard"
+  snippets={{
+    check: { preview: checkIcon, code: "<svg>[…]</svg>" },
+    badge: { preview: '<span class="badge badge-primary">Popular</span>', code: '<span class="badge badge-primary">Popular</span>' },
+  }}
+  controls={[
+    { heading: "Modifiers", items: [
+      { type: "checkbox", name: "highlighted", label: "Highlighted", value: "pricingCard-highlighted", default: false },
+    ]},
+    { heading: "Content", items: [
+      { type: "checkbox", name: "badge", label: "Badge", snippet: "badge", default: false },
+      { type: "text", name: "name", label: "Name", default: "Pro" },
+      { type: "text", name: "price", label: "Price", default: "$29" },
+      { type: "text", name: "description", label: "Description", default: "For professionals." },
+    ]},
+  ]}
+/>
 
 ## HTML
 

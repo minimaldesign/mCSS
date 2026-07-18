@@ -7,6 +7,7 @@ type: "atom"
 
 import arrow from "../../assets/icons/arrow-right-small.svg?raw";
 import mail from "../../assets/icons/mail.svg?raw";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -28,6 +29,45 @@ For accessibility, use `<button>` for actions and `<a>` for navigation. If you u
 
 </section>
 
+## Playground
+
+<Playground
+  client:visible
+  template={'<button class="{classes}"{attrs}>{icon}{label}</button>'}
+  baseClasses="bt"
+  snippets={{ icon: { preview: mail, code: "<svg>[…]</svg> " } }}
+  controls={[
+    { heading: "Variation", items: [
+      { type: "select", name: "size", label: "Size", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Medium", value: "bt-md" },
+        { label: "Large", value: "bt-lg" },
+      ]},
+      { type: "select", name: "color", label: "Color", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Primary", value: "bt-primary" },
+        { label: "Yes", value: "bt-yes" },
+        { label: "Maybe", value: "bt-maybe" },
+        { label: "No", value: "bt-no" },
+        { label: "White", value: "bt-white", previewSurface: "dark" },
+        { label: "White outline", value: "bt-outline-white", previewSurface: "dark" },
+      ]},
+    ]},
+    { heading: "Modifiers", items: [
+      { type: "checkbox", name: "outline", label: "Outline", value: "bt-outline", default: false },
+      { type: "checkbox", name: "text", label: "Text button", value: "bt-text", default: false },
+      { type: "checkbox", name: "icon", label: "Icon", snippet: "icon", default: false },
+      { type: "checkbox", name: "tightIcon", label: "Tight icon", value: "bt-tightIcon", default: false },
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "label", label: "Label", default: "Button" },
+    ]},
+    { heading: "State", items: [
+      { type: "checkbox", name: "disabled", label: "Disabled", attr: "disabled", default: false },
+    ]},
+  ]}
+/>
+
 ## HTML
 
 <section class="prose">
@@ -47,13 +87,9 @@ The `.bt-outline-white` and `.bt-white` (solid, primary text) are special case b
 | `.bt.bt-outline-white`                 | <button class="bt bt-outline-white">White Outline</button>                             |
 | `.bt.bt-white`                         | <button class="bt bt-white">Solid White</button>                                       |
 | `.bt.bt-primary`                       | <button class="bt bt-primary">Primary CTA</button>                                     |
-| `.bt.bt-primary.bt-outline`            | <button class="bt bt-primary bt-outline">Outlined CTA</button>                         |
 | `.bt.bt-yes`                           | <button class="bt bt-yes">Action Button</button>                                       |
-| `.bt.bt-yes.bt-outline`                | <button class="bt bt-yes bt-outline">Action Button</button>                            |
 | `.bt.bt-maybe`                         | <button class="bt bt-maybe">Action Button</button>                                     |
-| `.bt.bt-maybe.bt-outline`              | <button class="bt bt-maybe bt-outline">Action Button</button>                          |
 | `.bt.bt-no`                            | <button class="bt bt-no">Action Button</button>                                        |
-| `.bt.bt-no.bt-outline`                 | <button class="bt bt-no bt-outline">Action Button</button>                             |
 | SVG inline inside button               | <button class="bt"><Fragment set:html={mail} />Icon Button</button>                    |
 | `.bt.bt-tightIcon`                     | <button class="bt bt-tightIcon"><Fragment set:html={arrow} />Icon Button</button>      |
 | `.bt.bt-text`                          | <button class="bt bt-text">"Text" Button</button>                                      |

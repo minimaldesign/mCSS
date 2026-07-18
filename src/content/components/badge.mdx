@@ -5,6 +5,8 @@ version: 0.5
 type: "atom"
 ---
 
+import Playground from "../../components/_Playground.jsx";
+
 <section class="prose">
 
 The `.badge` atom is a small label for statuses, categories, and "new" markers. Pure CSS; there is no Astro component because a `<span>` with a class is already the whole API.
@@ -30,6 +32,28 @@ The `.badge` atom is a small label for statuses, categories, and "new" markers. 
 [2]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={'<span class="{classes}">{label}</span>'}
+  baseClasses="badge"
+  controls={[
+    { heading: "Variation", items: [
+      { type: "select", name: "color", label: "Color", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Primary", value: "badge-primary" },
+        { label: "Success", value: "badge-success" },
+        { label: "Danger", value: "badge-danger" },
+        { label: "Warning", value: "badge-warning" },
+      ]},
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "label", label: "Label", default: "new" },
+    ]},
+  ]}
+/>
 
 ## HTML
 

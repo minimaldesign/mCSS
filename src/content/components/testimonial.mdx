@@ -6,6 +6,7 @@ type: "component"
 ---
 
 import Testimonial from "../../components/Testimonial.astro";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -32,6 +33,36 @@ The `.testimonial` component is a quote with attribution: a `figure` wrapping mC
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<figure class="testimonial">
+  <blockquote class="testimonial_quote">
+    <p>{quote}</p>
+  </blockquote>
+  <figcaption class="testimonial_byline">
+    <div class="avatar avatar-sm">
+      <div><span>{initials}</span></div>
+    </div>
+    <div>
+      <span class="testimonial_name">{name}</span>
+      <span class="testimonial_role">{role}</span>
+    </div>
+  </figcaption>
+</figure>`}
+  controls={[
+    { heading: "Content", items: [
+      { type: "text", name: "quote", label: "Quote", default: "We deleted four hundred lines of utility classes the week we switched." },
+    ]},
+    { heading: "Byline", items: [
+      { type: "text", name: "name", label: "Name", default: "Sonny Mueller" },
+      { type: "text", name: "role", label: "Role", default: "Design lead, Acme" },
+      { type: "text", name: "initials", label: "Initials", default: "SM" },
+    ]},
+  ]}
+/>
 
 ## HTML
 
@@ -87,9 +118,10 @@ The default slot is the quote.
 
 ## Examples
 
+A wall of quotes is just testimonials on the [grid](/docs/global#grid):
+
 <ul class="docs_examples">
   <li>
-    A wall of quotes is just testimonials on the [grid](/docs/global#grid):
 
     <div class="grid" col="1" col-md="3">
       <Testimonial name="Ada Chen" role="Freelance">

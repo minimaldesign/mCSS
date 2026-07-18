@@ -53,13 +53,19 @@ xxl: 1920px
 
 /* Native validation: reveal the error message once the control has been
    interacted with and is invalid (:user-invalid, not :invalid, so pristine
-   forms don't light up red). The border color comes from elements.form.css. */
-  .field:has(:user-invalid) .field_error {
+   forms don't light up red). The border color comes from elements.form.css.
+   .is-invalid forces the same presentation from markup, for server-side
+   validation results, tests, and demos. */
+  :is(.field:has(:user-invalid),.field.is-invalid) .field_error {
     display: block;
   }
 
-  .field:has(:user-invalid):has(.field_error) .field_hint {
+  :is(.field:has(:user-invalid),.field.is-invalid):has(.field_error) .field_hint {
     display: none;
   }
+
+.field.is-invalid :is(input, select, textarea) {
+  border-color: var(--input-border-color-invalid);
+}
 
 }

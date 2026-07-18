@@ -7,6 +7,7 @@ type: "component"
 
 import Avatar from "../../components/Avatar.astro";
 import imageSrc from "../../assets/images/sonny.png";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -27,6 +28,47 @@ Its default size is 56px. (See the [HTML](#html) section below for all options.)
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.avatar.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<div class="{classes}">
+  <div>{content}</div>
+</div>`}
+  baseClasses="avatar"
+  snippets={{
+    initials: { preview: "<span>SR</span>", code: "<span>SR</span>" },
+    image: {
+      preview: `<img src="${imageSrc.src}" alt="Sonny Rollins">`,
+      code: `<img src="sonny.png" alt="Sonny Rollins">`,
+    },
+  }}
+  controls={[
+    { heading: "Variation", items: [
+      { type: "select", name: "size", label: "Size", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Small", value: "avatar-sm" },
+        { label: "Medium", value: "avatar-md" },
+        { label: "Large", value: "avatar-lg" },
+        { label: "Extra large", value: "avatar-xl" },
+      ]},
+    ]},
+    { heading: "State", items: [
+      { type: "select", name: "status", label: "Status", default: "", options: [
+        { label: "None", value: "" },
+        { label: "Online", value: "is-online" },
+        { label: "Offline", value: "is-offline" },
+      ]},
+    ]},
+    { heading: "Content", items: [
+      { type: "select", name: "content", label: "Show", snippet: "content", default: "initials", options: [
+        { label: "Initials", value: "initials", class: "", snippet: "initials" },
+        { label: "Image", value: "image", class: "", snippet: "image" },
+      ]},
+    ]},
+  ]}
+/>
 
 ## HTML
 
@@ -81,24 +123,6 @@ The following custom properties are available in the [default theme](/docs/theme
 
 </div>
 
-## Available styles
-
-{/* prettier-ignore */}
-<ul class="docs_examples grid grid-flush" col="2">
-  <li><Avatar size="sm" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="sm">SR</Avatar></li>
-  <li><Avatar size="md" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="md">SR</Avatar></li>
-  <li><Avatar imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar>SR</Avatar></li>
-  <li><Avatar size="lg" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="lg">SR</Avatar></li>
-  <li><Avatar size="xl" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar size="xl">SR</Avatar></li>
-  <li><Avatar status="offline" size="xl" imageSrc={imageSrc}>SR</Avatar></li>
-  <li><Avatar status="online" size="xl">SR</Avatar></li>
-</ul>
-
 ## Examples
 
 <ul class="docs_examples prose">
@@ -145,19 +169,6 @@ The following custom properties are available in the [default theme](/docs/theme
         <span>SR</span>
       </div>
     </div>
-    ```
-
-  </li>
-  <li>
-    <Avatar status="online" size="xl" imageSrc={imageSrc}>Sonny Rollins</Avatar>
-
-    ```html
-    <div class="avatar avatar-xl is-online">
-      <div>
-        <img src="/assets/images/sonny.png" alt="Sonny Rollins">
-      </div>
-    </div>
-
     ```
 
   </li>

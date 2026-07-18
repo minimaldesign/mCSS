@@ -6,6 +6,8 @@ type: "component"
 ---
 
 import Banner from "../../components/Banner.astro";
+import Playground from "../../components/_Playground.jsx";
+import xIcon from "../../assets/icons/x.svg?raw";
 
 <section class="prose">
 
@@ -32,6 +34,33 @@ The `.banner` component is the thin announcement bar at the very top of the page
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
 
 </section>
+
+## Playground
+
+<Playground
+  client:visible
+  template={`<aside class="banner">
+  <div class="banner_content">
+    <p>{content}</p>
+  </div>{close}
+</aside>`}
+  snippets={{
+    close: {
+      preview: `<button class="banner_close" aria-label="Dismiss announcement">${xIcon}</button>`,
+      code: '<button class="banner_close" aria-label="Dismiss announcement"><svg>[…]</svg></button>',
+    },
+  }}
+  controls={[
+    { heading: "Behavior", items: [
+      { type: "checkbox", name: "close", label: "Dismissible", snippet: "close", default: true },
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "content", label: "Text", default: "mCSS v1 is out!" },
+    ]},
+  ]}
+/>
+
+The playground's dismiss button is inert: the persistence script lives in Banner.astro (see below).
 
 ## HTML
 

@@ -11,7 +11,7 @@ import Footer from "../../components/Footer.astro";
 
 The `.footer` component is the site-wide bottom section: link columns on the right, a meta area (copyright, credits, version…) on the left. Pure HTML and CSS, no JavaScript.
 
-<Footer style="border-radius: var(--radius-lg);">
+<Footer style="border-radius: 0 0 var(--radius-lg) var(--radius-lg);">
   <ul>
     <li>
       <h5>Product</h5>
@@ -29,7 +29,7 @@ The `.footer` component is the site-wide bottom section: link columns on the rig
     </li>
   </ul>
   <Fragment slot="meta">
-    <p>© 2026 Acme Inc.</p>
+    <p class="mt-xs1">© 2026 Acme Inc.</p>
   </Fragment>
 </Footer>
 
@@ -147,7 +147,7 @@ Any other attribute is passed through to the root `<footer>` element.
         </li>
       </ul>
       <Fragment slot="meta">
-        <p>© 2026 Acme Inc.</p>
+        <p class="mt-xs1">© 2026 Acme Inc.</p>
       </Fragment>
     </Footer>
 

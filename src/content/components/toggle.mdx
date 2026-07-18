@@ -6,6 +6,7 @@ type: "atom"
 ---
 
 import arrow from "../../assets/icons/arrow-right-small.svg?raw";
+import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
@@ -25,6 +26,20 @@ The `toggle` [atom](/docs/start#atoms) uses the `.toggle` class on `<input>` ele
 
 </section>
 
+## Playground
+
+<Playground
+  client:visible
+  template={'<input class="{classes}" type="checkbox"{attrs} />'}
+  baseClasses="toggle"
+  controls={[
+    { heading: "State", items: [
+      { type: "checkbox", name: "checked", label: "Checked", attr: "checked", default: true },
+      { type: "checkbox", name: "disabled", label: "Disabled", attr: "disabled", default: false },
+    ]},
+  ]}
+/>
+
 ## HTML
 
 <ul class="docs_examples">
@@ -32,12 +47,6 @@ The `toggle` [atom](/docs/start#atoms) uses the `.toggle` class on `<input>` ele
     <input class="toggle" type="checkbox" />
     ```html
     <input class="toggle" type="checkbox" />
-    ```
-  </li>
-  <li>
-    <input class="toggle" type="checkbox" checked />
-    ```html
-    <input class="toggle" type="checkbox" checked />
     ```
   </li>
 </ul>
