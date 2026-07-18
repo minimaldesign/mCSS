@@ -14,7 +14,11 @@ import CopyButton from "./_CopyButton.jsx";
     In MDX, pass it as a quoted JS string prop so `{classes}` isn't parsed
     as an expression: template={'<button class="{classes}">{label}</button>'}
   - baseClasses: classes always present, e.g. "bt".
-  - controls: array of plain objects, see the control types below.
+  - controls: array of plain objects. Entries are either a control (see the
+    types below) or a group `{ heading, items: [controls] }`. Groups become
+    columns in an auto-fit grid, so column count adapts to available width
+    with no per-page configuration. Consecutive ungrouped controls collect
+    into one implicit group, which keeps flat configs working.
   - snippets: { name: { preview, code } } markup for snippet toggles; the
     live preview uses `preview` (real SVG), the code panel uses `code`
     (abbreviated, e.g. "<svg>[…]</svg> ").
@@ -46,6 +50,26 @@ function escapeHtml(str) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+// Entries are controls or { heading, items } groups; consecutive ungrouped
+// controls collect into one implicit group so flat configs keep working.
+function normalizeGroups(controls) {
+  const groups = [];
+  let implicit = null;
+  for (const entry of controls) {
+    if (entry.items) {
+      implicit = null;
+      groups.push(entry);
+    } else {
+      if (!implicit) {
+        implicit = { items: [] };
+        groups.push(implicit);
+      }
+      implicit.items.push(entry);
+    }
+  }
+  return groups;
 }
 
 function defaultValues(controls) {
@@ -106,7 +130,9 @@ function SelectControl({ control, groupName, value, onChange }) {
   if (control.options.length > RADIO_MAX_OPTIONS) {
     return (
       <div class="playground_settings_field">
-        <label class="playground_settings_label">{control.label}</label>
+        {control.label && (
+          <label class="playground_settings_label">{control.label}</label>
+        )}
         <select
           class="playground_settings_select"
           value={value}
@@ -123,7 +149,9 @@ function SelectControl({ control, groupName, value, onChange }) {
   }
   return (
     <fieldset class="playground_settings_field">
-      <legend class="playground_settings_label">{control.label}</legend>
+      {control.label && (
+        <legend class="playground_settings_label">{control.label}</legend>
+      )}
       {control.options.map((option) => (
         <label key={option.value} class="playground_settings_check">
           <input
@@ -147,7 +175,12 @@ export default function Playground({
   class: className = "",
 }) {
   const id = useId();
-  const [values, setValues] = useState(() => defaultValues(controls));
+  const groups = useMemo(() => normalizeGroups(controls), [controls]);
+  const allControls = useMemo(
+    () => groups.flatMap((group) => group.items),
+    [groups],
+  );
+  const [values, setValues] = useState(() => defaultValues(allControls));
 
   const setValue = (name, value) =>
     setValues((current) => ({ ...current, [name]: value }));
@@ -157,27 +190,72 @@ export default function Playground({
       buildHtml({
         template,
         baseClasses,
-        controls,
+        controls: allControls,
         snippets,
         values,
         mode: "preview",
       }),
-    [template, baseClasses, controls, snippets, values],
+    [template, baseClasses, allControls, snippets, values],
   );
   const codeHtml = useMemo(
     () =>
       buildHtml({
         template,
         baseClasses,
-        controls,
+        controls: allControls,
         snippets,
         values,
         mode: "code",
       }),
-    [template, baseClasses, controls, snippets, values],
+    [template, baseClasses, allControls, snippets, values],
   );
   const highlightedHtml = useHighlightedCode(codeHtml, "html");
-  const darkSurface = hasDarkSurface(controls, values);
+  const darkSurface = hasDarkSurface(allControls, values);
+
+  const renderControl = (control) => {
+    const value = values[control.name];
+    if (control.type === "select") {
+      return (
+        <SelectControl
+          key={control.name}
+          control={control}
+          groupName={`${id}-${control.name}`}
+          value={value}
+          onChange={(v) => setValue(control.name, v)}
+        />
+      );
+    }
+    if (control.type === "checkbox") {
+      return (
+        <div key={control.name} class="playground_settings_field">
+          <label class="playground_settings_check">
+            <input
+              type="checkbox"
+              checked={Boolean(value)}
+              onChange={(e) => setValue(control.name, e.target.checked)}
+            />
+            {control.label}
+          </label>
+        </div>
+      );
+    }
+    if (control.type === "text") {
+      return (
+        <div key={control.name} class="playground_settings_field">
+          {control.label && (
+            <label class="playground_settings_label">{control.label}</label>
+          )}
+          <input
+            class="playground_settings_input"
+            type="text"
+            value={value}
+            onInput={(e) => setValue(control.name, e.target.value)}
+          />
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div class={`playground not-prose${className ? ` ${className}` : ""}`}>
@@ -186,51 +264,17 @@ export default function Playground({
         dangerouslySetInnerHTML={{ __html: previewHtml }}
       />
       <div class="playground_settings">
-        {controls.map((control) => {
-          const value = values[control.name];
-          if (control.type === "select") {
-            return (
-              <SelectControl
-                key={control.name}
-                control={control}
-                groupName={`${id}-${control.name}`}
-                value={value}
-                onChange={(v) => setValue(control.name, v)}
-              />
-            );
-          }
-          if (control.type === "checkbox") {
-            return (
-              <div key={control.name} class="playground_settings_field">
-                <label class="playground_settings_check">
-                  <input
-                    type="checkbox"
-                    checked={Boolean(value)}
-                    onChange={(e) => setValue(control.name, e.target.checked)}
-                  />
-                  {control.label}
-                </label>
-              </div>
-            );
-          }
-          if (control.type === "text") {
-            return (
-              <div key={control.name} class="playground_settings_field">
-                <label class="playground_settings_label">{control.label}</label>
-                <input
-                  class="playground_settings_input"
-                  type="text"
-                  value={value}
-                  onInput={(e) => setValue(control.name, e.target.value)}
-                />
-              </div>
-            );
-          }
-          return null;
-        })}
+        {groups.map((group, index) => (
+          <div key={group.heading ?? index} class="playground_settings_group">
+            {group.heading && (
+              <h4 class="playground_settings_heading">{group.heading}</h4>
+            )}
+            {group.items.map(renderControl)}
+          </div>
+        ))}
         <button
           class="playground_btn playground_settings_reset"
-          onClick={() => setValues(defaultValues(controls))}
+          onClick={() => setValues(defaultValues(allControls))}
           title="Reset to defaults"
           dangerouslySetInnerHTML={{ __html: resetIcon }}
         />

@@ -37,26 +37,34 @@ For accessibility, use `<button>` for actions and `<a>` for navigation. If you u
   baseClasses="bt"
   snippets={{ icon: { preview: mail, code: "<svg>[…]</svg> " } }}
   controls={[
-    { type: "select", name: "size", label: "Size", default: "", options: [
-      { label: "Default", value: "" },
-      { label: "Medium", value: "bt-md" },
-      { label: "Large", value: "bt-lg" },
+    { heading: "Size", items: [
+      { type: "select", name: "size", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Medium", value: "bt-md" },
+        { label: "Large", value: "bt-lg" },
+      ]},
     ]},
-    { type: "select", name: "color", label: "Color", default: "", options: [
-      { label: "Default", value: "" },
-      { label: "Primary", value: "bt-primary" },
-      { label: "Yes", value: "bt-yes" },
-      { label: "Maybe", value: "bt-maybe" },
-      { label: "No", value: "bt-no" },
-      { label: "White", value: "bt-white", previewSurface: "dark" },
-      { label: "White outline", value: "bt-outline-white", previewSurface: "dark" },
+    { heading: "Color", items: [
+      { type: "select", name: "color", default: "", options: [
+        { label: "Default", value: "" },
+        { label: "Primary", value: "bt-primary" },
+        { label: "Yes", value: "bt-yes" },
+        { label: "Maybe", value: "bt-maybe" },
+        { label: "No", value: "bt-no" },
+        { label: "White", value: "bt-white", previewSurface: "dark" },
+        { label: "White outline", value: "bt-outline-white", previewSurface: "dark" },
+      ]},
     ]},
-    { type: "checkbox", name: "outline", label: "Outline", value: "bt-outline", default: false },
-    { type: "checkbox", name: "text", label: "Text button", value: "bt-text", default: false },
-    { type: "checkbox", name: "icon", label: "Icon", snippet: "icon", default: false },
-    { type: "checkbox", name: "tightIcon", label: "Tight icon", value: "bt-tightIcon", default: false },
-    { type: "checkbox", name: "disabled", label: "Disabled", attr: "disabled", default: false },
-    { type: "text", name: "label", label: "Label", default: "Button" },
+    { heading: "Modifiers", items: [
+      { type: "checkbox", name: "outline", label: "Outline", value: "bt-outline", default: false },
+      { type: "checkbox", name: "text", label: "Text button", value: "bt-text", default: false },
+      { type: "checkbox", name: "icon", label: "Icon", snippet: "icon", default: false },
+      { type: "checkbox", name: "tightIcon", label: "Tight icon", value: "bt-tightIcon", default: false },
+    ]},
+    { heading: "Content", items: [
+      { type: "text", name: "label", label: "Label", default: "Button" },
+      { type: "checkbox", name: "disabled", label: "Disabled", attr: "disabled", default: false },
+    ]},
   ]}
 />
 

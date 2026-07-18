@@ -1,6 +1,10 @@
 /* Component playground island (_Playground.jsx). Docs site only. */
 
 .playground {
+  /* Matches the docs tables (--table-border-color) so the playground chrome
+     doesn't look heavier than the rest of the page, esp. in dark mode */
+  --playground-border-color: light-dark(var(--base-100), var(--base-700));
+
   margin-block: var(--sm3);
 }
 
@@ -14,32 +18,42 @@
   gap: var(--sm1);
   min-height: var(--xl3);
   padding: var(--md1);
-  border: var(--border-sm) solid var(--theme-border-color);
+  border: var(--border-sm) solid var(--playground-border-color);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
-  background-color: light-dark(var(--base-0), var(--base-800));
-  transition:
-    background-color var(--transition),
-    border-color var(--transition);
 
   /* Dark in both themes, for .bt-white and friends */
   &.is-darkSurface {
     background-color: var(--base-950);
-    border-color: var(--base-950);
+    border-color: light-dark(var(--base-950), var(--base-700));
   }
 }
 
-/* Settings — one field per control, reset pinned to the corner */
+/* Settings — auto-fit columns of control groups, reset pinned to the corner */
 
 .playground_settings {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sm1) var(--sm3);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--sm2) var(--sm3);
   padding: var(--sm1);
   padding-inline-end: var(--lg2);
-  border: var(--border-sm) solid var(--theme-border-color);
+  border: var(--border-sm) solid var(--playground-border-color);
   border-block-start: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
   font-size: var(--text-sm);
+}
+
+.playground_settings_group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs3);
+  min-width: 0;
+}
+
+.playground_settings_heading {
+  font-size: var(--text-sm);
+  font-weight: var(--semi-bold);
+  color: light-dark(var(--base-600), var(--base-300));
 }
 
 .playground_settings_field {
@@ -66,9 +80,9 @@
 .playground_settings_input {
   padding: var(--xs1) var(--xs2);
   font-size: var(--text-sm);
-  border: var(--border-sm) solid var(--theme-border-color);
+  border: var(--border-sm) solid var(--playground-border-color);
   border-radius: var(--radius-md);
-  background-color: light-dark(var(--base-0), var(--base-800));
+  background-color: light-dark(var(--base-0), var(--base-900));
 }
 
 .playground_settings_reset {
@@ -86,8 +100,8 @@
   height: var(--playgroundBtnSize);
   padding: 0;
   border-radius: var(--radius-round);
-  border: var(--border-sm) solid var(--theme-border-color);
-  background: light-dark(var(--base-0), var(--base-800));
+  border: var(--border-sm) solid var(--playground-border-color);
+  background: light-dark(var(--base-0), var(--base-900));
   color: light-dark(var(--base-600), var(--base-300));
   line-height: 1;
   cursor: pointer;
@@ -109,7 +123,8 @@
 
 .playground_code {
   position: relative;
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  margin-block-start: var(--xs2);
+  border-radius: var(--radius-md);
   background: light-dark(var(--base-950), var(--base-900));
 
   pre {
