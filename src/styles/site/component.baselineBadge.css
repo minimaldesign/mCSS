@@ -1,0 +1,21 @@
+/* BASELINE BADGE (see _BaselineBadge.astro) */
+
+.baselineBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--xs2);
+  font-size: var(--text-xs);
+  color: light-dark(var(--base-500), var(--base-400));
+  text-decoration: none;
+
+  svg {
+    width: 22px;
+    height: auto;
+    flex: none;
+  }
+
+  &:hover span {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+}

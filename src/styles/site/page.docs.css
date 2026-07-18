@@ -200,7 +200,7 @@ ul.docs_section_media {
   border-radius: var(--radius-lg);
   overflow: hidden;
 
-  .grid_item {
+  .docs_grid_item {
     padding: var(--xs2);
     background-color: var(--primary-500);
     color: var(--base-0);

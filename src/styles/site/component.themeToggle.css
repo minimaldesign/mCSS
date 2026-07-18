@@ -1,0 +1,13 @@
+/* ThemeToggle component (rendered in the header and the mobile menu) */
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sm3);
+  cursor: pointer;
+}
+
+.themeToggle_text {
+  @media (--md) {
+    display: none;
+  }
+}

@@ -21,9 +21,3 @@
     width: 25px;
   }
 }
-
-.webring {
-  display: flex;
-  gap: var(--xs2);
-  margin-top: var(--md3);
-}

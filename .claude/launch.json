@@ -18,6 +18,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--", "--port", "4330"],
       "port": 4330
+    },
+    {
+      "name": "dev-4340",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "4340"],
+      "port": 4340
     }
   ]
 }

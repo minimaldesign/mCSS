@@ -43,7 +43,18 @@ Site-only files keep the same prefixes but live in `src/styles/site/` and import
 - Block modifiers (`.card-filled`, `.bt-primary`) for **build-time variants** chosen by props/markup.
 - Prefer styling an ARIA attribute when one exists: `[aria-current="true"]`, `[aria-expanded="true"]`, `[aria-disabled="true"]` beat inventing a parallel class.
 - Nested states compile to two-class selectors (`.avatar.is-online`) that out-specify single-class modifiers (`.avatar-xl`). So declare custom-property **defaults on the block**, let modifiers override them, and only **consume** the properties inside state blocks — never declare defaults there (that's how the avatar status-dot regression happened).
-- Element chains cap at `block_element`. Grandchildren **re-block** (`.themeToggle_text`, not `.header_navMobile_themeToggle_text`).
+- Element chains may go as deep as the block's own structure needs (`.home_morph_static_arrow` = arrow inside the morph's static state). The underscore marks hierarchy **within one block**; multi-word single names stay camelCase (`.home_themer_formRow`). A nested *component* always starts its own block (`.themeToggle_text`, never `.header_navMobile_themeToggle_text`).
+
+### Never couple classes from different components (CRITICAL)
+
+A selector must only contain classes from its own block. Never write a descendant/nesting selector that reaches into another component's classes: not its block (`.home .section`), not its elements (`.home_pillar .featureItem_title`). Cross-component cascade is what keeps CSS systems from scaling; mCSS bans it outright.
+
+To style a component from outside:
+
+- **Its root**: mix your own class onto the element in markup (`<Section class="home_section …">`) and style that class.
+- **Its internals**: use the component's `<part>Class` props (`headerClass`, `titleClass`, …) to mix a class onto the part, or set the component's theme tokens on your own hook class. If neither exists yet, add the prop or token to the component. Do not reach in with a selector.
+- **Bare HTML tags** (`.home_themer_formRow > button`), `.is-*` states, and ARIA attribute selectors are fine inside your own block.
+- **Context blocks are not components**: a component may reference the environment it sits in (`@scope (.prose) to (.not-prose)` in `component.notice.css`, `:root.theme-dark`), but the context's own file must never name specific components (that's why `global.prose.css` lists only bare tags).
 
 ### Token naming grammar
 
@@ -59,6 +70,7 @@ Never `transition: all` — it also transitions layout properties, so any late-a
 
 ## Adding Styles
 
+- **One block per file.** Every block gets its own file named after it (`.featureItem` lives in `component.featureItem.css`, never inside `component.featureGrid.css`), even for small companion blocks (`component.fieldRow.css`, site `component.webring.css`).
 - Framework file: create `src/styles/framework/<prefix>.<name>.css` and add `@import url(./<file>) layer(<layer>);` in the matching block of `framework/mcss.css`.
 - Site file: create `src/styles/site/<prefix>.<name>.css` and add a plain `@import` in `_global.css` (unlayered).
 - Framework CSS must never reference site-only selectors (e.g. `.expressive-code`); the site file mirrors any shared pattern itself.

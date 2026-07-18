@@ -1,0 +1,12 @@
+/* POST LIST */
+
+.postList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    /* grid items stretch, so cards in a row share the same height */
+    display: grid;
+  }
+}

@@ -3,12 +3,16 @@ import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'li'> {
   title?: string;
+  titleClass?: string;
+  iconClass?: string;
   'data-testid'?: string;
 }
 
 // prettier-ignore
 const {
   title,
+  titleClass,
+  iconClass,
   class: className,
   'data-testid': testId = 'featureItem',
   ...rest
@@ -23,12 +27,12 @@ const {
 >
   {
     Astro.slots.has('icon') && (
-      <div class="featureItem_icon" aria-hidden="true">
+      <div class:list={['featureItem_icon', iconClass]} aria-hidden="true">
         <slot name="icon" />
       </div>
     )
   }
-  {title && <h3 class="featureItem_title">{title}</h3>}
+  {title && <h3 class:list={['featureItem_title', titleClass]}>{title}</h3>}
   <div class="featureItem_text">
     <slot />
   </div>

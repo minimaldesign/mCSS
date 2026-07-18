@@ -8,9 +8,13 @@
   helpers should still override go in a lower layer, e.g. @layer pages { … }.
 */
 @import url(./site/component.header.css);
+@import url(./site/component.themeToggle.css);
+@import url(./site/component.menuThemeToggle.css);
 @import url(./site/component.footer.css);
+@import url(./site/component.webring.css);
 @import url(./site/component.navDocs.css);
 
+@import url(./site/component.baselineBadge.css);
 @import url(./site/component.canIUse.css);
 @import url(./site/component.colorPickerOklch.css);
 @import url(./site/component.copyButton.css);

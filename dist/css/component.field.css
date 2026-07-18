@@ -62,17 +62,4 @@ xxl: 1920px
     display: none;
   }
 
-/* Inline composition: fields and buttons on one wrapping row
-   (newsletter signup, search bar…) */
-.fieldRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: var(--xs3);
-}
-
-  .fieldRow .field {
-    flex: 1 1 200px;
-  }
-
 }

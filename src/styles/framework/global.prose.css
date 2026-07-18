@@ -1,9 +1,11 @@
 /* PROSE - Default style for text content */
 
 @scope (.prose) to (.not-prose) {
-  /* Site-only blocks (.expressive-code, .canIUse) get the same treatment in
-     their own (unlayered) site CSS files. */
-  :is(p, ul, ol, blockquote, table, .notice):has(+ :is(h1, h2, h3, h4)) {
+  /* Component blocks mirror this heading-adjacent margin themselves in their
+     own files (.notice in component.notice.css; site-only .expressive-code,
+     .canIUse in their unlayered site CSS files): prose never reaches into
+     another component's classes. */
+  :is(p, ul, ol, blockquote, table):has(+ :is(h1, h2, h3, h4)) {
     margin-bottom: calc(var(--prose-spacing) * 2);
   }
 

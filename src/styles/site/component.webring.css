@@ -1,0 +1,7 @@
+/* WEBRING (CSS Joy links in the site footer) */
+
+.webring {
+  display: flex;
+  gap: var(--xs2);
+  margin-top: var(--md3);
+}
