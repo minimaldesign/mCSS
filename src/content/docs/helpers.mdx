@@ -5,7 +5,7 @@ version: 0.1
 ---
 
 <section class="prose">
-Helpers are classes for very targeted "one-off" local overrides. They live in the last mCSS [cascade layer](/docs/start#mcss-file-structure), so they beat every other framework layer without needing high specificity or `!important` (your own unlayered CSS still beats them). They should be used as little as possible, but they're useful for things like:
+Helpers are classes for very targeted "one-off" local overrides. Every helper declaration uses `!important`, and because they live in an mCSS [cascade layer](/docs/start#mcss-file-structure), that beats everything: all framework layers, your own unlayered CSS, even normal inline styles. Think of a helper as inline styling for a single element. That power is exactly why they should be used as little as possible, but they're useful for things like:
 
 - Designer's request to "make an exception"
 - Quick fix until refactor
