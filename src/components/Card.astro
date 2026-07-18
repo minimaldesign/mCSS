@@ -72,7 +72,7 @@ const aspectRatioMap = {
 };
 const aspectRatioValue = aspectRatioMap[aspectRatio];
 
-const Heading = `h${headingLevel}`;
+const Heading = `h${headingLevel}` as const;
 
 // The whole card is clickable through one stretched .card_link. When there is
 // a title, the title anchor carries it so its text names the link; otherwise
