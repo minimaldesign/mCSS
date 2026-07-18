@@ -21,7 +21,7 @@ Once you've read through the basics below, the best way to understand how it all
 
 The file structure is based on [ITCSS][1], but with important differences detailed below. The basic idea is to organize your files in different [layers][layers] so that your CSS [rulesets][2] are organized from global low [specificity][3] to local high specificity. When done right, it takes care of all the common "shortcomings" of CSS such as specificity wars and cascading conflicts.
 
-mCSS implements this with **native [CSS cascade layers][cascade-layers]**: every framework file is imported into a named `@layer`, and the layer order (not the import order, and not specificity) decides who wins. Anything you write *outside* the layers beats the framework by default, so mCSS always gets out of your way. Below is an overview of each layer. The full documentation of most layers is available from the sidebar.
+mCSS implements this with **native [CSS cascade layers][cascade-layers]**: every framework file is imported into a named `@layer`, and the layer order (not the import order, and not specificity) decides who wins. Anything you write *outside* the layers beats the framework by default, so mCSS always gets out of your way. The only exception is [helper classes][helpers], which use `!important` so they can override anything, including your own CSS. Below is an overview of each layer. The full documentation of most layers is available from the sidebar.
 
 This is how mCSS is organized. ([Github source][4].)
 
@@ -125,15 +125,15 @@ See the [components section][components] for more info.
 
 ### Pages
 
-Page specific design elements and adjustments. These files are project specific and none are included in mCSS by default. The `pages` layer sits just below `helpers`, so it's also the right place for your own rules that helper classes should still be able to override (`@layer pages { … }`).
+Page specific design elements and adjustments. These files are project specific and none are included in mCSS by default. Use `@layer pages { … }` for page rules that should stay below the framework's cascade while still beating the other layers.
 
 ### Helpers
 
-[Helpers][helpers] provide classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Because `helpers` is the last framework layer, they beat every other mCSS layer without needing `!important`, but your own unlayered CSS still beats them. Read [the docs][helpers] for more info on this.
+[Helpers][helpers] provide classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Helper declarations use `!important`, and important declarations inside a layer beat unlayered CSS, so a helper class overrides everything on that element, including your own CSS. Read [the docs][helpers] for more info on this.
 
 ### Your CSS (unlayered)
 
-Everything you write outside the mCSS layers (your components, page styles, and any third-party CSS you don't control) simply imports after the framework, unlayered. Unlayered CSS wins over all layered CSS, so you never fight the framework's specificity.
+Everything you write outside the mCSS layers (your components, page styles, and any third-party CSS you don't control) simply imports after the framework, unlayered. Unlayered CSS wins over all layered CSS for normal declarations, so you never fight the framework's specificity. The one exception is helper classes: their `!important` declarations win even over unlayered CSS, by design.
 
 </section>
 

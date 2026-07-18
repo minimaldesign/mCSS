@@ -2,10 +2,11 @@
   mCSS framework entry point.
 
   The framework lives in named cascade layers, declared here in priority
-  order (later wins). The layer name — not import order — decides priority.
+  order (later wins). The layer name, not import order, decides priority.
   Anything a consumer writes OUTSIDE these layers beats the framework by
-  default; to write CSS that helpers can still override, put it in a lower
-  layer (e.g. @layer pages { … }).
+  default, with one exception: helpers use !important, and important layered
+  declarations beat unlayered CSS. Helpers are element-level overrides that
+  win everywhere, like inline styling.
 */
 @layer settings, base, elements, global, atoms, components, pages, helpers;
 
@@ -71,7 +72,9 @@
 @import url(./component.tags.css) layer(components);
 @import url(./component.toc.css) layer(components);
 
-/* Helpers for local overrides (last layer: beats every other framework layer) */
+/* Helpers for local overrides. Every declaration is !important on purpose: */
+/* important layered declarations beat unlayered CSS, so helpers win over */
+/* everything, including consumer CSS. */
 /* (Use VERY sparingly, or you might as well use Tailwind…) */
 @import url(./help.colors.css) layer(helpers);
 @import url(./help.layout.css) layer(helpers);

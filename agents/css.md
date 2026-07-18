@@ -10,9 +10,9 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 
 1. Framework layers, in priority order (later wins):
    `settings, base, elements, global, atoms, components, pages, helpers`
-2. **Unlayered CSS beats every layer.** That's the consumer guarantee ("your CSS wins") and why site CSS is unlayered. It also means unlayered site CSS beats helper classes.
-3. To write site CSS that helpers should still override, put the rule in a lower layer, e.g. `@layer pages { .docs_box { … } }` (see `site/page.docs.css`).
-4. `!important` is banned in helpers (layer order replaces it). The only exception is targeting third-party injected styles (see `site/external.astro.css`).
+2. **Unlayered CSS beats every layer for normal declarations.** That's the consumer guarantee ("your CSS wins") and why site CSS is unlayered.
+3. **Helpers are the exception: every helper declaration carries `!important`.** Important layered declarations beat unlayered CSS (the cascade inverts for important), so helpers win over site and consumer CSS too. They're element-level overrides, like inline styling. For important declarations layer order also inverts (earlier layer wins), which is why the reduced-motion block in `base.reset.css` still beats helpers.
+4. `!important` is REQUIRED in every helper declaration and banned everywhere else in the framework, except the reduced-motion block in `base.reset.css` and third-party override files (see `site/external.astro.css`). `help.colors.css` and `help.spacing.css` get it from their generators.
 5. `postcss.config.cjs` disables preset-env's `cascade-layers` polyfill. **Never remove that option** — the polyfill strips every `@layer` rule and silently replaces the cascade with specificity hacks. The browser floor is set in `.browserslistrc` (`defaults and supports css-cascade-layers`).
 
 ## Layer table
@@ -26,7 +26,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 | atoms      | `atom.*`      | Small single-purpose UI (button, toggle)                    |
 | components | `component.*` | Library components (card, hero, notice, …)                  |
 | pages      | `page.*`      | Page-specific styles that helpers may override              |
-| helpers    | `help.*`      | Utility overrides (colors, spacing, typography) — last layer, beats all other framework layers |
+| helpers    | `help.*`      | Utility overrides (colors, spacing, typography), all `!important`: beats everything, including unlayered CSS |
 
 Site-only files keep the same prefixes but live in `src/styles/site/` and import unlayered (`component.header.css`, `page.docs.css`, `external.astro.css`, `devtools.css`, …).
 
