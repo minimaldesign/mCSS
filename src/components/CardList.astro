@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<'ul'> {
 const {
   cols = 2,
   class: className,
-  'data-testid': testId = 'postList',
+  'data-testid': testId = 'cardList',
   ...rest
 } = Astro.props as Props;
 
@@ -20,7 +20,7 @@ const gridCols: Record<string, string> = { col: '1', 'col-md': String(Math.min(c
 
 <!-- prettier-ignore -->
 <ul
-  class:list={['postList', 'grid', className]}
+  class:list={['cardList', 'grid', className]}
   {...gridCols}
   data-testid={testId}
   {...rest}
