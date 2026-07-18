@@ -16,9 +16,9 @@ import CopyButton from "./_CopyButton.jsx";
   - baseClasses: classes always present, e.g. "bt".
   - controls: array of plain objects. Entries are either a control (see the
     types below) or a group `{ heading, items: [controls] }`. Groups become
-    columns in an auto-fit grid, so column count adapts to available width
-    with no per-page configuration. Consecutive ungrouped controls collect
-    into one implicit group, which keeps flat configs working.
+    grid columns: 2 on mobile, 4 from the --md breakpoint up (see
+    component.playground.css). Consecutive ungrouped controls collect into
+    one implicit group, which keeps flat configs working.
   - snippets: { name: { preview, code } } markup for snippet toggles; the
     live preview uses `preview` (real SVG), the code panel uses `code`
     (abbreviated, e.g. "<svg>[…]</svg> ").

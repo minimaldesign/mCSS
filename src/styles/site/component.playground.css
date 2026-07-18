@@ -28,12 +28,15 @@
   }
 }
 
-/* Settings — auto-fit columns of control groups, reset pinned to the corner */
+/* Settings — control groups in columns, reset pinned to the corner */
 
 .playground_settings {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+  @media (--md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
   gap: var(--sm2) var(--sm3);
   padding: var(--sm1);
   padding-inline-end: var(--lg2);
