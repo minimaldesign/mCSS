@@ -1015,6 +1015,10 @@
   margin-bottom: var(--md2);
 }
 
+.home_cta_bt {
+   --bt-color: light-dark(var(--primary-700), var(--base-950));
+}
+
 .home_cta_newsletter {
   margin-top: var(--md2);
   text-align: center;
