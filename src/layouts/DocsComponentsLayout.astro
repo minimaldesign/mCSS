@@ -18,7 +18,7 @@ const { frontmatter } = Astro.props;
     <Toc selector=".docs" headings={['h2', 'h3']} scrollOffset={80} description={'On this page'} icon={arrow} />
   </aside>
   <main class="layout_content_main docs">
-    <h1>
+    <h1 class="h3">
       <span class="text-capitalize">{frontmatter.type}</span> :: {`${frontmatter.title}`}
     </h1>
     <slot />
