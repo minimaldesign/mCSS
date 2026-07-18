@@ -627,7 +627,7 @@ xxl: 1920px
 
 :root {
   --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--base-950);
-  --footer-background-color: var(--csstools-light-dark-toggle--37, var(--primary-600));
+  --footer-background-color: var(--csstools-light-dark-toggle--37, var(--primary-950));
   --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-200);
   --footer-text-color: var(--csstools-light-dark-toggle--38, var(--base-0));
   --footer-border-width: var(--border-md);
@@ -641,7 +641,7 @@ xxl: 1920px
 
 @supports (color: light-dark(red, red)) {
 :root {
-  --footer-background-color: light-dark(var(--primary-600), var(--base-950));
+  --footer-background-color: light-dark(var(--primary-950), var(--base-950));
   --footer-text-color: light-dark(var(--base-0), var(--base-200));
   --footer-border-color: light-dark(transparent, var(--base-700));
   --footer-link-color: light-dark(var(--base-0), var(--base-200));
@@ -652,7 +652,7 @@ xxl: 1920px
 
 :root * {
   --csstools-light-dark-toggle--37: var(--csstools-color-scheme--light) var(--base-950);
-  --footer-background-color: var(--csstools-light-dark-toggle--37, var(--primary-600));
+  --footer-background-color: var(--csstools-light-dark-toggle--37, var(--primary-950));
   --csstools-light-dark-toggle--38: var(--csstools-color-scheme--light) var(--base-200);
   --footer-text-color: var(--csstools-light-dark-toggle--38, var(--base-0));
   --csstools-light-dark-toggle--39: var(--csstools-color-scheme--light) var(--base-700);
