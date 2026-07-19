@@ -1,5 +1,10 @@
 /* ELEMENTS TEXT */
 
+::selection {
+  color: var(--selection-color);
+  background-color: var(--selection-background-color);
+}
+
 :where(a, u, ins, abbr) {
   text-underline-offset: 2px;
 }
