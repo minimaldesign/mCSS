@@ -78,6 +78,9 @@
   /* .prose related stuff in GLOBAL */
 
   --marker-color: #ffee00;
+
+  --selection-color: light-dark(var(--base-950), var(--base-0));
+  --selection-background-color: light-dark(var(--primary-200), var(--primary-700));
 }
 
 /* GLOBAL */
