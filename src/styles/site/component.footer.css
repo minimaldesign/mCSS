@@ -1,9 +1,9 @@
 /* Site-specific overrides of the library footer (framework/component.footer.css) */
 
 .footer_meta {
-  p {
-    margin-top: 1em;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 
   svg {
     position: relative;
