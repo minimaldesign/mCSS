@@ -1,0 +1,90 @@
+---
+title: "AI Agents"
+description: "Machine-readable docs (llms.txt, markdown twins) and a ready-to-paste rules block for coding agents"
+lastUpdate: 2026-07-19
+version: 0.1
+---
+
+<section class="prose">
+
+mCSS is built to be easy for AI coding agents (Claude Code, Cursor, Copilot, and friends) to work with. The docs are available in machine-readable form, and this page includes a rules block you can paste into your project's agent instructions so generated markup is idiomatic mCSS instead of a plausible-looking guess.
+
+</section>
+
+## Machine-readable docs
+
+<section class="prose">
+
+Three things exist specifically for agents:
+
+- **[/llms.txt](/llms.txt)**: an index of every docs and components page with one-line descriptions, following the [llms.txt](https://llmstxt.org) convention. Most agent tooling checks for this automatically.
+- **[/llms-full.txt](/llms-full.txt)**: the entire reference (docs and all components) concatenated into a single markdown file. Point an agent here when it needs the whole framework in one fetch.
+- **Markdown twins**: every docs and components page is also served as plain markdown at the same URL with `.md` appended. For example, [/docs/tokens.md](/docs/tokens.md) or [/components/card.md](/components/card.md). These are a fraction of the size of the HTML pages and contain no site chrome.
+
+If you tell your agent one thing, tell it this: fetch the `.md` URLs, not the HTML.
+
+</section>
+
+## Add mCSS rules to your agent instructions
+
+<section class="prose">
+
+Paste the block below into your project's `CLAUDE.md`, `AGENTS.md`, or equivalent. It compresses the conventions that matter most when writing mCSS markup and CSS on top of it.
+
+</section>
+
+````md
+## mCSS conventions
+
+This project uses mCSS (https://mcss.dev), a copy-it-you-own-it CSS framework.
+The framework files live in this repo, not in node_modules; treat them as
+project code, not as an immutable dependency.
+Full reference: https://mcss.dev/llms-full.txt
+Per-page markdown docs: append `.md` to any docs or components URL
+(e.g. https://mcss.dev/components/card.md).
+
+### Class naming (BEM-like, different separators)
+
+- Block: `.componentName` (camelCase for multi-word names)
+- Element: `.componentName_element` (single underscore; chains may nest as deep
+  as the block's own structure needs)
+- Modifier: `.componentName-modifier` (single hyphen), for build-time variants
+- State: `.is-*` (`.is-active`, `.is-open`), only for things that change at
+  runtime, always scoped inside the block
+- Prefer styling ARIA attributes over inventing state classes when one exists:
+  `[aria-current]`, `[aria-expanded="true"]`, `[aria-disabled="true"]`
+
+### Never couple classes from different components
+
+A selector must only contain classes from its own block. Never write a selector
+that reaches into another component (`.myPage .card_title` is banned). To style
+a component from outside: mix your own class onto its root in the markup and
+style that, or set the component's theme tokens (`--card-*`, `--bt-*`, ...) on
+your own hook class. Bare HTML tags, `.is-*`, and ARIA selectors are fine
+inside your own block.
+
+### Customization (you own the files)
+
+- Customize by editing the framework files directly, tokens first: change
+  `settings.tokens.css` values (colors, type, spacing) before touching
+  component CSS.
+- Component tokens follow `--component-part-property`, longhand, kebab-case:
+  `--bt-background-color-hover`, `--notice-border-width`. No abbreviations.
+- Prefer semantic feedback tokens (`--success-*`, `--danger-*`, `--warning-*`).
+
+### Cascade model (native @layer)
+
+- The framework lives in cascade layers; your unlayered project CSS beats all
+  of it by design. Never add `!important` to win against the framework.
+- The exception: helper classes (`help.*` files, e.g. spacing/color/typography
+  utilities) carry `!important` and beat everything, like inline styles.
+- Never use `transition: all`; list the properties that actually animate.
+````
+
+## MCP and tooling
+
+<section class="prose">
+
+There is no mCSS MCP server yet. For now, `llms-full.txt` plus the rules block above is the recommended setup. If your agent supports fetching URLs at runtime, the markdown twins are the cheapest way to pull a single component's markup reference into context.
+
+</section>
