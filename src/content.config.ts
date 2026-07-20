@@ -25,6 +25,8 @@ const docsCollection = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/docs" }),
   schema: z.object({
     title: z.string(),
+    // One-line summary surfaced in /llms.txt
+    description: z.string().optional(),
     lastUpdate: z.date(),
     version: z.number(),
   }),

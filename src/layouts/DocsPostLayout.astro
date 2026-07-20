@@ -6,9 +6,10 @@ import Toc from '../components/Toc.astro';
 import arrow from '../assets/icons/arrow-right-small.svg?raw';
 
 const { frontmatter } = Astro.props;
+const markdownHref = Astro.url.pathname.replace(/\/$/, '') + '.md';
 ---
 
-<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-sidebar">
+<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-sidebar" frontmatter={frontmatter} markdownHref={markdownHref}>
   <aside class="layout_content_aside">
     <NavDocs />
   </aside>

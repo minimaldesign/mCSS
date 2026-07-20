@@ -6,7 +6,7 @@ import logoImg from '../assets/ui/mcss-logo.png';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
-const { title, bodyClass, frontmatter } = Astro.props;
+const { title, bodyClass, frontmatter, markdownHref } = Astro.props;
 
 const headDescription = (frontmatter?.description ? frontmatter.description.slice(0, 149) + (frontmatter.description.length > 149 ? '…' : '') : '') || 'The CSS framework for CSS lovers.';
 const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
@@ -46,6 +46,7 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
 
     {/* SEO & Misc */}
     <link rel="canonical" href={Astro.url} />
+    {markdownHref && <link rel="alternate" type="text/markdown" href={markdownHref} />}
     <meta name="msapplication-TileColor" content="#0ea5e9" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="generator" content={Astro.generator} />
