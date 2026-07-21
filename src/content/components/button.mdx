@@ -1,8 +1,9 @@
 ---
 title: "Button"
-lastUpdate: 2024-09-02
+lastUpdate: 2026-07-21
 version: 0.9
-type: "atom"
+type: "component"
+cssOnly: true
 ---
 
 import arrow from "../../assets/icons/arrow-right-small.svg?raw";
@@ -11,7 +12,7 @@ import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
-The `button` [atom](/docs/start#atoms) uses the `.bt` class (canonical; `.button` is kept as an alias). Apply it to `<button>`, `<input type="submit">`, or `<a>` elements for a consistent look. All modifiers use the `bt-` prefix either way.
+The button is a [CSS-only component](/docs/start#components) using the `.bt` class (canonical; `.button` is kept as an alias). Apply it to `<button>`, `<input type="submit">`, or `<a>` elements for a consistent look. All modifiers use the `bt-` prefix either way.
 
 For accessibility, use `<button>` for actions and `<a>` for navigation. If you use `<a>` as a button, add `role="button"` and `tabindex="0"` and `aria-disabled="true"` if disabled.
 
@@ -21,9 +22,9 @@ For accessibility, use `<button>` for actions and `<a>` for navigation. If you u
 
 | File              | Description | Source      |
 | ----------------- | ----------- | ----------- |
-| `atom.button.css` | All button styles (`.button` or `.bt`) | [Github][1] |
+| `component.button.css` | All button styles (`.button` or `.bt`) | [Github][1] |
 
-[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/atom.button.css
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.button.css
 
 </div>
 

@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2024-09-17T22:06:48-07:00
+lastUpdate: 2026-07-21
 version: 0.9
 ---
 
@@ -27,7 +27,7 @@ mCSS implements this with **native [CSS cascade layers][cascade-layers]**: every
 This is how mCSS is organized. ([Github source][4].)
 
 ```css
-@layer settings, base, elements, global, atoms, components, pages, helpers;
+@layer settings, base, elements, global, components, pages, helpers;
 
 /* Build-time only (media queries + mixins definitions) */
 @import url(./settings.media-queries.css);
@@ -46,9 +46,7 @@ This is how mCSS is organized. ([Github source][4].)
 @import url(./global.wrap.css) layer(global);
 /* etc. */
 
-@import url(./atom.button.css) layer(atoms);
-/* etc. */
-
+@import url(./component.button.css) layer(components);
 @import url(./component.notice.css) layer(components);
 /* etc. */
 
@@ -112,17 +110,11 @@ Global styles inlcluded out of the box:
 - [Accessibility][a11y] (A11Y) specific classes.
 - Basic `@keyframes` animations (e.g., fade in/out)
 
-### Atoms
-
-Atoms are the smallest explicit styling units in mCSS, applying CSS classes to individual HTML elements without needing a dedicated HTML/Astro component. For example, the `.button` atom can style a `<button>` or `<a>` element, but since not all `<a>` tags are buttons, atoms provide targeted styling flexibility.
-
-Find atoms documentation in the [components section][components], as they’re designed to work together seamlessly.
-
 ### Components
 
-Self contained syles of single components. The mCSS framework is designed to be used on its own, allowing you to create your own components. But a collections of components built on top of mCSS is in developement.
+Self-contained styles for single components, one block per file. The mCSS framework is designed to be used on its own, allowing you to create your own components, but a [collection of components][components] built on top of mCSS is included.
 
-See the [components section][components] for more info.
+Some components are **CSS-only**: a single class on a single element, with no Astro component because there is no markup structure to encapsulate. For example, the `.badge` class on a `<span>` is the whole badge, and the `.bt` class can style a `<button>` or an `<a>` (styling that has to be opt-in, since not all links are buttons). Their docs live in the [components section][components] like everything else, marked "CSS-only".
 
 ### Pages
 

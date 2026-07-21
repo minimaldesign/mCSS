@@ -10,24 +10,10 @@ const allPosts = await getCollection('components');
 
 import { filterAndSort } from '../scripts/utilities';
 
-const atomPosts = filterAndSort(allPosts, 'atom');
 const componentPosts = filterAndSort(allPosts, 'component');
 ---
 
 <nav class="navDocs">
-  <ul>
-    {
-      atomPosts.map((post) => (
-        <li>
-          <a class:list={[{ 'is-active': post.id == currentPath }]} href={`/components/${post.id}`}>
-            <Fragment set:html={arrow} />
-            {post.data.title}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-  <hr class="mt-sm2 mb-sm2" style="--content: '🏄‍♂️'" />
   <ul>
     {
       componentPosts.map((post) => (

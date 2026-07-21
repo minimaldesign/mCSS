@@ -1,6 +1,6 @@
 /*! mCSS v0.9.0 | MIT | https://mcss.dev */
 
-@layer settings, base, elements, global, atoms, components, pages, helpers;
+@layer settings, base, elements, global, components, pages, helpers;
 /*
   mCSS framework entry point.
 
@@ -534,7 +534,7 @@ xxl: 1920px
   }
 }
 
-/* ATOMS */
+/* COMPONENTS */
 
 /* Badge */
 
@@ -694,8 +694,6 @@ xxl: 1920px
   --bt-outline-border-color-hover: var(--csstools-light-dark-toggle--26, var(--base-950));
 }
 }
-
-/* COMPONENTS */
 
 /* Avatar */
 
@@ -2985,9 +2983,81 @@ details {
 }
 }
 
-/* Atoms */
+/* Component library styles */
 
-@layer atoms{
+@layer components{
+
+.avatar {
+  --avatar-size: var(--xl1);
+  --avatar-font-size: var(--text-md);
+  /* Status dot defaults live on the block (not on .is-online/.is-offline,
+     which would out-specify them) so the size modifiers below can override. */
+  --status-dot-size: var(--xs3);
+  --status-dot-position: 4%;
+  --status-dot-border-width: 2px;
+  --status-dot-border-color: var(--body-background-color);
+  position: relative;
+  display: inline-block;
+  width: var(--avatar-size);
+}
+
+  .avatar  > div {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 1;
+    align-items: center;
+    border-radius: var(--avatar-radius);
+    font-size: var(--avatar-font-size);
+    line-height: 1;
+    background-color: var(--avatar-background-color);
+    border: var(--avatar-border-width) solid var(--avatar-border-color);
+    color: var(--avatar-color);
+    overflow: hidden;
+  }
+    :is(.avatar.is-online,.avatar.is-offline):after {
+      content: "";
+      display: block;
+      width: var(--status-dot-size);
+      aspect-ratio: 1;
+      position: absolute;
+      top: var(--status-dot-position);
+      right: var(--status-dot-position);
+      border: var(--status-dot-border-width) solid var(--status-dot-border-color);
+      border-radius: var(--radius-round);
+      background-color: var(--avatar-status-dot-color-offline);
+    }
+  .avatar.is-online:after {
+    background-color: var(--avatar-status-dot-color-online);
+  }
+
+.avatar-sm {
+  --avatar-size: var(--sm3);
+  --avatar-font-size: var(--text-xs);
+  --status-dot-size: var(--xs2);
+  --status-dot-position: 0;
+  --status-dot-border-width: 1px;
+}
+.avatar-md {
+  --avatar-size: var(--md3);
+  --avatar-font-size: var(--text-sm);
+  --status-dot-size: var(--xs2);
+  --status-dot-border-width: 1px;
+}
+.avatar-lg {
+  --avatar-size: var(--xl3);
+  --avatar-font-size: var(--text-xl);
+  --status-dot-size: var(--xs3);
+  --status-dot-position: 7%;
+}
+.avatar-xl {
+  --avatar-size: var(--xxl3);
+  --avatar-font-size: var(--display-lg);
+  --status-dot-size: var(--sm2);
+  --status-dot-position: 7%;
+}
+}
+
+@layer components{
 
 /* BADGE */
 
@@ -3025,7 +3095,100 @@ details {
   }
 }
 
-@layer atoms{
+@layer components{
+
+/* BANNER */
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--xs3);
+  padding: var(--xs2) var(--sm1);
+  font-size: var(--text-sm);
+  text-align: center;
+  color: var(--banner-color);
+  background: var(--banner-background-color);
+}
+
+  .banner a {
+    color: inherit;
+    font-weight: var(--semi-bold);
+  }
+  .banner_content p {
+    margin-bottom: 0;
+  }
+
+.banner_close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--sm3);
+  min-height: var(--sm3);
+  padding: var(--xs1);
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+  .banner_close svg {
+    width: var(--sm1);
+    height: var(--sm1);
+  }
+}
+
+@layer components{
+
+/* BREADCRUMBS */
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--xs2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+  }
+
+  .breadcrumbs li {
+    display: flex;
+    align-items: center;
+    gap: var(--xs2);
+  }
+
+  /* separator between crumbs; the / "" alt text keeps it out of the
+     accessibility tree in browsers that support the syntax */
+  .breadcrumbs li + li::before {
+    content: var(--breadcrumbs-separator);
+    color: var(--breadcrumbs-separator-color);
+  }
+
+@supports (content: "a" / "a"){
+.breadcrumbs li + li::before {
+    content: var(--breadcrumbs-separator) / "";
+  }
+}
+
+  .breadcrumbs a {
+    color: var(--breadcrumbs-color);
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+    :is(.breadcrumbs a):hover {
+      color: var(--link-color);
+    }
+
+  .breadcrumbs [aria-current="page"] {
+    color: var(--breadcrumbs-color-current);
+    font-weight: var(--semi-bold);
+  }
+}
+
+@layer components{
 
 .button,
 .bt {
@@ -3217,227 +3380,6 @@ details {
     }
 }
 
-@layer atoms{
-.toggle {
-  /* Themable via the --toggle-* tokens in settings.theme.default.css */
-  --toggle-w: var(--toggle-width);
-  --toggle-h: var(--toggle-height);
-  --toggle-bd: var(--toggle-border-width);
-  position: relative;
-  appearance: none;
-  border: none;
-  /* The generic input padding (elements.form.css) survives appearance: none;
-     with border-box sizing it floors the track at 24px, so any toggle themed
-     below that squashes and loses its pill ends */
-  padding: 0;
-  display: block;
-  width: var(--toggle-w);
-  height: var(--toggle-h);
-  border-radius: calc(var(--toggle-h) / 2);
-  cursor: pointer;
-  background-color: var(--toggle-track-color);
-}
-
-  .toggle::before {
-    --diameter: calc(var(--toggle-h) - var(--toggle-bd) * 2);
-    position: absolute;
-    top: var(--toggle-bd);
-    left: var(--toggle-bd);
-    content: "";
-    display: block;
-    width: var(--diameter);
-    height: var(--diameter);
-    border-radius: var(--diameter);
-    background-color: var(--toggle-thumb-color);
-    transition:
-      left var(--transition),
-      transform var(--transition),
-      width var(--transition);
-    transform: translateX(0);
-  }
-
-  .toggle:checked {
-    background-color: var(--toggle-track-color-checked);
-  }
-
-    .toggle:checked::before {
-      left: calc(100% - var(--toggle-bd));
-      transform: translateX(-100%);
-    }
-
-  .toggle:active::before {
-    width: calc(var(--diameter) * 1.3);
-  }
-}
-/* @import url(./atom.input.css) layer(atoms); */
-
-/* Component library styles */
-
-@layer components{
-
-.avatar {
-  --avatar-size: var(--xl1);
-  --avatar-font-size: var(--text-md);
-  /* Status dot defaults live on the block (not on .is-online/.is-offline,
-     which would out-specify them) so the size modifiers below can override. */
-  --status-dot-size: var(--xs3);
-  --status-dot-position: 4%;
-  --status-dot-border-width: 2px;
-  --status-dot-border-color: var(--body-background-color);
-  position: relative;
-  display: inline-block;
-  width: var(--avatar-size);
-}
-
-  .avatar  > div {
-    display: flex;
-    justify-content: center;
-    aspect-ratio: 1;
-    align-items: center;
-    border-radius: var(--avatar-radius);
-    font-size: var(--avatar-font-size);
-    line-height: 1;
-    background-color: var(--avatar-background-color);
-    border: var(--avatar-border-width) solid var(--avatar-border-color);
-    color: var(--avatar-color);
-    overflow: hidden;
-  }
-    :is(.avatar.is-online,.avatar.is-offline):after {
-      content: "";
-      display: block;
-      width: var(--status-dot-size);
-      aspect-ratio: 1;
-      position: absolute;
-      top: var(--status-dot-position);
-      right: var(--status-dot-position);
-      border: var(--status-dot-border-width) solid var(--status-dot-border-color);
-      border-radius: var(--radius-round);
-      background-color: var(--avatar-status-dot-color-offline);
-    }
-  .avatar.is-online:after {
-    background-color: var(--avatar-status-dot-color-online);
-  }
-
-.avatar-sm {
-  --avatar-size: var(--sm3);
-  --avatar-font-size: var(--text-xs);
-  --status-dot-size: var(--xs2);
-  --status-dot-position: 0;
-  --status-dot-border-width: 1px;
-}
-.avatar-md {
-  --avatar-size: var(--md3);
-  --avatar-font-size: var(--text-sm);
-  --status-dot-size: var(--xs2);
-  --status-dot-border-width: 1px;
-}
-.avatar-lg {
-  --avatar-size: var(--xl3);
-  --avatar-font-size: var(--text-xl);
-  --status-dot-size: var(--xs3);
-  --status-dot-position: 7%;
-}
-.avatar-xl {
-  --avatar-size: var(--xxl3);
-  --avatar-font-size: var(--display-lg);
-  --status-dot-size: var(--sm2);
-  --status-dot-position: 7%;
-}
-}
-
-@layer components{
-
-/* BANNER */
-
-.banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--xs3);
-  padding: var(--xs2) var(--sm1);
-  font-size: var(--text-sm);
-  text-align: center;
-  color: var(--banner-color);
-  background: var(--banner-background-color);
-}
-
-  .banner a {
-    color: inherit;
-    font-weight: var(--semi-bold);
-  }
-  .banner_content p {
-    margin-bottom: 0;
-  }
-
-.banner_close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--sm3);
-  min-height: var(--sm3);
-  padding: var(--xs1);
-  color: inherit;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-  .banner_close svg {
-    width: var(--sm1);
-    height: var(--sm1);
-  }
-}
-
-@layer components{
-
-/* BREADCRUMBS */
-  .breadcrumbs ol {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--xs2);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--text-sm);
-  }
-
-  .breadcrumbs li {
-    display: flex;
-    align-items: center;
-    gap: var(--xs2);
-  }
-
-  /* separator between crumbs; the / "" alt text keeps it out of the
-     accessibility tree in browsers that support the syntax */
-  .breadcrumbs li + li::before {
-    content: var(--breadcrumbs-separator);
-    color: var(--breadcrumbs-separator-color);
-  }
-
-@supports (content: "a" / "a"){
-.breadcrumbs li + li::before {
-    content: var(--breadcrumbs-separator) / "";
-  }
-}
-
-  .breadcrumbs a {
-    color: var(--breadcrumbs-color);
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    transition: color var(--transition);
-  }
-
-    :is(.breadcrumbs a):hover {
-      color: var(--link-color);
-    }
-
-  .breadcrumbs [aria-current="page"] {
-    color: var(--breadcrumbs-color-current);
-    font-weight: var(--semi-bold);
-  }
-}
-
 @layer components{
 
 .card {
@@ -3524,8 +3466,8 @@ details {
   transform: translate(var(--xs2), calc(var(--xs2) * -1));
 }
 
-/* Badge visuals come from the .badge atom (atom.badge.css); the Card
-   component renders class="badge card_badge" on each badge. */
+/* Badge visuals come from the badge component (component.badge.css); the
+   Card component renders class="badge card_badge" on each badge. */
 
 .card_tags {
   /* keep the tags clickable above the stretched .card_link */
@@ -4765,6 +4707,59 @@ details {
     opacity: var(--o-0);
     transform: translateX(calc(var(--toc-icon-size) * -1));
     transition: opacity var(--transition), transform var(--transition);
+  }
+}
+
+@layer components{
+.toggle {
+  /* Themable via the --toggle-* tokens in settings.theme.default.css */
+  --toggle-w: var(--toggle-width);
+  --toggle-h: var(--toggle-height);
+  --toggle-bd: var(--toggle-border-width);
+  position: relative;
+  appearance: none;
+  border: none;
+  /* The generic input padding (elements.form.css) survives appearance: none;
+     with border-box sizing it floors the track at 24px, so any toggle themed
+     below that squashes and loses its pill ends */
+  padding: 0;
+  display: block;
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  border-radius: calc(var(--toggle-h) / 2);
+  cursor: pointer;
+  background-color: var(--toggle-track-color);
+}
+
+  .toggle::before {
+    --diameter: calc(var(--toggle-h) - var(--toggle-bd) * 2);
+    position: absolute;
+    top: var(--toggle-bd);
+    left: var(--toggle-bd);
+    content: "";
+    display: block;
+    width: var(--diameter);
+    height: var(--diameter);
+    border-radius: var(--diameter);
+    background-color: var(--toggle-thumb-color);
+    transition:
+      left var(--transition),
+      transform var(--transition),
+      width var(--transition);
+    transform: translateX(0);
+  }
+
+  .toggle:checked {
+    background-color: var(--toggle-track-color-checked);
+  }
+
+    .toggle:checked::before {
+      left: calc(100% - var(--toggle-bd));
+      transform: translateX(-100%);
+    }
+
+  .toggle:active::before {
+    width: calc(var(--diameter) * 1.3);
   }
 }
 

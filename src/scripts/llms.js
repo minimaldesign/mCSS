@@ -20,8 +20,8 @@ export function sortDocs(entries) {
   );
 }
 
-// Components: intro first, then atoms, then components, alphabetical within each group.
-const COMPONENT_TYPE_ORDER = ["intro", "atom", "component"];
+// Components: intro first, then components, alphabetical within each group.
+const COMPONENT_TYPE_ORDER = ["intro", "component"];
 
 export function sortComponents(entries) {
   return [...entries].sort((a, b) => {

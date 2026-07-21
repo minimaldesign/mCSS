@@ -1,12 +1,11 @@
 /*! mCSS v0.9.0 | MIT | https://mcss.dev */
-@layer settings, base, elements, global, atoms, components, pages, helpers;
-@import url(./atom.badge.css) layer(atoms);
-@import url(./atom.button.css) layer(atoms);
-@import url(./atom.toggle.css) layer(atoms);
+@layer settings, base, elements, global, components, pages, helpers;
 @import url(./base.reset.css) layer(base);
 @import url(./component.avatar.css) layer(components);
+@import url(./component.badge.css) layer(components);
 @import url(./component.banner.css) layer(components);
 @import url(./component.breadcrumbs.css) layer(components);
+@import url(./component.button.css) layer(components);
 @import url(./component.card.css) layer(components);
 @import url(./component.cardList.css) layer(components);
 @import url(./component.faq.css) layer(components);
@@ -27,6 +26,7 @@
 @import url(./component.tags.css) layer(components);
 @import url(./component.testimonial.css) layer(components);
 @import url(./component.toc.css) layer(components);
+@import url(./component.toggle.css) layer(components);
 @import url(./elements.form.css) layer(elements);
 @import url(./elements.interactive.css) layer(elements);
 @import url(./elements.media.css) layer(elements);

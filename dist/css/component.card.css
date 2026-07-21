@@ -109,8 +109,8 @@ xxl: 1920px
   transform: translate(var(--xs2), calc(var(--xs2) * -1));
 }
 
-/* Badge visuals come from the .badge atom (atom.badge.css); the Card
-   component renders class="badge card_badge" on each badge. */
+/* Badge visuals come from the badge component (component.badge.css); the
+   Card component renders class="badge card_badge" on each badge. */
 
 .card_tags {
   /* keep the tags clickable above the stretched .card_link */

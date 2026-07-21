@@ -7,7 +7,6 @@ import { filterAndSort } from '../scripts/utilities';
 import logoImg from '../assets/ui/mcss-logo.svg?raw';
 
 const componentList = await getCollection('components');
-const atomPosts = filterAndSort(componentList, 'atom');
 const componentPosts = filterAndSort(componentList, 'component');
 
 const docsPages = [
@@ -27,12 +26,6 @@ const navItems: NavItem[] = [
     label: 'Docs',
     href: '/docs/start',
     children: docsPages.map((page) => ({ label: page.title, href: `/docs/${page.id}` })),
-  },
-  {
-    label: 'Atoms',
-    href: '/components/start',
-    mobileOnly: true,
-    children: atomPosts.map((post) => ({ label: post.data.title, href: `/components/${post.id}` })),
   },
   {
     label: 'Components',

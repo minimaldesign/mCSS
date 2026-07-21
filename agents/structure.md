@@ -27,7 +27,6 @@ src/
 | --------------------- | --------------------------------- | ----------------------------------------------------------------------- |
 | New page route        | `src/pages/`                      | —                                                                       |
 | New reusable UI       | `src/components/`                 | If it needs CSS: add `component.<name>.css` (see rows below)            |
-| New atom style        | `src/styles/framework/atom.<name>.css` | Import with `layer(atoms)` in `framework/mcss.css`                 |
 | New library component style | `src/styles/framework/component.<name>.css` | Import with `layer(components)` in `framework/mcss.css` |
 | New site-only style   | `src/styles/site/<prefix>.<name>.css` | Import (unlayered) in `_global.css`                                 |
 | New blog post         | `src/content/blog/`               | Match schema (see agents/content.md)                                    |

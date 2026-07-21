@@ -34,7 +34,10 @@ Do not use the em dash character (`—`) in blog posts. Use commas, a colon, par
 | `title`      | string                                 | yes      |
 | `lastUpdate` | date                                   | yes      |
 | `version`    | number                                 | yes      |
-| `type`       | `"intro"` \| `"atom"` \| `"component"` | yes      |
+| `type`       | `"intro"` \| `"component"`             | yes      |
+| `cssOnly`    | boolean (optional)                     | no       |
+
+`cssOnly: true` marks class-only components with no Astro file (badge, button, toggle); it drives the "(CSS-only)" label in `/llms.txt`.
 
 `version` tracks the maturity of the documented component itself (not the doc): `< 1` = API may still change, `1.0` = stable contract, bump on breaking changes. Keep it honest — a component with open bugs isn't `1.0`.
 

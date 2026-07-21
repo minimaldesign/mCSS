@@ -24,7 +24,7 @@ xxl: 1920px
 
 /* truncate single line of text and adds … */
 
-@layer atoms {
+@layer components {
 .toggle {
   /* Themable via the --toggle-* tokens in settings.theme.default.css */
   --toggle-w: var(--toggle-width);
