@@ -70,6 +70,20 @@ Because components read `var(--theme-border-color)` instead of a raw hex, a them
 
 </section>
 
+## Worked example: the wireframe theme
+
+<section class="prose">
+
+[`theme.wireframe.css`][srcWireframe] turns the whole site into a hand-drawn wireframe and shows both halves of a theme in action.
+
+**The token half** does most of the work: a grayscale palette (both `--base-*` and `--primary-*`), a rounded font stack, pen-weight borders (`--border-sm: 2px`), and hard-offset "paper cutout" shadows replacing the soft blur scale. For wobbly sketch borders it defines three oversized asymmetric radii (`--wobble-1/2/3`) and remaps each component's radius token to a different one, so cards, buttons, and inputs don't all wobble identically. It deliberately does NOT override the raw `--radius-*` scale: uniform wobble reads as a bug, not a hand.
+
+**The skin-rule half** covers what tokens can't express: wavy link underlines (only the `text-decoration-style` longhand, so un-underlined links stay clean), tiny alternating tilts on cards via the independent `rotate` property (which composes with the transforms components animate instead of fighting them), and a traced-twice pencil stroke drawn by a pseudo-element with the same border color, a different wobble, and a 1px offset. A commented, optional SVG displacement filter roughens the traced stroke in browsers that support it.
+
+Also worth copying: what it leaves alone. The focus ring stays crisp and high-contrast, `--radius-round` consumers (avatars, toggles) stay round, and text stays at the near-black end of the gray scale.
+
+</section>
+
 ## Writing your own theme
 
 <section class="prose">

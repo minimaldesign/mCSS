@@ -27,13 +27,16 @@ xxl: 1920px
 /* WIREFRAME THEME */
 
 /*
-  Example theme: grayscale palette and rounded type for a wireframe look.
-  See theme.default.css for how themes work and how to activate one.
+  A hand-drawn wireframe skin: grayscale palette, rounded type, wobbly
+  borders, paper-cutout shadows, and a traced-twice pencil stroke on
+  cards and buttons. Mostly token overrides; the skin rules at the
+  bottom cover what tokens can't express. See theme.default.css for how
+  themes work and how to activate one.
 */
 
 @layer theme {
   :root {
-    /* COLORS */
+    /* COLORS: everything goes grayscale, including the primary scale */
 
     --base-50: #fafafa;
     --base-100: #f5f5f5;
@@ -47,8 +50,170 @@ xxl: 1920px
     --base-900: #171717;
     --base-950: #0a0a0a;
 
-    /* TYPOGRAPHY */
+    --primary-50: #fafafa;
+    --primary-100: #f5f5f5;
+    --primary-200: #e5e5e5;
+    --primary-300: #d4d4d4;
+    --primary-400: #a3a3a3;
+    --primary-500: #737373;
+    --primary-600: #525252;
+    --primary-700: #404040;
+    --primary-800: #262626;
+    --primary-900: #171717;
+    --primary-950: #0a0a0a;
+
+    /* TYPOGRAPHY: rounded stacks read as hand-lettered */
 
     --text: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+    --heading-font: var(--text);
+    --heading-weight: var(--bold);
+
+    /* STROKES: pen weight instead of hairlines */
+
+    --border-sm: 2px;
+    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-200);
+    --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
+
+    /* WOBBLY BORDERS: oversized asymmetric radii self-clamp to each box,
+       so the same token works on a badge and a hero. Three variants,
+       remapped per component so nothing wobbles in unison. The raw
+       --radius-* scale is left alone on purpose: uniform wobble reads
+       as a rendering bug, not a hand. --radius-round consumers (avatar,
+       toggle, pagination dots) stay round, also on purpose. */
+
+    --wobble-1: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    --wobble-2: 15px 225px 15px 255px / 255px 15px 225px 15px;
+    --wobble-3: 225px 15px 255px 15px / 15px 255px 15px 225px;
+
+    --bt-border-radius: var(--wobble-1);
+    --bt-border-radius-lg: var(--wobble-1);
+    --card-border-radius: var(--wobble-2);
+    --input-border-radius: var(--wobble-3);
+    --notice-border-radius: var(--wobble-1);
+    --badge-border-radius: var(--wobble-3);
+    --table-border-radius: var(--wobble-2);
+    --hero-radius: var(--wobble-2);
+    --featureItem-icon-border-radius: var(--wobble-1);
+
+    /* SHADOWS: hard-offset paper cutouts instead of soft blur */
+
+    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
+
+    --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.85));
+    --shadow-sm: 2px 2px 0 var(--theme-shadow-color);
+    --shadow-md: 4px 4px 0 var(--theme-shadow-color);
+    --shadow-lg: 6px 6px 0 var(--theme-shadow-color);
+    --shadow-xl: 8px 8px 0 var(--theme-shadow-color);
+    --shadow-xxl: 10px 10px 0 var(--theme-shadow-color);
+
+    /* WAYFINDING STAYS CRISP: the focus ring is not part of the sketch,
+       and --marker-color is already highlighter yellow. */
+
+    --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-0);
+
+    --focus-ring-color: var(--csstools-light-dark-toggle--2, var(--base-950));
+  }
+
+@supports (color: light-dark(red, red)) {
+:root {
+    --theme-border-color: light-dark(var(--base-800), var(--base-200));
+  }
+}
+
+@supports (color: light-dark(red, red)) and (color: rgb(0 0 0 / 0)) {
+:root {
+
+    --theme-shadow-color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.55));
+  }
+}
+
+@supports (color: light-dark(red, red)) {
+:root {
+
+    --focus-ring-color: light-dark(var(--base-950), var(--base-0));
+  }
+}
+
+    @supports not (color: light-dark(tan, tan)) {
+  :root * {
+    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-200);
+    --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
+
+    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
+
+    --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.85));
+
+    --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-0);
+
+    --focus-ring-color: var(--csstools-light-dark-toggle--2, var(--base-950));
+    }
+  }
+
+  /*
+    SKIN RULES: the hand-drawn tells tokens can't express. Theme files
+    are the one place allowed to select component classes from outside
+    (see agents/css.md).
+  */
+
+  /* Wavy underlines. Only the style longhand is set, so links whose
+     styles remove the underline (text-decoration: none) keep no
+     underline: a "none" line has no style to render. */
+  a {
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  /* Tiny alternating tilts. The independent rotate property composes
+     with the transforms components animate (.card hover translate,
+     .bt active scale) instead of fighting them. */
+  .card:nth-child(odd),
+  .featureItem:nth-child(even) {
+    rotate: -0.4deg;
+  }
+
+  .card:nth-child(even),
+  .featureItem:nth-child(odd) {
+    rotate: 0.3deg;
+  }
+
+  /* A card wrapped in a .grid_item is always the first (odd) child of
+     its wrapper, so alternate on the wrapper's position instead. */
+  .grid_item:nth-child(even) > .card {
+    rotate: 0.3deg;
+  }
+
+  /* Traced-twice pencil stroke: a second border in the same color with
+     a different wobble and a hair of offset, so edges look drawn twice.
+     .card is already position: relative; .bt gets it here. Inputs skip
+     the overdraw: a doubled border muddies focus states. */
+  .bt {
+    position: relative;
+  }
+
+  .card::after,
+  .bt::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: var(--border-sm) solid var(--theme-border-color);
+    rotate: 0.5deg;
+    translate: 1px -1px;
+    pointer-events: none;
+  }
+
+  .bt::after {
+    border-radius: var(--wobble-3);
+  }
+
+  .card::after {
+    border-radius: var(--wobble-1);
+
+    /* Progressive enhancement: genuinely rough edges via an inline SVG
+       displacement filter, applied only to this pseudo-element so card
+       content stays crisp. Browsers that ignore it (Safari is
+       unreliable here) just show the clean traced stroke. Kept to
+       cards: displacement filters get paint-heavy in large numbers. */
+    filter: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='rough'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' result='noise'/><feDisplacementMap in='SourceGraphic' in2='noise' scale='3'/></filter></svg>#rough");
   }
 }
