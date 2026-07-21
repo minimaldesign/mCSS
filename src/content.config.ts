@@ -41,7 +41,9 @@ const componentsCollection = defineCollection({
     title: z.string(),
     lastUpdate: z.date(),
     version: z.number(),
-    type: z.enum(["intro", "atom", "component"]),
+    type: z.enum(["intro", "component"]),
+    // Class-only components (badge, button, toggle): all CSS, no Astro file.
+    cssOnly: z.boolean().optional(),
   }),
 });
 

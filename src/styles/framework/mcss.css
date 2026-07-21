@@ -8,7 +8,7 @@
   declarations beat unlayered CSS. Helpers are element-level overrides that
   win everywhere, like inline styling.
 */
-@layer settings, base, elements, global, atoms, components, pages, helpers;
+@layer settings, base, elements, global, components, pages, helpers;
 
 /* Build-time only (@custom-media + mixin definitions, no runtime output) */
 @import url(./settings.media-queries.css);
@@ -40,16 +40,12 @@
 @import url(./global.prose.css) layer(global);
 @import url(./global.wrap.css) layer(global);
 
-/* Atoms */
-@import url(./atom.badge.css) layer(atoms);
-@import url(./atom.button.css) layer(atoms);
-@import url(./atom.toggle.css) layer(atoms);
-/* @import url(./atom.input.css) layer(atoms); */
-
 /* Component library styles */
 @import url(./component.avatar.css) layer(components);
+@import url(./component.badge.css) layer(components);
 @import url(./component.banner.css) layer(components);
 @import url(./component.breadcrumbs.css) layer(components);
+@import url(./component.button.css) layer(components);
 @import url(./component.card.css) layer(components);
 @import url(./component.cardList.css) layer(components);
 @import url(./component.faq.css) layer(components);
@@ -70,6 +66,7 @@
 @import url(./component.socialMedia.css) layer(components);
 @import url(./component.tags.css) layer(components);
 @import url(./component.toc.css) layer(components);
+@import url(./component.toggle.css) layer(components);
 
 /* Helpers for local overrides. Every declaration is !important on purpose: */
 /* important layered declarations beat unlayered CSS, so helpers win over */

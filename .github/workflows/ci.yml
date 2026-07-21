@@ -40,7 +40,7 @@ jobs:
         run: |
           set -e
           # layers survived the build (the preset-env polyfill must stay off)
-          grep -q '@layer settings, base, elements, global, atoms, components, pages, helpers;' dist/mcss.css
+          grep -q '@layer settings, base, elements, global, components, pages, helpers;' dist/mcss.css
           ! grep -q ':not(#' dist/mcss.css
           # no unresolved custom media or mixins shipped
           # (plain '@custom-media' appears in a comment; check real syntax)

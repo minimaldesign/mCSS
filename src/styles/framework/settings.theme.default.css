@@ -108,7 +108,7 @@
   }
 }
 
-/* ATOMS */
+/* COMPONENTS */
 
 /* Badge */
 
@@ -174,8 +174,6 @@
   --bt-primary-border-color: var(--primary-600);
   --bt-primary-border-color-hover: var(--primary-600);
 }
-
-/* COMPONENTS */
 
 /* Avatar */
 

@@ -208,15 +208,15 @@ Class naming is BEM-like with mCSS separators: `.block`, `.block_element`, `.blo
 
 ## Do's and Don'ts
 
-Do preserve the native cascade-layer setup: framework files import into named layers (`settings, base, elements, global, atoms, components, pages, helpers`) via `src/styles/framework/mcss.css`; site-only files import unlayered via `src/styles/_global.css`.
+Do preserve the native cascade-layer setup: framework files import into named layers (`settings, base, elements, global, components, pages, helpers`) via `src/styles/framework/mcss.css`; site-only files import unlayered via `src/styles/_global.css`.
 
-Do add new CSS files with the correct layer prefix, such as `component.name.css`, `atom.name.css`, or `help.name.css`, then import them with `layer(<name>)` in `framework/mcss.css` (framework) or plainly in `_global.css` (site).
+Do add new CSS files with the correct layer prefix, such as `component.name.css` or `help.name.css`, then import them with `layer(<name>)` in `framework/mcss.css` (framework) or plainly in `_global.css` (site).
 
 Do use semantic theme tokens when they exist. Raw palette tokens are fine for new semantic roles, but component CSS should converge on named component properties.
 
 Do keep all formatting at 2 spaces (CSS, Astro, JS, TS), per `.editorconfig`.
 
-Don't use page-specific CSS when a reusable component or atom is the better fit.
+Don't use page-specific CSS when a reusable component is the better fit.
 
 Don't bypass dark mode by hard-coding light-only text, border, or surface colors.
 

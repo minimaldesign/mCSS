@@ -11,7 +11,7 @@
  *
  * Run: npm run build:css
  */
-import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir, rm } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -56,7 +56,6 @@ function layerOf(file) {
       base: "base",
       elements: "elements",
       global: "global",
-      atom: "atoms",
       component: "components",
       page: "pages",
       help: "helpers",
@@ -65,8 +64,11 @@ function layerOf(file) {
 }
 
 const LAYER_STATEMENT =
-  "@layer settings, base, elements, global, atoms, components, pages, helpers;\n";
+  "@layer settings, base, elements, global, components, pages, helpers;\n";
 
+// Rebuild dist/css from scratch so renamed or deleted source files can't
+// leave stale outputs behind.
+await rm(join(OUT, "css"), { recursive: true, force: true });
 await mkdir(join(OUT, "css"), { recursive: true });
 
 // 1. Single-file bundle (postcss-import inlines the layer() imports).
