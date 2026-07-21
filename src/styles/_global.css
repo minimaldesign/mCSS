@@ -3,9 +3,11 @@
 
 /*
   Site-only styles (docs site chrome, internal components, pages).
-  UNLAYERED: they beat the framework layers and match the cascade of other
-  unlayered site CSS (expressive-code, Astro scoped styles). Site rules that
-  helpers should still override go in a lower layer, e.g. @layer pages { … }.
+  UNLAYERED: their normal declarations beat the framework layers and match
+  the cascade of other unlayered site CSS (expressive-code, Astro scoped
+  styles). Helpers still win everywhere: their !important declarations beat
+  unlayered CSS too. Use @layer pages { … } for site rules that should stay
+  below your unlayered CSS while still beating the framework's components.
 */
 @import url(./site/component.header.css);
 @import url(./site/component.themeToggle.css);
