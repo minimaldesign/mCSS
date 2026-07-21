@@ -55,8 +55,10 @@ This is how mCSS is organized. ([Github source][4].)
 @import url(./help.spacing.css) layer(helpers);
 /* etc. */
 
-/* Your site's own CSS imports UNLAYERED, after the framework:
-   it wins over every mCSS layer without fighting specificity. */
+/* Your site's own CSS imports UNLAYERED, after the framework.
+   Its normal declarations win over every mCSS layer without fighting
+   specificity. One exception: helpers are !important and beat
+   unlayered CSS too. */
 @import url(./site/myComponent.css);
 ```
 
