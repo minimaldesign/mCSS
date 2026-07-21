@@ -9,7 +9,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 ## Cascade rules (load-bearing)
 
 1. Framework layers, in priority order (later wins):
-   `settings, base, elements, global, components, pages, helpers`
+   `settings, base, elements, global, components, helpers`
 2. **Unlayered CSS beats every layer for normal declarations.** That's the consumer guarantee ("your CSS wins") and why site CSS is unlayered.
 3. **Helpers are the exception: every helper declaration carries `!important`.** Important layered declarations beat unlayered CSS (the cascade inverts for important), so helpers win over site and consumer CSS too. They're element-level overrides, like inline styling. For important declarations layer order also inverts (earlier layer wins), which is why the reduced-motion block in `base.reset.css` still beats helpers.
 4. `!important` is REQUIRED in every helper declaration and banned everywhere else in the framework, except the reduced-motion block in `base.reset.css` and third-party override files (see `site/external.astro.css`). `help.colors.css` and `help.spacing.css` get it from their generators.
@@ -24,8 +24,9 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 | elements   | `elements.*`  | Bare HTML element styles (text, form, media)                |
 | global     | `global.*`    | Structural patterns (a11y, grid, layout, prose, wrap)       |
 | components | `component.*` | Library components (card, hero, notice, …), including CSS-only single-class ones (badge, button, toggle) |
-| pages      | `page.*`      | Page-specific styles that helpers may override              |
 | helpers    | `help.*`      | Utility overrides (colors, spacing, typography), all `!important`: beats everything, including unlayered CSS |
+
+`page.*` is a file-naming convention only (page-specific styles, e.g. site `page.docs.css`); those files are plain unlayered consumer CSS, there is no `pages` layer.
 
 Site-only files keep the same prefixes but live in `src/styles/site/` and import unlayered (`component.header.css`, `page.docs.css`, `external.astro.css`, `devtools.css`, …).
 

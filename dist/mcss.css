@@ -1,6 +1,6 @@
 /*! mCSS v0.9.0 | MIT | https://mcss.dev */
 
-@layer settings, base, elements, global, components, pages, helpers;
+@layer settings, base, elements, global, components, helpers;
 /*
   mCSS framework entry point.
 

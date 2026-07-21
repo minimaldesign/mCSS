@@ -208,7 +208,7 @@ Class naming is BEM-like with mCSS separators: `.block`, `.block_element`, `.blo
 
 ## Do's and Don'ts
 
-Do preserve the native cascade-layer setup: framework files import into named layers (`settings, base, elements, global, components, pages, helpers`) via `src/styles/framework/mcss.css`; site-only files import unlayered via `src/styles/_global.css`.
+Do preserve the native cascade-layer setup: framework files import into named layers (`settings, base, elements, global, components, helpers`) via `src/styles/framework/mcss.css`; site-only files import unlayered via `src/styles/_global.css`.
 
 Do add new CSS files with the correct layer prefix, such as `component.name.css` or `help.name.css`, then import them with `layer(<name>)` in `framework/mcss.css` (framework) or plainly in `_global.css` (site).
 

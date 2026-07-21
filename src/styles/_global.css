@@ -6,8 +6,7 @@
   UNLAYERED: their normal declarations beat the framework layers and match
   the cascade of other unlayered site CSS (expressive-code, Astro scoped
   styles). Helpers still win everywhere: their !important declarations beat
-  unlayered CSS too. Use @layer pages { … } for site rules that should stay
-  below your unlayered CSS while still beating the framework's components.
+  unlayered CSS too.
 */
 @import url(./site/component.header.css);
 @import url(./site/component.themeToggle.css);

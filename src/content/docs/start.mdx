@@ -27,7 +27,7 @@ mCSS implements this with **native [CSS cascade layers][cascade-layers]**: every
 This is how mCSS is organized. ([Github source][4].)
 
 ```css
-@layer settings, base, elements, global, components, pages, helpers;
+@layer settings, base, elements, global, components, helpers;
 
 /* Build-time only (media queries + mixins definitions) */
 @import url(./settings.media-queries.css);
@@ -117,10 +117,6 @@ Global styles inlcluded out of the box:
 Self-contained styles for single components, one block per file. The mCSS framework is designed to be used on its own, allowing you to create your own components, but a [collection of components][components] built on top of mCSS is included.
 
 Some components are **CSS-only**: a single class on a single element, with no Astro component because there is no markup structure to encapsulate. For example, the `.badge` class on a `<span>` is the whole badge, and the `.bt` class can style a `<button>` or an `<a>` (styling that has to be opt-in, since not all links are buttons). Their docs live in the [components section][components] like everything else, marked "CSS-only".
-
-### Pages
-
-Page specific design elements and adjustments. These files are project specific and none are included in mCSS by default. Use `@layer pages { … }` for page rules that should stay below the framework's cascade while still beating the other layers.
 
 ### Helpers
 

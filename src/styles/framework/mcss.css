@@ -8,7 +8,7 @@
   declarations beat unlayered CSS. Helpers are element-level overrides that
   win everywhere, like inline styling.
 */
-@layer settings, base, elements, global, components, pages, helpers;
+@layer settings, base, elements, global, components, helpers;
 
 /* Build-time only (@custom-media + mixin definitions, no runtime output) */
 @import url(./settings.media-queries.css);
