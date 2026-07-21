@@ -2,6 +2,13 @@
 @import url(./framework/mcss.css);
 
 /*
+  Theme activation: import exactly one theme.*.css file here to reskin the
+  whole site (themes self-layer into the framework's theme slot). None
+  imported = the default look.
+*/
+/* @import url(./framework/theme.wireframe.css); */
+
+/*
   Site-only styles (docs site chrome, internal components, pages).
   UNLAYERED: their normal declarations beat the framework layers and match
   the cascade of other unlayered site CSS (expressive-code, Astro scoped

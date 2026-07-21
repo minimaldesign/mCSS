@@ -6,8 +6,11 @@
  *   dist/mcss.css       — single-file bundle of the whole framework
  *   dist/mcss.min.css   — minified bundle
  *   dist/css/<file>.css — every framework file processed individually,
- *                         wrapped in its cascade layer
- *   dist/css/mcss.css   — @import index over the per-file outputs
+ *                         wrapped in its cascade layer (theme.* files ship
+ *                         their own @layer theme block and aren't re-wrapped)
+ *   dist/css/mcss.css   — @import index over the per-file outputs; theme
+ *                         imports are commented out (activating one is the
+ *                         consumer's move)
  *
  * Run: npm run build:css
  */
@@ -57,13 +60,14 @@ function layerOf(file) {
       elements: "elements",
       global: "global",
       component: "components",
+      theme: "theme",
       help: "helpers",
     }[prefix] ?? null
   );
 }
 
 const LAYER_STATEMENT =
-  "@layer settings, base, elements, global, components, helpers;\n";
+  "@layer settings, base, elements, global, components, theme, helpers;\n";
 
 // Rebuild dist/css from scratch so renamed or deleted source files can't
 // leave stale outputs behind.
@@ -99,11 +103,20 @@ for (const file of files) {
   const css = await readFile(join(SRC, file), "utf8");
   // Prepend the build-time settings so @custom-media/@mixin resolve, then
   // wrap the file's own rules in its layer. preset-env removes the
-  // @custom-media definitions from the output.
-  const wrapped = `${settingsPrelude}\n@layer ${layer} {\n${css}\n}`;
+  // @custom-media definitions from the output. Theme files already carry
+  // their own @layer theme block, so they're not re-wrapped, and the index
+  // leaves them commented: activating a theme is the consumer's move.
+  const selfLayered = layer === "theme";
+  const wrapped = selfLayered
+    ? `${settingsPrelude}\n${css}`
+    : `${settingsPrelude}\n@layer ${layer} {\n${css}\n}`;
   const processed = await process(wrapped, join(SRC, file));
   await writeFile(join(OUT, "css", file), BANNER + processed.trim() + "\n");
-  indexImports.push(`@import url(./${file}) layer(${layer});`);
+  indexImports.push(
+    selfLayered
+      ? `/* @import url(./${file}); */ /* theme: activate at most one */`
+      : `@import url(./${file}) layer(${layer});`
+  );
 }
 
 // 4. @import index (usable in the browser with no build step).

@@ -137,7 +137,7 @@ components:
 
 mCSS is a utility-conscious CSS framework and documentation site with an ITCSS cascade, compact component classes, and design tokens stored as CSS custom properties. The visual identity is clean, technical, and documentation-first: blue interaction color, cool neutral surfaces, dense spacing, rounded-but-not-pill shapes, and system typography that keeps pages fast and readable.
 
-The canonical token sources are `src/styles/framework/settings.tokens.css` for raw scales and `src/styles/framework/settings.theme.default.css` for semantic theme and component defaults. This file translates those tokens into the DESIGN.md format for coding agents. When the CSS and this file disagree, the CSS source files win.
+The canonical token sources are `src/styles/framework/settings.tokens.css` for raw scales and `src/styles/framework/settings.ui.css` for semantic aliases and component defaults (interface tokens). This file translates those tokens into the DESIGN.md format for coding agents. When the CSS and this file disagree, the CSS source files win.
 
 ## Colors
 
@@ -202,13 +202,13 @@ Buttons use `.button` or `.bt`, with variants such as `.bt-primary`, `.bt-outlin
 
 Cards use `.card` with `.card-filled` and `.card-raised` variants. Keep internal spacing on `--card-spacing` and use `.card_header`, `.card_media`, `.card_content`, and `.card_actions` for composition.
 
-Tags, notices, avatars, headers, footers, hero controls, and the read-progress bar all have semantic custom properties in `settings.theme.default.css`. When creating a new component, add semantic tokens there before using raw scale values inside component CSS.
+Tags, notices, avatars, headers, footers, hero controls, and the read-progress bar all have semantic custom properties in `settings.ui.css`. When creating a new component, add interface tokens there before using raw scale values inside component CSS.
 
 Class naming is BEM-like with mCSS separators: `.block`, `.block_element`, `.block-modifier`, and `.is-*` state classes composed inside the block.
 
 ## Do's and Don'ts
 
-Do preserve the native cascade-layer setup: framework files import into named layers (`settings, base, elements, global, components, helpers`) via `src/styles/framework/mcss.css`; site-only files import unlayered via `src/styles/_global.css`.
+Do preserve the native cascade-layer setup: framework files import into named layers (`settings, base, elements, global, components, theme, helpers`) via `src/styles/framework/mcss.css`; site-only files import unlayered via `src/styles/_global.css`.
 
 Do add new CSS files with the correct layer prefix, such as `component.name.css` or `help.name.css`, then import them with `layer(<name>)` in `framework/mcss.css` (framework) or plainly in `_global.css` (site).
 

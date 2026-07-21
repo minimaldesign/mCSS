@@ -9,21 +9,24 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 ## Cascade rules (load-bearing)
 
 1. Framework layers, in priority order (later wins):
-   `settings, base, elements, global, components, helpers`
+   `settings, base, elements, global, components, theme, helpers`
+   The order runs **from default to deliberate**: `settings` through `components` are the framework's defaults, `theme` is a deliberate override of those defaults, helpers are the last word. (Not "generic to specific": a theme is broad in reach but late in intent, and intent decides cascade order.)
 2. **Unlayered CSS beats every layer for normal declarations.** That's the consumer guarantee ("your CSS wins") and why site CSS is unlayered.
-3. **Helpers are the exception: every helper declaration carries `!important`.** Important layered declarations beat unlayered CSS (the cascade inverts for important), so helpers win over site and consumer CSS too. They're element-level overrides, like inline styling. For important declarations layer order also inverts (earlier layer wins), which is why the reduced-motion block in `base.reset.css` still beats helpers.
-4. `!important` is REQUIRED in every helper declaration and banned everywhere else in the framework, except the reduced-motion block in `base.reset.css` and third-party override files (see `site/external.astro.css`). `help.colors.css` and `help.spacing.css` get it from their generators.
-5. `postcss.config.cjs` disables preset-env's `cascade-layers` polyfill. **Never remove that option** — the polyfill strips every `@layer` rule and silently replaces the cascade with specificity hacks. The browser floor is set in `.browserslistrc` (`defaults and supports css-cascade-layers`).
+3. **The `theme` layer holds at most one active theme** (`theme.*.css`): token overrides plus optional skin rules. Theme files are self-layered (each wraps its own content in `@layer theme`) and are **never imported by `mcss.css`**; the consumer entry activates one (see `_global.css`). No theme = the default look. Unlayered consumer CSS still beats themes.
+4. **Helpers are the exception: every helper declaration carries `!important`.** Important layered declarations beat unlayered CSS (the cascade inverts for important), so helpers win over site and consumer CSS too. They're element-level overrides, like inline styling. For important declarations layer order also inverts (earlier layer wins), which is why the reduced-motion block in `base.reset.css` still beats helpers.
+5. `!important` is REQUIRED in every helper declaration and banned everywhere else in the framework, except the reduced-motion block in `base.reset.css` and third-party override files (see `site/external.astro.css`). `help.colors.css` and `help.spacing.css` get it from their generators.
+6. `postcss.config.cjs` disables preset-env's `cascade-layers` polyfill. **Never remove that option** — the polyfill strips every `@layer` rule and silently replaces the cascade with specificity hacks. The browser floor is set in `.browserslistrc` (`defaults and supports css-cascade-layers`).
 
 ## Layer table
 
 | Layer      | Prefix        | Purpose                                                     |
 | ---------- | ------------- | ----------------------------------------------------------- |
-| settings   | `settings.*`  | Tokens, themes (media queries + mixins import unlayered: build-time only) |
+| settings   | `settings.*`  | Primitive tokens (`settings.tokens.css`) and interface tokens (`settings.ui.css`); media queries + mixins import unlayered: build-time only |
 | base       | `base.*`      | Reset only (`base.reset.css`)                               |
 | elements   | `elements.*`  | Bare HTML element styles (text, form, media)                |
 | global     | `global.*`    | Structural patterns (a11y, grid, layout, prose, wrap)       |
 | components | `component.*` | Library components (card, hero, notice, …), including CSS-only single-class ones (badge, button, toggle) |
+| theme      | `theme.*`     | Swappable skins: token overrides + skin rules, self-layered via `@layer theme`, activated by the consumer entry (never by `mcss.css`) |
 | helpers    | `help.*`      | Utility overrides (colors, spacing, typography), all `!important`: beats everything, including unlayered CSS |
 
 `page.*` is a file-naming convention only (page-specific styles, e.g. site `page.docs.css`); those files are plain unlayered consumer CSS, there is no `pages` layer.
@@ -52,13 +55,14 @@ A selector must only contain classes from its own block. Never write a descendan
 To style a component from outside:
 
 - **Its root**: mix your own class onto the element in markup (`<Section class="home_section …">`) and style that class.
-- **Its internals**: use the component's `<part>Class` props (`headerClass`, `titleClass`, …) to mix a class onto the part, or set the component's theme tokens on your own hook class. If neither exists yet, add the prop or token to the component. Do not reach in with a selector.
+- **Its internals**: use the component's `<part>Class` props (`headerClass`, `titleClass`, …) to mix a class onto the part, or set the component's interface tokens on your own hook class. If neither exists yet, add the prop or token to the component. Do not reach in with a selector.
 - **Bare HTML tags** (`.home_themer_formRow > button`), `.is-*` states, and ARIA attribute selectors are fine inside your own block.
 - **Context blocks are not components**: a component may reference the environment it sits in (`@scope (.prose) to (.not-prose)` in `component.notice.css`, `:root.theme-dark`), but the context's own file must never name specific components (that's why `global.prose.css` lists only bare tags).
+- **Theme files are the one sanctioned exception**: a `theme.*.css` file may select component classes from outside (`.card::after`, `.bt`) because a theme is by definition a skin over the whole system, versioned with the framework. Even there, prefer token overrides; reach for selectors only for what tokens can't express (pseudo-elements, `nth-child` rhythm, `text-decoration`).
 
 ### Token naming grammar
 
-Theme tokens are the public API of every component; they follow `--component-part-property`, longhand, kebab-case:
+Interface tokens (`settings.ui.css`) are the public API of every component; they follow `--component-part-property`, longhand, kebab-case:
 
 - `--bt-background-color-hover`, `--notice-border-width`, `--avatar-status-dot-color-online`
 - No abbreviations (`--card-bg-color` is legacy; new tokens spell out `background-color`), no camelCase, no underscores.
@@ -72,6 +76,7 @@ Never `transition: all` — it also transitions layout properties, so any late-a
 
 - **One block per file.** Every block gets its own file named after it (`.featureItem` lives in `component.featureItem.css`, never inside `component.featureGrid.css`), even for small companion blocks (`component.fieldRow.css`, site `component.webring.css`).
 - Framework file: create `src/styles/framework/<prefix>.<name>.css` and add `@import url(./<file>) layer(<layer>);` in the matching block of `framework/mcss.css`.
+- Theme file: create `src/styles/framework/theme.<name>.css` wrapping its own content in `@layer theme { … }`; do NOT import it in `mcss.css` (the consumer entry activates it; the dist index lists it commented out).
 - Site file: create `src/styles/site/<prefix>.<name>.css` and add a plain `@import` in `_global.css` (unlayered).
 - Framework CSS must never reference site-only selectors (e.g. `.expressive-code`); the site file mirrors any shared pattern itself.
 

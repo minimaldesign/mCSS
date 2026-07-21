@@ -1,6 +1,6 @@
 /*! mCSS v0.9.0 | MIT | https://mcss.dev */
 
-@layer settings, base, elements, global, components, helpers;
+@layer settings, base, elements, global, components, theme, helpers;
 /*
   mCSS framework entry point.
 
@@ -316,9 +316,19 @@ xxl: 1920px
 
 @layer settings{
 
-/* DEFAULT THEME */
+/* INTERFACE TOKENS */
+
+/*
+  The abstraction tier between raw tokens (settings.tokens.css) and the
+  framework's rules: semantic aliases plus every component's token defaults.
+  Interface tokens only ever take another token for value; raw values live
+  in settings.tokens.css, and deliberate deviations from these defaults
+  live in a theme file (see theme.default.css).
+*/
 
 :root {
+  /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
+     classes below. Unrelated to theme files, which are full skins. */
   --csstools-color-scheme--light: initial;
   color-scheme: light dark;
 
@@ -1247,7 +1257,17 @@ xxl: 1920px
 }
 }
 }
-/* @import url(./settings.theme.wireframe.css) layer(settings); */
+
+/*
+  Themes are NOT imported here. A theme (theme.*.css) is a swappable skin:
+  token overrides plus optional skin rules, wrapped in its own @layer theme
+  block so it lands in the theme slot declared above however it's loaded.
+  Activate exactly one from your own entry point, after this file:
+
+    @import url(./theme.wireframe.css);
+
+  No theme imported = the default look (settings.* holds every default).
+*/
 
 /* Reset & Normalize */
 
@@ -4712,7 +4732,7 @@ details {
 
 @layer components{
 .toggle {
-  /* Themable via the --toggle-* tokens in settings.theme.default.css */
+  /* Themable via the --toggle-* tokens in settings.ui.css */
   --toggle-w: var(--toggle-width);
   --toggle-h: var(--toggle-height);
   --toggle-bd: var(--toggle-border-width);

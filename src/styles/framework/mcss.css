@@ -8,7 +8,7 @@
   declarations beat unlayered CSS. Helpers are element-level overrides that
   win everywhere, like inline styling.
 */
-@layer settings, base, elements, global, components, helpers;
+@layer settings, base, elements, global, components, theme, helpers;
 
 /* Build-time only (@custom-media + mixin definitions, no runtime output) */
 @import url(./settings.media-queries.css);
@@ -16,8 +16,18 @@
 
 /* Settings */
 @import url(./settings.tokens.css) layer(settings);
-@import url(./settings.theme.default.css) layer(settings);
-/* @import url(./settings.theme.wireframe.css) layer(settings); */
+@import url(./settings.ui.css) layer(settings);
+
+/*
+  Themes are NOT imported here. A theme (theme.*.css) is a swappable skin:
+  token overrides plus optional skin rules, wrapped in its own @layer theme
+  block so it lands in the theme slot declared above however it's loaded.
+  Activate exactly one from your own entry point, after this file:
+
+    @import url(./theme.wireframe.css);
+
+  No theme imported = the default look (settings.* holds every default).
+*/
 
 /* Reset & Normalize */
 @import url(./base.reset.css) layer(base);

@@ -14,4 +14,4 @@ URLs for blog posts, docs, and component pages are derived from their file paths
 
 ## Theme Toggle
 
-The light/dark toggle persists in **`localStorage`** (key `theme`). The inline script in `BaseLayout.astro` applies the class before paint to avoid FOUC; the toggle behavior itself lives in `ThemeToggle.astro` (self-contained; rendered twice, its module script runs once). Don't introduce a second theme mechanism.
+The light/dark toggle persists in **`localStorage`** (key `theme`). The inline script in `BaseLayout.astro` applies the class before paint to avoid FOUC; the toggle behavior itself lives in `ThemeToggle.astro` (self-contained; rendered twice, its module script runs once). Don't introduce a second color-scheme mechanism. (Theme files, `theme.*.css`, are full skins and unrelated to the light/dark toggle.)

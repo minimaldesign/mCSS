@@ -25,9 +25,19 @@ xxl: 1920px
 /* truncate single line of text and adds … */
 
 @layer settings {
-/* DEFAULT THEME */
+/* INTERFACE TOKENS */
+
+/*
+  The abstraction tier between raw tokens (settings.tokens.css) and the
+  framework's rules: semantic aliases plus every component's token defaults.
+  Interface tokens only ever take another token for value; raw values live
+  in settings.tokens.css, and deliberate deviations from these defaults
+  live in a theme file (see theme.default.css).
+*/
 
 :root {
+  /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
+     classes below. Unrelated to theme files, which are full skins. */
   --csstools-color-scheme--light: initial;
   color-scheme: light dark;
 
