@@ -1,11 +1,12 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry } from 'astro:content';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { slugify } from '../../../scripts/utilities';
+import { getBlogPosts } from '../../../scripts/content.js';
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
+  const allPosts = await getBlogPosts();
 
   // Group by slug so tags that differ only in case or spacing share one page.
   // The first spelling encountered becomes the display name.

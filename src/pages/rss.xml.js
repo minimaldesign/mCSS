@@ -1,8 +1,8 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
+import { getBlogPosts } from "../scripts/content.js";
 
 export async function GET(context) {
-  const blog = await getCollection("blog");
+  const blog = await getBlogPosts();
   return rss({
     title: "mCSS News",
     description: "Stay up to date with mCSS updates",

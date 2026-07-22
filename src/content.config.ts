@@ -18,6 +18,8 @@ const blogCollection = defineCollection({
       })
       .optional(),
     tags: z.array(z.string()),
+    // Hidden from production builds, still visible in dev. See scripts/content.js.
+    draft: z.boolean().default(false),
   }),
 });
 
