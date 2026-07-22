@@ -19,6 +19,20 @@
   }
 }
 
+/* Width presets: a bare .wrap uses --wrap-width, which defaults to the md
+   size; the modifiers pin a specific size regardless of inherited values. */
+.wrap-sm {
+  --wrap-width: var(--wrap-width-sm);
+}
+
+.wrap-md {
+  --wrap-width: var(--wrap-width-md);
+}
+
+.wrap-lg {
+  --wrap-width: var(--wrap-width-lg);
+}
+
 .wrap_content {
   /* default doesn't need styling */
 }

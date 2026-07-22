@@ -21,10 +21,11 @@
   --section-lede-color: var(--section-primary-lede-color);
 }
 
-/* Width presets: .section composes .wrap, so widening is just a matter of
-   overriding the wrap column for this section's children. */
-.section-wide {
-  --wrap-width: minmax(200px, var(--section-wide-width));
+/* The header and content each compose .wrap with their own width preset
+   (header defaults to .wrap-md, content to .wrap-lg), so a section can pair
+   a narrow reading-width header with a wider content column. */
+.section_content {
+  /* default doesn't need styling */
 }
 
 .section_header {

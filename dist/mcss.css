@@ -533,7 +533,10 @@ xxl: 1920px
   --wrap-spacing: var(--sm1);
   --wrap-md-spacing: var(--sm3);
   --wrap-lg-spacing: 0;
-  --wrap-width: minmax(200px, 70ch);
+  --wrap-width-sm: minmax(200px, 55ch);
+  --wrap-width-md: minmax(200px, 70ch);
+  --wrap-width-lg: minmax(200px, 900px);
+  --wrap-width: var(--wrap-width-md);
 
   --layout-aside-width: 245px;
   --layout-aside-background-color: var(--base-100);
@@ -997,6 +1000,7 @@ xxl: 1920px
 :root {
   --hero-radius: var(--radius-xl);
   --hero-content-padding: var(--md3);
+  --hero-actions-spacing: var(--lg3);
   --hero-pagination-dot: var(--sm1);
   --hero-pagination-dot-color: var(--base-0);
   --hero-pagination-dot-active-color: var(--primary-600);
@@ -1138,7 +1142,6 @@ xxl: 1920px
 :root {
   --section-spacing: var(--xl3);
   --section-header-spacing: var(--lg3);
-  --section-wide-width: 1080px;
   --csstools-light-dark-toggle--53: var(--csstools-color-scheme--light) var(--primary-400);
   --section-eyebrow-color: var(--csstools-light-dark-toggle--53, var(--primary-600));
   --csstools-light-dark-toggle--54: var(--csstools-color-scheme--light) var(--base-400);
@@ -2998,6 +3001,20 @@ details {
   }
     }
 
+/* Width presets: a bare .wrap uses --wrap-width, which defaults to the md
+   size; the modifiers pin a specific size regardless of inherited values. */
+.wrap-sm {
+  --wrap-width: var(--wrap-width-sm);
+}
+
+.wrap-md {
+  --wrap-width: var(--wrap-width-md);
+}
+
+.wrap-lg {
+  --wrap-width: var(--wrap-width-lg);
+}
+
 .wrap_content {
   /* default doesn't need styling */
 }
@@ -4014,10 +4031,11 @@ details {
   --section-lede-color: var(--section-primary-lede-color);
 }
 
-/* Width presets: .section composes .wrap, so widening is just a matter of
-   overriding the wrap column for this section's children. */
-.section-wide {
-  --wrap-width: minmax(200px, var(--section-wide-width));
+/* The header and content each compose .wrap with their own width preset
+   (header defaults to .wrap-md, content to .wrap-lg), so a section can pair
+   a narrow reading-width header with a wider content column. */
+.section_content {
+  /* default doesn't need styling */
 }
 
 .section_header {
@@ -4077,6 +4095,15 @@ details {
 .hero_content {
   padding: var(--hero-content-padding);
   max-width: 70ch;
+}
+
+/* Wrapping button row (the hero twin of .section_actions); the full and
+   slideshow variants center it to match their centered text. */
+.hero_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs3);
+  margin-top: var(--hero-actions-spacing);
 }
 
 .hero_media {
@@ -4152,6 +4179,10 @@ details {
     max-width: 60ch;
     min-width: 200px;
   }
+
+  .hero-full .hero_actions {
+    justify-content: center;
+  }
   .hero-roundCorners .hero_media {
     overflow: hidden;
     border-radius: var(--hero-radius);
@@ -4163,6 +4194,10 @@ details {
   .hero-slideshow .hero_content {
     position: relative;
     width: 50ch;
+  }
+
+  .hero-slideshow .hero_actions {
+    justify-content: center;
   }
 
   .hero-slideshow .hero_content ul > li,.hero-slideshow .hero_bg {

@@ -64,10 +64,10 @@ const navItems = [
       <Hero variant="full" height={55} media={{ type: 'gradient', src: 'var(--gradient-primary)' }} textColor="--base-0">
         <h1>Ship your next site in a weekend</h1>
         <p>Acme turns a folder of markdown into a fast, accessible website. No build wizardry, no lock-in, no subscription required to keep what you made.</p>
-        <p>
+        <div class="hero_actions">
           <a class="bt bt-lg bt-white" href="#pricing">Start free</a>
           <a class="bt bt-lg bt-outline-white" href="#features">See features</a>
-        </p>
+        </div>
       </Hero>
 
       <Section id="features" eyebrow="Features" title="Everything a site needs, nothing it doesn't" lede="Six reasons teams pick Acme and stay.">
@@ -121,7 +121,7 @@ const navItems = [
         </div>
       </Section>
 
-      <Section id="faq" eyebrow="FAQ" title="Frequently asked questions">
+      <Section id="faq" eyebrow="FAQ" title="Frequently asked questions" contentWrap="md">
         <Faq>
           <FaqItem question="Can I use my own domain?" name="faq" open>
             <p>Yes. Every paid plan supports custom domains with automatic HTTPS. The free plan gives you an Acme subdomain.</p>

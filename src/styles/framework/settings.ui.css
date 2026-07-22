@@ -107,7 +107,10 @@
   --wrap-spacing: var(--sm1);
   --wrap-md-spacing: var(--sm3);
   --wrap-lg-spacing: 0;
-  --wrap-width: minmax(200px, 70ch);
+  --wrap-width-sm: minmax(200px, 55ch);
+  --wrap-width-md: minmax(200px, 70ch);
+  --wrap-width-lg: minmax(200px, 900px);
+  --wrap-width: var(--wrap-width-md);
 
   --layout-aside-width: 245px;
   --layout-aside-background-color: var(--base-100);
@@ -309,6 +312,7 @@
 :root {
   --hero-radius: var(--radius-xl);
   --hero-content-padding: var(--md3);
+  --hero-actions-spacing: var(--lg3);
   --hero-pagination-dot: var(--sm1);
   --hero-pagination-dot-color: var(--base-0);
   --hero-pagination-dot-active-color: var(--primary-600);
@@ -378,7 +382,6 @@
 :root {
   --section-spacing: var(--xl3);
   --section-header-spacing: var(--lg3);
-  --section-wide-width: 1080px;
   --section-eyebrow-color: light-dark(var(--primary-600), var(--primary-400));
   --section-lede-color: light-dark(var(--base-500), var(--base-400));
   --section-filled-background-color: light-dark(var(--base-50), var(--base-900));
