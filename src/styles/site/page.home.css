@@ -629,7 +629,7 @@
    wider by design), which keeps them easy to align anywhere */
 .home_pillar_icon {
   width: fit-content;
-  height: 120px;
+  height: 90px;
   margin-bottom: var(--sm1);
   background: none;
   border-radius: 0;
