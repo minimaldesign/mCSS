@@ -168,6 +168,10 @@ xxl: 1920px
   --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--primary-900);
   --text-code-background-color: var(--csstools-light-dark-toggle--9, var(--primary-100));
 
+  /* Code blocks (bare pre, astro-code, and the site's expressive-code
+     frames all consume this) */
+  --pre-border-radius: var(--radius-md);
+
   /* .prose related stuff in GLOBAL */
 
   --marker-color: #ffee00;

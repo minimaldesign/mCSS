@@ -119,6 +119,7 @@ xxl: 1920px
     --table-border-radius: var(--wobble-2);
     --hero-radius: var(--wobble-2);
     --featureItem-icon-border-radius: var(--wobble-1);
+    --pre-border-radius: var(--wobble-2);
 
     /* SHADOWS: hard-offset paper cutouts instead of soft blur */
 
