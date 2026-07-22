@@ -40,8 +40,14 @@ jobs:
         run: |
           set -e
           # layers survived the build (the preset-env polyfill must stay off)
-          grep -q '@layer settings, base, elements, global, components, pages, helpers;' dist/mcss.css
+          grep -q '@layer settings, base, elements, global, components, theme, helpers;' dist/mcss.css
           ! grep -q ':not(#' dist/mcss.css
+          # the bundle ships zero-opinion: no theme content in mcss.css
+          # ('@layer theme' appears in a comment; check real block syntax)
+          ! grep -q '@layer theme {' dist/mcss.css
+          # per-file themes self-layer so any import method lands them right
+          grep -q '@layer theme {' dist/css/theme.wireframe.css
+          grep -q '@layer theme {' dist/css/theme.default.css
           # no unresolved custom media or mixins shipped
           # (plain '@custom-media' appears in a comment; check real syntax)
           ! grep -qE '@custom-media --|media \(--' dist/mcss.css
