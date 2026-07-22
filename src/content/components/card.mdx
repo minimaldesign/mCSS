@@ -366,7 +366,7 @@ import CardList from '../components/CardList.astro';
   <div class="grid_item" span="1">
     <Card
       variant="raised"
-      href="/product/123"
+      href="#"
       title="Product Name"
       subtitle="Category"
       imageSrc={placeholder}
@@ -375,7 +375,7 @@ import CardList from '../components/CardList.astro';
     >
       <p>This is a extremely detailed description of the product.</p>
       <Fragment slot="actions">
-        <a class="bt bt-md bt-text " href="/details">
+        <a class="bt bt-md bt-text " href="#">
           View Details
         </a>
         <button class="bt bt-md bt-primary">Add to Cart</button>
@@ -444,7 +444,7 @@ import Card from '../../components/Card.astro';
 <div class="grid" col="1" col-md="2">
   <div class="grid_item">
     <Card
-      href="/product/123"
+      href="#"
       imageSrc={placeholder}
       imageAlt="Product image"
       isDisabled
@@ -453,7 +453,7 @@ import Card from '../../components/Card.astro';
     </Card>
   </div>
   <div class="grid_item">
-    <Card href="/product/123" imageSrc={placeholder} imageAlt="Product image">
+    <Card href="#" imageSrc={placeholder} imageAlt="Product image">
       <p>Witout the `isDisabled` prop, the link is clickable.</p>
     </Card>
   </div>
@@ -483,7 +483,7 @@ import Card from '../../components/Card.astro';
   <div class="grid_item">
     <Card
       variant="raised"
-      href="/product/123"
+      href="#"
       title="Product Name"
       subtitle="Category"
       imageSrc={placeholder}
@@ -492,7 +492,7 @@ import Card from '../../components/Card.astro';
     >
       <p>This is a extremely detailed description of the product.</p>
       <Fragment slot="actions">
-        <a class="bt bt-text " href="/details">
+        <a class="bt bt-text " href="#">
           View Details
         </a>
         <button class="bt bt-primary">Add to Cart</button>
