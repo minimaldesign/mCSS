@@ -37,11 +37,15 @@ const properties = [
   { mb: "margin-bottom" },
   { ml: "margin-left" },
   { mr: "margin-right" },
+  { mis: "margin-inline-start" },
+  { mie: "margin-inline-end" },
   { p: "padding" },
   { pt: "padding-top" },
   { pb: "padding-bottom" },
   { pl: "padding-left" },
   { pr: "padding-right" },
+  { pis: "padding-inline-start" },
+  { pie: "padding-inline-end" },
 ];
 
 const fs = require("fs");

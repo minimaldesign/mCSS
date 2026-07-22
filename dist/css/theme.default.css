@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -45,7 +45,7 @@ xxl: 1920px
 
   Guidelines:
   - Prefer token overrides. Override raw tokens (--base-*, --text) to shift
-    the whole palette or type, interface tokens (--theme-border-color,
+    the whole palette or type, interface tokens (--ui-border-color,
     --heading-font) for cross-cutting changes, or component tokens
     (--bt-border-radius) for surgical ones.
   - Skin rules are for what tokens can't express (pseudo-elements,

@@ -26,8 +26,8 @@
   ol {
     ul,
     ol {
-      margin-left: 0;
-      padding-left: var(--sm2);
+      margin-inline-start: 0;
+      padding-inline-start: var(--sm2);
     }
     li {
       margin-bottom: 0.5em;
@@ -38,12 +38,12 @@
   }
 
   ul {
-    margin-left: var(--sm2);
+    margin-inline-start: var(--sm2);
     list-style-type: "→ ";
   }
 
   ol {
-    margin-left: var(--md2);
+    margin-inline-start: var(--md2);
     list-style-type: decimal-leading-zero;
     li::marker {
       font-size: var(--text-sm);

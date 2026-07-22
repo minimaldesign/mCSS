@@ -18,7 +18,7 @@ dialog {
   [aria-label="close pop-up"] {
     position: absolute;
     top: var(--xs3);
-    right: var(--xs3);
+    right: var(--xs3); /* deliberately physical: close button pinned to a visual corner */
     background: transparent;
     border: none;
     outline: none;

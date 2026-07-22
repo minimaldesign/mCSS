@@ -75,21 +75,21 @@
       &:not(.hero-reversed) {
         /* default */
         & .hero_media + .hero_content {
-          padding-right: 0;
+          padding-inline-end: 0;
         }
         /* contentFirst */
         & .hero_content:has(+ .hero_media) {
-          padding-left: 0;
+          padding-inline-start: 0;
         }
       }
       &.hero-reversed {
         /* default */
         & .hero_media + .hero_content {
-          padding-left: 0;
+          padding-inline-start: 0;
         }
         /* contentFirst */
         & .hero_content:has(+ .hero_media) {
-          padding-right: 0;
+          padding-inline-end: 0;
         }
       }
     }
@@ -144,6 +144,7 @@
 
 .hero_pagination {
   position: absolute;
+  /* deliberately physical: symmetric full-width stretch over the media */
   left: 0;
   right: 0;
   bottom: var(--md1);

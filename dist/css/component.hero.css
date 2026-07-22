@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -101,19 +101,19 @@ xxl: 1920px
     /* when `flush` prop is added we remove content padding on the "outside" */
         /* default */
         .hero-split.hero-flush:not(.hero-reversed) .hero_media + .hero_content {
-          padding-right: 0;
+          padding-inline-end: 0;
         }
         /* contentFirst */
         .hero-split.hero-flush:not(.hero-reversed) .hero_content:has( + .hero_media) {
-          padding-left: 0;
+          padding-inline-start: 0;
         }
         /* default */
         .hero-split.hero-flush.hero-reversed .hero_media + .hero_content {
-          padding-left: 0;
+          padding-inline-start: 0;
         }
         /* contentFirst */
         .hero-split.hero-flush.hero-reversed .hero_content:has( + .hero_media) {
-          padding-right: 0;
+          padding-inline-end: 0;
         }
   }
   .hero-full .hero_content {
@@ -155,6 +155,7 @@ xxl: 1920px
 
 .hero_pagination {
   position: absolute;
+  /* deliberately physical: symmetric full-width stretch over the media */
   left: 0;
   right: 0;
   bottom: var(--md1);

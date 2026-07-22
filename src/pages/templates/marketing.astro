@@ -1,0 +1,211 @@
+---
+// Marketing one-pager template: built only from the mCSS framework and
+// library components. No site CSS. Copy this file, swap the copy and
+// links, and delete the theme-switcher block at the bottom (docs demo
+// chrome, not part of the template).
+import '../../styles/framework/mcss.css';
+import wireframeThemeUrl from '../../styles/framework/theme.wireframe.css?url';
+
+import Banner from '../../components/Banner.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import FeatureItem from '../../components/FeatureItem.astro';
+import Testimonial from '../../components/Testimonial.astro';
+import PricingCard from '../../components/PricingCard.astro';
+import Faq from '../../components/Faq.astro';
+import FaqItem from '../../components/FaqItem.astro';
+import Footer from '../../components/Footer.astro';
+
+import circleCheck from '../../assets/icons/circle-check.svg?raw';
+import moonStar from '../../assets/icons/moon-star.svg?raw';
+import externalLink from '../../assets/icons/external-link.svg?raw';
+import heart from '../../assets/icons/heart.svg?raw';
+import mail from '../../assets/icons/mail.svg?raw';
+import rotateCcw from '../../assets/icons/rotate-ccw.svg?raw';
+
+const navItems = [
+  { label: 'Features', href: '#features' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'FAQ', href: '#faq' },
+];
+---
+
+<html lang="en">
+  <head>
+    <style is:inline>
+      /* Pin the cascade-layer order before any stylesheet loads: layer
+         priority is set by first occurrence, and the theme <link> below
+         may be parsed before the framework's own @layer statement. */
+      @layer settings, base, elements, global, components, theme, helpers;
+    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="Marketing one-pager template built with mCSS and its component library." />
+    <title>Acme, the marketing one-pager template</title>
+    {/* media="not all" keeps the theme parked but fetchable; the switcher
+        flips it to "all". A `disabled` attribute would be cleaner, but
+        Chromium never loads a parser-created disabled link. */}
+    <link rel="stylesheet" href={wireframeThemeUrl} media="not all" id="wireframeTheme" />
+  </head>
+  <body>
+    <Banner>
+      Acme 2.0 is out: faster builds, new themes. <a href="#pricing">See what changed</a>
+    </Banner>
+
+    <Header sticky navItems={navItems}>
+      <a slot="logo" href="#"><strong>Acme</strong></a>
+      <a slot="actions" class="bt bt-primary" href="#pricing">Get started</a>
+    </Header>
+
+    <main>
+      <Hero variant="full" height={55} media={{ type: 'gradient', src: 'var(--gradient-primary)' }} textColor="--base-0">
+        <h1>Ship your next site in a weekend</h1>
+        <p>Acme turns a folder of markdown into a fast, accessible website. No build wizardry, no lock-in, no subscription required to keep what you made.</p>
+        <p>
+          <a class="bt bt-lg bt-white" href="#pricing">Start free</a>
+          <a class="bt bt-lg bt-outline-white" href="#features">See features</a>
+        </p>
+      </Hero>
+
+      <Section id="features" eyebrow="Features" title="Everything a site needs, nothing it doesn't" lede="Six reasons teams pick Acme and stay.">
+        <FeatureGrid cols={3}>
+          <FeatureItem title="Accessible by default">
+            <Fragment slot="icon" set:html={circleCheck} />
+            <p>Keyboard, contrast, and focus states handled before you write a line.</p>
+          </FeatureItem>
+          <FeatureItem title="Light and dark built in">
+            <Fragment slot="icon" set:html={moonStar} />
+            <p>Both color schemes ship from day one and follow the visitor's preference.</p>
+          </FeatureItem>
+          <FeatureItem title="No lock-in">
+            <Fragment slot="icon" set:html={externalLink} />
+            <p>Plain HTML and CSS output you can host anywhere and keep forever.</p>
+          </FeatureItem>
+          <FeatureItem title="Instant rollbacks">
+            <Fragment slot="icon" set:html={rotateCcw} />
+            <p>Every deploy is kept. Shipped a typo? One click puts it back.</p>
+          </FeatureItem>
+          <FeatureItem title="Human support">
+            <Fragment slot="icon" set:html={mail} />
+            <p>Questions get answered by the people who build the product.</p>
+          </FeatureItem>
+          <FeatureItem title="Open source core">
+            <Fragment slot="icon" set:html={heart} />
+            <p>The engine is MIT licensed and developed in the open.</p>
+          </FeatureItem>
+        </FeatureGrid>
+      </Section>
+
+      <Section variant="filled" eyebrow="Testimonials" title="Loved by small teams" lede="A few words from people who ship with Acme.">
+        <div class="grid" col="1" col-md="3">
+          <Testimonial name="Maya Okafor" role="Freelance designer">
+            <p>I rebuilt my portfolio in an afternoon. Clients think I hired a developer.</p>
+          </Testimonial>
+          <Testimonial name="Jonas Lindqvist" role="Founder, Fika Labs">
+            <p>We moved our whole marketing site over and cut our build times from minutes to seconds.</p>
+          </Testimonial>
+          <Testimonial name="Priya Raman" role="Docs lead, OSS project">
+            <p>The accessibility defaults alone sold me. Our audit came back clean on the first pass.</p>
+          </Testimonial>
+        </div>
+      </Section>
+
+      <Section id="pricing" eyebrow="Pricing" title="Simple, honest pricing" lede="Start free, upgrade when the site grows. Every plan includes all core features.">
+        <div class="grid" col="1" col-md="3">
+          <PricingCard name="Starter" price="$0" period="/month" description="For side projects and trying things out." features={['1 site', 'Community support', 'Acme subdomain']} ctaHref="#" />
+          <PricingCard name="Pro" price="$19" period="/month" description="For freelancers and professionals." features={['10 sites', 'Custom domains', 'Email support', 'Instant rollbacks']} ctaHref="#" highlighted badge="Popular" />
+          <PricingCard name="Team" price="$79" period="/month" description="For studios and growing companies." features={['Unlimited sites', 'Priority support', 'Shared workspaces', 'SSO']} ctaHref="#" />
+        </div>
+      </Section>
+
+      <Section id="faq" eyebrow="FAQ" title="Frequently asked questions">
+        <Faq>
+          <FaqItem question="Can I use my own domain?" name="faq" open>
+            <p>Yes. Every paid plan supports custom domains with automatic HTTPS. The free plan gives you an Acme subdomain.</p>
+          </FaqItem>
+          <FaqItem question="What happens if I cancel?" name="faq">
+            <p>Your sites keep working until the end of the billing period, and you can export the generated HTML and CSS at any time. Your content is yours.</p>
+          </FaqItem>
+          <FaqItem question="Do you offer discounts?" name="faq">
+            <p>Students, nonprofits, and open source projects get 50% off any plan. Write to us from your project address.</p>
+          </FaqItem>
+          <FaqItem question="Is there a trial for paid plans?" name="faq">
+            <p>Every paid plan starts with 14 free days, no card required. Downgrade to Starter anytime and keep your site.</p>
+          </FaqItem>
+        </Faq>
+      </Section>
+
+      <Section title="Ready to ship?" lede="Your first site is free, and it can be live before dinner." variant="primary">
+        <div class="section_actions">
+          <a class="bt bt-lg bt-white" href="#pricing">Start free</a>
+          <a class="bt bt-lg bt-outline-white" href="#faq">Read the FAQ</a>
+        </div>
+      </Section>
+    </main>
+
+    <Footer>
+      <ul>
+        <li>
+          <h5>Product</h5>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </li>
+        <li>
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </li>
+        <li>
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+          </ul>
+        </li>
+      </ul>
+      <Fragment slot="meta">
+        <p>© 2026 Acme Inc. Built with <a href="https://mcss.dev">mCSS</a>.</p>
+      </Fragment>
+    </Footer>
+
+    <!-- Theme switcher: docs demo chrome, not part of the template. -->
+    <div class="templateThemer" role="group" aria-label="Preview theme">
+      <button class="bt bt-primary" type="button" data-theme-choice="default" aria-pressed="true">Default</button>
+      <button class="bt" type="button" data-theme-choice="wireframe" aria-pressed="false">Wireframe</button>
+    </div>
+    <style>
+      .templateThemer {
+        position: fixed;
+        inset-block-end: var(--sm1);
+        inset-inline-end: var(--sm1);
+        z-index: 10;
+        display: flex;
+        gap: var(--xs2);
+      }
+    </style>
+    <script>
+      const link = document.getElementById('wireframeTheme') as HTMLLinkElement;
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]');
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const wireframe = button.dataset.themeChoice === 'wireframe';
+          link.media = wireframe ? 'all' : 'not all';
+          buttons.forEach((b) => {
+            const active = b === button;
+            b.setAttribute('aria-pressed', String(active));
+            b.classList.toggle('bt-primary', active);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

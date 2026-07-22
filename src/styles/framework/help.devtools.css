@@ -20,7 +20,7 @@ body.dev {
 .dev-error {
   position: fixed !important;
   top: var(--md1) !important;
-  left: var(--md1) !important;
+  left: var(--md1) !important; /* deliberately physical: debug toast pinned to a visual corner */
   z-index: var(--z-top) !important;
   padding: var(--sm1) !important;
   font-size: 1rem !important;

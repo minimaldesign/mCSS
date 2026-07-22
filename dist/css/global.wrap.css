@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -34,21 +34,18 @@ xxl: 1920px
 
   .wrap  > *,.wrap  > astro-island > *,.wrap  > astro-slot > *,.wrap  > astro-static-slot > * {
     grid-column: 2;
-    padding-left: var(--wrap-spacing);
-    padding-right: var(--wrap-spacing);
+    padding-inline: var(--wrap-spacing);
   }
     @media (width >= 768px) {
 
   .wrap  > *,.wrap  > astro-island > *,.wrap  > astro-slot > *,.wrap  > astro-static-slot > * {
-      padding-left: var(--wrap-md-spacing);
-      padding-right: var(--wrap-md-spacing);
+      padding-inline: var(--wrap-md-spacing);
   }
     }
     @media (width >= 1024px) {
 
   .wrap  > *,.wrap  > astro-island > *,.wrap  > astro-slot > *,.wrap  > astro-static-slot > * {
-      padding-left: var(--wrap-lg-spacing);
-      padding-right: var(--wrap-lg-spacing);
+      padding-inline: var(--wrap-lg-spacing);
   }
     }
 

@@ -2,7 +2,7 @@
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
 lastUpdate: 2026-07-21
-version: 0.9
+version: 1
 ---
 
 <section class="prose">
@@ -86,7 +86,7 @@ Run `npm run build:css` in the repo to produce `dist/` from source.
 Settings are where all custom properties are set.
 
 - [Tokens][5] is where you set default values for sizes, font stacks, colors, transitions, etc. See [the docs][5] for all the values available by default.
-- [Interface tokens][interfaceTokens] are an abstraction level to standardize common values across elements and components. For instance, components use `--theme-border-color` instead of the lower level token `--base-200`, so one override restyles every bordered surface.
+- [Interface tokens][interfaceTokens] are an abstraction level to standardize common values across elements and components. For instance, components use `--ui-border-color` instead of the lower level token `--base-200`, so one override restyles every bordered surface.
 - [Media queries][6] include responsive sizes, as well as user preferences like color schemes, reduced motion, etc. See [media queries docs][6].
 - **Mixins** is optional. It is not used in other parts of mCSS by default but can be useful to streamline your own components' code. It requires a [PostCSS plugin][7] to work.
 
@@ -283,6 +283,7 @@ How things degrade in older browsers:
 - **`light-dark()`** (mid-2024): colors fall back to the light palette.
 - **`@scope`** (mid-2024): only affects `.prose` internals; spacing between prose blocks and headings loses one refinement.
 - **Scroll-driven animations**: the [ReadProgressBar](/components/readprogressbar) component detects support and falls back to JavaScript automatically.
+- **`sibling-index()`, CSS `random()`, SVG displacement filters**: used only by the [wireframe theme](/docs/themes) for per-element sketch variation; without them the theme keeps its fixed hand-drawn look.
 
 The exact compile floor lives in `.browserslistrc` (`defaults and supports css-cascade-layers`).
 

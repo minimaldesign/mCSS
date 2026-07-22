@@ -18,7 +18,7 @@
 }
 
 .canIUse {
-  border: var(--border-sm) solid var(--theme-border-color);
+  border: var(--border-sm) solid var(--ui-border-color);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   overflow: hidden;

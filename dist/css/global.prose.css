@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -46,8 +46,8 @@ xxl: 1920px
       margin-bottom: 0;
     }
     :is(ul,ol) ul,:is(ul,ol) ol {
-      margin-left: 0;
-      padding-left: var(--sm2);
+      margin-inline-start: 0;
+      padding-inline-start: var(--sm2);
     }
     :is(ul,ol) li {
       margin-bottom: 0.5em;
@@ -64,12 +64,12 @@ xxl: 1920px
 }
 
   ul {
-    margin-left: var(--sm2);
+    margin-inline-start: var(--sm2);
     list-style-type: "→ ";
   }
 
   ol {
-    margin-left: var(--md2);
+    margin-inline-start: var(--md2);
     list-style-type: decimal-leading-zero;
   }
     ol li::marker {

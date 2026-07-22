@@ -2,6 +2,8 @@
 
 The library for CSS lovers.
 
+Current version: **1.0.0** ([changelog](CHANGELOG.md)). Copy it, own it: grab [`dist/mcss.css`](dist/mcss.css) or the [source files](src/styles/framework), no package manager involved.
+
 ## Learn
 
 - [mCSS methodology](https://mcss.dev/docs/start)

@@ -22,7 +22,7 @@ mCSS is a CSS framework that respects and takes advantage of CSS inherent streng
 
 mCSS borrows from tried and tested methodologies like [ITCSS](/blog/what-is-itcss) and [BEM](/blog/what-is-bem), as well as some of the latest tech like [Open Props](https://open-props.style), and it remixes/expands on all that to create its own thing.
 
-The mCSS framework is pure CSS. So you can use it with absolutely any tech stack you'd like. Just import the CSS files you need in your project, and you're done! The [components][2] (coming soon!) come in two flavors: plain HTML or [Astro][3].
+The mCSS framework is pure CSS. So you can use it with absolutely any tech stack you'd like. Just import the CSS files you need in your project, and you're done! The [components][2] come in two flavors: plain HTML or [Astro][3].
 
 Also… If you want to add a button to your app, your code will look like that:
 

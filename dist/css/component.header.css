@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -60,7 +60,7 @@ xxl: 1920px
 
 .header_nav {
   display: none;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
   @media (width >= 768px) {
 
@@ -109,7 +109,7 @@ xxl: 1920px
   }
 
 .header_navMobile {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
   @media (width >= 768px) {
 
@@ -137,7 +137,7 @@ xxl: 1920px
     display: none;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0; /* deliberately physical: full-viewport overlay pinned to the screen edge */
     width: 100vw;
     height: 100svh;
     overflow-y: auto;
@@ -152,7 +152,7 @@ xxl: 1920px
     :is(.header_navMobile > div) button {
       position: fixed;
       top: 0;
-      right: 0;
+      right: 0; /* deliberately physical: close button pinned to a visual corner */
       padding: var(--sm1) var(--sm3);
       color: var(--header-menu-color);
     }
@@ -185,8 +185,8 @@ xxl: 1920px
       }
 
       :is(:is(.header_navMobile > div) > ul) ul {
-        padding-left: var(--sm1);
-        border-left: 1px solid var(--header-menu-border-color);
+        padding-inline-start: var(--sm1);
+        border-inline-start: 1px solid var(--header-menu-border-color);
       }
         :is(:is(:is(.header_navMobile > div) > ul) ul) a {
           color: var(--header-menu-secondary-color);

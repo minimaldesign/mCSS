@@ -11,7 +11,7 @@
   ul {
     font-size: var(--text-sm);
     ul {
-      margin-left: var(--toc-indentation);
+      margin-inline-start: var(--toc-indentation);
     }
   }
 
@@ -49,7 +49,7 @@
 
 .toc-icon {
   a {
-    margin-left: calc(var(--toc-icon-size) * -1);
+    margin-inline-start: calc(var(--toc-icon-size) * -1);
   }
 
   svg {

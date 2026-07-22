@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -48,13 +48,13 @@ datalist {
 }
 
 fieldset {
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-lg);
   padding: var(--sm3);
 }
 
   fieldset ul:has([type="checkbox"],[type="radio"]) {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   fieldset  > [aria-hidden] {
@@ -78,14 +78,14 @@ fieldset {
     border-radius: var(--input-border-radius);
   }
   input:where(:not([type="file"])) {
-    border: 1px solid var(--theme-border-color);
+    border: 1px solid var(--ui-border-color);
   }
   input[type="file"] {
     width: 100%;
     accent-color: var(--text-color);
   }
   input[type="number"] {
-    padding-right: var(--xs1);
+    padding-inline-end: var(--xs1);
   }
 
 label {
@@ -195,7 +195,7 @@ select {
   height: var(--input-height);
   padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
     var(--input-padding);
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--input-border-radius);
   background: linear-gradient(
     to right,
@@ -274,7 +274,7 @@ textarea {
   width: 100%;
   padding: var(--xs3);
   border-radius: var(--input-border-radius);
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--ui-border-color);
   resize: vertical;
 }
   textarea:not([rows]) {

@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -47,7 +47,7 @@ body.dev {
 .dev-error {
   position: fixed !important;
   top: var(--md1) !important;
-  left: var(--md1) !important;
+  left: var(--md1) !important; /* deliberately physical: debug toast pinned to a visual corner */
   z-index: var(--z-top) !important;
   padding: var(--sm1) !important;
   font-size: 1rem !important;

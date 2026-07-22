@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -107,7 +107,7 @@ xxl: 1920px
 
     --border-sm: 2px;
     --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-200);
-    --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
+    --ui-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
 
     /* WOBBLY BORDERS: asymmetric ellipse radii, shallow on purpose
        (7-10px of sag over 90-125px spans reads as a shaky pen line;
@@ -144,7 +144,7 @@ xxl: 1920px
     --footer-background-color: var(--csstools-light-dark-toggle--1, var(--base-100));
     --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-200);
     --footer-text-color: var(--csstools-light-dark-toggle--2, var(--base-950));
-    --footer-border-color: var(--theme-border-color);
+    --footer-border-color: var(--ui-border-color);
     --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-200);
     --footer-link-color: var(--csstools-light-dark-toggle--3, var(--base-950));
     --footer-link-color-hover: var(--base-500);
@@ -153,12 +153,12 @@ xxl: 1920px
 
     --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
 
-    --theme-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
-    --shadow-sm: 2px 2px 0 var(--theme-shadow-color);
-    --shadow-md: 4px 4px 0 var(--theme-shadow-color);
-    --shadow-lg: 6px 6px 0 var(--theme-shadow-color);
-    --shadow-xl: 8px 8px 0 var(--theme-shadow-color);
-    --shadow-xxl: 10px 10px 0 var(--theme-shadow-color);
+    --ui-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
+    --shadow-sm: 2px 2px 0 var(--ui-shadow-color);
+    --shadow-md: 4px 4px 0 var(--ui-shadow-color);
+    --shadow-lg: 6px 6px 0 var(--ui-shadow-color);
+    --shadow-xl: 8px 8px 0 var(--ui-shadow-color);
+    --shadow-xxl: 10px 10px 0 var(--ui-shadow-color);
 
     /* ON/OFF STATES: with the green gone, checked and online need ink
        against paper, not one gray against another. */
@@ -179,7 +179,7 @@ xxl: 1920px
 
 @supports (color: light-dark(red, red)) {
 :root {
-    --theme-border-color: light-dark(var(--base-800), var(--base-200));
+    --ui-border-color: light-dark(var(--base-800), var(--base-200));
 
     --footer-background-color: light-dark(var(--base-100), var(--base-900));
     --footer-text-color: light-dark(var(--base-950), var(--base-200));
@@ -190,7 +190,7 @@ xxl: 1920px
 @supports (color: light-dark(red, red)) and (color: rgb(0 0 0 / 0)) {
 :root {
 
-    --theme-shadow-color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.55));
+    --ui-shadow-color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.55));
   }
 }
 
@@ -207,7 +207,7 @@ xxl: 1920px
     @supports not (color: light-dark(tan, tan)) {
   :root * {
     --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-200);
-    --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
+    --ui-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
 
     --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) var(--base-900);
 
@@ -219,7 +219,7 @@ xxl: 1920px
 
     --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
 
-    --theme-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
+    --ui-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
 
     --csstools-light-dark-toggle--5: var(--csstools-color-scheme--light) var(--base-200);
 
@@ -252,7 +252,7 @@ xxl: 1920px
      full-bleed bands. */
   .section-filled,
   .section-primary {
-    border: var(--border-sm) solid var(--theme-border-color);
+    border: var(--border-sm) solid var(--ui-border-color);
     border-radius: var(--wobble-1);
   }
 
@@ -288,7 +288,7 @@ xxl: 1920px
     content: "";
     position: absolute;
     inset: -1px;
-    border: var(--border-sm) solid var(--theme-border-color);
+    border: var(--border-sm) solid var(--ui-border-color);
     rotate: 0.5deg;
     translate: 1px -1px;
     pointer-events: none;
@@ -396,18 +396,18 @@ xxl: 1920px
     (rotate: random(per-element, -1deg, 1deg)) {
     .card,
     .featureItem {
-      rotate: 0.09222deg;
-      rotate: 0.09222deg;
+      rotate: 0.25184deg;
+      rotate: 0.25184deg;
     }
 
     .card::after,
     .bt::after {
-      rotate: -0.42714deg;
-      rotate: -0.42714deg;
-      translate: -0.70952px
-        -0.05898px;
-      translate: -0.70952px
-        -0.05898px;
+      rotate: -0.34123deg;
+      rotate: -0.34123deg;
+      translate: 0.61196px
+        -0.659px;
+      translate: 0.61196px
+        -0.659px;
     }
   }
 }

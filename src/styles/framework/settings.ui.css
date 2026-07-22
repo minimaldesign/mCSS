@@ -13,8 +13,8 @@
      classes below. Unrelated to theme files, which are full skins. */
   color-scheme: light dark;
 
-  --theme-border-color: light-dark(var(--base-200), var(--base-500));
-  --theme-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
+  --ui-border-color: light-dark(var(--base-200), var(--base-500));
+  --ui-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
 
   /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css) */
   --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
@@ -168,7 +168,7 @@
   --bt-color-hover: light-dark(var(--text-color), var(--base-0));
   --bt-background-color: light-dark(var(--base-0), var(--base-800));
   --bt-background-color-hover: light-dark(var(--base-50), var(--base-900));
-  --bt-border-color: var(--theme-border-color);
+  --bt-border-color: var(--ui-border-color);
   --bt-border-width: var(--border-sm);
   --bt-border-radius: var(--radius-lg);
   --bt-border-radius-lg: var(--radius-xl);
@@ -225,7 +225,7 @@
   --card-secondary-text-color: light-dark(var(--base-400), var(--base-500));
   --card-bg-color: light-dark(var(--base-100), var(--base-900));
   --card-border-radius: var(--radius-lg);
-  --card-border-color: var(--theme-border-color);
+  --card-border-color: var(--ui-border-color);
   --card-border-width: var(--border-sm);
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
@@ -335,7 +335,7 @@
 /* PrevNext */
 
 :root {
-  --prevNext-border-color: var(--theme-border-color);
+  --prevNext-border-color: var(--ui-border-color);
   --prevNext-border-radius: var(--radius-lg);
   --prevNext-border-color-hover: var(--link-color);
   --prevNext-label-color: light-dark(var(--base-400), var(--base-500));

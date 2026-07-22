@@ -18,16 +18,16 @@ table {
 
 th,
 td {
-  text-align: left;
+  text-align: start;
   padding: var(--table-padding);
   border-bottom: 1px solid var(--table-border-color);
-  border-left: 1px solid var(--table-border-color);
+  border-inline-start: 1px solid var(--table-border-color);
 }
 
 tr {
   th:first-child,
   td:first-child {
-    border-left-width: 0;
+    border-inline-start-width: 0;
   }
 }
 

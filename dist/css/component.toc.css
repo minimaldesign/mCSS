@@ -1,4 +1,4 @@
-/*! mCSS v0.9.0 | MIT | https://mcss.dev */
+/*! mCSS v1.0.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -38,7 +38,7 @@ xxl: 1920px
     font-size: var(--text-sm);
   }
     :is(.toc ul) ul {
-      margin-left: var(--toc-indentation);
+      margin-inline-start: var(--toc-indentation);
     }
 
   .toc > ul > li:first-child > a:first-child {
@@ -73,7 +73,7 @@ xxl: 1920px
         opacity: var(--o-5);
       }
   .toc-icon a {
-    margin-left: calc(var(--toc-icon-size) * -1);
+    margin-inline-start: calc(var(--toc-icon-size) * -1);
   }
 
   .toc-icon svg {
