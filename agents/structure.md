@@ -17,6 +17,7 @@ src/
     framework/    The mCSS framework (cascade layers, entry: mcss.css)
     site/         Docs-site-only CSS (unlayered)
   assets/         Images, icons (assets/icons/), component assets (assets/ui/)
+  data/           Shared static config/data arrays (e.g. docsNav.js)
   scripts/        Shared JS utilities (globals.js, utilities.js)
   tools/          Build/tooling scripts (.cjs)
 ```
