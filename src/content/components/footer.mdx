@@ -14,14 +14,14 @@ The `.footer` component is the site-wide bottom section: link columns on the rig
 <Footer style="border-radius: 0 0 var(--radius-lg) var(--radius-lg);">
   <ul>
     <li>
-      <h5>Product</h5>
+      <h2 class="h5">Product</h2>
       <ul>
         <li><a href="#">Features</a></li>
         <li><a href="#">Pricing</a></li>
       </ul>
     </li>
     <li>
-      <h5>Company</h5>
+      <h2 class="h5">Company</h2>
       <ul>
         <li><a href="#">About</a></li>
         <li><a href="#">Blog</a></li>
@@ -55,19 +55,21 @@ The `.footer` component is the site-wide bottom section: link columns on the rig
 
 The footer expects two regions: a `nav` with one `<ul>` whose `<li>` children are the columns (a heading plus a link list each), and a `.footer_meta` section.
 
+Pick a real heading level for the column titles: the next one in your page's outline (usually `h2`), sized down with a [heading helper class](/docs/helpers) like `.h5`. Jumping straight to an `h5` for its looks would leave a heading-level gap for screen-reader users on every page.
+
 ```html
 <footer class="footer">
   <nav class="footer_nav" aria-label="Footer">
     <ul>
       <li>
-        <h5>Documentation</h5>
+        <h2 class="h5">Documentation</h2>
         <ul>
           <li><a href="/docs">Getting started</a></li>
           <li><a href="/docs/tokens">Tokens</a></li>
         </ul>
       </li>
       <li>
-        <h5>Connect</h5>
+        <h2 class="h5">Connect</h2>
         <ul>
           <li><a href="https://github.com/…">Github</a></li>
         </ul>
@@ -132,14 +134,14 @@ Any other attribute is passed through to the root `<footer>` element.
     <Footer style="border-radius: var(--radius-lg);">
       <ul>
         <li>
-          <h5>Product</h5>
+          <h2 class="h5">Product</h2>
           <ul>
             <li><a href="#">Features</a></li>
             <li><a href="#">Pricing</a></li>
           </ul>
         </li>
         <li>
-          <h5>Company</h5>
+          <h2 class="h5">Company</h2>
           <ul>
             <li><a href="#">About</a></li>
             <li><a href="#">Blog</a></li>
@@ -158,7 +160,7 @@ Any other attribute is passed through to the root `<footer>` element.
     <Footer>
       <ul>
         <li>
-          <h5>Product</h5>
+          <h2 class="h5">Product</h2>
           <ul>
             <li><a href="/features">Features</a></li>
             <li><a href="/pricing">Pricing</a></li>
