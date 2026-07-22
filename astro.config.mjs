@@ -18,6 +18,8 @@ export default defineConfig({
   redirects: {
     // slug lowercased for consistency with the other component docs
     "/components/ReadProgressBar": "/components/readprogressbar",
+    // the template docs page moved from the components collection to docs
+    "/components/template": "/docs/template",
     // tags pages moved under /blog so the Blog nav item highlights on them
     "/tags": "/blog/tags",
     "/tags/[tag]": "/blog/tags/[tag]",
