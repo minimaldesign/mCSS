@@ -39,6 +39,8 @@ const componentsCollection = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
+    // One-line summary used for meta descriptions and /llms.txt
+    description: z.string(),
     lastUpdate: z.date(),
     version: z.number(),
     type: z.enum(["intro", "component"]),

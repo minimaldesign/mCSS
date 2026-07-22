@@ -6,9 +6,26 @@ import ReadProgressBar from '../components/ReadProgressBar.astro';
 import Tags from '../components/Tags.astro';
 
 const { frontmatter } = Astro.props;
+
+// BlogPosting structured data (schema.org), built from the post frontmatter
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: frontmatter.title,
+  description: frontmatter.description,
+  datePublished: frontmatter.pubDate.toISOString().slice(0, 10),
+  author: {
+    '@type': 'Person',
+    name: frontmatter.author,
+  },
+  url: Astro.url.href,
+  mainEntityOfPage: Astro.url.href,
+  ...(frontmatter.image && { image: new URL(frontmatter.image.url, Astro.url.origin).href }),
+});
 ---
 
-<BaseLayout title={frontmatter.title} bodyClass="layout layout-centered" frontmatter={frontmatter}>
+<BaseLayout title={`${frontmatter.title} | mCSS Blog`} bodyClass="layout layout-centered" frontmatter={frontmatter} article={{ publishedTime: frontmatter.pubDate, author: frontmatter.author }}>
+  <script is:inline type="application/ld+json" slot="head" set:html={jsonLd} />
   <ReadProgressBar />
   <main class="layout_content_main blog">
     <h1>{frontmatter.title}</h1>

@@ -17,7 +17,8 @@ export async function GET(context) {
   const componentLine = (entry) => {
     const url = pageUrl(site, "components", entry.id, ".md");
     const label = entry.data.cssOnly ? " (CSS-only)" : "";
-    return `- [${entry.data.title}](${url})${label}`;
+    const description = entry.data.description;
+    return `- [${entry.data.title}](${url})${label}${description ? `: ${description}` : ""}`;
   };
 
   const text = [

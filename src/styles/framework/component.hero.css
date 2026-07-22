@@ -200,37 +200,3 @@
     background: var(--hero-pagination-dot-active-color);
   }
 }
-
-.hero_pagination_playPause {
-  display: grid;
-  place-items: center;
-  width: max(var(--hero-pagination-dot), 24px);
-  height: max(var(--hero-pagination-dot), 24px);
-  padding: 0;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  opacity: var(--hero-pagination-opacity);
-  transition: opacity var(--transition);
-
-  svg {
-    fill: var(--hero-pagination-dot-active-color);
-    filter: drop-shadow(var(--shadow-sm));
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-
-  .hero_pagination_playPause_play {
-    display: none;
-  }
-  &.is-paused {
-    .hero_pagination_playPause_pause {
-      display: none;
-    }
-    .hero_pagination_playPause_play {
-      display: block;
-    }
-  }
-}
