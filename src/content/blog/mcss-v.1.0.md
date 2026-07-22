@@ -10,7 +10,7 @@ description: "mCSS 1.0 is here: a full component library, a real theme system wi
 
 When I released [v.0.9](/blog/mcss-v09), I said the official launch would wait until the component library and the theming system were real. They are now, so here it is: **mCSS 1.0**.
 
-Everything is still pure CSS (plus optional Astro components), still copy-it-you-own-it. No package to install, no version to chase. Grab [`dist/mcss.css`][dist] or the source files, make them yours, and there's nothing that can break your site on a Tuesday.
+Everything is still pure CSS (plus optional Astro components), still a copy + paste in your project install. No package, no worries about version upgrades that are not supposed to break anything but end up ruining your Tuesday night anyway… Grab [`dist/mcss.css`][dist] or the source files, to make them yours!
 
 ## The component library
 
@@ -22,13 +22,13 @@ None of it is theoretical: every component is used on this very site.
 
 The part I'm happiest about. A [theme][themes] in mCSS is **one CSS file that reskins your whole site**. Themes get their own cascade layer, sitting above the framework and below your own CSS, so a theme beats every default without ever fighting your code.
 
-To prove the system could do more than swap palettes, 1.0 ships with a [wireframe theme][themes]: a hand-drawn skin with wobbly borders, paper-cutout shadows, and per-element sketch variation, done entirely in CSS. If a single file can turn a finished site into a sketch, your brand skin will be easy.
+To prove the system could do more than swap colors, 1.0 ships with a [wireframe theme][themes]: a hand-drawn skin with wobbly borders, paper-cutout shadows, and per-element sketch variation, done entirely in CSS.
 
 ## A template to start from
 
 New in 1.0: a complete [marketing one-pager][template] built only from the framework and the component library. Banner, header, hero, features, testimonials, pricing, FAQ, closing CTA, footer. Copy one file, swap the words, ship. There's a switcher on the live page that flips it between the default look and the wireframe theme, so you can see the theme system do its thing on a real page.
 
-More templates are coming; this is the shape of things.
+More templates are coming! And if you come up with a cool one, I'll definitely feature it here.
 
 ## Everything else
 
