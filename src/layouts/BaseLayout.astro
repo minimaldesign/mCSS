@@ -15,7 +15,7 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={headDescription} />
@@ -25,7 +25,7 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
 
     {/* Open Graph  */}
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url.origin} />
+    <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={headDescription} />
     <meta property="og:image" content={headImage} />
@@ -82,8 +82,9 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     </script>
   </head>
   <body class={bodyClass}>
+    <a class="a11y-skipLink" href="#main">Skip to content</a>
     <SiteHeader />
-    <div class="layout_content">
+    <div class="layout_content" id="main">
       <slot />
     </div>
     <SiteFooter />
