@@ -25,11 +25,27 @@ In mCSS, tokens are CSS custom properties that provide a flexible, coherent, and
 
 <section class="prose">
 
-When you start a new project, open `settings.tokens.css` and change the values of as many tokens as necessary to match the design you're planning to implement. (Things like spacing might not need to change, but you'll almost certainly need to customize your `base` and `primary` colors for instance.)
+When you start a new project, open `settings.tokens.css` and change the values of as many tokens as necessary to match the design you're planning to implement. (Things like spacing might not need to change, but you'll almost certainly need to customize your `base` and `primary` colors for instance.) For deviations you want to keep swappable, put the overrides in a [theme](/docs/themes) instead of editing the defaults.
 
-Themes offer an additional layer of abstraction for tokens (ie. `settings.theme.default.css`). These tokens only ever take another token for value and are useful to standardize UI elements in logical groups. For example, you can have a `--light-border-color` with a value of `--base-100`. This allows you to create tokens with meaning and context which makes them more intuitive to use.
+</section>
 
-`elements.*`, `global.*`, and `page.*` files tend to use abstracted theme tokens, while `component.*` generally use low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new theme token is probably the best option.
+## Interface tokens
+
+<section class="prose">
+
+<div class="docs_oversizedTable">
+
+| File name         | Source            |
+| ----------------- | ----------------- |
+| `settings.ui.css` | [Github][srcUi]   |
+
+</div>
+
+[srcUi]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.ui.css
+
+Interface tokens offer an additional layer of abstraction over the raw tokens. They only ever take another token for value and standardize UI decisions in logical groups: semantic aliases like `--theme-border-color` (with a value of `--base-200`) or `--success-*`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). This gives tokens meaning and context, which makes them more intuitive to use, and it's what makes [themes](/docs/themes) powerful: override one interface token and every rule that consumes it follows.
+
+`elements.*` and `global.*` files tend to use interface tokens, while `component.*` files mix them with low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new interface token is probably the best option.
 
 </section>
 

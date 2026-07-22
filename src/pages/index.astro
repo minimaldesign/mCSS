@@ -27,7 +27,7 @@ const installSnippet = '<link rel="stylesheet" href="mcss.min.css">';
 // §5 diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
 const themeDiffs = {
-  default: `/* settings.theme.default.css, as shipped */
+  default: `/* settings.ui.css defaults (excerpt) */
 :root {
   --heading-font: var(--display);
   --text: ui-sans-serif, system-ui, sans-serif;
@@ -45,7 +45,7 @@ const themeDiffs = {
   --input-border-radius: 5px;
   --link-color: light-dark(#0284c7, #38bdf8);
 }`,
-  wireframe: `/* wireframe: the entire diff */
+  wireframe: `/* a wireframe theme: the entire diff */
 :root {
   --heading-font: ui-rounded, "Arial Rounded MT Bold", Calibri, sans-serif;
   --text-color: light-dark(#404040, #d4d4d4);

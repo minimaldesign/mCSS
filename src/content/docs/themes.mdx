@@ -1,33 +1,97 @@
 ---
 title: "Themes"
-description: "Theme tokens: semantic aliases over raw tokens, plus light and dark themes"
-lastUpdate: 2024-08-07
-version: 0.1
+description: "Themes: swappable skins made of token overrides plus optional skin rules"
+lastUpdate: 2026-07-21
+version: 0.9
 ---
-
-import Notice from "../../components/Notice.astro";
-
-<Notice type="warning" title="Work in progress" class="mt-lg1">
-  This feature is still in beta and the implementation details are likely to
-  change during the development of mCSS components. However, if you use the mCSS
-  framework to build your own components, it is recommended to use a theme as a
-  token abstraction layer.
-</Notice>
-
-## Default theme
 
 <section class="prose">
 
 <div class="docs_oversizedTable">
 
-| File name                    | Source               |
-| ---------------------------- | -------------------- |
-| `settings.theme.default.css` | [Github][srcDefault] |
+| File name             | Description                          | Source                 |
+| --------------------- | ------------------------------------ | ---------------------- |
+| `theme.default.css`   | Empty template: copy it to start your own theme | [Github][srcDefault]   |
+| `theme.wireframe.css` | Example theme with a hand-drawn wireframe look  | [Github][srcWireframe] |
 
 </div>
 
-[srcDefault]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+[srcDefault]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.css
+[srcWireframe]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.wireframe.css
 
-Themes offer an additional layer of abstraction for [tokens](/docs/tokens). Theme tokens only ever take another token for value and are useful to standardize UI elements in logical groups. For example, you can have a `--light-border-color` with a value of `--base-100`. This allows you to create tokens with meaning and context which makes them more intuitive to use.
+A theme is **one CSS file that reskins your whole site**. It contains [token](/docs/tokens) overrides, plus optional skin rules for the few things tokens can't express. Swap which theme file your entry point imports and everything changes; anything the theme doesn't mention falls back to the framework defaults.
+
+mCSS ships with **no theme active**: the default look is simply the framework's own token defaults with an empty `theme` layer.
+
+</section>
+
+## Activating a theme
+
+<section class="prose">
+
+Import exactly one theme file from your own entry point, after the framework:
+
+```css
+@import url(./framework/mcss.css);
+@import url(./framework/theme.wireframe.css);
+```
+
+That's the entire swap. Theme files are **self-layered**: each one wraps its own content in `@layer theme`, so it lands in the right cascade slot no matter how you load it (plain `@import`, a `<link>` tag on `dist/css/theme.wireframe.css`, or a bundler). No `layer()` annotation needed.
+
+The `theme` layer sits after `components` and before `helpers`, so a theme beats every framework default but still loses to your own unlayered CSS and to [helpers](/docs/helpers). The layer order runs from default to deliberate: the framework's layers are what things look like when nobody has an opinion, a theme is a deliberate opinion about those defaults, and your unlayered CSS is more deliberate still.
+
+</section>
+
+## Why small theme files go far
+
+<section class="prose">
+
+Themes work because of the two token tiers below them:
+
+1. **Raw tokens** (`settings.tokens.css`) hold primitive values: palettes, the type scale, spacing, radii.
+2. **[Interface tokens](/docs/tokens#interface-tokens)** (`settings.ui.css`) map those primitives onto meaning: semantic aliases like `--theme-border-color`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). Interface tokens only ever take another token for value.
+
+Because components read `var(--theme-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
+
+```css
+@layer theme {
+  :root {
+    /* Whole palette shifts: every light-dark() alias follows */
+    --base-950: #1a1208;
+
+    /* Cross-cutting: every bordered surface at once */
+    --theme-border-color: light-dark(var(--base-300), var(--base-600));
+
+    /* Surgical: one component knob */
+    --bt-border-radius: 0;
+  }
+}
+```
+
+</section>
+
+## Worked example: the wireframe theme
+
+<section class="prose">
+
+[`theme.wireframe.css`][srcWireframe] turns the whole site into a hand-drawn wireframe and shows both halves of a theme in action.
+
+**The token half** does most of the work: a grayscale palette (`--base-*`, `--primary-*`, and the feedback scales, because in a wireframe success and danger are annotations, not colors), a marker-style handwriting stack for text, headings, and `--display`, pen-weight borders (`--border-sm: 2px`), and hard-offset "paper cutout" shadows replacing the soft blur scale. On/off states (toggle, avatar status dot) get explicit ink-on-paper overrides since the green they normally lean on is gone. For wobbly sketch borders it defines three oversized asymmetric radii (`--wobble-1/2/3`) and remaps each component's radius token to a different one, so cards, buttons, and inputs don't all wobble identically. It deliberately does NOT override the raw `--radius-*` scale: uniform wobble reads as a bug, not a hand.
+
+**The skin-rule half** covers what tokens can't express: wavy link underlines (only the `text-decoration-style` longhand, so un-underlined links stay clean), tiny alternating tilts on cards via the independent `rotate` property (which composes with the transforms components animate instead of fighting them), drawn-panel borders on filled and primary sections, and a traced-twice pencil stroke drawn by a pseudo-element with the same border color, a different wobble, and a 1px offset. Progressive enhancements ride on top for browsers that support them: an SVG displacement filter roughens the traced card stroke; `sibling-index()` (all current engines) seeds per-element variation through `sin()` so every box gets its own tilt, stroke offset, and corner radii, with a registered inherited seed keeping a card's corners in sync with its media; and CSS `random()` (Safari 26.5+) upgrades tilts and stroke offsets to true randomness. Everything degrades to the fixed sketch silently.
+
+Also worth copying: what it leaves alone. The focus ring stays crisp and high-contrast, `--radius-round` consumers (avatars, toggles) stay round, and text stays at the near-black end of the gray scale.
+
+</section>
+
+## Writing your own theme
+
+<section class="prose">
+
+Copy [`theme.default.css`][srcDefault] and start overriding. Guidelines:
+
+- **Tokens first.** Most themes never need a selector: raw tokens for the palette and type, interface tokens for cross-cutting changes, component tokens for details.
+- **Skin rules for the rest.** Pseudo-elements, `nth-child` rhythm, and `text-decoration` have no token hooks, so themes may style them directly. Theme files are the one place in mCSS allowed to select component classes from outside (see [`theme.wireframe.css`][srcWireframe] for a real example).
+- **No `!important`.** A theme is meant to be overridable by your page CSS; the last word belongs to [helpers](/docs/helpers).
 
 </section>

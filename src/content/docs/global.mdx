@@ -27,7 +27,7 @@ The grid system is extremely easy to use, light weight, and very flexible. It us
 
 It's composed of 2 classes: `.grid` for the container, and `.grid_item` for each grid item.
 
-The default grid gap is defined as a custom property in the [default theme](/docs/themes) and is responsive: `16px` (`--sm1`) on small screens, stepping up to `24px` (`--sm3`) at the `--md` breakpoint (768px). You can override `--grid-column-gap` and `--grid-row-gap` globally in your own theme, or on a specific `.grid` element. A `grid-flush` modifier is available if you don't want any gap.
+The default grid gap is defined as a custom property in [`settings.ui.css`](/docs/tokens#interface-tokens) and is responsive: `16px` (`--sm1`) on small screens, stepping up to `24px` (`--sm3`) at the `--md` breakpoint (768px). You can override `--grid-column-gap` and `--grid-row-gap` globally in your own theme, or on a specific `.grid` element. A `grid-flush` modifier is available if you don't want any gap.
 
 Because `.grid` reads its gaps from those two custom properties, overriding a specific grid is just a matter of setting them on the element. Add a class of your own:
 
@@ -163,7 +163,7 @@ The default `.wrap_content` has a width of `minmax(200px, 70ch)` by default (see
 
 ### Settings
 
-You can customize 3 diffent sizes of left/right padding for responsive designs as well as the width of your content. The values below are set in the default theme.
+You can customize 3 diffent sizes of left/right padding for responsive designs as well as the width of your content. The values below are set in `settings.ui.css`.
 
 <div class="docs_oversizedTable">
 

@@ -24,7 +24,7 @@ code:has(> .shiki) {
 
   .frame pre {
     margin-block: 0;
-    border-radius: var(--radius-md);
+    border-radius: var(--pre-border-radius);
   }
 
   .frame.is-terminal .header {

@@ -1,0 +1,41 @@
+/* DEFAULT THEME (template) */
+
+/*
+  A theme is a file of token overrides, plus optional skin rules for what
+  tokens can't express. Swap which theme file your entry point imports and
+  the whole site restyles; everything a theme doesn't mention falls back to
+  the framework defaults (settings.tokens.css + settings.ui.css).
+
+  Themes are self-layered: the @layer theme block below slots this file
+  into the layer order declared in mcss.css no matter how it's loaded
+  (plain @import, link tag, bundler). Import exactly one theme from your
+  own entry point, after mcss.css:
+
+    @import url(./framework/mcss.css);
+    @import url(./framework/theme.wireframe.css);
+
+  mCSS imports no theme by default: an empty theme layer IS the default
+  look. Copy this file to start your own theme.
+
+  Guidelines:
+  - Prefer token overrides. Override raw tokens (--base-*, --text) to shift
+    the whole palette or type, interface tokens (--theme-border-color,
+    --heading-font) for cross-cutting changes, or component tokens
+    (--bt-border-radius) for surgical ones.
+  - Skin rules are for what tokens can't express (pseudo-elements,
+    nth-child rhythm, text-decoration). Theme files are the one place
+    allowed to style component classes from outside (see agents/css.md);
+    they still lose to your unlayered CSS and to helpers, by design.
+  - No !important: that privilege is reserved for the helpers layer.
+*/
+
+@layer theme {
+  :root {
+    /* A new palette usually gets you 80% of the way:              */
+    /* --base-0: #fff;                                             */
+    /* --primary-500: rebeccapurple;                               */
+    /* Then reach for interface and component tokens as needed:    */
+    /* --heading-font: Georgia, serif;                             */
+    /* --card-border-radius: 0;                                    */
+  }
+}

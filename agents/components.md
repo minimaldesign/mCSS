@@ -8,7 +8,7 @@
 4. **Rest spread**: `{...rest}` on the root element so consumers can set any native attribute.
 5. **`data-testid`**: accepted as a prop with a sensible per-component default.
 6. **States vs modifiers**: runtime states are `.is-*` classes (`.is-active`, `.is-online`); build-time variants are block modifiers (`.card-filled`). Prefer styling ARIA attributes when one exists (`[aria-current]`, `[aria-disabled]`).
-7. **Theme tokens**: every themable knob has a declared default in `settings.theme.default.css`; local-only custom properties use descriptive names (`--avatar-size`, not `--w`).
+7. **Interface tokens**: every themable knob has a declared default in `settings.ui.css`; local-only custom properties use descriptive names (`--avatar-size`, not `--w`).
 8. **Slots**: default slot for main content; named slots documented on the component's docs page.
 9. **A11y**: keyboard operable, labelled, JS motion gated on `prefers-reduced-motion`, no live-region roles on static content.
 

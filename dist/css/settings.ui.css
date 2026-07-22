@@ -25,9 +25,19 @@ xxl: 1920px
 /* truncate single line of text and adds … */
 
 @layer settings {
-/* DEFAULT THEME */
+/* INTERFACE TOKENS */
+
+/*
+  The abstraction tier between raw tokens (settings.tokens.css) and the
+  framework's rules: semantic aliases plus every component's token defaults.
+  Interface tokens only ever take another token for value; raw values live
+  in settings.tokens.css, and deliberate deviations from these defaults
+  live in a theme file (see theme.default.css).
+*/
 
 :root {
+  /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
+     classes below. Unrelated to theme files, which are full skins. */
   --csstools-color-scheme--light: initial;
   color-scheme: light dark;
 
@@ -157,6 +167,10 @@ xxl: 1920px
   --text-code-color: var(--csstools-light-dark-toggle--8, var(--primary-600));
   --csstools-light-dark-toggle--9: var(--csstools-color-scheme--light) var(--primary-900);
   --text-code-background-color: var(--csstools-light-dark-toggle--9, var(--primary-100));
+
+  /* Code blocks (bare pre, astro-code, and the site's expressive-code
+     frames all consume this) */
+  --pre-border-radius: var(--radius-md);
 
   /* .prose related stuff in GLOBAL */
 
@@ -766,6 +780,7 @@ xxl: 1920px
 
 :root {
   --prevNext-border-color: var(--theme-border-color);
+  --prevNext-border-radius: var(--radius-lg);
   --prevNext-border-color-hover: var(--link-color);
   --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-500);
   --prevNext-label-color: var(--csstools-light-dark-toggle--47, var(--base-400));

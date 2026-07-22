@@ -12,7 +12,7 @@ import Playground from "../../components/_Playground.jsx";
 
 The `.section` component is the workhorse wrapper marketing pages are made of: a full-width band with vertical rhythm, an optional eyebrow/title/lede header, and background variants.
 
-<Section eyebrow="Why mCSS" title="Everything is a section" lede="Stack a few of these and you have a landing page." variant="filled" style="border-radius: var(--radius-lg);">
+<Section eyebrow="Why mCSS" title="Everything is a section" lede="Stack a few of these and you have a landing page." variant="filled">
   <p class="text-center">Section content goes here.</p>
 </Section>
 
@@ -22,7 +22,7 @@ The `.section` component is the workhorse wrapper marketing pages are made of: a
 | ------------------------------------ | ------------------------------ | ----------- |
 | `component.section.css`              | All section styles             | [Github][1] |
 | `Section.astro`                      | The Astro component            | [Github][2] |
-| `--section-*` block in default theme | Theme tokens (see table below) | [Github][3] |
+| `--section-*` block in `settings.ui.css` | Interface tokens (see table below) | [Github][3] |
 
 </div>
 
@@ -30,7 +30,7 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.section.css
 [2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Section.astro
-[3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.theme.default.css
+[3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.ui.css
 
 </section>
 
@@ -110,7 +110,7 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
 
 ### Custom properties
 
-The following custom properties are available in the [default theme](/docs/themes):
+The following custom properties are available in [`settings.ui.css`](/docs/tokens#interface-tokens):
 
 <div class="docs_oversizedTable">
 
@@ -158,7 +158,7 @@ Any other attribute is passed through to the root `<section>` element (handy for
 
 <ul class="docs_examples">
   <li>
-    <Section eyebrow="Pricing" title="Primary band" variant="primary" style="border-radius: var(--radius-lg);">
+    <Section eyebrow="Pricing" title="Primary band" variant="primary">
       <p class="text-center">Text and <a href="#">links</a> flip to the inverted palette.</p>
     </Section>
 
@@ -173,7 +173,7 @@ Any other attribute is passed through to the root `<section>` element (handy for
 
   </li>
   <li>
-    <Section title="Wide section" width="wide" variant="filled" style="border-radius: var(--radius-lg);">
+    <Section title="Wide section" width="wide" variant="filled">
       <div class="grid" col="3">
         <div class="docs_box">1</div>
         <div class="docs_box">2</div>
@@ -191,7 +191,7 @@ Any other attribute is passed through to the root `<section>` element (handy for
   <li>
     The closing CTA every marketing page ends on is not a separate component; it is a Section with a `.section_actions` row:
 
-    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary" style="border-radius: var(--radius-lg);">
+    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary">
       <div class="section_actions">
         <a class="bt bt-lg bt-outline-white" href="#">Get started</a>
       </div>

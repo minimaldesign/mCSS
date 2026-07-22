@@ -1,6 +1,16 @@
-/* DEFAULT THEME */
+/* INTERFACE TOKENS */
+
+/*
+  The abstraction tier between raw tokens (settings.tokens.css) and the
+  framework's rules: semantic aliases plus every component's token defaults.
+  Interface tokens only ever take another token for value; raw values live
+  in settings.tokens.css, and deliberate deviations from these defaults
+  live in a theme file (see theme.default.css).
+*/
 
 :root {
+  /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
+     classes below. Unrelated to theme files, which are full skins. */
   color-scheme: light dark;
 
   --theme-border-color: light-dark(var(--base-200), var(--base-500));
@@ -74,6 +84,10 @@
     var(--primary-100),
     var(--primary-900)
   );
+
+  /* Code blocks (bare pre, astro-code, and the site's expressive-code
+     frames all consume this) */
+  --pre-border-radius: var(--radius-md);
 
   /* .prose related stuff in GLOBAL */
 
@@ -322,6 +336,7 @@
 
 :root {
   --prevNext-border-color: var(--theme-border-color);
+  --prevNext-border-radius: var(--radius-lg);
   --prevNext-border-color-hover: var(--link-color);
   --prevNext-label-color: light-dark(var(--base-400), var(--base-500));
 }

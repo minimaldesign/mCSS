@@ -25,7 +25,7 @@ mCSS is a CSS framework (ITCSS-based) paired with an Astro documentation site, c
 
 ## CSS cascade layers are load-bearing
 
-The framework uses native `@layer`; the layer name (declared in `src/styles/framework/mcss.css`) decides priority, and unlayered site CSS beats every layer. Import new framework files with `layer(<name>)`; never re-enable preset-env's `cascade-layers` polyfill in `postcss.config.cjs`. Always consult [agents/css.md](agents/css.md) before adding or moving CSS files.
+The framework uses native `@layer`; the layer name (declared in `src/styles/framework/mcss.css`) decides priority, and unlayered site CSS beats every layer. Import new framework files with `layer(<name>)`, except `theme.*.css` files: those wrap themselves in `@layer theme` and are activated from the consumer entry (`_global.css`), never imported by `mcss.css`. Never re-enable preset-env's `cascade-layers` polyfill in `postcss.config.cjs`. Always consult [agents/css.md](agents/css.md) before adding or moving CSS files.
 
 ## Detailed reference docs
 

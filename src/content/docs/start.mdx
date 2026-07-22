@@ -27,14 +27,14 @@ mCSS implements this with **native [CSS cascade layers][cascade-layers]**: every
 This is how mCSS is organized. ([Github source][4].)
 
 ```css
-@layer settings, base, elements, global, components, pages, helpers;
+@layer settings, base, elements, global, components, theme, helpers;
 
 /* Build-time only (media queries + mixins definitions) */
 @import url(./settings.media-queries.css);
 @import url(./settings.mixins.css);
 
 @import url(./settings.tokens.css) layer(settings);
-@import url(./settings.theme.default.css) layer(settings);
+@import url(./settings.ui.css) layer(settings);
 
 @import url(./base.reset.css) layer(base);
 
@@ -52,6 +52,11 @@ This is how mCSS is organized. ([Github source][4].)
 
 @import url(./help.spacing.css) layer(helpers);
 /* etc. */
+
+/* Optional: activate ONE theme, a swappable skin. Theme files are
+   self-layered (@layer theme), so no layer() annotation is needed.
+   None imported = the default look. */
+@import url(./theme.wireframe.css);
 
 /* Your site's own CSS imports UNLAYERED, after the framework.
    Its normal declarations win over every mCSS layer without fighting
@@ -81,9 +86,9 @@ Run `npm run build:css` in the repo to produce `dist/` from source.
 Settings are where all custom properties are set.
 
 - [Tokens][5] is where you set default values for sizes, font stacks, colors, transitions, etc. See [the docs][5] for all the values available by default.
+- [Interface tokens][interfaceTokens] are an abstraction level to standardize common values across elements and components. For instance, components use `--theme-border-color` instead of the lower level token `--base-200`, so one override restyles every bordered surface.
 - [Media queries][6] include responsive sizes, as well as user preferences like color schemes, reduced motion, etc. See [media queries docs][6].
 - **Mixins** is optional. It is not used in other parts of mCSS by default but can be useful to streamline your own components' code. It requires a [PostCSS plugin][7] to work.
-- [Themes][themes] is an abstraction level to stadardize common values accross elements and components. For instance, you could use `--light-border-color` throughout your components instead of the lower level token `--base-200`.
 
 ### Base
 
@@ -118,9 +123,9 @@ Self-contained styles for single components, one block per file. The mCSS framew
 
 Some components are **CSS-only**: a single class on a single element, with no Astro component because there is no markup structure to encapsulate. For example, the `.badge` class on a `<span>` is the whole badge, and the `.bt` class can style a `<button>` or an `<a>` (styling that has to be opt-in, since not all links are buttons). Their docs live in the [components section][components] like everything else, marked "CSS-only".
 
-### Pages
+### Theme
 
-Page specific design elements and adjustments. These files are project specific and none are included in mCSS by default. Use `@layer pages { … }` for page rules that should stay below the framework's cascade while still beating the other layers.
+A [theme][themes] is a swappable skin: one `theme.*.css` file of token overrides plus optional skin rules, wrapped in its own `@layer theme` block. mCSS imports no theme by default (the default look IS the empty theme layer); you activate at most one from your own entry point, and swapping that import restyles the whole site.
 
 ### Helpers
 
@@ -297,6 +302,7 @@ The exact compile floor lives in `.browserslistrc` (`defaults and supports css-c
 [a11y]: /docs/global#accessibility
 [components]: /components/start
 [helpers]: /docs/helpers
+[interfaceTokens]: /docs/tokens#interface-tokens
 [themes]: /docs/themes
 [layers]: /blog/what-is-itcss#the-layers-of-itcss
 [bem]: /blog/what-is-bem
