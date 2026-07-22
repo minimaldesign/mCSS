@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { slugify } from '../../../scripts/utilities';
@@ -9,12 +9,16 @@ export async function getStaticPaths() {
 
   // Group by slug so tags that differ only in case or spacing share one page.
   // The first spelling encountered becomes the display name.
-  const bySlug = new Map();
+  const bySlug = new Map<string, { name: string; posts: CollectionEntry<'blog'>[] }>();
   for (const post of allPosts) {
     for (const tag of post.data.tags) {
       const slug = slugify(tag);
-      if (!bySlug.has(slug)) bySlug.set(slug, { name: tag, posts: [] });
-      bySlug.get(slug).posts.push(post);
+      let entry = bySlug.get(slug);
+      if (!entry) {
+        entry = { name: tag, posts: [] };
+        bySlug.set(slug, entry);
+      }
+      entry.posts.push(post);
     }
   }
 
