@@ -180,7 +180,7 @@ Breakpoints are hard-coded in `settings.media-queries.css` because CSS custom pr
 
 ## Elevation & Depth
 
-Depth is subtle and tokenized with `--shadow-sm` through `--shadow-xxl`. Shadows use `--theme-shadow-color`, which changes between light and dark mode. Cards can be plain, filled, or raised; raised cards increase shadow on hover.
+Depth is subtle and tokenized with `--shadow-sm` through `--shadow-xxl`. Shadows use `--ui-shadow-color`, which changes between light and dark mode. Cards can be plain, filled, or raised; raised cards increase shadow on hover.
 
 Use shadows to distinguish actionable or layered surfaces, not as page-section decoration. Borders are often enough for quiet documentation UI.
 

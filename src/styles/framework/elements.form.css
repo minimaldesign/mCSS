@@ -21,7 +21,7 @@ datalist {
 }
 
 fieldset {
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-lg);
   padding: var(--sm3);
 
@@ -55,7 +55,7 @@ input {
     border-radius: var(--input-border-radius);
   }
   &:where(:not([type="file"])) {
-    border: 1px solid var(--theme-border-color);
+    border: 1px solid var(--ui-border-color);
   }
   &[type="file"] {
     width: 100%;
@@ -176,7 +176,7 @@ select {
   height: var(--input-height);
   padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
     var(--input-padding);
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--input-border-radius);
   background: linear-gradient(
     to right,
@@ -225,7 +225,7 @@ textarea {
   width: 100%;
   padding: var(--xs3);
   border-radius: var(--input-border-radius);
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--ui-border-color);
   resize: block;
   &:not([rows]) {
     min-height: 6em;

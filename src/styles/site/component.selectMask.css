@@ -6,7 +6,7 @@
   margin: var(--md1) auto;
   padding: var(--sm3);
   background: light-dark(var(--base-50), var(--base-900));
-  border: var(--border-sm) solid var(--theme-border-color);
+  border: var(--border-sm) solid var(--ui-border-color);
   border-radius: var(--radius-lg);
 
   .selectMask_legend {

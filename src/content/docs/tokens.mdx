@@ -43,7 +43,7 @@ When you start a new project, open `settings.tokens.css` and change the values o
 
 [srcUi]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.ui.css
 
-Interface tokens offer an additional layer of abstraction over the raw tokens. They only ever take another token for value and standardize UI decisions in logical groups: semantic aliases like `--theme-border-color` (with a value of `--base-200`) or `--success-*`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). This gives tokens meaning and context, which makes them more intuitive to use, and it's what makes [themes](/docs/themes) powerful: override one interface token and every rule that consumes it follows.
+Interface tokens offer an additional layer of abstraction over the raw tokens. They only ever take another token for value and standardize UI decisions in logical groups: semantic aliases like `--ui-border-color` (with a value of `--base-200`) or `--success-*`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). This gives tokens meaning and context, which makes them more intuitive to use, and it's what makes [themes](/docs/themes) powerful: override one interface token and every rule that consumes it follows.
 
 `elements.*` and `global.*` files tend to use interface tokens, while `component.*` files mix them with low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new interface token is probably the best option.
 

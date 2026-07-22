@@ -49,9 +49,9 @@ The `theme` layer sits after `components` and before `helpers`, so a theme beats
 Themes work because of the two token tiers below them:
 
 1. **Raw tokens** (`settings.tokens.css`) hold primitive values: palettes, the type scale, spacing, radii.
-2. **[Interface tokens](/docs/tokens#interface-tokens)** (`settings.ui.css`) map those primitives onto meaning: semantic aliases like `--theme-border-color`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). Interface tokens only ever take another token for value.
+2. **[Interface tokens](/docs/tokens#interface-tokens)** (`settings.ui.css`) map those primitives onto meaning: semantic aliases like `--ui-border-color`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). Interface tokens only ever take another token for value.
 
-Because components read `var(--theme-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
+Because components read `var(--ui-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
 
 ```css
 @layer theme {
@@ -60,7 +60,7 @@ Because components read `var(--theme-border-color)` instead of a raw hex, a them
     --base-950: #1a1208;
 
     /* Cross-cutting: every bordered surface at once */
-    --theme-border-color: light-dark(var(--base-300), var(--base-600));
+    --ui-border-color: light-dark(var(--base-300), var(--base-600));
 
     /* Surgical: one component knob */
     --bt-border-radius: 0;

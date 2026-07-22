@@ -80,7 +80,7 @@
     /* STROKES: pen weight instead of hairlines */
 
     --border-sm: 2px;
-    --theme-border-color: light-dark(var(--base-800), var(--base-200));
+    --ui-border-color: light-dark(var(--base-800), var(--base-200));
 
     /* WOBBLY BORDERS: asymmetric ellipse radii, shallow on purpose
        (7-10px of sag over 90-125px spans reads as a shaky pen line;
@@ -114,18 +114,18 @@
 
     --footer-background-color: light-dark(var(--base-100), var(--base-900));
     --footer-text-color: light-dark(var(--base-950), var(--base-200));
-    --footer-border-color: var(--theme-border-color);
+    --footer-border-color: var(--ui-border-color);
     --footer-link-color: light-dark(var(--base-950), var(--base-200));
     --footer-link-color-hover: var(--base-500);
 
     /* SHADOWS: hard-offset paper cutouts instead of soft blur */
 
-    --theme-shadow-color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.55));
-    --shadow-sm: 2px 2px 0 var(--theme-shadow-color);
-    --shadow-md: 4px 4px 0 var(--theme-shadow-color);
-    --shadow-lg: 6px 6px 0 var(--theme-shadow-color);
-    --shadow-xl: 8px 8px 0 var(--theme-shadow-color);
-    --shadow-xxl: 10px 10px 0 var(--theme-shadow-color);
+    --ui-shadow-color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.55));
+    --shadow-sm: 2px 2px 0 var(--ui-shadow-color);
+    --shadow-md: 4px 4px 0 var(--ui-shadow-color);
+    --shadow-lg: 6px 6px 0 var(--ui-shadow-color);
+    --shadow-xl: 8px 8px 0 var(--ui-shadow-color);
+    --shadow-xxl: 10px 10px 0 var(--ui-shadow-color);
 
     /* ON/OFF STATES: with the green gone, checked and online need ink
        against paper, not one gray against another. */
@@ -158,7 +158,7 @@
      full-bleed bands. */
   .section-filled,
   .section-primary {
-    border: var(--border-sm) solid var(--theme-border-color);
+    border: var(--border-sm) solid var(--ui-border-color);
     border-radius: var(--wobble-1);
   }
 
@@ -194,7 +194,7 @@
     content: "";
     position: absolute;
     inset: -1px;
-    border: var(--border-sm) solid var(--theme-border-color);
+    border: var(--border-sm) solid var(--ui-border-color);
     rotate: 0.5deg;
     translate: 1px -1px;
     pointer-events: none;

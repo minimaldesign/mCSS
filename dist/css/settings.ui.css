@@ -43,9 +43,9 @@ xxl: 1920px
 
   --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-500);
 
-  --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-200));
+  --ui-border-color: var(--csstools-light-dark-toggle--0, var(--base-200));
   --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(0 0 0 / 0.6);
-  --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.1));
+  --ui-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.1));
 
   /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css) */
   --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--primary-400);
@@ -76,13 +76,13 @@ xxl: 1920px
 @supports (color: light-dark(red, red)) {
 :root {
 
-  --theme-border-color: light-dark(var(--base-200), var(--base-500));
+  --ui-border-color: light-dark(var(--base-200), var(--base-500));
 }
 }
 
 @supports (color: light-dark(red, red)) and (color: rgb(0 0 0 / 0)) {
 :root {
-  --theme-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
+  --ui-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
 }
 }
 
@@ -97,9 +97,9 @@ xxl: 1920px
 
   --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-500);
 
-  --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-200));
+  --ui-border-color: var(--csstools-light-dark-toggle--0, var(--base-200));
   --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(0 0 0 / 0.6);
-  --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.1));
+  --ui-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.1));
   --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--primary-400);
   --focus-ring-color: var(--csstools-light-dark-toggle--2, var(--primary-500));
 
@@ -355,7 +355,7 @@ xxl: 1920px
   --bt-background-color: var(--csstools-light-dark-toggle--21, var(--base-0));
   --csstools-light-dark-toggle--22: var(--csstools-color-scheme--light) var(--base-900);
   --bt-background-color-hover: var(--csstools-light-dark-toggle--22, var(--base-50));
-  --bt-border-color: var(--theme-border-color);
+  --bt-border-color: var(--ui-border-color);
   --bt-border-width: var(--border-sm);
   --bt-border-radius: var(--radius-lg);
   --bt-border-radius-lg: var(--radius-xl);
@@ -517,7 +517,7 @@ xxl: 1920px
   --csstools-light-dark-toggle--32: var(--csstools-color-scheme--light) var(--base-900);
   --card-bg-color: var(--csstools-light-dark-toggle--32, var(--base-100));
   --card-border-radius: var(--radius-lg);
-  --card-border-color: var(--theme-border-color);
+  --card-border-color: var(--ui-border-color);
   --card-border-width: var(--border-sm);
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
@@ -779,7 +779,7 @@ xxl: 1920px
 /* PrevNext */
 
 :root {
-  --prevNext-border-color: var(--theme-border-color);
+  --prevNext-border-color: var(--ui-border-color);
   --prevNext-border-radius: var(--radius-lg);
   --prevNext-border-color-hover: var(--link-color);
   --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-500);

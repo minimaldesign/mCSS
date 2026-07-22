@@ -74,7 +74,7 @@ figcaption {
     }
 
 iframe {
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--ui-border-color);
 }
 
 img {
