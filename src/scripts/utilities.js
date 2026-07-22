@@ -1,5 +1,14 @@
 // UTILITIES
 
+// URL-safe slug: lowercase, alphanumerics only, hyphen-separated.
+// Tag pages and the Tags component must agree on this mapping.
+export function slugify(text) {
+  return String(text)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export function throttle(func, delay) {
   let lastCall = 0;
   let timerId;
