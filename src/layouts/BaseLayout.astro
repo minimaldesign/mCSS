@@ -48,7 +48,11 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     <link rel="canonical" href={Astro.url} />
     {markdownHref && <link rel="alternate" type="text/markdown" href={markdownHref} />}
     <meta name="msapplication-TileColor" content="#0ea5e9" />
-    <meta name="theme-color" content="#ffffff" />
+    {/* Values mirror --body-background-color (--base-0 / --base-950 in
+        settings.tokens.css). ThemeToggle.astro re-syncs them when the
+        visitor overrides the OS color scheme. */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#23282e" />
     <meta name="generator" content={Astro.generator} />
 
     {/* Favicon  */}

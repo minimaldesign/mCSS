@@ -22,7 +22,17 @@
     names.forEach((el) => (el.textContent = isDark ? 'dark' : 'light'));
   }
 
+  // Keep the browser chrome color in step with the applied theme. Reading
+  // the computed body background means the value always tracks the tokens.
+  function syncThemeColor() {
+    const background = getComputedStyle(document.body).backgroundColor;
+    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute('content', background));
+  }
+
   render(currentTheme === 'theme-dark');
+  // Only override the media-query driven metas when the visitor has an
+  // explicit preference; otherwise they keep following the OS live.
+  if (localStorage.getItem('theme')) syncThemeColor();
 
   checkboxes.forEach((el) => {
     el.addEventListener('change', () => {
@@ -31,6 +41,7 @@
       document.documentElement.classList.remove('theme-light', 'theme-dark');
       document.documentElement.classList.add(isDark ? 'theme-dark' : 'theme-light');
       localStorage.setItem('theme', isDark ? 'theme-dark' : 'theme-light');
+      syncThemeColor();
     });
   });
 </script>
