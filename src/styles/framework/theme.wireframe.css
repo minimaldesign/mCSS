@@ -36,9 +36,34 @@
     --primary-900: #171717;
     --primary-950: #0a0a0a;
 
-    /* TYPOGRAPHY: rounded stacks read as hand-lettered */
+    /* Feedback scales go grayscale too: in a wireframe, success and
+       danger are annotations, not colors. 400/500 sit at the ink end so
+       checkmarks and status dots still read against light surfaces. */
 
-    --text: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+    --yes-100: #f5f5f5;
+    --yes-200: #e5e5e5;
+    --yes-300: #a3a3a3;
+    --yes-400: #737373;
+    --yes-500: #262626;
+
+    --no-100: #f5f5f5;
+    --no-200: #e5e5e5;
+    --no-300: #a3a3a3;
+    --no-400: #737373;
+    --no-500: #262626;
+
+    --maybe-100: #f5f5f5;
+    --maybe-200: #e5e5e5;
+    --maybe-300: #a3a3a3;
+    --maybe-400: #737373;
+    --maybe-500: #262626;
+
+    /* TYPOGRAPHY: marker-style handwriting stacks, Balsamiq-adjacent.
+       Comic Sans ships on macOS and Windows, Chalkboard SE on iOS,
+       casual is the Android generic. */
+
+    --text: 'Comic Sans MS', 'Chalkboard SE', Chalkboard, 'Comic Neue', 'Segoe Print', 'Bradley Hand', casual, cursive;
+    --display: var(--text);
     --heading-font: var(--text);
     --heading-weight: var(--bold);
 
@@ -76,6 +101,12 @@
     --shadow-lg: 6px 6px 0 var(--theme-shadow-color);
     --shadow-xl: 8px 8px 0 var(--theme-shadow-color);
     --shadow-xxl: 10px 10px 0 var(--theme-shadow-color);
+
+    /* ON/OFF STATES: with the green gone, checked and online need ink
+       against paper, not one gray against another. */
+
+    --toggle-track-color-checked: light-dark(var(--base-800), var(--base-200));
+    --avatar-status-dot-color-online: light-dark(var(--base-800), var(--base-200));
 
     /* WAYFINDING STAYS CRISP: the focus ring is not part of the sketch,
        and --marker-color is already highlighter yellow. */
