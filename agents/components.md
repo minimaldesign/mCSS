@@ -24,7 +24,7 @@
 
 - **PascalCase** for all component filenames: `ComponentName.astro`, `ComponentName.jsx`.
 - **`_` prefix** for internal/private components (not part of the public Astro component library; used only in blog posts or docs): `_ColorPickerOklch.jsx`, `_GridDemo.jsx`.
-- **`_Playground.jsx`** is the generic, config-driven playground island for component docs pages (template string with `{classes}`/`{attrs}`/`{name}` placeholders, grouped control schema). Authoring API is documented in `docs/playground.md`; reuse it instead of building per-component demo islands.
+- **`_Playground.jsx`** is the generic, config-driven playground island for component docs pages (template string with `{classes}`/`{attrs}`/`{name}` placeholders, grouped control schema). Authoring API is documented in `notes/playground.md`; reuse it instead of building per-component demo islands.
 
 ## Layouts
 
