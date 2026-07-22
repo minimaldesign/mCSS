@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 
 import tunnel from "astro-tunnel";
 
@@ -26,6 +27,10 @@ export default defineConfig({
   },
   integrations: [
     preact(),
+    sitemap({
+      // keep the meta-refresh stubs at /tags/* and the bare demo pages out
+      filter: (page) => !page.startsWith("https://mcss.dev/tags/") && !page.startsWith("https://mcss.dev/demos/"),
+    }),
     expressiveCode({
       themes: ["github-dark"], // Theme also needs to be imported in shikiHighlighter.js
       styleOverrides: {

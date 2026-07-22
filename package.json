@@ -19,6 +19,7 @@
     "@astrojs/mdx": "^7.0.3",
     "@astrojs/preact": "^6.0.1",
     "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.1.1",
     "astro-expressive-code": "^0.44.0",
     "astro-tunnel": "^0.1.9",
