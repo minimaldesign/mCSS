@@ -336,6 +336,7 @@
 
 :root {
   --prevNext-border-color: var(--theme-border-color);
+  --prevNext-border-radius: var(--radius-lg);
   --prevNext-border-color-hover: var(--link-color);
   --prevNext-label-color: light-dark(var(--base-400), var(--base-500));
 }

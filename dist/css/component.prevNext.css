@@ -42,7 +42,7 @@ xxl: 1920px
   text-decoration: none;
   color: var(--text-color);
   border: var(--border-sm) solid var(--prevNext-border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--prevNext-border-radius);
   transition: border-color var(--transition);
 }
 

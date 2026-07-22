@@ -120,12 +120,27 @@ xxl: 1920px
     --hero-radius: var(--wobble-2);
     --featureItem-icon-border-radius: var(--wobble-1);
     --pre-border-radius: var(--wobble-2);
+    --tags-radius: var(--wobble-3);
+    --pagination-border-radius: var(--wobble-1);
+    --prevNext-border-radius: var(--wobble-2);
+
+    /* FOOTER: paper with a dashed pen rule instead of a solid ink slab */
+
+    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) var(--base-900);
+
+    --footer-background-color: var(--csstools-light-dark-toggle--1, var(--base-100));
+    --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-200);
+    --footer-text-color: var(--csstools-light-dark-toggle--2, var(--base-950));
+    --footer-border-color: var(--theme-border-color);
+    --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-200);
+    --footer-link-color: var(--csstools-light-dark-toggle--3, var(--base-950));
+    --footer-link-color-hover: var(--base-500);
 
     /* SHADOWS: hard-offset paper cutouts instead of soft blur */
 
-    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
+    --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
 
-    --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.85));
+    --theme-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
     --shadow-sm: 2px 2px 0 var(--theme-shadow-color);
     --shadow-md: 4px 4px 0 var(--theme-shadow-color);
     --shadow-lg: 6px 6px 0 var(--theme-shadow-color);
@@ -135,23 +150,27 @@ xxl: 1920px
     /* ON/OFF STATES: with the green gone, checked and online need ink
        against paper, not one gray against another. */
 
-    --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-200);
+    --csstools-light-dark-toggle--5: var(--csstools-color-scheme--light) var(--base-200);
 
-    --toggle-track-color-checked: var(--csstools-light-dark-toggle--2, var(--base-800));
-    --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-200);
-    --avatar-status-dot-color-online: var(--csstools-light-dark-toggle--3, var(--base-800));
+    --toggle-track-color-checked: var(--csstools-light-dark-toggle--5, var(--base-800));
+    --csstools-light-dark-toggle--6: var(--csstools-color-scheme--light) var(--base-200);
+    --avatar-status-dot-color-online: var(--csstools-light-dark-toggle--6, var(--base-800));
 
     /* WAYFINDING STAYS CRISP: the focus ring is not part of the sketch,
        and --marker-color is already highlighter yellow. */
 
-    --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) var(--base-0);
+    --csstools-light-dark-toggle--7: var(--csstools-color-scheme--light) var(--base-0);
 
-    --focus-ring-color: var(--csstools-light-dark-toggle--4, var(--base-950));
+    --focus-ring-color: var(--csstools-light-dark-toggle--7, var(--base-950));
   }
 
 @supports (color: light-dark(red, red)) {
 :root {
     --theme-border-color: light-dark(var(--base-800), var(--base-200));
+
+    --footer-background-color: light-dark(var(--base-100), var(--base-900));
+    --footer-text-color: light-dark(var(--base-950), var(--base-200));
+    --footer-link-color: light-dark(var(--base-950), var(--base-200));
   }
 }
 
@@ -177,19 +196,27 @@ xxl: 1920px
     --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-200);
     --theme-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
 
-    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
+    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) var(--base-900);
 
-    --theme-shadow-color: var(--csstools-light-dark-toggle--1, rgb(0 0 0 / 0.85));
-
+    --footer-background-color: var(--csstools-light-dark-toggle--1, var(--base-100));
     --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-200);
-
-    --toggle-track-color-checked: var(--csstools-light-dark-toggle--2, var(--base-800));
+    --footer-text-color: var(--csstools-light-dark-toggle--2, var(--base-950));
     --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-200);
-    --avatar-status-dot-color-online: var(--csstools-light-dark-toggle--3, var(--base-800));
+    --footer-link-color: var(--csstools-light-dark-toggle--3, var(--base-950));
 
-    --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) var(--base-0);
+    --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
 
-    --focus-ring-color: var(--csstools-light-dark-toggle--4, var(--base-950));
+    --theme-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
+
+    --csstools-light-dark-toggle--5: var(--csstools-color-scheme--light) var(--base-200);
+
+    --toggle-track-color-checked: var(--csstools-light-dark-toggle--5, var(--base-800));
+    --csstools-light-dark-toggle--6: var(--csstools-color-scheme--light) var(--base-200);
+    --avatar-status-dot-color-online: var(--csstools-light-dark-toggle--6, var(--base-800));
+
+    --csstools-light-dark-toggle--7: var(--csstools-color-scheme--light) var(--base-0);
+
+    --focus-ring-color: var(--csstools-light-dark-toggle--7, var(--base-950));
     }
   }
 
@@ -208,22 +235,30 @@ xxl: 1920px
     text-underline-offset: 3px;
   }
 
+  /* Filled and primary sections become drawn panels instead of flat
+     full-bleed bands. */
+  .section-filled,
+  .section-primary {
+    border: var(--border-sm) solid var(--theme-border-color);
+    border-radius: var(--wobble-1);
+  }
+
   /* Tiny alternating tilts. The independent rotate property composes
      with the transforms components animate (.card hover translate,
-     .bt active scale) instead of fighting them. */
-  .card:nth-child(odd),
-  .featureItem:nth-child(even) {
+     .bt active scale) instead of fighting them. :where() zeroes the
+     specificity so the random() enhancement below can override with a
+     bare class selector. */
+  :where(.card:nth-child(odd), .featureItem:nth-child(even)) {
     rotate: -0.4deg;
   }
 
-  .card:nth-child(even),
-  .featureItem:nth-child(odd) {
+  :where(.card:nth-child(even), .featureItem:nth-child(odd)) {
     rotate: 0.3deg;
   }
 
   /* A card wrapped in a .grid_item is always the first (odd) child of
      its wrapper, so alternate on the wrapper's position instead. */
-  .grid_item:nth-child(even) > .card {
+  :where(.grid_item:nth-child(even) > .card) {
     rotate: 0.3deg;
   }
 
@@ -259,5 +294,49 @@ xxl: 1920px
        unreliable here) just show the clean traced stroke. Kept to
        cards: displacement filters get paint-heavy in large numbers. */
     filter: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='rough'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' result='noise'/><feDisplacementMap in='SourceGraphic' in2='noise' scale='3'/></filter></svg>#rough");
+  }
+
+  /* Progressive enhancement: CSS random() (Values 5, Safari 26+) draws
+     every box with its own hand, so same-size elements stop rendering
+     identically. Every declaration appears twice because Safari first
+     shipped the per-element keyword as element-scoped and the final
+     spec name is per-element: each browser drops the spelling it can't
+     parse and keeps the other. Direct declarations only, no custom
+     properties: unregistered properties accept anything at parse time,
+     which would break the invalid-spelling fallback. Everyone else
+     keeps the fixed alternation above. */
+  @supports (rotate: random(element-scoped, -1deg, 1deg)) or
+    (rotate: random(per-element, -1deg, 1deg)) {
+    .card,
+    .featureItem {
+      rotate: 0.21481deg;
+      rotate: 0.21481deg;
+    }
+
+    .card::after,
+    .bt::after {
+      rotate: 0.18586deg;
+      rotate: 0.18586deg;
+      translate: 1.26307px
+        0.29926px;
+      translate: 1.26307px
+        0.29926px;
+      border-radius: 218.32399px
+        13.54115px
+        240.00211px
+        22.71068px /
+        15.41146px
+        210.80522px
+        20.83099px
+        247.48334px;
+      border-radius: 218.32399px
+        13.54115px
+        240.00211px
+        22.71068px /
+        15.41146px
+        210.80522px
+        20.83099px
+        247.48334px;
+    }
   }
 }

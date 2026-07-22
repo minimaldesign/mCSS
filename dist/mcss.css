@@ -1042,6 +1042,7 @@ xxl: 1920px
 
 :root {
   --prevNext-border-color: var(--theme-border-color);
+  --prevNext-border-radius: var(--radius-lg);
   --prevNext-border-color-hover: var(--link-color);
   --csstools-light-dark-toggle--47: var(--csstools-color-scheme--light) var(--base-500);
   --prevNext-label-color: var(--csstools-light-dark-toggle--47, var(--base-400));
@@ -4332,7 +4333,7 @@ details {
   text-decoration: none;
   color: var(--text-color);
   border: var(--border-sm) solid var(--prevNext-border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--prevNext-border-radius);
   transition: border-color var(--transition);
 }
 

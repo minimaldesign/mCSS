@@ -93,6 +93,17 @@
     --hero-radius: var(--wobble-2);
     --featureItem-icon-border-radius: var(--wobble-1);
     --pre-border-radius: var(--wobble-2);
+    --tags-radius: var(--wobble-3);
+    --pagination-border-radius: var(--wobble-1);
+    --prevNext-border-radius: var(--wobble-2);
+
+    /* FOOTER: paper with a dashed pen rule instead of a solid ink slab */
+
+    --footer-background-color: light-dark(var(--base-100), var(--base-900));
+    --footer-text-color: light-dark(var(--base-950), var(--base-200));
+    --footer-border-color: var(--theme-border-color);
+    --footer-link-color: light-dark(var(--base-950), var(--base-200));
+    --footer-link-color-hover: var(--base-500);
 
     /* SHADOWS: hard-offset paper cutouts instead of soft blur */
 
@@ -130,22 +141,30 @@
     text-underline-offset: 3px;
   }
 
+  /* Filled and primary sections become drawn panels instead of flat
+     full-bleed bands. */
+  .section-filled,
+  .section-primary {
+    border: var(--border-sm) solid var(--theme-border-color);
+    border-radius: var(--wobble-1);
+  }
+
   /* Tiny alternating tilts. The independent rotate property composes
      with the transforms components animate (.card hover translate,
-     .bt active scale) instead of fighting them. */
-  .card:nth-child(odd),
-  .featureItem:nth-child(even) {
+     .bt active scale) instead of fighting them. :where() zeroes the
+     specificity so the random() enhancement below can override with a
+     bare class selector. */
+  :where(.card:nth-child(odd), .featureItem:nth-child(even)) {
     rotate: -0.4deg;
   }
 
-  .card:nth-child(even),
-  .featureItem:nth-child(odd) {
+  :where(.card:nth-child(even), .featureItem:nth-child(odd)) {
     rotate: 0.3deg;
   }
 
   /* A card wrapped in a .grid_item is always the first (odd) child of
      its wrapper, so alternate on the wrapper's position instead. */
-  .grid_item:nth-child(even) > .card {
+  :where(.grid_item:nth-child(even) > .card) {
     rotate: 0.3deg;
   }
 
@@ -181,5 +200,49 @@
        unreliable here) just show the clean traced stroke. Kept to
        cards: displacement filters get paint-heavy in large numbers. */
     filter: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='rough'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' result='noise'/><feDisplacementMap in='SourceGraphic' in2='noise' scale='3'/></filter></svg>#rough");
+  }
+
+  /* Progressive enhancement: CSS random() (Values 5, Safari 26+) draws
+     every box with its own hand, so same-size elements stop rendering
+     identically. Every declaration appears twice because Safari first
+     shipped the per-element keyword as element-scoped and the final
+     spec name is per-element: each browser drops the spelling it can't
+     parse and keeps the other. Direct declarations only, no custom
+     properties: unregistered properties accept anything at parse time,
+     which would break the invalid-spelling fallback. Everyone else
+     keeps the fixed alternation above. */
+  @supports (rotate: random(element-scoped, -1deg, 1deg)) or
+    (rotate: random(per-element, -1deg, 1deg)) {
+    .card,
+    .featureItem {
+      rotate: random(element-scoped, -0.5deg, 0.5deg);
+      rotate: random(per-element, -0.5deg, 0.5deg);
+    }
+
+    .card::after,
+    .bt::after {
+      rotate: random(element-scoped, -0.7deg, 0.7deg);
+      rotate: random(per-element, -0.7deg, 0.7deg);
+      translate: random(element-scoped, -1.5px, 1.5px)
+        random(element-scoped, -1.5px, 1.5px);
+      translate: random(per-element, -1.5px, 1.5px)
+        random(per-element, -1.5px, 1.5px);
+      border-radius: random(element-scoped, 200px, 260px)
+        random(element-scoped, 10px, 25px)
+        random(element-scoped, 200px, 260px)
+        random(element-scoped, 10px, 25px) /
+        random(element-scoped, 10px, 25px)
+        random(element-scoped, 200px, 260px)
+        random(element-scoped, 10px, 25px)
+        random(element-scoped, 200px, 260px);
+      border-radius: random(per-element, 200px, 260px)
+        random(per-element, 10px, 25px)
+        random(per-element, 200px, 260px)
+        random(per-element, 10px, 25px) /
+        random(per-element, 10px, 25px)
+        random(per-element, 200px, 260px)
+        random(per-element, 10px, 25px)
+        random(per-element, 200px, 260px);
+    }
   }
 }
