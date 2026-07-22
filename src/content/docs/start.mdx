@@ -2,7 +2,7 @@
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
 lastUpdate: 2026-07-21
-version: 0.9
+version: 1
 ---
 
 <section class="prose">
@@ -283,6 +283,7 @@ How things degrade in older browsers:
 - **`light-dark()`** (mid-2024): colors fall back to the light palette.
 - **`@scope`** (mid-2024): only affects `.prose` internals; spacing between prose blocks and headings loses one refinement.
 - **Scroll-driven animations**: the [ReadProgressBar](/components/readprogressbar) component detects support and falls back to JavaScript automatically.
+- **`sibling-index()`, CSS `random()`, SVG displacement filters**: used only by the [wireframe theme](/docs/themes) for per-element sketch variation; without them the theme keeps its fixed hand-drawn look.
 
 The exact compile floor lives in `.browserslistrc` (`defaults and supports css-cascade-layers`).
 
