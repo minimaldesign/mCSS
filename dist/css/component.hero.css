@@ -49,6 +49,15 @@ xxl: 1920px
   max-width: 70ch;
 }
 
+/* Wrapping button row (the hero twin of .section_actions); the full and
+   slideshow variants center it to match their centered text. */
+.hero_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs3);
+  margin-top: var(--hero-actions-spacing);
+}
+
 .hero_media {
   display: flex;
   align-items: center;
@@ -122,6 +131,10 @@ xxl: 1920px
     max-width: 60ch;
     min-width: 200px;
   }
+
+  .hero-full .hero_actions {
+    justify-content: center;
+  }
   .hero-roundCorners .hero_media {
     overflow: hidden;
     border-radius: var(--hero-radius);
@@ -133,6 +146,10 @@ xxl: 1920px
   .hero-slideshow .hero_content {
     position: relative;
     width: 50ch;
+  }
+
+  .hero-slideshow .hero_actions {
+    justify-content: center;
   }
 
   .hero-slideshow .hero_content ul > li,.hero-slideshow .hero_bg {

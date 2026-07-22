@@ -4,28 +4,18 @@ import Header from './Header.astro';
 import type { NavItem } from './Header.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { filterAndSort } from '../scripts/utilities';
+import { docsNavItems } from '../data/docsNav';
 import logoImg from '../assets/ui/mcss-logo.svg?raw';
 
 const componentList = await getCollection('components');
 const componentPosts = filterAndSort(componentList, 'component');
-
-const docsPages = [
-  { id: 'start', title: 'Getting Started' },
-  { id: 'tokens', title: 'Tokens' },
-  { id: 'media-queries', title: 'Media Queries' },
-  { id: 'themes', title: 'Themes' },
-  { id: 'reset', title: 'Reset' },
-  { id: 'elements', title: 'HTML Elements' },
-  { id: 'global', title: 'Global Styles' },
-  { id: 'helpers', title: 'Helpers' },
-];
 
 const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Docs',
     href: '/docs/start',
-    children: docsPages.map((page) => ({ label: page.title, href: `/docs/${page.id}` })),
+    children: docsNavItems.map((page) => ({ label: page.title, href: `/docs/${page.id}` })),
   },
   {
     label: 'Components',

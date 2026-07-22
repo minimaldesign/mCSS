@@ -26,7 +26,7 @@ The `.section` component is the workhorse wrapper marketing pages are made of: a
 
 </div>
 
-Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to the same content column as the rest of the page, and the `wide` preset lets grids escape the reading column.
+Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: the header and the content each compose `.wrap` with their own [width preset](/docs/global#wrap), so a section pairs a reading-width header (`.wrap-md`) with a wider content column (`.wrap-lg`) by default.
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.section.css
 [2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Section.astro
@@ -39,14 +39,16 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
 <Playground
   client:visible
   template={`<section class="{classes}">
-  <header class="section_header">
+  <header class="section_header wrap wrap-md">
     <p class="section_eyebrow">{eyebrow}</p>
     <h2 class="section_title">{title}</h2>
     <p class="section_lede">{lede}</p>
   </header>
-  <p class="text-center">Section content goes here.</p>
+  <div class="section_content wrap wrap-lg">
+    <p class="text-center">Section content goes here.</p>
+  </div>
 </section>`}
-  baseClasses="section wrap"
+  baseClasses="section"
   controls={[
     { heading: "Variation", items: [
       { type: "select", name: "variant", label: "Variant", default: "", options: [
@@ -54,9 +56,6 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
         { label: "Filled", value: "section-filled" },
         { label: "Primary", value: "section-primary" },
       ]},
-    ]},
-    { heading: "Layout", items: [
-      { type: "checkbox", name: "wide", label: "Wide", value: "section-wide", default: false },
     ]},
     { heading: "Content", items: [
       { type: "text", name: "eyebrow", label: "Eyebrow", default: "Why mCSS" },
@@ -71,15 +70,19 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
 <section class="prose">
 
 ```html
-<section class="section wrap section-filled">
-  <header class="section_header">
+<section class="section section-filled">
+  <header class="section_header wrap wrap-md">
     <p class="section_eyebrow">Why mCSS</p>
     <h2 class="section_title">Everything is a section</h2>
     <p class="section_lede">Stack a few of these and you have a landing page.</p>
   </header>
-  <!-- content: paragraphs, grids, cards… -->
+  <div class="section_content wrap wrap-lg">
+    <!-- content: paragraphs, grids, cards… -->
+  </div>
 </section>
 ```
+
+The header and content each compose `.wrap` with a [width preset](/docs/global#wrap) (`.wrap-sm`, `.wrap-md`, `.wrap-lg`), so they can use different column widths. `wrap-md` on the header and `wrap-lg` on the content is the standard pairing; use `wrap-md` on the content too when it is text meant for reading (an FAQ, for example).
 
 ### Available modifiers
 
@@ -90,7 +93,6 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
 | `.section`                        | Default. Transparent background, `--section-spacing` vertical padding. |
 | `.section` + `.section-filled`    | Subtle filled band.                                                |
 | `.section` + `.section-primary`   | Primary-colored band; text and links switch to the inverted colors. |
-| `.section` + `.section-wide`      | Widens the content column to `--section-wide-width`.               |
 
 </div>
 
@@ -100,7 +102,8 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: children align to
 
 | Class              | Description                                                     |
 | ------------------ | ---------------------------------------------------------------- |
-| `.section_header`  | Centered eyebrow/title/lede block.                               |
+| `.section_header`  | Centered eyebrow/title/lede block; composes `.wrap` + a width preset. |
+| `.section_content` | Content column; composes `.wrap` + a width preset.               |
 | `.section_eyebrow` | Small uppercase kicker.                                          |
 | `.section_title`   | The `h2`.                                                        |
 | `.section_lede`    | Intro paragraph.                                                 |
@@ -118,7 +121,6 @@ The following custom properties are available in [`settings.ui.css`](/docs/token
 | ------------------------------------ | ---------------------------------------- |
 | `--section-spacing`                  | Vertical padding of the band.            |
 | `--section-header-spacing`           | Space between the header and content.    |
-| `--section-wide-width`               | Content column width of the wide preset. |
 | `--section-eyebrow-color`            | Eyebrow text color.                      |
 | `--section-lede-color`               | Lede text color.                         |
 | `--section-filled-background-color`  | Background of the filled variant.        |
@@ -145,7 +147,10 @@ The following custom properties are available in [`settings.ui.css`](/docs/token
 | `title`   | `string` | `undefined` | The section's `h2`.                                                 |
 | `lede`    | `string` | `undefined` | Intro paragraph under the title.                                    |
 | `variant` | `string` | `undefined` | `filled`, `primary`.                                                |
-| `width`   | `string` | `undefined` | `wide`.                                                             |
+| `headerWrap` | `string` | `md`     | Header column width preset: `sm`, `md`, `lg`.                       |
+| `contentWrap` | `string` | `lg`    | Content column width preset: `sm`, `md`, `lg`.                      |
+| `headerClass` | `string` | `undefined` | Extra classes mixed onto `.section_header`.                     |
+| `contentClass` | `string` | `undefined` | Extra classes mixed onto `.section_content`.                   |
 | `class`   | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 
 </div>
@@ -173,7 +178,9 @@ Any other attribute is passed through to the root `<section>` element (handy for
 
   </li>
   <li>
-    <Section title="Wide section" width="wide" variant="filled">
+    By default the content column is wider (`wrap-lg`) than the header (`wrap-md`); set `contentWrap="md"` to keep long-form content at reading width:
+
+    <Section title="Narrow section" contentWrap="md" variant="filled">
       <div class="grid" col="3">
         <div class="docs_box">1</div>
         <div class="docs_box">2</div>
@@ -182,7 +189,7 @@ Any other attribute is passed through to the root `<section>` element (handy for
     </Section>
 
     ```astro
-    <Section title="Wide section" width="wide" variant="filled">
+    <Section title="Narrow section" contentWrap="md" variant="filled">
       <div class="grid" col="3">…</div>
     </Section>
     ```

@@ -1,29 +1,19 @@
 ---
 import arrow from '../assets/icons/arrow-right-small.svg?raw';
+import { docsNavItems } from '../data/docsNav';
 
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split('/')[2]; // pathname starts with '/'
-const subSections = [
-  ['start', 'Getting Started'],
-  ['tokens', 'Tokens'],
-  ['media-queries', 'Media Queries'],
-  ['themes', 'Themes'],
-  ['reset', 'Reset'],
-  ['elements', 'HTML Elements'],
-  ['global', 'Global Styles'],
-  ['helpers', 'Helpers'],
-  ['ai', 'AI Agents'],
-];
 ---
 
 <nav class="navDocs">
   <ul>
     {
-      subSections.map((currentSubSection) => (
+      docsNavItems.map((page) => (
         <li>
-          <a class:list={[{ 'is-active': currentSubSection[0] == currentPath }]} href={`/docs/${currentSubSection[0]}`}>
+          <a class:list={[{ 'is-active': page.id == currentPath }]} href={`/docs/${page.id}`}>
             <Fragment set:html={arrow} />
-            {currentSubSection[1]}
+            {page.title}
           </a>
         </li>
       ))

@@ -2,7 +2,9 @@
 // Marketing one-pager template: built only from the mCSS framework and
 // library components. No site CSS. Copy this file, swap the copy and
 // links, and delete the theme-switcher block at the bottom (docs demo
-// chrome, not part of the template).
+// chrome, not part of the template). The copy is deliberately in on the
+// joke: the structure is the standard landing-page structure, and the
+// words point at it while it happens. Replace them with yours.
 import '../../styles/framework/mcss.css';
 import wireframeThemeUrl from '../../styles/framework/theme.wireframe.css?url';
 
@@ -25,6 +27,7 @@ import heart from '../../assets/icons/heart.svg?raw';
 import mail from '../../assets/icons/mail.svg?raw';
 import rotateCcw from '../../assets/icons/rotate-ccw.svg?raw';
 
+// The canonical three. Every one-pager has these and only these.
 const navItems = [
   { label: 'Features', href: '#features' },
   { label: 'Pricing', href: '#pricing' },
@@ -43,8 +46,8 @@ const navItems = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content="Marketing one-pager template built with mCSS and its component library." />
-    <title>Acme, the marketing one-pager template</title>
+    <meta name="description" content="Fold: the landing page you already know how to read. A marketing one-pager template built with mCSS and its component library." />
+    <title>Fold, the landing page that knows what it is</title>
     {/* media="not all" keeps the theme parked but fetchable; the switcher
         flips it to "all". A `disabled` attribute would be cleaner, but
         Chromium never loads a parser-created disabled link. */}
@@ -52,96 +55,96 @@ const navItems = [
   </head>
   <body>
     <Banner>
-      Acme 2.0 is out: faster builds, new themes. <a href="#pricing">See what changed</a>
+      Fold 2.1 is out: new gradient, same product. <a href="#pricing">See what it costs</a>
     </Banner>
 
     <Header sticky navItems={navItems}>
-      <a slot="logo" href="#"><strong>Acme</strong></a>
-      <a slot="actions" class="bt bt-primary" href="#pricing">Get started</a>
+      <a slot="logo" href="#"><strong>Fold</strong></a>
+      <a slot="actions" class="bt bt-primary" href="#pricing">Start free</a>
     </Header>
 
     <main>
       <Hero variant="full" height={55} media={{ type: 'gradient', src: 'var(--gradient-primary)' }} textColor="--base-0">
-        <h1>Ship your next site in a weekend</h1>
-        <p>Acme turns a folder of markdown into a fast, accessible website. No build wizardry, no lock-in, no subscription required to keep what you made.</p>
-        <p>
-          <a class="bt bt-lg bt-white" href="#pricing">Start free</a>
-          <a class="bt bt-lg bt-outline-white" href="#features">See features</a>
-        </p>
+        <h1>The landing page you already know how to read</h1>
+        <p>Big headline, reassuring sentence underneath, two buttons where the bright one is the one we want. You've scanned this exact page four hundred times, so we won't pretend it's a surprise.</p>
+        <div class="hero_actions">
+          <a class="bt bt-lg bt-white" href="#pricing">Press the bright one</a>
+          <a class="bt bt-lg bt-outline-white" href="#features">Or this one, quietly</a>
+        </div>
       </Hero>
 
-      <Section id="features" eyebrow="Features" title="Everything a site needs, nothing it doesn't" lede="Six reasons teams pick Acme and stay.">
+      <Section id="features" eyebrow="Features" title="Six features, because six fills the grid" lede="Three across, two down, one icon each. The icons took ninety seconds to pick and it shows.">
         <FeatureGrid cols={3}>
-          <FeatureItem title="Accessible by default">
+          <FeatureItem title="Accessible, genuinely">
             <Fragment slot="icon" set:html={circleCheck} />
-            <p>Keyboard, contrast, and focus states handled before you write a line.</p>
+            <p>The one claim on this page we'd defend in public. Keyboard, contrast, and focus states are handled before you write a line.</p>
           </FeatureItem>
-          <FeatureItem title="Light and dark built in">
+          <FeatureItem title="Dark mode">
             <Fragment slot="icon" set:html={moonStar} />
-            <p>Both color schemes ship from day one and follow the visitor's preference.</p>
+            <p>Every product has this now. It stopped being a feature years ago. Here it is in a box with an icon anyway.</p>
           </FeatureItem>
           <FeatureItem title="No lock-in">
             <Fragment slot="icon" set:html={externalLink} />
-            <p>Plain HTML and CSS output you can host anywhere and keep forever.</p>
+            <p>The traditional promise of software that doesn't yet have anything to lock you into. Plain HTML and CSS, hosted wherever.</p>
           </FeatureItem>
           <FeatureItem title="Instant rollbacks">
             <Fragment slot="icon" set:html={rotateCcw} />
-            <p>Every deploy is kept. Shipped a typo? One click puts it back.</p>
+            <p>For the typo you're going to ship on a Friday. Every deploy is kept, so it stays a one-click problem.</p>
           </FeatureItem>
           <FeatureItem title="Human support">
             <Fragment slot="icon" set:html={mail} />
-            <p>Questions get answered by the people who build the product.</p>
+            <p>A real person replies. Currently that person is also the founder, the designer, and whoever wrote this sentence.</p>
           </FeatureItem>
           <FeatureItem title="Open source core">
             <Fragment slot="icon" set:html={heart} />
-            <p>The engine is MIT licensed and developed in the open.</p>
+            <p>MIT licensed and developed in the open. Also the heart was the last icon left in the folder.</p>
           </FeatureItem>
         </FeatureGrid>
       </Section>
 
-      <Section variant="filled" eyebrow="Testimonials" title="Loved by small teams" lede="A few words from people who ship with Acme.">
+      <Section variant="filled" eyebrow="Testimonials" title="Three people said three nice things" lede="The legal minimum. Two looks desperate and four doesn't fit the grid.">
         <div class="grid" col="1" col-md="3">
           <Testimonial name="Maya Okafor" role="Freelance designer">
-            <p>I rebuilt my portfolio in an afternoon. Clients think I hired a developer.</p>
+            <p>I rebuilt my portfolio in an afternoon and my clients think I hired someone. I have not corrected them.</p>
           </Testimonial>
           <Testimonial name="Jonas Lindqvist" role="Founder, Fika Labs">
-            <p>We moved our whole marketing site over and cut our build times from minutes to seconds.</p>
+            <p>A number went up after we switched. I'd tell you which number, but this quote is already the length they asked for.</p>
           </Testimonial>
           <Testimonial name="Priya Raman" role="Docs lead, OSS project">
-            <p>The accessibility defaults alone sold me. Our audit came back clean on the first pass.</p>
+            <p>They wanted two sentences. This is the second one.</p>
           </Testimonial>
         </div>
       </Section>
 
-      <Section id="pricing" eyebrow="Pricing" title="Simple, honest pricing" lede="Start free, upgrade when the site grows. Every plan includes all core features.">
+      <Section id="pricing" eyebrow="Pricing" title="Three tiers, and you'll pick the middle one" lede="Free, the one with the badge on it, and an expensive one whose whole job is making the badge look reasonable.">
         <div class="grid" col="1" col-md="3">
-          <PricingCard name="Starter" price="$0" period="/month" description="For side projects and trying things out." features={['1 site', 'Community support', 'Acme subdomain']} ctaHref="#" />
-          <PricingCard name="Pro" price="$19" period="/month" description="For freelancers and professionals." features={['10 sites', 'Custom domains', 'Email support', 'Instant rollbacks']} ctaHref="#" highlighted badge="Popular" />
-          <PricingCard name="Team" price="$79" period="/month" description="For studios and growing companies." features={['Unlimited sites', 'Priority support', 'Shared workspaces', 'SSO']} ctaHref="#" />
+          <PricingCard name="Starter" price="$0" period="/month" description="For people who will use this forever and never pay us." features={['1 site', 'Community support', 'A subdomain with our name in it']} ctaHref="#" />
+          <PricingCard name="Pro" price="$19" period="/month" description="The one with the badge. Statistically, this is you." features={['10 sites', 'Custom domains', 'Email support', 'Instant rollbacks']} ctaHref="#" highlighted badge="Popular" />
+          <PricingCard name="Team" price="$79" period="/month" description="Exists so the $19 plan feels sensible." features={['Unlimited sites', 'Priority support', 'Shared workspaces', 'SSO, the enterprise checkbox']} ctaHref="#" />
         </div>
       </Section>
 
-      <Section id="faq" eyebrow="FAQ" title="Frequently asked questions">
+      <Section id="faq" eyebrow="FAQ" title="Questions we've decided you're asking" contentWrap="md">
         <Faq>
           <FaqItem question="Can I use my own domain?" name="faq" open>
-            <p>Yes. Every paid plan supports custom domains with automatic HTTPS. The free plan gives you an Acme subdomain.</p>
+            <p>Yes. Every FAQ on the internet opens with this question and the answer is always yes. We're not going to be the ones who break the streak. Paid plans get custom domains with automatic HTTPS, and the free plan gives you a subdomain with our name in it.</p>
           </FaqItem>
           <FaqItem question="What happens if I cancel?" name="faq">
-            <p>Your sites keep working until the end of the billing period, and you can export the generated HTML and CSS at any time. Your content is yours.</p>
+            <p>Nothing dramatic. Your sites run until the end of the billing period, you can export the HTML and CSS whenever you like, and we don't hold your content hostage. This paragraph is contractually required to be reassuring, and it also happens to be true.</p>
           </FaqItem>
           <FaqItem question="Do you offer discounts?" name="faq">
-            <p>Students, nonprofits, and open source projects get 50% off any plan. Write to us from your project address.</p>
+            <p>Students, nonprofits, and open source projects get 50% off. Ask us and we'll say yes, because saying yes costs less than employing someone to say no.</p>
           </FaqItem>
           <FaqItem question="Is there a trial for paid plans?" name="faq">
-            <p>Every paid plan starts with 14 free days, no card required. Downgrade to Starter anytime and keep your site.</p>
+            <p>Fourteen days, no card. The card was the part you were actually asking about.</p>
           </FaqItem>
         </Faq>
       </Section>
 
-      <Section title="Ready to ship?" lede="Your first site is free, and it can be live before dinner." variant="primary">
+      <Section title="Ready to scroll back up and press the bright one?" lede="This is the closing CTA. It repeats the hero's buttons because you've forgotten them, which is precisely why every page ends this way." variant="primary">
         <div class="section_actions">
-          <a class="bt bt-lg bt-white" href="#pricing">Start free</a>
-          <a class="bt bt-lg bt-outline-white" href="#faq">Read the FAQ</a>
+          <a class="bt bt-lg bt-white" href="#pricing">Press the bright one</a>
+          <a class="bt bt-lg bt-outline-white" href="#faq">Read the FAQ again</a>
         </div>
       </Section>
     </main>
@@ -160,7 +163,7 @@ const navItems = [
           <h5>Company</h5>
           <ul>
             <li><a href="#">About</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="#">Blog (two posts)</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
         </li>
@@ -173,7 +176,7 @@ const navItems = [
         </li>
       </ul>
       <Fragment slot="meta">
-        <p>© 2026 Acme Inc. Built with <a href="https://mcss.dev">mCSS</a>.</p>
+        <p>© 2026 Fold Inc. The entire company is a placeholder. Built with <a href="https://mcss.dev">mCSS</a>.</p>
       </Fragment>
     </Footer>
 

@@ -143,14 +143,20 @@ The following example goes from 1 → 4 → 9 → 12 columns. (Resize window to 
 
 The `.wrap` global class is a simple content wrapper that will center your content on the page and add some left/right padding on small viewports.
 
-The default `.wrap_content` has a width of `minmax(200px, 70ch)` by default (see below to customize) and there is a modifier `.wrap_content-fullBleed` that will extend to the full size of the viewport. See [demo](/demos/wrap).
+The content column comes in three width presets, set with a modifier on the wrapper: `.wrap-sm`, `.wrap-md`, and `.wrap-lg`. A bare `.wrap` uses the `md` width (`minmax(200px, 70ch)`). There is also a `.wrap_content-fullBleed` modifier for children that should extend to the full size of the viewport. See [demo](/demos/wrap).
 
 ### Syntax
 
 ```html
 <div class="wrap">
   <section class="wrap_content">
-    <!-- 800px wide content -->
+    <!-- Reading width content (md preset) -->
+  </section>
+</div>
+
+<div class="wrap wrap-lg">
+  <section class="wrap_content">
+    <!-- Wider content (up to 900px) -->
   </section>
 </div>
 
@@ -167,12 +173,15 @@ You can customize 3 diffent sizes of left/right padding for responsive designs a
 
 <div class="docs_oversizedTable">
 
-| token             | value                 | Description                      |
-| ----------------- | --------------------- | -------------------------------- |
-| `wrap-spacing`    | `var(--sm1)`          | default left/right padding       |
-| `wrap-md-spacing` | `var(--sm3)`          | left/right padding tablet and up |
-| `wrap-lg-spacing` | `0`                   | left/right padding laptop and up |
-| `wrap-width`      | `minmax(200px, 70ch)` | 200px minimum, 70ch maximum      |
+| token             | value                  | Description                      |
+| ----------------- | ---------------------- | -------------------------------- |
+| `wrap-spacing`    | `var(--sm1)`           | default left/right padding       |
+| `wrap-md-spacing` | `var(--sm3)`           | left/right padding tablet and up |
+| `wrap-lg-spacing` | `0`                    | left/right padding laptop and up |
+| `wrap-width-sm`   | `minmax(200px, 55ch)`  | narrow column (`.wrap-sm`)       |
+| `wrap-width-md`   | `minmax(200px, 70ch)`  | reading column (`.wrap-md`)      |
+| `wrap-width-lg`   | `minmax(200px, 900px)` | wide column (`.wrap-lg`)         |
+| `wrap-width`      | `var(--wrap-width-md)` | width of a bare `.wrap`          |
 
 </div>
 

@@ -1,13 +1,17 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
+type WrapSize = 'sm' | 'md' | 'lg';
+
 interface Props extends HTMLAttributes<'section'> {
   eyebrow?: string;
   title?: string;
   lede?: string;
   variant?: 'filled' | 'primary';
-  width?: 'wide';
+  headerWrap?: WrapSize;
+  contentWrap?: WrapSize;
   headerClass?: string;
+  contentClass?: string;
   'data-testid'?: string;
 }
 
@@ -17,8 +21,10 @@ const {
   title,
   lede,
   variant,
-  width,
+  headerWrap = 'md',
+  contentWrap = 'lg',
   headerClass,
+  contentClass,
   class: className,
   'data-testid': testId = 'section',
   ...rest
@@ -29,9 +35,7 @@ const {
 <section
   class:list={[
     'section',
-    'wrap',
     variant && `section-${variant}`,
-    width && `section-${width}`,
     className,
   ]}
   data-testid={testId}
@@ -39,12 +43,14 @@ const {
 >
   {
     (eyebrow || title || lede) && (
-      <header class:list={['section_header', headerClass]}>
+      <header class:list={['section_header', 'wrap', `wrap-${headerWrap}`, headerClass]}>
         {eyebrow && <p class="section_eyebrow">{eyebrow}</p>}
         {title && <h2 class="section_title">{title}</h2>}
         {lede && <p class="section_lede">{lede}</p>}
       </header>
     )
   }
-  <slot />
+  <div class:list={['section_content', 'wrap', `wrap-${contentWrap}`, contentClass]}>
+    <slot />
+  </div>
 </section>
