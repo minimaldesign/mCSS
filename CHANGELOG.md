@@ -35,4 +35,4 @@ The last pre-1.0 state of the old file tree is preserved under the `v0.9.0` tag.
 
 ## 0.9.0 (2024-09-20)
 
-Initial public beta: the framework (tokens, reset, elements, global styles, helpers) plus the first few components. Announced in [mCSS v.0.9](https://mcss.dev/blog/mcss-v.0.9).
+Initial public beta: the framework (tokens, reset, elements, global styles, helpers) plus the first few components. Announced in [mCSS v.0.9](https://mcss.dev/blog/mcss-v09).

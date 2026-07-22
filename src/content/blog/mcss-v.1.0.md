@@ -8,7 +8,7 @@ description: "mCSS 1.0 is here: a full component library, a real theme system wi
 
 ## It's 1.0!
 
-When I released [v.0.9](/blog/mcss-v.0.9), I said the official launch would wait until the component library and the theming system were real. They are now, so here it is: **mCSS 1.0**.
+When I released [v.0.9](/blog/mcss-v09), I said the official launch would wait until the component library and the theming system were real. They are now, so here it is: **mCSS 1.0**.
 
 Everything is still pure CSS (plus optional Astro components), still copy-it-you-own-it. No package to install, no version to chase. Grab [`dist/mcss.css`][dist] or the source files, make them yours, and there's nothing that can break your site on a Tuesday.
 
