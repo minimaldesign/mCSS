@@ -83,6 +83,7 @@
 /* everything, including consumer CSS. */
 /* (Use VERY sparingly, or you might as well use Tailwind…) */
 @import url(./help.colors.css) layer(helpers);
+@import url(./help.devtools.css) layer(helpers);
 @import url(./help.layout.css) layer(helpers);
 @import url(./help.opacity.css) layer(helpers);
 @import url(./help.ratios.css) layer(helpers);

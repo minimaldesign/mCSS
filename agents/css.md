@@ -31,7 +31,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 
 `page.*` is a file-naming convention only (page-specific styles, e.g. site `page.docs.css`); those files are plain unlayered consumer CSS, there is no `pages` layer.
 
-Site-only files keep the same prefixes but live in `src/styles/site/` and import unlayered (`component.header.css`, `page.docs.css`, `external.astro.css`, `devtools.css`, …).
+Site-only files keep the same prefixes but live in `src/styles/site/` and import unlayered (`component.header.css`, `page.docs.css`, `external.astro.css`, …). Debug helpers (`help.devtools.css`: baseline overlay, `.dev-error` toast) are framework helpers, not site CSS: framework components reference them.
 
 ## Class Naming (BEM-like, different separators)
 

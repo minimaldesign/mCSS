@@ -5256,6 +5256,40 @@ details {
 }
 @layer helpers{
 
+/* DEV TOOLS */
+
+/* Debug-only helpers, inert unless you add the classes yourself.
+   !important is intentional and required in the helpers layer: a debug
+   overlay must win over every other style, including unlayered CSS. */
+
+/* Baseline grid overlay: add .dev to <body> while checking vertical
+   rhythm (line spacing comes from --baseline in settings.tokens.css). */
+body.dev {
+  background-size: 100% calc(var(--baseline) * 1px) !important;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) calc((var(--baseline) - 1) * 1px),
+    hotpink calc(var(--baseline) * 1px)
+  ) !important;
+}
+
+/* Fixed error toast, used by components to surface dev-time mistakes
+   (see Hero.astro's slide count check). */
+.dev-error {
+  position: fixed !important;
+  top: var(--md1) !important;
+  left: var(--md1) !important;
+  z-index: var(--z-top) !important;
+  padding: var(--sm1) !important;
+  font-size: 1rem !important;
+  color: var(--danger-500) !important;
+  background: var(--danger-100) !important;
+  border: 1px solid var(--danger-500) !important;
+  border-radius: var(--radius-md) !important;
+}
+}
+@layer helpers{
+
 /* HELPER OVERFLOW */
 
 .of-auto,

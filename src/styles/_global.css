@@ -3,8 +3,12 @@
 
 /*
   Theme activation: import exactly one theme.*.css file here to reskin the
-  whole site (themes self-layer into the framework's theme slot). None
-  imported = the default look.
+  whole site. No layer() annotation: themes self-layer (@layer theme inside
+  the file), and adding one would nest a redundant theme.theme sub-layer.
+  Position is narrative, not load-bearing: the layer order declared in
+  mcss.css decides priority, which is why the unlayered site styles below
+  beat the theme no matter where this line sits. None imported = the
+  default look.
 */
 @import url(./framework/theme.wireframe.css);
 
@@ -38,6 +42,3 @@
 
 /* Plugins, etc. */
 @import url(./site/external.astro.css);
-
-/* dev tools */
-@import url(./site/devtools.css);

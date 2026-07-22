@@ -41,6 +41,7 @@
 @import url(./global.prose.css) layer(global);
 @import url(./global.wrap.css) layer(global);
 @import url(./help.colors.css) layer(helpers);
+@import url(./help.devtools.css) layer(helpers);
 @import url(./help.layout.css) layer(helpers);
 @import url(./help.opacity.css) layer(helpers);
 @import url(./help.ratios.css) layer(helpers);
