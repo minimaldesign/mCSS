@@ -8,6 +8,16 @@
   themes work and how to activate one.
 */
 
+/* Registered so it computes on the element that declares it and then
+   inherits as a plain integer: a card and its media resolve the SAME
+   seed and can derive matching corners. Property registrations are
+   global, not layer-scoped, so this sits outside the theme layer. */
+@property --sketch-seed {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 1;
+}
+
 @layer theme {
   :root {
     /* COLORS: everything goes grayscale, including the primary scale */
@@ -72,16 +82,19 @@
     --border-sm: 2px;
     --theme-border-color: light-dark(var(--base-800), var(--base-200));
 
-    /* WOBBLY BORDERS: oversized asymmetric radii self-clamp to each box,
-       so the same token works on a badge and a hero. Three variants,
-       remapped per component so nothing wobbles in unison. The raw
-       --radius-* scale is left alone on purpose: uniform wobble reads
-       as a rendering bug, not a hand. --radius-round consumers (avatar,
-       toggle, pagination dots) stay round, also on purpose. */
+    /* WOBBLY BORDERS: asymmetric ellipse radii, shallow on purpose
+       (7-10px of sag over 90-125px spans reads as a shaky pen line;
+       deeper values read as decorative waves). They self-clamp on
+       small boxes, so the same token works on a badge and a hero.
+       Three variants, remapped per component so nothing wobbles in
+       unison. The raw --radius-* scale is left alone on purpose:
+       uniform wobble reads as a rendering bug, not a hand.
+       --radius-round consumers (avatar, toggle, pagination dots) stay
+       round, also on purpose. */
 
-    --wobble-1: 255px 15px 225px 15px / 15px 225px 15px 255px;
-    --wobble-2: 15px 225px 15px 255px / 255px 15px 225px 15px;
-    --wobble-3: 225px 15px 255px 15px / 15px 255px 15px 225px;
+    --wobble-1: 115px 8px 95px 9px / 7px 110px 8px 125px;
+    --wobble-2: 9px 105px 7px 120px / 115px 8px 100px 9px;
+    --wobble-3: 100px 9px 120px 7px / 8px 90px 10px 110px;
 
     --bt-border-radius: var(--wobble-1);
     --bt-border-radius-lg: var(--wobble-1);
@@ -202,47 +215,105 @@
     filter: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='rough'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' result='noise'/><feDisplacementMap in='SourceGraphic' in2='noise' scale='3'/></filter></svg>#rough");
   }
 
-  /* Progressive enhancement: CSS random() (Values 5, Safari 26+) draws
-     every box with its own hand, so same-size elements stop rendering
-     identically. Every declaration appears twice because Safari first
-     shipped the per-element keyword as element-scoped and the final
-     spec name is per-element: each browser drops the spelling it can't
-     parse and keeps the other. Direct declarations only, no custom
-     properties: unregistered properties accept anything at parse time,
-     which would break the invalid-spelling fallback. Everyone else
-     keeps the fixed alternation above. */
-  @supports (rotate: random(element-scoped, -1deg, 1deg)) or
-    (rotate: random(per-element, -1deg, 1deg)) {
+  /*
+    PROGRESSIVE ENHANCEMENT, two tiers, so same-size boxes stop
+    rendering identically. Browsers with neither keep the fixed sketch.
+
+    Tier 1: sibling-index() (Chrome 138+, Safari 26.2+, Firefox 154+)
+    derives a stable per-element seed, pushed through sin() with
+    arbitrary multipliers as a cheap hash. Deterministic, but neighbors
+    never match. Cards wrapped in a .grid_item inherit the wrapper's
+    seed (their own index is always 1); the registered --sketch-seed
+    means .card_media resolves the same values as its card, so their
+    corners keep matching.
+  */
+  @supports (rotate: calc(sibling-index() * 1deg)) {
+    .grid_item,
+    .cardList > li,
+    .bt,
+    .featureItem,
+    .card:not(.grid_item .card, .cardList .card) {
+      --sketch-seed: sibling-index();
+    }
+
+    /* Multipliers are arbitrary but chosen so their phase step mod 2pi
+       is far from 0: consecutive seeds then alternate pseudo-randomly
+       instead of drifting together. */
     .card,
     .featureItem {
-      rotate: random(element-scoped, -0.5deg, 0.5deg);
-      rotate: random(per-element, -0.5deg, 0.5deg);
+      rotate: calc(sin(var(--sketch-seed) * 21.3) * 0.4deg);
+    }
+
+    /* Same seed, same formulas: media corners keep matching the card.
+       Corner pattern mirrors --wobble-2 (short/long alternation). */
+    .card,
+    .card_media {
+      border-radius:
+        calc(9px + sin(var(--sketch-seed) * 9.1) * 2px)
+        calc(105px + sin(var(--sketch-seed) * 4.7) * 18px)
+        calc(7px + sin(var(--sketch-seed) * 3.1) * 2px)
+        calc(120px + sin(var(--sketch-seed) * 5.5) * 18px) /
+        calc(115px + sin(var(--sketch-seed) * 5.9) * 18px)
+        calc(8px + sin(var(--sketch-seed) * 7.7) * 2px)
+        calc(100px + sin(var(--sketch-seed) * 2.7) * 18px)
+        calc(9px + sin(var(--sketch-seed) * 8.3) * 2px);
+    }
+
+    /* Flush media bleeds to the card's top edge only */
+    .card_media-flush {
+      border-radius:
+        calc(9px + sin(var(--sketch-seed) * 9.1) * 2px)
+        calc(105px + sin(var(--sketch-seed) * 4.7) * 18px)
+        0 0 /
+        calc(115px + sin(var(--sketch-seed) * 5.9) * 18px)
+        calc(8px + sin(var(--sketch-seed) * 7.7) * 2px)
+        0 0;
     }
 
     .card::after,
     .bt::after {
-      rotate: random(element-scoped, -0.7deg, 0.7deg);
-      rotate: random(per-element, -0.7deg, 0.7deg);
+      rotate: calc(sin(var(--sketch-seed) * 7.3) * 0.6deg);
+      translate: calc(sin(var(--sketch-seed) * 3.7) * 1.5px)
+        calc(cos(var(--sketch-seed) * 5.3) * 1.5px);
+      border-radius:
+        calc(100px + sin(var(--sketch-seed) * 5.1) * 20px)
+        calc(8px + sin(var(--sketch-seed) * 2.3) * 3px)
+        calc(110px + sin(var(--sketch-seed) * 4.9) * 20px)
+        calc(9px + sin(var(--sketch-seed) * 4.3) * 3px) /
+        calc(8px + sin(var(--sketch-seed) * 3.9) * 3px)
+        calc(95px + sin(var(--sketch-seed) * 7.9) * 20px)
+        calc(7px + sin(var(--sketch-seed) * 5.7) * 3px)
+        calc(115px + sin(var(--sketch-seed) * 8.9) * 20px);
+    }
+  }
+
+  /*
+    Tier 2: CSS random() (Values 5; Safari 26.5+ shipped the keyword as
+    element-scoped, per-element is the final spec name, so every
+    declaration appears in both spellings and each browser drops the
+    one it can't parse; no custom properties, which accept anything at
+    parse time and would break that fallback). True randomness for
+    tilts and stroke offsets, declared after tier 1 so it wins where
+    supported. It never touches border radii: per-element values can't
+    be shared between parent and child, and the card_media corners must
+    keep matching the card's, so radii stay on the tier 1 seed.
+  */
+  @supports (rotate: random(element-scoped, -1deg, 1deg)) or
+    (rotate: random(per-element, -1deg, 1deg)) {
+    .card,
+    .featureItem {
+      rotate: random(element-scoped, -0.4deg, 0.4deg);
+      rotate: random(per-element, -0.4deg, 0.4deg);
+    }
+
+    .card::after,
+    .bt::after {
+      rotate: random(element-scoped, -0.6deg, 0.6deg);
+      rotate: random(per-element, -0.6deg, 0.6deg);
       translate: random(element-scoped, -1.5px, 1.5px)
         random(element-scoped, -1.5px, 1.5px);
       translate: random(per-element, -1.5px, 1.5px)
         random(per-element, -1.5px, 1.5px);
-      border-radius: random(element-scoped, 200px, 260px)
-        random(element-scoped, 10px, 25px)
-        random(element-scoped, 200px, 260px)
-        random(element-scoped, 10px, 25px) /
-        random(element-scoped, 10px, 25px)
-        random(element-scoped, 200px, 260px)
-        random(element-scoped, 10px, 25px)
-        random(element-scoped, 200px, 260px);
-      border-radius: random(per-element, 200px, 260px)
-        random(per-element, 10px, 25px)
-        random(per-element, 200px, 260px)
-        random(per-element, 10px, 25px) /
-        random(per-element, 10px, 25px)
-        random(per-element, 200px, 260px)
-        random(per-element, 10px, 25px)
-        random(per-element, 200px, 260px);
     }
   }
 }

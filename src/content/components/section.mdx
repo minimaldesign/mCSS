@@ -12,7 +12,7 @@ import Playground from "../../components/_Playground.jsx";
 
 The `.section` component is the workhorse wrapper marketing pages are made of: a full-width band with vertical rhythm, an optional eyebrow/title/lede header, and background variants.
 
-<Section eyebrow="Why mCSS" title="Everything is a section" lede="Stack a few of these and you have a landing page." variant="filled" style="border-radius: var(--radius-lg);">
+<Section eyebrow="Why mCSS" title="Everything is a section" lede="Stack a few of these and you have a landing page." variant="filled">
   <p class="text-center">Section content goes here.</p>
 </Section>
 
@@ -158,7 +158,7 @@ Any other attribute is passed through to the root `<section>` element (handy for
 
 <ul class="docs_examples">
   <li>
-    <Section eyebrow="Pricing" title="Primary band" variant="primary" style="border-radius: var(--radius-lg);">
+    <Section eyebrow="Pricing" title="Primary band" variant="primary">
       <p class="text-center">Text and <a href="#">links</a> flip to the inverted palette.</p>
     </Section>
 
@@ -173,7 +173,7 @@ Any other attribute is passed through to the root `<section>` element (handy for
 
   </li>
   <li>
-    <Section title="Wide section" width="wide" variant="filled" style="border-radius: var(--radius-lg);">
+    <Section title="Wide section" width="wide" variant="filled">
       <div class="grid" col="3">
         <div class="docs_box">1</div>
         <div class="docs_box">2</div>
@@ -191,7 +191,7 @@ Any other attribute is passed through to the root `<section>` element (handy for
   <li>
     The closing CTA every marketing page ends on is not a separate component; it is a Section with a `.section_actions` row:
 
-    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary" style="border-radius: var(--radius-lg);">
+    <Section title="Ready to own your CSS?" lede="Copy the framework, edit the tokens, ship the site." variant="primary">
       <div class="section_actions">
         <a class="bt bt-lg bt-outline-white" href="#">Get started</a>
       </div>
