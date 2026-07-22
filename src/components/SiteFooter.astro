@@ -10,7 +10,7 @@ import { VERSION } from '../scripts/globals';
 <Footer>
   <ul>
     <li>
-      <h5>Documentation</h5>
+      <h2 class="h5">Documentation</h2>
       <ul>
         <li><a href="/docs/start">mCSS methodology</a></li>
         <li><a href="/docs/tokens">Tokens</a></li>
@@ -21,27 +21,26 @@ import { VERSION } from '../scripts/globals';
       </ul>
     </li>
     <li>
-      <h5>Learn</h5>
+      <h2 class="h5">Learn</h2>
       <ul>
         <li><a href="https://github.com/minimaldesign/mCSS/tree/main/src/styles">Code base</a></li>
         <li><a href="https://github.com/minimaldesign/mCSS/issues">Issue tracker</a></li>
         <li><a href="/blog/tags/learn">Tutorials, tips & tricks</a></li>
-        <li><a href="https://www.youtube.com/">YouTube</a></li>
       </ul>
     </li>
     <li>
-      <h5>Connect</h5>
+      <h2 class="h5">Connect</h2>
       <ul>
         <li><a href="https://github.com/minimaldesign/mCSS/discussions">Discussions</a></li>
         <li><a href="https://x.com/_yannb_">Twitter</a></li>
         <li><a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Mailing list</a></li>
         <li><a href="mailto:hello@mcss.dev">Email</a></li>
       </ul>
-      <SocialMedia class="mt-sm1" urls={['https://x.com/_yannb_', 'https://github.com/minimaldesign/mCSS', 'https://www.youtube.com/']} />
+      <SocialMedia class="mt-sm1" urls={['https://x.com/_yannb_', 'https://github.com/minimaldesign/mCSS']} />
     </li>
   </ul>
   <Fragment slot="meta">
-    <p>Made with <Fragment set:html={heartIcon} />  by <a href="http://minimaldesign.net">minimal design</a></p>
+    <p>Made with <Fragment set:html={heartIcon} />  by <a href="https://minimaldesign.net">minimal design</a></p>
     <p><a href="https://github.com/minimaldesign/mCSS/blob/main/LICENSE">Licensed under MIT</a></p>
     <p class="footer_version"><Fragment set:html={logoImg} /> mCSS v.{VERSION}</p>
     <ul class="webring">

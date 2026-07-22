@@ -1,4 +1,9 @@
 {
   "css.customData": [".vscode/css-custom-data.json"],
-  "cSpell.words": ["giga", "mcss", "tera"]
+  "cSpell.words": [
+    "giga",
+    "mcss",
+    "tera"
+  ],
+  "workbench.preferredDarkColorTheme": "GitHub Dark"
 }

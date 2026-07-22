@@ -1,26 +1,37 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { slugify } from '../../../scripts/utilities';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
 
-  const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+  // Group by slug so tags that differ only in case or spacing share one page.
+  // The first spelling encountered becomes the display name.
+  const bySlug = new Map<string, { name: string; posts: CollectionEntry<'blog'>[] }>();
+  for (const post of allPosts) {
+    for (const tag of post.data.tags) {
+      const slug = slugify(tag);
+      let entry = bySlug.get(slug);
+      if (!entry) {
+        entry = { name: tag, posts: [] };
+        bySlug.set(slug, entry);
+      }
+      entry.posts.push(post);
+    }
+  }
 
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts
-      .filter((post) => post.data.tags.includes(tag))
-      .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
+  return [...bySlug.entries()].map(([slug, { name, posts }]) => ({
+    params: { tag: slug },
+    props: {
+      tagName: name,
+      posts: [...new Set(posts)].sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+    },
+  }));
 }
 
-const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { tagName, posts } = Astro.props;
 
 const md = await createMarkdownProcessor();
 const descriptions = new Map();
@@ -30,13 +41,13 @@ for (const post of posts) {
 }
 ---
 
-<BaseLayout bodyClass="layout layout-centered">
+<BaseLayout title={`Posts tagged with “${tagName}” | mCSS Blog`} bodyClass="layout layout-centered">
   <main class="blog layout_content_main">
-    <h1>Posts tagged with “{tag}”</h1>
+    <h1 class="h2">Posts tagged with “{tagName}”</h1>
     <ul class="blog_postListing">
       {
         posts.map((post) => (
-          <li>
+          <li class="mb-sm1">
             <p>
               <a href={`/blog/${post.id}`}>{post.data.title}</a>
             </p>

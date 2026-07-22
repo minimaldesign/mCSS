@@ -25,7 +25,7 @@ const title = 'Hero component demo';
     }}
     textColor="--base-0"
     class="prose">
-    <h1 class="display-xl">Hero with Specific Height & Gradient</h1>
+    <h2 class="h1 display-xl">Hero with Specific Height & Gradient</h2>
     <p>The background can be set to a gradient, image, video, or canvas.</p>
     <a class="bt bt-lg bt-outline-white mt-xs3" href="/components/hero">Component Docs</a>
   </Hero>
@@ -43,18 +43,18 @@ const title = 'Hero component demo';
       poster: '',
     }}
     class="prose">
-    <h1 class="display-xl">Hero with Video</h1>
+    <h2 class="h1 display-xl">Hero with Video</h2>
     <p>This hero uses a video as its background media.</p>
     <a class="bt bt-lg bt-primary mt-xs3" href="/components/hero">Component Docs</a>
   </Hero>
 
   <Hero variant="split" media={{ type: 'image', src: triangle01, alt: 'Triangle 01' }} class="">
-    <h1>Split Variant Default</h1>
+    <h2 class="h1">Split Variant Default</h2>
     <p>The Split layout defaults to a <code>62/38</code> ratio, with media on top on small screens (media first in the DOM), and on the left on larger screens. You can add the <code>contentFirst</code> prop to change that.</p>
   </Hero>
 
   <Hero variant="split" reversed media={{ type: 'image', src: triangle03, alt: 'Triangle 03' }} class="prose">
-    <h1>Split Variant (Reversed)</h1>
+    <h2 class="h1">Split Variant (Reversed)</h2>
     <p>Adding the <code>reversed</code> prop visually swaps the content and media sections (without changing their position in the DOM).</p>
   </Hero>
 
@@ -80,15 +80,15 @@ const title = 'Hero component demo';
     slideshowTransition={1500}>
     <ul class="prose">
       <li>
-        <h1>Slideshow Variant</h1>
+        <h2 class="h1">Slideshow Variant</h2>
         <p>This is the first slide of the slideshow.</p>
       </li>
       <li>
-        <h1>Each Slide has a different content & background</h1>
+        <h2 class="h1">Each Slide has a different content & background</h2>
         <p>This is the second slide of the slideshow.</p>
       </li>
       <li>
-        <h1>Slideshow Variant</h1>
+        <h2 class="h1">Slideshow Variant</h2>
         <p>Each slide is absolute positioned so make sure you account for the tallest slide by using the <code>height</code> prop.</p>
       </li>
     </ul>

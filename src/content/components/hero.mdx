@@ -26,7 +26,7 @@ The `Hero` component offers highly flexible, accessible hero sections for landin
   textColor="--base-0"
   class="mt-sm3"
 >
-  <h1>Example Hero</h1>
+  <h2 class="h1">Example Hero</h2>
   <p>This hero uses an animated canvas element as background.</p>
 </Hero>
 
@@ -165,7 +165,7 @@ The following custom properties are available in [`settings.ui.css`](/docs/token
       roundCorners
       textColor="--base-0"
     >
-      <h1>Animated Canvas Hero</h1>
+      <h2 class="h1">Animated Canvas Hero</h2>
       <p>This hero uses an animated canvas element as background.</p>
       <a class="bt bt-lg bt-outline-white mt-md1" href="/demos/hero">Full Size Examples</a>
     </Hero>
@@ -203,7 +203,7 @@ import Hero from "../../components/Hero.astro";
       roundCorners
       textColor="--base-0"
     >
-      <h1>Gradient Background Hero</h1>
+      <h2 class="h1">Gradient Background Hero</h2>
       <p>Showcase your brand with a beautiful, vibrant gradient background.</p>
       <a class="bt bt-lg bt-outline-white mt-md1" href="/demos/hero">Full Size Examples</a>
     </Hero>
@@ -241,7 +241,7 @@ import Hero from "../../components/Hero.astro";
       roundCorners
       textColor="--base-0"
     >
-      <h1>Image Background Hero</h1>
+      <h2 class="h1">Image Background Hero</h2>
       <p>This hero uses a static image as the background.</p>
       <a class="bt bt-lg bt-outline-white mt-md1" href="/demos/hero">Full Size Examples</a>
     </Hero>
@@ -292,15 +292,15 @@ import triangle01 from "../../assets/images/triangles.svg";
     ]}>
     <ul>
       <li>
-        <h1>First Slide</h1>
+        <h2 class="h1">First Slide</h2>
         <p>This is the first slide of the slideshow.</p>
       </li>
       <li>
-        <h1>Second Slide</h1>
+        <h2 class="h1">Second Slide</h2>
         <p>This is the second slide of the slideshow.</p>
       </li>
       <li>
-        <h1>Third Slide</h1>
+        <h2 class="h1">Third Slide</h2>
         <p>This is the third slide of the slideshow.</p>
       </li>
     </ul>
@@ -359,7 +359,7 @@ import triangle03 from "../../assets/images/triangle-03.svg";
       roundCorners
       media={{ type: "image", src: triangle01, alt: "Split Example" }}
     >
-      <h1>Split Hero (Content Right)</h1>
+      <h2 class="h1">Split Hero (Content Right)</h2>
       <p>Default split with content on the right and media on the left.</p>
     </Hero>
 
@@ -389,7 +389,7 @@ import triangle01 from "../../assets/images/triangles.svg";
       roundCorners
       media={{ type: "image", src: triangle01, alt: "Split Example" }}
     >
-      <h1>Split Hero (Content First)</h1>
+      <h2 class="h1">Split Hero (Content First)</h2>
       <p>This example uses the <code>contentFirst</code> prop to place content before media in the DOM (left on desktop, top on mobile).</p>
     </Hero>
 
@@ -422,7 +422,7 @@ import triangle01 from "../../assets/images/triangles.svg";
       roundCorners
       media={{ type: "image", src: triangle01, alt: "Split Example" }}
     >
-      <h1>Split Hero (Reversed)</h1>
+      <h2 class="h1">Split Hero (Reversed)</h2>
       <p>This example uses the <code>reversed</code> prop to visually flip the order of content and media, without changing their DOM order. The <code>flush</code> prop removes left padding.</p>
     </Hero>
 

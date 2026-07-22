@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { slugify } from '../scripts/utilities';
 
 // Props definitions
 interface Props extends HTMLAttributes<'ul'> {
@@ -36,7 +37,7 @@ function joinUrl(base: string, tag: string) {
       <ul class:list={['tags', { 'tags-inline': variant === 'inline' }, className]} data-testid={testId} {...rest}>
         {tags.map((tag) => (
           <li>
-            <a href={joinUrl(url, tag)}>{tag}</a>
+            <a href={joinUrl(url, slugify(tag))}>{tag}</a>
           </li>
         ))}
       </ul>

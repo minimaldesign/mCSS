@@ -335,7 +335,7 @@ const themeDiffs = {
       </li>
       <li class="home_gallery_cell">
         <div class="home_gallery_thumb home_gallery_thumb-wide" inert>
-          <Pagination currentPage={4} lastPage={9} baseUrl="/blog" />
+          <Pagination currentPage={4} lastPage={9} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
         </div>
         <div class="home_gallery_meta"><span class="home_gallery_name">Pagination</span><span class="badge badge-success">Zero JS</span></div>
         <a class="home_gallery_link" href="/components/pagination"><span class="a11y-srOnly">Pagination component documentation</span></a>

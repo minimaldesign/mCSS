@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 
 import tunnel from "astro-tunnel";
 
@@ -18,12 +19,18 @@ export default defineConfig({
   redirects: {
     // slug lowercased for consistency with the other component docs
     "/components/ReadProgressBar": "/components/readprogressbar",
+    // the template docs page moved from the components collection to docs
+    "/components/template": "/docs/template",
     // tags pages moved under /blog so the Blog nav item highlights on them
     "/tags": "/blog/tags",
     "/tags/[tag]": "/blog/tags/[tag]",
   },
   integrations: [
     preact(),
+    sitemap({
+      // keep the meta-refresh stubs at /tags/* and the bare demo pages out
+      filter: (page) => !page.startsWith("https://mcss.dev/tags/") && !page.startsWith("https://mcss.dev/demos/"),
+    }),
     expressiveCode({
       themes: ["github-dark"], // Theme also needs to be imported in shikiHighlighter.js
       styleOverrides: {

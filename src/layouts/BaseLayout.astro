@@ -15,7 +15,7 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={headDescription} />
@@ -25,7 +25,7 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
 
     {/* Open Graph  */}
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url.origin} />
+    <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={headDescription} />
     <meta property="og:image" content={headImage} />
@@ -48,7 +48,11 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     <link rel="canonical" href={Astro.url} />
     {markdownHref && <link rel="alternate" type="text/markdown" href={markdownHref} />}
     <meta name="msapplication-TileColor" content="#0ea5e9" />
-    <meta name="theme-color" content="#ffffff" />
+    {/* Values mirror --body-background-color (--base-0 / --base-950 in
+        settings.tokens.css). ThemeToggle.astro re-syncs them when the
+        visitor overrides the OS color scheme. */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#23282e" />
     <meta name="generator" content={Astro.generator} />
 
     {/* Favicon  */}
@@ -82,8 +86,9 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     </script>
   </head>
   <body class={bodyClass}>
+    <a class="a11y-skipLink" href="#main">Skip to content</a>
     <SiteHeader />
-    <div class="layout_content">
+    <div class="layout_content" id="main">
       <slot />
     </div>
     <SiteFooter />
