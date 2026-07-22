@@ -54,7 +54,7 @@ fieldset {
 }
 
   fieldset ul:has([type="checkbox"],[type="radio"]) {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   fieldset  > [aria-hidden] {
@@ -85,7 +85,7 @@ fieldset {
     accent-color: var(--text-color);
   }
   input[type="number"] {
-    padding-right: var(--xs1);
+    padding-inline-end: var(--xs1);
   }
 
 label {

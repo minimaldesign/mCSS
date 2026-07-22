@@ -1,7 +1,7 @@
 .readProgressBar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0; /* deliberately physical: full-width bar pinned to the viewport edge */
   width: 100%;
   height: var(--readProgressBar-height);
   z-index: var(--z-5);

@@ -59,7 +59,7 @@ xxl: 1920px
       aspect-ratio: 1;
       position: absolute;
       top: var(--status-dot-position);
-      right: var(--status-dot-position);
+      right: var(--status-dot-position); /* deliberately physical: dot pinned to a visual corner */
       border: var(--status-dot-border-width) solid var(--status-dot-border-color);
       border-radius: var(--radius-round);
       background-color: var(--avatar-status-dot-color-offline);

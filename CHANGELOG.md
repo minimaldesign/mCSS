@@ -13,6 +13,7 @@ The official launch. Everything from the 0.9 beta reviewed, restructured, and bu
 - **Marketing template**: a complete one-pager built only from the framework and library components, with a runtime theme switcher. [Live demo](https://mcss.dev/templates/marketing).
 - **`dist/` build**: the whole framework pre-processed as a drop-in `mcss.css` / `mcss.min.css`, plus per-file copies in `dist/css/`. Committed to the repo and kept fresh by CI.
 - **MIT license.**
+- Logical spacing helpers (`mis-*`, `mie-*`, `pis-*`, `pie-*`) and `.text-start` / `.text-end`: reading-direction-relative twins of the physical `ml/mr/pl/pr` and `.text-left/right` helpers, which stay for purely visual offsets.
 - Machine-readable docs for AI agents, fluid heading scale, responsive grid gaps, themeable text selection color.
 
 ### Changed

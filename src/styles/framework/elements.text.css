@@ -56,7 +56,7 @@ abbr {
     width: max-content;
     max-width: 400px;
     position: absolute;
-    left: 50%;
+    left: 50%; /* deliberately physical: symmetric centering, paired with translate(-50%) */
     padding: var(--xs1) var(--xs3);
     content: attr(title);
     color: var(--base-0);
@@ -73,7 +73,9 @@ b {
 blockquote {
   position: relative;
   margin-bottom: var(--prose-spacing);
-  padding: var(--sm1) var(--sm3) var(--sm1) var(--md1) ;
+  padding-block: var(--sm1);
+  /* extra inline-start room for the accent bar */
+  padding-inline: var(--md1) var(--sm3);
   font-style: italic;
   background-color: light-dark(var(--primary-50), var(--primary-900));
   border-radius: var(--radius-md);
@@ -81,10 +83,11 @@ blockquote {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: var(--xs2);
     height: 100%;
-    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    border-start-start-radius: var(--radius-md);
+    border-end-start-radius: var(--radius-md);
     background-image: linear-gradient(var(--primary-800), var(--primary-500));
   }
 

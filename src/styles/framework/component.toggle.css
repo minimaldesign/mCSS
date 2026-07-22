@@ -21,6 +21,8 @@
     --diameter: calc(var(--toggle-h) - var(--toggle-bd) * 2);
     position: absolute;
     top: var(--toggle-bd);
+    /* deliberately physical: the thumb travel (left + translateX) is a visual
+       mechanic; keeping it physical keeps the animation math in one axis system */
     left: var(--toggle-bd);
     content: "";
     display: block;

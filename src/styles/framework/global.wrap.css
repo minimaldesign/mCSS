@@ -9,15 +9,12 @@
   > astro-slot > *,
   > astro-static-slot > * {
     grid-column: 2;
-    padding-left: var(--wrap-spacing);
-    padding-right: var(--wrap-spacing);
+    padding-inline: var(--wrap-spacing);
     @media (--md) {
-      padding-left: var(--wrap-md-spacing);
-      padding-right: var(--wrap-md-spacing);
+      padding-inline: var(--wrap-md-spacing);
     }
     @media (--lg) {
-      padding-left: var(--wrap-lg-spacing);
-      padding-right: var(--wrap-lg-spacing);
+      padding-inline: var(--wrap-lg-spacing);
     }
   }
 }

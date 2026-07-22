@@ -65,7 +65,7 @@ xxl: 1920px
 /* a lone "next" stays in the right column */
 .prevNext_link-next {
   grid-column: 2;
-  text-align: right;
+  text-align: end;
 }
 
 }

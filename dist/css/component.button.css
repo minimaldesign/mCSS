@@ -33,8 +33,7 @@ xxl: 1920px
   align-items: center;
   min-width: var(--bt-min-width);
   min-height: var(--md3);
-  padding-left: var(--xs3);
-  padding-right: var(--xs3);
+  padding-inline: var(--xs3);
   font-weight: var(--bt-font-weight);
   font-size: var(--bt-font-size);
   -webkit-text-decoration: none;
@@ -71,15 +70,15 @@ xxl: 1920px
   :is(.button,.bt) svg {
     width: var(--sm1);
     height: var(--sm1);
-    margin-left: 0;
-    margin-right: 0.5em;
+    margin-inline-start: 0;
+    margin-inline-end: 0.5em;
   }
 
   /* icon options */
     /* also tweaked under .bt-lg under "sizes" section */
     .bt-tightIcon:is(.button,.bt) svg {
-      margin-right: 0.25em;
-      margin-left: calc(var(--xs2) * -1);
+      margin-inline-end: 0.25em;
+      margin-inline-start: calc(var(--xs2) * -1);
     }
 
   /* Colors */
@@ -193,15 +192,13 @@ xxl: 1920px
 .bt-md {
   min-width: var(--bt-min-width-md);
   min-height: var(--lg2);
-  padding-left: var(--xs3);
-  padding-right: var(--xs3);
+  padding-inline: var(--xs3);
 }
 
 .bt-lg {
   min-width: var(--bt-min-width-lg);
   min-height: var(--xl1);
-  padding-left: var(--sm2);
-  padding-right: var(--sm2);
+  padding-inline: var(--sm2);
   font-size: var(--bt-font-size-lg);
   border-radius: var(--bt-border-radius-lg);
 }
@@ -211,7 +208,7 @@ xxl: 1920px
     height: var(--sm3);
   }
     .bt-lg.bt-tightIcon svg {
-      margin-left: calc(var(--xs3) * -1);
+      margin-inline-start: calc(var(--xs3) * -1);
     }
 
 }

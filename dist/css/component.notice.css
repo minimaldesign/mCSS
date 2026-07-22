@@ -55,7 +55,7 @@ xxl: 1920px
 
   .notice_title svg {
     margin-bottom: var(--xs3);
-    margin-right: 0.5em;
+    margin-inline-end: 0.5em;
     color: var(--svg-color);
   }
 

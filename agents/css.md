@@ -68,6 +68,15 @@ Interface tokens (`settings.ui.css`) are the public API of every component; they
 - No abbreviations (`--card-bg-color` is legacy; new tokens spell out `background-color`), no camelCase, no underscores.
 - Feedback colors: prefer the semantic aliases `--success-*` / `--danger-*` / `--warning-*` over the raw `--yes/no/maybe-*` scales.
 
+### Logical vs physical direction
+
+Inline-axis properties are chosen by meaning, not habit:
+
+- **Logical** (`margin-inline-start/end`, `padding-inline`, `inset-inline-start`, `border-inline-start`, `text-align: start/end`) whenever the offset follows the reading direction: text flow, list and nav indents, icon gaps, table alignment, layout padding. This is the default for new framework CSS.
+- **Physical** (`left`, `right`, `margin-left`, `text-align: left`, ...) only when the meaning is genuinely visual: an element pinned to a visual corner (close buttons, status dots, fixed toasts), symmetric full-width stretches, or offsets tied to physical-axis transforms (the toggle thumb). Every deliberate physical inline-axis declaration carries a short `/* deliberately physical: ... */` comment so it doesn't read as an oversight.
+- Block-axis properties (`margin-top`, `margin-bottom`, ...) stay physical; mCSS does not target vertical writing modes.
+- The spacing helpers ship both sets for the same reason: `ml/mr/pl/pr` are honestly physical, `mis/mie/pis/pie` are their logical twins (see `generate.help.spacing.cjs`); the `*is/*ie` naming leaves room for a future block-axis set. Same split for `.text-left/right` vs `.text-start/end`.
+
 ### Transitions
 
 Never `transition: all` — it also transitions layout properties, so any late-arriving style change (dev-server style injection, HMR) animates on page load instead of just applying. List the properties the state change actually animates (`transition: color var(--transition)`).
