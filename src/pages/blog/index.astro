@@ -1,12 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import { getBlogPosts } from '../../scripts/content.js';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardList from '../../components/CardList.astro';
 import Card from '../../components/Card.astro';
 
 const title = 'mCSS Blog';
-const allPosts = await getCollection('blog');
+const allPosts = await getBlogPosts();
 allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 const md = await createMarkdownProcessor();

@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 import Tags from '../../../components/Tags.astro';
+import { getBlogPosts } from '../../../scripts/content.js';
 
-const allPosts = await getCollection('blog');
+const allPosts = await getBlogPosts();
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 ---
 
