@@ -1260,7 +1260,7 @@ xxl: 1920px
 
 /*
   Themes are NOT imported here. A theme (theme.*.css) is a swappable skin:
-  token overrides plus optional skin rules, wrapped in its own @layer theme
+  token overrides plus optional style rules, wrapped in its own @layer theme
   block so it lands in the theme slot declared above however it's loaded.
   Activate exactly one from your own entry point, after this file:
 
@@ -3213,7 +3213,7 @@ details {
   background: var(--badge-background-color);
   border-radius: var(--badge-border-radius);
 
-  /* Variants only swap the local custom properties (see agents/components.md) */
+  /* Variants only swap the local custom properties */
 }
 
   .badge.badge-primary {
@@ -3389,7 +3389,7 @@ details {
     }
 
   /* Colors */
-  /* Variants only swap the local custom properties (see agents/components.md) */
+  /* Variants only swap the local custom properties */
 
   .bt-outline:is(.button,.bt) {
     --bt-background-color: transparent;
@@ -4128,7 +4128,7 @@ details {
   padding-block: var(--section-spacing);
 }
 
-/* Variants only swap the local custom properties (see agents/components.md) */
+/* Variants only swap the local custom properties */
 
 .section-filled {
   background-color: var(--section-filled-background-color);

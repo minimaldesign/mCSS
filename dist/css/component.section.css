@@ -31,7 +31,7 @@ xxl: 1920px
   padding-block: var(--section-spacing);
 }
 
-/* Variants only swap the local custom properties (see agents/components.md) */
+/* Variants only swap the local custom properties */
 
 .section-filled {
   background-color: var(--section-filled-background-color);

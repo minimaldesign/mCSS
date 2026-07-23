@@ -56,7 +56,7 @@
   }
 
   /* Colors */
-  /* Variants only swap the local custom properties (see agents/components.md) */
+  /* Variants only swap the local custom properties */
 
   &.bt-outline {
     --bt-background-color: transparent;

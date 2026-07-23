@@ -20,7 +20,7 @@
 
 /*
   Themes are NOT imported here. A theme (theme.*.css) is a swappable skin:
-  token overrides plus optional skin rules, wrapped in its own @layer theme
+  token overrides plus optional style rules, wrapped in its own @layer theme
   block so it lands in the theme slot declared above however it's loaded.
   Activate exactly one from your own entry point, after this file:
 

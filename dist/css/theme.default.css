@@ -27,7 +27,7 @@ xxl: 1920px
 /* DEFAULT THEME (template) */
 
 /*
-  A theme is a file of token overrides, plus optional skin rules for what
+  A theme is a file of token overrides, plus optional rules for what
   tokens can't express. Swap which theme file your entry point imports and
   the whole site restyles; everything a theme doesn't mention falls back to
   the framework defaults (settings.tokens.css + settings.ui.css).
@@ -48,10 +48,10 @@ xxl: 1920px
     the whole palette or type, interface tokens (--ui-border-color,
     --heading-font) for cross-cutting changes, or component tokens
     (--bt-border-radius) for surgical ones.
-  - Skin rules are for what tokens can't express (pseudo-elements,
+  - Rules are for what tokens can't express (pseudo-elements,
     nth-child rhythm, text-decoration). Theme files are the one place
-    allowed to style component classes from outside (see agents/css.md);
-    they still lose to your unlayered CSS and to helpers, by design.
+    allowed to style component classes from outside; they still lose
+    to your unlayered CSS and to helpers, by design.
   - No !important: that privilege is reserved for the helpers layer.
 */
 
@@ -63,5 +63,8 @@ xxl: 1920px
     /* Then reach for interface and component tokens as needed:    */
     /* --heading-font: Georgia, serif;                             */
     /* --card-border-radius: 0;                                    */
+    /* A theme may also add scales the framework doesn't ship,     */
+    /* e.g. a second accent, and use them in its own style rules:  */
+    /* --secondary-500: teal;                                      */
   }
 }
