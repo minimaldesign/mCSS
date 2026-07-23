@@ -10,6 +10,7 @@ The official launch. Everything from the 0.9 beta reviewed, restructured, and bu
 
 - **Component library**: 23 documented components, from atoms (button, badge, toggle) through content patterns (card, hero, FAQ, testimonial, pricing, pagination) to full page chrome (header with mobile menu, footer, banner). Every one is dogfooded on mcss.dev itself.
 - **Theme system**: themes are swappable skins, one CSS file that reskins the whole site. New `theme` cascade layer, `theme.default.css` as a copyable starting point, and `theme.wireframe.css`, a hand-drawn wireframe skin, as the worked example. See the [themes docs](https://mcss.dev/docs/themes).
+- **Layout library**: `global.layout.css` rebuilt from mcss.dev-specific styles into six page-level scaffolds: the `.layout` app shell (sticky footer) plus `.layout-centered`, `.layout-sidebar` (with a `.layout-sidebar-end` composition), `.layout-docs` (nav + main + TOC), `.layout-split`, and `.layout-cover`. Column widths come from the new `--layout-content-width` and `--layout-toc-width` tokens alongside `--layout-aside-width`. Every page on mcss.dev runs on them, with full-page demos under `/demos/layout/` and thumbnail diagrams in the [layouts docs](https://mcss.dev/docs/global#layouts).
 - **Marketing template**: a complete one-pager built only from the framework and library components, with a runtime theme switcher. [Live demo](https://mcss.dev/templates/marketing).
 - **`dist/` build**: the whole framework pre-processed as a drop-in `mcss.css` / `mcss.min.css`, plus per-file copies in `dist/css/`. Committed to the repo and kept fresh by CI.
 - **MIT license.**
@@ -27,6 +28,7 @@ The official launch. Everything from the 0.9 beta reviewed, restructured, and bu
 - Helper class short forms removed; use the full names.
 - Component `extraClass` props renamed to `class`.
 - The `atoms` layer collapsed into `components`; `atom.*` files are gone.
+- The 0.9 `global.layout.css` internals (documented back then as mcss.dev examples, not templates) are gone: no more hidden mobile aside in `.layout-sidebar`, TOC `nth-of-type` slot, or hardcoded column widths. Docs-style pages use `.layout-docs` with an explicit `layout_content_aside-toc` class on the TOC aside.
 - The unused `pages` layer removed from the layer order.
 - `settings.theme.default.css` renamed to `settings.ui.css`; "theme tokens" are now "interface tokens", and themes live in `theme.*.css` files instead.
 - `--theme-border-color` and `--theme-shadow-color` renamed to `--ui-border-color` and `--ui-shadow-color`.

@@ -53,7 +53,7 @@ const navItems = [
         Chromium never loads a parser-created disabled link. */}
     <link rel="stylesheet" href={wireframeThemeUrl} media="not all" id="wireframeTheme" />
   </head>
-  <body>
+  <body class="layout">
     <Banner>
       Fold 2.1 is out: new gradient, same product. <a href="#pricing">See what it costs</a>
     </Banner>
@@ -63,7 +63,7 @@ const navItems = [
       <a slot="actions" class="bt bt-primary" href="#pricing">Start free</a>
     </Header>
 
-    <main>
+    <main class="layout_content">
       <Hero variant="full" height={55} media={{ type: 'gradient', src: 'var(--gradient-primary)' }} textColor="--base-0">
         <h1>The landing page you already know how to read</h1>
         <p>Big headline, reassuring sentence underneath, two buttons where the bright one is the one we want. You've scanned this exact page four hundred times, so we won't pretend it's a surprise.</p>

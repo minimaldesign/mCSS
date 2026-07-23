@@ -1,7 +1,9 @@
 ---
 import '../styles/_global.css';
 
-const { title, bodyClass } = Astro.props;
+// fullBody: render the slot as the direct body content (layout demos
+// provide their own .layout_content structure)
+const { title, bodyClass, fullBody } = Astro.props;
 ---
 
 <html lang="en">
@@ -34,8 +36,14 @@ const { title, bodyClass } = Astro.props;
     <title>{title}</title>
   </head>
   <body class={bodyClass}>
-    <div class="layout_content">
-      <slot />
-    </div>
+    {
+      fullBody ? (
+        <slot />
+      ) : (
+        <div class="layout_content">
+          <slot />
+        </div>
+      )
+    }
   </body>
 </html>
