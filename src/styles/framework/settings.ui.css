@@ -119,7 +119,6 @@
   --layout-content-width: 70ch;
   --layout-aside-width: 245px;
   --layout-toc-width: 1fr;
-  --layout-aside-background-color: var(--base-100);
 
   --prose-spacing: var(--sm1);
 }
