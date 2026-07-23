@@ -11,7 +11,7 @@ A complete marketing one-pager built from nothing but the framework and the comp
 
 **[Open the live template](/templates/marketing)**, and use the switcher in its bottom corner to flip the whole page between the default look and the [wireframe theme](/docs/themes): same markup, one stylesheet swapped.
 
-From top to bottom, the template is composed of:
+The whole page sits on the base [`.layout` scaffold](/docs/global#layouts): `<body class="layout">` wrapping a `.layout_content` main, which gives the header / content / footer app shell with a sticky footer. Inside that shell, from top to bottom:
 
 - [Banner](/components/banner)
 - [Header](/components/header) (sticky, with mobile menu)
@@ -41,7 +41,7 @@ Two blocks in the file exist for the docs demo and are safe to touch:
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | The page         | `src/pages/templates/marketing.astro` ([source][srcTemplate])                                                                                                                           |
 | Astro components | `Banner`, `Header`, `Hero`, `Section`, `FeatureGrid`, `FeatureItem`, `Testimonial`, `Avatar` (used by Testimonial), `PricingCard`, `Faq`, `FaqItem`, `Footer` ([source][srcComponents]) |
-| Framework CSS    | The framework entry `mcss.css` covers every component style used ([source][srcFramework])                                                                                               |
+| Framework CSS    | The framework entry `mcss.css` covers every component and layout style used ([source][srcFramework])                                                                                    |
 | Theme (optional) | `theme.wireframe.css`, only if you keep the switcher ([source][srcWireframe])                                                                                                           |
 | Icons            | `menu`, `x`, `check`, `circle-check`, `moon-star`, `external-link`, `rotate-ccw`, `mail`, `heart` ([source][srcIcons])                                                                  |
 | Scripts          | `src/scripts/utilities.js` (the Header's scroll throttle) ([source][srcScripts])                                                                                                        |
