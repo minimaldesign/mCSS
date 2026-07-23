@@ -246,6 +246,10 @@ xxl: 1920px
   --maybe-400: #ffc220;
   --maybe-500: #f9a007;
 
+  /* Highlight (text marker) */
+
+  --highlight-500: #ffee00;
+
   /* GRADIENTS */
 
   --gradient-primary: linear-gradient(
@@ -462,7 +466,7 @@ xxl: 1920px
 
   /* .prose related stuff in GLOBAL */
 
-  --marker-color: #ffee00;
+  --marker-color: var(--highlight-500);
 
   --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--base-0);
 
@@ -1252,26 +1256,6 @@ xxl: 1920px
   --toc-indentation: var(--xs3);
   --toc-icon-size: 16px;
 }
-
-/* EXTERNAL PLUGINS */
-
-:root {
-  --csstools-light-dark-toggle--61: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--61, var(--base-950));
-}
-
-@supports (color: light-dark(red, red)){
-:root {
-  --astro-code-background-color: light-dark(var(--base-950), var(--base-900));
-}
-}
-  @supports not (color: light-dark(tan, tan)){
-
-:root *{
-  --csstools-light-dark-toggle--61: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--61, var(--base-950));
-}
-}
 }
 
 /*
@@ -1415,8 +1399,8 @@ address {
   max-width: 100%;
   padding: var(--sm1) var(--sm3);
   font-style: normal;
-  --csstools-light-dark-toggle--62: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--62, var(--base-50));
+  --csstools-light-dark-toggle--61: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--61, var(--base-50));
   border: var(--xs2) solid transparent;
   border-image: 8
     repeating-linear-gradient(
@@ -1476,8 +1460,8 @@ blockquote {
   /* extra inline-start room for the accent bar */
   padding-inline: var(--md1) var(--sm3);
   font-style: italic;
-  --csstools-light-dark-toggle--65: var(--csstools-color-scheme--light) var(--primary-900);
-  background-color: var(--csstools-light-dark-toggle--65, var(--primary-50));
+  --csstools-light-dark-toggle--64: var(--csstools-color-scheme--light) var(--primary-900);
+  background-color: var(--csstools-light-dark-toggle--64, var(--primary-50));
   border-radius: var(--radius-md);
 }
 
@@ -1518,8 +1502,8 @@ code, var, kbd {
   font-family: var(--mono);
   font-size: 0.9em;
   font-style: normal;
-  --csstools-light-dark-toggle--63: var(--csstools-color-scheme--light) var(--base-300);
-  color: var(--csstools-light-dark-toggle--63, var(--base-500));
+  --csstools-light-dark-toggle--62: var(--csstools-color-scheme--light) var(--base-300);
+  color: var(--csstools-light-dark-toggle--62, var(--base-500));
 }
 
 @supports (color: light-dark(red, red)){
@@ -1702,8 +1686,8 @@ q {
 }
 
 s {
-  --csstools-light-dark-toggle--64: var(--csstools-color-scheme--light) var(--base-50);
-  text-decoration-color: var(--csstools-light-dark-toggle--64, var(--base-950));
+  --csstools-light-dark-toggle--63: var(--csstools-color-scheme--light) var(--base-50);
+  text-decoration-color: var(--csstools-light-dark-toggle--63, var(--base-950));
   text-decoration-style: wavy;
 }
 
@@ -2276,8 +2260,8 @@ select {
 }
 
   select:disabled {
-    --csstools-light-dark-toggle--66: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--66, hsl(from var(--text-color) h s 70%));
+    --csstools-light-dark-toggle--65: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--65, hsl(from var(--text-color) h s 70%));
     cursor: not-allowed;
     color: var(--disabled-color);
     background: linear-gradient(
@@ -2298,8 +2282,8 @@ select:disabled {
     @supports not (color: light-dark(tan, tan)){
 
   select:disabled *{
-    --csstools-light-dark-toggle--66: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--66, hsl(from var(--text-color) h s 70%));
+    --csstools-light-dark-toggle--65: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
+    --disabled-color: var(--csstools-light-dark-toggle--65, hsl(from var(--text-color) h s 70%));
 }
 }
 
@@ -2332,10 +2316,10 @@ dialog {
   min-width: var(--tera1);
   max-width: var(--tera3);
   padding: var(--lg1) var(--md1);
-  --csstools-light-dark-toggle--67: var(--csstools-color-scheme--light) var(--base-800);
-  border: 1px solid var(--csstools-light-dark-toggle--67, var(--base-200));
-  --csstools-light-dark-toggle--68: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--68, var(--base-50));
+  --csstools-light-dark-toggle--66: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--66, var(--base-200));
+  --csstools-light-dark-toggle--67: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--67, var(--base-50));
   border-radius: var(--radius-lg);
 }
 
@@ -2368,10 +2352,10 @@ dialog {
 
 details {
   padding: var(--sm1) var(--sm1);
-  --csstools-light-dark-toggle--69: var(--csstools-color-scheme--light) var(--base-800);
-  border: 1px solid var(--csstools-light-dark-toggle--69, var(--base-200));
-  --csstools-light-dark-toggle--70: var(--csstools-color-scheme--light) var(--base-900);
-  background-color: var(--csstools-light-dark-toggle--70, var(--base-50));
+  --csstools-light-dark-toggle--68: var(--csstools-color-scheme--light) var(--base-800);
+  border: 1px solid var(--csstools-light-dark-toggle--68, var(--base-200));
+  --csstools-light-dark-toggle--69: var(--csstools-color-scheme--light) var(--base-900);
+  background-color: var(--csstools-light-dark-toggle--69, var(--base-50));
   border-radius: var(--radius-lg);
   cursor: pointer;
 }
@@ -3060,8 +3044,8 @@ details {
       margin-bottom: 0.5em;
     }
       :is(:is(ul,ol) li)::marker {
-        --csstools-light-dark-toggle--71: var(--csstools-color-scheme--light) var(--base-600);
-        color: var(--csstools-light-dark-toggle--71, var(--base-300));
+        --csstools-light-dark-toggle--70: var(--csstools-color-scheme--light) var(--base-600);
+        color: var(--csstools-light-dark-toggle--70, var(--base-300));
       }
 
 @supports (color: light-dark(red, red)){
