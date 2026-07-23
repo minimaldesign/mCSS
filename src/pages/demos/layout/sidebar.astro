@@ -1,0 +1,15 @@
+---
+import DemoLayout from '../../../layouts/DemoLayout.astro';
+---
+
+<DemoLayout title=".layout-sidebar demo" bodyClass="layout layout-sidebar" fullBody>
+  <header class="layoutDemo_region layoutDemo_region-header">header</header>
+  <div class="layout_content">
+    <aside class="layout_content_aside layoutDemo_region">.layout_content_aside</aside>
+    <main class="layout_content_main layoutDemo_region layoutDemo_region-main">
+      .layout_content_main
+      <span class="layoutDemo_note">Aside + main from the --md breakpoint (768px). Below it, everything stacks in source order. Resize the window to see it collapse.</span>
+    </main>
+  </div>
+  <footer class="layoutDemo_region layoutDemo_region-footer">footer (sticky)</footer>
+</DemoLayout>

@@ -1,11 +1,12 @@
 ---
 title: "Global Styles"
 description: "Structural patterns: grid, layout, prose, wrap, and accessibility utilities"
-lastUpdate: 2024-09-09
+lastUpdate: 2026-07-23
 version: 1.0
 ---
 
 import Notice from "../../components/Notice.astro";
+import LayoutThumb from "../../components/_LayoutThumb.astro";
 
 ## Grid
 
@@ -204,13 +205,74 @@ You can customize 3 diffent sizes of left/right padding for responsive designs a
 
 [srcLayout]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/global.layout.css
 
-This is where your global layouts should go. It's probably too project specific for mCSS to ship with really useful default layouts. But this will change as more [components](/components/start) become available.
+Page-level scaffolds: the skeleton between your `body` tag and your content. Every variant extends the same `.layout` base, an app shell with a header, a stretching content area, and a sticky footer.
 
-<Notice type="warning" title="Work in progress">
-  The layouts in this file are specific to mcss.dev docs and blog sections.
-  They're not built as templates to use in your own projects but rather as
-  examples of how to set it up.
+### Syntax
+
+```html
+<body class="layout layout-sidebar">
+  <header>…</header>
+  <div class="layout_content">
+    <aside class="layout_content_aside">…</aside>
+    <main class="layout_content_main">…</main>
+  </div>
+  <footer>…</footer>
+</body>
+```
+
+The header and footer are optional: a bare `.layout` with only `.layout_content` still gives you a full-height page (that's what `.layout-cover` relies on).
+
+### The layouts
+
+Each thumbnail links to a full-page demo built from labeled color blocks. The demos are the honest version: resize the window to see the breakpoint collapses, sticky footer, and full-viewport behavior that a static diagram can't show.
+
+<div class="grid" col="2" col-lg="3">
+  <div class="grid_item"><LayoutThumb variant="centered" /></div>
+  <div class="grid_item"><LayoutThumb variant="sidebar" /></div>
+  <div class="grid_item"><LayoutThumb variant="sidebar-end" /></div>
+  <div class="grid_item"><LayoutThumb variant="docs" /></div>
+  <div class="grid_item"><LayoutThumb variant="split" /></div>
+  <div class="grid_item"><LayoutThumb variant="cover" /></div>
+</div>
+
+<div class="docs_oversizedTable">
+
+| Class                 | What it's for                                                                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.layout`             | The base app shell: header / content / footer with a sticky footer. Required by every variant, usable alone.                                                              |
+| `.layout-centered`    | A single centered reading column (articles, blog posts, legal pages). Width capped at `--layout-content-width`.                                                           |
+| `.layout-sidebar`     | Aside + main from the `--md` breakpoint, single column below it (aside follows source order).                                                                             |
+| `.layout-sidebar-end` | Compose with `.layout-sidebar` to move the aside to the reading end. ("End", not "right": columns follow the writing direction.)                                          |
+| `.layout-docs`        | Documentation shell: nav aside + main + TOC aside (`.layout_content_aside-toc`). One column below `--md` with the asides hidden, nav + main from `--md`, TOC from `--lg`. |
+| `.layout-split`       | Two equal full-height panes (the direct children of `.layout_content`), stacked below `--md`. Auth screens, image + content landings.                                     |
+| `.layout-cover`       | Full-viewport (`100dvh`) cover with content centered both ways. Landing, 404, coming-soon pages.                                                                          |
+
+</div>
+
+<Notice type="info" title="Hidden asides need a menu">
+  `.layout-docs` hides both asides below the `--md` breakpoint. That's
+  deliberate: docs navigation belongs in your header menu on small screens
+  (that's how mcss.dev does it). If your aside content has no other way in,
+  use `.layout-sidebar`, which stacks instead of hiding.
 </Notice>
+
+### Settings
+
+Column widths come from three tokens in `settings.ui.css`. `--layout-toc-width` accepts any grid track size; the `1fr` default lets the TOC absorb whatever space the main column doesn't use.
+
+<div class="docs_oversizedTable">
+
+| token                    | value   | Description                                                |
+| ------------------------ | ------- | ---------------------------------------------------------- |
+| `--layout-content-width` | `70ch`  | main column cap (`.layout-centered`, `.layout-docs`)       |
+| `--layout-aside-width`   | `245px` | aside column (`.layout-sidebar`, `.layout-docs`)           |
+| `--layout-toc-width`     | `1fr`   | TOC column (`.layout-docs`)                                |
+
+</div>
+
+Override them globally in your [theme](/docs/themes), or per-layout with a scoped rule. mcss.dev itself runs its docs on `.layout-docs` and layers its own specifics on top ([source][srcSiteLayout]): a wider `77ch` reading column and sticky side navs. That file is the pattern to copy when a scaffold gets you 90% of the way.
+
+[srcSiteLayout]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/site/global.layout.css
 
 </section>
 
