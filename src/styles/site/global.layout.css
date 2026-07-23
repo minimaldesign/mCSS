@@ -1,0 +1,23 @@
+/*
+  mcss.dev's own additions on top of the framework's .layout-docs scaffold.
+  This file is the dogfooding example the docs point at: the framework
+  ships the skeleton, the consumer (this site) layers its specifics
+  unlayered on top.
+*/
+
+.layout-docs {
+  /* Docs pages read a little wider than the 70ch default */
+  --layout-content-width: 77ch;
+
+  /* Both side navs (.navDocs and the TOC) stick under the site header */
+  .layout_content_aside nav {
+    position: sticky;
+    /* + layout_content_aside padding */
+    top: calc(var(--header-height) + var(--lg1));
+  }
+
+  /* Optically align the TOC list with the main column's h1 */
+  .layout_content_aside-toc nav {
+    padding-top: var(--xs2);
+  }
+}

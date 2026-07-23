@@ -112,7 +112,13 @@
   --wrap-width-lg: minmax(200px, 900px);
   --wrap-width: var(--wrap-width-md);
 
+  /* Layout scaffolds (global.layout.css): main column cap for
+     .layout-centered and .layout-docs, aside and TOC column widths.
+     --layout-toc-width takes any grid track size; the 1fr default lets
+     the TOC absorb the leftover space. */
+  --layout-content-width: 70ch;
   --layout-aside-width: 245px;
+  --layout-toc-width: 1fr;
 
   --prose-spacing: var(--sm1);
 }

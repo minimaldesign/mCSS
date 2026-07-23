@@ -1,0 +1,118 @@
+/*
+  Inline layout thumbnails on the docs page (see _LayoutThumb.astro):
+  scaled-down color-block diagrams of each .layout-* scaffold, linking to
+  the matching full-page demo.
+*/
+
+.layoutThumb {
+  display: block;
+  text-decoration: none;
+
+  &:hover {
+    .layoutThumb_diagram {
+      border-color: var(--primary-500);
+    }
+    .layoutThumb_label {
+      color: var(--link-color-hover);
+    }
+  }
+}
+
+.layoutThumb_diagram {
+  display: grid;
+  gap: 3px;
+  aspect-ratio: var(--ar-landscape);
+  padding: 3px;
+  border: 1px solid var(--ui-border-color);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition);
+}
+
+.layoutThumb_label {
+  display: block;
+  margin-top: var(--xs2);
+  font-family: var(--mono);
+  font-size: var(--text-sm);
+  color: var(--link-color);
+  transition: color var(--transition);
+}
+
+.layoutThumb_region {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: light-dark(var(--base-500), var(--base-400));
+  background-color: light-dark(var(--base-100), var(--base-800));
+  border-radius: var(--radius-sm);
+}
+
+.layoutThumb_region-header {
+  grid-area: header;
+}
+.layoutThumb_region-footer {
+  grid-area: footer;
+}
+.layoutThumb_region-aside {
+  grid-area: aside;
+}
+.layoutThumb_region-toc {
+  grid-area: toc;
+}
+.layoutThumb_region-main {
+  grid-area: main;
+  color: var(--base-0);
+  background-color: var(--primary-500);
+}
+
+/* Region maps, one per scaffold */
+
+.layoutThumb-centered .layoutThumb_diagram {
+  grid-template:
+    "header header header" auto
+    ". main ." 1fr
+    "footer footer footer" auto / 1fr 2fr 1fr;
+}
+
+.layoutThumb-sidebar .layoutThumb_diagram {
+  grid-template:
+    "header header" auto
+    "aside main" 1fr
+    "footer footer" auto / 1fr 3fr;
+}
+
+.layoutThumb-sidebar-end .layoutThumb_diagram {
+  grid-template:
+    "header header" auto
+    "main aside" 1fr
+    "footer footer" auto / 3fr 1fr;
+}
+
+.layoutThumb-docs .layoutThumb_diagram {
+  grid-template:
+    "header header header" auto
+    "aside main toc" 1fr
+    "footer footer footer" auto / 1fr 3fr 1fr;
+}
+
+.layoutThumb-split .layoutThumb_diagram {
+  grid-template: "main aside" 1fr / 1fr 1fr;
+}
+
+.layoutThumb-cover .layoutThumb_diagram {
+  grid-template: "main" 1fr / 1fr;
+
+  /* The cover centers a content box inside the full-viewport area */
+  .layoutThumb_region-main {
+    width: 40%;
+    height: 40%;
+    place-self: center;
+  }
+}
+
+/* Fixed bar heights inside the diagrams */
+.layoutThumb_region-header,
+.layoutThumb_region-footer {
+  min-height: 18px;
+}

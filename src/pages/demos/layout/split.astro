@@ -1,0 +1,13 @@
+---
+import DemoLayout from '../../../layouts/DemoLayout.astro';
+---
+
+<DemoLayout title=".layout-split demo" bodyClass="layout layout-split" fullBody>
+  <div class="layout_content">
+    <div class="layoutDemo_region layoutDemo_region-main">
+      pane 1
+      <span class="layoutDemo_note">Two equal full-height panes from --md (768px), stacked below. Panes are the direct children of .layout_content. Typical use: auth screens, image + content landings.</span>
+    </div>
+    <div class="layoutDemo_region">pane 2</div>
+  </div>
+</DemoLayout>

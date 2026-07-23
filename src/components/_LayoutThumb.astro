@@ -1,0 +1,48 @@
+---
+// Docs-site internal: color-block diagram of one .layout-* scaffold,
+// linking to its full-page demo. Styles in site/component.layoutThumb.css.
+const { variant } = Astro.props;
+
+// Region order matters only for screen readers; placement comes from the
+// per-variant grid-template areas.
+const regionMap = {
+  centered: [
+    { area: 'header', label: 'header' },
+    { area: 'main', label: 'main' },
+    { area: 'footer', label: 'footer' },
+  ],
+  sidebar: [
+    { area: 'header', label: 'header' },
+    { area: 'aside', label: 'aside' },
+    { area: 'main', label: 'main' },
+    { area: 'footer', label: 'footer' },
+  ],
+  'sidebar-end': [
+    { area: 'header', label: 'header' },
+    { area: 'main', label: 'main' },
+    { area: 'aside', label: 'aside' },
+    { area: 'footer', label: 'footer' },
+  ],
+  docs: [
+    { area: 'header', label: 'header' },
+    { area: 'aside', label: 'nav' },
+    { area: 'main', label: 'main' },
+    { area: 'toc', label: 'toc' },
+    { area: 'footer', label: 'footer' },
+  ],
+  split: [
+    { area: 'main', label: 'pane' },
+    { area: 'aside', label: 'pane' },
+  ],
+  cover: [{ area: 'main', label: 'content' }],
+};
+
+const regions = regionMap[variant];
+---
+
+<a class={`layoutThumb layoutThumb-${variant}`} href={`/demos/layout/${variant}`}>
+  <span class="layoutThumb_diagram">
+    {regions.map((region) => <span class={`layoutThumb_region layoutThumb_region-${region.area}`}>{region.label}</span>)}
+  </span>
+  <span class="layoutThumb_label">{`.layout-${variant}`}</span>
+</a>

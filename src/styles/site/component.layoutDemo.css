@@ -1,0 +1,52 @@
+/*
+  Full-page layout demos (/demos/layout/*): labeled color blocks standing
+  in for each region of a .layout-* scaffold. The pages mix .layoutDemo_region
+  onto the layout elements themselves, so this block must never declare
+  display (it would defeat the scaffold's responsive display switches) or
+  any grid placement.
+*/
+
+.layoutDemo_region {
+  padding: var(--sm1);
+  font-family: var(--mono);
+  font-size: var(--text-sm);
+  text-align: center;
+  align-content: center;
+  color: light-dark(var(--base-600), var(--base-300));
+  background-color: light-dark(var(--base-100), var(--base-800));
+  border: 1px dashed light-dark(var(--base-300), var(--base-600));
+}
+
+.layoutDemo_region-header,
+.layoutDemo_region-footer {
+  min-height: var(--xl2);
+}
+
+.layoutDemo_region-main {
+  color: var(--base-0);
+  background-color: var(--primary-500);
+  border-color: var(--primary-300);
+
+  .layoutDemo_note {
+    color: var(--primary-100);
+  }
+}
+
+/* The centered column sits in an auto-sized row, so it needs a height of
+   its own to read as a block */
+.layoutDemo_region-column {
+  min-height: 50vh;
+}
+
+/* The cover content box should shrink-wrap, not fill the viewport */
+.layoutDemo_region-box {
+  width: min(400px, 80vw);
+  min-height: 30vh;
+}
+
+.layoutDemo_note {
+  display: block;
+  margin-top: var(--xs3);
+  font-family: var(--text);
+  color: light-dark(var(--base-500), var(--base-400));
+}
