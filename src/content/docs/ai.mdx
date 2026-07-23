@@ -1,13 +1,13 @@
 ---
 title: "AI Agents"
 description: "Machine-readable docs (llms.txt, markdown twins) and a ready-to-paste rules block for coding agents"
-lastUpdate: 2026-07-19
+lastUpdate: 2026-07-23
 version: 0.1
 ---
 
 <section class="prose">
 
-mCSS is built to be easy for AI coding agents (Claude Code, Cursor, Copilot, and friends) to work with. The docs are available in machine-readable form, and this page includes a rules block you can paste into your project's agent instructions so generated markup is idiomatic mCSS instead of a plausible-looking guess.
+mCSS is built to be easy for AI coding agents (Claude, Cursor, Copilot, etc.) to work with. The docs are available in machine-readable form, and this page includes a rules block you can paste into your project's agent instructions so generated markup follows mCSS methodology.
 
 </section>
 
@@ -17,11 +17,9 @@ mCSS is built to be easy for AI coding agents (Claude Code, Cursor, Copilot, and
 
 Three things exist specifically for agents:
 
-- **[/llms.txt](/llms.txt)**: an index of every docs and components page with one-line descriptions, following the [llms.txt](https://llmstxt.org) convention. Most agent tooling checks for this automatically.
-- **[/llms-full.txt](/llms-full.txt)**: the entire reference (docs and all components) concatenated into a single markdown file. Point an agent here when it needs the whole framework in one fetch.
-- **Markdown twins**: every docs and components page is also served as plain markdown at the same URL with `.md` appended. For example, [/docs/tokens.md](/docs/tokens.md) or [/components/card.md](/components/card.md). These are a fraction of the size of the HTML pages and contain no site chrome.
-
-If you tell your agent one thing, tell it this: fetch the `.md` URLs, not the HTML.
+- `/llms.txt`: an index of every docs and components page with one-line descriptions, following the [llms.txt](https://llmstxt.org) convention. Most agent tooling checks for this automatically.
+- `/llms-full.txt`: the entire reference (docs and all components) concatenated into a single markdown file. Point an agent [here](/llms-full.txt) when it needs the whole framework in one fetch.
+- **Markdown twins**: every docs and components page is also served as plain markdown at the same URL but with the `.md` extension. These are a fraction of the size of the HTML pages. Make sure you tell your agent to fetch the `.md` URLs, not the HTML.
 
 </section>
 
@@ -36,49 +34,73 @@ Paste the block below into your project's `CLAUDE.md`, `AGENTS.md`, or equivalen
 ````md
 ## mCSS conventions
 
-This project uses mCSS (https://mcss.dev), a copy-it-you-own-it CSS framework.
-The framework files live in this repo, not in node_modules; treat them as
-project code, not as an immutable dependency.
-Full reference: https://mcss.dev/llms-full.txt
-Per-page markdown docs: append `.md` to any docs or components URL
-(e.g. https://mcss.dev/components/card.md).
+This project uses mCSS (https://mcss.dev), a CSS framework copied into the repo. There is no npm package: the files are project code, and the framework's defaults are overridden, never edited.
+Full reference in one fetch: https://mcss.dev/llms-full.txt
+Per-page docs: append `.md` to any mcss.dev docs or components URL (e.g. https://mcss.dev/components/card.md).
+
+### Mental model: layers from default to deliberate
+
+All framework CSS lives in native cascade layers, declared in `mcss.css` in priority order (later wins): `settings, base, elements, global, components, theme, helpers`.
+
+- `settings` through `components` are the framework defaults: what things look like when nobody has an opinion. Never edit these files to restyle; override them from further up the order.
+- `theme` holds at most one theme file: a deliberate opinion about the defaults. An empty theme layer IS the default look.
+- Your own unlayered CSS is more deliberate still: it beats every layer, by design. Never use `!important` to win against the framework.
+- `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS, like inline styles. Use sparingly. `!important` is banned everywhere else.
+
+### Restyling, in order of preference
+
+1. **Theme token overrides.** A theme is one file that reskins the whole site: `@layer theme { :root { ... } }` (self-layered, so it slots correctly however it's loaded). Copy `theme.default.css` to start one; activate exactly one from your CSS entry point, after `mcss.css` (which never imports themes itself). Anything the theme doesn't mention falls back to the defaults. Pick the blast radius per override: raw tokens (`--base-*`, `--text`) shift the whole palette or type scale, interface tokens (`--ui-border-color`, `--heading-font`) change every surface that shares the meaning, component tokens (`--bt-border-radius`, `--card-*`) turn one knob. Most themes never need a selector.
+2. **Theme style rules**, only for what tokens can't express (pseudo-elements, `nth-child` rhythm, `text-decoration`). Theme files are the ONE place allowed to select component classes from outside. No `!important` in themes.
+3. **Unlayered project CSS** for what belongs to your project rather than to the design: page layouts, one-off blocks.
+4. **Helpers** for element-level one-offs.
+
+Edit framework files only for structural change: adding a component, or adding a missing token or `<part>Class` prop to an existing one.
+
+### Tokens
+
+- `settings.tokens.css`: raw primitives (palettes, type scale, spacing, radii).
+- `settings.ui.css`: interface tokens, the public API of every component (semantic aliases plus all component defaults). Interface tokens only ever take another token as value; raw values live in `settings.tokens.css`.
+- Grammar: `--component-part-property`, longhand, kebab-case, no abbreviations: `--bt-background-color-hover`, `--notice-border-width`.
+- Feedback colors: use the semantic aliases `--success-*`, `--danger-*`, `--warning-*`, not the raw scales they point at.
 
 ### Class naming (BEM-like, different separators)
 
 - Block: `.componentName` (camelCase for multi-word names)
-- Element: `.componentName_element` (single underscore; chains may nest as deep
-  as the block's own structure needs)
-- Modifier: `.componentName-modifier` (single hyphen), for build-time variants
-- State: `.is-*` (`.is-active`, `.is-open`), only for things that change at
-  runtime, always scoped inside the block
-- Prefer styling ARIA attributes over inventing state classes when one exists:
-  `[aria-current]`, `[aria-expanded="true"]`, `[aria-disabled="true"]`
+- Element: `.componentName_element` (underscore marks hierarchy inside one block; chains may nest as deep as the block's structure needs)
+- Modifier: `.componentName-modifier` (hyphen), for build-time variants chosen in markup
+- State: `.is-*` (`.is-active`, `.is-open`), only for things that change at runtime, always scoped inside the block (`.avatar.is-online`)
+- Prefer styling an existing ARIA attribute over inventing a state class: `[aria-current]`, `[aria-expanded="true"]`, `[aria-disabled="true"]`
+- A nested component starts its own block: `.themeToggle_text`, never `.header_nav_themeToggle_text`
 
-### Never couple classes from different components
+### Never couple classes across components (CRITICAL)
 
-A selector must only contain classes from its own block. Never write a selector
-that reaches into another component (`.myPage .card_title` is banned). To style
-a component from outside: mix your own class onto its root in the markup and
-style that, or set the component's interface tokens (`--card-*`, `--bt-*`, ...) on
-your own hook class. Bare HTML tags, `.is-*`, and ARIA selectors are fine
-inside your own block.
+A selector may only contain classes from its own block. Never write a selector that reaches into another component: not its block, not its elements. Instead, mix your own block's classes onto the component's markup and style those:
 
-### Customization (you own the files)
+```html
+<article class="card pricing_planCard">
+  <h3 class="card_title pricing_planTitle">Pro</h3>
+</article>
+```
 
-- Customize by editing the framework files directly, tokens first: change
-  `settings.tokens.css` values (colors, type, spacing) before touching
-  component CSS.
-- Component tokens follow `--component-part-property`, longhand, kebab-case:
-  `--bt-background-color-hover`, `--notice-border-width`. No abbreviations.
-- Prefer semantic feedback tokens (`--success-*`, `--danger-*`, `--warning-*`).
+```css
+/* Don't: couple your block to the card's classes */
+.pricing .card { border-color: var(--primary-500); }
+.pricing .card_title { color: var(--primary-500); }
 
-### Cascade model (native @layer)
+/* Do: style the classes you mixed on */
+.pricing_planTitle { color: var(--primary-500); }
 
-- The framework lives in cascade layers; your unlayered project CSS beats all
-  of it by design. Never add `!important` to win against the framework.
-- The exception: helper classes (`help.*` files, e.g. spacing/color/typography
-  utilities) carry `!important` and beat everything, like inline styles.
-- Never use `transition: all`; list the properties that actually animate.
+/* Do: or turn the component's own token knobs from your class */
+.pricing_planCard { --card-border-color: var(--primary-500); }
+```
+
+When the markup comes from a component you don't write inline, its `<part>Class` props (`titleClass`, `iconClass`, ...) mix your class onto the part the same way. If the prop or token you need doesn't exist, add it to the component; don't reach in with a selector.
+
+Bare HTML tags, `.is-*` states, and ARIA attribute selectors are fine inside your own block. Theme files are the only sanctioned exception to this rule.
+
+### Transitions
+
+Never `transition: all`; list the properties that actually animate.
 ````
 
 ## MCP and tooling
