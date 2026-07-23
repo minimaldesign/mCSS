@@ -20,6 +20,7 @@ The official launch. Everything from the 0.9 beta reviewed, restructured, and bu
 
 - The framework now uses **native CSS cascade layers**: `settings, base, elements, global, components, theme, helpers`. Layer order, not import order or specificity, decides priority, and your own unlayered CSS beats the framework by default.
 - Framework and docs-site CSS fully split (`src/styles/framework/` vs `src/styles/site/`).
+- Removed the `--layout-aside-background-color` interface token: no rule in the framework or the docs site ever consumed it. Style `.layout_content_aside` directly if you want an aside background.
 - Docs site upgraded to Astro 7.
 
 ### Breaking
