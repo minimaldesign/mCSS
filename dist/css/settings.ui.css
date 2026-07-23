@@ -174,7 +174,7 @@ xxl: 1920px
 
   /* .prose related stuff in GLOBAL */
 
-  --marker-color: #ffee00;
+  --marker-color: var(--highlight-500);
 
   --csstools-light-dark-toggle--10: var(--csstools-color-scheme--light) var(--base-0);
 
@@ -1001,28 +1001,6 @@ xxl: 1920px
   --toc-spacing: var(--xs1);
   --toc-indentation: var(--xs3);
   --toc-icon-size: 16px;
-}
-
-/* EXTERNAL PLUGINS */
-
-:root {
-  --csstools-light-dark-toggle--61: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--61, var(--base-950));
-}
-
-@supports (color: light-dark(red, red)) {
-:root {
-  --astro-code-background-color: light-dark(var(--base-950), var(--base-900));
-}
-}
-  @supports not (color: light-dark(tan, tan)) {
-
-:root * {
-  --csstools-light-dark-toggle--61: var(--csstools-color-scheme--light) var(--base-900);
-  --astro-code-background-color: var(--csstools-light-dark-toggle--61, var(--base-950));
-
-}
-
 }
 
 }
