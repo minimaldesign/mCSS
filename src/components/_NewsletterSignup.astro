@@ -1,0 +1,105 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Field from './Field.astro';
+
+interface Props extends HTMLAttributes<'section'> {
+  'data-testid'?: string;
+}
+
+// prettier-ignore
+const {
+  class: className,
+  'data-testid': testId = 'newsletter',
+  ...rest
+} = Astro.props as Props;
+
+// Kit (formerly ConvertKit) form id. Public by design: the endpoint lives in
+// the markup either way. Without it there is nothing to post to, so the
+// component renders nothing rather than a dead form.
+const formId = import.meta.env.PUBLIC_KIT_FORM_ID;
+const action = formId ? `https://app.kit.com/forms/${formId}/subscriptions` : undefined;
+
+if (!formId && import.meta.env.DEV) {
+  console.warn('[NewsletterSignup] PUBLIC_KIT_FORM_ID is not set: the signup form is not rendered.');
+}
+---
+
+{
+  action && (
+    <section class:list={['newsletter', className]} data-testid={testId} {...rest}>
+      <h2 class="newsletter_title">Like what you read?</h2>
+      <p class="newsletter_description">Get future posts straight to your inbox. Unsubscribe anytime.</p>
+
+      <form class="fieldRow newsletter_form" action={action} method="post" novalidate>
+        <Field class="fieldRow_field" label="Email address" name="email_address" id="newsletter-email" type="email" autocomplete="email" placeholder="you@example.com" required error="Please enter a valid email address." />
+        <button type="submit" class="bt bt-primary newsletter_submit">
+          Subscribe
+        </button>
+      </form>
+
+      <p class="newsletter_status" role="status" aria-live="polite" />
+    </section>
+  )
+}
+
+<script>
+  // Progressive enhancement: without JS the form posts natively to Kit and
+  // the browser lands on Kit's own confirmation page. With JS we post in the
+  // background and swap in an inline message instead.
+  document.querySelectorAll<HTMLFormElement>('.newsletter_form').forEach((form) => {
+    const root = form.closest('.newsletter');
+    const status = root?.querySelector('.newsletter_status');
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!root || !status || !submit) return;
+
+    const setStatus = (message: string, state: 'success' | 'error') => {
+      status.textContent = message;
+      root.classList.toggle('is-success', state === 'success');
+      root.classList.toggle('is-error', state === 'error');
+    };
+
+    form.addEventListener('submit', async (event) => {
+      // Always cancel the native post first: novalidate means the browser
+      // would otherwise submit an invalid email straight to Kit.
+      event.preventDefault();
+
+      // novalidate suppresses the native bubble, so ask for it explicitly.
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const label = submit.textContent;
+      submit.disabled = true;
+      submit.textContent = 'Subscribing...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { accept: 'application/json' },
+        });
+        const data = await response.json().catch(() => null);
+
+        // Kit answers HTTP 200 even when the submission fails: the real
+        // outcome lives in the body (status: "success" | "failed", with any
+        // problems in data.errors). Checking response.ok alone would treat a
+        // rejected email (or a misconfigured form id) as a success.
+        if (!response.ok || data?.status === 'failed' || data?.errors) {
+          const detail = data?.errors?.messages?.[0] ?? data?.message ?? `Request failed (${response.status})`;
+          throw new Error(detail);
+        }
+
+        form.hidden = true;
+        setStatus('Thanks! Check your inbox to confirm your subscription.', 'success');
+      } catch (error) {
+        // Surface the real reason in the console (e.g. a wrong form id) while
+        // keeping the visible copy friendly.
+        console.error('[NewsletterSignup]', error);
+        setStatus('Something went wrong. Please try again in a moment.', 'error');
+        submit.disabled = false;
+        submit.textContent = label;
+      }
+    });
+  });
+</script>

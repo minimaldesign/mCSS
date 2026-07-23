@@ -1,8 +1,8 @@
 ---
 title: "Form Field"
 description: "Form field composing label, control, hint, and error message, with CSS-driven validation states."
-lastUpdate: 2026-07-16
-version: 0.5
+lastUpdate: 2026-07-22
+version: 0.6
 type: "component"
 ---
 
@@ -45,8 +45,8 @@ Type something that isn't an email address and tab away: the hint swaps for the 
   client:visible
   template={`<div class="{classes}">
   <label for="pg-email">{label}</label>
-  <input id="pg-email" name="email" type="email"{attrs} aria-describedby="pg-email-hint" />
-  <small class="field_hint" id="pg-email-hint">{hint}</small>
+  <input id="pg-email" name="email" type="email"{attrs} />
+  {hint}
   <small class="field_error">{error}</small>
 </div>`}
   baseClasses="field"
@@ -58,7 +58,7 @@ Type something that isn't an email address and tab away: the hint swaps for the 
     ]},
     { heading: "Content", items: [
       { type: "text", name: "label", label: "Label", default: "Email" },
-      { type: "text", name: "hint", label: "Hint", default: "We'll never share it." },
+      { type: "text", name: "hint", label: "Hint", default: "We'll never share it.", markup: '<small class="field_hint" id="pg-email-hint">{value}</small>', attr: 'aria-describedby="pg-email-hint"' },
       { type: "text", name: "error", label: "Error", default: "That doesn't look like an email address." },
     ]},
   ]}
@@ -88,6 +88,7 @@ Errors use `:user-invalid`, so a pristine form never lights up red: only fields 
 | `--field-spacing`              | Gap between label, control, and messages.  |
 | `--field-hint-color`           | Hint text color.                           |
 | `--field-error-color`          | Error text color.                          |
+| `--field-message-position`     | `static` (default) keeps messages in flow under the control; `absolute` overlays them below the field so they can't move siblings. `.fieldRow` sets `absolute`. |
 | `--input-border-color-invalid` | Border color of a `:user-invalid` control. |
 
 </div>
@@ -127,9 +128,9 @@ To use another control (textarea, select…), put it in the default slot and giv
 
 ### Newsletter signup
 
-`.fieldRow` lines fields and buttons up on one wrapping row. Mix `.fieldRow_field` onto each field that should stretch:
+`.fieldRow` lines fields and buttons up on one wrapping row. Mix `.fieldRow_field` onto each field that should stretch. The row sets `--field-message-position: absolute`, so hints and errors overlay below the row instead of pushing the button out of line with the input (try it: type a bad address and tab away). Leave a little vertical room under the row for them:
 
-<form class="fieldRow">
+<form class="fieldRow" style="margin-bottom: var(--sm3);">
   <Field class="fieldRow_field" label="Email" name="newsletter-email" type="email" required placeholder="you@example.com" error="That doesn't look like an email address." />
   <button class="bt bt-primary" type="submit">Subscribe</button>
 </form>

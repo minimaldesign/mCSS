@@ -261,6 +261,9 @@
   --field-spacing: var(--xs1);
   --field-hint-color: light-dark(var(--base-400), var(--base-500));
   --field-error-color: light-dark(var(--danger-500), var(--danger-300));
+  /* static = messages in flow under the control; absolute = overlaid below
+     the field (row compositions set this so messages can't move siblings) */
+  --field-message-position: static;
 }
 
 /* FeatureGrid */

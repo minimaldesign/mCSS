@@ -40,7 +40,11 @@ import CopyButton from "./_CopyButton.jsx";
   - { type: "checkbox", name, label, snippet: "icon", default }
     substitutes the named snippet (or "") for {name}.
   - { type: "text", name, label, default }
-    free text, HTML-escaped before substitution.
+    free text, HTML-escaped before substitution. With `markup`, the escaped
+    text replaces {value} inside `markup` and the result substitutes {name};
+    empty text substitutes "" instead, so the element disappears with its
+    content. An `attr` on a text control joins {attrs} while the text is
+    non-empty (e.g. the aria-describedby that points at an optional hint).
 
   An option (or checkbox control) can set previewSurface: "dark" to render
   the preview on a dark surface while active (for .bt-white and friends).
@@ -126,7 +130,10 @@ function buildHtml({ template, baseClasses, controls, snippets, values, mode }) 
         if (control.attr) attrs.push(control.attr);
       }
     } else if (control.type === "text") {
-      substitutions[control.name] = escapeHtml(String(value ?? ""));
+      const text = escapeHtml(String(value ?? ""));
+      substitutions[control.name] =
+        control.markup && text ? control.markup.replaceAll("{value}", text) : text;
+      if (control.attr && text) attrs.push(control.attr);
     }
   }
 
@@ -141,6 +148,10 @@ function buildHtml({ template, baseClasses, controls, snippets, values, mode }) 
     .replaceAll("{classes}", classes.join(" "))
     .replaceAll("{attrs}", attrs.length ? ` ${attrs.join(" ")}` : "");
   for (const [name, replacement] of Object.entries(substitutions)) {
+    if (replacement === "") {
+      // A placeholder alone on its line takes the whole line with it.
+      html = html.replace(new RegExp(`\\n[ \\t]*\\{${name}\\}(?=\\n|$)`, "g"), "");
+    }
     html = html.replaceAll(`{${name}}`, replacement);
   }
   return html;
