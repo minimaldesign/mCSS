@@ -1,0 +1,50 @@
+/* NEWSLETTER (Kit signup form, shown at the end of blog posts) */
+
+.newsletter {
+  max-width: 550px;
+  margin-top: var(--lg3);
+  margin-bottom: var(--sm2);
+  padding: var(--md1) var(--md1) var(--md3);
+  border: 1px solid var(--ui-border-color);
+  border-radius: var(--radius-lg);
+  background-color: light-dark(var(--base-50), var(--base-800));
+}
+
+.newsletter_title {
+  margin-bottom: 0;
+  font-size: var(--text-md);
+}
+
+.newsletter_description {
+  margin-bottom: var(--sm1);
+  color: light-dark(var(--base-500), var(--base-300));
+}
+
+/* .newsletter_form has no styles: layout comes from the framework's
+   .fieldRow; the class stays as the JS hook for the submit handler. */
+
+/* On success the form is replaced by the confirmation message. This needs a
+   class-based rule, not the [hidden] attribute the script also sets: the form
+   carries .fieldRow (display: flex), and that author rule beats the browser's
+   built-in [hidden] { display: none }, so the attribute alone leaves it
+   visible. */
+.newsletter.is-success .newsletter_form {
+  display: none;
+}
+
+.newsletter_status {
+  /* clears the field error the fieldRow overlays below the form */
+  margin: var(--sm3) 0 0;
+
+  .newsletter.is-success & {
+    color: light-dark(var(--yes-500), var(--yes-400));
+  }
+
+  .newsletter.is-error & {
+    color: light-dark(var(--no-500), var(--no-400));
+  }
+}
+
+.newsletter:not(.is-success, .is-error) .newsletter_status {
+  display: none;
+}

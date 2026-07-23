@@ -865,6 +865,9 @@ xxl: 1920px
   --field-hint-color: var(--csstools-light-dark-toggle--35, var(--base-400));
   --csstools-light-dark-toggle--36: var(--csstools-color-scheme--light) var(--danger-300);
   --field-error-color: var(--csstools-light-dark-toggle--36, var(--danger-500));
+  /* static = messages in flow under the control; absolute = overlaid below
+     the field (row compositions set this so messages can't move siblings) */
+  --field-message-position: static;
 }
 
 @supports (color: light-dark(red, red)){
@@ -3713,6 +3716,8 @@ details {
 /* FIELD */
 
 .field {
+  /* containing block for overlaid messages (see below) */
+  position: relative;
   display: grid;
   gap: var(--field-spacing);
 }
@@ -3722,8 +3727,16 @@ details {
     margin-bottom: 0;
   }
 
+/* Messages sit in flow under the control. --field-message-position is the
+   interface for row compositions: with `absolute` (set by .fieldRow) they
+   overlay below the field instead of adding to its height, so the control
+   stays the field's bottom edge and a revealed error can't push a
+   bottom-aligned neighbor (button…) out of line. top/inset only apply then. */
 .field_hint,
 .field_error {
+  position: var(--field-message-position);
+  top: calc(100% + var(--field-spacing));
+  inset-inline: 0;
   font-size: var(--text-sm);
 }
 
@@ -3760,8 +3773,13 @@ details {
 
 /* Inline composition: fields and buttons on one wrapping row
    (newsletter signup, search bar…). Mix .fieldRow_field onto each field:
-   fieldRow never reaches into the field block itself. */
+   fieldRow never reaches into the field block itself, it only sets the
+   --field-message-position interface token so hints and errors overlay
+   below the row instead of pushing bottom-aligned buttons out of line.
+   Leave a little vertical room under the row for them. */
 .fieldRow {
+  --field-message-position: absolute;
+
   display: flex;
   flex-wrap: wrap;
   align-items: end;

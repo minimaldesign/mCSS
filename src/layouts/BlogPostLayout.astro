@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 
 import arrow from '../assets/icons/mail.svg?raw';
+import NewsletterSignup from '../components/_NewsletterSignup.astro';
 import ReadProgressBar from '../components/ReadProgressBar.astro';
 import Tags from '../components/Tags.astro';
 
@@ -50,6 +51,7 @@ const jsonLd = JSON.stringify({
     <a href={`mailto:hello@mcss.dev?subject=${encodeURIComponent(frontmatter.title)}`} class="bt bt-primary bt-lg mt-sm3">
       <Fragment set:html={arrow} /> Reply by email
     </a>
+    <NewsletterSignup />
     <!-- <aside>
     <h3>Browse all tags</h3>
     <ul>
