@@ -8,7 +8,7 @@ The official launch. Everything from the 0.9 beta reviewed, restructured, and bu
 
 ### Added
 
-- **Component library**: 23 documented components, from atoms (button, badge, toggle) through content patterns (card, hero, FAQ, testimonial, pricing, pagination) to full page chrome (header with mobile menu, footer, banner). Every one is dogfooded on mcss.dev itself.
+- **Component library**: 26 documented components, from atoms (button, badge, toggle) through content patterns (card, hero, FAQ, testimonial, pricing, pagination) to full page chrome (header with mobile menu, footer, banner). Every one is dogfooded on mcss.dev itself.
 - **Theme system**: themes are swappable skins, one CSS file that reskins the whole site. New `theme` cascade layer, `theme.default.css` as a copyable starting point, and `theme.wireframe.css`, a hand-drawn wireframe skin, as the worked example. See the [themes docs](https://mcss.dev/docs/themes).
 - **Layout library**: `global.layout.css` rebuilt from mcss.dev-specific styles into six page-level scaffolds: the `.layout` app shell (sticky footer) plus `.layout-centered`, `.layout-sidebar` (with a `.layout-sidebar-end` composition), `.layout-docs` (nav + main + TOC), `.layout-split`, and `.layout-cover`. Column widths come from the new `--layout-content-width` and `--layout-toc-width` tokens alongside `--layout-aside-width`. Every page on mcss.dev runs on them, with full-page demos under `/demos/layout/` and thumbnail diagrams in the [layouts docs](https://mcss.dev/docs/global#layouts).
 - **Marketing template**: a complete one-pager built only from the framework and library components, with a runtime theme switcher. [Live demo](https://mcss.dev/templates/marketing).
@@ -16,12 +16,14 @@ The official launch. Everything from the 0.9 beta reviewed, restructured, and bu
 - **MIT license.**
 - Logical spacing helpers (`mis-*`, `mie-*`, `pis-*`, `pie-*`) and `.text-start` / `.text-end`: reading-direction-relative twins of the physical `ml/mr/pl/pr` and `.text-left/right` helpers, which stay for purely visual offsets.
 - Machine-readable docs for AI agents, fluid heading scale, responsive grid gaps, themeable text selection color.
+- `--highlight-500` token: the text marker color, consumed by the `--marker-color` interface token (what `<mark>` uses), so themes can restyle highlights from the palette.
 
 ### Changed
 
 - The framework now uses **native CSS cascade layers**: `settings, base, elements, global, components, theme, helpers`. Layer order, not import order or specificity, decides priority, and your own unlayered CSS beats the framework by default.
 - Framework and docs-site CSS fully split (`src/styles/framework/` vs `src/styles/site/`).
 - Removed the `--layout-aside-background-color` interface token: no rule in the framework or the docs site ever consumed it. Style `.layout_content_aside` directly if you want an aside background.
+- Removed the `--meter-color` token for the same reason: the `meter` element paints with `--meter-color-track/low/med/high`, and nothing ever consumed `--meter-color`.
 - Docs site upgraded to Astro 7.
 
 ### Breaking

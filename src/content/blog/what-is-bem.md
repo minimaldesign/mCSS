@@ -56,7 +56,7 @@ While BEM is powerful, it's not always necessary. For simple styles that don’t
 
 ### Conclusion
 
-Adopting BEM can significantly improve your front-end development workflow by making your CSS more modular and maintainable. While it may take some getting used to, the benefits in clarity and structure are invaluable for any developer working on collaborative projects. Give BEM a try—it could be the key to cleaner, more efficient code!
+Adopting BEM can significantly improve your front-end development workflow by making your CSS more modular and maintainable. While it may take some getting used to, the benefits in clarity and structure are invaluable for any developer working on collaborative projects. Give BEM a try: it could be the key to cleaner, more efficient code!
 
 #### Resources
 

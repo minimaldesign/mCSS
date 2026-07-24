@@ -109,7 +109,6 @@ legend {
 
 meter {
   --meter-height: var(--sm1);
-  --meter-color: var(--primary-500);
   --meter-radius: var(--radius-md);
   --meter-color-track: var(--primary-100);
   --meter-color-low: var(--no-400);

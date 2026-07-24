@@ -1,7 +1,7 @@
 ---
 title: "Feature Grid"
 description: "Responsive grid of feature blurbs with icons, titles, and short descriptions."
-lastUpdate: 2026-07-16
+lastUpdate: 2026-07-23
 version: 0.5
 type: "component"
 ---
@@ -33,10 +33,10 @@ The `.featureGrid` component is the classic marketing "three columns of icon + t
 
 <div class="docs_oversizedTable">
 
-| File                                     | Description                    | Source      |
-| ---------------------------------------- | ------------------------------ | ----------- |
-| `component.featureGrid.css`              | Feature grid + item styles     | [Github][1] |
-| `FeatureGrid.astro`, `FeatureItem.astro` | The Astro components           | [Github][2] |
+| File                                         | Description                        | Source      |
+| -------------------------------------------- | ---------------------------------- | ----------- |
+| `component.featureGrid.css`                  | Feature grid + item styles         | [Github][1] |
+| `FeatureGrid.astro`, `FeatureItem.astro`     | The Astro components               | [Github][2] |
 | `--featureItem-*` block in `settings.ui.css` | Interface tokens (see table below) | [Github][3] |
 
 </div>
@@ -81,13 +81,22 @@ Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours t
     check: { preview: check, code: "<svg>[…]</svg>" },
   }}
   controls={[
-    { heading: "Layout", items: [
-      { type: "select", name: "cols", label: "Columns (from --lg)", default: "cols3", options: [
-        { label: "2", value: "cols2", class: "", attr: 'col-lg="2"' },
-        { label: "3", value: "cols3", class: "", attr: 'col-lg="3"' },
-        { label: "4", value: "cols4", class: "", attr: 'col-lg="4"' },
-      ]},
-    ]},
+    {
+      heading: "Layout",
+      items: [
+        {
+          type: "select",
+          name: "cols",
+          label: "Columns (from --lg)",
+          default: "cols3",
+          options: [
+            { label: "2", value: "cols2", class: "", attr: 'col-lg="2"' },
+            { label: "3", value: "cols3", class: "", attr: 'col-lg="3"' },
+            { label: "4", value: "cols4", class: "", attr: 'col-lg="4"' },
+          ],
+        },
+      ],
+    },
   ]}
 />
 
@@ -118,13 +127,13 @@ The following custom properties are available in [`settings.ui.css`](/docs/token
 
 <div class="docs_oversizedTable">
 
-| Property                             | Description                 |
-| ------------------------------------ | --------------------------- |
-| `--featureItem-icon-box-size`        | Icon container width/height. |
-| `--featureItem-icon-size`            | SVG width/height.           |
-| `--featureItem-icon-color`           | Icon (stroke/fill) color.   |
-| `--featureItem-icon-background-color`| Icon container background.  |
-| `--featureItem-icon-border-radius`   | Icon container radius.      |
+| Property                              | Description                  |
+| ------------------------------------- | ---------------------------- |
+| `--featureItem-icon-box-size`         | Icon container width/height. |
+| `--featureItem-icon-size`             | SVG width/height.            |
+| `--featureItem-icon-color`            | Icon (stroke/fill) color.    |
+| `--featureItem-icon-background-color` | Icon container background.   |
+| `--featureItem-icon-border-radius`    | Icon container radius.       |
 
 </div>
 
@@ -149,19 +158,21 @@ The following custom properties are available in [`settings.ui.css`](/docs/token
 
 <div class="docs_oversizedTable">
 
-| Prop    | Type     | Default     | Description                              |
-| ------- | -------- | ----------- | ---------------------------------------- |
-| `title` | `string` | `undefined` | The item's `h3`.                         |
-| `class` | `string` | `undefined` | Additional CSS classes.                  |
+| Prop         | Type     | Default     | Description                                  |
+| ------------ | -------- | ----------- | -------------------------------------------- |
+| `title`      | `string` | `undefined` | The item's `h3`.                             |
+| `class`      | `string` | `undefined` | Additional CSS classes.                      |
+| `titleClass` | `string` | `undefined` | Extra classes added to `.featureItem_title`. |
+| `iconClass`  | `string` | `undefined` | Extra classes added to `.featureItem_icon`.  |
 
 </div>
 
 <div class="docs_oversizedTable">
 
-| Slot      | Description                                          |
-| --------- | ---------------------------------------------------- |
-| `icon`    | An SVG icon, rendered in the tokenized icon box.     |
-| (default) | The item's body text.                                |
+| Slot      | Description                                      |
+| --------- | ------------------------------------------------ |
+| `icon`    | An SVG icon, rendered in the tokenized icon box. |
+| (default) | The item's body text.                            |
 
 </div>
 

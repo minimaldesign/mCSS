@@ -151,9 +151,6 @@ ul.docs_section_media {
     &:nth-child(6) div {
       border-radius: var(--radius-round);
     }
-    &:nth-child(7) div {
-      border-radius: var(--radius-drawn);
-    }
   }
 }
 

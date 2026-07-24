@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2026-07-21
+lastUpdate: 2026-07-23
 version: 1
 ---
 
@@ -71,7 +71,7 @@ The easiest ways to use mCSS in your own project:
 
 - **Drop-in file**: grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed.
 - **Individual files**: every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
-- **Source files**: copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][7]).
+- **Source files**: copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][presetEnv]).
 
 Run `npm run build:css` in the repo to produce `dist/` from source.
 
@@ -172,8 +172,8 @@ HTML:
 
 <!-- mCSS -->
 <form class="form">
-  <input class="formInput" type="text" />
-  <input class="formSubmit is-disabled" type="submit" />
+  <input class="form_input" type="text" />
+  <input class="form_submit is-disabled" type="submit" />
 </form>
 ```
 
@@ -185,13 +185,13 @@ CSS:
 }
 
 /* mCSS */
-.formSubmit {
+.form_submit {
   &.is-disabled {
   }
 }
 ```
 
-**One gotcha to keep in mind:** nesting a state inside its block compiles to a two-class selector (`.formSubmit.is-disabled`), which beats single-class modifiers like `.formSubmit-lg`. That's usually what you want: states describe what's happening *right now*, so they should win. But it means a state block is the wrong place to declare default values for custom properties. Declare defaults on the block itself, let modifiers override them, and only *use* the properties inside the state. Otherwise your size and color modifiers will mysteriously stop working the moment the state class shows up.
+**One gotcha to keep in mind:** nesting a state inside its block compiles to a two-class selector (`.form_submit.is-disabled`), which beats single-class modifiers like `.form_submit-lg`. That's usually what you want: states describe what's happening *right now*, so they should win. But it means a state block is the wrong place to declare default values for custom properties. Declare defaults on the block itself, let modifiers override them, and only *use* the properties inside the state. Otherwise your size and color modifiers will mysteriously stop working the moment the state class shows up.
 
 ```css
 .avatar {
@@ -219,7 +219,7 @@ CSS:
 
 <section class="docs_section prose">
 
-### Targetting HTML elements within a component
+### Targeting HTML elements within a component
 
 When using mCSS syntax **within a component**, it's considered overkill to create a class for every single HTML element you need to target.
 
@@ -242,7 +242,7 @@ For example, this is acceptable (and recommended) CSS for the tags component (`c
 
 ### Modifiers and component variations
 
-When using modifiers to create different variations of a component, it's recommended to use local custom propertie if possible instead of overriding the CSS directly.
+When using modifiers to create different variations of a component, it's recommended to use local custom properties if possible instead of overriding the CSS directly.
 
 ```css
 /* Don't do that */
@@ -296,6 +296,7 @@ The exact compile floor lives in `.browserslistrc` (`defaults and supports css-c
 [5]: /docs/tokens
 [6]: /docs/media-queries
 [7]: https://github.com/postcss/postcss-mixins
+[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
 [grid]: /docs/global#grid
 [wrap]: /docs/global#wrap
 [layout]: /docs/global#layouts

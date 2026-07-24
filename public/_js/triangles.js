@@ -9,7 +9,9 @@
   - Adjust ZOOM if you change density to keep edges filled
 */
 
-export function createTrianglesBackground({ target = ".hero canvas" } = {}) {
+export function createTrianglesBackground({
+  target = ".hero canvas, canvas.triangles",
+} = {}) {
   const PRIMARY_COLORS = [
     "#bae6fd",
     "#7dd3fc",
