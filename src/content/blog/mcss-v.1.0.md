@@ -14,25 +14,33 @@ Everything is still pure CSS (plus optional Astro components), still a copy + pa
 
 ## The component library
 
-The [component library][components] went from "a couple of components" to **26 documented components**, covering everything a content or marketing site needs: cards, heroes, FAQs, testimonials, pricing tables, pagination, a header with a proper mobile menu, a footer, banners... Each one is plain HTML and CSS first, with an Astro component on top if you want it, and each docs page lists exactly which files to copy.
+The [component library][components] went from "a couple of components" to 26 documented components, covering everything a content or marketing site needs: cards, heroes, FAQs, testimonials, pricing tables, header with mobile menu, footer… Each one is plain HTML and CSS first, or an Astro component if you want it.
 
 None of it is theoretical: every component is used on this very site.
 
 ## Themes
 
-The part I'm happiest about. A [theme][themes] in mCSS is **one CSS file that reskins your whole site**. Themes get their own cascade layer, sitting above the framework and below your own CSS, so a theme beats every default without ever fighting your code.
+The part I'm happiest about. A [theme][themes] in mCSS is one CSS file that reskins your whole site. Themes get their own cascade layer, sitting above the framework and below your own CSS, so a theme beats every default without ever competing with your code.
 
-To prove the system could do more than swap colors, 1.0 ships with a [wireframe theme][themes]: a hand-drawn skin with wobbly borders, paper-cutout shadows, and per-element sketch variation, done entirely in CSS.
+To show how the system can do more than swap colors, 1.0 ships with a [wireframe theme][themes]: hand-drawn styles with wobbly borders, paper-cutout shadows, and per-element sketch variation, all done in CSS.
 
 ## A template to start from
 
-New in 1.0: a complete [marketing one-pager][template] built only from the framework and the component library. Banner, header, hero, features, testimonials, pricing, FAQ, closing CTA, footer. Copy one file, swap the words, ship. There's a switcher on the live page that flips it between the default look and the wireframe theme, so you can see the theme system do its thing on a real page.
+New in 1.0: a complete [marketing one-pager][template] built with mCSS and the component library you can use as a starter file. Just copy it, swap the words, add you own theme, ship. There's a switcher on the live page that flips it between the default and wireframe themes, so you can see how it works.
 
 More templates are coming! And if you come up with a cool one, I'll definitely feature it here.
 
 ## Everything else
 
-The full list of changes since 0.9, including the breaking renames, is in the [changelog][changelog]. The short version: native cascade layers everywhere, a committed `dist/` build kept fresh by CI, an MIT license, and a lot of polish driven by a top-to-bottom audit.
+The full list of changes since 0.9, including the breaking renames, is in the [changelog][changelog]. The short version:
+
+- Native cascade layers everywhere
+- A bunch of components
+- New layouts
+- A `dist/` folder with copy + paste version of mCSS if you don't want to build it yourself
+- Much better documentation with component playgrounds
+- MIT license, and a lot of
+- Tons of small improvements throughout
 
 If you build something with mCSS, I'd love to see it. Come say hi in the [discussions][discussions].
 
