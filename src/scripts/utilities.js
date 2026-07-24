@@ -43,7 +43,9 @@ export function moveToFirstPosition(arr, key, value) {
   return arr;
 }
 
-export function getInitials(name = ":)") {
+// Pre-computed initials pass through untouched; a single-word name yields one
+// initial, and anything longer yields first and last.
+export function getInitials(name = "") {
   const fullName = name.trim();
   if (fullName.length <= 2) {
     return fullName.toUpperCase();
@@ -51,7 +53,10 @@ export function getInitials(name = ":)") {
   const names = fullName.split(/\s+/);
   const firstName = names[0];
   const lastName = names[names.length - 1];
-  const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+  const initials =
+    names.length === 1
+      ? firstName.charAt(0)
+      : `${firstName.charAt(0)}${lastName.charAt(0)}`;
   return initials.toUpperCase();
 }
 
