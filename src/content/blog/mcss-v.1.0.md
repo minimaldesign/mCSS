@@ -3,7 +3,7 @@ title: "mCSS 1.0"
 pubDate: 2026-07-21T12:00:00-07:00
 author: "Yann"
 tags: ["mCSS", "version history", "components", "themes"]
-description: "mCSS 1.0 is here: a full component library, a real theme system with a hand-drawn wireframe skin to prove it, and a complete marketing template you can copy and ship."
+description: "mCSS 1.0 is here! Revamped native layers cascade system, swappable themes, complete marketing starter template, copy + paste prebuilt dist file, and so much more…"
 ---
 
 ## It's 1.0!
@@ -39,7 +39,7 @@ The full list of changes since 0.9, including the breaking renames, is in the [c
 - New layouts
 - A `dist/` folder with copy + paste version of mCSS if you don't want to build it yourself
 - Much better documentation with component playgrounds
-- MIT license, and a lot of
+- MIT license
 - Tons of small improvements throughout
 
 If you build something with mCSS, I'd love to see it. Come say hi in the [discussions][discussions].
