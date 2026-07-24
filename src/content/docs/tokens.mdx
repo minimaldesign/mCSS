@@ -1,8 +1,8 @@
 ---
 title: "Tokens"
 description: "Design tokens: the CSS custom properties for color, typography, spacing, and more that customize the framework"
-lastUpdate: 2024-08-07
-version: 0.1
+lastUpdate: 2026-07-23
+version: 1
 ---
 
 import Notice from "../../components/Notice.astro";
@@ -114,6 +114,14 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 | `maybe-400` | #ffc220 | <div class="docs_box bgc-maybe-400"></div> |
 | `maybe-500` | #f9a007 | <div class="docs_box bgc-maybe-500"></div> |
 
+  ### Highlight
+
+The text marker color, consumed by the `--marker-color` interface token (what `<mark>` uses). Override `--highlight-500` in a theme to restyle every highlight.
+
+| Token           | Value   | Demo                                                                        |
+| --------------- | ------- | --------------------------------------------------------------------------- |
+| `highlight-500` | #ffee00 | <div class="docs_box" style="background-color: var(--highlight-500)"></div> |
+
   </div>
 </div>
 
@@ -187,16 +195,16 @@ There are 3 font stacks set up by default for the `font-family` CSS Property.
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `text`      | ui-sans-serif, system-ui, sans-serif                                                                                                                            |
 | `display`   | Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif, sans-serif                                                                              |
-| `monospace` | Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, ui-monospace, monospace |
+| `mono`      | Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, ui-monospace, monospace |
 
 These stacks are optimized for fonts available on device, to maximize for speed and alleviate any layout shifts or flashes. You can find more stacks at [Modern Font Stacks](https://modernfontstacks.com).
 
 If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.com), you can override the `display` and `text` tokens inside your theme file.
 
 <Notice type="info" title="Note" class="mb-sm3">
-  In case you're curious, `ui-sans-serif` is the system default, `sans-serif` is
-  the browser default, and `system-ui` is the system default, wether serif or
-  sans-serif.
+  In case you're curious, `ui-sans-serif` is the system's sans-serif UI font,
+  `system-ui` is the system's UI font whether serif or sans-serif, and
+  `sans-serif` is the browser default.
 </Notice>
 
 ### Font size
@@ -229,12 +237,12 @@ Headings use dedicated fluid tokens: each `--heading-*` interpolates with `clamp
 
 | Token       | Min (≤480px)         | Max (≥1024px)           |
 | ----------- | -------------------- | ----------------------- |
-| `heading-1` | `text-xl` (1.44rem)  | `display-md` (2.074rem) |
-| `heading-2` | `text-lg` (1.2rem)   | `display-sm` (1.728rem) |
-| `heading-3` | `text-lg` (1.2rem)   | `text-xl` (1.44rem)     |
-| `heading-4` | `text-md` (1rem)     | `text-lg` (1.2rem)      |
-| `heading-5` | `text-md` (1rem)     | `text-md` (static)      |
-| `heading-6` | `text-md` (1rem)     | `text-md` (static)      |
+| `heading-1` | `display-md` (2.074rem) | `display-xl` (2.986rem) |
+| `heading-2` | `display-sm` (1.728rem) | `display-lg` (2.488rem) |
+| `heading-3` | `text-xl` (1.44rem)     | `display-md` (2.074rem) |
+| `heading-4` | `text-lg` (1.2rem)      | `display-sm` (1.728rem) |
+| `heading-5` | `text-lg` (1.2rem)      | `text-xl` (1.44rem)     |
+| `heading-6` | `text-md` (1rem)        | `text-lg` (1.2rem)      |
 
 </div>
 

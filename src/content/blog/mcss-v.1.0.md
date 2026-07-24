@@ -14,7 +14,7 @@ Everything is still pure CSS (plus optional Astro components), still a copy + pa
 
 ## The component library
 
-The [component library][components] went from "a couple of components" to **23 documented components**, covering everything a content or marketing site needs: cards, heroes, FAQs, testimonials, pricing tables, pagination, a header with a proper mobile menu, a footer, banners... Each one is plain HTML and CSS first, with an Astro component on top if you want it, and each docs page lists exactly which files to copy.
+The [component library][components] went from "a couple of components" to **26 documented components**, covering everything a content or marketing site needs: cards, heroes, FAQs, testimonials, pricing tables, pagination, a header with a proper mobile menu, a footer, banners... Each one is plain HTML and CSS first, with an Astro component on top if you want it, and each docs page lists exactly which files to copy.
 
 None of it is theoretical: every component is used on this very site.
 

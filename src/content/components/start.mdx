@@ -1,21 +1,21 @@
 ---
 title: "Getting started"
 description: "How the mCSS component library works: copy the files you need into your project and own the code."
-lastUpdate: 2026-07-16
+lastUpdate: 2026-07-23
 version: 1.0
 type: "intro"
 ---
 
 <section class="prose">
 
-The mCSS component library is entirely built with the [mCSS framework](/docs/start), and you **own the code**: instead of installing a package, you copy the pieces you want into your project and edit them like anything else you wrote. Every component's docs page has a "What to copy" table listing exactly which files, icons, and interface tokens it needs.
+The mCSS component library is entirely built with the [mCSS framework](/docs/start), and you **own the code**: instead of installing a package, you copy the pieces you want into your project and edit them like anything else you wrote. Every component's docs page starts with a table listing exactly which files, dependencies, and interface tokens it needs.
 
 Each component comes in two flavors:
 
 - **Plain HTML + CSS.** Copy the `component.*.css` file (or grab the compiled version from [`dist/css/`](https://github.com/minimaldesign/mCSS/tree/main/dist/css)) and use the documented markup. Works with any framework, or none.
 - **Astro.** Copy the `.astro` file(s) for typed props, slots, and sensible accessibility defaults out of the box.
 
-Components stay deliberately close to the platform: almost everything here is zero-JavaScript (the exceptions are the [header](/components/header)'s mobile menu and the dismissible [banner](/components/banner), a few lines each). Styling lives in [cascade layers](/docs/start), so your own unlayered CSS always wins, and every visual knob is a documented `--component-*` [interface token](/docs/tokens#interface-tokens).
+Components stay deliberately close to the platform: almost everything here is zero-JavaScript. The exceptions ship only the few lines they need: the [header](/components/header)'s mobile menu, the dismissible [banner](/components/banner), the [hero](/components/hero)'s slideshow, the [table of contents](/components/toc)' scrollspy, and the [read progress bar](/components/readprogressbar)'s fallback for browsers without scroll-driven animations. Styling lives in [cascade layers](/docs/start), so your own unlayered CSS always wins, and every visual knob is a documented `--component-*` [interface token](/docs/tokens#interface-tokens).
 
 You can see some of the Astro components in action on the [Marketing Template](/templates/marketing) ([code](https://github.com/minimaldesign/mCSS/blob/main/src/pages/templates/marketing.astro)).
 

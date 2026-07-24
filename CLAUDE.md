@@ -39,7 +39,7 @@ All architectural detail is in the `agents/` directory — read these before mak
 
 ## Formatting
 
-- Never use em dashes in prose (site copy, docs, comments, commit messages). Use periods, commas, colons, or parentheses instead.
+- No em/en dashes in sentence construction (site copy, docs, comments, commit messages): when a period, comma, colon, or parentheses would work, use that instead. Legitimately correct typographic uses are fine: ranges (`h1`–`h6`, ideally a closed-up en dash), the dash introducing the name or source of a quote, table-cell placeholders for "no default".
 - 2 spaces everywhere, including `.css` (enforced by `.editorconfig`).
 - Relative imports for all local Astro components.
 - JSX targets Preact (`jsxImportSource: "preact"` in `tsconfig.json`) — do not import from React.

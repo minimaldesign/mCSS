@@ -1,8 +1,8 @@
 ---
 title: "Media Queries"
 description: "Breakpoints and custom media queries used across the framework"
-lastUpdate: 2024-08-13
-version: 0.1
+lastUpdate: 2026-07-23
+version: 1
 ---
 
 import Notice from "../../components/Notice.astro";
@@ -72,8 +72,49 @@ Using the `md` dimension as an example:
 | `@media(--md-only) {}`    | `(480px <= width < 768px);`     |
 | `@media(--md) {}`         | `(width >= 768px);`             |
 | `@media(--md-n-above) {}` | `(width >= 768px);`             |
-| `@media(--md-n-below) {}` | `(width <section 768px);`       |
+| `@media(--md-n-below) {}` | `(width < 768px);`              |
 | `@media(--md-phone) {}`   | `(--md-only) and (--portrait);` |
+
+</div>
+
+The `-phone` variant is available from `xxs` through `lg` (there is no `xl-phone` or `xxl-phone`).
+
+### User preferences
+
+These map to the `prefers-*` and related media features, so you can respect user settings without memorizing the syntax:
+
+<div class="docs_oversizedTable">
+
+| Custom media query  | Matches                                    |
+| ------------------- | ------------------------------------------ |
+| `--motionOK`        | `(prefers-reduced-motion: no-preference)`  |
+| `--motionNotOK`     | `(prefers-reduced-motion: reduce)`         |
+| `--opacityOK`       | `(prefers-reduced-transparency: no-preference)` |
+| `--opacityNotOK`    | `(prefers-reduced-transparency: reduce)`   |
+| `--useDataOK`       | `(prefers-reduced-data: no-preference)`    |
+| `--useDataNotOK`    | `(prefers-reduced-data: reduce)`           |
+| `--OSdark`          | `(prefers-color-scheme: dark)`             |
+| `--OSlight`         | `(prefers-color-scheme: light)`            |
+| `--highContrast`    | `(prefers-contrast: more)`                 |
+| `--lowContrast`     | `(prefers-contrast: less)`                 |
+| `--invertedColors`  | `(inverted-colors: inverted)`              |
+| `--forcedColors`    | `(forced-colors: active)`                  |
+
+</div>
+
+### Device capabilities
+
+<div class="docs_oversizedTable">
+
+| Custom media query | Matches                                      |
+| ------------------ | -------------------------------------------- |
+| `--portrait`       | `(orientation: portrait)`                    |
+| `--landscape`      | `(orientation: landscape)`                   |
+| `--HDcolor`        | `(dynamic-range: high) or (color-gamut: p3)` |
+| `--touch`          | `(hover: none) and (pointer: coarse)`        |
+| `--stylus`         | `(hover: none) and (pointer: fine)`          |
+| `--pointer`        | `(hover) and (pointer: coarse)`              |
+| `--mouse`          | `(hover) and (pointer: fine)`                |
 
 </div>
 
