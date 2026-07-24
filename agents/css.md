@@ -12,7 +12,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
    `settings, base, elements, global, components, theme, helpers`
    The order runs **from default to deliberate**: `settings` through `components` are the framework's defaults, `theme` is a deliberate override of those defaults, helpers are the last word. (Not "generic to specific": a theme is broad in reach but late in intent, and intent decides cascade order.)
 2. **Unlayered CSS beats every layer for normal declarations.** That's the consumer guarantee ("your CSS wins") and why site CSS is unlayered.
-3. **The `theme` layer holds at most one active theme** (`theme.*.css`): token overrides plus optional skin rules. Theme files are self-layered (each wraps its own content in `@layer theme`) and are **never imported by `mcss.css`**; the consumer entry activates one (see `_global.css`). No theme = the default look. Unlayered consumer CSS still beats themes.
+3. **The `theme` layer holds at most one active theme** (`theme.*.css`): token overrides plus optional style rules. Theme files are self-layered (each wraps its own content in `@layer theme`) and are **never imported by `mcss.css`**; the consumer entry activates one (see `_global.css`). No theme = the default look. Unlayered consumer CSS still beats themes.
 4. **Helpers are the exception: every helper declaration carries `!important`.** Important layered declarations beat unlayered CSS (the cascade inverts for important), so helpers win over site and consumer CSS too. They're element-level overrides, like inline styling. For important declarations layer order also inverts (earlier layer wins), which is why the reduced-motion block in `base.reset.css` still beats helpers.
 5. `!important` is REQUIRED in every helper declaration and banned everywhere else in the framework, except the reduced-motion block in `base.reset.css` and third-party override files (see `site/external.astro.css`). `help.colors.css` and `help.spacing.css` get it from their generators.
 6. `postcss.config.cjs` disables preset-env's `cascade-layers` polyfill. **Never remove that option** — the polyfill strips every `@layer` rule and silently replaces the cascade with specificity hacks. The browser floor is set in `.browserslistrc` (`defaults and supports css-cascade-layers`).
@@ -26,7 +26,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 | elements   | `elements.*`  | Bare HTML element styles (text, form, media)                |
 | global     | `global.*`    | Structural patterns (a11y, grid, layout, prose, wrap)       |
 | components | `component.*` | Library components (card, hero, notice, …), including CSS-only single-class ones (badge, button, toggle) |
-| theme      | `theme.*`     | Swappable skins: token overrides + skin rules, self-layered via `@layer theme`, activated by the consumer entry (never by `mcss.css`) |
+| theme      | `theme.*`     | Swappable skins: token overrides + style rules, self-layered via `@layer theme`, activated by the consumer entry (never by `mcss.css`) |
 | helpers    | `help.*`      | Utility overrides (colors, spacing, typography), all `!important`: beats everything, including unlayered CSS |
 
 `page.*` is a file-naming convention only (page-specific styles, e.g. site `page.docs.css`); those files are plain unlayered consumer CSS, there is no `pages` layer.

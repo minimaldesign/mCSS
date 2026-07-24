@@ -3,7 +3,7 @@
 /*
   A hand-drawn wireframe skin: grayscale palette, rounded type, wobbly
   borders, paper-cutout shadows, and a traced-twice pencil stroke on
-  cards and buttons. Mostly token overrides; the skin rules at the
+  cards and buttons. Mostly token overrides; the style rules at the
   bottom cover what tokens can't express. See theme.default.css for how
   themes work and how to activate one.
 */
@@ -140,9 +140,8 @@
   }
 
   /*
-    SKIN RULES: the hand-drawn tells tokens can't express. Theme files
-    are the one place allowed to select component classes from outside
-    (see agents/css.md).
+    STYLE RULES: the hand-drawn tells tokens can't express. Theme files
+    are the one place allowed to select component classes from outside.
   */
 
   /* Wavy underlines. Only the style longhand is set, so links whose

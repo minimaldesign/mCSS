@@ -37,7 +37,7 @@ xxl: 1920px
   background: var(--badge-background-color);
   border-radius: var(--badge-border-radius);
 
-  /* Variants only swap the local custom properties (see agents/components.md) */
+  /* Variants only swap the local custom properties */
 }
 
   .badge.badge-primary {

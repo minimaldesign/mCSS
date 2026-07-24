@@ -10,7 +10,7 @@
   background: var(--badge-background-color);
   border-radius: var(--badge-border-radius);
 
-  /* Variants only swap the local custom properties (see agents/components.md) */
+  /* Variants only swap the local custom properties */
 
   &.badge-primary {
     --badge-color: var(--badge-primary-color);

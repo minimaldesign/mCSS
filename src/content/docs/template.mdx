@@ -11,9 +11,16 @@ A complete marketing one-pager built from nothing but the framework and the comp
 
 **[Open the live template](/templates/marketing)**, and use the switcher in its bottom corner to flip the whole page between the default look and the [wireframe theme](/docs/themes): same markup, one stylesheet swapped.
 
-The copy is in on the joke. The structure is the one every one-pager uses (hero, feature grid, testimonials, three pricing tiers, FAQ, closing CTA) and the words point at each convention as it arrives. Replace them with your own and the page stops winking.
+The whole page sits on the base [`.layout` scaffold](/docs/global#layouts): `<body class="layout">` wrapping a `.layout_content` main, which gives the header / content / footer app shell with a sticky footer. Inside that shell, from top to bottom:
 
-From top to bottom it composes: [Banner](/components/banner), [Header](/components/header) (sticky, with mobile menu), [Hero](/components/hero) (full variant on a gradient), [Section](/components/section) with a [FeatureGrid](/components/featuregrid), a filled Section of [Testimonials](/components/testimonial) on the grid, a [Pricing](/components/pricing) row, an [FAQ](/components/faq) with exclusive-open items, the closing-CTA Section recipe, and a [Footer](/components/footer).
+- [Banner](/components/banner)
+- [Header](/components/header) (sticky, with mobile menu)
+- [Hero](/components/hero) (full variant on a gradient)
+- [Section](/components/section) with a [FeatureGrid](/components/featuregrid), a filled Section of [Testimonials](/components/testimonial) on the grid
+- [Pricing](/components/pricing)
+- [FAQ](/components/faq) with exclusive-open items
+- Closing-CTA [Section](/components/section)
+- [Footer](/components/footer).
 
 </section>
 
@@ -21,23 +28,23 @@ From top to bottom it composes: [Banner](/components/banner), [Header](/componen
 
 <section class="prose">
 
-Copy [`marketing.astro`][srcTemplate] into your own `src/pages/` (as `index.astro`, most likely) and swap the copy, links, and pricing for your own. The placeholder copy is a bit, so all of it goes. Everything it needs is listed below; if you copied the whole framework and component library per [Getting started](/docs/start), you already have all of it.
+Copy [`marketing.astro`][srcTemplate] into your own `src/pages/` (as `index.astro`, most likely) and definitely swap the copy, links, and pricing for your own. Everything it needs is listed below; if you copied the whole framework and component library per [Getting started](/docs/start), you already have all of it.
 
 Two blocks in the file exist for the docs demo and are safe to touch:
 
-- The **theme switcher** at the bottom (marked with a comment) is demo chrome. Delete it, or keep the pattern if you want visitors to flip themes at runtime: it toggles the theme stylesheet's `media` attribute between `not all` and `all`. It avoids the `disabled` attribute because Chromium never loads a parser-created disabled stylesheet.
+- The **theme switcher** at the bottom (marked with a comment) is just for the demo. Delete it.
 - The **inline `@layer` statement** at the top of `<head>` pins the cascade-layer order before any stylesheet loads. Only needed when a theme is loaded as a separate `<link>` (layer priority is set by first occurrence, and the theme link may parse first). If you activate your theme with an `@import` in your entry CSS instead, you can drop it.
 
 <div class="docs_oversizedTable">
 
-| What                | Files                                                                                                                              |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| The page            | `src/pages/templates/marketing.astro` ([source][srcTemplate])                                                                       |
-| Astro components    | `Banner`, `Header`, `Hero`, `Section`, `FeatureGrid`, `FeatureItem`, `Testimonial`, `Avatar` (used by Testimonial), `PricingCard`, `Faq`, `FaqItem`, `Footer` ([source][srcComponents]) |
-| Framework CSS       | The framework entry `mcss.css` covers every component style used ([source][srcFramework])                                           |
-| Theme (optional)    | `theme.wireframe.css`, only if you keep the switcher ([source][srcWireframe])                                                       |
-| Icons               | `menu`, `x`, `check`, `circle-check`, `moon-star`, `external-link`, `rotate-ccw`, `mail`, `heart` ([source][srcIcons])               |
-| Scripts             | `src/scripts/utilities.js` (the Header's scroll throttle) ([source][srcScripts])                                                    |
+| What             | Files                                                                                                                                                                                   |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The page         | `src/pages/templates/marketing.astro` ([source][srcTemplate])                                                                                                                           |
+| Astro components | `Banner`, `Header`, `Hero`, `Section`, `FeatureGrid`, `FeatureItem`, `Testimonial`, `Avatar` (used by Testimonial), `PricingCard`, `Faq`, `FaqItem`, `Footer` ([source][srcComponents]) |
+| Framework CSS    | The framework entry `mcss.css` covers every component and layout style used ([source][srcFramework])                                                                                    |
+| Theme (optional) | `theme.wireframe.css`, only if you keep the switcher ([source][srcWireframe])                                                                                                           |
+| Icons            | `menu`, `x`, `check`, `circle-check`, `moon-star`, `external-link`, `rotate-ccw`, `mail`, `heart` ([source][srcIcons])                                                                  |
+| Scripts          | `src/scripts/utilities.js` (the Header's scroll throttle) ([source][srcScripts])                                                                                                        |
 
 </div>
 
@@ -50,7 +57,7 @@ Two blocks in the file exist for the docs demo and are safe to touch:
 
 </section>
 
-## Recipes worth stealing
+## Useful recipes
 
 <section class="prose">
 
