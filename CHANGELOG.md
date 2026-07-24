@@ -2,7 +2,9 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
-## Unreleased
+## 1.1.0 (2026-07-24)
+
+Tiles: one container-responsive list component replacing CardList and FeatureGrid.
 
 ### Added
 
@@ -17,6 +19,11 @@ All notable changes to mCSS. The framework follows the copy-it-you-own-it model:
 ### Breaking
 
 - `.cardList` and `.featureGrid` are gone, replaced by [Tiles](https://mcss.dev/components/tiles): `<ul class="cardList grid" col="1" col-md="2" col-lg="3">` is now `<ul class="tiles">`, and `<ul class="featureGrid grid" …>` is `<ul class="tiles tiles-sm">` (`.featureItem` markup is unchanged). The lists no longer ride on the `.grid` attribute system (which is unchanged for your own grids); instead of picking column counts per viewport breakpoint, you pick the tile size and the container's width decides. `CardList.astro` / `FeatureGrid.astro` are replaced by `Tiles.astro` (`size="sm"` for the former FeatureGrid), and the `cols` prop is gone.
+
+### Fixed
+
+- `getInitials` (the Avatar byline helper in `src/scripts/utilities.js`) doubled the first letter of a single-word name, so "Yann" rendered as "YY". Single-word names now yield one initial; pre-computed initials like "SR" still pass through untouched.
+- The wireframe theme's per-element sketch tilt is live again: postcss-preset-env's `random-function` polyfill is now disabled (alongside the existing `cascade-layers`), so native `random()` passes through instead of being frozen into a single source-length-seeded value that also churned `dist/` on every edit.
 
 ## 1.0.0 (2026-07-21)
 
