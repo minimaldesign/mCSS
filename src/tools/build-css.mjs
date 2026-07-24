@@ -40,7 +40,12 @@ const plugins = (withImport) =>
     postcssMixins(),
     postcssPresetEnv({
       stage: 2,
-      features: { "cascade-layers": false },
+      // Keep in sync with postcss.config.cjs. cascade-layers: mCSS ships
+      // native @layer, the polyfill would strip it. random-function: let
+      // native random() pass through so it doesn't freeze into a static,
+      // source-length-seeded value that churns dist on any edit (the
+      // wireframe theme's tier 1 sibling-index() math is the fallback).
+      features: { "cascade-layers": false, "random-function": false },
     }),
   ].filter(Boolean);
 
