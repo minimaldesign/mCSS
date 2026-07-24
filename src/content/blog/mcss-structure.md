@@ -12,12 +12,12 @@ description: "An overview of how and why mCSS file structure is organized the wa
 
 If you look at the imports in `mcss.css` [on Github][1], you'll get the basic idea behind mCSS structure. Each file belongs to a layer, and the layers keep the cascade working _for_ us as opposed to specificity wars and cascading conflicts. This architecture is based on [ITCSS][itcss]. The basic idea is to organize CSS from least specific/broadest reach to most specific/local override so you get a smooth [specificity graph][graph] trending upward.
 
-- Tokens & Themes (`settings`): where all the global variables are set, and easy ways to override them.
+- Settings: where all the global variables are set (tokens and interface tokens).
 - Base: your reset and normalize rules.
 - Elements: HTML elements defaults, without any classes.
 - Global: layouts like `.wrap` and `.grid` and global styling like `.prose`.
 - Components: component specific styling, from single-class pieces like `.bt` buttons to full structures.
-- Pages: page specific styling.
+- Theme: a swappable skin, one file of token overrides that reskins the whole site.
 - Helpers: local overrides (last layer, so they beat everything above).
 - Your own CSS imports unlayered, after the framework, and wins over all of it.
 
