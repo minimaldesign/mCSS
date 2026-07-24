@@ -1,5 +1,11 @@
 /* FEATURE ITEM */
 
+.featureItem {
+  /* As a .tiles item the li is display:grid (equal-height rows); keep
+     the icon/title/text packed at the top instead of stretching apart */
+  align-content: start;
+}
+
 .featureItem_icon {
   display: flex;
   align-items: center;

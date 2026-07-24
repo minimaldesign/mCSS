@@ -13,17 +13,20 @@ import Playground from "../../components/_Playground.jsx";
 
 The `.testimonial` component is a quote with attribution: a `figure` wrapping mCSS's already-styled `blockquote`, plus an [Avatar](/components/avatar) byline. Pure HTML and CSS.
 
-<Testimonial name="Sonny Mueller" role="Design lead, Acme">
-  <p>We deleted four hundred lines of utility classes the week we switched. The cascade does the work now.</p>
+<Testimonial name="Sonny Rollins" role="Design lead, Acme">
+  <p>
+    We deleted four hundred lines of utility classes the week we switched. The
+    cascade does the work now.
+  </p>
 </Testimonial>
 
 <div class="docs_oversizedTable">
 
-| File                                    | Description                           | Source      |
-| --------------------------------------- | ------------------------------------- | ----------- |
-| `component.testimonial.css`              | Layout + byline styles                | [Github][1] |
-| `elements.text.css`                      | The `blockquote` styling (dependency) | [Github][2] |
-| `Testimonial.astro`, `Avatar.astro`      | The Astro components                  | [Github][3] |
+| File                                            | Description                           | Source      |
+| ----------------------------------------------- | ------------------------------------- | ----------- |
+| `component.testimonial.css`                     | Layout + byline styles                | [Github][1] |
+| `elements.text.css`                             | The `blockquote` styling (dependency) | [Github][2] |
+| `Testimonial.astro`, `Avatar.astro`             | The Astro components                  | [Github][3] |
 | `--testimonial-role-color` in `settings.ui.css` | Interface token                       | [Github][4] |
 
 </div>
@@ -54,14 +57,31 @@ The `.testimonial` component is a quote with attribution: a `figure` wrapping mC
   </figcaption>
 </figure>`}
   controls={[
-    { heading: "Content", items: [
-      { type: "text", name: "quote", label: "Quote", default: "We deleted four hundred lines of utility classes the week we switched." },
-    ]},
-    { heading: "Byline", items: [
-      { type: "text", name: "name", label: "Name", default: "Sonny Mueller" },
-      { type: "text", name: "role", label: "Role", default: "Design lead, Acme" },
-      { type: "text", name: "initials", label: "Initials", default: "SM" },
-    ]},
+    {
+      heading: "Content",
+      items: [
+        {
+          type: "text",
+          name: "quote",
+          label: "Quote",
+          default:
+            "We deleted four hundred lines of utility classes the week we switched.",
+        },
+      ],
+    },
+    {
+      heading: "Byline",
+      items: [
+        { type: "text", name: "name", label: "Name", default: "Sonny Rollins" },
+        {
+          type: "text",
+          name: "role",
+          label: "Role",
+          default: "Design lead, Acme",
+        },
+        { type: "text", name: "initials", label: "Initials", default: "SM" },
+      ],
+    },
   ]}
 />
 
@@ -72,12 +92,14 @@ The `.testimonial` component is a quote with attribution: a `figure` wrapping mC
 ```html
 <figure class="testimonial">
   <blockquote class="testimonial_quote">
-    <p>We deleted four hundred lines of utility classes the week we switched.</p>
+    <p>
+      We deleted four hundred lines of utility classes the week we switched.
+    </p>
   </blockquote>
   <figcaption class="testimonial_byline">
     <!-- avatar markup, see the Avatar docs -->
     <div>
-      <span class="testimonial_name">Sonny Mueller</span>
+      <span class="testimonial_name">Sonny Rollins</span>
       <span class="testimonial_role">Design lead, Acme</span>
     </div>
   </figcaption>
@@ -88,9 +110,9 @@ The `.testimonial` component is a quote with attribution: a `figure` wrapping mC
 
 <div class="docs_oversizedTable">
 
-| Property                   | Description       |
-| -------------------------- | ----------------- |
-| `--testimonial-role-color` | Role text color.  |
+| Property                   | Description      |
+| -------------------------- | ---------------- |
+| `--testimonial-role-color` | Role text color. |
 
 </div>
 
@@ -104,12 +126,12 @@ The quote itself is themed by the `blockquote` element styles.
 
 <div class="docs_oversizedTable">
 
-| Prop        | Type                      | Default     | Description                                     |
-| ----------- | ------------------------- | ----------- | ------------------------------------------------ |
+| Prop        | Type                      | Default     | Description                                                                    |
+| ----------- | ------------------------- | ----------- | ------------------------------------------------------------------------------ |
 | `name`      | `string`                  | —           | Who said it. Required (also feeds the Avatar initials when there is no photo). |
-| `role`      | `string`                  | `undefined` | Title/company line.                              |
-| `avatarSrc` | `ImageMetadata \| string` | `undefined` | Photo for the Avatar.                            |
-| `class`     | `string`                  | `undefined` | Additional CSS classes.                          |
+| `role`      | `string`                  | `undefined` | Title/company line.                                                            |
+| `avatarSrc` | `ImageMetadata \| string` | `undefined` | Photo for the Avatar.                                                          |
+| `class`     | `string`                  | `undefined` | Additional CSS classes.                                                        |
 
 </div>
 

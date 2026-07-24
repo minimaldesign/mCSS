@@ -332,7 +332,7 @@ xxl: 1920px
 
 :root {
   /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
-     classes below. Unrelated to theme files, which are full skins. */
+     classes below. Unrelated to theme files, which are full themes. */
   --csstools-color-scheme--light: initial;
   color-scheme: light dark;
 
@@ -895,7 +895,7 @@ xxl: 1920px
 }
 }
 
-/* FeatureGrid */
+/* FeatureItem */
 
 :root {
   --featureItem-icon-box-size: var(--lg3);
@@ -1247,6 +1247,10 @@ xxl: 1920px
 }
 }
 
+/* Tiles: no tokens. The container thresholds live in component.tiles.css
+   (container queries can't read custom properties), and --tiles-columns
+   is set there; pin it on a hook class of your own to opt out. */
+
 /* TOC */
 
 :root {
@@ -1259,14 +1263,13 @@ xxl: 1920px
 }
 
 /*
-  Themes are NOT imported here. A theme (theme.*.css) is a swappable skin:
-  token overrides plus optional style rules, wrapped in its own @layer theme
-  block so it lands in the theme slot declared above however it's loaded.
-  Activate exactly one from your own entry point, after this file:
-
-    @import url(./theme.wireframe.css);
-
-  No theme imported = the default look (settings.* holds every default).
+  No theme is imported here, ever: the framework only declares the empty
+  `theme` slot above. A theme (theme.*.css) is part of YOUR css: a swappable
+  theme of token overrides plus optional style rules that you activate, at
+  most one, from your own entry point (see _global.css for this site's).
+  Theme files self-layer (@layer theme inside the file), so wherever that
+  import sits it lands in this slot.
+  None imported = the default look (settings.* holds every default).
 */
 
 /* Reset & Normalize */
@@ -2861,6 +2864,13 @@ details {
     flex: 1;
   }
 
+/* The main column is a size container: container-responsive components
+   (Tiles) pick their column count from it instead of the viewport.
+   Named, so custom rules can target it with @container main. */
+.layout_content_main {
+  container: main / inline-size;
+}
+
 /* Single centered reading column: articles, blog posts, legal pages. */
   .layout-centered .layout_content {
     display: grid;
@@ -3711,22 +3721,6 @@ details {
 
 @layer components{
 
-/* CARD LIST */
-
-.cardList {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-  .cardList  > li {
-    /* grid items stretch, so cards in a row share the same height */
-    display: grid;
-  }
-}
-
-@layer components{
-
 /* FAQ */
 
 .faq {
@@ -3749,18 +3743,13 @@ details {
 
 @layer components{
 
-/* FEATURE GRID */
-
-.featureGrid {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-}
-
-@layer components{
-
 /* FEATURE ITEM */
+
+.featureItem {
+  /* As a .tiles item the li is display:grid (equal-height rows); keep
+     the icon/title/text packed at the top instead of stretching apart */
+  align-content: start;
+}
 
 .featureItem_icon {
   display: flex;
@@ -4786,6 +4775,117 @@ details {
   .tags-inline li {
     margin-bottom: 0;
   }
+}
+
+@layer components{
+
+/* TILES */
+
+/*
+  Equal tiles in container-responsive columns: cards, feature items,
+  pricing tiers, anything repeated at one size. The column count answers
+  "how wide is the column I live in", not "how wide is the viewport": the
+  .layout scaffolds declare their main column as a size container; outside
+  a scaffold, wrap the list in a .tiles_container (or any inline-size
+  container). The wrapper is required there: with no container ancestor
+  the queries never match and the list stays single-column.
+
+  Sizes name the tile: each one is a set of container thresholds tuned to
+  how much room that tile needs, and columns keep coming as the container
+  crosses them (no count cap; the column's width is the cap). A bare
+  .tiles uses the md thresholds (card-sized tiles); .tiles-sm fits small
+  icon + blurb tiles, so its columns appear sooner. The thresholds are
+  deliberately not the global viewport breakpoints: those can't see how
+  wide the column is. To pin a count yourself, set --tiles-columns on a
+  hook class of your own (unlayered CSS beats the rules below), or write
+  your own @container rules.
+*/
+
+.tiles {
+  --tiles-columns: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--tiles-columns), 1fr);
+  grid-column-gap: var(--grid-column-gap);
+  grid-row-gap: var(--grid-row-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+  .tiles  > li {
+    /* grid items stretch, so tiles in a row share the same height */
+    display: grid;
+  }
+
+/* md, the default (.tiles-md exists as the explicit spelling): a tile
+   keeps roughly 17rem of room */
+@container (width >= 36rem) {
+  .tiles {
+    --tiles-columns: 2;
+  }
+}
+
+@container (width >= 56rem) {
+  .tiles {
+    --tiles-columns: 3;
+  }
+}
+
+@container (width >= 76rem) {
+  .tiles {
+    --tiles-columns: 4;
+  }
+}
+
+@container (width >= 96rem) {
+  .tiles {
+    --tiles-columns: 5;
+  }
+}
+
+@container (width >= 116rem) {
+  .tiles {
+    --tiles-columns: 6;
+  }
+}
+
+/* sm: a tile keeps roughly 13rem of room. Same specificity as the base
+   rules, so these must stay after them (a smaller tile never means fewer
+   columns at the same width). */
+@container (width >= 28rem) {
+  .tiles-sm {
+    --tiles-columns: 2;
+  }
+}
+
+@container (width >= 44rem) {
+  .tiles-sm {
+    --tiles-columns: 3;
+  }
+}
+
+@container (width >= 60rem) {
+  .tiles-sm {
+    --tiles-columns: 4;
+  }
+}
+
+@container (width >= 76rem) {
+  .tiles-sm {
+    --tiles-columns: 5;
+  }
+}
+
+@container (width >= 92rem) {
+  .tiles-sm {
+    --tiles-columns: 6;
+  }
+}
+
+/* Fallback container for tiles used outside the .layout scaffolds */
+.tiles_container {
+  container-type: inline-size;
+}
 }
 
 @layer components{

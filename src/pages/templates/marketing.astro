@@ -12,7 +12,7 @@ import Banner from '../../components/Banner.astro';
 import Header from '../../components/Header.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
-import FeatureGrid from '../../components/FeatureGrid.astro';
+import Tiles from '../../components/Tiles.astro';
 import FeatureItem from '../../components/FeatureItem.astro';
 import Testimonial from '../../components/Testimonial.astro';
 import PricingCard from '../../components/PricingCard.astro';
@@ -74,32 +74,36 @@ const navItems = [
       </Hero>
 
       <Section id="features" eyebrow="Features" title="Six features, because six fills the grid" lede="Three across, two down, one icon each. The icons took ninety seconds to pick and it shows.">
-        <FeatureGrid cols={3}>
-          <FeatureItem title="Accessible, genuinely">
-            <Fragment slot="icon" set:html={circleCheck} />
-            <p>The one claim on this page we'd defend in public. Keyboard, contrast, and focus states are handled before you write a line.</p>
-          </FeatureItem>
-          <FeatureItem title="Dark mode">
-            <Fragment slot="icon" set:html={moonStar} />
-            <p>Every product has this now. It stopped being a feature years ago. Here it is in a box with an icon anyway.</p>
-          </FeatureItem>
-          <FeatureItem title="No lock-in">
-            <Fragment slot="icon" set:html={externalLink} />
-            <p>The traditional promise of software that doesn't yet have anything to lock you into. Plain HTML and CSS, hosted wherever.</p>
-          </FeatureItem>
-          <FeatureItem title="Instant rollbacks">
-            <Fragment slot="icon" set:html={rotateCcw} />
-            <p>For the typo you're going to ship on a Friday. Every deploy is kept, so it stays a one-click problem.</p>
-          </FeatureItem>
-          <FeatureItem title="Human support">
-            <Fragment slot="icon" set:html={mail} />
-            <p>A real person replies. Currently that person is also the founder, the designer, and whoever wrote this sentence.</p>
-          </FeatureItem>
-          <FeatureItem title="Open source core">
-            <Fragment slot="icon" set:html={heart} />
-            <p>MIT licensed and developed in the open. Also the heart was the last icon left in the folder.</p>
-          </FeatureItem>
-        </FeatureGrid>
+        {/* This page runs on the bare .layout shell, so the Tiles list needs
+            its own size container (the scaffolds' main column provides one) */}
+        <div class="tiles_container">
+          <Tiles size="sm">
+            <FeatureItem title="Accessible, genuinely">
+              <Fragment slot="icon" set:html={circleCheck} />
+              <p>The one claim on this page we'd defend in public. Keyboard, contrast, and focus states are handled before you write a line.</p>
+            </FeatureItem>
+            <FeatureItem title="Dark mode">
+              <Fragment slot="icon" set:html={moonStar} />
+              <p>Every product has this now. It stopped being a feature years ago. Here it is in a box with an icon anyway.</p>
+            </FeatureItem>
+            <FeatureItem title="No lock-in">
+              <Fragment slot="icon" set:html={externalLink} />
+              <p>The traditional promise of software that doesn't yet have anything to lock you into. Plain HTML and CSS, hosted wherever.</p>
+            </FeatureItem>
+            <FeatureItem title="Instant rollbacks">
+              <Fragment slot="icon" set:html={rotateCcw} />
+              <p>For the typo you're going to ship on a Friday. Every deploy is kept, so it stays a one-click problem.</p>
+            </FeatureItem>
+            <FeatureItem title="Human support">
+              <Fragment slot="icon" set:html={mail} />
+              <p>A real person replies. Currently that person is also the founder, the designer, and whoever wrote this sentence.</p>
+            </FeatureItem>
+            <FeatureItem title="Open source core">
+              <Fragment slot="icon" set:html={heart} />
+              <p>MIT licensed and developed in the open. Also the heart was the last icon left in the folder.</p>
+            </FeatureItem>
+          </Tiles>
+        </div>
       </Section>
 
       <Section variant="filled" eyebrow="Testimonials" title="Three people said three nice things" lede="The legal minimum. Two looks desperate and four doesn't fit the grid.">

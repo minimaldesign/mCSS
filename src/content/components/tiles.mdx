@@ -1,0 +1,184 @@
+---
+title: "Tiles"
+description: "Equal tiles in container-responsive columns: cards, feature items, pricing tiers, anything repeated at one size."
+lastUpdate: 2026-07-24
+version: 0.1
+type: "component"
+---
+
+import Tiles from "../../components/Tiles.astro";
+import Card from "../../components/Card.astro";
+import Playground from "../../components/_Playground.jsx";
+
+<section class="prose">
+
+The `.tiles` component lays out repeated, same-size items (cards, feature items, pricing tiers) in equal-height columns. It is container-responsive: columns appear as the nearest [size container](/docs/global#layouts) crosses the size's thresholds, so the count answers the space the list actually has, not the viewport. The same markup is 2-up in this docs column and 4-up on the wide [blog index](/blog), at the same window size.
+
+<Tiles>
+  <li>
+    <Card variant="filled" title="Container-responsive">
+      <p>
+        Columns come from the width of the column the list lives in, not the
+        viewport.
+      </p>
+    </Card>
+  </li>
+  <li>
+    <Card variant="filled" title="Equal heights">
+      <p>
+        Tiles in a row stretch to the same height, however long their content
+        runs.
+      </p>
+      <p>Like the card right next to this one…</p>
+    </Card>
+  </li>
+</Tiles>
+
+<div class="docs_oversizedTable">
+
+| File                  | Description                                           | Source      |
+| --------------------- | ----------------------------------------------------- | ----------- |
+| `component.tiles.css` | All tiles styles (`.tiles`), including the thresholds | [Github][1] |
+| `Tiles.astro`         | The Astro component                                   | [Github][2] |
+
+</div>
+
+No dependencies. The [card](/components/card) blog index and the [feature grid](/components/featuregrid) pattern are both built on it.
+
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.tiles.css
+[2]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+
+</section>
+
+## Playground
+
+<Playground
+  client:visible
+  class="docs_playgroundFull"
+  template={`<ul class="{classes}"{attrs}>
+  <li>
+    <article class="card card-filled">
+      <header class="card_header"><div class="card_header_text"><h2 class="card_title">One</h2></div></header>
+      <section class="card_content"><p>Tiles share the row height.</p></section>
+    </article>
+  </li>
+  <li>
+    <article class="card card-filled">
+      <header class="card_header"><div class="card_header_text"><h2 class="card_title">Two</h2></div></header>
+      <section class="card_content"><p>Resize the window to watch the columns respond to this docs column.</p></section>
+    </article>
+  </li>
+  <li>
+    <article class="card card-filled">
+      <header class="card_header"><div class="card_header_text"><h2 class="card_title">Three</h2></div></header>
+      <section class="card_content"><p>The thresholds watch the container, not the browser window.</p></section>
+    </article>
+  </li>
+</ul>`}
+  baseClasses="tiles"
+  controls={[
+    {
+      heading: "Layout",
+      items: [
+        {
+          type: "select",
+          name: "size",
+          label: "Tile size",
+          default: "md",
+          options: [
+            { label: "md (default)", value: "md", class: "" },
+            { label: "sm", value: "sm", class: "tiles-sm" },
+          ],
+        }
+      ],
+    },
+  ]}
+/>
+
+## HTML
+
+<section class="prose">
+
+A `ul` with one tile per `<li>`. Items stretch, so tiles in a row share the same height.
+
+```html
+<ul class="tiles">
+  <li><article class="card">…</article></li>
+  <li><article class="card">…</article></li>
+</ul>
+```
+
+### Available modifiers
+
+Sizes name the tile: each one is a set of container thresholds tuned to how much room that tile needs, and columns keep coming as the container crosses them. There is no column cap: the width of the column the list sits in is the cap.
+
+<div class="docs_oversizedTable">
+
+| Available modifiers    | Description                                                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `.tiles`               | Card-sized tiles, roughly `17rem` of room each: 2 columns from a `36rem` container, then 3/4/5/6 every `20rem`.         |
+| `.tiles` + `.tiles-md` | The default size, spelled out.                                                                                         |
+| `.tiles` + `.tiles-sm` | Small tiles (icon + short copy, roughly `13rem`): 2 columns from `28rem`, then every `16rem`, so columns appear sooner. |
+
+</div>
+
+The thresholds are deliberately not the global `--md`/`--lg` viewport breakpoints: those can't see how wide the column is, and a tile's comfortable width is a property of the component, not of the page. Copy-it-you-own-it applies as usual: retune them in `component.tiles.css`.
+
+### The container
+
+The column count responds to the nearest size container. Every [layout scaffold](/docs/global#layouts) declares its main column as one, so inside a `.layout` page it just works. Outside a scaffold the wrapper is required: without a container ancestor the queries never match and the list stays single-column.
+
+```html
+<div class="tiles_container">
+  <ul class="tiles">
+    …
+  </ul>
+</div>
+```
+
+### Custom properties
+
+<div class="docs_oversizedTable">
+
+| Property          | Description                                                                                                                                                     |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--tiles-columns` | The count the thresholds resolved. Pin it on a hook class of your own to opt out (your unlayered CSS wins), or set it from your own `@container`/`@media` rules. |
+
+</div>
+
+```css
+/* Exactly three pillars, whatever the container says */
+.pillars {
+  --tiles-columns: 3;
+}
+```
+
+Gaps come from the [grid system](/docs/global#grid)'s `--grid-column-gap` and `--grid-row-gap`, so tiles and grids share the same rhythm.
+
+</section>
+
+## Astro component
+
+<section class="prose">
+
+Children go in the default slot; wrap each tile in an `<li>`.
+
+</section>
+
+<div class="docs_oversizedTable prose">
+
+| Prop          | Type     | Default     | Description                                                                        |
+| ------------- | -------- | ----------- | ---------------------------------------------------------------------------------- |
+| `size`        | `string` | `undefined` | Tile size: `sm` or `md`. Omitted is `md`.                                          |
+| `class`       | `string` | `undefined` | Additional CSS classes. Pin the count by setting `--tiles-columns` on one of them. |
+| `data-testid` | `string` | `'tiles'`   | Test ID for testing frameworks.                                                    |
+
+</div>
+
+## Examples
+
+<section class="prose">
+
+The blog-index recipe lives on the [card page](/components/card#clickable-cards), the icon + blurb marketing pattern on the [feature grid page](/components/featuregrid).
+
+</section>

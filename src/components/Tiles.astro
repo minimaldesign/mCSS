@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'ul'> {
+  size?: 'sm' | 'md';
+  'data-testid'?: string;
+}
+
+// The list is container-responsive (see component.tiles.css): the
+// nearest size container decides the column count through per-size
+// @container thresholds. `size` names the tile: omitted (or 'md') fits
+// card-sized tiles, 'sm' fits small icon + blurb tiles (columns appear
+// sooner). To pin a count, set --tiles-columns on a hook class passed
+// via `class`.
+// prettier-ignore
+const {
+  size,
+  class: className,
+  'data-testid': testId = 'tiles',
+  ...rest
+} = Astro.props as Props;
+---
+
+<!-- prettier-ignore -->
+<ul
+  class:list={['tiles', size && `tiles-${size}`, className]}
+  data-testid={testId}
+  {...rest}
+>
+  <slot />
+</ul>

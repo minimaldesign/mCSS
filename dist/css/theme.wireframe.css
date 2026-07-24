@@ -27,7 +27,7 @@ xxl: 1920px
 /* WIREFRAME THEME */
 
 /*
-  A hand-drawn wireframe skin: grayscale palette, rounded type, wobbly
+  A hand-drawn wireframe theme: grayscale palette, rounded type, wobbly
   borders, paper-cutout shadows, and a traced-twice pencil stroke on
   cards and buttons. Mostly token overrides; the style rules at the
   bottom cover what tokens can't express. See theme.default.css for how
@@ -322,10 +322,10 @@ xxl: 1920px
   */
   @supports (rotate: calc(sibling-index() * 1deg)) {
     .grid_item,
-    .cardList > li,
+    .tiles > li,
     .bt,
     .featureItem,
-    .card:not(.grid_item .card):not(.cardList .card) {
+    .card:not(.grid_item .card):not(.tiles .card) {
       --sketch-seed: sibling-index();
     }
 
@@ -395,18 +395,18 @@ xxl: 1920px
     (rotate: random(per-element, -1deg, 1deg)) {
     .card,
     .featureItem {
-      rotate: -0.36081deg;
-      rotate: -0.36081deg;
+      rotate: random(element-scoped, -0.4deg, 0.4deg);
+      rotate: random(per-element, -0.4deg, 0.4deg);
     }
 
     .card::after,
     .bt::after {
-      rotate: 0.14152deg;
-      rotate: 0.14152deg;
-      translate: -1.23108px
-        0.98843px;
-      translate: -1.23108px
-        0.98843px;
+      rotate: random(element-scoped, -0.6deg, 0.6deg);
+      rotate: random(per-element, -0.6deg, 0.6deg);
+      translate: random(element-scoped, -1.5px, 1.5px)
+        random(element-scoped, -1.5px, 1.5px);
+      translate: random(per-element, -1.5px, 1.5px)
+        random(per-element, -1.5px, 1.5px);
     }
   }
 }

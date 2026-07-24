@@ -10,7 +10,7 @@
 
 :root {
   /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
-     classes below. Unrelated to theme files, which are full skins. */
+     classes below. Unrelated to theme files, which are full themes. */
   color-scheme: light dark;
 
   --ui-border-color: light-dark(var(--base-200), var(--base-500));
@@ -271,7 +271,7 @@
   --field-message-position: static;
 }
 
-/* FeatureGrid */
+/* FeatureItem */
 
 :root {
   --featureItem-icon-box-size: var(--lg3);
@@ -420,6 +420,10 @@
   --tags-background-color-hover: light-dark(var(--base-200), var(--base-950));
   --tags-radius: var(--radius-md);
 }
+
+/* Tiles: no tokens. The container thresholds live in component.tiles.css
+   (container queries can't read custom properties), and --tiles-columns
+   is set there; pin it on a hook class of your own to opt out. */
 
 /* TOC */
 

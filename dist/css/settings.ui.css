@@ -37,7 +37,7 @@ xxl: 1920px
 
 :root {
   /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
-     classes below. Unrelated to theme files, which are full skins. */
+     classes below. Unrelated to theme files, which are full themes. */
   --csstools-color-scheme--light: initial;
   color-scheme: light dark;
 
@@ -621,7 +621,7 @@ xxl: 1920px
 
 }
 
-/* FeatureGrid */
+/* FeatureItem */
 
 :root {
   --featureItem-icon-box-size: var(--lg3);
@@ -992,6 +992,10 @@ xxl: 1920px
 }
 
 }
+
+/* Tiles: no tokens. The container thresholds live in component.tiles.css
+   (container queries can't read custom properties), and --tiles-columns
+   is set there; pin it on a hook class of your own to opt out. */
 
 /* TOC */
 

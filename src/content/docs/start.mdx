@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2026-07-23
+lastUpdate: 2026-07-24
 version: 1
 ---
 
@@ -20,13 +20,40 @@ Once you've read through the basics below, the best way to understand how it all
 
 <section class="docs_section prose">
 
-The file structure is based on [ITCSS][1], but with important differences detailed below. The basic idea is to organize your files in different [layers][layers] so that your CSS [rulesets][2] are organized from global low [specificity][3] to local high specificity. When done right, it takes care of all the common "shortcomings" of CSS such as specificity wars and cascading conflicts.
+The file structure is a simplified [ITCSS][1]: files are organized in [layers][layers] going from broad and generic (tokens, element defaults) to specific and local (components, one-off helpers). When done right, it takes care of all the common "shortcomings" of CSS such as [specificity][3] wars and cascading conflicts.
 
-mCSS implements this with **native [CSS cascade layers][cascade-layers]**: every framework file is imported into a named `@layer`, and the layer order (not the import order, and not specificity) decides who wins. Anything you write *outside* the layers beats the framework by default, so mCSS always gets out of your way. The only exception is [helper classes][helpers], which use `!important` so they can override anything, including your own CSS. Below is an overview of each layer. The full documentation of most layers is available from the sidebar.
+mCSS implements this with native [CSS cascade layers][cascade-layers]: every framework file is imported into a named `@layer`, and the layer order (not the import order or specificity) decides who wins. Anything you write _outside_ the layers beats the framework by default, so mCSS always gets out of your way. The only exception is [helper classes][helpers], which use `!important` so they can override anything, including your own CSS.
 
-This is how mCSS is organized. ([Github source][4].)
+### Two folders
+
+The styles live in two folders, and the split is the methodology in miniature:
+
+- **[`framework/`][framework-src]**: mCSS itself, every file in a named layer. You copy it and mostly leave it alone: customization goes through the `settings.*` tokens, a [theme](/docs/themes), or your own CSS, not through edits scattered across framework files.
+- **[`site/`][site-src]**: this site's own CSS, imported **unlayered, after the framework**, so it wins without specificity games. Because those files are unlayered, the order you import them in is important so make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
+
+### The layers, in order
+
+Each layer only ever loses to the ones after it. The sections below detail each one; most have full docs in the sidebar.
+
+<div class="docs_oversizedTable">
+
+| Layer         | Files         | What lives there                                         |
+| ------------- | ------------- | -------------------------------------------------------- |
+| `settings`    | `settings.*`  | Tokens, interface tokens, media queries, mixins          |
+| `base`        | `base.*`      | Reset/normalize                                          |
+| `elements`    | `elements.*`  | Default styling of bare HTML elements                    |
+| `global`      | `global.*`    | Grid, wrap, layout scaffolds, prose, a11y                |
+| `components`  | `component.*` | One self-contained block per file                        |
+| `theme`       | `theme.*`     | At most one active theme (token overrides + style rules) |
+| `helpers`     | `help.*`      | `!important` one-off overrides, last resort              |
+| _(unlayered)_ | your own CSS  | Beats every layer above, except helpers                  |
+
+</div>
+
+Two entry files make the split concrete. The framework's own, [`framework/mcss.css`][mcss-entry], declares the layer order and puts every framework file in its layer. You never edit it:
 
 ```css
+/* framework/mcss.css (abridged) */
 @layer settings, base, elements, global, components, theme, helpers;
 
 /* Build-time only (media queries + mixins definitions) */
@@ -35,43 +62,51 @@ This is how mCSS is organized. ([Github source][4].)
 
 @import url(./settings.tokens.css) layer(settings);
 @import url(./settings.ui.css) layer(settings);
-
 @import url(./base.reset.css) layer(base);
-
-@import url(./elements.sectioning.css) layer(elements);
 @import url(./elements.text.css) layer(elements);
-/* etc. */
-
 @import url(./global.grid.css) layer(global);
-@import url(./global.wrap.css) layer(global);
-/* etc. */
-
 @import url(./component.button.css) layer(components);
-@import url(./component.notice.css) layer(components);
-/* etc. */
-
 @import url(./help.spacing.css) layer(helpers);
 /* etc. */
+```
 
-/* Optional: activate ONE theme, a swappable skin. Theme files are
-   self-layered (@layer theme), so no layer() annotation is needed.
-   None imported = the default look. */
-@import url(./theme.wireframe.css);
+Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, activates at most one theme, then imports your own CSS unlayered:
 
-/* Your site's own CSS imports UNLAYERED, after the framework.
-   Its normal declarations win over every mCSS layer without fighting
+```css
+/* your entry file */
+@import url(./framework/mcss.css);
+
+/* Optional: activate ONE theme, a swappable style. Theme files are
+   self-layered (@layer theme inside the file), so no layer()
+   annotation. None imported = the default look. */
+/* @import url(./framework/theme.wireframe.css); */
+
+/* Your own CSS: UNLAYERED, after the framework. Its normal
+   declarations win over every mCSS layer without fighting
    specificity. One exception: helpers are !important and beat
    unlayered CSS too. */
-@import url(./site/myComponent.css);
+@import url(./site/global.layout.css);
+@import url(./site/component.header.css);
+@import url(./site/page.blog.css);
+/* etc. */
 ```
 
 [cascade-layers]: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+[mcss-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.css
 
-The easiest ways to use mCSS in your own project:
+### How to import mCSS in your project
 
-- **Drop-in file**: grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed.
-- **Individual files**: every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
-- **Source files**: copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][presetEnv]).
+#### Drop-in file
+
+Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed. The easiest way to import, but the file size won't be optimized to your specific needs.
+
+#### Individual files
+
+Every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
+
+#### Source files
+
+Copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][presetEnv]).
 
 Run `npm run build:css` in the repo to produce `dist/` from source.
 
@@ -80,6 +115,13 @@ Run `npm run build:css` in the repo to produce `dist/` from source.
 [dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
 [dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
 [framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
+[site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site
+
+</section>
+
+## Detailed description of each layer
+
+<section class="docs_section prose">
 
 ### Settings
 
@@ -125,7 +167,7 @@ Some components are **CSS-only**: a single class on a single element, with no As
 
 ### Theme
 
-A [theme][themes] is a swappable skin: one `theme.*.css` file of token overrides plus optional style rules, wrapped in its own `@layer theme` block. mCSS imports no theme by default (the default look IS the empty theme layer); you activate at most one from your own entry point, and swapping that import restyles the whole site.
+This is the one layer the framework declares but never fills: `mcss.css` imports no theme, and the default look IS the empty theme layer. The theme itself is really part of [your CSS](#your-css-unlayered): one `theme.*.css` file of token overrides plus optional style rules that you activate from your own entry file, whether it's a shipped theme like `theme.wireframe.css` or one you wrote yourself. See [the theme docs][themes] for how themes work and how to build one.
 
 ### Helpers
 
@@ -133,7 +175,32 @@ A [theme][themes] is a swappable skin: one `theme.*.css` file of token overrides
 
 ### Your CSS (unlayered)
 
-Everything you write outside the mCSS layers (your components, page styles, and any third-party CSS you don't control) simply imports after the framework, unlayered. Unlayered CSS wins over all layered CSS for normal declarations, so you never fight the framework's specificity. The one exception is helper classes: their `!important` declarations win even over unlayered CSS, by design.
+Everything you write outside the mCSS layers (your components, page styles, and any third-party CSS you don't control) simply imports after the framework, unlayered. Unlayered CSS wins over all layered CSS for normal declarations, so you never fight the framework's specificity. The one exception is helper classes: their `!important` declarations win even over unlayered CSS.
+
+It goes inside your `site/` folder, in this order:
+
+- `theme.*.css` for your [theme][themes], at most one active. This is the one file of yours that is _not_ unlayered: a theme wraps its own content in `@layer theme`, deliberately dropping into the framework's theme slot so it restyles the framework defaults while the rest of your CSS below still beats it.
+- `global.*.css` for site-wide additions to the framework's globals.
+- `component.*.css` for your own blocks (most of your CSS should end up here)
+- `page.*.css` for the rare page-specific styles
+- `external.*.css` for CSS you don't control, ie. plugins
+
+Because those files are unlayered, the order you import them in is important, so make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
+
+**Page classes go on the `<body>`**, next to the [layout scaffold](/docs/global#layouts) classes, not on `<main>`:
+
+```html
+<body class="layout layout-centered blog blog-index"></body>
+```
+
+A page class is mostly a scope for token overrides, and tokens only inherit _down_: from the body they reach the whole scaffold, while a class on `<main>` can't touch anything above or beside it (`.layout_content`, the header, the footer). This site's blog index is the worked example: articles keep the default reading column, and one body class widens the listing page.
+
+```css
+/* page.blog.css */
+.blog-index {
+  --layout-content-width: 100%;
+}
+```
 
 </section>
 
@@ -191,7 +258,7 @@ CSS:
 }
 ```
 
-**One gotcha to keep in mind:** nesting a state inside its block compiles to a two-class selector (`.form_submit.is-disabled`), which beats single-class modifiers like `.form_submit-lg`. That's usually what you want: states describe what's happening *right now*, so they should win. But it means a state block is the wrong place to declare default values for custom properties. Declare defaults on the block itself, let modifiers override them, and only *use* the properties inside the state. Otherwise your size and color modifiers will mysteriously stop working the moment the state class shows up.
+**One gotcha to keep in mind:** nesting a state inside its block compiles to a two-class selector (`.form_submit.is-disabled`), which beats single-class modifiers like `.form_submit-lg`. That's usually what you want: states describe what's happening _right now_, so they should win. But it means a state block is the wrong place to declare default values for custom properties. Declare defaults on the block itself, let modifiers override them, and only _use_ the properties inside the state. Otherwise your size and color modifiers will mysteriously stop working the moment the state class shows up.
 
 ```css
 .avatar {

@@ -3,7 +3,7 @@ import { Code } from 'astro:components';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
-import FeatureGrid from '../components/FeatureGrid.astro';
+import Tiles from '../components/Tiles.astro';
 import FeatureItem from '../components/FeatureItem.astro';
 import Card from '../components/Card.astro';
 import PricingCard from '../components/PricingCard.astro';
@@ -160,7 +160,7 @@ const themeDiffs = {
 
   {/* §3: Philosophy */}
   <Section class="home_section home_philosophy" headerClass="home_reveal" variant="filled" eyebrow="Philosophy" title="Made for humans who write CSS" lede="CSS isn’t broken, and you don’t need to be protected from it. mCSS takes care of the tedious parts (resets, tokens, a sane cascade) and gets out of the way.">
-    <FeatureGrid class="home_pillars home_reveal" cols={3}>
+    <Tiles size="sm" class="home_pillars home_reveal">
       <FeatureItem class="home_pillar" titleClass="home_pillar_title" iconClass="home_pillar_icon" title="It’s actual CSS">
         <svg slot="icon" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" fill="none">
           <path d="M55 12 C40 12 36 21 36 33 L36 55 C36 65 29 70 21 71 C29 72 36 77 36 87 L36 109 C36 121 40 128 55 128" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round"></path>
@@ -186,7 +186,7 @@ const themeDiffs = {
         </svg>
         One semantic class per element. Your HTML describes what things <em>are</em>, and six months from now you’ll still understand it.
       </FeatureItem>
-    </FeatureGrid>
+    </Tiles>
   </Section>
 
   {/* §4: Modern CSS showcase */}

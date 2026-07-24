@@ -2,13 +2,14 @@
 @import url(./framework/mcss.css);
 
 /*
-  Theme activation: import exactly one theme.*.css file here to reskin the
-  whole site. No layer() annotation: themes self-layer (@layer theme inside
-  the file), and adding one would nest a redundant theme.theme sub-layer.
-  Position is narrative, not load-bearing: the layer order declared in
-  mcss.css decides priority, which is why the unlayered site styles below
-  beat the theme no matter where this line sits. None imported = the
-  default look.
+  Theme activation. A theme is part of this site's CSS, not the framework's:
+  mcss.css declares the `theme` layer slot but never fills it. Import at
+  most one theme.*.css file here to restyle the whole site. No layer()
+  annotation: themes self-layer (@layer theme inside the file), and adding
+  one would nest a redundant theme.theme sub-layer. The layer order
+  declared in mcss.css decides priority, which is why the unlayered
+  site styles below beat the theme no matter where this line sits.
+  None imported = the default look.
 */
 /* @import url(./framework/theme.wireframe.css); */
 
@@ -40,7 +41,7 @@
 @import url(./site/component.selectMask.css);
 
 /*  Page specific styles */
-/* (Use sparingly. Component is probably  the way to go) */
+/* (Use sparingly. Component is probably the way to go) */
 @import url(./site/page.blog.css);
 @import url(./site/page.docs.css);
 @import url(./site/page.home.css);
