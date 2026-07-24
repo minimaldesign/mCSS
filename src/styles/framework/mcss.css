@@ -19,14 +19,13 @@
 @import url(./settings.ui.css) layer(settings);
 
 /*
-  Themes are NOT imported here. A theme (theme.*.css) is a swappable skin:
-  token overrides plus optional style rules, wrapped in its own @layer theme
-  block so it lands in the theme slot declared above however it's loaded.
-  Activate exactly one from your own entry point, after this file:
-
-    @import url(./theme.wireframe.css);
-
-  No theme imported = the default look (settings.* holds every default).
+  No theme is imported here, ever: the framework only declares the empty
+  `theme` slot above. A theme (theme.*.css) is part of YOUR css: a swappable
+  theme of token overrides plus optional style rules that you activate, at
+  most one, from your own entry point (see _global.css for this site's).
+  Theme files self-layer (@layer theme inside the file), so wherever that
+  import sits it lands in this slot.
+  None imported = the default look (settings.* holds every default).
 */
 
 /* Reset & Normalize */

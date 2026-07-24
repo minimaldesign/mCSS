@@ -37,7 +37,7 @@ xxl: 1920px
 
 :root {
   /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
-     classes below. Unrelated to theme files, which are full skins. */
+     classes below. Unrelated to theme files, which are full themes. */
   --csstools-color-scheme--light: initial;
   color-scheme: light dark;
 

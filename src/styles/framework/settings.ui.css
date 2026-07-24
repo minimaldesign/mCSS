@@ -10,7 +10,7 @@
 
 :root {
   /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
-     classes below. Unrelated to theme files, which are full skins. */
+     classes below. Unrelated to theme files, which are full themes. */
   color-scheme: light dark;
 
   --ui-border-color: light-dark(var(--base-200), var(--base-500));

@@ -26,7 +26,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 | elements   | `elements.*`  | Bare HTML element styles (text, form, media)                |
 | global     | `global.*`    | Structural patterns (a11y, grid, layout, prose, wrap)       |
 | components | `component.*` | Library components (card, hero, notice, …), including CSS-only single-class ones (badge, button, toggle) |
-| theme      | `theme.*`     | Swappable skins: token overrides + style rules, self-layered via `@layer theme`, activated by the consumer entry (never by `mcss.css`) |
+| theme      | `theme.*`     | Swappable themes: token overrides + style rules, self-layered via `@layer theme`, activated by the consumer entry (never by `mcss.css`) |
 | helpers    | `help.*`      | Utility overrides (colors, spacing, typography), all `!important`: beats everything, including unlayered CSS |
 
 `page.*` is a file-naming convention only (page-specific styles, e.g. site `page.docs.css`); those files are plain unlayered consumer CSS, there is no `pages` layer.
@@ -58,7 +58,7 @@ To style a component from outside:
 - **Its internals**: use the component's `<part>Class` props (`headerClass`, `titleClass`, …) to mix a class onto the part, or set the component's interface tokens on your own hook class. If neither exists yet, add the prop or token to the component. Do not reach in with a selector.
 - **Bare HTML tags** (`.home_themer_formRow > button`), `.is-*` states, and ARIA attribute selectors are fine inside your own block.
 - **Context blocks are not components**: a component may reference the environment it sits in (`@scope (.prose) to (.not-prose)` in `component.notice.css`, `:root.theme-dark`), but the context's own file must never name specific components (that's why `global.prose.css` lists only bare tags).
-- **Theme files are the one sanctioned exception**: a `theme.*.css` file may select component classes from outside (`.card::after`, `.bt`) because a theme is by definition a skin over the whole system, versioned with the framework. Even there, prefer token overrides; reach for selectors only for what tokens can't express (pseudo-elements, `nth-child` rhythm, `text-decoration`).
+- **Theme files are the one sanctioned exception**: a `theme.*.css` file may select component classes from outside (`.card::after`, `.bt`) because a theme is by definition a style over the whole system, versioned with the framework. Even there, prefer token overrides; reach for selectors only for what tokens can't express (pseudo-elements, `nth-child` rhythm, `text-decoration`).
 
 ### Token naming grammar
 

@@ -76,7 +76,7 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
 /* your entry file */
 @import url(./framework/mcss.css);
 
-/* Optional: activate ONE theme, a swappable skin. Theme files are
+/* Optional: activate ONE theme, a swappable style. Theme files are
    self-layered (@layer theme inside the file), so no layer()
    annotation. None imported = the default look. */
 /* @import url(./framework/theme.wireframe.css); */
@@ -98,7 +98,7 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
 
 #### Drop-in file
 
-Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed. The easiest way to import, but the file size won't be optimized to your specific needs
+Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed. The easiest way to import, but the file size won't be optimized to your specific needs.
 
 #### Individual files
 
@@ -167,7 +167,7 @@ Some components are **CSS-only**: a single class on a single element, with no As
 
 ### Theme
 
-A [theme][themes] is one `theme.*.css` file of token overrides plus optional style rules, wrapped in its own `@layer theme` block. mCSS imports no theme by default (the default look IS the empty theme layer). You activate at most one from your own [\_global](https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css#L13) file and override as much/little as you want from there.
+This is the one layer the framework declares but never fills: `mcss.css` imports no theme, and the default look IS the empty theme layer. The theme itself is really part of [your CSS](#your-css-unlayered): one `theme.*.css` file of token overrides plus optional style rules that you activate from your own entry file, whether it's a shipped theme like `theme.wireframe.css` or one you wrote yourself. See [the theme docs][themes] for how themes work and how to build one.
 
 ### Helpers
 
@@ -177,10 +177,10 @@ A [theme][themes] is one `theme.*.css` file of token overrides plus optional sty
 
 Everything you write outside the mCSS layers (your components, page styles, and any third-party CSS you don't control) simply imports after the framework, unlayered. Unlayered CSS wins over all layered CSS for normal declarations, so you never fight the framework's specificity. The one exception is helper classes: their `!important` declarations win even over unlayered CSS.
 
-It goess inside your `site/` folder, in this order:
+It goes inside your `site/` folder, in this order:
 
-- `theme.your-theme.css` for your theme.
-- `global.*.css` for site-wide additions to the framework's globals'.
+- `theme.*.css` for your [theme][themes], at most one active. This is the one file of yours that is _not_ unlayered: a theme wraps its own content in `@layer theme`, deliberately dropping into the framework's theme slot so it restyles the framework defaults while the rest of your CSS below still beats it.
+- `global.*.css` for site-wide additions to the framework's globals.
 - `component.*.css` for your own blocks (most of your CSS should end up here)
 - `page.*.css` for the rare page-specific styles
 - `external.*.css` for CSS you don't control, ie. plugins

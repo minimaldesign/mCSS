@@ -20,7 +20,7 @@ None of it is theoretical: every component is used on this very site.
 
 ## Themes
 
-The part I'm happiest about. A [theme][themes] in mCSS is one CSS file that reskins your whole site. Themes get their own cascade layer, sitting above the framework and below your own CSS, so a theme beats every default without ever competing with your code.
+The part I'm happiest about. A [theme][themes] in mCSS is one CSS file that restyles your whole site. Themes get their own cascade layer, sitting above the framework and below your own CSS, so a theme beats every default without ever competing with your code.
 
 To show how the system can do more than swap colors, 1.0 ships with a [wireframe theme][themes]: hand-drawn styles with wobbly borders, paper-cutout shadows, and per-element sketch variation, all done in CSS.
 

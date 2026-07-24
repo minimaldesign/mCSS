@@ -27,7 +27,7 @@ xxl: 1920px
 /* WIREFRAME THEME */
 
 /*
-  A hand-drawn wireframe skin: grayscale palette, rounded type, wobbly
+  A hand-drawn wireframe theme: grayscale palette, rounded type, wobbly
   borders, paper-cutout shadows, and a traced-twice pencil stroke on
   cards and buttons. Mostly token overrides; the style rules at the
   bottom cover what tokens can't express. See theme.default.css for how
@@ -395,18 +395,18 @@ xxl: 1920px
     (rotate: random(per-element, -1deg, 1deg)) {
     .card,
     .featureItem {
-      rotate: -0.17692deg;
-      rotate: -0.17692deg;
+      rotate: -0.29131deg;
+      rotate: -0.29131deg;
     }
 
     .card::after,
     .bt::after {
-      rotate: 0.38707deg;
-      rotate: 0.38707deg;
-      translate: 0.85775px
-        0.60935px;
-      translate: 0.85775px
-        0.60935px;
+      rotate: 0.48706deg;
+      rotate: 0.48706deg;
+      translate: -1.03976px
+        1.17409px;
+      translate: -1.03976px
+        1.17409px;
     }
   }
 }
