@@ -25,10 +25,10 @@ const jsonLd = JSON.stringify({
 });
 ---
 
-<BaseLayout title={`${frontmatter.title} | mCSS Blog`} bodyClass="layout layout-centered" frontmatter={frontmatter} article={{ publishedTime: frontmatter.pubDate, author: frontmatter.author }}>
+<BaseLayout title={`${frontmatter.title} | mCSS Blog`} bodyClass="layout layout-centered blog" frontmatter={frontmatter} article={{ publishedTime: frontmatter.pubDate, author: frontmatter.author }}>
   <script is:inline type="application/ld+json" slot="head" set:html={jsonLd} />
   <ReadProgressBar />
-  <main class="layout_content_main blog">
+  <main class="layout_content_main">
     <h1>{frontmatter.title}</h1>
     <div class="blog_meta">
       <p>

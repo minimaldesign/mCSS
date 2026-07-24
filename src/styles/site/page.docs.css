@@ -1,6 +1,8 @@
-/* BOTH /docs and /components sections */
+/* BOTH /docs and /components sections. The class rides on the body, next
+   to the scaffold classes, so pages can override layout tokens; hence the
+   explicit .layout_content_main hop for the section headings. */
 .docs {
-  > h2 {
+  .layout_content_main > h2 {
     margin-top: var(--md1);
     margin-bottom: var(--sm3);
     padding: var(--sm1) 0;
@@ -17,6 +19,18 @@
 
 .docs_section {
   margin-bottom: var(--lg3);
+}
+
+/* Live-demo hook: pins the example lists in the component docs to two
+   columns, whatever the docs column fits */
+.docs_twoColTiles {
+  --tiles-columns: 2;
+}
+
+/* Full-width playground demos (Tiles): the preview's centering flex
+   shrinks a demo to its content, which starves a column layout */
+.docs_playgroundFull .playground_preview > * {
+  width: 100%;
 }
 
 ul.docs_section_media {

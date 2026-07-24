@@ -228,10 +228,10 @@
   */
   @supports (rotate: calc(sibling-index() * 1deg)) {
     .grid_item,
-    .cardList > li,
+    .tiles > li,
     .bt,
     .featureItem,
-    .card:not(.grid_item .card, .cardList .card) {
+    .card:not(.grid_item .card, .tiles .card) {
       --sketch-seed: sibling-index();
     }
 

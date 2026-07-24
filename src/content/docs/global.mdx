@@ -1,7 +1,7 @@
 ---
 title: "Global Styles"
 description: "Structural patterns: grid, layout, prose, wrap, and accessibility utilities"
-lastUpdate: 2026-07-23
+lastUpdate: 2026-07-24
 version: 1.0
 ---
 
@@ -255,6 +255,10 @@ Each thumbnail links to a full-page demo built from labeled color blocks. The de
   (that's how mcss.dev does it). If your aside content has no other way in,
   use `.layout-sidebar`, which stacks instead of hiding.
 </Notice>
+
+### The main column is a container
+
+Every scaffold's main column (`.layout_content_main`) is a named [size container](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries) (`container: main / inline-size`). Container-responsive components ([Tiles](/components/tiles)) pick their column count from it instead of the viewport, and your own rules can respond to it with `@container main (width >= …)`.
 
 ### Settings
 

@@ -322,10 +322,10 @@ xxl: 1920px
   */
   @supports (rotate: calc(sibling-index() * 1deg)) {
     .grid_item,
-    .cardList > li,
+    .tiles > li,
     .bt,
     .featureItem,
-    .card:not(.grid_item .card):not(.cardList .card) {
+    .card:not(.grid_item .card):not(.tiles .card) {
       --sketch-seed: sibling-index();
     }
 
@@ -395,18 +395,18 @@ xxl: 1920px
     (rotate: random(per-element, -1deg, 1deg)) {
     .card,
     .featureItem {
-      rotate: -0.36081deg;
-      rotate: -0.36081deg;
+      rotate: -0.17692deg;
+      rotate: -0.17692deg;
     }
 
     .card::after,
     .bt::after {
-      rotate: 0.14152deg;
-      rotate: 0.14152deg;
-      translate: -1.23108px
-        0.98843px;
-      translate: -1.23108px
-        0.98843px;
+      rotate: 0.38707deg;
+      rotate: 0.38707deg;
+      translate: 0.85775px
+        0.60935px;
+      translate: 0.85775px
+        0.60935px;
     }
   }
 }

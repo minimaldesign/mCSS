@@ -2,7 +2,7 @@
 
 /*
   The homepage is the first template demo: every section is built from the v1
-  library (Section, FeatureGrid, Card, Field, badges) plus the page styles
+  library (Section, Tiles, Card, Field, badges) plus the page styles
   below. Section numbers (§1 to §9) reference mcss-homepage-content-map.md.
 */
 
@@ -603,8 +603,12 @@
 
 /* prettier-ignore */
 .home_pillars {
+  /* Three pillars: 1-up then exactly 3-up, skipping the Tiles 2-up step
+     (3 items in 2 columns leaves an orphan). Viewport query on purpose:
+     the homepage has no container ancestor for the Tiles thresholds. */
+  --tiles-columns: 1;
   @media (--md) {
-    --grid-tc: repeat(3, 1fr);
+    --tiles-columns: 3;
   }
   /* Breathing room between the three pillars on desktop */
   @media (--lg) {

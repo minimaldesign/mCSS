@@ -27,6 +27,13 @@
   }
 }
 
+/* The main column is a size container: container-responsive components
+   (Tiles) pick their column count from it instead of the viewport.
+   Named, so custom rules can target it with @container main. */
+.layout_content_main {
+  container: main / inline-size;
+}
+
 /* Single centered reading column: articles, blog posts, legal pages. */
 .layout-centered {
   .layout_content {

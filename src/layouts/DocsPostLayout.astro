@@ -9,14 +9,14 @@ const { frontmatter } = Astro.props;
 const markdownHref = Astro.url.pathname.replace(/\/$/, '') + '.md';
 ---
 
-<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-docs" frontmatter={frontmatter} markdownHref={markdownHref}>
+<BaseLayout title={`${frontmatter.title} | mCSS Documentation`} bodyClass="layout layout-docs docs" frontmatter={frontmatter} markdownHref={markdownHref}>
   <aside class="layout_content_aside">
     <NavDocs />
   </aside>
   <aside class="layout_content_aside layout_content_aside-toc">
     <Toc selector=".docs" headings={['h2', 'h3']} scrollOffset={80} description={'On this page'} icon={arrow} />
   </aside>
-  <main class="layout_content_main docs">
+  <main class="layout_content_main">
     <h1 class="h3">{`Docs :: ${frontmatter.title}`}</h1>
     <slot />
   </main>

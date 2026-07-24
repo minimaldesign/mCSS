@@ -1,6 +1,13 @@
 /* INDEX */
 
-/* The post listing is the CardList/Card library components. */
+.blog-index {
+  --layout-content-width: 100%;
+
+  h1 {
+    max-inline-size: 40rem;
+    margin-inline: auto;
+  }
+}
 
 /* SINGLE ARTICLE  */
 

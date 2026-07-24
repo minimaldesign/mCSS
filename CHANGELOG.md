@@ -2,6 +2,22 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## Unreleased
+
+### Added
+
+- **[Tiles](https://mcss.dev/components/tiles)** (`component.tiles.css`, `Tiles.astro`): CardList and FeatureGrid consolidated into one **container-responsive** list component, built on container queries. Columns appear as the nearest size container crosses the size's thresholds, so the count answers the width of the column the list sits in, not the viewport: the same markup is 2-up in a docs column and 4-up in a wide one at the same window size. Sizes name the tile, and each is its own threshold set: bare `.tiles` / `.tiles-md` fits card-sized tiles (2 columns from a `36rem` container, then every `20rem`), `.tiles-sm` fits icon + blurb items (2 from `28rem`, then every `16rem`). No column cap: the column's width is the cap, and columns keep coming (up to 6 enumerated) as the container allows. To pin a count, set `--tiles-columns` on a hook class of your own.
+- Every `.layout` scaffold declares its main column as a named size container (`container: main / inline-size`); that is what Tiles responds to inside the scaffolds, and your own rules can use it too (`@container main (width >= …)`). Outside a scaffold, wrap a tiles list in `.tiles_container` (required: without a container ancestor the queries never match and the list stays single-column).
+- The mcss.dev blog index goes 4-up on a laptop purely through a page-scoped `--layout-content-width` override (`.blog-index` in `page.blog.css`): the pattern to copy for wide listing pages.
+
+### Changed
+
+- mcss.dev page classes (`.blog`, `.docs`) moved from `<main>` to the `<body>`, next to the scaffold classes, so a page class can override layout tokens (they are consumed by `.layout_content`, which sits between the two).
+
+### Breaking
+
+- `.cardList` and `.featureGrid` are gone, replaced by [Tiles](https://mcss.dev/components/tiles): `<ul class="cardList grid" col="1" col-md="2" col-lg="3">` is now `<ul class="tiles">`, and `<ul class="featureGrid grid" …>` is `<ul class="tiles tiles-sm">` (`.featureItem` markup is unchanged). The lists no longer ride on the `.grid` attribute system (which is unchanged for your own grids); instead of picking column counts per viewport breakpoint, you pick the tile size and the container's width decides. `CardList.astro` / `FeatureGrid.astro` are replaced by `Tiles.astro` (`size="sm"` for the former FeatureGrid), and the `cols` prop is gone.
+
 ## 1.0.0 (2026-07-21)
 
 The official launch. Everything from the 0.9 beta reviewed, restructured, and built out into a full component framework for websites.

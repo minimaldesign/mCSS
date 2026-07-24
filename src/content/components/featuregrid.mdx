@@ -1,12 +1,12 @@
 ---
 title: "Feature Grid"
 description: "Responsive grid of feature blurbs with icons, titles, and short descriptions."
-lastUpdate: 2026-07-23
+lastUpdate: 2026-07-24
 version: 0.5
 type: "component"
 ---
 
-import FeatureGrid from "../../components/FeatureGrid.astro";
+import Tiles from "../../components/Tiles.astro";
 import FeatureItem from "../../components/FeatureItem.astro";
 import Playground from "../../components/_Playground.jsx";
 
@@ -14,36 +14,37 @@ export const check = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height=
 
 <section class="prose">
 
-The `.featureGrid` component is the classic marketing "three columns of icon + title + text" pattern, composed over the mCSS [grid system](/docs/global#grid).
+The feature grid is the classic marketing "three columns of icon + title + text" pattern: `.featureItem` blurbs on a small-size [Tiles](/components/tiles) list. The layout is container-responsive: columns appear as the nearest size container gets wider, so the count answers the space the grid actually has, not the viewport.
 
-<FeatureGrid>
+<Tiles size="sm">
   <FeatureItem title="Zero JavaScript">
     <Fragment slot="icon" set:html={check} />
-    <p>Just an unordered list and the grid you already have.</p>
+    <p>Just an unordered list and the tiles you already have.</p>
   </FeatureItem>
   <FeatureItem title="Responsive by default">
     <Fragment slot="icon" set:html={check} />
-    <p>1, 2, then n columns as the viewport grows.</p>
+    <p>1, 2, then n columns as its container grows.</p>
   </FeatureItem>
   <FeatureItem title="Tokenized icons">
     <Fragment slot="icon" set:html={check} />
     <p>Icon box size and colors come from the theme.</p>
   </FeatureItem>
-</FeatureGrid>
+</Tiles>
 
 <div class="docs_oversizedTable">
 
 | File                                         | Description                        | Source      |
 | -------------------------------------------- | ---------------------------------- | ----------- |
-| `component.featureGrid.css`                  | Feature grid + item styles         | [Github][1] |
-| `FeatureGrid.astro`, `FeatureItem.astro`     | The Astro components               | [Github][2] |
+| `component.featureItem.css`                  | Feature item styles                | [Github][1] |
+| `FeatureItem.astro`                          | The Astro component                | [Github][2] |
 | `--featureItem-*` block in `settings.ui.css` | Interface tokens (see table below) | [Github][3] |
+| [Tiles](/components/tiles)                   | The container-responsive layout    | [Github][2] |
 
 </div>
 
-Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours to bring; [Lucide](https://lucide.dev/) is a great resource.
+Depends on [Tiles](/components/tiles) for the layout. Icons are yours to bring; [Lucide](https://lucide.dev/) is a great resource.
 
-[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.featureGrid.css
+[1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.featureItem.css
 [2]: https://github.com/minimaldesign/mCSS/tree/main/src/components
 [3]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.ui.css
 
@@ -53,19 +54,20 @@ Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours t
 
 <Playground
   client:visible
-  template={`<ul class="{classes}" col="1" col-md="2"{attrs}>
+  class="docs_playgroundFull"
+  template={`<ul class="{classes}"{attrs}>
   <li class="featureItem">
     <div class="featureItem_icon" aria-hidden="true">{check}</div>
     <h3 class="featureItem_title">Zero JavaScript</h3>
     <div class="featureItem_text">
-      <p>Just an unordered list and the grid you already have.</p>
+      <p>Just an unordered list and the tiles you already have.</p>
     </div>
   </li>
   <li class="featureItem">
     <div class="featureItem_icon" aria-hidden="true">{check}</div>
     <h3 class="featureItem_title">Responsive by default</h3>
     <div class="featureItem_text">
-      <p>1, 2, then n columns as the viewport grows.</p>
+      <p>1, 2, then n columns as its container grows.</p>
     </div>
   </li>
   <li class="featureItem">
@@ -76,7 +78,7 @@ Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours t
     </div>
   </li>
 </ul>`}
-  baseClasses="featureGrid grid"
+  baseClasses="tiles"
   snippets={{
     check: { preview: check, code: "<svg>[…]</svg>" },
   }}
@@ -86,13 +88,12 @@ Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours t
       items: [
         {
           type: "select",
-          name: "cols",
-          label: "Columns (from --lg)",
-          default: "cols3",
+          name: "size",
+          label: "Tile size",
+          default: "sm",
           options: [
-            { label: "2", value: "cols2", class: "", attr: 'col-lg="2"' },
-            { label: "3", value: "cols3", class: "", attr: 'col-lg="3"' },
-            { label: "4", value: "cols4", class: "", attr: 'col-lg="4"' },
+            { label: "sm (the pattern)", value: "sm", class: "tiles-sm" },
+            { label: "md", value: "md", class: "" },
           ],
         },
       ],
@@ -104,15 +105,15 @@ Depends on `.grid` (`global.grid.css`), part of the mCSS core. Icons are yours t
 
 <section class="prose">
 
-One item per `<li>`: one column on mobile, two from `--md`, and 2/3/4 (your pick) from `--lg`.
+One `.featureItem` per `<li>`, on a `.tiles-sm` list: small tiles, so its container thresholds sit lower and columns appear sooner than for card-sized ones. The count comes from the width of the column the list sits in; see [Tiles](/components/tiles) for the thresholds and the container rules.
 
 ```html
-<ul class="featureGrid grid" col="1" col-md="2" col-lg="3">
+<ul class="tiles tiles-sm">
   <li class="featureItem">
     <div class="featureItem_icon" aria-hidden="true"><svg>[…]</svg></div>
     <h3 class="featureItem_title">Zero JavaScript</h3>
     <div class="featureItem_text">
-      <p>Just an unordered list and the grid you already have.</p>
+      <p>Just an unordered list and the tiles you already have.</p>
     </div>
   </li>
   <!-- more items… -->
@@ -143,16 +144,7 @@ The following custom properties are available in [`settings.ui.css`](/docs/token
 
 <section class="prose">
 
-**FeatureGrid**
-
-<div class="docs_oversizedTable">
-
-| Prop    | Type     | Default     | Description                                                         |
-| ------- | -------- | ----------- | ------------------------------------------------------------------- |
-| `cols`  | `number` | `3`         | Columns from the `--lg` breakpoint: `2`, `3`, or `4`.               |
-| `class` | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
-
-</div>
+The list is the [Tiles](/components/tiles) component with `size="sm"`.
 
 **FeatureItem**
 
@@ -182,31 +174,37 @@ The following custom properties are available in [`settings.ui.css`](/docs/token
 
 <ul class="docs_examples">
   <li>
-    <FeatureGrid cols={2}>
-      <FeatureItem title="Two columns">
+    <Tiles size="sm" class="docs_twoColTiles">
+      <FeatureItem title="Pinned to two">
         <Fragment slot="icon" set:html={check} />
-        <p>Set `cols` for the large-screen column count.</p>
+        <p>Pin the count with `--tiles-columns` on a class of yours when the thresholds shouldn't decide.</p>
       </FeatureItem>
       <FeatureItem title="No icon required">
         <p>Skip the `icon` slot and the box disappears.</p>
       </FeatureItem>
-    </FeatureGrid>
+    </Tiles>
 
     ```astro
     ---
-    import FeatureGrid from "../components/FeatureGrid.astro";
+    import Tiles from "../components/Tiles.astro";
     import FeatureItem from "../components/FeatureItem.astro";
     import zap from "../assets/icons/zap.svg?raw";
     ---
-    <FeatureGrid cols={2}>
-      <FeatureItem title="Two columns">
+    <Tiles size="sm" class="perks">
+      <FeatureItem title="Pinned to two">
         <Fragment slot="icon" set:html={zap} />
-        <p>Set `cols` for the large-screen column count.</p>
+        <p>Pin the count with `--tiles-columns` on a class of yours when the thresholds shouldn't decide.</p>
       </FeatureItem>
       <FeatureItem title="No icon required">
         <p>Skip the `icon` slot and the box disappears.</p>
       </FeatureItem>
-    </FeatureGrid>
+    </Tiles>
+    ```
+
+    ```css
+    .perks {
+      --tiles-columns: 2;
+    }
     ```
 
   </li>
