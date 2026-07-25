@@ -15,6 +15,10 @@ import Pagination from '../components/Pagination.astro';
 import CopyButton from '../components/_CopyButton.jsx';
 import BaselineBadge from '../components/_BaselineBadge.astro';
 
+import { gzipSync } from 'node:zlib';
+
+import mcssMinCss from '../../dist/mcss.min.css?raw';
+
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
 import arrowIcon from '../assets/icons/arrow-right.svg?raw';
@@ -23,6 +27,12 @@ const title = 'mCSS: One class. Not forty.';
 const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
 
 const installSnippet = '<link rel="stylesheet" href="mcss.min.css">';
+
+// The size claim in §2 is measured, not remembered: gzip the file people
+// actually download, at build time, so it can never drift from the framework.
+// Rounded to whole KB, and kept behind a "~" since a host's own gzip level
+// (and brotli, which does better) moves the last few hundred bytes.
+const mcssMinGzipKb = Math.round(gzipSync(mcssMinCss).length / 1024);
 
 // §5 diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
@@ -151,7 +161,7 @@ const themeDiffs = {
         That’s the install. Download <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css"><code>dist/mcss.min.css</code></a> or copy the source files. Every modern browser understands them as-is: no compiler, no config, no <code>node_modules</code>.
       </p>
       <ul class="home_proof_facts">
-        <li>~21 KB min+gzip</li>
+        <li>~{mcssMinGzipKb} KB min+gzip</li>
         <li>0 dependencies</li>
         <li><a href="/docs/start#browser-support">Baseline 2024</a></li>
       </ul>
@@ -217,9 +227,9 @@ const themeDiffs = {
         <BaselineBadge feature="scope" />
       </li>
       <li class="home_showcase_card">
-        <h3 class="home_showcase_name">Scroll-driven animations</h3>
-        <p>The reading progress bar on this very site: pure CSS in modern browsers, a graceful fallback elsewhere.</p>
-        <BaselineBadge feature="scroll-driven-animations" />
+        <h3 class="home_showcase_name"><code>@container</code></h3>
+        <p>The tiles further up this page count their columns from the space they’re given, not from your window. Same list in a sidebar, fewer columns, no media query.</p>
+        <BaselineBadge feature="container-queries" />
       </li>
       <li class="home_showcase_card">
         <h3 class="home_showcase_name">Three-tier tokens</h3>
