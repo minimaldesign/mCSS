@@ -524,6 +524,15 @@
   padding-block-start: 0;
 }
 
+.home_proof_title {
+  text-align: center;
+  margin-top: var(--lg3);
+  @media (--md) {
+    margin-top: var(--lg1);
+
+  }
+}
+
 .home_proof_install {
   position: relative;
   width: fit-content;
