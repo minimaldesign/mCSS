@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2026-07-24
+lastUpdate: 2026-07-26
 version: 1
 ---
 
@@ -50,7 +50,7 @@ Each layer only ever loses to the ones after it. The sections below detail each 
 
 </div>
 
-Two entry files make the split concrete. The framework's own, [`framework/mcss.css`][mcss-entry], declares the layer order and puts every framework file in its layer. You never edit it:
+The framework's own entry, [`framework/mcss.css`][mcss-entry], makes the split concrete: it declares the layer order and puts every core framework file in its layer. You never edit it:
 
 ```css
 /* framework/mcss.css (abridged) */
@@ -65,16 +65,21 @@ Two entry files make the split concrete. The framework's own, [`framework/mcss.c
 @import url(./base.reset.css) layer(base);
 @import url(./elements.text.css) layer(elements);
 @import url(./global.grid.css) layer(global);
-@import url(./component.button.css) layer(components);
 @import url(./help.spacing.css) layer(helpers);
-/* etc. */
+/* etc. — note: no component.* and no theme.* imports here */
 ```
+
+Two layers are declared but never filled by this entry. The `theme` slot is yours (see below), and the `components` slot belongs to the component library, which lives in its own entry, [`framework/mcss.components.css`][mcss-components-entry]. Import it alongside `mcss.css` for the full library, or skip it and build your own components; the layer order declared in `mcss.css` decides priority either way, so import order between the two doesn't matter.
 
 Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, activates at most one theme, then imports your own CSS unlayered:
 
 ```css
 /* your entry file */
 @import url(./framework/mcss.css);
+
+/* Optional: the mCSS component library. Skip it if you build
+   your own components. */
+@import url(./framework/mcss.components.css);
 
 /* Optional: activate ONE theme, a swappable style. Theme files are
    self-layered (@layer theme inside the file), so no layer()
@@ -93,12 +98,13 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
 
 [cascade-layers]: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
 [mcss-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.css
+[mcss-components-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.components.css
 
 ### How to import mCSS in your project
 
-#### Drop-in file
+#### Drop-in files
 
-Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed. The easiest way to import, but the file size won't be optimized to your specific needs.
+Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the framework core in one file, no build step needed. If you want the component library too, add [`dist/mcss.components.css`][dist-components] (or [`dist/mcss.components.min.css`][dist-components-min]) next to it; skip it if you build your own components. The easiest way to import, but the file size won't be optimized to your specific needs.
 
 #### Individual files
 
@@ -112,6 +118,8 @@ Run `npm run build:css` in the repo to produce `dist/` from source.
 
 [dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
 [dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
+[dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
+[dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
 [dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
 [dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
 [framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
@@ -161,7 +169,7 @@ Global styles included out of the box:
 
 ### Components
 
-Self-contained styles for single components, one block per file. The mCSS framework is designed to be used on its own, allowing you to create your own components, but a [collection of components][components] built on top of mCSS is included.
+Self-contained styles for single components, one block per file. The mCSS framework is designed to be used on its own, allowing you to create your own components, but a [collection of components][components] built on top of mCSS is included. It ships in its own entry file (`mcss.components.css`, or `dist/mcss.components.css` as a drop-in): `mcss.css` only declares the `components` layer slot, so the library is opt-in.
 
 Some components are **CSS-only**: a single class on a single element, with no Astro component because there is no markup structure to encapsulate. For example, the `.badge` class on a `<span>` is the whole badge, and the `.bt` class can style a `<button>` or an `<a>` (styling that has to be opt-in, since not all links are buttons). Their docs live in the [components section][components] like everything else, marked "CSS-only".
 

@@ -39,7 +39,7 @@ export async function GET(context) {
     "## Optional",
     "",
     `- [Blog](${new URL("/blog", site).href}): release notes and articles`,
-    `- [Source](https://github.com/minimaldesign/mCSS): copy dist/mcss.min.css as a drop-in, dist/css/ for individual files, or src/styles/framework/ if you run PostCSS yourself`,
+    `- [Source](https://github.com/minimaldesign/mCSS): copy dist/mcss.min.css as a drop-in (add dist/mcss.components.min.css for the component library), dist/css/ for individual files, or src/styles/framework/ if you run PostCSS yourself`,
     "",
   ].join("\n");
 

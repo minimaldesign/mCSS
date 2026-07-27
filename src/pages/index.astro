@@ -18,6 +18,7 @@ import BaselineBadge from '../components/_BaselineBadge.astro';
 import { gzipSync } from 'node:zlib';
 
 import mcssMinCss from '../../dist/mcss.min.css?raw';
+import mcssComponentsMinCss from '../../dist/mcss.components.min.css?raw';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
@@ -26,13 +27,17 @@ import arrowIcon from '../assets/icons/arrow-right.svg?raw';
 const title = 'mCSS: One class. Not forty.';
 const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
 
-const installSnippet = '<link rel="stylesheet" href="mcss.min.css">';
+const installSnippet = [
+  '<link rel="stylesheet" href="mcss.min.css">',
+  '<link rel="stylesheet" href="mcss.components.min.css"> <!-- optional -->',
+].join('\n');
 
-// The size claim in §2 is measured, not remembered: gzip the file people
-// actually download, at build time, so it can never drift from the framework.
+// The size claims in §2 are measured, not remembered: gzip the files people
+// actually download, at build time, so they can never drift from the framework.
 // Rounded to whole KB, and kept behind a "~" since a host's own gzip level
 // (and brotli, which does better) moves the last few hundred bytes.
 const mcssMinGzipKb = Math.round(gzipSync(mcssMinCss).length / 1024);
+const mcssComponentsMinGzipKb = Math.round(gzipSync(mcssComponentsMinCss).length / 1024);
 
 // §5 diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
@@ -158,10 +163,10 @@ const themeDiffs = {
         <CopyButton client:visible code={installSnippet} />
       </div>
       <p class="home_proof_caption">
-        That’s the install. Download <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css"><code>dist/mcss.min.css</code></a> or copy the source files. Every modern browser understands them as-is: no compiler, no config, no <code>node_modules</code>.
+        That’s the install. Download <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css"><code>dist/mcss.min.css</code></a> (and <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css"><code>dist/mcss.components.min.css</code></a> if you want the component library) or copy the source files. Every modern browser understands them as-is: no compiler, no config, no <code>node_modules</code>.
       </p>
       <ul class="home_proof_facts">
-        <li>~{mcssMinGzipKb} KB min+gzip</li>
+        <li>~{mcssMinGzipKb} KB min+gzip, components +{mcssComponentsMinGzipKb} KB</li>
         <li>0 dependencies</li>
         <li><a href="/docs/start#browser-support">Baseline 2024</a></li>
       </ul>
@@ -201,42 +206,44 @@ const themeDiffs = {
 
   {/* §4: Modern CSS showcase */}
   <Section class="home_section home_showcase" headerClass="home_reveal" eyebrow="Modern CSS" title="Built on what browsers can do now" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
-    <ul class="home_showcase_grid grid home_reveal" col="1" col-md="2" col-lg="3">
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name"><code>@layer</code></h3>
-        <p>The whole architecture. Import order stops mattering, and your overrides always win.</p>
-        <BaselineBadge feature="cascade-layers" />
-      </li>
-      <li class="home_showcase_card home_showcase_card-lightDark">
-        <h3 class="home_showcase_name"><code>light-dark()</code></h3>
-        <p>Dark mode is one token file, not a parallel stylesheet.</p>
-        <label class="home_showcase_mini">
-          <input class="toggle" type="checkbox" role="switch" />
-          <span>Flip this card’s <code>color-scheme</code></span>
-        </label>
-        <BaselineBadge feature="light-dark" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name"><code>:has()</code> &amp; nesting</h3>
-        <p>Components with zero specificity hacks, written the way you’d write them yourself.</p>
-        <BaselineBadge feature="has" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name"><code>@scope</code></h3>
-        <p>Prose styling that can’t leak into your components.</p>
-        <BaselineBadge feature="scope" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name"><code>@container</code></h3>
-        <p>The tiles further up this page count their columns from the space they’re given, not from your window. Same list in a sidebar, fewer columns, no media query.</p>
-        <BaselineBadge feature="container-queries" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name">Three-tier tokens</h3>
-        <p>Raw scales → semantic theme → per-component properties. Change one value; the system follows.</p>
-        <BaselineBadge feature="custom-properties" />
-      </li>
-    </ul>
+    <div class="home_showcase_tiles home_reveal tiles_container">
+      <Tiles>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>@layer</code></h3>
+          <p>The whole architecture. Import order stops mattering, and your overrides always win.</p>
+          <BaselineBadge feature="cascade-layers" />
+        </li>
+        <li class="home_showcase_card home_showcase_card-lightDark">
+          <h3 class="home_showcase_name"><code>light-dark()</code></h3>
+          <p>Dark mode is one token file, not a parallel stylesheet.</p>
+          <label class="home_showcase_mini">
+            <input class="toggle" type="checkbox" role="switch" />
+            <span>Flip this card’s <code>color-scheme</code></span>
+          </label>
+          <BaselineBadge feature="light-dark" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>:has()</code> &amp; nesting</h3>
+          <p>Components with zero specificity hacks, written the way you’d write them yourself.</p>
+          <BaselineBadge feature="has" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>@scope</code></h3>
+          <p>Prose styling that can’t leak into your components.</p>
+          <BaselineBadge feature="scope" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>@container</code></h3>
+          <p>The component used for this very grid counts its columns from the space it’s in, not the viewport.</p>
+          <BaselineBadge feature="container-queries" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name">Three-tier tokens</h3>
+          <p>Raw scales → semantic theme → per-component properties. Change one value; the system follows.</p>
+          <BaselineBadge feature="custom-properties" />
+        </li>
+      </Tiles>
+    </div>
     <div class="home_showcase_kicker">
       <p>Every technique is documented on the blog. The framework practices what it teaches.</p>
       <p><a href="/blog">Read the blog →</a></p>

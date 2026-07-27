@@ -12,7 +12,7 @@
 /* 3 to 6: narrow header, wide content. These blocks escape the wrap
    column and center at up to 1150px. */
 .home_pillars,
-.home_showcase_grid,
+.home_showcase_tiles,
 .home_themer_split,
 .home_gallery_grid {
   grid-column: 1 / -1;
@@ -607,11 +607,8 @@
 
 /* 4 MODERN CSS SHOWCASE */
 
-.home_showcase_grid {
-  margin-block: 0;
-  padding-block: 0;
-  list-style: none;
-}
+/* .home_showcase_tiles is the size container the cards read (.tiles_container
+   in the markup); .tiles handles the grid, the gaps, and the list reset. */
 
 .home_showcase_card {
   display: flex;

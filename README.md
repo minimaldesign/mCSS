@@ -2,7 +2,7 @@
 
 The library for CSS lovers.
 
-Current version: **1.0.0** ([changelog](CHANGELOG.md)). Copy it, own it: grab [`dist/mcss.css`](dist/mcss.css) or the [source files](src/styles/framework), no package manager involved.
+Current version: **1.2.0** ([changelog](CHANGELOG.md)). Copy it, own it: grab [`dist/mcss.css`](dist/mcss.css) (plus [`dist/mcss.components.css`](dist/mcss.components.css) if you want the component library) or the [source files](src/styles/framework), no package manager involved.
 
 ## Learn
 

@@ -2,9 +2,9 @@
 
 mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired file structure. The framework and the docs site are split:
 
-- **`src/styles/framework/`** — the mCSS framework. Entry point `framework/mcss.css` declares the layer order and imports every framework file into its named layer. **The layer name, not import order, decides cascade priority.**
+- **`src/styles/framework/`** — the mCSS framework. Entry point `framework/mcss.css` declares the layer order and imports every core framework file into its named layer; the component library imports via its own entry, `framework/mcss.components.css` (the `components` slot is declared by `mcss.css` but filled only when the consumer imports the second entry, mirroring the `theme` slot). **The layer name, not import order, decides cascade priority.**
 - **`src/styles/site/`** — docs-site-only CSS (site chrome, internal components, page styles, third-party overrides). Imported **unlayered** by `src/styles/_global.css`, after the framework.
-- **`src/styles/_global.css`** — the site entry point (imported by `BaseLayout`/`DemoLayout`): framework first, then unlayered site files.
+- **`src/styles/_global.css`** — the site entry point (imported by `BaseLayout`/`DemoLayout`): framework first (both entries: `mcss.css`, then `mcss.components.css`), then unlayered site files.
 
 ## Cascade rules (load-bearing)
 
@@ -25,7 +25,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 | base       | `base.*`      | Reset only (`base.reset.css`)                               |
 | elements   | `elements.*`  | Bare HTML element styles (text, form, media)                |
 | global     | `global.*`    | Structural patterns (a11y, grid, layout, prose, wrap)       |
-| components | `component.*` | Library components (card, hero, notice, …), including CSS-only single-class ones (badge, button, toggle) |
+| components | `component.*` | Library components (card, hero, notice, …), including CSS-only single-class ones (badge, button, toggle); imported by `mcss.components.css`, never by `mcss.css` |
 | theme      | `theme.*`     | Swappable themes: token overrides + style rules, self-layered via `@layer theme`, activated by the consumer entry (never by `mcss.css`) |
 | helpers    | `help.*`      | Utility overrides (colors, spacing, typography), all `!important`: beats everything, including unlayered CSS |
 
@@ -84,7 +84,7 @@ Never `transition: all` — it also transitions layout properties, so any late-a
 ## Adding Styles
 
 - **One block per file.** Every block gets its own file named after it (`.featureItem` lives in `component.featureItem.css`, never inside `component.featureGrid.css`), even for small companion blocks (`component.fieldRow.css`, site `component.webring.css`).
-- Framework file: create `src/styles/framework/<prefix>.<name>.css` and add `@import url(./<file>) layer(<layer>);` in the matching block of `framework/mcss.css`.
+- Framework file: create `src/styles/framework/<prefix>.<name>.css` and add `@import url(./<file>) layer(<layer>);` in the matching block of `framework/mcss.css`, EXCEPT `component.*` files: those import in `framework/mcss.components.css` (the component library's own entry; `mcss.css` only declares the `components` slot).
 - Theme file: create `src/styles/framework/theme.<name>.css` wrapping its own content in `@layer theme { … }`; do NOT import it in `mcss.css` (the consumer entry activates it; the dist index lists it commented out).
 - Site file: create `src/styles/site/<prefix>.<name>.css` and add a plain `@import` in `_global.css` (unlayered).
 - Framework CSS must never reference site-only selectors (e.g. `.expressive-code`); the site file mirrors any shared pattern itself.
