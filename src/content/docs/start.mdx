@@ -16,6 +16,26 @@ Once you've read through the basics below, the best way to understand how it all
 
 </section>
 
+## How to install mCSS
+
+<section class="prose">
+
+### Drop-in files
+
+Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the framework core in one file, no build step needed. If you want the component library too, add [`dist/mcss.components.css`][dist-components] (or [`dist/mcss.components.min.css`][dist-components-min]) next to it; skip it if you build your own components. The easiest way to import, but the file size won't be optimized to your specific needs.
+
+### Individual files
+
+Every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
+
+### Source files
+
+Copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][presetEnv]).
+
+Run `npm run build:css` in the repo to produce `dist/` from source.
+
+</section>
+
 ## mCSS file structure
 
 <section class="docs_section prose">
@@ -99,31 +119,6 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
 [cascade-layers]: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
 [mcss-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.css
 [mcss-components-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.components.css
-
-### How to import mCSS in your project
-
-#### Drop-in files
-
-Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the framework core in one file, no build step needed. If you want the component library too, add [`dist/mcss.components.css`][dist-components] (or [`dist/mcss.components.min.css`][dist-components-min]) next to it; skip it if you build your own components. The easiest way to import, but the file size won't be optimized to your specific needs.
-
-#### Individual files
-
-Every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
-
-#### Source files
-
-Copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][presetEnv]).
-
-Run `npm run build:css` in the repo to produce `dist/` from source.
-
-[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
-[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
-[dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
-[dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
-[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
-[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
-[framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
-[site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site
 
 </section>
 
@@ -371,19 +366,27 @@ The exact compile floor lives in `.browserslistrc` (`defaults and supports css-c
 [5]: /docs/tokens
 [6]: /docs/media-queries
 [7]: https://github.com/postcss/postcss-mixins
-[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
-[grid]: /docs/global#grid
-[wrap]: /docs/global#wrap
-[layout]: /docs/global#layouts
-[prose]: /docs/global#prose
 [a11y]: /docs/global#accessibility
-[components]: /components/start
-[helpers]: /docs/helpers
-[interfaceTokens]: /docs/tokens#interface-tokens
-[themes]: /docs/themes
-[layers]: /blog/what-is-itcss#the-layers-of-itcss
 [bem]: /blog/what-is-bem
 [bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
-[github]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
-[src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles
+[components]: /components/start
 [discussions]: https://github.com/minimaldesign/mCSS/discussions
+[dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
+[dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
+[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
+[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
+[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
+[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
+[framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
+[github]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
+[grid]: /docs/global#grid
+[helpers]: /docs/helpers
+[interfaceTokens]: /docs/tokens#interface-tokens
+[layers]: /blog/what-is-itcss#the-layers-of-itcss
+[layout]: /docs/global#layouts
+[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
+[prose]: /docs/global#prose
+[site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site
+[src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles
+[themes]: /docs/themes
+[wrap]: /docs/global#wrap
