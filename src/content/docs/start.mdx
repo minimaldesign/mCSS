@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2026-07-26
+lastUpdate: 2026-07-27
 version: 1
 ---
 
@@ -20,19 +20,27 @@ Once you've read through the basics below, the best way to understand how it all
 
 <section class="prose">
 
-### Drop-in files
+There is nothing to install from a registry: you copy mCSS into your project and own the copy. What you copy is the choice, the source files or the compiled ones.
 
-Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the framework core in one file, no build step needed. If you want the component library too, add [`dist/mcss.components.css`][dist-components] (or [`dist/mcss.components.min.css`][dist-components-min]) next to it; skip it if you build your own components. The easiest way to import, but the file size won't be optimized to your specific needs.
+### Install with PostCSS
 
-### Individual files
+Copy [`src/styles/framework/`][framework-src] to wherever your CSS lives, then start your own folder next to it for your unlayered CSS. This site's [`site/`][site-src] is the worked example of that folder, and [`_global.css`][4] is the entry file tying the two together (see [the layers](#mcss-file-structure) below).
 
-Every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
+You own the source this way: tokens, components, and themes are all editable, and you only ship the files you actually import. The cost is a build step, because the source uses `@custom-media`, which no browser understands yet. One plugin ([postcss-preset-env][presetEnv]) and a five-line config resolve it, and if you already use Astro, Vite, Next, or any other bundler, that config is the only thing you add. If you need more details on how to set up PostCSS, see [this blog post][postcss-post].
 
-### Source files
+### The easy install
 
-Copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][presetEnv]).
+Grab [`dist/mcss.min.css`][dist-min], the framework core in one file, and link it. Add [`dist/mcss.components.min.css`][dist-components-min] next to it for the component library, or leave it out if you're building your own components:
 
-Run `npm run build:css` in the repo to produce `dist/` from source.
+```html
+<link rel="stylesheet" href="/css/mcss.min.css" />
+<!-- optional -->
+<link rel="stylesheet" href="/css/mcss.components.min.css" />
+```
+
+Everything is pre-processed, so there is no build step and no PostCSS. The unminified [`dist/mcss.css`][dist-css] and [`dist/mcss.components.css`][dist-components] are there if you need them.
+
+If you'd rather copy just what you need, every framework/component file is also available pre-processed and uncompressed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index).
 
 </section>
 
@@ -384,6 +392,7 @@ The exact compile floor lives in `.browserslistrc` (`defaults and supports css-c
 [interfaceTokens]: /docs/tokens#interface-tokens
 [layers]: /blog/what-is-itcss#the-layers-of-itcss
 [layout]: /docs/global#layouts
+[postcss-post]: /blog/postcss-setup-for-mcss
 [presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
 [prose]: /docs/global#prose
 [site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site

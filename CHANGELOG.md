@@ -2,7 +2,7 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
-## 1.2.0 (2026-07-26)
+## 1.2.0 (2026-07-27)
 
 Core and components split: the drop-in framework file no longer bundles the component library, so sites that build their own components stop paying for it.
 

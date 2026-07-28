@@ -1,0 +1,264 @@
+---
+title: "How to Set Up PostCSS for mCSS"
+pubDate: 2026-07-27T12:00:00-07:00
+author: "Yann"
+tags: ["mCSS", "postcss", "css", "dev"]
+description: "The mCSS source files need exactly one build tool, and most of its configuration is about telling it to leave your CSS alone. Here is the whole setup, what each line is for, and how to check it worked."
+---
+
+import Notice from "../../components/Notice.astro";
+
+<Notice type="warning" title="Not a requirement to use mCSS">
+  None of the following applies if you link to the pre-compiled files in your
+  code. The [Getting Started][install] page compares the two so you can pick the
+  best option for your use case..
+</Notice>
+
+##
+
+If you copy the mCSS [source files][framework-src] rather than the compiled [drop-in bundles][install], you need a build step. Exactly one thing requires it: the framework writes its breakpoints as `@custom-media`, which no browser understands yet.
+
+That makes the setup smaller than you might expect, and a little upside down. Most PostCSS configs exist to translate modern CSS into something older browsers accept. This one mostly exists to stop that from happening, because everything else mCSS uses (cascade layers, nesting, `:has()`, `light-dark()`, `@scope`) is meant to reach the browser exactly as written.
+
+Budget ten minutes. If you already have a bundler, closer to two.
+
+## What actually needs compiling
+
+### Custom media queries
+
+`settings.media-queries.css` defines every breakpoint and user preference once:
+
+```css
+@custom-media --md (width >= 768px);
+@custom-media --motionOK (prefers-reduced-motion: no-preference);
+@custom-media --OSdark (prefers-color-scheme: dark);
+```
+
+Framework files then use the name instead of the value:
+
+```css
+/* framework/component.header.css */
+.header_nav {
+  display: none;
+  @media (--md) {
+    display: block;
+  }
+}
+```
+
+Browsers still can't do that. So we compile it to:
+
+```css
+.header_nav {
+  display: none;
+  @media (width >= 768px) {
+    display: block;
+  }
+}
+```
+
+Note what did **not** change: the nested `@media` is still nested. The output is modern CSS, just with the breakpoint spelled out. See the [media queries docs](/docs/media-queries) for the full list of names.
+
+### Mixins, if you want them
+
+`settings.mixins.css` defines two `@define-mixin` blocks. Nothing in mCSS uses them by default, so they are genuinely optional: install the plugin if you want mixins in your own CSS, or delete the import from `mcss.css`. Leaving the import without the plugin will add code browsers will ignore. Harmless, but it is bloat if you're not going to use that feature.
+
+###
+
+<Notice title="What should NOT be compiled" type="warning">
+
+- `@layer`: critical for mCSS to work as intended.
+- All Baseline 2024 used natively: Nesting, `:has()`, `light-dark()`, `@scope`, etc.
+
+A default PostCSS setup will happily "help" with several of these. The config below is mostly the list of things it must keep its hands off.
+
+</Notice>
+
+## Install
+
+```bash
+npm install -D postcss postcss-preset-env
+```
+
+[postcss-preset-env][presetEnv] is what resolves `@custom-media`. Add [postcss-mixins][mixins] as well if you decided you want mixins:
+
+```bash
+npm install -D postcss-mixins
+```
+
+## The config
+
+Create `postcss.config.cjs` at the root of your project:
+
+```js
+/* postcss.config.cjs */
+const postcssPresetEnv = require("postcss-preset-env");
+
+module.exports = {
+  plugins: [
+    postcssPresetEnv({
+      stage: 2,
+      features: {
+        // mCSS ships native cascade layers; without this, preset-env's
+        // polyfill strips every @layer rule and rewrites priorities as
+        // specificity hacks. Do not remove.
+        "cascade-layers": false,
+        // Only matters if you use the wireframe theme: the polyfill freezes
+        // random() into one static value, killing the per-element tilt.
+        "random-function": false,
+      },
+    }),
+  ],
+};
+```
+
+That is the whole file. Three details are worth unpacking.
+
+### `stage: 2`
+
+preset-env groups features by how far along the standards process they are. Stage 2 means "a working draft the CSS Working Group has agreed on", and custom media queries sit exactly there. It is also preset-env's own default, so you could technically omit the line. Keep it: it documents the floor, and it means a future change to the default cannot quietly turn on features you never asked for.
+
+### `"cascade-layers": false`
+
+The one that matters. Left enabled, preset-env's cascade-layer polyfill deletes every `@layer` rule and tries to recreate the priority order with specificity, padding selectors with `:not(#\#)` repetitions to make later layers "heavier".
+
+For most frameworks that is a reasonable trade. For mCSS it is fatal, because the promise of the layers runs in the other direction: framework CSS is supposed to _lose_ to yours. Once the layers become specificity, your unlayered rules stop winning automatically, and you are back to counting selectors and reaching for `!important`. Everything still compiles, nothing warns you, and your overrides just quietly stop working.
+
+Since mCSS only supports browsers that implement `@layer` natively (see [browser support](/docs/start#browser-support)), there is nothing to polyfill anyway.
+
+### `"random-function": false`
+
+Narrower, and you can skip it unless you use the [wireframe theme](/docs/themes). CSS `random()` gives each element in that theme its own slight hand-drawn tilt. The polyfill replaces `random()` with a single fixed value seeded from the length of your source, so every element tilts identically, and the value changes whenever you edit an unrelated line. Browsers without `random()` already fall back to `sibling-index()` math, so passing it through is strictly better.
+
+## The browserslist floor
+
+preset-env decides what to transform by asking [browserslist](https://browsersl.ist) which browsers you support. Give it a floor that already has the features mCSS relies on and it will stop reaching for polyfills on its own. Create `.browserslistrc`:
+
+```text
+# mCSS support floor: browsers with native cascade-layer support (~Baseline 2022+).
+defaults and supports css-cascade-layers
+```
+
+`defaults` is browserslist's usual "last 2 versions, > 0.5% usage, not dead". The `and supports css-cascade-layers` half narrows it to browsers that implement `@layer`, which in practice also covers nesting and `:has()`.
+
+## If your project already has a bundler
+
+You are done. Astro, Vite, Next, Nuxt, SvelteKit, Parcel, and anything else with PostCSS built in will pick up `postcss.config.cjs` from the project root on their own. Import your entry file the way you already do:
+
+```js
+import "./styles/main.css";
+```
+
+Bundlers also inline the `@import` chain themselves, which matters more than it looks: `@custom-media` definitions only apply within the stylesheet PostCSS is processing, so the breakpoint file has to be pulled into the same document as the files that use it. Your bundler is already doing that. (This site is an Astro project and its PostCSS config is exactly the file above, nothing more.)
+
+Run your usual `dev` and `build`. Nothing else changes.
+
+## If your project has no bundler
+
+A plain HTML site, or anything where nothing currently compiles CSS, needs two more packages: one to run PostCSS from the command line, one to follow `@import`.
+
+```bash
+npm install -D postcss-cli postcss-import
+```
+
+Add `postcss-import` to the config, **first in the array**, so imports are inlined before anything else looks at the file:
+
+```js
+/* postcss.config.cjs */
+const postcssPresetEnv = require("postcss-preset-env");
+
+module.exports = {
+  plugins: [
+    require("postcss-import"),
+    postcssPresetEnv({
+      stage: 2,
+      features: {
+        "cascade-layers": false,
+        "random-function": false,
+      },
+    }),
+  ],
+};
+```
+
+Order is not a style preference here. Put it last and preset-env sees a file full of `@media (--md)` with no definitions in scope, leaves them alone, and ships them to the browser broken.
+
+Then point a script at your entry file:
+
+```json
+"scripts": {
+  "build:css": "postcss src/styles/main.css -o public/css/main.css",
+  "watch:css": "postcss src/styles/main.css -o public/css/main.css --watch"
+}
+```
+
+`npm run build:css` writes one compiled stylesheet, which is what your HTML links:
+
+```html
+<link rel="stylesheet" href="/css/main.css" />
+```
+
+`npm run watch:css` leaves it running while you work. Commit the source, not the output, and run the build in CI or before you deploy.
+
+## Check that it worked
+
+Three greps on the compiled file, which beat squinting at a page:
+
+```bash
+# Should print 0: every custom media query resolved.
+grep -c "@custom-media" public/css/main.css
+
+# Should print a number well above 0: the layers survived.
+grep -c "@layer" public/css/main.css
+
+# Should print 0: no unresolved breakpoint names left behind.
+grep -c "@media (--" public/css/main.css
+```
+
+If the first and third are `0` and the second is not, the setup is correct.
+
+The final check: write a rule that overrides the framework.
+
+```css
+/* your CSS, after the framework imports */
+.bt {
+  border-radius: 0;
+}
+```
+
+Square buttons mean it works. If mCSS wins that fight, the cascade-layers polyfill is still on.
+
+## Troubleshooting
+
+**Your overrides stop winning, or need `!important` for no reason.**
+The cascade-layers polyfill is enabled. Check that `"cascade-layers": false` is in the config, and that the config is actually being read (bundlers only auto-detect it at the project root).
+
+**`@media (--md)` shows up in the output.**
+PostCSS never saw the definitions and the usage together. With a bundler, check that the file importing the breakpoints is part of the same entry. Without one, it is almost always a missing or misordered `postcss-import`.
+
+**`@define-mixin` blocks in the output.**
+`postcss-mixins` is not installed. Install it, or drop the `settings.mixins.css` import from `mcss.css`.
+
+**Your editor flags `@custom-media` or `@layer` as an unknown at-rule.**
+That is the editor, not your build. [Here is the fix](/blog/fix-unknown-at-rule-warnings).
+
+**The wireframe theme looks uniformly tilted, or your compiled CSS changes on every unrelated edit.**
+The `random-function` polyfill is on.
+
+**Nesting got flattened, or `:has()` turned into something else.**
+Your browserslist target is too broad. Check `.browserslistrc` exists and is being picked up.
+
+## Regenerating the dist files
+
+<Notice type="info" title="For frameworks only" class="mb-sm3">
+  For a normal project you will never need it. It builds the framework, not your
+  site.
+</Notice>
+
+If you forked mCSS itself and want to rebuild the shipped bundles, the repo's [`src/tools/build-css.mjs`][build-tool] is the script that does it: same plugins as above, plus `postcss-import` to bundle and `esbuild` to minify. It writes the single-file bundles, their minified twins, and the per-file copies in `dist/css/`. The `SRC` and `OUT` constants at the top of the file are the two paths to repoint at your own folders.
+
+[build-tool]: https://github.com/minimaldesign/mCSS/blob/main/src/tools/build-css.mjs
+[framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/
+[install]: /docs/start#the-easy-install
+[mixins]: https://github.com/postcss/postcss-mixins
+[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
