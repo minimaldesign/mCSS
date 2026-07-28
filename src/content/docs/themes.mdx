@@ -1,7 +1,7 @@
 ---
 title: "Themes"
 description: "Themes: swappable styles made of token overrides plus optional style rules"
-lastUpdate: 2026-07-21
+lastUpdate: 2026-07-28
 version: 1
 ---
 
@@ -9,8 +9,8 @@ version: 1
 
 <div class="docs_oversizedTable">
 
-| File name             | Description                          | Source                 |
-| --------------------- | ------------------------------------ | ---------------------- |
+| File name             | Description                                     | Source                 |
+| --------------------- | ----------------------------------------------- | ---------------------- |
 | `theme.default.css`   | Empty template: copy it to start your own theme | [Github][srcDefault]   |
 | `theme.wireframe.css` | Example theme with a hand-drawn wireframe look  | [Github][srcWireframe] |
 
@@ -33,7 +33,7 @@ Import exactly one theme file from your own entry point, after the framework:
 
 ```css
 @import url(./framework/mcss.css);
-@import url(./framework/mcss.components.css); /* optional: the component library */
+@import url(./framework/mcss.components.css); /* optional */
 @import url(./framework/theme.wireframe.css);
 ```
 
@@ -49,7 +49,7 @@ The `theme` layer sits after `components` and before `helpers`, so a theme beats
 
 Themes work because of the two token tiers below them:
 
-1. **Raw tokens** (`settings.tokens.css`) hold primitive values: palettes, the type scale, spacing, radii.
+1. **Raw tokens** (`settings.tokens.css`) hold raw values: palettes, type scale, spacing, etc.
 2. **[Interface tokens](/docs/tokens#interface-tokens)** (`settings.ui.css`) map those primitives onto meaning: semantic aliases like `--ui-border-color`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). Interface tokens only ever take another token for value.
 
 Because components read `var(--ui-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
@@ -57,13 +57,13 @@ Because components read `var(--ui-border-color)` instead of a raw hex, a theme g
 ```css
 @layer theme {
   :root {
-    /* Whole palette shifts: every light-dark() alias follows */
+    /* Whole palette shifts */
     --base-950: #1a1208;
 
-    /* Cross-cutting: every bordered surface at once */
+    /* Every bordered surface at once */
     --ui-border-color: light-dark(var(--base-300), var(--base-600));
 
-    /* Surgical: one component knob */
+    /* Single component override */
     --bt-border-radius: 0;
   }
 }
@@ -71,7 +71,7 @@ Because components read `var(--ui-border-color)` instead of a raw hex, a theme g
 
 </section>
 
-## Worked example: the wireframe theme
+## Example: the wireframe theme
 
 <section class="prose">
 
@@ -92,7 +92,8 @@ Also worth copying: what it leaves alone. The focus ring stays crisp and high-co
 Copy [`theme.default.css`][srcDefault] and start overriding. Guidelines:
 
 - **Tokens first.** Most themes never need a selector: raw tokens for the palette and type, interface tokens for cross-cutting changes, component tokens for details.
-- **Style rules for the rest.** Pseudo-elements, `nth-child` rhythm, and `text-decoration` have no token hooks, so themes may style them directly. Theme files are the one place in mCSS allowed to select component classes from outside (see [`theme.wireframe.css`][srcWireframe] for a real example).
+- **Style rules for the rest**, only for what tokens can't express. Pseudo-elements, `nth-child` rhythm, `text-decoration`, and text rendering on `body` such as font smoothing, `font-synthesis`, or `text-wrap` have no token hooks, so themes may style them directly. Theme files are the one place in mCSS allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors (see [`theme.wireframe.css`][srcWireframe] for a real example). **A `body` rule belongs here, not in your project CSS.**
+- **Check tokens before writing a `body` rule.** Most of what people write into one is already an interface token. The elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. What is left over (the text-rendering properties the framework exposes no token for) is exactly what a theme style rule is for.
 - **No `!important`.** A theme is meant to be overridable by your page CSS; the last word belongs to [helpers](/docs/helpers).
 
 </section>

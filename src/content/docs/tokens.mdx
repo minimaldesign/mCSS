@@ -1,7 +1,7 @@
 ---
 title: "Tokens"
 description: "Design tokens: the CSS custom properties for color, typography, spacing, and more that customize the framework"
-lastUpdate: 2026-07-23
+lastUpdate: 2026-07-28
 version: 1
 ---
 
@@ -26,6 +26,8 @@ In mCSS, tokens are CSS custom properties that provide a flexible, coherent, and
 <section class="prose">
 
 When you start a new project, open `settings.tokens.css` and change the values of as many tokens as necessary to match the design you're planning to implement. (Things like spacing might not need to change, but you'll almost certainly need to customize your `base` and `primary` colors for instance.) For deviations you want to keep swappable, put the overrides in a [theme](/docs/themes) instead of editing the defaults.
+
+The same discipline applies to the CSS you write on top of the framework: **no raw color and no raw type size in a `component.*.css` file.** If your theme does not name the value you need, add a token to the theme and use that. A `#8a5500` or a `1.0625rem` sitting in a component is a design decision nobody can find, and the second use of it will be a slightly different number. Spacing is more forgiving (a `2px` optical nudge is a property of that component and belongs to it), but color and type size are the design system, and the design system lives in one file.
 
 </section>
 

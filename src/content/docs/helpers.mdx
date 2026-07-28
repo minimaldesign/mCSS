@@ -1,12 +1,12 @@
 ---
 title: "Helpers"
 description: "Utility classes (spacing, color, typography) that override everything via !important"
-lastUpdate: 2024-09-05
+lastUpdate: 2026-07-28
 version: 0.1
 ---
 
 <section class="prose">
-Helpers are classes for very targeted "one-off" local overrides. Every helper declaration uses `!important`, and because they live in an mCSS [cascade layer](/docs/start#mcss-file-structure), that beats everything: all framework layers, your own unlayered CSS, even normal inline styles. Think of a helper as inline styling for a single element. That power is exactly why they should be used as little as possible, but they're useful for things like:
+Helpers are classes for very targeted "one-off" local overrides. Every helper declaration uses `!important`, and because they live in an mCSS [cascade layer](/docs/start#mcss-file-structure), that beats everything: all framework layers, your own unlayered CSS, even normal inline styles. They should be used as little as possible, but they're useful for things like:
 
 - Designer's request to "make an exception"
 - Quick fix until refactor

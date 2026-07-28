@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2026-07-27
+lastUpdate: 2026-07-28
 version: 1
 ---
 
@@ -178,7 +178,9 @@ Some components are **CSS-only**: a single class on a single element, with no As
 
 ### Theme
 
-This is the one layer the framework declares but never fills: `mcss.css` imports no theme, and the default look IS the empty theme layer. The theme itself is really part of [your CSS](#your-css-unlayered): one `theme.*.css` file of token overrides plus optional style rules that you activate from your own entry file, whether it's a shipped theme like `theme.wireframe.css` or one you wrote yourself. See [the theme docs][themes] for how themes work and how to build one.
+This is the one layer the framework declares but never fills: `mcss.css` imports no theme, and the default look IS the empty theme layer. The theme itself is really part of [your CSS](#your-css-unlayered): one `theme.*.css` file of token overrides plus optional style rules that you activate from your own entry file, whether it's a shipped theme like `theme.wireframe.css` or one you wrote yourself.
+
+The theme's remit is wider than component classes. Theme files are the ONE place allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors. **A `body` rule belongs in the theme, not in your project CSS.** Before adding a declaration to `body`, check whether an interface token already delivers it: the elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. See [the theme docs][themes] for how themes work and how to build one.
 
 ### Helpers
 
@@ -186,25 +188,21 @@ This is the one layer the framework declares but never fills: `mcss.css` imports
 
 ### Your CSS (unlayered)
 
-Everything you write outside the mCSS layers (your components, page styles, and any third-party CSS you don't control) simply imports after the framework, unlayered. Unlayered CSS wins over all layered CSS for normal declarations, so you never fight the framework's specificity. The one exception is helper classes: their `!important` declarations win even over unlayered CSS.
+Your own CSS (components, page styles, third-party CSS you don't control) is imported after the mCSS framework. Your CSS is unlayered. It wins over all layered mCSS files. You never have to worry about the framework's specificity. The one exception is helper classes: their `!important` declarations win over everything, on purpose.
 
-It goes inside your `site/` folder, in this order:
+Your CSS goes inside your `site/` folder, in this order:
 
-- `theme.*.css` for your [theme][themes], at most one active. This is the one file of yours that is _not_ unlayered: a theme wraps its own content in `@layer theme`, deliberately dropping into the framework's theme slot so it restyles the framework defaults while the rest of your CSS below still beats it.
+- `theme.*.css` is the one file of yours that is **not** unlayered: a theme wraps its own content in `@layer theme`, deliberately dropping into the framework's theme slot so it restyles the framework defaults while the rest of your CSS below still beats it.
 - `global.*.css` for site-wide additions to the framework's globals.
 - `component.*.css` for your own blocks (most of your CSS should end up here)
 - `page.*.css` for the rare page-specific styles
-- `external.*.css` for CSS you don't control, ie. plugins
+- `external.*.css` for CSS you don't control, i.e. plugins
 
-Because those files are unlayered, the order you import them in is important, so make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
+Because those files are unlayered, the order you import them in is important. Make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
 
-**Page classes go on the `<body>`**, next to the [layout scaffold](/docs/global#layouts) classes, not on `<main>`:
+### Pages
 
-```html
-<body class="layout layout-centered blog blog-index"></body>
-```
-
-A page class is mostly a scope for token overrides, and tokens only inherit _down_: from the body they reach the whole scaffold, while a class on `<main>` can't touch anything above or beside it (`.layout_content`, the header, the footer). This site's blog index is the worked example: articles keep the default reading column, and one body class widens the listing page.
+Page files belong to your `/site` folder. They're used sparingly, for the rare page-specific overrides.
 
 ```css
 /* page.blog.css */
@@ -212,6 +210,46 @@ A page class is mostly a scope for token overrides, and tokens only inherit _dow
   --layout-content-width: 100%;
 }
 ```
+
+**Note**: page classes should go on the `<body>` in the HTML, at the same level as the [layout scaffold](/docs/global#layouts) classes (not on `<main>`):
+
+```html
+<body class="layout layout-centered blog blog-index"></body>
+```
+
+### Print styles
+
+Two rules bend for one file: one block per file, and the rule that a selector only contains classes from its own block. `global.print.css` holds **every** `@media print` rule in the project, including rules that select classes belonging to other blocks.
+
+Print is not a variation on the screen design, it is a different artifact. It removes the parts of the interface that paper cannot use, flattens tinted surfaces that cost toner and print as nothing, and decides where the page may break. That is a single decision about a medium, and a decision is easier to keep coherent in one place than spread across every component it touches. Reading `global.print.css` top to bottom should tell you what a printed page looks like; you cannot read that out of fourteen `@media print` blocks in fourteen files.
+
+Group it by intent rather than by component: the sheet, what paper cannot use, ink instead of tint, where the page may break. Grouping that way also collapses repeated rules into shared selector lists, which a per-component split cannot do.
+
+```css
+/* site/global.print.css */
+@media print {
+  /* What paper cannot use */
+  .a11y-skipLink,
+  .header,
+  .footer,
+  .signup {
+    display: none;
+  }
+
+  /* Ink instead of tint */
+  .codeBlock_pre,
+  .caveat,
+  .correction {
+    background: none;
+    /* --print-rule is yours to define, in your theme */
+    border: 1pt solid var(--print-rule);
+  }
+}
+```
+
+The cost of the exception is that deleting a component can leave an orphan rule behind. Naming the exception is what makes that affordable: there is one file to scan, not fourteen.
+
+**No other media query gets this exception.** `@media (forced-colors: active)`, `prefers-reduced-motion`, and `prefers-color-scheme` stay in the file of the block they concern. Those are per-block statements about how one component survives a condition: a note on that component, and part of understanding it. A print rule is one line in the design of a printed page, and belongs with the rest of that design.
 
 </section>
 
@@ -222,6 +260,8 @@ A page class is mostly a scope for token overrides, and tokens only inherit _dow
 Classes in mCSS are inspired by [BEM][bem], but they're simpler to use and easier to look at.
 
 You can use standard BEM, the even more verbose [BEMIT][bemit], or any other syntax you'd like. But the mCSS syntax gets you 90% of the same benefits without any drawbacks, even on large projects involving many devs.
+
+Whatever syntax you pick, one rule stands above all of it: **never couple classes across components**. A selector may only contain classes from its own block, and every override goes through classes you mix onto the markup, component tokens, or the theme. It's important enough to have [its own article][coupling], with plenty of examples.
 
 ### Blocks, elements, and modifiers
 
@@ -345,6 +385,16 @@ When using modifiers to create different variations of a component, it's recomme
 
 See the [implementation][github] of the [notice component](/components/notice) for a real life example.
 
+### One block per file
+
+This rule governs every file in your `site/` folder, not just `component.*.css`. Name each file for the block it holds, and hold one block in it. `component.card.css` is `.card`, its elements, its modifiers, and its media queries, nothing else. A file carrying a second block is a file you cannot delete when that block dies; a block with no file of its own is a block nobody can find.
+
+- A container's items are elements, not blocks: a step indicator only ever exists inside `.steps`, so it is `.steps_step`, and it lives in `component.steps.css` with the rest of its block. The test is whether the thing has a life of its own: a `.card` that shows up all over the site is its own block, and a `.cardGrid` built to lay cards out is another, each with its own file.
+- A nested component starts its own name, so it gets its own file.
+- `global.*` files are bound by the same rule: one scaffold, one utility, one role family per file. A `global.layout.css` holding the page shell, a section pattern, and nine typography classes is three files.
+
+The import list in your entry file is then also the list of blocks in your project, in build order, which makes an unfamiliar codebase readable from a single file.
+
 Any questions or feedback? Head over to the [Github discussions][discussions]!
 
 </section>
@@ -378,6 +428,7 @@ The exact compile floor lives in `.browserslistrc` (`defaults and supports css-c
 [bem]: /blog/what-is-bem
 [bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
 [components]: /components/start
+[coupling]: /blog/component-system-that-scales
 [discussions]: https://github.com/minimaldesign/mCSS/discussions
 [dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
 [dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css

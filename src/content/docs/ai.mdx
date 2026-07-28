@@ -1,7 +1,7 @@
 ---
 title: "AI Agents"
 description: "Machine-readable docs (llms.txt, markdown twins) and a ready-to-paste rules block for coding agents"
-lastUpdate: 2026-07-26
+lastUpdate: 2026-07-28
 version: 0.1
 ---
 
@@ -45,16 +45,21 @@ All framework CSS lives in native cascade layers, declared in `mcss.css` in prio
 - `settings` through `components` are the framework defaults: what things look like when nobody has an opinion. Never edit these files to restyle; override them from further up the order.
 - `theme` holds at most one theme file: a deliberate opinion about the defaults. An empty theme layer IS the default look.
 - Your own unlayered CSS is more deliberate still: it beats every layer, by design. Never use `!important` to win against the framework.
-- `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS, like inline styles. Use sparingly. `!important` is banned everywhere else.
+- `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS. Use sparingly. `!important` is banned everywhere else.
+
+Inline `style` attributes don't participate in the order at all: they beat every normal declaration in every stylesheet (only a helper's `!important` outranks them). **Never place, size, space, or color anything from a `style` attribute**: a declaration written into markup is one no stylesheet can see, override, or audit, which is the opposite of what the layer order is for. When a value genuinely comes from data, pass it as a custom property and consume it in CSS:
+
+```html
+<div class="chart" style="--chart-columns: 7"></div>
+```
 
 ### Restyling, in order of preference
 
-1. **Theme token overrides.** A theme is one file that restyles the whole site: `@layer theme { :root { ... } }` (self-layered, so it slots correctly however it's loaded). Copy `theme.default.css` to start one; activate exactly one from your CSS entry point, after `mcss.css` (which never imports themes itself). Anything the theme doesn't mention falls back to the defaults. Pick the blast radius per override: raw tokens (`--base-*`, `--text`) shift the whole palette or type scale, interface tokens (`--ui-border-color`, `--heading-font`) change every surface that shares the meaning, component tokens (`--bt-border-radius`, `--card-*`) turn one knob. Most themes never need a selector.
-2. **Theme style rules**, only for what tokens can't express (pseudo-elements, `nth-child` rhythm, `text-decoration`). Theme files are the ONE place allowed to select component classes from outside. No `!important` in themes.
+1. **Theme token overrides.** A theme is one file that restyles the whole site: `@layer theme { :root { ... } }` (self-layered, so it slots correctly however it's loaded). Copy `theme.default.css` to start one; activate exactly one from your CSS entry point, after `mcss.css` (which never imports themes itself). Anything the theme doesn't mention falls back to the defaults. Pick the blast radius per override: raw tokens (`--base-*`, `--text`) shift the whole palette or type scale, interface tokens (`--ui-border-color`, `--heading-font`) change every surface that shares the meaning, component tokens (`--bt-border-radius`, `--card-*`) turn one knob.
+2. **Theme style rules**, only if a token doesn't exist for that value, or for what tokens can't express (pseudo-elements, `nth-child` rhythm, etc.). It's ok to override elements like `body` if there is no other way to reliably set it globally. Theme files are the ONE place allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors. **A `body` rule belongs here, not in project CSS**. Make sure you keep the ordering general to specific (same as ITCSS). No `!important` in themes.
 3. **Unlayered project CSS** for what belongs to your project rather than to the design: page layouts, one-off blocks.
-4. **Helpers** for element-level one-offs.
 
-Edit framework files only for structural change: adding a component, or adding a missing token or `<part>Class` prop to an existing one.
+Do not edit framework files.
 
 ### Tokens
 
@@ -62,6 +67,23 @@ Edit framework files only for structural change: adding a component, or adding a
 - `settings.ui.css`: interface tokens, the public API of every component (semantic aliases plus all component defaults). Interface tokens only ever take another token as value; raw values live in `settings.tokens.css`.
 - Grammar: `--component-part-property`, longhand, kebab-case, no abbreviations: `--bt-background-color-hover`, `--notice-border-width`.
 - Feedback colors: use the semantic aliases `--success-*`, `--danger-*`, `--warning-*`, not the raw scales they point at.
+- The same discipline applies to your own CSS: **no raw color and no raw type size in a `component.*.css` file.** If the theme doesn't name the value you need, add a token to the theme and use that. A `#8a5500` or a `1.0625rem` sitting in a component is a design decision nobody can find, and the second use of it will be a slightly different number.
+
+### Organizing project CSS: one block per file
+
+Name each file for the block it holds, and hold one block in it. `component.card.css` is `.card`, its elements, its modifiers, and its media queries, nothing else. A file carrying a second block is a file you cannot delete when that block dies; a block with no file of its own is a block nobody can find.
+
+- A container's items are elements, not blocks: `.steps_step` lives in `component.steps.css` with the rest of `.steps`. Something with a life of its own outside the container (`.card` in a `.cardGrid`) is its own block, with its own file.
+- A nested component starts its own name, so it gets its own file.
+- `global.*` files follow the same rule: one scaffold, one utility, one role family per file. A `global.layout.css` holding the page shell, a section pattern, and nine typography classes is three files.
+
+The import list in the entry file is then also the list of blocks in the project, in build order, which makes an unfamiliar codebase readable from one file.
+
+### The print sheet is the one exception
+
+Two rules bend for one file: one block per file, and the rule that a selector only contains classes from its own block. `global.print.css` holds **every** `@media print` rule in the project, including rules that select classes belonging to other blocks. Print is not a variation on the screen design, it is a different artifact: one decision about a medium, easier to keep coherent in one place than spread across every component it touches. Reading `global.print.css` top to bottom should tell you what a printed page looks like. Group it by intent rather than by component: the sheet, what paper cannot use, ink instead of tint, where the page may break.
+
+**No other media query gets this exception.** `@media (forced-colors: active)`, `prefers-reduced-motion`, and `prefers-color-scheme` stay in the file of the block they concern: those are per-block statements about how one component survives a condition.
 
 ### Class naming (BEM-like, different separators)
 
@@ -71,6 +93,8 @@ Edit framework files only for structural change: adding a component, or adding a
 - State: `.is-*` (`.is-active`, `.is-open`), only for things that change at runtime, always scoped inside the block (`.avatar.is-online`)
 - Prefer styling an existing ARIA attribute over inventing a state class: `[aria-current]`, `[aria-expanded="true"]`, `[aria-disabled="true"]`
 - A nested component starts its own block: `.themeToggle_text`, never `.header_nav_themeToggle_text`
+- Inside a component's own CSS, bare HTML element selectors are fine (and recommended) instead of a class for every element.
+- Modifiers should override local custom properties declared on the block, not redeclare CSS directly. Declare property defaults on the block (never inside an `.is-*` state, which compiles to a two-class selector that would beat single-class modifiers); states only consume the properties.
 
 ### Never couple classes across components (CRITICAL)
 
@@ -84,19 +108,50 @@ A selector may only contain classes from its own block. Never write a selector t
 
 ```css
 /* Don't: couple your block to the card's classes */
-.pricing .card { border-color: var(--primary-500); }
-.pricing .card_title { color: var(--primary-500); }
+.pricing .card {
+  border-color: var(--primary-500);
+}
+.pricing .card_title {
+  color: var(--primary-500);
+}
 
 /* Do: style the classes you mixed on */
-.pricing_planTitle { color: var(--primary-500); }
+.pricing_planTitle {
+  color: var(--primary-500);
+}
 
 /* Do: or turn the component's own token knobs from your class */
-.pricing_planCard { --card-border-color: var(--primary-500); }
+.pricing_planCard {
+  --card-border-color: var(--primary-500);
+}
 ```
 
-When the markup comes from a component you don't write inline, its `<part>Class` props (`titleClass`, `iconClass`, ...) mix your class onto the part the same way. If the prop or token you need doesn't exist, add it to the component; don't reach in with a selector.
+When the markup is rendered by a component file (Astro, JSX) instead of HTML you type yourself, its `<part>Class` props (`titleClass`, `iconClass`, ...) mix your class onto the internal part the same way. If the token or `<part>Class` prop you need doesn't exist, don't reach in with a selector and don't edit the framework file: override what you can through mixed classes or your theme, and past that, replace the component with a site component of your own.
 
 Bare HTML tags, `.is-*` states, and ARIA attribute selectors are fine inside your own block. Theme files are the only sanctioned exception to this rule.
+
+### Globals lose to components, and that is the point
+
+`global.*` files import before `component.*` files, so a component always wins a specificity tie. That ordering is deliberate: a global is a default, and a component refining it is the architecture working, not a conflict to be resolved.
+
+Which gives you a diagnostic. **A "global" that only works if it beats components is not a global: it is a helper.** mCSS puts helpers in `help.*`, in the `helpers` layer, with `!important`, precisely because a thing that must outrank every block has to sit above every block. If you find yourself moving a `global.*` import to the end of the entry file so it stops losing, stop: either use a helper, or the thing is the wrong shape. Do not hand-simulate the helpers layer with source order.
+
+Spacing is where this goes wrong most often:
+
+- **A class whose only job is to set a margin is a helper**, whatever you called it. One declaration, no structure, no semantics, applied per element from the markup: that is `.mt-sm3` with extra steps.
+- **Spacing between blocks is usually a property of the container.** Give the container the step and let it declare the value; the markup then carries no spacing at all, and a block that needs a different step says so in its own file:
+
+  ```css
+  .panel {
+    --panel-flow: var(--sm3);
+
+    > * + * {
+      margin-top: var(--panel-flow);
+    }
+  }
+  ```
+
+- **A margin reset names its sides.** `margin: 0` on a block that lives in such a container silently claims the container's step as well, and nothing about the declaration tells you it did. Write `margin-block-end: 0; margin-inline: 0` unless overriding the step is what you actually mean, and if it is, say so in a comment, because the next reader cannot tell the two apart.
 
 ### Transitions
 
