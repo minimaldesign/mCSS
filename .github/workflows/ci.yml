@@ -42,9 +42,14 @@ jobs:
           # layers survived the build (the preset-env polyfill must stay off)
           grep -q '@layer settings, base, elements, global, components, theme, helpers;' dist/mcss.css
           ! grep -q ':not(#' dist/mcss.css
-          # the bundle ships zero-opinion: no theme content in mcss.css
-          # ('@layer theme' appears in a comment; check real block syntax)
+          # the bundle ships zero-opinion: no theme or component content in
+          # mcss.css ('@layer theme'/'@layer components' appear in comments;
+          # check real block syntax)
           ! grep -q '@layer theme {' dist/mcss.css
+          ! grep -q '@layer components {' dist/mcss.css
+          # the component library lives in its own bundle
+          grep -q '@layer components {' dist/mcss.components.css
+          ! grep -q '@layer theme {' dist/mcss.components.css
           # per-file themes self-layer so any import method lands them right
           grep -q '@layer theme {' dist/css/theme.wireframe.css
           grep -q '@layer theme {' dist/css/theme.default.css
@@ -52,5 +57,8 @@ jobs:
           # (plain '@custom-media' appears in a comment; check real syntax)
           ! grep -qE '@custom-media --|media \(--' dist/mcss.css
           ! grep -q '@define-mixin' dist/mcss.css
+          ! grep -qE '@custom-media --|media \(--' dist/mcss.components.css
+          ! grep -q '@define-mixin' dist/mcss.components.css
           # no asset-path coupling
           ! grep -q 'assets/icons' dist/mcss.css
+          ! grep -q 'assets/icons' dist/mcss.components.css

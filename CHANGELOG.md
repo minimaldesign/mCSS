@@ -2,6 +2,18 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## 1.2.0 (2026-07-27)
+
+Core and components split: the drop-in framework file no longer bundles the component library, so sites that build their own components stop paying for it.
+
+### Added
+
+- **`mcss.components.css`**: the component library now has its own entry file. All 25 `component.*.css` files import there (wrapped in `@layer components`), and `dist/` gains the matching drop-ins `mcss.components.css` / `mcss.components.min.css` (~5 KB min+gzip). Import it alongside `mcss.css`, in either order: the layer statement in `mcss.css` decides priority, exactly like the existing `theme` slot.
+
+### Breaking
+
+- **`dist/mcss.css` / `dist/mcss.min.css` are now the framework core only** (~17 KB min+gzip): settings, base, elements, global, and helpers, plus the empty `components` and `theme` layer slots. If you use the component library, add `dist/mcss.components.min.css` next to it. Source consumers: `framework/mcss.css` no longer imports `component.*.css`; import `framework/mcss.components.css` from your entry too (see `_global.css`).
+
 ## 1.1.0 (2026-07-24)
 
 Tiles: one container-responsive list component replacing CardList and FeatureGrid.

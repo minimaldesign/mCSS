@@ -1,7 +1,7 @@
 ---
 title: "Getting started"
 description: "How the mCSS component library works: copy the files you need into your project and own the code."
-lastUpdate: 2026-07-23
+lastUpdate: 2026-07-26
 version: 1.0
 type: "intro"
 ---
@@ -12,7 +12,7 @@ The mCSS component library is entirely built with the [mCSS framework](/docs/sta
 
 Each component comes in two flavors:
 
-- **Plain HTML + CSS.** Copy the `component.*.css` file (or grab the compiled version from [`dist/css/`](https://github.com/minimaldesign/mCSS/tree/main/dist/css)) and use the documented markup. Works with any framework, or none.
+- **Plain HTML + CSS.** Copy the `component.*.css` file (or grab the compiled version from [`dist/css/`](https://github.com/minimaldesign/mCSS/tree/main/dist/css); the whole library in one file is [`dist/mcss.components.css`](https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css)) and use the documented markup. Works with any framework, or none.
 - **Astro.** Copy the `.astro` file(s) for typed props, slots, and sensible accessibility defaults out of the box.
 
 Components stay as pure HTML/CSS as possible. The exceptions ship only the few lines they need: the [header](/components/header)'s mobile menu, the dismissible [banner](/components/banner), the [hero](/components/hero)'s slideshow, the [table of contents](/components/toc)' scrollspy, and the [read progress bar](/components/readprogressbar)'s fallback for browsers without scroll-driven animations. Styling lives in [cascade layers](/docs/start), so your own unlayered CSS always wins, and every visual knob is a documented `--component-*` [interface token](/docs/tokens#interface-tokens).

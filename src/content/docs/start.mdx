@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2026-07-24
+lastUpdate: 2026-07-27
 version: 1
 ---
 
@@ -13,6 +13,34 @@ mCSS is both a CSS framework and a methodology. You need to first understand the
 1. The component architecture
 
 Once you've read through the basics below, the best way to understand how it all comes together is to have a look at the [source code][src]. (Video tutorial coming soon!)
+
+</section>
+
+## How to install mCSS
+
+<section class="prose">
+
+There is nothing to install from a registry: you copy mCSS into your project and own the copy. What you copy is the choice, the source files or the compiled ones.
+
+### Install with PostCSS
+
+Copy [`src/styles/framework/`][framework-src] to wherever your CSS lives, then start your own folder next to it for your unlayered CSS. This site's [`site/`][site-src] is the worked example of that folder, and [`_global.css`][4] is the entry file tying the two together (see [the layers](#mcss-file-structure) below).
+
+You own the source this way: tokens, components, and themes are all editable, and you only ship the files you actually import. The cost is a build step, because the source uses `@custom-media`, which no browser understands yet. One plugin ([postcss-preset-env][presetEnv]) and a five-line config resolve it, and if you already use Astro, Vite, Next, or any other bundler, that config is the only thing you add. If you need more details on how to set up PostCSS, see [this blog post][postcss-post].
+
+### The easy install
+
+Grab [`dist/mcss.min.css`][dist-min], the framework core in one file, and link it. Add [`dist/mcss.components.min.css`][dist-components-min] next to it for the component library, or leave it out if you're building your own components:
+
+```html
+<link rel="stylesheet" href="/css/mcss.min.css" />
+<!-- optional -->
+<link rel="stylesheet" href="/css/mcss.components.min.css" />
+```
+
+Everything is pre-processed, so there is no build step and no PostCSS. The unminified [`dist/mcss.css`][dist-css] and [`dist/mcss.components.css`][dist-components] are there if you need them.
+
+If you'd rather copy just what you need, every framework/component file is also available pre-processed and uncompressed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index).
 
 </section>
 
@@ -50,7 +78,7 @@ Each layer only ever loses to the ones after it. The sections below detail each 
 
 </div>
 
-Two entry files make the split concrete. The framework's own, [`framework/mcss.css`][mcss-entry], declares the layer order and puts every framework file in its layer. You never edit it:
+The framework's own entry, [`framework/mcss.css`][mcss-entry], makes the split concrete: it declares the layer order and puts every core framework file in its layer. You never edit it:
 
 ```css
 /* framework/mcss.css (abridged) */
@@ -65,16 +93,21 @@ Two entry files make the split concrete. The framework's own, [`framework/mcss.c
 @import url(./base.reset.css) layer(base);
 @import url(./elements.text.css) layer(elements);
 @import url(./global.grid.css) layer(global);
-@import url(./component.button.css) layer(components);
 @import url(./help.spacing.css) layer(helpers);
-/* etc. */
+/* etc. — note: no component.* and no theme.* imports here */
 ```
+
+Two layers are declared but never filled by this entry. The `theme` slot is yours (see below), and the `components` slot belongs to the component library, which lives in its own entry, [`framework/mcss.components.css`][mcss-components-entry]. Import it alongside `mcss.css` for the full library, or skip it and build your own components; the layer order declared in `mcss.css` decides priority either way, so import order between the two doesn't matter.
 
 Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, activates at most one theme, then imports your own CSS unlayered:
 
 ```css
 /* your entry file */
 @import url(./framework/mcss.css);
+
+/* Optional: the mCSS component library. Skip it if you build
+   your own components. */
+@import url(./framework/mcss.components.css);
 
 /* Optional: activate ONE theme, a swappable style. Theme files are
    self-layered (@layer theme inside the file), so no layer()
@@ -93,29 +126,7 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
 
 [cascade-layers]: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
 [mcss-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.css
-
-### How to import mCSS in your project
-
-#### Drop-in file
-
-Grab [`dist/mcss.css`][dist-css] (or [`dist/mcss.min.css`][dist-min]), the whole framework in one file, no build step needed. The easiest way to import, but the file size won't be optimized to your specific needs.
-
-#### Individual files
-
-Every framework file is also available pre-processed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index), so you can copy just the layers you need.
-
-#### Source files
-
-Copy [`src/styles/framework/`][framework-src] if you run PostCSS yourself (the source uses `@custom-media`, which needs [postcss-preset-env][presetEnv]).
-
-Run `npm run build:css` in the repo to produce `dist/` from source.
-
-[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
-[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
-[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
-[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
-[framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
-[site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site
+[mcss-components-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.components.css
 
 </section>
 
@@ -161,7 +172,7 @@ Global styles included out of the box:
 
 ### Components
 
-Self-contained styles for single components, one block per file. The mCSS framework is designed to be used on its own, allowing you to create your own components, but a [collection of components][components] built on top of mCSS is included.
+Self-contained styles for single components, one block per file. The mCSS framework is designed to be used on its own, allowing you to create your own components, but a [collection of components][components] built on top of mCSS is included. It ships in its own entry file (`mcss.components.css`, or `dist/mcss.components.css` as a drop-in): `mcss.css` only declares the `components` layer slot, so the library is opt-in.
 
 Some components are **CSS-only**: a single class on a single element, with no Astro component because there is no markup structure to encapsulate. For example, the `.badge` class on a `<span>` is the whole badge, and the `.bt` class can style a `<button>` or an `<a>` (styling that has to be opt-in, since not all links are buttons). Their docs live in the [components section][components] like everything else, marked "CSS-only".
 
@@ -363,19 +374,28 @@ The exact compile floor lives in `.browserslistrc` (`defaults and supports css-c
 [5]: /docs/tokens
 [6]: /docs/media-queries
 [7]: https://github.com/postcss/postcss-mixins
-[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
-[grid]: /docs/global#grid
-[wrap]: /docs/global#wrap
-[layout]: /docs/global#layouts
-[prose]: /docs/global#prose
 [a11y]: /docs/global#accessibility
-[components]: /components/start
-[helpers]: /docs/helpers
-[interfaceTokens]: /docs/tokens#interface-tokens
-[themes]: /docs/themes
-[layers]: /blog/what-is-itcss#the-layers-of-itcss
 [bem]: /blog/what-is-bem
 [bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
-[github]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
-[src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles
+[components]: /components/start
 [discussions]: https://github.com/minimaldesign/mCSS/discussions
+[dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
+[dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
+[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
+[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
+[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
+[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
+[framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
+[github]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
+[grid]: /docs/global#grid
+[helpers]: /docs/helpers
+[interfaceTokens]: /docs/tokens#interface-tokens
+[layers]: /blog/what-is-itcss#the-layers-of-itcss
+[layout]: /docs/global#layouts
+[postcss-post]: /blog/postcss-setup-for-mcss
+[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
+[prose]: /docs/global#prose
+[site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site
+[src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles
+[themes]: /docs/themes
+[wrap]: /docs/global#wrap

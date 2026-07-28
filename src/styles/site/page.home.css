@@ -1,13 +1,5 @@
 /* HOMEPAGE */
 
-/*
-  The homepage is the first template demo: every section is built from the v1
-  library (Section, Tiles, Card, Field, badges) plus the page styles
-  below. Section numbers (§1 to §9) reference mcss-homepage-content-map.md.
-*/
-
-/* Poster-grade vertical rhythm (denser than the docs pages).
-   Mixed onto every Section instance in index.astro. */
 .home_section {
   --section-spacing: var(--xl1);
   /* Mobile gutters match the footer's (24px) so every section aligns */
@@ -17,47 +9,27 @@
   }
 }
 
-/* §3 to §6: narrow header, wide content. These blocks escape the wrap
+/* 2 to 5: narrow header, wide content. These blocks escape the wrap
    column and center at up to 1150px. */
 .home_pillars,
-.home_showcase_grid,
+.home_showcase_tiles,
 .home_themer_split,
 .home_gallery_grid {
   grid-column: 1 / -1;
   width: 100%;
   max-width: 1150px;
   margin-inline: auto;
-  /* Same gutters as the footer at every width */
+  /* Same gutters as the footer */
   padding-left: var(--sm3);
   padding-right: var(--sm3);
 }
 
-/* Scroll reveal: one effect, used consistently (section headers get it via
-   Section's headerClass prop). Decoration only; browsers without
-   scroll-driven animations simply show the content. */
-@media (--motionOK) {
-  @supports (animation-timeline: view()) {
-    .home_reveal {
-      animation: home_reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 10% entry 40%;
-    }
-  }
-}
-
-@keyframes home_reveal {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-}
-
-/* §1 HERO */
+/* 1 HERO */
 
 .home_hero {
   display: grid;
   align-content: center;
-  min-height: calc(72svh - var(--header-height));
+  min-height: calc(80svh - var(--header-height));
   padding-block: var(--lg1) var(--sm3);
   padding-inline: var(--sm3);
 }
@@ -75,7 +47,7 @@
   }
   @media (--lg) {
     grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
-    align-items: center;
+    align-items: top;
     gap: var(--xl2);
   }
 }
@@ -100,11 +72,6 @@
       justify-content: center;
       order: 2;
     }
-
-    .home_hero_fineprint {
-      justify-content: center;
-      order: 3;
-    }
   }
 
   h1 {
@@ -125,10 +92,10 @@
     background-clip: text;
     /* The gradient only paints the box; at line-height 1 the descenders
        poke below it and vanish, so extend the box under the last line */
-    padding-bottom: 0.12em;
-    font-size: var(--display-lg);
+    font-size: var(--display-md);
     line-height: var(--leading-xs);
     @media (--md) {
+      padding-bottom: 0.12em;
       font-size: var(--display-mega);
     }
   }
@@ -155,12 +122,16 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--xs2) var(--sm1);
-  margin-top: var(--sm1);
+  justify-content: center;
+  margin-top: var(--lg1);
   font-family: var(--mono);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: light-dark(var(--base-500), var(--base-400));
+  @media (--md) {
+    margin-top: var(--xl3);
+  }
 
-  span {
+  li {
     display: inline-flex;
     align-items: center;
     gap: var(--xs1);
@@ -173,7 +144,7 @@
   }
 }
 
-/* §1 THE CODE MORPH */
+/* 1 THE CODE MORPH */
 
 /* Animated character counter (219 to 54). The unregistered fallback below
    keeps the number correct in engines without @property (it just steps
@@ -199,16 +170,14 @@
   }
 }
 
-/* The editor fakes Shiki's github-dark (colors below match the theme the §5
-   panes get from the real Shiki), in both site themes */
+/* The editor fakes Shiki's github-dark in both site themes */
 .home_morph_editor {
-  margin: 0;
+  margin-top: var(--sm2);
   padding: var(--sm3);
   background-color: #24292e;
   border: var(--border-sm) solid rgb(255 255 255 / 0.12);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
-  animation: morphFade var(--morph-duration) linear infinite;
 }
 
 .home_morph_chrome {
@@ -221,16 +190,21 @@
     height: 10px;
     border-radius: var(--radius-round);
     opacity: var(--o-4);
-    &:nth-child(1) { background: var(--no-300); }
-    &:nth-child(2) { background: var(--maybe-300); }
-    &:nth-child(3) { background: var(--yes-300); }
+    &:nth-child(1) {
+      background: var(--no-300);
+    }
+    &:nth-child(2) {
+      background: var(--maybe-300);
+    }
+    &:nth-child(3) {
+      background: var(--yes-300);
+    }
   }
 }
 
-/* Both morph states share one grid cell; the hidden sizer (full "before"
-   text) reserves that state's height at every width, so CLS is ~0 */
 .home_morph_frame {
   display: grid;
+  animation: morphFade var(--morph-duration) linear infinite;
 
   > pre {
     grid-area: 1 / 1;
@@ -250,9 +224,15 @@
 }
 
 /* github-dark syntax roles */
-.home_morph_tag { color: #85e89d; }
-.home_morph_attr { color: #b392f0; }
-.home_morph_str { color: #9ecbff; }
+.home_morph_tag {
+  color: #85e89d;
+}
+.home_morph_attr {
+  color: #b392f0;
+}
+.home_morph_str {
+  color: #9ecbff;
+}
 
 /* Strike color channel: animated on the class span, painted only over the
    class text (not its trailing space) by the inner span's gradient stripe,
@@ -277,19 +257,45 @@
   );
 }
 
-.home_morph_g-1 { animation-name: morphC1; }
-.home_morph_g-2 { animation-name: morphC2; }
-.home_morph_g-3 { animation-name: morphC3; }
-.home_morph_g-4 { animation-name: morphC4; }
-.home_morph_g-5 { animation-name: morphC5; }
-.home_morph_g-6 { animation-name: morphC6; }
-.home_morph_g-7 { animation-name: morphC7; }
-.home_morph_g-8 { animation-name: morphC8; }
-.home_morph_g-9 { animation-name: morphC9; }
-.home_morph_g-10 { animation-name: morphC10; }
-.home_morph_g-11 { animation-name: morphC11; }
-.home_morph_g-12 { animation-name: morphC12; }
-.home_morph_g-13 { animation-name: morphC13; }
+.home_morph_g-1 {
+  animation-name: morphC1;
+}
+.home_morph_g-2 {
+  animation-name: morphC2;
+}
+.home_morph_g-3 {
+  animation-name: morphC3;
+}
+.home_morph_g-4 {
+  animation-name: morphC4;
+}
+.home_morph_g-5 {
+  animation-name: morphC5;
+}
+.home_morph_g-6 {
+  animation-name: morphC6;
+}
+.home_morph_g-7 {
+  animation-name: morphC7;
+}
+.home_morph_g-8 {
+  animation-name: morphC8;
+}
+.home_morph_g-9 {
+  animation-name: morphC9;
+}
+.home_morph_g-10 {
+  animation-name: morphC10;
+}
+.home_morph_g-11 {
+  animation-name: morphC11;
+}
+.home_morph_g-12 {
+  animation-name: morphC12;
+}
+.home_morph_g-13 {
+  animation-name: morphC13;
+}
 
 .home_morph_after,
 .home_morph_keep {
@@ -313,6 +319,7 @@
   font-variant-numeric: tabular-nums;
   text-align: right;
   color: #8b949e;
+  animation: morphFade var(--morph-duration) linear infinite;
 }
 
 .home_morph_count {
@@ -376,20 +383,32 @@
   color: light-dark(var(--base-500), var(--base-400));
 }
 
-/* Hovering the editor pauses the loop (no focusables inside; keyboard users
-   get the replay button) */
-.home_morph_editor:hover,
-.home_morph_editor:hover :is(.home_morph_g, .home_morph_after, .home_morph_count) {
+.home_morph_editor:hover
+  :is(
+    .home_morph_frame,
+    .home_morph_counter,
+    .home_morph_g,
+    .home_morph_after,
+    .home_morph_count
+  ) {
   animation-play-state: paused;
 }
 
 /* Replay: the page script toggles this class to restart every animation */
-.home_morph.is-resetting :is(.home_morph_editor, .home_morph_g, .home_morph_after, .home_morph_count) {
+.home_morph.is-resetting
+  :is(
+    .home_morph_frame,
+    .home_morph_counter,
+    .home_morph_g,
+    .home_morph_after,
+    .home_morph_count
+  ) {
   animation-name: none;
 }
 
 @media (--motionNotOK) {
-  .home_morph_editor,
+  .home_morph_frame,
+  .home_morph_counter,
   .home_morph_g,
   .home_morph_after,
   .home_morph_count {
@@ -413,199 +432,495 @@
    A to B where A = 6 + 3.5(i-1) and B = A + 3.5 (percent). */
 
 @keyframes morphFade {
-  0%, 93.5% { opacity: 1; }
-  95.5%, 98.5% { opacity: 0; }
-  100% { opacity: 1; }
+  0%,
+  93.5% {
+    opacity: 1;
+  }
+  95.5%,
+  98.5% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes morphC1 {
-  0%, 6% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  7%, 8.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  9.4% { opacity: 0; font-size: 1em; }
-  9.5%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  6% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  7%,
+  8.3% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  9.4% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  9.5%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC2 {
-  0%, 9.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  10.5%, 11.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  12.9% { opacity: 0; font-size: 1em; }
-  13%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  9.5% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  10.5%,
+  11.8% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  12.9% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  13%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC3 {
-  0%, 13% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  14%, 15.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  16.4% { opacity: 0; font-size: 1em; }
-  16.5%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  13% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  14%,
+  15.3% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  16.4% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  16.5%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC4 {
-  0%, 16.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  17.5%, 18.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  19.9% { opacity: 0; font-size: 1em; }
-  20%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  16.5% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  17.5%,
+  18.8% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  19.9% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  20%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC5 {
-  0%, 20% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  21%, 22.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  23.4% { opacity: 0; font-size: 1em; }
-  23.5%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  20% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  21%,
+  22.3% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  23.4% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  23.5%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC6 {
-  0%, 23.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  24.5%, 25.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  26.9% { opacity: 0; font-size: 1em; }
-  27%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  23.5% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  24.5%,
+  25.8% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  26.9% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  27%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC7 {
-  0%, 27% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  28%, 29.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  30.4% { opacity: 0; font-size: 1em; }
-  30.5%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  27% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  28%,
+  29.3% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  30.4% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  30.5%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC8 {
-  0%, 30.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  31.5%, 32.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  33.9% { opacity: 0; font-size: 1em; }
-  34%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  30.5% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  31.5%,
+  32.8% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  33.9% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  34%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC9 {
-  0%, 34% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  35%, 36.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  37.4% { opacity: 0; font-size: 1em; }
-  37.5%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  34% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  35%,
+  36.3% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  37.4% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  37.5%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC10 {
-  0%, 37.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  38.5%, 39.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  40.9% { opacity: 0; font-size: 1em; }
-  41%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  37.5% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  38.5%,
+  39.8% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  40.9% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  41%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC11 {
-  0%, 41% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  42%, 43.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  44.4% { opacity: 0; font-size: 1em; }
-  44.5%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  41% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  42%,
+  43.3% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  44.4% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  44.5%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC12 {
-  0%, 44.5% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  45.5%, 46.8% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  47.9% { opacity: 0; font-size: 1em; }
-  48%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  44.5% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  45.5%,
+  46.8% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  47.9% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  48%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphC13 {
-  0%, 48% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
-  49%, 50.3% { opacity: 0.75; --morph-strike-now: var(--morph-strike); }
-  51.4% { opacity: 0; font-size: 1em; }
-  51.5%, 96% { opacity: 0; font-size: 0; }
-  96.5%, 100% { opacity: 1; font-size: 1em; --morph-strike-now: transparent; }
+  0%,
+  48% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
+  49%,
+  50.3% {
+    opacity: 0.75;
+    --morph-strike-now: var(--morph-strike);
+  }
+  51.4% {
+    opacity: 0;
+    font-size: 1em;
+  }
+  51.5%,
+  96% {
+    opacity: 0;
+    font-size: 0;
+  }
+  96.5%,
+  100% {
+    opacity: 1;
+    font-size: 1em;
+    --morph-strike-now: transparent;
+  }
 }
 
 @keyframes morphAfter {
-  0%, 51.5% { font-size: 0; opacity: 0; background-color: transparent; }
-  52% { font-size: 1em; opacity: 0; }
-  53% { opacity: 1; background-color: var(--morph-pulse); }
-  62%, 96% { font-size: 1em; opacity: 1; background-color: transparent; }
-  96.5%, 100% { font-size: 0; opacity: 0; }
+  0%,
+  51.5% {
+    font-size: 0;
+    opacity: 0;
+    background-color: transparent;
+  }
+  52% {
+    font-size: 1em;
+    opacity: 0;
+  }
+  53% {
+    opacity: 1;
+    background-color: var(--morph-pulse);
+  }
+  62%,
+  96% {
+    font-size: 1em;
+    opacity: 1;
+    background-color: transparent;
+  }
+  96.5%,
+  100% {
+    font-size: 0;
+    opacity: 0;
+  }
 }
 
 @keyframes morphCount {
-  0%, 8.8% { --morph-n: 219; }
-  9.5%, 12.3% { --morph-n: 204; }
-  13%, 15.8% { --morph-n: 199; }
-  16.5%, 19.3% { --morph-n: 194; }
-  20%, 22.8% { --morph-n: 186; }
-  23.5%, 26.3% { --morph-n: 172; }
-  27%, 29.8% { --morph-n: 161; }
-  30.5%, 33.3% { --morph-n: 150; }
-  34%, 36.8% { --morph-n: 139; }
-  37.5%, 40.3% { --morph-n: 126; }
-  41%, 43.8% { --morph-n: 105; }
-  44.5%, 47.3% { --morph-n: 84; }
-  48%, 50.8% { --morph-n: 56; }
-  51.5%, 52.2% { --morph-n: 41; }
-  53%, 96% { --morph-n: 54; }
-  96.5%, 100% { --morph-n: 219; }
-}
-
-/* §2 PROOF STRIP */
-
-.home_proof {
-  --section-spacing: var(--xl1);
-  padding-block-start: 0;
-}
-
-.home_proof_install {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-  margin-inline: auto;
-}
-
-/* Shiki (github-dark) one-liner; padding leaves room for the copy button */
-.home_proof_install pre {
-  margin: 0;
-  padding: var(--sm1) var(--xl1) var(--sm1) var(--sm3);
-  font-size: var(--text-sm);
-  border-radius: var(--radius-lg);
-  @media (--md) {
-    font-size: var(--text-md);
+  0%,
+  8.8% {
+    --morph-n: 219;
+  }
+  9.5%,
+  12.3% {
+    --morph-n: 204;
+  }
+  13%,
+  15.8% {
+    --morph-n: 199;
+  }
+  16.5%,
+  19.3% {
+    --morph-n: 194;
+  }
+  20%,
+  22.8% {
+    --morph-n: 186;
+  }
+  23.5%,
+  26.3% {
+    --morph-n: 172;
+  }
+  27%,
+  29.8% {
+    --morph-n: 161;
+  }
+  30.5%,
+  33.3% {
+    --morph-n: 150;
+  }
+  34%,
+  36.8% {
+    --morph-n: 139;
+  }
+  37.5%,
+  40.3% {
+    --morph-n: 126;
+  }
+  41%,
+  43.8% {
+    --morph-n: 105;
+  }
+  44.5%,
+  47.3% {
+    --morph-n: 84;
+  }
+  48%,
+  50.8% {
+    --morph-n: 56;
+  }
+  51.5%,
+  52.2% {
+    --morph-n: 41;
+  }
+  53%,
+  96% {
+    --morph-n: 54;
+  }
+  96.5%,
+  100% {
+    --morph-n: 219;
   }
 }
 
-.home_proof_caption {
-  max-width: 60ch;
-  margin: var(--sm3) auto 0;
-  text-align: center;
-  color: light-dark(var(--base-500), var(--base-400));
-}
-
-.home_proof_facts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: var(--xs3) var(--md2);
-  margin: var(--sm3) 0 0;
-  padding: 0;
-  list-style: none;
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  color: light-dark(var(--base-500), var(--base-400));
-  /* Stays on one line on small screens (like the hero fineprint) */
-  @media (--md-n-below) {
-    gap: var(--xs3);
-  }
-}
-
-/* §3 PHILOSOPHY */
+/* 2 PHILOSOPHY */
 
 /* prettier-ignore */
 .home_pillars {
-  /* Three pillars: 1-up then exactly 3-up, skipping the Tiles 2-up step
-     (3 items in 2 columns leaves an orphan). Viewport query on purpose:
-     the homepage has no container ancestor for the Tiles thresholds. */
   --tiles-columns: 1;
   @media (--md) {
     --tiles-columns: 3;
@@ -627,10 +942,6 @@
   font-size: var(--text-xl);
 }
 
-/* Large flat illustrations instead of the 48px icon box. Every SVG draws
-   on a 140-unit-tall viewBox with matching margins, so all three render
-   at the same height and the box hugs the artwork (the brackets one is
-   wider by design), which keeps them easy to align anywhere */
 .home_pillar_icon {
   width: fit-content;
   height: 90px;
@@ -644,15 +955,10 @@
   }
 }
 
-/* §4 MODERN CSS SHOWCASE */
+/* 3 MODERN CSS SHOWCASE */
 
-.home_showcase_grid {
-  /* margin-block and padding-block only: the shared wide rule above owns
-     margin-inline: auto and the inline padding */
-  margin-block: 0;
-  padding-block: 0;
-  list-style: none;
-}
+/* .home_showcase_tiles is the size container the cards read (.tiles_container
+   in the markup); .tiles handles the grid, the gaps, and the list reset. */
 
 .home_showcase_card {
   display: flex;
@@ -706,7 +1012,7 @@
   color: light-dark(var(--base-500), var(--base-400));
 }
 
-/* §5 THEMING DEMO */
+/* 4 THEMING DEMO */
 
 .home_themer_switcher {
   display: flex;
@@ -736,7 +1042,9 @@
     height: var(--md1);
     border-radius: var(--radius-round);
     border: var(--border-md) solid var(--ui-border-color);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
   }
 
   input:checked ~ i {
@@ -750,9 +1058,15 @@
   }
 }
 
-.home_themer_swatch-default i { background: var(--primary-500); }
-.home_themer_swatch-wireframe i { background: #a3a3a3; }
-.home_themer_swatch-sunset i { background: #ea580c; }
+.home_themer_swatch-default i {
+  background: var(--primary-500);
+}
+.home_themer_swatch-wireframe i {
+  background: #a3a3a3;
+}
+.home_themer_swatch-sunset i {
+  background: #ea580c;
+}
 
 .home_themer_split {
   display: grid;
@@ -844,7 +1158,6 @@
   display: block;
 }
 
-/* Desktop: diff always visible. Mobile: collapsed details (same panes). */
 .home_themer_diff {
   display: none;
   @media (--lg) {
@@ -874,7 +1187,7 @@
   color: light-dark(var(--base-500), var(--base-400));
 }
 
-/* §6 COMPONENT GALLERY */
+/* 5 COMPONENT GALLERY */
 
 .home_gallery_grid {
   display: grid;
@@ -923,7 +1236,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: var(--xs3);
+  padding-bottom: var(--xs3);
 }
 
 .home_gallery_name {
@@ -964,7 +1277,7 @@
   }
 }
 
-/* §7 OWNERSHIP: the exhale before the CTA */
+/* 6 OWNERSHIP: the exhale before the CTA */
 
 .home_own {
   --section-spacing: var(--xl1);
@@ -1007,7 +1320,7 @@
   }
 }
 
-/* §8 FINAL CTA: full-bleed #2, the second and last gradient */
+/* 7 FINAL CTA */
 
 .home_cta {
   --section-spacing: var(--xl2);
@@ -1020,7 +1333,7 @@
 }
 
 .home_cta_bt {
-   --bt-color: light-dark(var(--primary-700), var(--base-950));
+  --bt-color: light-dark(var(--primary-700), var(--base-950));
 }
 
 .home_cta_newsletter {

@@ -14,7 +14,8 @@ src/
   layouts/        Page wrappers (BaseLayout, BlogPostLayout, DocsPostLayout,
                   DocsComponentsLayout, DemoLayout)
   styles/         All CSS (see agents/css.md)
-    framework/    The mCSS framework (cascade layers, entry: mcss.css)
+    framework/    The mCSS framework (cascade layers, entries: mcss.css for
+                  the core, mcss.components.css for the component library)
     site/         Docs-site-only CSS (unlayered)
   assets/         Images, icons (assets/icons/), component assets (assets/ui/)
   data/           Shared static config/data arrays (e.g. docsNav.js)
@@ -28,7 +29,7 @@ src/
 | --------------------- | --------------------------------- | ----------------------------------------------------------------------- |
 | New page route        | `src/pages/`                      | —                                                                       |
 | New reusable UI       | `src/components/`                 | If it needs CSS: add `component.<name>.css` (see rows below)            |
-| New library component style | `src/styles/framework/component.<name>.css` | Import with `layer(components)` in `framework/mcss.css` |
+| New library component style | `src/styles/framework/component.<name>.css` | Import with `layer(components)` in `framework/mcss.components.css` (never in `mcss.css`) |
 | New site-only style   | `src/styles/site/<prefix>.<name>.css` | Import (unlayered) in `_global.css`                                 |
 | New blog post         | `src/content/blog/`               | Match schema (see agents/content.md)                                    |
 | New doc page          | `src/content/docs/`               | Match schema (see agents/content.md)                                    |

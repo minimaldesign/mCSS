@@ -12,8 +12,12 @@ import Faq from '../components/Faq.astro';
 import FaqItem from '../components/FaqItem.astro';
 import Field from '../components/Field.astro';
 import Pagination from '../components/Pagination.astro';
-import CopyButton from '../components/_CopyButton.jsx';
 import BaselineBadge from '../components/_BaselineBadge.astro';
+
+import { gzipSync } from 'node:zlib';
+
+import mcssMinCss from '../../dist/mcss.min.css?raw';
+import mcssComponentsMinCss from '../../dist/mcss.components.min.css?raw';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
@@ -22,9 +26,14 @@ import arrowIcon from '../assets/icons/arrow-right.svg?raw';
 const title = 'mCSS: One class. Not forty.';
 const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
 
-const installSnippet = '<link rel="stylesheet" href="mcss.min.css">';
+// The size claims in the hero fineprint are measured, not remembered: gzip the
+// files people actually download, at build time, so they can never drift from
+// the framework. Rounded to whole KB, and kept behind a "~" since a host's own
+// gzip level (and brotli, which does better) moves the last few hundred bytes.
+const mcssMinGzipKb = Math.round(gzipSync(mcssMinCss).length / 1024);
+const mcssComponentsMinGzipKb = Math.round(gzipSync(mcssComponentsMinCss).length / 1024);
 
-// §5 diff panes, rendered with Shiki (github-dark) at build time.
+// Section 4's diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
 const themeDiffs = {
   default: `/* settings.ui.css defaults (excerpt) */
@@ -82,7 +91,7 @@ const themeDiffs = {
 ---
 
 <BaseLayout title={title} bodyClass="layout home" frontmatter={{ description }}>
-  {/* §1: Hero */}
+  {/* 1: Hero */}
   <section class="home_hero" aria-labelledby="home_hero_title">
     <div class="home_hero_inner">
       <div class="home_hero_copy">
@@ -91,11 +100,6 @@ const themeDiffs = {
         <p class="home_hero_actions">
           <a class="bt bt-lg bt-primary" href="/docs/start">Get started</a>
           <a class="bt bt-lg" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
-        </p>
-        <p class="home_hero_fineprint">
-          <span><Fragment set:html={arrowIcon} />MIT licensed</span>
-          <span><Fragment set:html={arrowIcon} />No dependencies</span>
-          <span><Fragment set:html={arrowIcon} />It’s just CSS</span>
         </p>
       </div>
 
@@ -138,27 +142,16 @@ const themeDiffs = {
         <button type="button" class="home_morph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
       </div>
     </div>
+    <ul class="home_hero_fineprint">
+      <li><Fragment set:html={arrowIcon} />~{mcssMinGzipKb} KB min+gzip</li>
+      <li><Fragment set:html={arrowIcon} />Components ~{mcssComponentsMinGzipKb} KB</li>
+      <li><Fragment set:html={arrowIcon} />0 dependencies</li>
+      <li><Fragment set:html={arrowIcon} />Baseline 2024</li>
+      <li><Fragment set:html={arrowIcon} />MIT licensed</li>
+    </ul>
   </section>
 
-  {/* §2: Proof strip: the install is one line */}
-  <Section class="home_section home_proof" data-testid="home-proof">
-    <div class="home_proof_inner home_reveal">
-      <div class="home_proof_install">
-        <Code code={installSnippet} lang="html" theme="github-dark" />
-        <CopyButton client:visible code={installSnippet} />
-      </div>
-      <p class="home_proof_caption">
-        That’s the install. Download <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css"><code>dist/mcss.min.css</code></a> or copy the source files. Every modern browser understands them as-is: no compiler, no config, no <code>node_modules</code>.
-      </p>
-      <ul class="home_proof_facts">
-        <li>~21 KB min+gzip</li>
-        <li>0 dependencies</li>
-        <li><a href="/docs/start#browser-support">Baseline 2024</a></li>
-      </ul>
-    </div>
-  </Section>
-
-  {/* §3: Philosophy */}
+  {/* 2: Philosophy */}
   <Section class="home_section home_philosophy" headerClass="home_reveal" variant="filled" eyebrow="Philosophy" title="Made for humans who write CSS" lede="CSS isn’t broken, and you don’t need to be protected from it. mCSS takes care of the tedious parts (resets, tokens, a sane cascade) and gets out of the way.">
     <Tiles size="sm" class="home_pillars home_reveal">
       <FeatureItem class="home_pillar" titleClass="home_pillar_title" iconClass="home_pillar_icon" title="It’s actual CSS">
@@ -189,51 +182,53 @@ const themeDiffs = {
     </Tiles>
   </Section>
 
-  {/* §4: Modern CSS showcase */}
+  {/* 3: Modern CSS showcase */}
   <Section class="home_section home_showcase" headerClass="home_reveal" eyebrow="Modern CSS" title="Built on what browsers can do now" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
-    <ul class="home_showcase_grid grid home_reveal" col="1" col-md="2" col-lg="3">
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name"><code>@layer</code></h3>
-        <p>The whole architecture. Import order stops mattering, and your overrides always win.</p>
-        <BaselineBadge feature="cascade-layers" />
-      </li>
-      <li class="home_showcase_card home_showcase_card-lightDark">
-        <h3 class="home_showcase_name"><code>light-dark()</code></h3>
-        <p>Dark mode is one token file, not a parallel stylesheet.</p>
-        <label class="home_showcase_mini">
-          <input class="toggle" type="checkbox" role="switch" />
-          <span>Flip this card’s <code>color-scheme</code></span>
-        </label>
-        <BaselineBadge feature="light-dark" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name"><code>:has()</code> &amp; nesting</h3>
-        <p>Components with zero specificity hacks, written the way you’d write them yourself.</p>
-        <BaselineBadge feature="has" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name"><code>@scope</code></h3>
-        <p>Prose styling that can’t leak into your components.</p>
-        <BaselineBadge feature="scope" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name">Scroll-driven animations</h3>
-        <p>The reading progress bar on this very site: pure CSS in modern browsers, a graceful fallback elsewhere.</p>
-        <BaselineBadge feature="scroll-driven-animations" />
-      </li>
-      <li class="home_showcase_card">
-        <h3 class="home_showcase_name">Three-tier tokens</h3>
-        <p>Raw scales → semantic theme → per-component properties. Change one value; the system follows.</p>
-        <BaselineBadge feature="custom-properties" />
-      </li>
-    </ul>
+    <div class="home_showcase_tiles home_reveal tiles_container">
+      <Tiles>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>@layer</code></h3>
+          <p>The whole architecture. Import order stops mattering, and your overrides always win.</p>
+          <BaselineBadge feature="cascade-layers" />
+        </li>
+        <li class="home_showcase_card home_showcase_card-lightDark">
+          <h3 class="home_showcase_name"><code>light-dark()</code></h3>
+          <p>Dark mode is one token file, not a parallel stylesheet.</p>
+          <label class="home_showcase_mini">
+            <input class="toggle" type="checkbox" role="switch" />
+            <span>Flip this card’s <code>color-scheme</code></span>
+          </label>
+          <BaselineBadge feature="light-dark" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>:has()</code> &amp; nesting</h3>
+          <p>Components with zero specificity hacks, written the way you’d write them yourself.</p>
+          <BaselineBadge feature="has" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>@scope</code></h3>
+          <p>Prose styling that can’t leak into your components.</p>
+          <BaselineBadge feature="scope" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name"><code>@container</code></h3>
+          <p>The component used for this very grid counts its columns from the space it’s in, not the viewport.</p>
+          <BaselineBadge feature="container-queries" />
+        </li>
+        <li class="home_showcase_card">
+          <h3 class="home_showcase_name">Three-tier tokens</h3>
+          <p>Raw scales → semantic theme → per-component properties. Change one value; the system follows.</p>
+          <BaselineBadge feature="custom-properties" />
+        </li>
+      </Tiles>
+    </div>
     <div class="home_showcase_kicker">
       <p>Every technique is documented on the blog. The framework practices what it teaches.</p>
       <p><a href="/blog">Read the blog →</a></p>
     </div>
   </Section>
 
-  {/* §5: Theming demo (radio + :has(), zero JS) */}
+  {/* 4: Theming demo (radio + :has(), zero JS) */}
   <Section class="home_section home_themer" headerClass="home_reveal" variant="filled" eyebrow="Theming" title="Theme with variables, not variants" lede="Every color, size, and radius flows from one token file. Edit it and the whole system follows, light and dark.">
     <fieldset class="home_themer_switcher">
       <legend class="a11y-srOnly">Pick a demo theme</legend>
@@ -284,60 +279,60 @@ const themeDiffs = {
     <p class="home_themer_caption">Radio buttons and <code>:has()</code>: this demo runs on zero JavaScript.</p>
   </Section>
 
-  {/* §6: Component gallery */}
+  {/* 5: Component gallery */}
   <Section class="home_section home_gallery" headerClass="home_reveal" eyebrow="Component library" title="Components for real websites" lede="Header to footer: heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, pagination. Built for marketing sites, blogs, and docs. Ships as plain HTML or Astro, whichever you write.">
     <ul class="home_gallery_grid home_reveal">
       <li class="home_gallery_cell">
+        <div class="home_gallery_meta"><span class="home_gallery_name">Card</span><span class="badge badge-success">Zero JS</span></div>
         <div class="home_gallery_thumb" inert>
           <Card title="Field notes" subtitle="Issue #12">
             <p>A monthly dispatch on modern CSS, real-world markup, and the odd bird photo.</p>
             <Fragment slot="actions"><button type="button" class="bt bt-primary">Read it</button></Fragment>
           </Card>
         </div>
-        <div class="home_gallery_meta"><span class="home_gallery_name">Card</span><span class="badge badge-success">Zero JS</span></div>
         <a class="home_gallery_link" href="/components/card"><span class="a11y-srOnly">Card component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
+        <div class="home_gallery_meta"><span class="home_gallery_name">Pricing</span><span class="badge badge-success">Zero JS</span></div>
         <div class="home_gallery_thumb" inert>
           <PricingCard name="Indie" price="$0" period="/ forever" description="Everything, for everyone." features={['All components', 'Light & dark themes', 'MIT license']} ctaLabel="Copy the files" ctaHref="#" highlighted badge="MIT" />
         </div>
-        <div class="home_gallery_meta"><span class="home_gallery_name">Pricing</span><span class="badge badge-success">Zero JS</span></div>
         <a class="home_gallery_link" href="/components/pricing"><span class="a11y-srOnly">Pricing component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
+        <div class="home_gallery_meta"><span class="home_gallery_name">Testimonial</span><span class="badge badge-success">Zero JS</span></div>
         <div class="home_gallery_thumb" inert>
           <Testimonial name="Ada Lindgren" role="Front-end lead">
             <p>I stopped fighting my framework. There was nothing left to fight.</p>
           </Testimonial>
         </div>
-        <div class="home_gallery_meta"><span class="home_gallery_name">Testimonial</span><span class="badge badge-success">Zero JS</span></div>
         <a class="home_gallery_link" href="/components/testimonial"><span class="a11y-srOnly">Testimonial component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
+        <div class="home_gallery_meta"><span class="home_gallery_name">FAQ</span><span class="badge badge-success">Zero JS</span></div>
         <div class="home_gallery_thumb" inert>
           <Faq>
             <FaqItem question="Do I need a build step?" name="home_faq" open>No. Link one file and start writing HTML.</FaqItem>
             <FaqItem question="Can I override anything?" name="home_faq">Yes: unlayered CSS always beats the framework.</FaqItem>
           </Faq>
         </div>
-        <div class="home_gallery_meta"><span class="home_gallery_name">FAQ</span><span class="badge badge-success">Zero JS</span></div>
         <a class="home_gallery_link" href="/components/faq"><span class="a11y-srOnly">FAQ component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
+        <div class="home_gallery_meta"><span class="home_gallery_name">Form field</span><span class="badge badge-success">Zero JS</span></div>
         <div class="home_gallery_thumb" inert>
           <div class="home_gallery_formDemo">
             <Field label="Work email" name="home_gallery_email" type="email" placeholder="you@work.com" hint="One email a month, no noise." />
             <button type="button" class="bt bt-primary">Sign up</button>
           </div>
         </div>
-        <div class="home_gallery_meta"><span class="home_gallery_name">Form field</span><span class="badge badge-success">Zero JS</span></div>
         <a class="home_gallery_link" href="/components/field"><span class="a11y-srOnly">Field component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
+        <div class="home_gallery_meta"><span class="home_gallery_name">Pagination</span><span class="badge badge-success">Zero JS</span></div>
         <div class="home_gallery_thumb home_gallery_thumb-wide" inert>
           <Pagination currentPage={4} lastPage={9} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
         </div>
-        <div class="home_gallery_meta"><span class="home_gallery_name">Pagination</span><span class="badge badge-success">Zero JS</span></div>
         <a class="home_gallery_link" href="/components/pagination"><span class="a11y-srOnly">Pagination component documentation</span></a>
       </li>
     </ul>
@@ -349,7 +344,7 @@ const themeDiffs = {
     </div>
   </Section>
 
-  {/* §7: Ownership */}
+  {/* 6: Ownership */}
   <Section class="home_section home_own" headerClass="home_reveal" variant="filled" eyebrow="Ownership" title="You own the code">
     <div class="home_own_body home_reveal">
       <p>mCSS isn’t a dependency. It’s a starting point. Copy the files into your project and edit them like the code you wrote yourself, because now it is. Styling disagreements end with you changing a line, not filing an issue.</p>
@@ -362,7 +357,7 @@ const themeDiffs = {
     </ul>
   </Section>
 
-  {/* §8: Final CTA */}
+  {/* 7: Final CTA */}
   <Section class="home_section home_cta" headerClass="home_reveal home_cta_header" variant="primary" title="Give your CSS its cascade back" lede="Read the methodology, copy the files, ship something.">
     <div class="section_actions">
       <a class="bt bt-lg bt-white home_cta_bt" href="/docs/start">Get started in 10 mn</a>

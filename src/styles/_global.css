@@ -1,5 +1,7 @@
 /* mCSS framework (all cascade layers; see framework/mcss.css) */
 @import url(./framework/mcss.css);
+/* mCSS component library (fills the `components` layer slot) */
+@import url(./framework/mcss.components.css);
 
 /*
   Theme activation. A theme is part of this site's CSS, not the framework's:

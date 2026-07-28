@@ -1,7 +1,7 @@
 ---
 title: "AI Agents"
 description: "Machine-readable docs (llms.txt, markdown twins) and a ready-to-paste rules block for coding agents"
-lastUpdate: 2026-07-23
+lastUpdate: 2026-07-26
 version: 0.1
 ---
 
@@ -40,7 +40,7 @@ Per-page docs: append `.md` to any mcss.dev docs or components URL (e.g. https:/
 
 ### Mental model: layers from default to deliberate
 
-All framework CSS lives in native cascade layers, declared in `mcss.css` in priority order (later wins): `settings, base, elements, global, components, theme, helpers`.
+All framework CSS lives in native cascade layers, declared in `mcss.css` in priority order (later wins): `settings, base, elements, global, components, theme, helpers`. `mcss.css` only declares the `components` slot; the component library fills it from a second entry, `mcss.components.css`, imported alongside (skip it in projects that build their own components).
 
 - `settings` through `components` are the framework defaults: what things look like when nobody has an opinion. Never edit these files to restyle; override them from further up the order.
 - `theme` holds at most one theme file: a deliberate opinion about the defaults. An empty theme layer IS the default look.

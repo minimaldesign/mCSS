@@ -3,8 +3,13 @@
  *
  * Outputs (all with @custom-media resolved and mixins expanded, so they work
  * with zero tooling; cascade layers are kept intact):
- *   dist/mcss.css       — single-file bundle of the whole framework
- *   dist/mcss.min.css   — minified bundle
+ *   dist/mcss.css                — single-file bundle of the framework core
+ *                                  (declares the components/theme layer
+ *                                  slots, imports neither)
+ *   dist/mcss.min.css            — minified core bundle
+ *   dist/mcss.components.css     — single-file bundle of the component
+ *                                  library (@layer components)
+ *   dist/mcss.components.min.css — minified components bundle
  *   dist/css/<file>.css — every framework file processed individually,
  *                         wrapped in its cascade layer (theme.* files ship
  *                         their own @layer theme block and aren't re-wrapped)
@@ -79,19 +84,24 @@ const LAYER_STATEMENT =
 await rm(join(OUT, "css"), { recursive: true, force: true });
 await mkdir(join(OUT, "css"), { recursive: true });
 
-// 1. Single-file bundle (postcss-import inlines the layer() imports).
-const entry = join(SRC, "mcss.css");
-const bundled = await process(await readFile(entry, "utf8"), entry, true);
-await writeFile(join(OUT, "mcss.css"), BANNER + bundled);
+// 1. Single-file bundles, core + component library (postcss-import inlines
+//    the layer() imports), each with a minified variant.
+const bundles = {};
+for (const name of ["mcss.css", "mcss.components.css"]) {
+  const entry = join(SRC, name);
+  const bundled = await process(await readFile(entry, "utf8"), entry, true);
+  await writeFile(join(OUT, name), BANNER + bundled);
 
-// 2. Minified bundle.
-const { code: minified } = await esbuildTransform(bundled, {
-  loader: "css",
-  minify: true,
-});
-await writeFile(join(OUT, "mcss.min.css"), BANNER + minified);
+  const { code: minified } = await esbuildTransform(bundled, {
+    loader: "css",
+    minify: true,
+  });
+  const minName = name.replace(/\.css$/, ".min.css");
+  await writeFile(join(OUT, minName), BANNER + minified);
+  bundles[name] = { bundled, minified, minName };
+}
 
-// 3. Per-file outputs for copy-paste consumers.
+// 2. Per-file outputs for copy-paste consumers.
 const buildTimeOnly = new Set(["settings.media-queries.css", "settings.mixins.css"]);
 const settingsPrelude = [
   await readFile(join(SRC, "settings.media-queries.css"), "utf8"),
@@ -99,7 +109,13 @@ const settingsPrelude = [
 ].join("\n");
 
 const files = (await readdir(SRC))
-  .filter((f) => f.endsWith(".css") && f !== "mcss.css" && !buildTimeOnly.has(f))
+  .filter(
+    (f) =>
+      f.endsWith(".css") &&
+      f !== "mcss.css" &&
+      f !== "mcss.components.css" &&
+      !buildTimeOnly.has(f)
+  )
   .sort();
 
 const indexImports = [];
@@ -124,14 +140,18 @@ for (const file of files) {
   );
 }
 
-// 4. @import index (usable in the browser with no build step).
+// 3. @import index (usable in the browser with no build step).
 await writeFile(
   join(OUT, "css", "mcss.css"),
   BANNER + LAYER_STATEMENT + indexImports.join("\n") + "\n"
 );
 
 console.log(
-  `Built dist/mcss.css (${(bundled.length / 1024).toFixed(1)} kB), ` +
-    `dist/mcss.min.css (${(minified.length / 1024).toFixed(1)} kB), ` +
-    `${files.length} files in dist/css/`
+  Object.entries(bundles)
+    .map(
+      ([name, { bundled, minified, minName }]) =>
+        `Built dist/${name} (${(bundled.length / 1024).toFixed(1)} kB), ` +
+        `dist/${minName} (${(minified.length / 1024).toFixed(1)} kB)`
+    )
+    .join("\n") + `\n${files.length} files in dist/css/`
 );
