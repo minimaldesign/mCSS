@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -51,49 +51,54 @@ fieldset {
   border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-lg);
   padding: var(--sm3);
-}
 
-  fieldset ul:has([type="checkbox"],[type="radio"]) {
+  ul:has([type="checkbox"], [type="radio"]) {
     padding-inline-start: 0;
   }
 
-  fieldset  > [aria-hidden] {
+  > [aria-hidden] {
     /* legend replacement  */
     margin-bottom: var(--sm3);
     font-size: var(--text-lg);
     grid-column: 1 / -1;
   }
+}
 
 /* Only flag fields the user has actually interacted with */
 :is(input, select, textarea):user-invalid {
   border-color: var(--input-border-color-invalid);
 }
-  input:where(:not([type="checkbox"]):not([type="radio"])) {
+
+input {
+  &:where(:not([type="checkbox"], [type="radio"])) {
     height: var(--input-height);
   }
-  input:where(:not([type="color"]):not([type="file"]):not([type="reset"]):not([type="submit"])) {
+  &:where(
+    :not([type="color"], [type="file"], [type="reset"], [type="submit"])
+  ) {
     padding: var(--input-padding);
   }
-  input:where(:not([type="color"])) {
+  &:where(:not([type="color"])) {
     border-radius: var(--input-border-radius);
   }
-  input:where(:not([type="file"])) {
+  &:where(:not([type="file"])) {
     border: 1px solid var(--ui-border-color);
   }
-  input[type="file"] {
+  &[type="file"] {
     width: 100%;
     accent-color: var(--text-color);
   }
-  input[type="number"] {
+  &[type="number"] {
     padding-inline-end: var(--xs1);
   }
+}
 
 label {
   display: block;
-}
-  label:has( + :is(input,select,textarea)) {
+  &:has(+ :is(input, select, textarea)) {
     margin-bottom: var(--xs1);
   }
+}
 
 legend {
   /*  Visually hidden  */
@@ -119,34 +124,37 @@ meter {
   border-radius: var(--meter-radius);
   height: var(--meter-height);
   /* webkit */
-}
-  meter::-webkit-meter-bar {
+  &::-webkit-meter-bar {
     background: var(--meter-color-track);
   }
-  meter::-webkit-meter-bar,meter::-webkit-meter-optimum-value,meter::-webkit-meter-suboptimum-value,meter::-webkit-meter-even-less-good-value {
+  &::-webkit-meter-bar,
+  &::-webkit-meter-optimum-value,
+  &::-webkit-meter-suboptimum-value,
+  &::-webkit-meter-even-less-good-value {
     height: var(--meter-height);
     border: none;
     border-radius: var(--meter-radius);
   }
-  meter::-webkit-meter-even-less-good-value {
+  &::-webkit-meter-even-less-good-value {
     background: var(--meter-color-low);
   }
-  meter::-webkit-meter-suboptimum-value {
+  &::-webkit-meter-suboptimum-value {
     background: var(--meter-color-med);
   }
-  meter::-webkit-meter-optimum-value {
+  &::-webkit-meter-optimum-value {
     background: var(--meter-color-high);
   }
   /* mozilla */
-  meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+  &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     background: var(--meter-color-low);
   }
-  meter:-moz-meter-sub-optimum::-moz-meter-bar {
+  &:-moz-meter-sub-optimum::-moz-meter-bar {
     background: var(--meter-color-med);
   }
-  meter:-moz-meter-optimum::-moz-meter-bar {
+  &:-moz-meter-optimum::-moz-meter-bar {
     background: var(--meter-color-high);
   }
+}
 
 optgroup {
 }
@@ -169,22 +177,22 @@ progress {
   background: var(--progress-track-color);
   border-radius: var(--progress-radius);
   border: none;
-}
-  progress::-moz-progress-bar {
+  &::-moz-progress-bar {
     background: var(--progress-color);
     border-radius: var(--progress-radius);
   }
   /* webkit */
-  progress::-webkit-progress-bar {
+  &::-webkit-progress-bar {
     width: 100%;
     background: var(--progress-track-color);
     border-radius: var(--progress-radius);
     height: var(--progress-height);
   }
-  progress::-webkit-progress-value {
+  &::-webkit-progress-value {
     background: var(--progress-color);
     border-radius: var(--progress-radius);
   }
+}
 
 select {
   --icon-size: 24px;
@@ -201,39 +209,27 @@ select {
     var(--body-background-color) 0 var(--split),
     var(--text-color) var(--split) 100%
   );
-  -webkit-mask-image:
+  mask-image:
     url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
     linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
     linear-gradient(red 0 0);
-          mask-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
-    linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
-    linear-gradient(red 0 0);
-  -webkit-mask-size: var(--icon-size), auto, auto;
-          mask-size: var(--icon-size), auto, auto;
-  -webkit-mask-position:
+  mask-size: var(--icon-size), auto, auto;
+  mask-position:
     calc(100% - var(--xs1)) center,
     0 0,
     0 0;
-          mask-position:
-    calc(100% - var(--xs1)) center,
-    0 0,
-    0 0;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-clip: padding-box, padding-box, border-box;
-          mask-clip: padding-box, padding-box, border-box;
-  -webkit-mask-origin: padding-box, padding-box, border-box;
-          mask-origin: padding-box, padding-box, border-box;
-  -webkit-mask-composite: source-over, xor;
-          mask-composite: add, exclude;
+  mask-repeat: no-repeat;
+  mask-clip: padding-box, padding-box, border-box;
+  mask-origin: padding-box, padding-box, border-box;
+  mask-composite: add, exclude;
 
   /* focus ring comes from the global :focus-visible rule (global.a11y.css) */
-}
 
-  select:disabled {
-    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--0, hsl(from var(--text-color) h s 70%));
+  &:disabled {
+    --disabled-color: light-dark(
+      hsl(from var(--text-color) h s 70%),
+      hsl(from var(--text-color) h s 40%)
+    );
     cursor: not-allowed;
     color: var(--disabled-color);
     background: linear-gradient(
@@ -243,31 +239,13 @@ select {
     );
   }
 
-@supports (color: lab(from red l 1 1% / calc(alpha + 0.1))) and (color: light-dark(red, red)) {
-select:disabled {
-    --disabled-color: light-dark(
-      hsl(from var(--text-color) h s 70%),
-      hsl(from var(--text-color) h s 40%)
-    );
-  }
-}
-    @supports not (color: light-dark(tan, tan)) {
-
-  select:disabled * {
-    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) hsl(from var(--text-color) h s 40%);
-    --disabled-color: var(--csstools-light-dark-toggle--0, hsl(from var(--text-color) h s 70%));
-
-}
-
-}
-
-  select[multiple] {
+  &[multiple] {
     height: auto;
     padding: var(--input-padding);
     background: var(--body-background-color);
-    -webkit-mask-image: none;
-            mask-image: none;
+    mask-image: none;
   }
+}
 
 textarea {
   width: 100%;
@@ -275,9 +253,9 @@ textarea {
   border-radius: var(--input-border-radius);
   border: 1px solid var(--ui-border-color);
   resize: vertical;
-}
-  textarea:not([rows]) {
+  &:not([rows]) {
     min-height: 6em;
   }
+}
 
 }

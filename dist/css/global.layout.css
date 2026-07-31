@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -48,11 +48,11 @@ xxl: 1920px
   flex-direction: column;
   width: 100vw;
   min-height: 100vh;
-}
 
-  .layout .layout_content {
+  .layout_content {
     flex: 1;
   }
+}
 
 /* The main column is a size container: container-responsive components
    (Tiles) pick their column count from it instead of the viewport.
@@ -62,154 +62,147 @@ xxl: 1920px
 }
 
 /* Single centered reading column: articles, blog posts, legal pages. */
-  .layout-centered .layout_content {
+.layout-centered {
+  .layout_content {
     display: grid;
     gap: var(--sm3);
     grid-template-columns: 1fr minmax(0, var(--layout-content-width)) 1fr;
     margin-top: var(--lg1);
     margin-bottom: var(--sm1);
-  }
     @media (width >= 768px) {
-  .layout-centered .layout_content {
       margin-top: var(--xl3);
       margin-bottom: var(--md3);
       gap: var(--md3);
-  }
     }
+  }
 
-  .layout-centered .layout_content_main {
+  .layout_content_main {
     grid-column: 2;
   }
+}
 
 /* Aside + main: settings pages, simple docs, blogs with a nav column.
    Single column below --md, aside following source order. */
+.layout-sidebar {
+  .layout_content {
     @media (width >= 768px) {
-  .layout-sidebar .layout_content {
       display: grid;
       grid-template-columns: var(--layout-aside-width) minmax(0, 1fr);
-  }
     }
-
-  .layout-sidebar .layout_content_main {
-    padding: var(--sm2);
   }
-    @media (width >= 768px) {
 
-  .layout-sidebar .layout_content_main {
+  .layout_content_main {
+    padding: var(--sm2);
+    @media (width >= 768px) {
       grid-row: 1;
       grid-column: 2;
       padding: var(--lg1) var(--md2);
-  }
     }
-    @media (width >= 768px) {
+  }
 
-  .layout-sidebar .layout_content_aside {
+  .layout_content_aside {
+    @media (width >= 768px) {
       grid-row: 1;
       grid-column: 1;
       padding: var(--lg1) var(--md3);
-  }
     }
+  }
+}
 
 /* Moves the aside to the reading end ("end", not "right": columns follow
    the writing direction). Compose with .layout-sidebar. */
+.layout-sidebar-end {
+  .layout_content {
     @media (width >= 768px) {
-  .layout-sidebar-end .layout_content {
       grid-template-columns: minmax(0, 1fr) var(--layout-aside-width);
-  }
     }
-    @media (width >= 768px) {
+  }
 
-  .layout-sidebar-end .layout_content_main {
+  .layout_content_main {
+    @media (width >= 768px) {
       grid-column: 1;
-  }
     }
-    @media (width >= 768px) {
+  }
 
-  .layout-sidebar-end .layout_content_aside {
+  .layout_content_aside {
+    @media (width >= 768px) {
       grid-column: 2;
-  }
     }
+  }
+}
 
 /* Documentation shell: nav aside + main + table of contents. One column
    below --md with both asides hidden (put that navigation in your header
    menu), nav + main from --md, TOC joins from --lg. */
+.layout-docs {
+  .layout_content {
     @media (width >= 768px) {
-  .layout-docs .layout_content {
       display: grid;
       grid-template-columns: var(--layout-aside-width) minmax(0, 1fr);
-  }
     }
     @media (width >= 1024px) {
-  .layout-docs .layout_content {
       grid-template-columns:
         var(--layout-aside-width)
         minmax(0, var(--layout-content-width))
         var(--layout-toc-width);
-  }
     }
-
-  .layout-docs .layout_content_main {
-    padding: var(--sm2);
   }
-    @media (width >= 768px) {
 
-  .layout-docs .layout_content_main {
+  .layout_content_main {
+    padding: var(--sm2);
+    @media (width >= 768px) {
       grid-row: 1;
       grid-column: 2;
       padding: var(--lg1) var(--md2);
-  }
     }
-
-  .layout-docs .layout_content_aside {
-    display: none;
   }
-    @media (width >= 768px) {
 
-  .layout-docs .layout_content_aside {
+  .layout_content_aside {
+    display: none;
+    @media (width >= 768px) {
       display: block;
       grid-row: 1;
       grid-column: 1;
       padding: var(--lg1) var(--md3);
-  }
     }
+  }
 
   /* Compose on the second aside: class="layout_content_aside
      layout_content_aside-toc". Same specificity as the base element rule,
      so these declarations must stay after it. */
+  .layout_content_aside-toc {
     @media (width >= 768px) {
-  .layout-docs .layout_content_aside-toc {
       display: none;
-  }
     }
     @media (width >= 1024px) {
-  .layout-docs .layout_content_aside-toc {
       display: block;
       grid-row: 1;
       grid-column: 3;
       padding: var(--lg1) var(--md3);
-  }
     }
+  }
+}
 
 /* Two equal panes, stacked below --md: auth screens, "image + content"
    landings. Panes are the direct children of .layout_content. */
-  .layout-split .layout_content {
+.layout-split {
+  .layout_content {
     display: grid;
-  }
     @media (width >= 768px) {
-  .layout-split .layout_content {
       grid-template-columns: 1fr 1fr;
-  }
     }
+  }
+}
 
 /* Full-viewport cover with centered content: landing, 404, coming soon.
    dvh so mobile browser chrome never hides the content. */
 .layout-cover {
   min-height: 100dvh;
-}
 
-  .layout-cover .layout_content {
+  .layout_content {
     display: grid;
     place-items: center;
   }
+}
 
 }

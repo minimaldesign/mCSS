@@ -135,11 +135,15 @@ Narrower, and you can skip it unless you use the [wireframe theme](/docs/themes)
 preset-env decides what to transform by asking [browserslist](https://browsersl.ist) which browsers you support. Give it a floor that already has the features mCSS relies on and it will stop reaching for polyfills on its own. Create `.browserslistrc`:
 
 ```text
-# mCSS support floor: browsers with native cascade-layer support (~Baseline 2022+).
-defaults and supports css-cascade-layers
+# mCSS support floor: Baseline 2024, so preset-env has nothing to polyfill.
+baseline 2024
 ```
 
-`defaults` is browserslist's usual "last 2 versions, > 0.5% usage, not dead". The `and supports css-cascade-layers` half narrows it to browsers that implement `@layer`, which in practice also covers nesting and `:has()`.
+The `baseline` query resolves to the browser versions that support every feature in that year's [Baseline](https://web.dev/baseline) set, which is exactly the line mCSS draws: cascade layers, nesting, `:has()`, `light-dark()`, and `@scope` are all inside it. Today that means Chrome and Edge 130, Firefox 132, and Safari 18.2 or newer.
+
+The precision matters more than it looks. A softer floor like `defaults` still admits Chrome 109, the last version that runs on Windows 7, and that one browser is enough to make preset-env polyfill `light-dark()` (tripling every color token into scratch variables and `@supports` blocks, 23% of a measured build) and silently flatten all of the framework's nesting. The floor is not a preference, it is what keeps the config's "leave my CSS alone" promise.
+
+The `baseline` query needs browserslist 4.25 or newer. If your lockfile carries an older one, `npx update-browserslist-db@latest` refreshes it.
 
 ## If your project already has a bundler
 
@@ -202,7 +206,7 @@ Then point a script at your entry file:
 
 ## Check that it worked
 
-Three greps on the compiled file, which beat squinting at a page:
+Four greps on the compiled file, which beat squinting at a page:
 
 ```bash
 # Should print 0: every custom media query resolved.
@@ -213,9 +217,12 @@ grep -c "@layer" public/css/main.css
 
 # Should print 0: no unresolved breakpoint names left behind.
 grep -c "@media (--" public/css/main.css
+
+# Should print 0: no polyfill scratch variables, light-dark() shipped native.
+grep -c "csstools" public/css/main.css
 ```
 
-If the first and third are `0` and the second is not, the setup is correct.
+If the second is well above `0` and the rest are `0`, the setup is correct.
 
 The final check: write a rule that overrides the framework.
 
@@ -247,6 +254,9 @@ The `random-function` polyfill is on.
 
 **Nesting got flattened, or `:has()` turned into something else.**
 Your browserslist target is too broad. Check `.browserslistrc` exists and is being picked up.
+
+**`--csstools-light-dark-toggle` variables all over the output.**
+Same cause: preset-env is polyfilling `light-dark()` because your target includes a browser from before mid-2024. Check the floor is `baseline 2024`, and that your browserslist is new enough to understand it (4.25+; `npx update-browserslist-db@latest` if not).
 
 ## Regenerating the dist files
 

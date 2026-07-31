@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -37,12 +37,12 @@ xxl: 1920px
   border-radius: var(--card-border-radius);
   border: var(--card-border-width) solid var(--card-border-color);
   transition: box-shadow var(--transition);
-}
 
-  .card.is-disabled {
+  &.is-disabled {
     opacity: var(--o-2);
     pointer-events: none;
   }
+}
 
 .card-filled {
   background: var(--card-bg-color);
@@ -75,31 +75,34 @@ xxl: 1920px
   gap: var(--xs2);
   margin-bottom: var(--xs3);
   /* we need extra spacing when there is an image after the header */
-}
-  .card_header:has( + .card_media) {
+  &:has(+ .card_media) {
     margin-bottom: var(--card-spacing);
   }
+}
 
 .card_title {
   margin-bottom: 0;
   font-size: var(--text-lg);
   font-weight: var(--semi-bold);
-}
 
-  .card_title a {
+  a {
     color: var(--card-color);
     -webkit-text-decoration: none;
     text-decoration: none;
     transition: color var(--transition);
-  }
 
-    :is(.card_title a):hover {
+    &:hover {
       color: var(--link-color);
     }
-  .card_header_text p {
+  }
+}
+
+.card_header_text {
+  p {
     font-size: var(--text-lg);
     color: var(--card-secondary-text-color);
   }
+}
 
 .card_badges {
   display: flex;
@@ -137,15 +140,18 @@ xxl: 1920px
   object-fit: cover;
   aspect-ratio: var(--card-aspect-ratio);
 }
+
+.card_content {
   /* in case it's inside a .prose context */
-  .card_content p:last-of-type {
+  p:last-of-type {
     margin-bottom: 0;
   }
 
   /* guaranteed gap before the byline even when nothing pins it down */
-  .card_content:has( + .card_byline) {
+  &:has(+ .card_byline) {
     margin-bottom: var(--sm1);
   }
+}
 
 .card_byline {
   /* margin-top: auto pins bylines to the bottom, so a row of cards lines up */
@@ -154,11 +160,11 @@ xxl: 1920px
   gap: var(--xs2);
   margin-top: auto;
   font-size: var(--text-sm);
-}
 
-  .card_byline time {
+  time {
     color: var(--card-secondary-text-color);
   }
+}
 
 .card_author {
   display: block;

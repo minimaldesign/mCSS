@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -25,14 +25,15 @@ xxl: 1920px
 /* truncate single line of text and adds … */
 
 @layer components {
-  .tags li {
+.tags {
+  li {
     margin-bottom: var(--xs2);
-  }
-    :is(.tags li):last-child {
+    &:last-child {
       margin-bottom: 0;
     }
+  }
 
-  .tags a {
+  a {
     padding: var(--xs1) var(--tags-padding);
     -webkit-text-decoration: none;
     text-decoration: none;
@@ -43,19 +44,20 @@ xxl: 1920px
     border-radius: var(--tags-radius);
     background-color: var(--tags-background-color);
     transition: background-color var(--transition);
-  }
-    :is(.tags a):hover {
+    &:hover {
       background-color: var(--tags-background-color-hover);
     }
+  }
+}
 
 .tags-inline {
   display: flex;
   flex-wrap: wrap;
   gap: var(--xs2);
-}
 
-  .tags-inline li {
+  li {
     margin-bottom: 0;
   }
+}
 
 }

@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -26,7 +26,9 @@ xxl: 1920px
 
 @layer components {
 /* PAGINATION */
-  .pagination ul {
+
+.pagination {
+  ul {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -36,7 +38,8 @@ xxl: 1920px
     list-style: none;
   }
 
-  .pagination a,.pagination span {
+  a,
+  span {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,22 +54,26 @@ xxl: 1920px
     transition: background-color var(--transition-fast);
   }
 
-  .pagination a:hover {
+  a:hover {
     background-color: var(--pagination-background-color-hover);
   }
 
-  .pagination a[aria-current="page"] {
+  a[aria-current="page"] {
     color: var(--pagination-color-current);
     background-color: var(--pagination-background-color-current);
   }
-  .pagination_arrow svg {
+}
+
+.pagination_arrow {
+  svg {
     width: var(--sm1);
     height: var(--sm1);
   }
 
-  .pagination_arrow[aria-disabled="true"] {
+  &[aria-disabled="true"] {
     opacity: var(--o-2);
   }
+}
 
 .pagination_arrow-prev svg {
   rotate: 90deg;

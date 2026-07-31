@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -37,11 +37,11 @@ xxl: 1920px
 
 .faq_content {
   cursor: auto;
-}
 
-  .faq_content p:last-of-type {
+  p:last-of-type {
     /* in case it's inside a .prose context */
     margin-bottom: 0;
   }
+}
 
 }

@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -27,7 +27,6 @@ xxl: 1920px
 @layer components {
 .button,
 .bt {
-  display: inline-flex;
   display: inline flex;
   justify-content: center;
   align-items: center;
@@ -50,24 +49,24 @@ xxl: 1920px
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     transform var(--transition-fast);
-}
 
-  :is(.button,.bt):where(:not(:disabled):hover) {
+  &:where(:not(:disabled):hover) {
     color: var(--bt-color-hover);
     background-color: var(--bt-background-color-hover);
     border-color: var(--bt-border-color-hover, var(--bt-border-color));
   }
 
-  :is(.button,.bt):where(:not(:disabled):active) {
+  &:where(:not(:disabled):active) {
     transform: scale(0.97);
   }
 
-  [aria-disabled="true"]:is(.button,.bt),:is(.button,.bt):disabled {
+  &[aria-disabled="true"],
+  &:disabled {
     opacity: var(--o-2);
     pointer-events: none;
   }
 
-  :is(.button,.bt) svg {
+  svg {
     width: var(--sm1);
     height: var(--sm1);
     margin-inline-start: 0;
@@ -75,16 +74,19 @@ xxl: 1920px
   }
 
   /* icon options */
+
+  &.bt-tightIcon {
     /* also tweaked under .bt-lg under "sizes" section */
-    .bt-tightIcon:is(.button,.bt) svg {
+    svg {
       margin-inline-end: 0.25em;
       margin-inline-start: calc(var(--xs2) * -1);
     }
+  }
 
   /* Colors */
   /* Variants only swap the local custom properties */
 
-  .bt-outline:is(.button,.bt) {
+  &.bt-outline {
     --bt-background-color: transparent;
     --bt-border-color: var(--bt-outline-border-color);
     --bt-color-hover: var(--bt-outline-color-hover);
@@ -92,7 +94,7 @@ xxl: 1920px
     --bt-border-color-hover: var(--bt-outline-border-color-hover);
   }
 
-  .bt-text:is(.button,.bt) {
+  &.bt-text {
     --bt-border-color: transparent;
     --bt-background-color: transparent;
     --bt-color-hover: var(--link-color);
@@ -100,7 +102,7 @@ xxl: 1920px
     --bt-border-color-hover: transparent;
   }
 
-  .bt-outline-white:is(.button,.bt) {
+  &.bt-outline-white {
     --bt-color: var(--base-0);
     --bt-color-hover: var(--base-0);
     --bt-background-color: transparent;
@@ -110,7 +112,7 @@ xxl: 1920px
   }
 
   /* Solid inverse for colored/gradient surfaces (pairs with bt-outline-white) */
-  .bt-white:is(.button,.bt) {
+  &.bt-white {
     --bt-color: var(--primary-700);
     --bt-color-hover: var(--primary-600);
     --bt-background-color: var(--base-0);
@@ -119,73 +121,74 @@ xxl: 1920px
     --bt-border-color-hover: var(--base-0);
   }
 
-  .bt-primary:is(.button,.bt) {
+  &.bt-primary {
     --bt-color: var(--bt-primary-color);
     --bt-color-hover: var(--bt-primary-color-hover);
     --bt-background-color: var(--bt-primary-background-color);
     --bt-background-color-hover: var(--bt-primary-background-color-hover);
     --bt-border-color: var(--bt-primary-border-color);
     --bt-border-color-hover: var(--bt-primary-background-color-hover);
-  }
 
-    .bt-primary.bt-outline:is(.button,.bt) {
+    &.bt-outline {
       --bt-color: var(--bt-primary-background-color);
       --bt-color-hover: var(--bt-primary-color);
       --bt-background-color: transparent;
       --bt-background-color-hover: var(--bt-primary-background-color);
       --bt-border-color-hover: var(--bt-primary-border-color-hover);
     }
+  }
 
-  .bt-yes:is(.button,.bt) {
+  &.bt-yes {
     --bt-color: var(--base-0);
     --bt-color-hover: var(--yes-500);
     --bt-background-color: var(--yes-500);
     --bt-background-color-hover: var(--yes-100);
     --bt-border-color: var(--yes-500);
     --bt-border-color-hover: var(--yes-100);
-  }
 
-    .bt-yes.bt-outline:is(.button,.bt) {
+    &.bt-outline {
       --bt-color: var(--yes-500);
       --bt-color-hover: var(--base-0);
       --bt-background-color: transparent;
       --bt-background-color-hover: var(--yes-500);
       --bt-border-color-hover: var(--yes-500);
     }
+  }
 
-  .bt-no:is(.button,.bt) {
+  &.bt-no {
     --bt-color: var(--base-0);
     --bt-color-hover: var(--no-500);
     --bt-background-color: var(--no-500);
     --bt-background-color-hover: var(--no-100);
     --bt-border-color: var(--no-500);
     --bt-border-color-hover: var(--no-100);
-  }
 
-    .bt-no.bt-outline:is(.button,.bt) {
+    &.bt-outline {
       --bt-color: var(--no-500);
       --bt-color-hover: var(--base-0);
       --bt-background-color: transparent;
       --bt-background-color-hover: var(--no-500);
       --bt-border-color-hover: var(--no-500);
     }
+  }
 
-  .bt-maybe:is(.button,.bt) {
+  &.bt-maybe {
     --bt-color: var(--base-0);
     --bt-color-hover: var(--maybe-500);
     --bt-background-color: var(--maybe-500);
     --bt-background-color-hover: var(--maybe-100);
     --bt-border-color: var(--maybe-500);
     --bt-border-color-hover: var(--maybe-100);
-  }
 
-    .bt-maybe.bt-outline:is(.button,.bt) {
+    &.bt-outline {
       --bt-color: var(--maybe-500);
       --bt-color-hover: var(--base-0);
       --bt-background-color: transparent;
       --bt-background-color-hover: var(--maybe-500);
       --bt-border-color-hover: var(--maybe-500);
     }
+  }
+}
 
 /* Sizes */
 
@@ -201,14 +204,17 @@ xxl: 1920px
   padding-inline: var(--sm2);
   font-size: var(--bt-font-size-lg);
   border-radius: var(--bt-border-radius-lg);
-}
 
-  .bt-lg svg {
+  svg {
     width: var(--sm3);
     height: var(--sm3);
   }
-    .bt-lg.bt-tightIcon svg {
+
+  &.bt-tightIcon {
+    svg {
       margin-inline-start: calc(var(--xs3) * -1);
     }
+  }
+}
 
 }

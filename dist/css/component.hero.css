@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -64,13 +64,14 @@ xxl: 1920px
   justify-content: center;
   width: 100%;
   height: 100%;
-}
 
-  .hero_media img,.hero_media video {
+  img,
+  video {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+}
 
 .hero_bg {
   position: absolute;
@@ -89,70 +90,84 @@ xxl: 1920px
   align-items: center;
   /* one column on mobile */
   grid-template-columns: 1fr;
-}
 
   @media (width >= 768px) {
-
-.hero-split {
     grid-template-columns: var(--hero-ratio-left) var(--hero-ratio-right);
-}
   }
 
   /* setup via direction prop in component */
   @media (width >= 768px) {
-      .hero-split.hero-reversed div:nth-child(1) {
+    &.hero-reversed {
+      & div:nth-child(1) {
         order: 2;
       }
-      .hero-split.hero-reversed div:nth-child(2) {
+      & div:nth-child(2) {
         order: 1;
       }
+    }
 
     /* when `flush` prop is added we remove content padding on the "outside" */
+    &.hero-flush {
+      &:not(.hero-reversed) {
         /* default */
-        .hero-split.hero-flush:not(.hero-reversed) .hero_media + .hero_content {
+        & .hero_media + .hero_content {
           padding-inline-end: 0;
         }
         /* contentFirst */
-        .hero-split.hero-flush:not(.hero-reversed) .hero_content:has( + .hero_media) {
+        & .hero_content:has(+ .hero_media) {
           padding-inline-start: 0;
         }
+      }
+      &.hero-reversed {
         /* default */
-        .hero-split.hero-flush.hero-reversed .hero_media + .hero_content {
+        & .hero_media + .hero_content {
           padding-inline-start: 0;
         }
         /* contentFirst */
-        .hero-split.hero-flush.hero-reversed .hero_content:has( + .hero_media) {
+        & .hero_content:has(+ .hero_media) {
           padding-inline-end: 0;
         }
+      }
+    }
   }
-  .hero-full .hero_content {
+}
+
+.hero-full {
+  .hero_content {
     z-index: 2;
     text-align: center;
     max-width: 60ch;
     min-width: 200px;
   }
 
-  .hero-full .hero_actions {
+  .hero_actions {
     justify-content: center;
   }
-  .hero-roundCorners .hero_media {
+}
+
+.hero-roundCorners {
+  .hero_media {
     overflow: hidden;
     border-radius: var(--hero-radius);
   }
 
-  .hero-roundCorners .hero_wrap {
+  .hero_wrap {
     border-radius: var(--hero-radius);
   }
-  .hero-slideshow .hero_content {
+}
+
+.hero-slideshow {
+  .hero_content {
     position: relative;
     width: 50ch;
   }
 
-  .hero-slideshow .hero_actions {
+  .hero_actions {
     justify-content: center;
   }
 
-  .hero-slideshow .hero_content ul > li,.hero-slideshow .hero_bg {
+  .hero_content ul > li,
+  .hero_bg {
     z-index: 2;
     position: absolute;
     inset: 0;
@@ -163,12 +178,13 @@ xxl: 1920px
     transition-timing-function: ease-in-out;
     /* set inline via slideshowTransition prop */
     transition-duration: var(--slideshow-transition, 220ms);
-  }
 
-    .is-active:is(.hero-slideshow .hero_content ul > li,.hero-slideshow .hero_bg) {
+    &.is-active {
       opacity: 1;
       pointer-events: auto;
     }
+  }
+}
 
 .hero_pagination {
   position: absolute;
@@ -193,9 +209,8 @@ xxl: 1920px
   background: transparent;
   border: none;
   cursor: pointer;
-}
 
-  .hero_pagination_dot::before {
+  &::before {
     content: "";
     width: var(--hero-pagination-dot);
     height: var(--hero-pagination-dot);
@@ -207,9 +222,10 @@ xxl: 1920px
       opacity var(--transition),
       background-color var(--transition);
   }
-  .hero_pagination_dot.is-active::before {
+  &.is-active::before {
     opacity: 1;
     background: var(--hero-pagination-dot-active-color);
   }
+}
 
 }

@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -43,9 +43,8 @@ xxl: 1920px
   border-radius: calc(var(--toggle-h) / 2);
   cursor: pointer;
   background-color: var(--toggle-track-color);
-}
 
-  .toggle::before {
+  &::before {
     --diameter: calc(var(--toggle-h) - var(--toggle-bd) * 2);
     position: absolute;
     top: var(--toggle-bd);
@@ -65,17 +64,18 @@ xxl: 1920px
     transform: translateX(0);
   }
 
-  .toggle:checked {
+  &:checked {
     background-color: var(--toggle-track-color-checked);
-  }
 
-    .toggle:checked::before {
+    &::before {
       left: calc(100% - var(--toggle-bd));
       transform: translateX(-100%);
     }
+  }
 
-  .toggle:active::before {
+  &:active::before {
     width: calc(var(--diameter) * 1.3);
   }
+}
 
 }

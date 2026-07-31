@@ -2,6 +2,19 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## 1.3.0 (2026-07-31)
+
+The compile floor now matches the docs: mCSS targets Baseline 2024, and the build stops polyfilling the features the framework was always meant to use natively ([#56](https://github.com/minimaldesign/mCSS/issues/56)).
+
+### Breaking
+
+- **Browser support floor raised to Baseline 2024** (`.browserslistrc` is now `baseline 2024`: Chrome/Edge 130, Firefox 132, Safari 18.2 or newer). The old floor (`defaults and supports css-cascade-layers`, ~2022) admitted browsers without `light-dark()`, so postcss-preset-env was polyfilling it, against the docs' "no polyfills" promise, and the polyfill's `@supports not (…) { :root * }` rules could beat component token overrides across cascade layers. Browsers from the 2022 to 2024 window are no longer supported; in them, `light-dark()` tokens now compute to unset colors, not the light palette (the old fallback claim in the docs was wrong for tokens either way, and has been corrected).
+
+### Fixed
+
+- **`dist/` is now genuinely polyfill-free.** `dist/mcss.css` drops 403 `--csstools-*` scratch declarations and ships `light-dark()`, nesting, and relative color syntax as written: 130 kB raw (was 159), 94 kB minified (was 121), 15.9 kB min+gzip (was 17.8). Nesting was previously being silently flattened by the same too-broad floor.
+- The [PostCSS setup post](https://mcss.dev/blog/postcss-setup-for-mcss) documents the new floor, the browserslist 4.25 requirement for the `baseline` query, a `grep -c "csstools"` output check, and a troubleshooting entry for the `light-dark()` polyfill firing.
+
 ## 1.2.0 (2026-07-27)
 
 Core and components split: the drop-in framework file no longer bundles the component library, so sites that build their own components stop paying for it.

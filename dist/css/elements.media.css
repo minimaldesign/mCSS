@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -65,13 +65,20 @@ figcaption {
   font-style: italic;
   font-size: var(--text-sm);
 }
+
+figure {
   /* caption at bottom or top */
-    figure:has(* + figcaption) figcaption {
+  &:has(* + figcaption) {
+    figcaption {
       margin-top: var(--xs2);
     }
-    figure:has(figcaption + *) figcaption {
+  }
+  &:has(figcaption + *) {
+    figcaption {
       margin-bottom: var(--xs2);
     }
+  }
+}
 
 iframe {
   border: 1px solid var(--ui-border-color);

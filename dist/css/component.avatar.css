@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -37,9 +37,8 @@ xxl: 1920px
   position: relative;
   display: inline-block;
   width: var(--avatar-size);
-}
 
-  .avatar  > div {
+  > div {
     display: flex;
     justify-content: center;
     aspect-ratio: 1;
@@ -52,7 +51,10 @@ xxl: 1920px
     color: var(--avatar-color);
     overflow: hidden;
   }
-    :is(.avatar.is-online,.avatar.is-offline):after {
+
+  &.is-online,
+  &.is-offline {
+    &:after {
       content: "";
       display: block;
       width: var(--status-dot-size);
@@ -64,9 +66,11 @@ xxl: 1920px
       border-radius: var(--radius-round);
       background-color: var(--avatar-status-dot-color-offline);
     }
-  .avatar.is-online:after {
+  }
+  &.is-online:after {
     background-color: var(--avatar-status-dot-color-online);
   }
+}
 
 .avatar-sm {
   --avatar-size: var(--sm3);

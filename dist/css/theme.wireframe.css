@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -106,8 +106,7 @@ xxl: 1920px
     /* STROKES: pen weight instead of hairlines */
 
     --border-sm: 2px;
-    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-200);
-    --ui-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
+    --ui-border-color: light-dark(var(--base-800), var(--base-200));
 
     /* WOBBLY BORDERS: asymmetric ellipse radii, shallow on purpose
        (7-10px of sag over 90-125px spans reads as a shaky pen line;
@@ -139,21 +138,15 @@ xxl: 1920px
 
     /* FOOTER: paper with a dashed pen rule instead of a solid ink slab */
 
-    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) var(--base-900);
-
-    --footer-background-color: var(--csstools-light-dark-toggle--1, var(--base-100));
-    --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-200);
-    --footer-text-color: var(--csstools-light-dark-toggle--2, var(--base-950));
+    --footer-background-color: light-dark(var(--base-100), var(--base-900));
+    --footer-text-color: light-dark(var(--base-950), var(--base-200));
     --footer-border-color: var(--ui-border-color);
-    --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-200);
-    --footer-link-color: var(--csstools-light-dark-toggle--3, var(--base-950));
+    --footer-link-color: light-dark(var(--base-950), var(--base-200));
     --footer-link-color-hover: var(--base-500);
 
     /* SHADOWS: hard-offset paper cutouts instead of soft blur */
 
-    --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
-
-    --ui-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
+    --ui-shadow-color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.55));
     --shadow-sm: 2px 2px 0 var(--ui-shadow-color);
     --shadow-md: 4px 4px 0 var(--ui-shadow-color);
     --shadow-lg: 6px 6px 0 var(--ui-shadow-color);
@@ -163,74 +156,13 @@ xxl: 1920px
     /* ON/OFF STATES: with the green gone, checked and online need ink
        against paper, not one gray against another. */
 
-    --csstools-light-dark-toggle--5: var(--csstools-color-scheme--light) var(--base-200);
-
-    --toggle-track-color-checked: var(--csstools-light-dark-toggle--5, var(--base-800));
-    --csstools-light-dark-toggle--6: var(--csstools-color-scheme--light) var(--base-200);
-    --avatar-status-dot-color-online: var(--csstools-light-dark-toggle--6, var(--base-800));
+    --toggle-track-color-checked: light-dark(var(--base-800), var(--base-200));
+    --avatar-status-dot-color-online: light-dark(var(--base-800), var(--base-200));
 
     /* WAYFINDING STAYS CRISP: the focus ring is not part of the sketch,
        and --marker-color is already highlighter yellow. */
 
-    --csstools-light-dark-toggle--7: var(--csstools-color-scheme--light) var(--base-0);
-
-    --focus-ring-color: var(--csstools-light-dark-toggle--7, var(--base-950));
-  }
-
-@supports (color: light-dark(red, red)) {
-:root {
-    --ui-border-color: light-dark(var(--base-800), var(--base-200));
-
-    --footer-background-color: light-dark(var(--base-100), var(--base-900));
-    --footer-text-color: light-dark(var(--base-950), var(--base-200));
-    --footer-link-color: light-dark(var(--base-950), var(--base-200));
-  }
-}
-
-@supports (color: light-dark(red, red)) and (color: rgb(0 0 0 / 0)) {
-:root {
-
-    --ui-shadow-color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.55));
-  }
-}
-
-@supports (color: light-dark(red, red)) {
-:root {
-
-    --toggle-track-color-checked: light-dark(var(--base-800), var(--base-200));
-    --avatar-status-dot-color-online: light-dark(var(--base-800), var(--base-200));
-
     --focus-ring-color: light-dark(var(--base-950), var(--base-0));
-  }
-}
-
-    @supports not (color: light-dark(tan, tan)) {
-  :root * {
-    --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-200);
-    --ui-border-color: var(--csstools-light-dark-toggle--0, var(--base-800));
-
-    --csstools-light-dark-toggle--1: var(--csstools-color-scheme--light) var(--base-900);
-
-    --footer-background-color: var(--csstools-light-dark-toggle--1, var(--base-100));
-    --csstools-light-dark-toggle--2: var(--csstools-color-scheme--light) var(--base-200);
-    --footer-text-color: var(--csstools-light-dark-toggle--2, var(--base-950));
-    --csstools-light-dark-toggle--3: var(--csstools-color-scheme--light) var(--base-200);
-    --footer-link-color: var(--csstools-light-dark-toggle--3, var(--base-950));
-
-    --csstools-light-dark-toggle--4: var(--csstools-color-scheme--light) rgb(255 255 255 / 0.55);
-
-    --ui-shadow-color: var(--csstools-light-dark-toggle--4, rgb(0 0 0 / 0.85));
-
-    --csstools-light-dark-toggle--5: var(--csstools-color-scheme--light) var(--base-200);
-
-    --toggle-track-color-checked: var(--csstools-light-dark-toggle--5, var(--base-800));
-    --csstools-light-dark-toggle--6: var(--csstools-color-scheme--light) var(--base-200);
-    --avatar-status-dot-color-online: var(--csstools-light-dark-toggle--6, var(--base-800));
-
-    --csstools-light-dark-toggle--7: var(--csstools-color-scheme--light) var(--base-0);
-
-    --focus-ring-color: var(--csstools-light-dark-toggle--7, var(--base-950));
-    }
   }
 
   /*
@@ -325,7 +257,7 @@ xxl: 1920px
     .tiles > li,
     .bt,
     .featureItem,
-    .card:not(.grid_item .card):not(.tiles .card) {
+    .card:not(.grid_item .card, .tiles .card) {
       --sketch-seed: sibling-index();
     }
 

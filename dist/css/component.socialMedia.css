@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -34,19 +34,19 @@ xxl: 1920px
   list-style: none;
   padding: 0;
   margin: 0;
-}
 
-  .socialMedia a {
+  a {
     display: block;
     width: var(--icon-size);
     height: var(--icon-size);
 
     /* in case SVG has dimensions specified in its code */
-  }
-    :is(.socialMedia a) svg {
+    svg {
       width: var(--icon-size);
       height: var(--icon-size);
     }
+  }
+}
 
 .socialMedia-md {
   --icon-size: var(--md2);

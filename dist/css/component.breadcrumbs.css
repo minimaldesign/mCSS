@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -26,7 +26,9 @@ xxl: 1920px
 
 @layer components {
 /* BREADCRUMBS */
-  .breadcrumbs ol {
+
+.breadcrumbs {
+  ol {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -37,7 +39,7 @@ xxl: 1920px
     font-size: var(--text-sm);
   }
 
-  .breadcrumbs li {
+  li {
     display: flex;
     align-items: center;
     gap: var(--xs2);
@@ -45,31 +47,32 @@ xxl: 1920px
 
   /* separator between crumbs; the / "" alt text keeps it out of the
      accessibility tree in browsers that support the syntax */
-  .breadcrumbs li + li::before {
+  li + li::before {
     content: var(--breadcrumbs-separator);
     color: var(--breadcrumbs-separator-color);
   }
 
 @supports (content: "a" / "a") {
-.breadcrumbs li + li::before {
+li + li::before {
     content: var(--breadcrumbs-separator) / "";
   }
 }
 
-  .breadcrumbs a {
+  a {
     color: var(--breadcrumbs-color);
     -webkit-text-decoration: none;
     text-decoration: none;
     transition: color var(--transition);
-  }
 
-    :is(.breadcrumbs a):hover {
+    &:hover {
       color: var(--link-color);
     }
+  }
 
-  .breadcrumbs [aria-current="page"] {
+  [aria-current="page"] {
     color: var(--breadcrumbs-color-current);
     font-weight: var(--semi-bold);
   }
+}
 
 }

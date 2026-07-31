@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -37,32 +37,32 @@ xxl: 1920px
   border-radius: var(--notice-border-radius);
   color: var(--notice-text-color);
   background-color: var(--bg-color);
-}
 
-  .notice code {
+  code {
     background-color: var(--code-bg-color);
     color: var(--code-color);
   }
 
-  .notice p:last-of-type {
+  p:last-of-type {
     /* in case it's inside a .prose context */
     margin-bottom: 0;
   }
+}
 
 .notice_title {
   display: flex;
-}
 
-  .notice_title svg {
+  svg {
     margin-bottom: var(--xs3);
     margin-inline-end: 0.5em;
     color: var(--svg-color);
   }
 
-  .notice_title strong {
+  strong {
     display: block;
     margin-bottom: var(--xs1);
   }
+}
 
 .notice-info {
   color: var(--base-950);
