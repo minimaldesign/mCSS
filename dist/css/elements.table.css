@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -50,18 +50,32 @@ td {
   border-bottom: 1px solid var(--table-border-color);
   border-inline-start: 1px solid var(--table-border-color);
 }
-  tr th:first-child,tr td:first-child {
+
+tr {
+  th:first-child,
+  td:first-child {
     border-inline-start-width: 0;
   }
+}
 
 thead {
 }
-    :is(tbody tr:last-child) th,:is(tbody tr:last-child) td {
+
+tbody {
+  tr:last-child {
+    th,
+    td {
       border-bottom-width: 0;
     }
-  tfoot th,tfoot td {
+  }
+}
+
+tfoot {
+  th,
+  td {
     border-top: 1px solid var(--table-border-color);
     border-bottom-width: 0;
   }
+}
 
 }

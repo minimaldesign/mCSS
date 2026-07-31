@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -37,15 +37,18 @@ xxl: 1920px
   text-align: center;
   color: var(--banner-color);
   background: var(--banner-background-color);
-}
 
-  .banner a {
+  a {
     color: inherit;
     font-weight: var(--semi-bold);
   }
-  .banner_content p {
+}
+
+.banner_content {
+  p {
     margin-bottom: 0;
   }
+}
 
 .banner_close {
   display: flex;
@@ -58,11 +61,11 @@ xxl: 1920px
   background: transparent;
   border: none;
   cursor: pointer;
-}
 
-  .banner_close svg {
+  svg {
     width: var(--sm1);
     height: var(--sm1);
   }
+}
 
 }

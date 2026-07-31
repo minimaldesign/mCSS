@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -25,27 +25,28 @@ xxl: 1920px
 /* truncate single line of text and adds … */
 
 @layer components {
+.toc {
   /* we hide the TOC if there is less than 2 item */
-  .toc:not(:has(li:nth-of-type(2))) {
+  &:not(:has(li:nth-of-type(2))) {
     display: none;
   }
 
-  .toc p {
+  p {
     margin-bottom: var(--xs2);
   }
 
-  .toc ul {
+  ul {
     font-size: var(--text-sm);
-  }
-    :is(.toc ul) ul {
+    ul {
       margin-inline-start: var(--toc-indentation);
     }
+  }
 
-  .toc > ul > li:first-child > a:first-child {
+  & > ul > li:first-child > a:first-child {
     padding-top: 0;
   }
 
-  .toc a {
+  a {
     display: flex;
     align-items: center;
     padding-top: calc(var(--toc-spacing) / 2);
@@ -54,29 +55,32 @@ xxl: 1920px
     text-decoration: none;
     color: var(--toc-color);
     transition: color var(--transition);
-  }
-    :is(.toc a):hover {
+    &:hover {
       color: var(--toc-color-hover);
     }
 
-    :is(.toc a) span {
+    span {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .is-active:is(.toc a) {
+    &.is-active {
       color: var(--toc-color-hover);
-    }
-      .is-active:is(.toc a) svg {
+      svg {
         transform: translateX(calc(var(--xs1) * -1));
         opacity: var(--o-5);
       }
-  .toc-icon a {
+    }
+  }
+}
+
+.toc-icon {
+  a {
     margin-inline-start: calc(var(--toc-icon-size) * -1);
   }
 
-  .toc-icon svg {
+  svg {
     width: var(--toc-icon-size);
     height: var(--toc-icon-size);
     flex-shrink: 0;
@@ -84,5 +88,6 @@ xxl: 1920px
     transform: translateX(calc(var(--toc-icon-size) * -1));
     transition: opacity var(--transition), transform var(--transition);
   }
+}
 
 }

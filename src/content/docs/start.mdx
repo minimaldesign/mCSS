@@ -403,17 +403,16 @@ Any questions or feedback? Head over to the [Github discussions][discussions]!
 
 <section class="docs_section prose">
 
-mCSS targets **[Baseline](https://web.dev/baseline) 2024**: it freely uses cascade layers (`@layer`), nesting, `:has()`, `light-dark()`, `@scope`, `text-wrap: balance`, and relative color syntax, all natively, with no polyfills. In practice that means the current versions of Chrome, Edge, Firefox, and Safari, going back roughly two years.
+mCSS targets **[Baseline](https://web.dev/baseline) 2024**: it freely uses cascade layers (`@layer`), nesting, `:has()`, `light-dark()`, `@scope`, `text-wrap: balance`, and relative color syntax, all natively, with no polyfills. In practice that means Chrome and Edge 130, Firefox 132, and Safari 18.2 or newer, the versions that shipped by late 2024.
 
 How things degrade in older browsers:
 
-- **Cascade layers, nesting, `:has()`** (2022–2023): load-bearing. Browsers without them are not supported.
-- **`light-dark()`** (mid-2024): colors fall back to the light palette.
+- **Cascade layers, nesting, `:has()`, `light-dark()`**: load-bearing. Browsers without them are not supported. `light-dark()` deserves a specific warning: every color token stores it in a custom property, and a custom property holding an unsupported function does not fall back, it makes the properties that consume it invalid at computed-value time. Browsers older than mid-2024 get unset colors (`currentColor` borders, transparent backgrounds), not the light palette.
 - **`@scope`** (mid-2024): only affects `.prose` internals; spacing between prose blocks and headings loses one refinement.
 - **Scroll-driven animations**: the [ReadProgressBar](/components/readprogressbar) component detects support and falls back to JavaScript automatically.
 - **`sibling-index()`, CSS `random()`, SVG displacement filters**: used only by the [wireframe theme](/docs/themes) for per-element sketch variation; without them the theme keeps its fixed hand-drawn look.
 
-The exact compile floor lives in `.browserslistrc` (`defaults and supports css-cascade-layers`).
+The exact compile floor lives in `.browserslistrc` (`baseline 2024`). Keep it: with a broader target, postcss-preset-env starts polyfilling the features above, which costs real weight (a `light-dark()` polyfill alone added 23% to a measured build) and quietly rewrites CSS the framework's layer model depends on.
 
 </section>
 

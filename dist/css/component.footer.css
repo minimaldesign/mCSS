@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -34,27 +34,24 @@ xxl: 1920px
   background-color: var(--footer-background-color);
   border-top: var(--footer-border-width) dashed var(--footer-border-color);
   transition: background-color var(--transition);
-}
   @media (width >= 768px) {
-
-.footer {
     display: grid;
     gap: var(--md3);
     grid-template-columns: 25% 1fr;
     padding: var(--lg3) var(--md3);
-}
   }
 
-  .footer a {
+  a {
     color: var(--footer-link-color);
     -webkit-text-decoration: none;
     text-decoration: none;
     font-weight: var(--book);
     transition: color var(--transition);
-  }
-    :is(.footer a):hover {
+    &:hover {
       color: var(--footer-link-color-hover);
     }
+  }
+}
 
 .footer_meta {
   grid-column: 1;
@@ -65,32 +62,29 @@ xxl: 1920px
   margin: 0;
   padding: 0;
   list-style: none;
-}
 
-  :is(.footer_nav ul) li {
+  li {
     margin: 0;
   }
-  @media (width >= 768px) {
+}
 
 .footer_nav > ul {
+  @media (width >= 768px) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--sm3);
-}
   }
 
-  :is(.footer_nav > ul) ul {
+  ul {
     margin-bottom: var(--md3);
-  }
     @media (width >= 768px) {
-
-  :is(.footer_nav > ul) ul {
       margin-bottom: 0;
-  }
     }
 
-    :is(:is(.footer_nav > ul) ul) li:not(:last-child) {
+    li:not(:last-child) {
       margin-bottom: var(--xs1);
     }
+  }
+}
 
 }

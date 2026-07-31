@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -41,10 +41,10 @@ body {
   line-height: 1.5;
 
   /* for elements like dialog etc. that require scrolling turned off */
-}
-  body:has(.body-is-locked) {
+  &:has(.body-is-locked) {
     overflow: hidden;
   }
+}
 
 /* CONTENT SECTIONING ELEMENTS */
 

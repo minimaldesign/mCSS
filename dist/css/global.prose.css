@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -41,27 +41,28 @@ xxl: 1920px
   ol,
   dl {
     margin-bottom: var(--prose-spacing);
-  }
-    :is(p,ul,ol,dl) p,:is(p,ul,ol,dl) ul,:is(p,ul,ol,dl) ol,:is(p,ul,ol,dl) dl {
+    p,
+    ul,
+    ol,
+    dl {
       margin-bottom: 0;
     }
-    :is(ul,ol) ul,:is(ul,ol) ol {
+  }
+
+  ul,
+  ol {
+    ul,
+    ol {
       margin-inline-start: 0;
       padding-inline-start: var(--sm2);
     }
-    :is(ul,ol) li {
+    li {
       margin-bottom: 0.5em;
-    }
-      :is(:is(ul,ol) li)::marker {
-        --csstools-light-dark-toggle--0: var(--csstools-color-scheme--light) var(--base-600);
-        color: var(--csstools-light-dark-toggle--0, var(--base-300));
-      }
-
-@supports (color: light-dark(red, red)) {
-:is(:is(ul,ol) li)::marker {
+      &::marker {
         color: light-dark(var(--base-300), var(--base-600));
       }
-}
+    }
+  }
 
   ul {
     margin-inline-start: var(--sm2);
@@ -71,10 +72,10 @@ xxl: 1920px
   ol {
     margin-inline-start: var(--md2);
     list-style-type: decimal-leading-zero;
-  }
-    ol li::marker {
+    li::marker {
       font-size: var(--text-sm);
     }
+  }
 
   table {
     margin-top: var(--md1);

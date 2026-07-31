@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -32,9 +32,8 @@ xxl: 1920px
   width: 100%;
   height: var(--readProgressBar-height);
   z-index: var(--z-5);
-}
 
-  .readProgressBar  > div {
+  > div {
     width: 100%;
     height: 100%;
     background: var(--readProgressBar-color);
@@ -43,6 +42,7 @@ xxl: 1920px
        depend on where in the DOM the component happens to be rendered */
     animation-timeline: scroll(root y);
   }
+}
 
 @keyframes bar {
   from {

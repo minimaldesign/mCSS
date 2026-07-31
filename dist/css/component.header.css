@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -41,11 +41,11 @@ xxl: 1920px
   top: 0;
   z-index: var(--z-5);
   box-shadow: var(--shadow-sm);
-}
 
-  .header-sticky.is-top {
+  &.is-top {
     box-shadow: none;
   }
+}
 
 .header_logo {
   display: flex;
@@ -61,27 +61,22 @@ xxl: 1920px
 .header_nav {
   display: none;
   margin-inline-start: auto;
-}
   @media (width >= 768px) {
-
-.header_nav {
     display: block;
-}
   }
 
-  .header_nav ul {
+  ul {
     display: flex;
     gap: var(--md3);
     margin: 0;
     padding: 0;
     list-style: none;
-  }
 
-    :is(.header_nav ul) li {
+    li {
       margin: 0;
     }
 
-    :is(.header_nav ul) a {
+    a {
       display: flex;
       align-items: center;
       height: var(--header-height);
@@ -91,34 +86,30 @@ xxl: 1920px
       text-decoration: none;
       color: var(--text-color);
       transition: color var(--transition);
-    }
-      :is(:is(.header_nav ul) a):hover,[aria-current]:is(:is(.header_nav ul) a) {
+      &:hover,
+      &[aria-current] {
         color: var(--link-color);
       }
+    }
+  }
+}
 
 .header_actions {
   display: none;
-}
   @media (width >= 768px) {
-
-.header_actions {
     display: flex;
     align-items: center;
     gap: var(--sm3);
-}
   }
+}
 
 .header_navMobile {
   margin-inline-start: auto;
-}
   @media (width >= 768px) {
-
-.header_navMobile {
     display: none;
-}
   }
 
-  .header_navMobile button {
+  button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,7 +122,7 @@ xxl: 1920px
     cursor: pointer;
   }
 
-  .header_navMobile  > div {
+  > div {
     /* The full-screen menu is an always-dark surface by design; it does not
        follow the light theme. Retheme it via the --header-menu-* tokens. */
     display: none;
@@ -144,12 +135,11 @@ xxl: 1920px
     padding: var(--lg3);
     background-color: var(--header-menu-background-color);
     z-index: var(--z-5);
-  }
-    .is-open:is(.header_navMobile > div) {
+    &.is-open {
       display: block;
     }
 
-    :is(.header_navMobile > div) button {
+    button {
       position: fixed;
       top: 0;
       right: 0; /* deliberately physical: close button pinned to a visual corner */
@@ -157,43 +147,45 @@ xxl: 1920px
       color: var(--header-menu-color);
     }
 
-    :is(.header_navMobile > div) a {
+    a {
       color: var(--header-menu-color);
       -webkit-text-decoration: none;
       text-decoration: none;
-    }
-      [aria-current]:is(:is(.header_navMobile > div) a) {
+      &[aria-current] {
         color: var(--header-menu-color-current);
       }
+    }
 
-    :is(.header_navMobile > div) ul {
+    ul {
       margin: 0;
       padding: 0;
       list-style: none;
-    }
 
-      :is(:is(.header_navMobile > div) ul) li {
+      li {
         margin: 0;
       }
-
-    :is(.header_navMobile > div)  > ul {
-      font-size: var(--text-lg);
     }
 
-      :is(:is(.header_navMobile > div) > ul) li {
+    > ul {
+      font-size: var(--text-lg);
+
+      li {
         margin-top: var(--sm1);
       }
 
-      :is(:is(.header_navMobile > div) > ul) ul {
+      ul {
         padding-inline-start: var(--sm1);
         border-inline-start: 1px solid var(--header-menu-border-color);
-      }
-        :is(:is(:is(.header_navMobile > div) > ul) ul) a {
+        a {
           color: var(--header-menu-secondary-color);
-        }
-          [aria-current]:is(:is(:is(:is(.header_navMobile > div) > ul) ul) a) {
+          &[aria-current] {
             color: var(--header-menu-color-current);
           }
+        }
+      }
+    }
+  }
+}
 
 .header_menuExtra {
   display: flex;

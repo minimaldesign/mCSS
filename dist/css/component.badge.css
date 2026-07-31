@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -38,26 +38,26 @@ xxl: 1920px
   border-radius: var(--badge-border-radius);
 
   /* Variants only swap the local custom properties */
-}
 
-  .badge.badge-primary {
+  &.badge-primary {
     --badge-color: var(--badge-primary-color);
     --badge-background-color: var(--badge-primary-background-color);
   }
 
-  .badge.badge-success {
+  &.badge-success {
     --badge-color: var(--badge-success-color);
     --badge-background-color: var(--badge-success-background-color);
   }
 
-  .badge.badge-danger {
+  &.badge-danger {
     --badge-color: var(--badge-danger-color);
     --badge-background-color: var(--badge-danger-background-color);
   }
 
-  .badge.badge-warning {
+  &.badge-warning {
     --badge-color: var(--badge-warning-color);
     --badge-background-color: var(--badge-warning-background-color);
   }
+}
 
 }

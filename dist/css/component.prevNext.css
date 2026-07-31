@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -44,19 +44,19 @@ xxl: 1920px
   border: var(--border-sm) solid var(--prevNext-border-color);
   border-radius: var(--prevNext-border-radius);
   transition: border-color var(--transition);
-}
 
-  .prevNext_link:hover {
+  &:hover {
     border-color: var(--prevNext-border-color-hover);
   }
 
-  .prevNext_link small {
+  small {
     color: var(--prevNext-label-color);
   }
 
-  .prevNext_link span {
+  span {
     font-weight: var(--semi-bold);
   }
+}
 
 .prevNext_link-prev {
   grid-column: 1;

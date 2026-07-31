@@ -1,4 +1,6 @@
-# mCSS support floor: browsers with native cascade-layer support (~Baseline 2022+).
-# This keeps postcss-preset-env from polyfilling features the framework relies on
-# natively (see also the cascade-layers note in postcss.config.cjs).
-defaults and supports css-cascade-layers
+# mCSS support floor: Baseline 2024. Everything the framework uses natively
+# (cascade layers, nesting, :has(), light-dark(), @scope, relative colors)
+# is inside this floor, so postcss-preset-env has nothing to polyfill; the
+# only transform left is resolving @custom-media, which no browser ships.
+# Requires browserslist >= 4.25 for the baseline query.
+baseline 2024

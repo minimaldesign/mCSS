@@ -1,4 +1,4 @@
-/*! mCSS v1.2.0 | MIT | https://mcss.dev */
+/*! mCSS v1.3.0 | MIT | https://mcss.dev */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -43,21 +43,24 @@ xxl: 1920px
   color: var(--featureItem-icon-color);
   background-color: var(--featureItem-icon-background-color);
   border-radius: var(--featureItem-icon-border-radius);
-}
 
-  .featureItem_icon svg {
+  svg {
     width: var(--featureItem-icon-size);
     height: var(--featureItem-icon-size);
   }
+}
 
 .featureItem_title {
   margin-bottom: var(--xs2);
   font-size: var(--text-lg);
   font-weight: var(--semi-bold);
 }
-  .featureItem_text p:last-of-type {
+
+.featureItem_text {
+  p:last-of-type {
     /* in case it's inside a .prose context */
     margin-bottom: 0;
   }
+}
 
 }
