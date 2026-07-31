@@ -96,6 +96,10 @@ const postcssPresetEnv = require("postcss-preset-env");
 
 module.exports = {
   plugins: [
+    // Uncomment if you opted into mixins. It has to run before preset-env,
+    // so the mixins are already expanded before anything else transforms
+    // the file.
+    // require("postcss-mixins"),
     postcssPresetEnv({
       stage: 2,
       features: {
@@ -153,7 +157,7 @@ You are done. Astro, Vite, Next, Nuxt, SvelteKit, Parcel, and anything else with
 import "./styles/main.css";
 ```
 
-Bundlers also inline the `@import` chain themselves, which matters more than it looks: `@custom-media` definitions only apply within the stylesheet PostCSS is processing, so the breakpoint file has to be pulled into the same document as the files that use it. Your bundler is already doing that. (This site is an Astro project and its PostCSS config is exactly the file above, nothing more.)
+Bundlers also inline the `@import` chain themselves, which matters more than it looks: `@custom-media` definitions only apply within the stylesheet PostCSS is processing, so the breakpoint file has to be pulled into the same document as the files that use it. Your bundler is already doing that. (This site is an Astro project and its PostCSS config is the file above with the `postcss-mixins` line uncommented, nothing more.)
 
 Run your usual `dev` and `build`. Nothing else changes.
 
@@ -174,6 +178,7 @@ const postcssPresetEnv = require("postcss-preset-env");
 module.exports = {
   plugins: [
     require("postcss-import"),
+    // require("postcss-mixins"), // if you opted in
     postcssPresetEnv({
       stage: 2,
       features: {
@@ -185,7 +190,7 @@ module.exports = {
 };
 ```
 
-Order is not a style preference here. Put it last and preset-env sees a file full of `@media (--md)` with no definitions in scope, leaves them alone, and ships them to the browser broken.
+Order is not a style preference here. Put it last and preset-env sees a file full of `@media (--md)` with no definitions in scope, leaves them alone, and ships them to the browser broken. Mixins follow the same logic: `postcss-mixins` needs `postcss-import` to have inlined the `@define-mixin` blocks first, and preset-env wants the mixins already expanded, so the order is always import, mixins, preset-env.
 
 Then point a script at your entry file:
 
