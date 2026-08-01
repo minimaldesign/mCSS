@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "Copy mCSS into your project and learn the methodology: file structure, class syntax, components"
-lastUpdate: 2026-07-28
+lastUpdate: 2026-07-31
 version: 1
 ---
 
@@ -24,7 +24,7 @@ There is nothing to install from a registry: you copy mCSS into your project and
 
 ### Install with PostCSS
 
-Copy [`src/styles/framework/`][framework-src] to wherever your CSS lives, then start your own folder next to it for your unlayered CSS. This site's [`site/`][site-src] is the worked example of that folder, and [`_global.css`][4] is the entry file tying the two together (see [the layers](#mcss-file-structure) below).
+Copy [`src/styles/framework/`][framework-src] to wherever your CSS lives, then start your own folder next to it for your unlayered CSS. This site's [`site/`][site-src] is the worked example of that folder, and [`_global.css`][4] is the entry file tying the two together (see [the layers](#mcss-file-structure) below). Copy [`.browserslistrc`][browserslistrc] from the repo root as well: it sets the [compile floor](#browser-support) that keeps postcss-preset-env from polyfilling the features mCSS uses natively.
 
 You own the source this way: tokens, components, and themes are all editable, and you only ship the files you actually import. The cost is a build step, because the source uses `@custom-media`, which no browser understands yet. One plugin ([postcss-preset-env][presetEnv]) and a five-line config resolve it, and if you already use Astro, Vite, Next, or any other bundler, that config is the only thing you add. If you need more details on how to set up PostCSS, see [this blog post][postcss-post].
 
@@ -426,6 +426,7 @@ The exact compile floor lives in `.browserslistrc` (`baseline 2024`). Keep it: w
 [a11y]: /docs/global#accessibility
 [bem]: /blog/what-is-bem
 [bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
+[browserslistrc]: https://github.com/minimaldesign/mCSS/blob/main/.browserslistrc
 [components]: /components/start
 [coupling]: /blog/component-system-that-scales
 [discussions]: https://github.com/minimaldesign/mCSS/discussions
