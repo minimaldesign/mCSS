@@ -397,6 +397,15 @@ xxl: 1920px
   --fieldset-border-color: var(--ui-border-color);
   --fieldset-border-radius: var(--radius-lg);
 
+  /* meter: low/medium/high map to the even-less-good, suboptimum, and
+     optimum pseudo-elements */
+  --meter-height: var(--sm1);
+  --meter-border-radius: var(--radius-md);
+  --meter-track-color: var(--primary-100);
+  --meter-low-color: var(--danger-400);
+  --meter-medium-color: var(--warning-400);
+  --meter-high-color: var(--success-400);
+
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
@@ -1709,19 +1718,13 @@ legend {
 }
 
 meter {
-  --meter-height: var(--sm1);
-  --meter-radius: var(--radius-md);
-  --meter-color-track: var(--primary-100);
-  --meter-color-low: var(--no-400);
-  --meter-color-med: var(--maybe-400);
-  --meter-color-high: var(--yes-400);
   width: 100%;
-  background: var(--meter-color-track);
-  border-radius: var(--meter-radius);
+  background: var(--meter-track-color);
+  border-radius: var(--meter-border-radius);
   height: var(--meter-height);
   /* webkit */
   &::-webkit-meter-bar {
-    background: var(--meter-color-track);
+    background: var(--meter-track-color);
   }
   &::-webkit-meter-bar,
   &::-webkit-meter-optimum-value,
@@ -1729,26 +1732,26 @@ meter {
   &::-webkit-meter-even-less-good-value {
     height: var(--meter-height);
     border: none;
-    border-radius: var(--meter-radius);
+    border-radius: var(--meter-border-radius);
   }
   &::-webkit-meter-even-less-good-value {
-    background: var(--meter-color-low);
+    background: var(--meter-low-color);
   }
   &::-webkit-meter-suboptimum-value {
-    background: var(--meter-color-med);
+    background: var(--meter-medium-color);
   }
   &::-webkit-meter-optimum-value {
-    background: var(--meter-color-high);
+    background: var(--meter-high-color);
   }
   /* mozilla */
   &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: var(--meter-color-low);
+    background: var(--meter-low-color);
   }
   &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: var(--meter-color-med);
+    background: var(--meter-medium-color);
   }
   &:-moz-meter-optimum::-moz-meter-bar {
-    background: var(--meter-color-high);
+    background: var(--meter-high-color);
   }
 }
 
