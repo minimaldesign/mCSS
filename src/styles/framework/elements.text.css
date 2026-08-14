@@ -48,8 +48,8 @@ abbr {
     width: var(--sm1);
     height: var(--sm1);
     display: inline-block;
-    content: '';
-    background:  url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='circle-help'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Cpath%20d='M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203'/%3E%3Cpath%20d='M12%2017h.01'/%3E%3C/svg%3E");
+    content: "";
+    background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='circle-help'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Cpath%20d='M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203'/%3E%3Cpath%20d='M12%2017h.01'/%3E%3C/svg%3E");
     background-size: contain;
   }
   &:hover:before {
@@ -80,7 +80,7 @@ blockquote {
   background-color: light-dark(var(--primary-50), var(--primary-900));
   border-radius: var(--radius-md);
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     inset-inline-start: 0;
@@ -111,7 +111,9 @@ cite {
   font-style: italic;
 }
 
-code, var, kbd {
+code,
+var,
+kbd {
   font-family: var(--mono);
   font-size: 0.9em;
   font-style: normal;
@@ -121,7 +123,7 @@ code, var, kbd {
 :is(code, var, kbd):not(h1 *, h2 *, h3 *, h4 *, h5 *, h6 *, pre *) {
   padding: 0.15em 0.3em;
   color: var(--text-code-color);
-  background-color:  var(--text-code-background-color);
+  background-color: var(--text-code-background-color);
   border-radius: var(--radius-sm);
 }
 
@@ -139,7 +141,7 @@ dd {
 }
 
 dd + dt {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 del {
@@ -156,37 +158,53 @@ em {
 /* figcaption and figure are in elements.media.css */
 
 /* Technically, headings should be in elements.sectioning but I'm guessing that's where most people would expect this to be */
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
   line-height: var(--heading-line-height);
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
   margin-bottom: var(--sm1);
 }
 
-h4, .h4 {
+h4,
+.h4 {
   margin-bottom: var(--sm2);
 }
 
-h5, .h5,
-h6, .h6 {
+h5,
+.h5,
+h6,
+.h6 {
   margin-bottom: var(--xs2);
 }
 
@@ -195,27 +213,33 @@ h6, .h6 {
   margin-bottom: var(--sm2);
 }
 
-h1, .h1 {
+h1,
+.h1 {
   font-size: var(--heading-1);
 }
 
-h2, .h2 {
+h2,
+.h2 {
   font-size: var(--heading-2);
 }
 
-h3, .h3 {
+h3,
+.h3 {
   font-size: var(--heading-3);
 }
 
-h4, .h4 {
+h4,
+.h4 {
   font-size: var(--heading-4);
 }
 
-h5, .h5 {
+h5,
+.h5 {
   font-size: var(--heading-5);
 }
 
-h6, .h6 {
+h6,
+.h6 {
   font-size: var(--heading-6);
 }
 
@@ -241,7 +265,6 @@ hr {
 :where(hr):has(+ :is(p)) {
   margin-bottom: var(--prose-spacing);
 }
-
 
 i {
 }

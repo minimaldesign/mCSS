@@ -86,7 +86,10 @@ xxl: 1920px
   --input-height: var(--md3);
   --input-padding: var(--xs3);
   --input-border-radius: var(--radius-md);
-  --input-border-color-invalid: light-dark(var(--danger-500), var(--danger-400));
+  --input-border-color-invalid: light-dark(
+    var(--danger-500),
+    var(--danger-400)
+  );
 
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
@@ -121,7 +124,10 @@ xxl: 1920px
   --marker-color: var(--highlight-500);
 
   --selection-color: light-dark(var(--base-950), var(--base-0));
-  --selection-background-color: light-dark(var(--primary-200), var(--primary-700));
+  --selection-background-color: light-dark(
+    var(--primary-200),
+    var(--primary-700)
+  );
 }
 
 /* GLOBAL */
@@ -419,7 +425,10 @@ xxl: 1920px
   --section-header-spacing: var(--lg3);
   --section-eyebrow-color: light-dark(var(--primary-600), var(--primary-400));
   --section-lede-color: light-dark(var(--base-500), var(--base-400));
-  --section-filled-background-color: light-dark(var(--base-50), var(--base-900));
+  --section-filled-background-color: light-dark(
+    var(--base-50),
+    var(--base-900)
+  );
   --section-primary-background-color: light-dark(
     var(--primary-600),
     var(--primary-900)
