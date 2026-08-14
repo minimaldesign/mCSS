@@ -1,5 +1,5 @@
 /*! mCSS v1.3.0 | MIT | https://mcss.dev */
-@layer settings, base, elements, global, components, theme, helpers;
+@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
 @import url(./base.reset.css) layer(base);
 @import url(./component.avatar.css) layer(components);
 @import url(./component.badge.css) layer(components);
@@ -46,8 +46,8 @@
 @import url(./help.ratios.css) layer(helpers);
 @import url(./help.spacing.css) layer(helpers);
 @import url(./help.typography.css) layer(helpers);
-/* @import url(./theme.default.css); */ /* theme: activate at most one */
-/* @import url(./theme.default.tokens.css); */ /* theme: activate at most one */
-/* @import url(./theme.default.ui.css); */ /* theme: activate at most one */
-/* @import url(./theme.starter.css); */ /* theme: activate at most one */
-/* @import url(./theme.wireframe.css); */ /* theme: activate at most one */
+@import url(./theme.default.css); /* the default theme */
+/* @import url(./theme.default.tokens.css); */ /* imported by theme.default.css */
+/* @import url(./theme.default.ui.css); */ /* imported by theme.default.css */
+/* @import url(./theme.starter.css); */ /* theme: swap for the default */
+/* @import url(./theme.wireframe.css); */ /* theme: swap for the default */

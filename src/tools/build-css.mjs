@@ -4,18 +4,21 @@
  * Outputs (all with @custom-media resolved and mixins expanded, so they work
  * with zero tooling; cascade layers are kept intact):
  *   dist/mcss.css                — single-file bundle of the framework core
- *                                  (declares the components/theme layer
- *                                  slots, imports neither)
+ *                                  WITH the default theme baked in, so it
+ *                                  stays a working drop-in on its own
+ *                                  (declares the components slot, imports
+ *                                  no component)
  *   dist/mcss.min.css            — minified core bundle
  *   dist/mcss.components.css     — single-file bundle of the component
  *                                  library (@layer components)
  *   dist/mcss.components.min.css — minified components bundle
  *   dist/css/<file>.css — every framework file processed individually,
- *                         wrapped in its cascade layer (theme.* files ship
- *                         their own @layer theme block and aren't re-wrapped)
- *   dist/css/mcss.css   — @import index over the per-file outputs; theme
- *                         imports are commented out (activating one is the
- *                         consumer's move)
+ *                         wrapped in its cascade layer (theme.* files
+ *                         self-layer and aren't re-wrapped)
+ *   dist/css/mcss.css   — @import index over the per-file outputs; the
+ *                         default theme import is active (the framework
+ *                         doesn't paint without it), other themes are
+ *                         commented out (swap which one is active)
  *
  * Run: npm run build:css
  */
@@ -65,7 +68,6 @@ function layerOf(file) {
   const prefix = file.split(".")[0];
   return (
     {
-      settings: "settings",
       base: "base",
       elements: "elements",
       global: "global",
@@ -77,7 +79,7 @@ function layerOf(file) {
 }
 
 const LAYER_STATEMENT =
-  "@layer settings, base, elements, global, components, theme, helpers;\n";
+  "@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;\n";
 
 // Rebuild dist/css from scratch so renamed or deleted source files can't
 // leave stale outputs behind.
@@ -85,11 +87,17 @@ await rm(join(OUT, "css"), { recursive: true, force: true });
 await mkdir(join(OUT, "css"), { recursive: true });
 
 // 1. Single-file bundles, core + component library (postcss-import inlines
-//    the layer() imports), each with a minified variant.
+//    the layer() imports), each with a minified variant. The core bundle
+//    bakes the default theme in so dist/mcss.css works as a one-file
+//    drop-in; source consumers activate the theme themselves.
+const coreEntry =
+  "@import url(./mcss.css);\n@import url(./theme.default.css);\n";
 const bundles = {};
 for (const name of ["mcss.css", "mcss.components.css"]) {
   const entry = join(SRC, name);
-  const bundled = await process(await readFile(entry, "utf8"), entry, true);
+  const source =
+    name === "mcss.css" ? coreEntry : await readFile(entry, "utf8");
+  const bundled = await process(source, join(SRC, `_entry-${name}`), true);
   await writeFile(join(OUT, name), BANNER + bundled);
 
   const { code: minified } = await esbuildTransform(bundled, {
@@ -102,7 +110,10 @@ for (const name of ["mcss.css", "mcss.components.css"]) {
 }
 
 // 2. Per-file outputs for copy-paste consumers.
-const buildTimeOnly = new Set(["settings.media-queries.css", "settings.mixins.css"]);
+const buildTimeOnly = new Set([
+  "settings.media-queries.css",
+  "settings.mixins.css",
+]);
 const settingsPrelude = [
   await readFile(join(SRC, "settings.media-queries.css"), "utf8"),
   await readFile(join(SRC, "settings.mixins.css"), "utf8"),
@@ -114,7 +125,7 @@ const files = (await readdir(SRC))
       f.endsWith(".css") &&
       f !== "mcss.css" &&
       f !== "mcss.components.css" &&
-      !buildTimeOnly.has(f)
+      !buildTimeOnly.has(f),
   )
   .sort();
 
@@ -124,26 +135,35 @@ for (const file of files) {
   const css = await readFile(join(SRC, file), "utf8");
   // Prepend the build-time settings so @custom-media/@mixin resolve, then
   // wrap the file's own rules in its layer. preset-env removes the
-  // @custom-media definitions from the output. Theme files already carry
-  // their own @layer theme block, so they're not re-wrapped, and the index
-  // leaves them commented: activating a theme is the consumer's move.
+  // @custom-media definitions from the output. Theme files self-layer, so
+  // they're not re-wrapped. In the index the default theme import is
+  // active (the framework doesn't paint without a theme); other theme
+  // entries are commented: swap which one is active to change skins.
   const selfLayered = layer === "theme";
-  const wrapped = selfLayered
-    ? `${settingsPrelude}\n${css}`
-    : `${settingsPrelude}\n@layer ${layer} {\n${css}\n}`;
+  const importsOnly = file === "theme.default.css";
+  const wrapped = importsOnly
+    ? css
+    : selfLayered
+      ? `${settingsPrelude}\n${css}`
+      : `${settingsPrelude}\n@layer ${layer} {\n${css}\n}`;
   const processed = await process(wrapped, join(SRC, file));
   await writeFile(join(OUT, "css", file), BANNER + processed.trim() + "\n");
+  const isDefaultPart = file.startsWith("theme.default.") && !importsOnly;
   indexImports.push(
-    selfLayered
-      ? `/* @import url(./${file}); */ /* theme: activate at most one */`
-      : `@import url(./${file}) layer(${layer});`
+    importsOnly
+      ? `@import url(./${file}); /* the default theme */`
+      : isDefaultPart
+        ? `/* @import url(./${file}); */ /* imported by theme.default.css */`
+        : selfLayered
+          ? `/* @import url(./${file}); */ /* theme: swap for the default */`
+          : `@import url(./${file}) layer(${layer});`,
   );
 }
 
 // 3. @import index (usable in the browser with no build step).
 await writeFile(
   join(OUT, "css", "mcss.css"),
-  BANNER + LAYER_STATEMENT + indexImports.join("\n") + "\n"
+  BANNER + LAYER_STATEMENT + indexImports.join("\n") + "\n",
 );
 
 console.log(
@@ -151,7 +171,7 @@ console.log(
     .map(
       ([name, { bundled, minified, minName }]) =>
         `Built dist/${name} (${(bundled.length / 1024).toFixed(1)} kB), ` +
-        `dist/${minName} (${(minified.length / 1024).toFixed(1)} kB)`
+        `dist/${minName} (${(minified.length / 1024).toFixed(1)} kB)`,
     )
-    .join("\n") + `\n${files.length} files in dist/css/`
+    .join("\n") + `\n${files.length} files in dist/css/`,
 );
