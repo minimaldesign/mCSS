@@ -5,5 +5,8 @@
     "mcss",
     "tera"
   ],
-  "workbench.preferredDarkColorTheme": "GitHub Dark"
+  "workbench.preferredDarkColorTheme": "GitHub Dark",
+  "search.exclude": {
+    "**/dist": true
+  }
 }
