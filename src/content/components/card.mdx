@@ -301,28 +301,28 @@ Every part is optional; render only what you pass. Badges and tags can coexist, 
 
 <div class="docs_oversizedTable prose">
 
-| Prop           | Type                      | Default        | Description                                                         |
-| -------------- | ------------------------- | -------------- | ------------------------------------------------------------------- |
-| `variant`      | `string`                  | undefined      | Card’s visual style: `filled`, `raised`.                            |
-| `isDisabled`   | `boolean`                 | `false`        | Disabled style. Disabled interactions.                              |
-| `isLoading`    | `boolean`                 | `false`        | Loading state with skeleton UI.                                     |
-| `href`         | `string`                  | undefined      | Makes the whole card clickable (through the title link, if any).    |
-| `title`        | `string`                  | undefined      | Header title text.                                                  |
-| `subtitle`     | `string`                  | undefined      | Header subtitle text.                                               |
-| `headingLevel` | `number`                  | `2`            | Heading level of the title: `2`, `3`, or `4`.                       |
-| `imageSrc`     | `ImageMetadata \| string` | undefined      | Add an image to the card (imported asset or URL/path).              |
-| `imageAlt`     | `string`                  | `''`           | Alt text for the image.                                             |
-| `aspectRatio`  | `string`                  | `golden`       | Image aspect ratio (available [aspect ratios][ar]).                 |
-| `flushImage`   | `boolean`                 | `false`        | Edge-to-edge image on top of the card instead of inset.             |
-| `badges`       | `array`                   | `[]`           | Array of objects (see example below).                               |
-| `tags`         | `string[]`                | `[]`           | Tag names, rendered with the Tags component.                        |
-| `tagsUrl`      | `string`                  | `'/blog/tags'` | Base URL for tag links.                                             |
-| `author`       | `string`                  | undefined      | Byline name (also feeds the Avatar initials).                       |
-| `avatarSrc`    | `ImageMetadata \| string` | undefined      | Byline avatar image.                                                |
-| `date`         | `Date`                    | undefined      | Publication date, rendered as a `<time>` in the byline.             |
-| `locale`       | `string`                  | `'en-US'`      | Locale for the formatted date.                                      |
-| `data-testid`  | `string`                  | `'card'`       | Test ID for testing frameworks.                                     |
-| `class`        | `string`                  | undefined      | Additional CSS classes, useful for [helper classes](/docs/helpers). |
+| Prop           | Type                      | Default        | Description                                                                                                         |
+| -------------- | ------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `variant`      | `string`                  | undefined      | Card’s visual style: `filled`, `raised`.                                                                            |
+| `isDisabled`   | `boolean`                 | `false`        | Disabled style. Disabled interactions.                                                                              |
+| `isLoading`    | `boolean`                 | `false`        | Loading state with skeleton UI.                                                                                     |
+| `href`         | `string`                  | undefined      | Makes the whole card clickable (through the title link, if any).                                                    |
+| `title`        | `string`                  | undefined      | Header title text.                                                                                                  |
+| `subtitle`     | `string`                  | undefined      | Header subtitle text.                                                                                               |
+| `headingLevel` | `number`                  | `2`            | Heading level of the title: `2`, `3`, or `4`.                                                                       |
+| `imageSrc`     | `ImageMetadata \| string` | undefined      | Add an image to the card (imported asset or URL/path).                                                              |
+| `imageAlt`     | `string`                  | `''`           | Alt text for the image.                                                                                             |
+| `aspectRatio`  | `string`                  | undefined      | Image aspect ratio (available [aspect ratios][ar]); unset, the `--card-aspect-ratio` token applies (golden ratio). |
+| `flushImage`   | `boolean`                 | `false`        | Edge-to-edge image on top of the card instead of inset.                                                             |
+| `badges`       | `array`                   | `[]`           | Array of objects (see example below).                                                                               |
+| `tags`         | `string[]`                | `[]`           | Tag names, rendered with the Tags component.                                                                        |
+| `tagsUrl`      | `string`                  | `'/blog/tags'` | Base URL for tag links.                                                                                             |
+| `author`       | `string`                  | undefined      | Byline name (also feeds the Avatar initials).                                                                       |
+| `avatarSrc`    | `ImageMetadata \| string` | undefined      | Byline avatar image.                                                                                                |
+| `date`         | `Date`                    | undefined      | Publication date, rendered as a `<time>` in the byline.                                                             |
+| `locale`       | `string`                  | `'en-US'`      | Locale for the formatted date.                                                                                      |
+| `data-testid`  | `string`                  | `'card'`       | Test ID for testing frameworks.                                                                                     |
+| `class`        | `string`                  | undefined      | Additional CSS classes, useful for [helper classes](/docs/helpers).                                                 |
 
 [ar]: /docs/tokens#aspect-ratio
 
@@ -596,7 +596,7 @@ import Card from '../../components/Card.astro';
 </div>
 
 ```html
-<article class="card card-raised" style="--card-aspect-ratio: var(--ar-golden)">
+<article class="card card-raised">
   <header class="card_header">
     <div class="card_header_text">
       <h2 class="card_title">

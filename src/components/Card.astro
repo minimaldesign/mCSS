@@ -8,7 +8,7 @@ import Tags from './Tags.astro';
 // Define badge type for multiple badges with customizable colors
 interface Badge {
   label: string;
-  color?: string; // CSS color value ('#fff', 'white') or token name ('--yes-500')
+  color?: string; // '#fff', 'white', or token ('--yes-500')
 }
 
 // Props definitions
@@ -45,7 +45,7 @@ const {
   headingLevel = 2,
   imageSrc,
   imageAlt = '',
-  aspectRatio = 'golden',
+  aspectRatio,
   flushImage = false,
   badges = [],
   tags = [],
@@ -62,7 +62,7 @@ const {
 // Badge colors accept a raw CSS color or a token name ('--yes-500')
 const badgeColor = (color?: string) => (color ? (color.startsWith('--') ? `var(${color})` : color) : undefined);
 
-// Map aspect ratio to CSS value
+// Map aspect ratio to CSS value. Overrides --card-aspect-ratio default
 const aspectRatioMap = {
   widescreen: 'var(--ar-widescreen)',
   landscape: 'var(--ar-landscape)',
@@ -70,13 +70,11 @@ const aspectRatioMap = {
   square: 'var(--ar-square)',
   golden: 'var(--ar-golden)',
 };
-const aspectRatioValue = aspectRatioMap[aspectRatio];
+const aspectRatioValue = aspectRatio && aspectRatioMap[aspectRatio];
 
 const Heading = `h${headingLevel}` as const;
 
-// The whole card is clickable through one stretched .card_link. When there is
-// a title, the title anchor carries it so its text names the link; otherwise
-// an empty labelled anchor takes over.
+// The whole card is clickable through one stretched .card_link.
 const linked = href && !isDisabled;
 const titleLink = linked && title;
 const overlayLink = linked && !title;
@@ -95,7 +93,7 @@ const dateTime = date && date.toISOString().split('T')[0];
     },
     className,
   ]}
-  style={`--card-aspect-ratio: ${aspectRatioValue};`}
+  style={aspectRatioValue ? `--card-aspect-ratio: ${aspectRatioValue};` : undefined}
   data-testid={testId}
   aria-disabled={isDisabled ? 'true' : undefined}
   {...rest}>

@@ -30,12 +30,12 @@ xxl: 1920px
 dialog {
   /* body scrolling is stopped by adding .body-is-locked on <dialog> */
   /* But it can be added to any element. See elements.sectioning.css > body { … }  */
-  min-width: var(--tera1);
-  max-width: var(--tera3);
-  padding: var(--lg1) var(--md1);
-  border: 1px solid light-dark(var(--base-200), var(--base-800));
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
+  min-width: var(--dialog-min-width);
+  max-width: var(--dialog-max-width);
+  padding: var(--dialog-padding);
+  border: var(--dialog-border-width) solid var(--dialog-border-color);
+  background-color: var(--dialog-background-color);
+  border-radius: var(--dialog-border-radius);
 
   &::backdrop {
     background: var(--dialog-backdrop-color);
@@ -45,7 +45,9 @@ dialog {
   [aria-label="close pop-up"] {
     position: absolute;
     top: var(--xs3);
-    right: var(--xs3); /* deliberately physical: close button pinned to a visual corner */
+    right: var(
+      --xs3
+    ); /* deliberately physical: close button pinned to a visual corner */
     background: transparent;
     border: none;
     outline: none;
@@ -59,10 +61,10 @@ dialog {
 }
 
 details {
-  padding: var(--sm1) var(--sm1);
-  border: 1px solid light-dark(var(--base-200), var(--base-800));
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
+  padding: var(--details-padding);
+  border: var(--details-border-width) solid var(--details-border-color);
+  background-color: var(--details-background-color);
+  border-radius: var(--details-border-radius);
   cursor: pointer;
 
   summary {
@@ -74,15 +76,21 @@ details {
     }
     &::after {
       content: "";
-      width: 24px;
-      height: 24px;
-      background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E") no-repeat;
-      transition: var(--transition);
+      width: var(--details-icon-size);
+      height: var(--details-icon-size);
+      /* icon as a mask painted with the text color, so it follows the
+         color scheme (an SVG in background-image can't see currentColor
+         and always renders black) */
+      background-color: currentColor;
+      mask-image: var(--details-icon);
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      transition: transform var(--transition);
     }
   }
 
   &[open] > summary {
-    margin-bottom: var(--xs3);
+    margin-bottom: var(--details-spacing);
     &::after {
       transform: rotate(180deg);
     }

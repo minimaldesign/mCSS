@@ -70,18 +70,18 @@ figure {
   /* caption at bottom or top */
   &:has(* + figcaption) {
     figcaption {
-      margin-top: var(--xs2);
+      margin-top: var(--figcaption-spacing);
     }
   }
   &:has(figcaption + *) {
     figcaption {
-      margin-bottom: var(--xs2);
+      margin-bottom: var(--figcaption-spacing);
     }
   }
 }
 
 iframe {
-  border: 1px solid var(--ui-border-color);
+  border: var(--border-sm) solid var(--ui-border-color);
 }
 
 img {

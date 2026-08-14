@@ -37,15 +37,17 @@ The same discipline applies to the CSS you write on top of the framework: **no r
 
 <div class="docs_oversizedTable">
 
-| File name         | Source            |
-| ----------------- | ----------------- |
-| `settings.ui.css` | [Github][srcUi]   |
+| File name         | Source          |
+| ----------------- | --------------- |
+| `settings.ui.css` | [Github][srcUi] |
 
 </div>
 
 [srcUi]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.ui.css
 
-Interface tokens offer an additional layer of abstraction over the raw tokens. They only ever take another token for value and standardize UI decisions in logical groups: semantic aliases like `--ui-border-color` (with a value of `--base-200`) or `--success-*`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). This gives tokens meaning and context, which makes them more intuitive to use, and it's what makes [themes](/docs/themes) powerful: override one interface token and every rule that consumes it follows.
+Interface tokens are the decisions layer over the raw scales. Every one is named for what it's _for_ (an element, a component, or a shared meaning) and standardizes UI decisions in logical groups: semantic aliases like `--ui-border-color` or `--success-*`, element defaults (`--heading-*`, `--input-*`, ...), plus every component's token defaults (`--bt-*`, `--card-*`, ...). That naming is the whole split between the two files: a token named for what it _is_ (a step on a scale, like `--sm1` or `--base-500`) lives in `settings.tokens.css`; a token named for what it's _for_ lives in `settings.ui.css`. This gives tokens meaning and context, and it's what makes [themes](/docs/themes) powerful: override one interface token and every rule that consumes it follows.
+
+An interface token usually takes another token for value: another interface token when the meaning is shared (`--input-border-color` is `--ui-border-color`), or a scale token when the value should follow the system scales (`--fieldset-padding` is `--sm3`). A raw value is correct only where following the scales would be wrong: content like separator strings and icon URLs, geometry tuned to one control (`--toggle-width`), and element-relative measures like the `em` heading spacing, which tracks each heading's own size instead of the page scale. The test: if a theme retuned the scales, should this value follow?
 
 `elements.*` and `global.*` files tend to use interface tokens, while `component.*` files mix them with low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new interface token is probably the best option.
 
@@ -116,7 +118,7 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 | `maybe-400` | #ffc220 | <div class="docs_box bgc-maybe-400"></div> |
 | `maybe-500` | #f9a007 | <div class="docs_box bgc-maybe-500"></div> |
 
-  ### Highlight
+### Highlight
 
 The text marker color, consumed by the `--marker-color` interface token (what `<mark>` uses). Override `--highlight-500` in a theme to restyle every highlight.
 
@@ -193,11 +195,11 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 
 There are 3 font stacks set up by default for the `font-family` CSS Property.
 
-| Token       | Value                                                                                                                                                           |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `text`      | ui-sans-serif, system-ui, sans-serif                                                                                                                            |
-| `display`   | Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif, sans-serif                                                                              |
-| `mono`      | Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, ui-monospace, monospace |
+| Token     | Value                                                                                                                                                           |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `text`    | ui-sans-serif, system-ui, sans-serif                                                                                                                            |
+| `display` | Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif, sans-serif                                                                              |
+| `mono`    | Dank Mono, Inconsolata, Fira Mono, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, ui-monospace, monospace |
 
 These stacks are optimized for fonts available on device, to maximize for speed and alleviate any layout shifts or flashes. You can find more stacks at [Modern Font Stacks](https://modernfontstacks.com).
 
@@ -231,27 +233,12 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 
 </div>
 
-### Heading sizes
-
-Headings use dedicated fluid tokens: each `--heading-*` interpolates with `clamp()` from a minimum size (at 480px viewports and below) to a maximum size (from 1024px up), so the type scale tightens on small screens without media queries. The preferred value mixes `rem` with `vw`, which keeps browser text zoom working. Override any of these in your own theme to change how a heading level scales.
-
-<div class="docs_oversizedTable">
-
-| Token       | Min (≤480px)         | Max (≥1024px)           |
-| ----------- | -------------------- | ----------------------- |
-| `heading-1` | `display-md` (2.074rem) | `display-xl` (2.986rem) |
-| `heading-2` | `display-sm` (1.728rem) | `display-lg` (2.488rem) |
-| `heading-3` | `text-xl` (1.44rem)     | `display-md` (2.074rem) |
-| `heading-4` | `text-lg` (1.2rem)      | `display-sm` (1.728rem) |
-| `heading-5` | `text-lg` (1.2rem)      | `text-xl` (1.44rem)     |
-| `heading-6` | `text-md` (1rem)        | `text-lg` (1.2rem)      |
-
-</div>
+The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale but are [interface tokens](#interface-tokens); they're documented with [the headings themselves](/docs/elements#headings).
 
 ### Font weight
 
-| Token         | Value | Demo                                            |
-| ------------- | ----- | ----------------------------------------------- |
+| Token         | Value | Demo                                                 |
+| ------------- | ----- | ---------------------------------------------------- |
 | `extra-light` | 200   | <div class="font-extra-light">Sample demo text</div> |
 | `light`       | 300   | <div class="font-light">Sample demo text</div>       |
 | `book`        | 400   | <div class="font-book">Sample demo text</div>        |

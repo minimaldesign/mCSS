@@ -1,29 +1,23 @@
 /* SETTINGS TOKENS */
 
 /*
-Can't use var() inside media queries, so breakpoints are hard coded in settings.media-queries.css
+Can't use var() inside media queries, so breakpoints are hard coded in
+settings.media-queries.css
 
-xxs: 240px
-xs: 360px
-sm: 480px
-md: 768px
-lg: 1024px
-xl: 1440px
-xxl: 1920px
+xxs: 240px xs: 360px sm: 480px md: 768px lg: 1024px xl: 1440px xxl: 1920px
 */
 
 /*
 
-• Globals
+• Dimensions (Margin, Padding, Width, Height)
+• Aspect Ratios
 
-• Margin
-• Padding
-• Width
-• Height
+• Font Families
+• Font Size
+• Font Weight
 
-• Font size
-• Font weight
-• Line height
+• Letter Spacing
+• Line Height
 
 • Colors
 
@@ -35,7 +29,6 @@ xxl: 1920px
 
 :root {
   /* GLOBALS */
-  --baseline: 8;
 
   /* DIMENSIONS */
 
@@ -108,19 +101,13 @@ xxl: 1920px
   --display-sm: 1.728rem;
   --display-md: 2.074rem;
   --display-lg: 2.488rem;
-  --display-xl: 2.986rem;
+  --display-xl: 2.986rem; /* h1 */
   --display-mega: 3.583rem;
   --display-giga: 4.299rem;
 
-  /* Heading Sizes */
-  /* Fluid: interpolate from a min size (at 480px) to a max size (at 1024px). */
-  /* clamp(MIN, INTERCEPT + SLOPEvw, MAX) — the rem term keeps text zoom working. */
-  --heading-1: clamp(var(--display-md), 1.269rem + 2.682vw, var(--display-xl)); /* 2.074rem → 2.986rem */
-  --heading-2: clamp(var(--display-sm), 1.057rem + 2.235vw, var(--display-lg)); /* 1.728rem → 2.488rem */
-  --heading-3: clamp(var(--text-xl), 0.881rem + 1.865vw, var(--display-md)); /* 1.44rem → 2.074rem */
-  --heading-4: clamp(var(--text-lg), 0.734rem + 1.553vw, var(--display-sm)); /* 1.2rem → 1.728rem */
-  --heading-5: clamp(var(--text-lg), 0.988rem + 0.706vw, var(--text-xl)); /* 1.2rem → 1.44rem */
-  --heading-6: clamp(var(--text-md), 0.824rem + 0.588vw, var(--text-lg)); /* 1rem → 1.2rem */
+  /* Heading font sizes are decisions, not scale steps: they map each
+     heading level onto this scale. See --heading-font-size-* in
+     settings.ui.css. */
 
   /* Font Weights */
   --extra-light: 200;
@@ -136,10 +123,6 @@ xxl: 1920px
   --tracking-lg: 0.05em;
   --tracking-xl: 0.075em;
   --tracking-xxl: 0.15em;
-
-  /* TODO add display tracking */
-  --tracking-display-md: 0.5em;
-  --tracking-display-lg: 0.75em;
 
   /* Line Height */
   --leading-xs: 1;
@@ -233,11 +216,9 @@ xxl: 1920px
   /* DROP SHADOWS  */
 
   --shadow-sm:
-    0 1px 3px 0 var(--ui-shadow-color),
-    0 1px 2px -1px var(--ui-shadow-color);
+    0 1px 3px 0 var(--ui-shadow-color), 0 1px 2px -1px var(--ui-shadow-color);
   --shadow-md:
-    0 4px 6px -1px var(--ui-shadow-color),
-    0 2px 4px -2px var(--ui-shadow-color);
+    0 4px 6px -1px var(--ui-shadow-color), 0 2px 4px -2px var(--ui-shadow-color);
   --shadow-lg:
     0 8px 13px -3px var(--ui-shadow-color),
     0 4px 6px -4px var(--ui-shadow-color);

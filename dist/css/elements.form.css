@@ -48,9 +48,9 @@ datalist {
 }
 
 fieldset {
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--sm3);
+  border: var(--fieldset-border-width) solid var(--fieldset-border-color);
+  border-radius: var(--fieldset-border-radius);
+  padding: var(--fieldset-padding);
 
   ul:has([type="checkbox"], [type="radio"]) {
     padding-inline-start: 0;
@@ -82,7 +82,7 @@ input {
     border-radius: var(--input-border-radius);
   }
   &:where(:not([type="file"])) {
-    border: 1px solid var(--ui-border-color);
+    border: var(--input-border-width) solid var(--input-border-color);
   }
   &[type="file"] {
     width: 100%;
@@ -96,7 +96,7 @@ input {
 label {
   display: block;
   &:has(+ :is(input, select, textarea)) {
-    margin-bottom: var(--xs1);
+    margin-bottom: var(--label-spacing);
   }
 }
 
@@ -113,19 +113,13 @@ legend {
 }
 
 meter {
-  --meter-height: var(--sm1);
-  --meter-radius: var(--radius-md);
-  --meter-color-track: var(--primary-100);
-  --meter-color-low: var(--no-400);
-  --meter-color-med: var(--maybe-400);
-  --meter-color-high: var(--yes-400);
   width: 100%;
-  background: var(--meter-color-track);
-  border-radius: var(--meter-radius);
+  background: var(--meter-track-color);
+  border-radius: var(--meter-border-radius);
   height: var(--meter-height);
   /* webkit */
   &::-webkit-meter-bar {
-    background: var(--meter-color-track);
+    background: var(--meter-track-color);
   }
   &::-webkit-meter-bar,
   &::-webkit-meter-optimum-value,
@@ -133,26 +127,26 @@ meter {
   &::-webkit-meter-even-less-good-value {
     height: var(--meter-height);
     border: none;
-    border-radius: var(--meter-radius);
+    border-radius: var(--meter-border-radius);
   }
   &::-webkit-meter-even-less-good-value {
-    background: var(--meter-color-low);
+    background: var(--meter-low-color);
   }
   &::-webkit-meter-suboptimum-value {
-    background: var(--meter-color-med);
+    background: var(--meter-medium-color);
   }
   &::-webkit-meter-optimum-value {
-    background: var(--meter-color-high);
+    background: var(--meter-high-color);
   }
   /* mozilla */
   &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: var(--meter-color-low);
+    background: var(--meter-low-color);
   }
   &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: var(--meter-color-med);
+    background: var(--meter-medium-color);
   }
   &:-moz-meter-optimum::-moz-meter-bar {
-    background: var(--meter-color-high);
+    background: var(--meter-high-color);
   }
 }
 
@@ -166,43 +160,39 @@ output {
 }
 
 progress {
-  --progress-height: var(--sm1);
-  --progress-color: var(--primary-500);
-  --progress-track-color: var(--primary-100);
-  --progress-radius: var(--radius-md);
   appearance: none;
   width: 100%;
   /* mozilla */
   height: var(--progress-height);
   background: var(--progress-track-color);
-  border-radius: var(--progress-radius);
+  border-radius: var(--progress-border-radius);
   border: none;
   &::-moz-progress-bar {
     background: var(--progress-color);
-    border-radius: var(--progress-radius);
+    border-radius: var(--progress-border-radius);
   }
   /* webkit */
   &::-webkit-progress-bar {
     width: 100%;
     background: var(--progress-track-color);
-    border-radius: var(--progress-radius);
+    border-radius: var(--progress-border-radius);
     height: var(--progress-height);
   }
   &::-webkit-progress-value {
     background: var(--progress-color);
-    border-radius: var(--progress-radius);
+    border-radius: var(--progress-border-radius);
   }
 }
 
 select {
-  --icon-size: 24px;
-  --split: calc(100% - var(--icon-size));
+  /* derived, stays local */
+  --split: calc(100% - var(--select-icon-size));
   display: flex;
   appearance: none;
   height: var(--input-height);
   padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
     var(--input-padding);
-  border: 1px solid var(--ui-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
   background: linear-gradient(
     to right,
@@ -210,10 +200,10 @@ select {
     var(--text-color) var(--split) 100%
   );
   mask-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
+    var(--select-icon),
     linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
     linear-gradient(red 0 0);
-  mask-size: var(--icon-size), auto, auto;
+  mask-size: var(--select-icon-size), auto, auto;
   mask-position:
     calc(100% - var(--xs1)) center,
     0 0,
@@ -249,9 +239,9 @@ select {
 
 textarea {
   width: 100%;
-  padding: var(--xs3);
+  padding: var(--input-padding);
   border-radius: var(--input-border-radius);
-  border: 1px solid var(--ui-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   resize: vertical;
   &:not([rows]) {
     min-height: 6em;

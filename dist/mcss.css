@@ -44,29 +44,23 @@ xxl: 1920px
 /* SETTINGS TOKENS */
 
 /*
-Can't use var() inside media queries, so breakpoints are hard coded in settings.media-queries.css
+Can't use var() inside media queries, so breakpoints are hard coded in
+settings.media-queries.css
 
-xxs: 240px
-xs: 360px
-sm: 480px
-md: 768px
-lg: 1024px
-xl: 1440px
-xxl: 1920px
+xxs: 240px xs: 360px sm: 480px md: 768px lg: 1024px xl: 1440px xxl: 1920px
 */
 
 /*
 
-• Globals
+• Dimensions (Margin, Padding, Width, Height)
+• Aspect Ratios
 
-• Margin
-• Padding
-• Width
-• Height
+• Font Families
+• Font Size
+• Font Weight
 
-• Font size
-• Font weight
-• Line height
+• Letter Spacing
+• Line Height
 
 • Colors
 
@@ -78,7 +72,6 @@ xxl: 1920px
 
 :root {
   /* GLOBALS */
-  --baseline: 8;
 
   /* DIMENSIONS */
 
@@ -151,19 +144,13 @@ xxl: 1920px
   --display-sm: 1.728rem;
   --display-md: 2.074rem;
   --display-lg: 2.488rem;
-  --display-xl: 2.986rem;
+  --display-xl: 2.986rem; /* h1 */
   --display-mega: 3.583rem;
   --display-giga: 4.299rem;
 
-  /* Heading Sizes */
-  /* Fluid: interpolate from a min size (at 480px) to a max size (at 1024px). */
-  /* clamp(MIN, INTERCEPT + SLOPEvw, MAX) — the rem term keeps text zoom working. */
-  --heading-1: clamp(var(--display-md), 1.269rem + 2.682vw, var(--display-xl)); /* 2.074rem → 2.986rem */
-  --heading-2: clamp(var(--display-sm), 1.057rem + 2.235vw, var(--display-lg)); /* 1.728rem → 2.488rem */
-  --heading-3: clamp(var(--text-xl), 0.881rem + 1.865vw, var(--display-md)); /* 1.44rem → 2.074rem */
-  --heading-4: clamp(var(--text-lg), 0.734rem + 1.553vw, var(--display-sm)); /* 1.2rem → 1.728rem */
-  --heading-5: clamp(var(--text-lg), 0.988rem + 0.706vw, var(--text-xl)); /* 1.2rem → 1.44rem */
-  --heading-6: clamp(var(--text-md), 0.824rem + 0.588vw, var(--text-lg)); /* 1rem → 1.2rem */
+  /* Heading font sizes are decisions, not scale steps: they map each
+     heading level onto this scale. See --heading-font-size-* in
+     settings.ui.css. */
 
   /* Font Weights */
   --extra-light: 200;
@@ -179,10 +166,6 @@ xxl: 1920px
   --tracking-lg: 0.05em;
   --tracking-xl: 0.075em;
   --tracking-xxl: 0.15em;
-
-  /* TODO add display tracking */
-  --tracking-display-md: 0.5em;
-  --tracking-display-lg: 0.75em;
 
   /* Line Height */
   --leading-xs: 1;
@@ -276,11 +259,9 @@ xxl: 1920px
   /* DROP SHADOWS  */
 
   --shadow-sm:
-    0 1px 3px 0 var(--ui-shadow-color),
-    0 1px 2px -1px var(--ui-shadow-color);
+    0 1px 3px 0 var(--ui-shadow-color), 0 1px 2px -1px var(--ui-shadow-color);
   --shadow-md:
-    0 4px 6px -1px var(--ui-shadow-color),
-    0 2px 4px -2px var(--ui-shadow-color);
+    0 4px 6px -1px var(--ui-shadow-color), 0 2px 4px -2px var(--ui-shadow-color);
   --shadow-lg:
     0 8px 13px -3px var(--ui-shadow-color),
     0 4px 6px -4px var(--ui-shadow-color);
@@ -323,11 +304,26 @@ xxl: 1920px
 /* INTERFACE TOKENS */
 
 /*
-  The abstraction tier between raw tokens (settings.tokens.css) and the
-  framework's rules: semantic aliases plus every component's token defaults.
-  Interface tokens only ever take another token for value; raw values live
-  in settings.tokens.css, and deliberate deviations from these defaults
-  live in a theme file (see theme.default.css).
+  The decisions layer. Every token here is named for what it's FOR (an
+  element, a component, or a shared meaning) and answers "what does this
+  thing use by default". Tokens named for what they ARE (--sm1, --base-500,
+  --bold) are scale tokens and live in settings.tokens.css. That's the
+  whole split: a name that mentions a UI thing belongs here; a name that
+  labels a step on a scale belongs there.
+
+  Values, in order of preference:
+  1. Another interface token, when the meaning is shared
+     (--input-border-color: var(--ui-border-color)).
+  2. A scale token, when the value should follow the system scales
+     (--fieldset-padding: var(--sm3)).
+  3. A raw value, only where following the scales would be wrong:
+     content (separator strings, icon URLs), geometry tuned to one
+     control (--toggle-width), or element-relative measures that track
+     the element's own type instead of the page (em heading spacing).
+     The test: "if a theme retuned the scales, should this follow?"
+
+  Deliberate deviations from these defaults live in a theme file
+  (see theme.default.css).
 */
 
 :root {
@@ -336,9 +332,15 @@ xxl: 1920px
   color-scheme: light dark;
 
   --ui-border-color: light-dark(var(--base-200), var(--base-500));
+  /* Also consumed by the --shadow-* scale in settings.tokens.css: the one
+     reference between the files that runs upward, so shadows can switch
+     with the color scheme. Raw alpha colors: the palettes have no alpha
+     steps. */
   --ui-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
 
-  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css) */
+  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css).
+     Raw 2px on purpose: an accessibility affordance that shouldn't move
+     when a theme retunes the decorative border scale. */
   --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
@@ -377,27 +379,136 @@ xxl: 1920px
   accent-color: var(--primary-500);
 
   --body-background-color: light-dark(var(--base-0), var(--base-950));
+  --body-line-height: var(--leading-lg);
 
   --input-height: var(--md3);
   --input-padding: var(--xs3);
+  --input-border-width: var(--border-sm);
+  --input-border-color: var(--ui-border-color);
   --input-border-radius: var(--radius-md);
-  --input-border-color-invalid: light-dark(var(--danger-500), var(--danger-400));
+  --input-border-color-invalid: light-dark(
+    var(--danger-500),
+    var(--danger-400)
+  );
 
+  /* Gap under a label that precedes its control */
+  --label-spacing: var(--xs1);
+
+  --fieldset-padding: var(--sm3);
+  --fieldset-border-width: var(--border-sm);
+  --fieldset-border-color: var(--ui-border-color);
+  --fieldset-border-radius: var(--radius-lg);
+
+  /* meter: low/medium/high map to the even-less-good, suboptimum, and
+     optimum pseudo-elements */
+  --meter-height: var(--sm1);
+  --meter-border-radius: var(--radius-md);
+  --meter-track-color: var(--primary-100);
+  --meter-low-color: var(--danger-400);
+  --meter-medium-color: var(--warning-400);
+  --meter-high-color: var(--success-400);
+
+  --progress-height: var(--sm1);
+  --progress-color: var(--primary-500);
+  --progress-track-color: var(--primary-100);
+  --progress-border-radius: var(--radius-md);
+
+  /* select's chevron, applied as a mask painted with the text color;
+     any url() works here, data URL or file */
+  --select-icon-size: var(--sm3);
+  --select-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E");
+
+  --dialog-min-width: var(--tera1);
+  --dialog-max-width: var(--tera3);
+  --dialog-padding: var(--lg1) var(--md1);
+  --dialog-border-width: var(--border-sm);
+  --dialog-border-color: light-dark(var(--base-200), var(--base-800));
+  --dialog-background-color: light-dark(var(--base-50), var(--base-900));
+  --dialog-border-radius: var(--radius-lg);
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
+  /* details: same surface as dialog by default, on purpose but
+     independently overridable. Spacing is the gap between an open
+     summary and its content. */
+  --details-padding: var(--sm1);
+  --details-spacing: var(--xs3);
+  --details-border-width: var(--border-sm);
+  --details-border-color: light-dark(var(--base-200), var(--base-800));
+  --details-background-color: light-dark(var(--base-50), var(--base-900));
+  --details-border-radius: var(--radius-lg);
+  --details-icon-size: var(--sm3);
+  /* Marker icon, applied as a mask painted with the text color; any
+     url() works here, data URL or file */
+  --details-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E");
+
   --table-padding: var(--xs2) var(--sm1);
+  --table-border-width: var(--border-sm);
   --table-border-color: light-dark(var(--base-100), var(--base-700));
   --table-border-radius: var(--radius-md);
   --table-background-color: none;
+  /* Gap between the table and its caption */
+  --table-caption-spacing: var(--xs3);
+  /* Gap between a figure's content and caption on either side */
+  --figcaption-spacing: var(--xs2);
 
   /* Text */
 
   --heading-font: var(--display);
   --heading-weight: var(--black);
+  --heading-letter-spacing: normal; /* (e.g. -0.02em or var(--tracking-sm)) */
+
+  --heading-font-size-h1: clamp(
+    var(--display-md),
+    1.269rem + 2.682vw,
+    var(--display-xl)
+  ); /* 2.074rem → 2.986rem */
+  --heading-font-size-h2: clamp(
+    var(--display-sm),
+    1.057rem + 2.235vw,
+    var(--display-lg)
+  ); /* 1.728rem → 2.488rem */
+  --heading-font-size-h3: clamp(
+    var(--text-xl),
+    0.881rem + 1.865vw,
+    var(--display-md)
+  ); /* 1.44rem → 2.074rem */
+  --heading-font-size-h4: clamp(
+    var(--text-lg),
+    0.734rem + 1.553vw,
+    var(--display-sm)
+  ); /* 1.2rem → 1.728rem */
+  --heading-font-size-h5: clamp(
+    var(--text-lg),
+    0.988rem + 0.706vw,
+    var(--text-xl)
+  ); /* 1.2rem → 1.44rem */
+  --heading-font-size-h6: clamp(
+    var(--text-md),
+    0.824rem + 0.588vw,
+    var(--text-lg)
+  ); /* 1rem → 1.2rem */
+
   --heading-line-height: var(--leading-sm);
+  --heading-line-height-h1: var(--heading-line-height);
+  --heading-line-height-h2: var(--heading-line-height);
+  --heading-line-height-h3: var(--heading-line-height);
+  --heading-line-height-h4: var(--leading-md);
+  --heading-line-height-h5: var(--leading-md);
+  --heading-line-height-h6: var(--leading-md);
+
+  /* Headings bottom margin  */
+  --heading-spacing-h1: 0.4em;
+  --heading-spacing-h2: 0.4em;
+  --heading-spacing-h3: 0.4em;
+  --heading-spacing-h4: 0.4em;
+  --heading-spacing-h5: 0.4em;
+  --heading-spacing-h6: 0.4em;
+  /* Any h1 before h2, h2 before h3, h3 before h4.  */
+  --heading-spacing-consecutive: 0.3em;
 
   --text-color: light-dark(var(--base-950), var(--base-200));
+  --link-font-weight: var(--semi-bold);
   --link-color: light-dark(var(--primary-600), var(--primary-400));
   --link-color-hover: var(--primary-500);
 
@@ -406,17 +517,42 @@ xxl: 1920px
     var(--primary-100),
     var(--primary-900)
   );
+  /* when code inline styling doesn't apply (inside headings and pre) */
+  --text-code-muted-color: light-dark(var(--base-500), var(--base-300));
 
-  /* Code blocks (bare pre, astro-code, and the site's expressive-code
-     frames all consume this) */
   --pre-border-radius: var(--radius-md);
+  /* matching the 0.9em of inline code */
+  --pre-font-size: 0.9rem;
+
+  --blockquote-padding-block: var(--sm1);
+  --blockquote-padding-inline: var(--md1) var(--sm3);
+  --blockquote-background-color: light-dark(
+    var(--primary-50),
+    var(--primary-900)
+  );
+  --blockquote-border-radius: var(--radius-md);
+  --blockquote-accent-width: var(--xs2);
+  --blockquote-accent-color: linear-gradient(
+    var(--primary-800),
+    var(--primary-500)
+  );
 
   /* .prose related stuff in GLOBAL */
+
+  /* Optional centered label on <hr>, e.g. "***" or a dingbat */
+  --hr-content: "";
+
+  /* ins: background stays light in both light/dark modes */
+  --ins-color: var(--base-950);
+  --ins-background-color: var(--success-200);
 
   --marker-color: var(--highlight-500);
 
   --selection-color: light-dark(var(--base-950), var(--base-0));
-  --selection-background-color: light-dark(var(--primary-200), var(--primary-700));
+  --selection-background-color: light-dark(
+    var(--primary-200),
+    var(--primary-700)
+  );
 }
 
 /* GLOBAL */
@@ -425,31 +561,25 @@ xxl: 1920px
   /* Mobile-first: tighter gutters on small screens, 24px from --md up */
   --grid-column-gap: var(--sm1);
   --grid-row-gap: var(--sm1);
+  @media (width >= 768px) {
+    --grid-column-gap: var(--sm3);
+    --grid-row-gap: var(--sm3);
+  }
 
   --wrap-spacing: var(--sm1);
   --wrap-md-spacing: var(--sm3);
   --wrap-lg-spacing: 0;
-  --wrap-width-sm: minmax(200px, 55ch);
-  --wrap-width-md: minmax(200px, 70ch);
-  --wrap-width-lg: minmax(200px, 900px);
+  /* Widths are measures: ch tracks the text size, so raw on purpose. */
+  --wrap-width-sm: minmax(0, 55ch);
+  --wrap-width-md: minmax(0, 70ch);
+  --wrap-width-lg: minmax(0, 900px);
   --wrap-width: var(--wrap-width-md);
 
-  /* Layout scaffolds (global.layout.css): main column cap for
-     .layout-centered and .layout-docs, aside and TOC column widths.
-     --layout-toc-width takes any grid track size; the 1fr default lets
-     the TOC absorb the leftover space. */
   --layout-content-width: 70ch;
   --layout-aside-width: 245px;
   --layout-toc-width: 1fr;
 
   --prose-spacing: var(--sm1);
-}
-
-@media (width >= 768px) {
-  :root {
-    --grid-column-gap: var(--sm3);
-    --grid-row-gap: var(--sm3);
-  }
 }
 
 /* COMPONENTS */
@@ -488,16 +618,21 @@ xxl: 1920px
 /* (Button defaults and primary button colors) */
 
 :root {
+  /* Optical minimums, deliberately off the spacing scale */
   --bt-min-width: 101px;
   --bt-min-width-md: 123px;
   --bt-min-width-lg: 133px;
+
   --bt-font-size: var(--text-sm);
   --bt-font-size-lg: var(--text-md);
   --bt-font-weight: var(--semi-bold);
+
   --bt-color: var(--text-color);
   --bt-color-hover: light-dark(var(--text-color), var(--base-0));
+
   --bt-background-color: light-dark(var(--base-0), var(--base-800));
   --bt-background-color-hover: light-dark(var(--base-50), var(--base-900));
+
   --bt-border-color: var(--ui-border-color);
   --bt-border-width: var(--border-sm);
   --bt-border-radius: var(--radius-lg);
@@ -560,14 +695,15 @@ xxl: 1920px
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
   --card-loading-bg: light-dark(var(--base-200), var(--base-900));
-  /* Default media aspect ratio; the Card component sets it inline from its
-     aspectRatio prop */
+  /* Default media aspect ratio; the Card component pins it inline only
+     when its aspectRatio prop is passed */
   --card-aspect-ratio: var(--ar-golden);
 }
 
 /* Toggle */
 
 :root {
+  /* Drawn-control geometry, deliberately off the scales */
   --toggle-width: 50px;
   --toggle-height: 28px;
   --toggle-border-width: 2px;
@@ -588,8 +724,8 @@ xxl: 1920px
   --field-spacing: var(--xs1);
   --field-hint-color: light-dark(var(--base-400), var(--base-500));
   --field-error-color: light-dark(var(--danger-500), var(--danger-300));
-  /* static = messages in flow under the control; absolute = overlaid below
-     the field (row compositions set this so messages can't move siblings) */
+  /*Field's hint/error position. Use `static` to reflow under, use `absolute`
+  (and leave enough space below) if you don't want any shift on errors */
   --field-message-position: static;
 }
 
@@ -628,8 +764,7 @@ xxl: 1920px
   }
   --header-background-color: light-dark(var(--base-0), var(--base-950));
 
-  /* The mobile menu is an always-dark surface by design, so these are raw
-     palette values on purpose; override them to retheme the menu. */
+  /* The mobile menu is an always-dark  by design */
   --header-menu-background-color: var(--base-950);
   --header-menu-color: var(--base-0);
   --header-menu-color-current: var(--primary-400);
@@ -714,7 +849,10 @@ xxl: 1920px
   --section-header-spacing: var(--lg3);
   --section-eyebrow-color: light-dark(var(--primary-600), var(--primary-400));
   --section-lede-color: light-dark(var(--base-500), var(--base-400));
-  --section-filled-background-color: light-dark(var(--base-50), var(--base-900));
+  --section-filled-background-color: light-dark(
+    var(--base-50),
+    var(--base-900)
+  );
   --section-primary-background-color: light-dark(
     var(--primary-600),
     var(--primary-900)
@@ -743,9 +881,9 @@ xxl: 1920px
   --tags-radius: var(--radius-md);
 }
 
-/* Tiles: no tokens. The container thresholds live in component.tiles.css
-   (container queries can't read custom properties), and --tiles-columns
-   is set there; pin it on a hook class of your own to opt out. */
+/* Tiles has no tokens here: its column count is set by container queries in
+   component.tiles.css since custom properties don't work inside @container.
+*/
 
 /* TOC */
 
@@ -754,7 +892,7 @@ xxl: 1920px
   --toc-color-hover: var(--link-color-hover);
   --toc-spacing: var(--xs1);
   --toc-indentation: var(--xs3);
-  --toc-icon-size: 16px;
+  --toc-icon-size: var(--sm1);
 }
 }
 
@@ -827,7 +965,7 @@ body {
   background-color: var(--body-background-color);
   color: var(--text-color);
   font-family: var(--text);
-  line-height: 1.5;
+  line-height: var(--body-line-height);
 
   /* for elements like dialog etc. that require scrolling turned off */
   &:has(.body-is-locked) {
@@ -884,7 +1022,7 @@ search {
 }
 
 a {
-  font-weight: var(--semi-bold);
+  font-weight: var(--link-font-weight);
   color: var(--link-color);
   &:where(:hover) {
     color: var(--link-color-hover);
@@ -923,8 +1061,8 @@ abbr {
     width: var(--sm1);
     height: var(--sm1);
     display: inline-block;
-    content: '';
-    background:  url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='circle-help'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Cpath%20d='M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203'/%3E%3Cpath%20d='M12%2017h.01'/%3E%3C/svg%3E");
+    content: "";
+    background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='circle-help'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Cpath%20d='M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203'/%3E%3Cpath%20d='M12%2017h.01'/%3E%3C/svg%3E");
     background-size: contain;
   }
   &:hover:before {
@@ -948,22 +1086,22 @@ b {
 blockquote {
   position: relative;
   margin-bottom: var(--prose-spacing);
-  padding-block: var(--sm1);
+  padding-block: var(--blockquote-padding-block);
   /* extra inline-start room for the accent bar */
-  padding-inline: var(--md1) var(--sm3);
+  padding-inline: var(--blockquote-padding-inline);
   font-style: italic;
-  background-color: light-dark(var(--primary-50), var(--primary-900));
-  border-radius: var(--radius-md);
+  background-color: var(--blockquote-background-color);
+  border-radius: var(--blockquote-border-radius);
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     inset-inline-start: 0;
-    width: var(--xs2);
+    width: var(--blockquote-accent-width);
     height: 100%;
-    border-start-start-radius: var(--radius-md);
-    border-end-start-radius: var(--radius-md);
-    background-image: linear-gradient(var(--primary-800), var(--primary-500));
+    border-start-start-radius: var(--blockquote-border-radius);
+    border-end-start-radius: var(--blockquote-border-radius);
+    background: var(--blockquote-accent-color);
   }
 
   p {
@@ -986,17 +1124,19 @@ cite {
   font-style: italic;
 }
 
-code, var, kbd {
+code,
+var,
+kbd {
   font-family: var(--mono);
   font-size: 0.9em;
   font-style: normal;
-  color: light-dark(var(--base-500), var(--base-300));
+  color: var(--text-code-muted-color);
 }
 
 :is(code, var, kbd):not(h1 *, h2 *, h3 *, h4 *, h5 *, h6 *, pre *) {
   padding: 0.15em 0.3em;
   color: var(--text-code-color);
-  background-color:  var(--text-code-background-color);
+  background-color: var(--text-code-background-color);
   border-radius: var(--radius-sm);
 }
 
@@ -1014,11 +1154,11 @@ dd {
 }
 
 dd + dt {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 del {
-  text-decoration-color: var(--no-500);
+  text-decoration-color: var(--danger-500);
   text-decoration-style: wavy;
 }
 
@@ -1031,81 +1171,95 @@ em {
 /* figcaption and figure are in elements.media.css */
 
 /* Technically, headings should be in elements.sectioning but I'm guessing that's where most people would expect this to be */
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3 {
-  margin-bottom: var(--sm1);
+h1,
+.h1 {
+  margin-bottom: var(--heading-spacing-h1);
+  font-size: var(--heading-font-size-h1);
+  line-height: var(--heading-line-height-h1);
 }
 
-h4, .h4 {
-  margin-bottom: var(--sm2);
+h2,
+.h2 {
+  margin-bottom: var(--heading-spacing-h2);
+  font-size: var(--heading-font-size-h2);
+  line-height: var(--heading-line-height-h2);
 }
 
-h5, .h5,
-h6, .h6 {
-  margin-bottom: var(--xs2);
+h3,
+.h3 {
+  margin-bottom: var(--heading-spacing-h3);
+  font-size: var(--heading-font-size-h3);
+  line-height: var(--heading-line-height-h3);
 }
 
-/* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
+h4,
+.h4 {
+  margin-bottom: var(--heading-spacing-h4);
+  font-size: var(--heading-font-size-h4);
+  line-height: var(--heading-line-height-h4);
+}
+
+h5,
+.h5 {
+  margin-bottom: var(--heading-spacing-h5);
+  font-size: var(--heading-font-size-h5);
+  line-height: var(--heading-line-height-h5);
+}
+
+h6,
+.h6 {
+  margin-bottom: var(--heading-spacing-h6);
+  font-size: var(--heading-font-size-h6);
+  line-height: var(--heading-line-height-h6);
+}
+
+/* h1—h3 with a h2—h4 subheading right after gets the consecutive margin
+   (must come after the per-level rules: it ties them on specificity, so
+   source order decides) */
 :where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
-  margin-bottom: var(--sm2);
-}
-
-h1, .h1 {
-  font-size: var(--heading-1);
-}
-
-h2, .h2 {
-  font-size: var(--heading-2);
-}
-
-h3, .h3 {
-  font-size: var(--heading-3);
-}
-
-h4, .h4 {
-  font-size: var(--heading-4);
-}
-
-h5, .h5 {
-  font-size: var(--heading-5);
-}
-
-h6, .h6 {
-  font-size: var(--heading-6);
+  margin-bottom: var(--heading-spacing-consecutive);
 }
 
 hr {
-  --content: "";
   display: flex;
   justify-content: center;
   align-items: center;
   height: 0;
   border-style: solid;
-  border-width: 1px 0 0;
+  border-width: var(--border-sm) 0 0;
   color: var(--ui-border-color);
   overflow: visible;
   &::after {
-    content: var(--content);
+    content: var(--hr-content);
     padding: 0 var(--xs1);
     line-height: 1;
     letter-spacing: var(--tracking-sm);
@@ -1117,15 +1271,13 @@ hr {
   margin-bottom: var(--prose-spacing);
 }
 
-
 i {
 }
 
 ins {
   padding: 0.15em 0.3em;
-  /* pastel bg stays light in both modes, so pin a dark text color */
-  color: var(--base-950);
-  background-color: var(--yes-200);
+  color: var(--ins-color);
+  background-color: var(--ins-background-color);
   border-radius: var(--radius-sm);
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1156,7 +1308,7 @@ p {
 
 pre {
   font-family: var(--mono);
-  font-size: 0.9rem;
+  font-size: var(--pre-font-size);
   white-space: pre-wrap; /* override overflow default */
   border-radius: var(--pre-border-radius);
 }
@@ -1464,18 +1616,18 @@ figure {
   /* caption at bottom or top */
   &:has(* + figcaption) {
     figcaption {
-      margin-top: var(--xs2);
+      margin-top: var(--figcaption-spacing);
     }
   }
   &:has(figcaption + *) {
     figcaption {
-      margin-bottom: var(--xs2);
+      margin-bottom: var(--figcaption-spacing);
     }
   }
 }
 
 iframe {
-  border: 1px solid var(--ui-border-color);
+  border: var(--border-sm) solid var(--ui-border-color);
 }
 
 img {
@@ -1496,7 +1648,7 @@ video {
 
 caption {
   caption-side: bottom;
-  margin-top: var(--xs3);
+  margin-top: var(--table-caption-spacing);
   font-size: var(--text-sm);
 }
 
@@ -1505,7 +1657,7 @@ colgroup {
 
 table {
   border-spacing: 0;
-  border: 1px solid var(--table-border-color);
+  border: var(--table-border-width) solid var(--table-border-color);
   border-radius: var(--table-border-radius);
   background-color: var(--table-background-color);
 }
@@ -1514,8 +1666,8 @@ th,
 td {
   text-align: start;
   padding: var(--table-padding);
-  border-bottom: 1px solid var(--table-border-color);
-  border-inline-start: 1px solid var(--table-border-color);
+  border-bottom: var(--table-border-width) solid var(--table-border-color);
+  border-inline-start: var(--table-border-width) solid var(--table-border-color);
 }
 
 tr {
@@ -1540,7 +1692,7 @@ tbody {
 tfoot {
   th,
   td {
-    border-top: 1px solid var(--table-border-color);
+    border-top: var(--table-border-width) solid var(--table-border-color);
     border-bottom-width: 0;
   }
 }
@@ -1570,9 +1722,9 @@ datalist {
 }
 
 fieldset {
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--sm3);
+  border: var(--fieldset-border-width) solid var(--fieldset-border-color);
+  border-radius: var(--fieldset-border-radius);
+  padding: var(--fieldset-padding);
 
   ul:has([type="checkbox"], [type="radio"]) {
     padding-inline-start: 0;
@@ -1604,7 +1756,7 @@ input {
     border-radius: var(--input-border-radius);
   }
   &:where(:not([type="file"])) {
-    border: 1px solid var(--ui-border-color);
+    border: var(--input-border-width) solid var(--input-border-color);
   }
   &[type="file"] {
     width: 100%;
@@ -1618,7 +1770,7 @@ input {
 label {
   display: block;
   &:has(+ :is(input, select, textarea)) {
-    margin-bottom: var(--xs1);
+    margin-bottom: var(--label-spacing);
   }
 }
 
@@ -1635,19 +1787,13 @@ legend {
 }
 
 meter {
-  --meter-height: var(--sm1);
-  --meter-radius: var(--radius-md);
-  --meter-color-track: var(--primary-100);
-  --meter-color-low: var(--no-400);
-  --meter-color-med: var(--maybe-400);
-  --meter-color-high: var(--yes-400);
   width: 100%;
-  background: var(--meter-color-track);
-  border-radius: var(--meter-radius);
+  background: var(--meter-track-color);
+  border-radius: var(--meter-border-radius);
   height: var(--meter-height);
   /* webkit */
   &::-webkit-meter-bar {
-    background: var(--meter-color-track);
+    background: var(--meter-track-color);
   }
   &::-webkit-meter-bar,
   &::-webkit-meter-optimum-value,
@@ -1655,26 +1801,26 @@ meter {
   &::-webkit-meter-even-less-good-value {
     height: var(--meter-height);
     border: none;
-    border-radius: var(--meter-radius);
+    border-radius: var(--meter-border-radius);
   }
   &::-webkit-meter-even-less-good-value {
-    background: var(--meter-color-low);
+    background: var(--meter-low-color);
   }
   &::-webkit-meter-suboptimum-value {
-    background: var(--meter-color-med);
+    background: var(--meter-medium-color);
   }
   &::-webkit-meter-optimum-value {
-    background: var(--meter-color-high);
+    background: var(--meter-high-color);
   }
   /* mozilla */
   &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: var(--meter-color-low);
+    background: var(--meter-low-color);
   }
   &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: var(--meter-color-med);
+    background: var(--meter-medium-color);
   }
   &:-moz-meter-optimum::-moz-meter-bar {
-    background: var(--meter-color-high);
+    background: var(--meter-high-color);
   }
 }
 
@@ -1688,43 +1834,39 @@ output {
 }
 
 progress {
-  --progress-height: var(--sm1);
-  --progress-color: var(--primary-500);
-  --progress-track-color: var(--primary-100);
-  --progress-radius: var(--radius-md);
   appearance: none;
   width: 100%;
   /* mozilla */
   height: var(--progress-height);
   background: var(--progress-track-color);
-  border-radius: var(--progress-radius);
+  border-radius: var(--progress-border-radius);
   border: none;
   &::-moz-progress-bar {
     background: var(--progress-color);
-    border-radius: var(--progress-radius);
+    border-radius: var(--progress-border-radius);
   }
   /* webkit */
   &::-webkit-progress-bar {
     width: 100%;
     background: var(--progress-track-color);
-    border-radius: var(--progress-radius);
+    border-radius: var(--progress-border-radius);
     height: var(--progress-height);
   }
   &::-webkit-progress-value {
     background: var(--progress-color);
-    border-radius: var(--progress-radius);
+    border-radius: var(--progress-border-radius);
   }
 }
 
 select {
-  --icon-size: 24px;
-  --split: calc(100% - var(--icon-size));
+  /* derived, stays local */
+  --split: calc(100% - var(--select-icon-size));
   display: flex;
   appearance: none;
   height: var(--input-height);
   padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
     var(--input-padding);
-  border: 1px solid var(--ui-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
   background: linear-gradient(
     to right,
@@ -1732,10 +1874,10 @@ select {
     var(--text-color) var(--split) 100%
   );
   mask-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
+    var(--select-icon),
     linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
     linear-gradient(red 0 0);
-  mask-size: var(--icon-size), auto, auto;
+  mask-size: var(--select-icon-size), auto, auto;
   mask-position:
     calc(100% - var(--xs1)) center,
     0 0,
@@ -1771,9 +1913,9 @@ select {
 
 textarea {
   width: 100%;
-  padding: var(--xs3);
+  padding: var(--input-padding);
   border-radius: var(--input-border-radius);
-  border: 1px solid var(--ui-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   resize: vertical;
   &:not([rows]) {
     min-height: 6em;
@@ -1787,12 +1929,12 @@ textarea {
 dialog {
   /* body scrolling is stopped by adding .body-is-locked on <dialog> */
   /* But it can be added to any element. See elements.sectioning.css > body { … }  */
-  min-width: var(--tera1);
-  max-width: var(--tera3);
-  padding: var(--lg1) var(--md1);
-  border: 1px solid light-dark(var(--base-200), var(--base-800));
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
+  min-width: var(--dialog-min-width);
+  max-width: var(--dialog-max-width);
+  padding: var(--dialog-padding);
+  border: var(--dialog-border-width) solid var(--dialog-border-color);
+  background-color: var(--dialog-background-color);
+  border-radius: var(--dialog-border-radius);
 
   &::backdrop {
     background: var(--dialog-backdrop-color);
@@ -1802,7 +1944,9 @@ dialog {
   [aria-label="close pop-up"] {
     position: absolute;
     top: var(--xs3);
-    right: var(--xs3); /* deliberately physical: close button pinned to a visual corner */
+    right: var(
+      --xs3
+    ); /* deliberately physical: close button pinned to a visual corner */
     background: transparent;
     border: none;
     outline: none;
@@ -1816,10 +1960,10 @@ dialog {
 }
 
 details {
-  padding: var(--sm1) var(--sm1);
-  border: 1px solid light-dark(var(--base-200), var(--base-800));
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
+  padding: var(--details-padding);
+  border: var(--details-border-width) solid var(--details-border-color);
+  background-color: var(--details-background-color);
+  border-radius: var(--details-border-radius);
   cursor: pointer;
 
   summary {
@@ -1831,15 +1975,21 @@ details {
     }
     &::after {
       content: "";
-      width: 24px;
-      height: 24px;
-      background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E") no-repeat;
-      transition: var(--transition);
+      width: var(--details-icon-size);
+      height: var(--details-icon-size);
+      /* icon as a mask painted with the text color, so it follows the
+         color scheme (an SVG in background-image can't see currentColor
+         and always renders black) */
+      background-color: currentColor;
+      mask-image: var(--details-icon);
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      transition: transform var(--transition);
     }
   }
 
   &[open] > summary {
-    margin-bottom: var(--xs3);
+    margin-bottom: var(--details-spacing);
     &::after {
       transform: rotate(180deg);
     }
@@ -3056,13 +3206,11 @@ details {
 
 /* DEV TOOLS */
 
-/* Debug-only helpers, inert unless you add the classes yourself.
-   !important is intentional and required in the helpers layer: a debug
-   overlay must win over every other style, including unlayered CSS. */
+/* Debug-only helpers. You have to add the classes yourself. */
 
-/* Baseline grid overlay: add .dev to <body> while checking vertical
-   rhythm (line spacing comes from --baseline in settings.tokens.css). */
+/* Baseline grid overlay: add .dev to <body> while checking vertical rhythm. */
 body.dev {
+  --baseline: 8;
   background-size: 100% calc(var(--baseline) * 1px) !important;
   background-image: linear-gradient(
     to bottom,
@@ -3076,7 +3224,7 @@ body.dev {
 .dev-error {
   position: fixed !important;
   top: var(--md1) !important;
-  left: var(--md1) !important; /* deliberately physical: debug toast pinned to a visual corner */
+  left: var(--md1) !important;
   z-index: var(--z-top) !important;
   padding: var(--sm1) !important;
   font-size: 1rem !important;
