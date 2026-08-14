@@ -414,6 +414,13 @@ xxl: 1920px
   /* select's chevron (a 24px SVG mask) */
   --select-icon-size: var(--sm3);
 
+  --dialog-min-width: var(--tera1);
+  --dialog-max-width: var(--tera3);
+  --dialog-padding: var(--lg1) var(--md1);
+  --dialog-border-width: var(--border-sm);
+  --dialog-border-color: light-dark(var(--base-200), var(--base-800));
+  --dialog-background-color: light-dark(var(--base-50), var(--base-900));
+  --dialog-border-radius: var(--radius-lg);
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
@@ -1868,12 +1875,12 @@ textarea {
 dialog {
   /* body scrolling is stopped by adding .body-is-locked on <dialog> */
   /* But it can be added to any element. See elements.sectioning.css > body { … }  */
-  min-width: var(--tera1);
-  max-width: var(--tera3);
-  padding: var(--lg1) var(--md1);
-  border: 1px solid light-dark(var(--base-200), var(--base-800));
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
+  min-width: var(--dialog-min-width);
+  max-width: var(--dialog-max-width);
+  padding: var(--dialog-padding);
+  border: var(--dialog-border-width) solid var(--dialog-border-color);
+  background-color: var(--dialog-background-color);
+  border-radius: var(--dialog-border-radius);
 
   &::backdrop {
     background: var(--dialog-backdrop-color);

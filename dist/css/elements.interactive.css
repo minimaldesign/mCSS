@@ -30,12 +30,12 @@ xxl: 1920px
 dialog {
   /* body scrolling is stopped by adding .body-is-locked on <dialog> */
   /* But it can be added to any element. See elements.sectioning.css > body { … }  */
-  min-width: var(--tera1);
-  max-width: var(--tera3);
-  padding: var(--lg1) var(--md1);
-  border: 1px solid light-dark(var(--base-200), var(--base-800));
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
+  min-width: var(--dialog-min-width);
+  max-width: var(--dialog-max-width);
+  padding: var(--dialog-padding);
+  border: var(--dialog-border-width) solid var(--dialog-border-color);
+  background-color: var(--dialog-background-color);
+  border-radius: var(--dialog-border-radius);
 
   &::backdrop {
     background: var(--dialog-backdrop-color);
