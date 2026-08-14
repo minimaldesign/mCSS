@@ -411,8 +411,10 @@ xxl: 1920px
   --progress-track-color: var(--primary-100);
   --progress-border-radius: var(--radius-md);
 
-  /* select's chevron (a 24px SVG mask) */
+  /* select's chevron, applied as a mask painted with the text color;
+     any url() works here, data URL or file */
   --select-icon-size: var(--sm3);
+  --select-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E");
 
   --dialog-min-width: var(--tera1);
   --dialog-max-width: var(--tera3);
@@ -1832,7 +1834,7 @@ select {
     var(--text-color) var(--split) 100%
   );
   mask-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
+    var(--select-icon),
     linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
     linear-gradient(red 0 0);
   mask-size: var(--select-icon-size), auto, auto;
