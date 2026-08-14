@@ -82,7 +82,7 @@ input {
     border-radius: var(--input-border-radius);
   }
   &:where(:not([type="file"])) {
-    border: 1px solid var(--ui-border-color);
+    border: var(--input-border-width) solid var(--input-border-color);
   }
   &[type="file"] {
     width: 100%;
@@ -202,7 +202,7 @@ select {
   height: var(--input-height);
   padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
     var(--input-padding);
-  border: 1px solid var(--ui-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
   background: linear-gradient(
     to right,
@@ -249,9 +249,9 @@ select {
 
 textarea {
   width: 100%;
-  padding: var(--xs3);
+  padding: var(--input-padding);
   border-radius: var(--input-border-radius);
-  border: 1px solid var(--ui-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   resize: vertical;
   &:not([rows]) {
     min-height: 6em;

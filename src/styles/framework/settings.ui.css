@@ -59,6 +59,8 @@
 
   --input-height: var(--md3);
   --input-padding: var(--xs3);
+  --input-border-width: var(--border-sm);
+  --input-border-color: var(--ui-border-color);
   --input-border-radius: var(--radius-md);
   --input-border-color-invalid: light-dark(
     var(--danger-500),
