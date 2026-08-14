@@ -82,6 +82,7 @@ xxl: 1920px
   accent-color: var(--primary-500);
 
   --body-background-color: light-dark(var(--base-0), var(--base-950));
+  --body-line-height: var(--leading-lg);
 
   --input-height: var(--md3);
   --input-padding: var(--xs3);
