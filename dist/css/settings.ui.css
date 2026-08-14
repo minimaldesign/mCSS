@@ -129,6 +129,17 @@ xxl: 1920px
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
+  /* details: same surface as dialog by default, on purpose but
+     independently overridable. Spacing is the gap between an open
+     summary and its content. */
+  --details-padding: var(--sm1);
+  --details-spacing: var(--xs3);
+  --details-border-width: var(--border-sm);
+  --details-border-color: light-dark(var(--base-200), var(--base-800));
+  --details-background-color: light-dark(var(--base-50), var(--base-900));
+  --details-border-radius: var(--radius-lg);
+  --details-icon-size: var(--sm3);
+
   --table-padding: var(--xs2) var(--sm1);
   --table-border-color: light-dark(var(--base-100), var(--base-700));
   --table-border-radius: var(--radius-md);
