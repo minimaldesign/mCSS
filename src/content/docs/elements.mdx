@@ -49,7 +49,20 @@ import iconX from '../../assets/icons/x.svg?raw';
 
   ### Headings
 
-  Heading sizes are fluid: they scale smoothly between a mobile minimum and a desktop maximum via the `--heading-1`…`--heading-6` tokens (see [tokens](/docs/tokens)). Resize the viewport to see it in action.
+  Heading sizes are fluid via `clamp()` set on `--heading-font-size-h1`—`--heading-font-size-h6` tokens: each interpolates from a minimum size (at 480px viewports and below) to a maximum (from 1024px up), so the type scale tightens on small screens without media queries. The preferred value mixes `rem` with `vw`, which keeps browser text zoom working. The tokens live in `settings.ui.css` with the rest of the heading family (`--heading-spacing-*`, `--heading-line-height-*`), mapping each level onto the [type scale](/docs/tokens#font-size); override any of them in your theme to change how a heading level scales.
+
+<div class="docs_oversizedTable">
+
+| Token                  | Min (≤480px)            | Max (≥1024px)           |
+| ---------------------- | ----------------------- | ----------------------- |
+| `heading-font-size-h1` | `display-md` (2.074rem) | `display-xl` (2.986rem) |
+| `heading-font-size-h2` | `display-sm` (1.728rem) | `display-lg` (2.488rem) |
+| `heading-font-size-h3` | `text-xl` (1.44rem)     | `display-md` (2.074rem) |
+| `heading-font-size-h4` | `text-lg` (1.2rem)      | `display-sm` (1.728rem) |
+| `heading-font-size-h5` | `text-lg` (1.2rem)      | `text-xl` (1.44rem)     |
+| `heading-font-size-h6` | `text-md` (1rem)        | `text-lg` (1.2rem)      |
+
+</div>
 
   <h1>Heading One</h1>
   <p>A small paragraph of text to show the heading in context.</p>
@@ -65,9 +78,9 @@ import iconX from '../../assets/icons/x.svg?raw';
   <p>A small paragraph of text to show the heading in context.</p>
 
   <h1>Consecutive headings get less margin… H1 followed by a H2</h1>
-  <h2>H2 right aftert a H1</h2>
-  <h3>H3 right aftert a H2</h3>
-  <h4>H4 right aftert a H3</h4>
+  <h2>H2 right after a H1</h2>
+  <h3>H3 right after a H2</h3>
+  <h4 class="mb-lg1">H4 right after a H3</h4>
 
   ### Inline Elements
 

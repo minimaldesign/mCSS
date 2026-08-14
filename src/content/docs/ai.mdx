@@ -64,7 +64,7 @@ Do not edit framework files.
 ### Tokens
 
 - `settings.tokens.css`: raw primitives (palettes, type scale, spacing, radii).
-- `settings.ui.css`: interface tokens, the public API of every component (semantic aliases plus all component defaults). Interface tokens only ever take another token as value; raw values live in `settings.tokens.css`.
+- `settings.ui.css`: interface tokens, the public API of every element and component (semantic aliases plus all defaults). Placement is by name: a token named for what it's for (`--heading-*`, `--bt-*`, `--ui-border-color`) goes here; a token named for what it is (`--sm1`, `--base-500`) is a scale token and goes in `settings.tokens.css`. Values prefer another token (a shared-meaning interface token first, else a scale token); raw values only for content (strings, icon URLs), one-off control geometry, or element-relative `em`/`ch` measures.
 - Grammar: `--component-part-property`, longhand, kebab-case, no abbreviations: `--bt-background-color-hover`, `--notice-border-width`.
 - Feedback colors: use the semantic aliases `--success-*`, `--danger-*`, `--warning-*`, not the raw scales they point at.
 - The same discipline applies to your own CSS: **no raw color and no raw type size in a `component.*.css` file.** If the theme doesn't name the value you need, add a token to the theme and use that. A `#8a5500` or a `1.0625rem` sitting in a component is a design decision nobody can find, and the second use of it will be a slightly different number.

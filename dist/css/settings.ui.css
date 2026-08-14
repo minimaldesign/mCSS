@@ -28,11 +28,26 @@ xxl: 1920px
 /* INTERFACE TOKENS */
 
 /*
-  The abstraction tier between raw tokens (settings.tokens.css) and the
-  framework's rules: semantic aliases plus every component's token defaults.
-  Interface tokens only ever take another token for value; raw values live
-  in settings.tokens.css, and deliberate deviations from these defaults
-  live in a theme file (see theme.default.css).
+  The decisions layer. Every token here is named for what it's FOR (an
+  element, a component, or a shared meaning) and answers "what does this
+  thing use by default". Tokens named for what they ARE (--sm1, --base-500,
+  --bold) are scale tokens and live in settings.tokens.css. That's the
+  whole split: a name that mentions a UI thing belongs here; a name that
+  labels a step on a scale belongs there.
+
+  Values, in order of preference:
+  1. Another interface token, when the meaning is shared
+     (--input-border-color: var(--ui-border-color)).
+  2. A scale token, when the value should follow the system scales
+     (--fieldset-padding: var(--sm3)).
+  3. A raw value, only where following the scales would be wrong:
+     content (separator strings, icon URLs), geometry tuned to one
+     control (--toggle-width), or element-relative measures that track
+     the element's own type instead of the page (em heading spacing).
+     The test: "if a theme retuned the scales, should this follow?"
+
+  Deliberate deviations from these defaults live in a theme file
+  (see theme.default.css).
 */
 
 :root {
@@ -41,9 +56,15 @@ xxl: 1920px
   color-scheme: light dark;
 
   --ui-border-color: light-dark(var(--base-200), var(--base-500));
+  /* Also consumed by the --shadow-* scale in settings.tokens.css: the one
+     reference between the files that runs upward, so shadows can switch
+     with the color scheme. Raw alpha colors: the palettes have no alpha
+     steps. */
   --ui-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
 
-  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css) */
+  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css).
+     Raw 2px on purpose: an accessibility affordance that shouldn't move
+     when a theme retunes the decorative border scale. */
   --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
@@ -152,25 +173,63 @@ xxl: 1920px
   --table-background-color: none;
   /* Gap between the table and its caption */
   --table-caption-spacing: var(--xs3);
-
-  /* Gap between a figure's content and its figcaption, whichever side
-     the caption is on */
+  /* Gap between a figure's content and caption on either side */
   --figcaption-spacing: var(--xs2);
 
   /* Text */
 
   --heading-font: var(--display);
   --heading-weight: var(--black);
+  --heading-letter-spacing: normal; /* (e.g. -0.02em or var(--tracking-sm)) */
+
+  --heading-font-size-h1: clamp(
+    var(--display-md),
+    1.269rem + 2.682vw,
+    var(--display-xl)
+  ); /* 2.074rem → 2.986rem */
+  --heading-font-size-h2: clamp(
+    var(--display-sm),
+    1.057rem + 2.235vw,
+    var(--display-lg)
+  ); /* 1.728rem → 2.488rem */
+  --heading-font-size-h3: clamp(
+    var(--text-xl),
+    0.881rem + 1.865vw,
+    var(--display-md)
+  ); /* 1.44rem → 2.074rem */
+  --heading-font-size-h4: clamp(
+    var(--text-lg),
+    0.734rem + 1.553vw,
+    var(--display-sm)
+  ); /* 1.2rem → 1.728rem */
+  --heading-font-size-h5: clamp(
+    var(--text-lg),
+    0.988rem + 0.706vw,
+    var(--text-xl)
+  ); /* 1.2rem → 1.44rem */
+  --heading-font-size-h6: clamp(
+    var(--text-md),
+    0.824rem + 0.588vw,
+    var(--text-lg)
+  ); /* 1rem → 1.2rem */
+
   --heading-line-height: var(--leading-sm);
-  /* Margin below each heading level; -condensed replaces it on any h1-h3
-     directly followed by a subheading */
-  --heading-spacing-h1: var(--sm1);
-  --heading-spacing-h2: var(--sm1);
-  --heading-spacing-h3: var(--sm1);
-  --heading-spacing-h4: var(--sm2);
-  --heading-spacing-h5: var(--xs2);
-  --heading-spacing-h6: var(--xs2);
-  --heading-spacing-condensed: var(--sm2);
+  --heading-line-height-h1: var(--heading-line-height);
+  --heading-line-height-h2: var(--heading-line-height);
+  --heading-line-height-h3: var(--heading-line-height);
+  --heading-line-height-h4: var(--leading-md);
+  --heading-line-height-h5: var(--leading-md);
+  --heading-line-height-h6: var(--leading-md);
+
+  /* Headings bottom margin  */
+  --heading-spacing-h1: 0.4em;
+  --heading-spacing-h2: 0.4em;
+  --heading-spacing-h3: 0.4em;
+  --heading-spacing-h4: 0.4em;
+  --heading-spacing-h5: 0.4em;
+  --heading-spacing-h6: 0.4em;
+  /* Any h1 before h2, h2 before h3, h3 before h4.  */
+  --heading-spacing-consecutive: 0.3em;
 
   --text-color: light-dark(var(--base-950), var(--base-200));
   --link-font-weight: var(--semi-bold);
@@ -182,17 +241,13 @@ xxl: 1920px
     var(--primary-100),
     var(--primary-900)
   );
-  /* code/var/kbd where the inline chip styling doesn't apply
-     (inside headings and pre) */
+  /* when code inline styling doesn't apply (inside headings and pre) */
   --text-code-muted-color: light-dark(var(--base-500), var(--base-300));
 
-  /* Code blocks (bare pre, astro-code, and the site's expressive-code
-     frames all consume this) */
   --pre-border-radius: var(--radius-md);
+  /* matching the 0.9em of inline code */
   --pre-font-size: 0.9rem;
 
-  /* Blockquote: inline padding is start end; start leaves extra room for
-     the accent bar. The accent takes any color or gradient. */
   --blockquote-padding-block: var(--sm1);
   --blockquote-padding-inline: var(--md1) var(--sm3);
   --blockquote-background-color: light-dark(
@@ -211,8 +266,7 @@ xxl: 1920px
   /* Optional centered label on <hr>, e.g. "***" or a dingbat */
   --hr-content: "";
 
-  /* ins: the pastel background stays light in both modes, so the text
-     color pins dark */
+  /* ins: background stays light in both light/dark modes */
   --ins-color: var(--base-950);
   --ins-background-color: var(--success-200);
 
@@ -231,31 +285,25 @@ xxl: 1920px
   /* Mobile-first: tighter gutters on small screens, 24px from --md up */
   --grid-column-gap: var(--sm1);
   --grid-row-gap: var(--sm1);
+  @media (width >= 768px) {
+    --grid-column-gap: var(--sm3);
+    --grid-row-gap: var(--sm3);
+  }
 
   --wrap-spacing: var(--sm1);
   --wrap-md-spacing: var(--sm3);
   --wrap-lg-spacing: 0;
-  --wrap-width-sm: minmax(200px, 55ch);
-  --wrap-width-md: minmax(200px, 70ch);
-  --wrap-width-lg: minmax(200px, 900px);
+  /* Widths are measures: ch tracks the text size, so raw on purpose. */
+  --wrap-width-sm: minmax(0, 55ch);
+  --wrap-width-md: minmax(0, 70ch);
+  --wrap-width-lg: minmax(0, 900px);
   --wrap-width: var(--wrap-width-md);
 
-  /* Layout scaffolds (global.layout.css): main column cap for
-     .layout-centered and .layout-docs, aside and TOC column widths.
-     --layout-toc-width takes any grid track size; the 1fr default lets
-     the TOC absorb the leftover space. */
   --layout-content-width: 70ch;
   --layout-aside-width: 245px;
   --layout-toc-width: 1fr;
 
   --prose-spacing: var(--sm1);
-}
-
-@media (width >= 768px) {
-  :root {
-    --grid-column-gap: var(--sm3);
-    --grid-row-gap: var(--sm3);
-  }
 }
 
 /* COMPONENTS */
@@ -294,16 +342,21 @@ xxl: 1920px
 /* (Button defaults and primary button colors) */
 
 :root {
+  /* Optical minimums, deliberately off the spacing scale */
   --bt-min-width: 101px;
   --bt-min-width-md: 123px;
   --bt-min-width-lg: 133px;
+
   --bt-font-size: var(--text-sm);
   --bt-font-size-lg: var(--text-md);
   --bt-font-weight: var(--semi-bold);
+
   --bt-color: var(--text-color);
   --bt-color-hover: light-dark(var(--text-color), var(--base-0));
+
   --bt-background-color: light-dark(var(--base-0), var(--base-800));
   --bt-background-color-hover: light-dark(var(--base-50), var(--base-900));
+
   --bt-border-color: var(--ui-border-color);
   --bt-border-width: var(--border-sm);
   --bt-border-radius: var(--radius-lg);
@@ -366,14 +419,15 @@ xxl: 1920px
   --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-xl);
   --card-loading-bg: light-dark(var(--base-200), var(--base-900));
-  /* Default media aspect ratio; the Card component sets it inline from its
-     aspectRatio prop */
+  /* Default media aspect ratio; the Card component pins it inline only
+     when its aspectRatio prop is passed */
   --card-aspect-ratio: var(--ar-golden);
 }
 
 /* Toggle */
 
 :root {
+  /* Drawn-control geometry, deliberately off the scales */
   --toggle-width: 50px;
   --toggle-height: 28px;
   --toggle-border-width: 2px;
@@ -394,8 +448,8 @@ xxl: 1920px
   --field-spacing: var(--xs1);
   --field-hint-color: light-dark(var(--base-400), var(--base-500));
   --field-error-color: light-dark(var(--danger-500), var(--danger-300));
-  /* static = messages in flow under the control; absolute = overlaid below
-     the field (row compositions set this so messages can't move siblings) */
+  /*Field's hint/error position. Use `static` to reflow under, use `absolute`
+  (and leave enough space below) if you don't want any shift on errors */
   --field-message-position: static;
 }
 
@@ -434,8 +488,7 @@ xxl: 1920px
   }
   --header-background-color: light-dark(var(--base-0), var(--base-950));
 
-  /* The mobile menu is an always-dark surface by design, so these are raw
-     palette values on purpose; override them to retheme the menu. */
+  /* The mobile menu is an always-dark  by design */
   --header-menu-background-color: var(--base-950);
   --header-menu-color: var(--base-0);
   --header-menu-color-current: var(--primary-400);
@@ -552,9 +605,9 @@ xxl: 1920px
   --tags-radius: var(--radius-md);
 }
 
-/* Tiles: no tokens. The container thresholds live in component.tiles.css
-   (container queries can't read custom properties), and --tiles-columns
-   is set there; pin it on a hook class of your own to opt out. */
+/* Tiles has no tokens here: its column count is set by container queries in
+   component.tiles.css since custom properties don't work inside @container.
+*/
 
 /* TOC */
 
@@ -563,7 +616,7 @@ xxl: 1920px
   --toc-color-hover: var(--link-color-hover);
   --toc-spacing: var(--xs1);
   --toc-indentation: var(--xs3);
-  --toc-icon-size: 16px;
+  --toc-icon-size: var(--sm1);
 }
 
 }

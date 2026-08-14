@@ -144,7 +144,7 @@ The following example goes from 1 → 4 → 9 → 12 columns. (Resize window to 
 
 The `.wrap` global class is a simple content wrapper that will center your content on the page and add some left/right padding on small viewports.
 
-The content column comes in three width presets, set with a modifier on the wrapper: `.wrap-sm`, `.wrap-md`, and `.wrap-lg`. A bare `.wrap` uses the `md` width (`minmax(200px, 70ch)`). There is also a `.wrap_content-fullBleed` modifier for children that should extend to the full size of the viewport. See [demo](/demos/wrap).
+The content column comes in three width presets, set with a modifier on the wrapper: `.wrap-sm`, `.wrap-md`, and `.wrap-lg`. A bare `.wrap` uses the `md` width (`minmax(0, 70ch)`). There is also a `.wrap_content-fullBleed` modifier for children that should extend to the full size of the viewport. See [demo](/demos/wrap).
 
 ### Syntax
 
@@ -179,9 +179,9 @@ You can customize 3 diffent sizes of left/right padding for responsive designs a
 | `wrap-spacing`    | `var(--sm1)`           | default left/right padding       |
 | `wrap-md-spacing` | `var(--sm3)`           | left/right padding tablet and up |
 | `wrap-lg-spacing` | `0`                    | left/right padding laptop and up |
-| `wrap-width-sm`   | `minmax(200px, 55ch)`  | narrow column (`.wrap-sm`)       |
-| `wrap-width-md`   | `minmax(200px, 70ch)`  | reading column (`.wrap-md`)      |
-| `wrap-width-lg`   | `minmax(200px, 900px)` | wide column (`.wrap-lg`)         |
+| `wrap-width-sm`   | `minmax(0, 55ch)`      | narrow column (`.wrap-sm`)       |
+| `wrap-width-md`   | `minmax(0, 70ch)`      | reading column (`.wrap-md`)      |
+| `wrap-width-lg`   | `minmax(0, 900px)`     | wide column (`.wrap-lg`)         |
 | `wrap-width`      | `var(--wrap-width-md)` | width of a bare `.wrap`          |
 
 </div>
@@ -227,12 +227,24 @@ The header and footer are optional: a bare `.layout` with only `.layout_content`
 Each thumbnail links to a full-page demo built from labeled color blocks. The demos are the honest version: resize the window to see the breakpoint collapses, sticky footer, and full-viewport behavior that a static diagram can't show.
 
 <div class="grid" col="2" col-lg="3">
-  <div class="grid_item"><LayoutThumb variant="centered" /></div>
-  <div class="grid_item"><LayoutThumb variant="sidebar" /></div>
-  <div class="grid_item"><LayoutThumb variant="sidebar-end" /></div>
-  <div class="grid_item"><LayoutThumb variant="docs" /></div>
-  <div class="grid_item"><LayoutThumb variant="split" /></div>
-  <div class="grid_item"><LayoutThumb variant="cover" /></div>
+  <div class="grid_item">
+    <LayoutThumb variant="centered" />
+  </div>
+  <div class="grid_item">
+    <LayoutThumb variant="sidebar" />
+  </div>
+  <div class="grid_item">
+    <LayoutThumb variant="sidebar-end" />
+  </div>
+  <div class="grid_item">
+    <LayoutThumb variant="docs" />
+  </div>
+  <div class="grid_item">
+    <LayoutThumb variant="split" />
+  </div>
+  <div class="grid_item">
+    <LayoutThumb variant="cover" />
+  </div>
 </div>
 
 <div class="docs_oversizedTable">
@@ -252,8 +264,8 @@ Each thumbnail links to a full-page demo built from labeled color blocks. The de
 <Notice type="info" title="Hidden asides need a menu">
   `.layout-docs` hides both asides below the `--md` breakpoint. That's
   deliberate: docs navigation belongs in your header menu on small screens
-  (that's how mcss.dev does it). If your aside content has no other way in,
-  use `.layout-sidebar`, which stacks instead of hiding.
+  (that's how mcss.dev does it). If your aside content has no other way in, use
+  `.layout-sidebar`, which stacks instead of hiding.
 </Notice>
 
 ### The main column is a container
@@ -266,11 +278,11 @@ Column widths come from three tokens in `settings.ui.css`. `--layout-toc-width` 
 
 <div class="docs_oversizedTable">
 
-| token                    | value   | Description                                                |
-| ------------------------ | ------- | ---------------------------------------------------------- |
-| `--layout-content-width` | `70ch`  | main column cap (`.layout-centered`, `.layout-docs`)       |
-| `--layout-aside-width`   | `245px` | aside column (`.layout-sidebar`, `.layout-docs`)           |
-| `--layout-toc-width`     | `1fr`   | TOC column (`.layout-docs`)                                |
+| token                    | value   | Description                                          |
+| ------------------------ | ------- | ---------------------------------------------------- |
+| `--layout-content-width` | `70ch`  | main column cap (`.layout-centered`, `.layout-docs`) |
+| `--layout-aside-width`   | `245px` | aside column (`.layout-sidebar`, `.layout-docs`)     |
+| `--layout-toc-width`     | `1fr`   | TOC column (`.layout-docs`)                          |
 
 </div>
 

@@ -50,7 +50,7 @@ The `theme` layer sits after `components` and before `helpers`, so a theme beats
 Themes work because of the two token tiers below them:
 
 1. **Raw tokens** (`settings.tokens.css`) hold raw values: palettes, type scale, spacing, etc.
-2. **[Interface tokens](/docs/tokens#interface-tokens)** (`settings.ui.css`) map those primitives onto meaning: semantic aliases like `--ui-border-color`, plus every component's token defaults (`--bt-*`, `--card-*`, ...). Interface tokens only ever take another token for value.
+2. **[Interface tokens](/docs/tokens#interface-tokens)** (`settings.ui.css`) map those primitives onto meaning: semantic aliases like `--ui-border-color`, element defaults (`--heading-*`, `--input-*`, ...), plus every component's token defaults (`--bt-*`, `--card-*`, ...). Interface tokens usually take another token for value; raw values appear only where following the scales would be wrong (content, one-off control geometry, `em`-relative measures).
 
 Because components read `var(--ui-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
 
