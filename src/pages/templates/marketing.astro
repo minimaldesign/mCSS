@@ -41,7 +41,7 @@ const navItems = [
       /* Pin the cascade-layer order before any stylesheet loads: layer
          priority is set by first occurrence, and the theme <link> below
          may be parsed before the framework's own @layer statement. */
-      @layer settings, base, elements, global, components, theme, helpers;
+      @layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
     </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
