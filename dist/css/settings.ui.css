@@ -94,6 +94,9 @@ xxl: 1920px
     var(--danger-400)
   );
 
+  /* Gap under a label that precedes its control */
+  --label-spacing: var(--xs1);
+
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 

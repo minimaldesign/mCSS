@@ -96,7 +96,7 @@ input {
 label {
   display: block;
   &:has(+ :is(input, select, textarea)) {
-    margin-bottom: var(--xs1);
+    margin-bottom: var(--label-spacing);
   }
 }
 
