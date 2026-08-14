@@ -118,6 +118,10 @@
   --table-border-radius: var(--radius-md);
   --table-background-color: none;
 
+  /* Gap between a figure's content and its figcaption, whichever side
+     the caption is on */
+  --figcaption-spacing: var(--xs2);
+
   /* Text */
 
   --heading-font: var(--display);
