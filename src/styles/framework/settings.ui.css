@@ -84,6 +84,7 @@
   --heading-spacing-xs: var(--xs2);
 
   --text-color: light-dark(var(--base-950), var(--base-200));
+  --link-font-weight: var(--semi-bold);
   --link-color: light-dark(var(--primary-600), var(--primary-400));
   --link-color-hover: var(--primary-500);
 

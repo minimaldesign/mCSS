@@ -10,7 +10,7 @@
 }
 
 a {
-  font-weight: var(--semi-bold);
+  font-weight: var(--link-font-weight);
   color: var(--link-color);
   &:where(:hover) {
     color: var(--link-color-hover);

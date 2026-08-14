@@ -406,6 +406,7 @@ xxl: 1920px
   --heading-spacing-xs: var(--xs2);
 
   --text-color: light-dark(var(--base-950), var(--base-200));
+  --link-font-weight: var(--semi-bold);
   --link-color: light-dark(var(--primary-600), var(--primary-400));
   --link-color-hover: var(--primary-500);
 
@@ -898,7 +899,7 @@ search {
 }
 
 a {
-  font-weight: var(--semi-bold);
+  font-weight: var(--link-font-weight);
   color: var(--link-color);
   &:where(:hover) {
     color: var(--link-color-hover);
