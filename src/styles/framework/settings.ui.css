@@ -100,6 +100,7 @@
   /* Code blocks (bare pre, astro-code, and the site's expressive-code
      frames all consume this) */
   --pre-border-radius: var(--radius-md);
+  --pre-font-size: 0.9rem;
 
   /* Blockquote: inline padding is start end; start leaves extra room for
      the accent bar. The accent takes any color or gradient. */

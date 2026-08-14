@@ -303,7 +303,7 @@ p {
 
 pre {
   font-family: var(--mono);
-  font-size: 0.9rem;
+  font-size: var(--pre-font-size);
   white-space: pre-wrap; /* override overflow default */
   border-radius: var(--pre-border-radius);
 }
