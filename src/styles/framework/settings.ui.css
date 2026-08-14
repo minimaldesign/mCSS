@@ -77,6 +77,11 @@
   --heading-font: var(--display);
   --heading-weight: var(--black);
   --heading-line-height: var(--leading-sm);
+  /* Margin below headings: default for h1-h3, sm for h4 (and for any h1-h3
+     directly followed by a subheading), xs for h5-h6 */
+  --heading-spacing: var(--sm1);
+  --heading-spacing-sm: var(--sm2);
+  --heading-spacing-xs: var(--xs2);
 
   --text-color: light-dark(var(--base-950), var(--base-200));
   --link-color: light-dark(var(--primary-600), var(--primary-400));
