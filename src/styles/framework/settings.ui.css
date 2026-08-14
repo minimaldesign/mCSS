@@ -84,6 +84,11 @@
   --meter-medium-color: var(--warning-400);
   --meter-high-color: var(--success-400);
 
+  --progress-height: var(--sm1);
+  --progress-color: var(--primary-500);
+  --progress-track-color: var(--primary-100);
+  --progress-border-radius: var(--radius-md);
+
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
