@@ -21,9 +21,9 @@ datalist {
 }
 
 fieldset {
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--sm3);
+  border: var(--fieldset-border-width) solid var(--fieldset-border-color);
+  border-radius: var(--fieldset-border-radius);
+  padding: var(--fieldset-padding);
 
   ul:has([type="checkbox"], [type="radio"]) {
     padding-inline-start: 0;
