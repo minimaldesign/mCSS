@@ -114,9 +114,12 @@
   --details-icon-size: var(--sm3);
 
   --table-padding: var(--xs2) var(--sm1);
+  --table-border-width: var(--border-sm);
   --table-border-color: light-dark(var(--base-100), var(--base-700));
   --table-border-radius: var(--radius-md);
   --table-background-color: none;
+  /* Gap between the table and its caption */
+  --table-caption-spacing: var(--xs3);
 
   /* Gap between a figure's content and its figcaption, whichever side
      the caption is on */

@@ -29,7 +29,7 @@ xxl: 1920px
 
 caption {
   caption-side: bottom;
-  margin-top: var(--xs3);
+  margin-top: var(--table-caption-spacing);
   font-size: var(--text-sm);
 }
 
@@ -38,7 +38,7 @@ colgroup {
 
 table {
   border-spacing: 0;
-  border: 1px solid var(--table-border-color);
+  border: var(--table-border-width) solid var(--table-border-color);
   border-radius: var(--table-border-radius);
   background-color: var(--table-background-color);
 }
@@ -47,8 +47,8 @@ th,
 td {
   text-align: start;
   padding: var(--table-padding);
-  border-bottom: 1px solid var(--table-border-color);
-  border-inline-start: 1px solid var(--table-border-color);
+  border-bottom: var(--table-border-width) solid var(--table-border-color);
+  border-inline-start: var(--table-border-width) solid var(--table-border-color);
 }
 
 tr {
@@ -73,7 +73,7 @@ tbody {
 tfoot {
   th,
   td {
-    border-top: 1px solid var(--table-border-color);
+    border-top: var(--table-border-width) solid var(--table-border-color);
     border-bottom-width: 0;
   }
 }

@@ -436,9 +436,12 @@ xxl: 1920px
   --details-icon-size: var(--sm3);
 
   --table-padding: var(--xs2) var(--sm1);
+  --table-border-width: var(--border-sm);
   --table-border-color: light-dark(var(--base-100), var(--base-700));
   --table-border-radius: var(--radius-md);
   --table-background-color: none;
+  /* Gap between the table and its caption */
+  --table-caption-spacing: var(--xs3);
 
   /* Gap between a figure's content and its figcaption, whichever side
      the caption is on */
@@ -1609,7 +1612,7 @@ video {
 
 caption {
   caption-side: bottom;
-  margin-top: var(--xs3);
+  margin-top: var(--table-caption-spacing);
   font-size: var(--text-sm);
 }
 
@@ -1618,7 +1621,7 @@ colgroup {
 
 table {
   border-spacing: 0;
-  border: 1px solid var(--table-border-color);
+  border: var(--table-border-width) solid var(--table-border-color);
   border-radius: var(--table-border-radius);
   background-color: var(--table-background-color);
 }
@@ -1627,8 +1630,8 @@ th,
 td {
   text-align: start;
   padding: var(--table-padding);
-  border-bottom: 1px solid var(--table-border-color);
-  border-inline-start: 1px solid var(--table-border-color);
+  border-bottom: var(--table-border-width) solid var(--table-border-color);
+  border-inline-start: var(--table-border-width) solid var(--table-border-color);
 }
 
 tr {
@@ -1653,7 +1656,7 @@ tbody {
 tfoot {
   th,
   td {
-    border-top: 1px solid var(--table-border-color);
+    border-top: var(--table-border-width) solid var(--table-border-color);
     border-bottom-width: 0;
   }
 }
