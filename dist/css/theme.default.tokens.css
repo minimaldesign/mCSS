@@ -220,14 +220,6 @@ xxl: 1920px
 
     --highlight-500: #ffee00;
 
-    /* GRADIENTS */
-
-    --gradient-primary: linear-gradient(
-      90deg,
-      var(--primary-950) 0%,
-      var(--primary-400) 100%
-    );
-
     /* BORDERS */
 
     --border-sm: 1px;
