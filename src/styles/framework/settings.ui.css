@@ -130,11 +130,15 @@
   --heading-font: var(--display);
   --heading-weight: var(--black);
   --heading-line-height: var(--leading-sm);
-  /* Margin below headings: default for h1-h3, sm for h4 (and for any h1-h3
-     directly followed by a subheading), xs for h5-h6 */
-  --heading-spacing: var(--sm1);
-  --heading-spacing-sm: var(--sm2);
-  --heading-spacing-xs: var(--xs2);
+  /* Margin below each heading level; -condensed replaces it on any h1-h3
+     directly followed by a subheading */
+  --heading-spacing-h1: var(--sm1);
+  --heading-spacing-h2: var(--sm1);
+  --heading-spacing-h3: var(--sm1);
+  --heading-spacing-h4: var(--sm2);
+  --heading-spacing-h5: var(--xs2);
+  --heading-spacing-h6: var(--xs2);
+  --heading-spacing-condensed: var(--sm2);
 
   --text-color: light-dark(var(--base-950), var(--base-200));
   --link-font-weight: var(--semi-bold);

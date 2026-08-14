@@ -188,59 +188,46 @@ h4,
 }
 
 h1,
-.h1,
-h2,
-.h2,
-h3,
-.h3 {
-  margin-bottom: var(--heading-spacing);
-}
-
-h4,
-.h4 {
-  margin-bottom: var(--heading-spacing-sm);
-}
-
-h5,
-.h5,
-h6,
-.h6 {
-  margin-bottom: var(--heading-spacing-xs);
-}
-
-/* h1—h3 that has h2—h4 right after gets a smaller margin bottom */
-:where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
-  margin-bottom: var(--heading-spacing-sm);
-}
-
-h1,
 .h1 {
+  margin-bottom: var(--heading-spacing-h1);
   font-size: var(--heading-1);
 }
 
 h2,
 .h2 {
+  margin-bottom: var(--heading-spacing-h2);
   font-size: var(--heading-2);
 }
 
 h3,
 .h3 {
+  margin-bottom: var(--heading-spacing-h3);
   font-size: var(--heading-3);
 }
 
 h4,
 .h4 {
+  margin-bottom: var(--heading-spacing-h4);
   font-size: var(--heading-4);
 }
 
 h5,
 .h5 {
+  margin-bottom: var(--heading-spacing-h5);
   font-size: var(--heading-5);
 }
 
 h6,
 .h6 {
+  margin-bottom: var(--heading-spacing-h6);
   font-size: var(--heading-6);
+}
+
+/* h1—h3 with a h2—h4 subheading right after gets the condensed margin
+   (must come after the per-level rules: it ties them on specificity, so
+   source order decides) */
+:where(h1, h2, h3):has(+ :is(h2, h3, h4)) {
+  margin-bottom: var(--heading-spacing-condensed);
 }
 
 hr {
