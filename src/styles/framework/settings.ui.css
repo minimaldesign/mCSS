@@ -119,6 +119,9 @@
 
   /* .prose related stuff in GLOBAL */
 
+  /* Optional centered label on <hr>, e.g. "***" or a dingbat */
+  --hr-content: "";
+
   --marker-color: var(--highlight-500);
 
   --selection-color: light-dark(var(--base-950), var(--base-0));

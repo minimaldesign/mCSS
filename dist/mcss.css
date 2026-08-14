@@ -441,6 +441,9 @@ xxl: 1920px
 
   /* .prose related stuff in GLOBAL */
 
+  /* Optional centered label on <hr>, e.g. "***" or a dingbat */
+  --hr-content: "";
+
   --marker-color: var(--highlight-500);
 
   --selection-color: light-dark(var(--base-950), var(--base-0));
@@ -1153,17 +1156,16 @@ h6,
 }
 
 hr {
-  --content: "";
   display: flex;
   justify-content: center;
   align-items: center;
   height: 0;
   border-style: solid;
-  border-width: 1px 0 0;
+  border-width: var(--border-sm) 0 0;
   color: var(--ui-border-color);
   overflow: visible;
   &::after {
-    content: var(--content);
+    content: var(--hr-content);
     padding: 0 var(--xs1);
     line-height: 1;
     letter-spacing: var(--tracking-sm);
