@@ -78,9 +78,14 @@ details {
       content: "";
       width: var(--details-icon-size);
       height: var(--details-icon-size);
-      background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E")
-        no-repeat;
-      transition: var(--transition);
+      /* icon as a mask painted with the text color, so it follows the
+         color scheme (an SVG in background-image can't see currentColor
+         and always renders black) */
+      background-color: currentColor;
+      mask-image: var(--details-icon);
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      transition: transform var(--transition);
     }
   }
 

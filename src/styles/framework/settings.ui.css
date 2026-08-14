@@ -112,6 +112,9 @@
   --details-background-color: light-dark(var(--base-50), var(--base-900));
   --details-border-radius: var(--radius-lg);
   --details-icon-size: var(--sm3);
+  /* Marker icon, applied as a mask painted with the text color; any
+     url() works here, data URL or file */
+  --details-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E");
 
   --table-padding: var(--xs2) var(--sm1);
   --table-border-width: var(--border-sm);
