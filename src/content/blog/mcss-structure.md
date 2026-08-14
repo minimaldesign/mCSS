@@ -8,16 +8,16 @@ description: "An overview of how and why mCSS file structure is organized the wa
 
 ## File structure
 
-> **Update (2026):** mCSS now uses native [CSS cascade layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer): each file is imported into a named `@layer`, and the layer name decides priority instead of the import order. The former "atoms" layer was also folded into components for v1 (a badge or a button is just a CSS-only component now). The list below reflects the current structure, and your own unlayered CSS always wins over the framework. See the [Getting Started docs][docs] for the current setup.
+> **Update (2026):** mCSS now uses native [CSS cascade layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer): each file is imported into a named `@layer`, and the layer name decides priority instead of the import order. The former "atoms" layer was also folded into components for v1 (a badge or a button is just a CSS-only component now), and the former settings files later became the **default theme** (`theme.default.tokens.css` + `theme.default.ui.css`): every design value now lives in a theme, activated from your entry point, with your own theme overriding it. The list below reflects the current structure, and your own unlayered CSS always wins over the framework. See the [Getting Started docs][docs] for the current setup.
 
 If you look at the imports in `mcss.css` [on Github][1], you'll get the basic idea behind mCSS structure. Each file belongs to a layer, and the layers keep the cascade working _for_ us as opposed to specificity wars and cascading conflicts. This architecture is based on [ITCSS][itcss]. The basic idea is to organize CSS from least specific/broadest reach to most specific/local override so you get a smooth [specificity graph][graph] trending upward.
 
-- Settings: where all the global variables are set (tokens and interface tokens).
 - Base: your reset and normalize rules.
 - Elements: HTML elements defaults, without any classes.
 - Global: layouts like `.wrap` and `.grid` and global styling like `.prose`.
 - Components: component specific styling, from single-class pieces like `.bt` buttons to full structures.
-- Theme: a swappable theme, one file of token overrides that restyles the whole site.
+- Theme defaults: the default theme, where every global variable is set (scale tokens and ui tokens).
+- Theme overrides: your own theme, a file of token overrides that restyles the whole site.
 - Helpers: local overrides (last layer, so they beat everything above).
 - Your own CSS imports unlayered, after the framework, and wins over all of it.
 

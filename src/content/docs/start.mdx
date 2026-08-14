@@ -56,7 +56,7 @@ mCSS implements this with native [CSS cascade layers][cascade-layers]: every fra
 
 The styles live in two folders, and the split is the methodology in miniature:
 
-- **[`framework/`][framework-src]**: mCSS itself, every file in a named layer. You copy it and mostly leave it alone: customization goes through the `settings.*` tokens, a [theme](/docs/themes), or your own CSS, not through edits scattered across framework files.
+- **[`framework/`][framework-src]**: mCSS itself, every file in a named layer, including the default theme that holds all its design values. You copy it and leave it alone: customization goes through [a theme of your own](/docs/themes) or your own CSS, never through edits to framework files.
 - **[`site/`][site-src]**: this site's own CSS, imported **unlayered, after the framework**, so it wins without specificity games. Because those files are unlayered, the order you import them in is important so make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
 
 ### The layers, in order
@@ -65,31 +65,31 @@ Each layer only ever loses to the ones after it. The sections below detail each 
 
 <div class="docs_oversizedTable">
 
-| Layer         | Files         | What lives there                                         |
-| ------------- | ------------- | -------------------------------------------------------- |
-| `settings`    | `settings.*`  | Tokens, interface tokens, media queries, mixins          |
-| `base`        | `base.*`      | Reset/normalize                                          |
-| `elements`    | `elements.*`  | Default styling of bare HTML elements                    |
-| `global`      | `global.*`    | Grid, wrap, layout scaffolds, prose, a11y                |
-| `components`  | `component.*` | One self-contained block per file                        |
-| `theme`       | `theme.*`     | At most one active theme (token overrides + style rules) |
-| `helpers`     | `help.*`      | `!important` one-off overrides, last resort              |
-| _(unlayered)_ | your own CSS  | Beats every layer above, except helpers                  |
+| Layer             | Files             | What lives there                                          |
+| ----------------- | ----------------- | --------------------------------------------------------- |
+| `base`            | `base.*`          | Reset/normalize                                           |
+| `elements`        | `elements.*`      | Default styling of bare HTML elements                     |
+| `global`          | `global.*`        | Grid, wrap, layout scaffolds, prose, a11y                 |
+| `components`      | `component.*`     | One self-contained block per file                         |
+| `theme.defaults`  | `theme.default.*` | The default theme: every design value (scale + ui tokens) |
+| `theme.overrides` | `theme.*`         | Your theme or a swappable skin (overrides + style rules)  |
+| `helpers`         | `help.*`          | `!important` one-off overrides, last resort               |
+| _(unlayered)_     | your own CSS      | Beats every layer above, except helpers                   |
 
 </div>
+
+(Two `settings.*` files remain outside the layers: `settings.media-queries.css` and `settings.mixins.css` are build-time material with no runtime output.)
 
 The framework's own entry, [`framework/mcss.css`][mcss-entry], makes the split concrete: it declares the layer order and puts every core framework file in its layer. You never edit it:
 
 ```css
 /* framework/mcss.css (abridged) */
-@layer settings, base, elements, global, components, theme, helpers;
+@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
 
 /* Build-time only (media queries + mixins definitions) */
 @import url(./settings.media-queries.css);
 @import url(./settings.mixins.css);
 
-@import url(./settings.tokens.css) layer(settings);
-@import url(./settings.ui.css) layer(settings);
 @import url(./base.reset.css) layer(base);
 @import url(./elements.text.css) layer(elements);
 @import url(./global.grid.css) layer(global);
@@ -97,9 +97,9 @@ The framework's own entry, [`framework/mcss.css`][mcss-entry], makes the split c
 /* etc. — note: no component.* and no theme.* imports here */
 ```
 
-Two layers are declared but never filled by this entry. The `theme` slot is yours (see below), and the `components` slot belongs to the component library, which lives in its own entry, [`framework/mcss.components.css`][mcss-components-entry]. Import it alongside `mcss.css` for the full library, or skip it and build your own components; the layer order declared in `mcss.css` decides priority either way, so import order between the two doesn't matter.
+Three slots are declared but never filled by this entry. The two theme slots are filled from YOUR entry: `theme.defaults` by the default theme (`theme.default.css`, which the framework needs to paint at all) and `theme.overrides` by a theme of your own, if any (see below). The `components` slot belongs to the component library, which lives in its own entry, [`framework/mcss.components.css`][mcss-components-entry]. Import it alongside `mcss.css` for the full library, or skip it and build your own components; the layer order declared in `mcss.css` decides priority either way, so import order between the entries doesn't matter.
 
-Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, activates at most one theme, then imports your own CSS unlayered:
+Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, activates the default theme (plus optionally one of your own), then imports your own CSS unlayered:
 
 ```css
 /* your entry file */
@@ -109,10 +109,15 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
    your own components. */
 @import url(./framework/mcss.components.css);
 
-/* Optional: activate ONE theme, a swappable style. Theme files are
-   self-layered (@layer theme inside the file), so no layer()
-   annotation. None imported = the default look. */
-/* @import url(./framework/theme.wireframe.css); */
+/* The default theme: every design value the framework uses.
+   Theme files are self-layered, so no layer() annotation. For a
+   full swappable skin (e.g. theme.wireframe.css), import that
+   entry INSTEAD: it composes the default itself. */
+@import url(./framework/theme.default.css);
+
+/* Optional: your own theme (copy theme.starter.css). It lands in
+   theme.overrides, so it beats the default no matter the order. */
+/* @import url(./theme.acme.css); */
 
 /* Your own CSS: UNLAYERED, after the framework. Its normal
    declarations win over every mCSS layer without fighting
@@ -134,12 +139,10 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
 
 <section class="docs_section prose">
 
-### Settings
+### Build-time settings
 
-Settings are where all custom properties are set.
+Two `settings.*` files sit outside the layers entirely: they're build-time material with no runtime output.
 
-- [Tokens][5] is where you set default values for sizes, font stacks, colors, transitions, etc. See [the docs][5] for all the values available by default.
-- [Interface tokens][interfaceTokens] are an abstraction level to standardize common values across elements and components. For instance, components use `--ui-border-color` instead of the lower level token `--base-200`, so one override restyles every bordered surface.
 - [Media queries][6] include responsive sizes, as well as user preferences like color schemes, reduced motion, etc. See [media queries docs][6].
 - **Mixins** is optional. It is not used in other parts of mCSS by default but can be useful to streamline your own components' code. It requires a [PostCSS plugin][7] to work.
 
@@ -178,9 +181,11 @@ Some components are **CSS-only**: a single class on a single element, with no As
 
 ### Theme
 
-This is the one layer the framework declares but never fills: `mcss.css` imports no theme, and the default look IS the empty theme layer. The theme itself is really part of [your CSS](#your-css-unlayered): one `theme.*.css` file of token overrides plus optional style rules that you activate from your own entry file, whether it's a shipped theme like `theme.wireframe.css` or one you wrote yourself.
+Every design value in mCSS lives in a theme; the layers before this one are pure structure. The framework ships a **default theme** (`theme.default.css`) in two halves: [tokens][5], the scales where sizes, font stacks, colors, and transitions get their values, and [ui tokens][interfaceTokens], which map those scales onto elements and components (components use `--ui-border-color` instead of the lower level `--base-200`, so one override restyles every bordered surface). Your entry activates it right after `mcss.css`; without it, nothing paints.
 
-The theme's remit is wider than component classes. Theme files are the ONE place allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors. **A `body` rule belongs in the theme, not in your project CSS.** Before adding a declaration to `body`, check whether an interface token already delivers it: the elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. See [the theme docs][themes] for how themes work and how to build one.
+Your own theme is one `theme.*.css` file of token overrides plus optional style rules that imports after the default (copy `theme.starter.css`). It lands in the `theme.overrides` layer, so it beats the default theme no matter the import order, and everything it doesn't mention falls back. **Never edit the default theme files**; your design lives in your theme, which is what keeps framework updates painless. A shipped skin like `theme.wireframe.css` replaces the default import instead: it's an entry that composes the default and overrides on top.
+
+The theme's remit is wider than component classes. Theme files are the ONE place allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors. **A `body` rule belongs in the theme, not in your project CSS.** Before adding a declaration to `body`, check whether a ui token already delivers it: the elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. See [the theme docs][themes] for how themes work and how to build one.
 
 ### Helpers
 
@@ -440,7 +445,7 @@ The exact compile floor lives in `.browserslistrc` (`baseline 2024`). Keep it: w
 [github]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
 [grid]: /docs/global#grid
 [helpers]: /docs/helpers
-[interfaceTokens]: /docs/tokens#interface-tokens
+[interfaceTokens]: /docs/tokens#ui-tokens
 [layers]: /blog/what-is-itcss#the-layers-of-itcss
 [layout]: /docs/global#layouts
 [postcss-post]: /blog/postcss-setup-for-mcss

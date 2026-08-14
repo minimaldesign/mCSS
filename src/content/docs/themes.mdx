@@ -9,19 +9,19 @@ version: 1
 
 <div class="docs_oversizedTable">
 
-| File name             | Description                                     | Source                 |
-| --------------------- | ----------------------------------------------- | ---------------------- |
-| `theme.default.css`   | Empty template: copy it to start your own theme | [Github][srcDefault]   |
-| `theme.wireframe.css` | Example theme with a hand-drawn wireframe look  | [Github][srcWireframe] |
+| File name             | Description                                              | Source                 |
+| --------------------- | -------------------------------------------------------- | ---------------------- |
+| `theme.default.css`   | The default theme: every design value the framework uses | [Github][srcDefault]   |
+| `theme.starter.css`   | Starter template: copy it to write your own theme        | [Github][srcStarter]   |
+| `theme.wireframe.css` | Full swappable skin with a hand-drawn wireframe look     | [Github][srcWireframe] |
 
 </div>
 
 [srcDefault]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.css
+[srcStarter]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.starter.css
 [srcWireframe]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.wireframe.css
 
-A theme is **one CSS file that restyles your whole site**. It contains [token](/docs/tokens) overrides, plus optional style rules for the few things tokens can't express. Swap which theme file your entry point imports and everything changes; anything the theme doesn't mention falls back to the framework defaults.
-
-mCSS ships with **no theme active**: the default look is simply the framework's own token defaults with an empty `theme` layer.
+A theme is **a file of design decisions**: [token](/docs/tokens) overrides, plus optional style rules for the few things tokens can't express. The framework itself ships as structure plus a **default theme** that holds every design value (the scales and the ui defaults). Your own theme imports after it and overrides only what it cares about; anything it doesn't mention falls back to the default theme. **Never edit the default theme files**: keeping them pristine is what makes framework updates painless, the same way you'd never edit a parent theme you build on.
 
 </section>
 
@@ -29,17 +29,18 @@ mCSS ships with **no theme active**: the default look is simply the framework's 
 
 <section class="prose">
 
-Import exactly one theme file from your own entry point, after the framework:
+Activate the default theme right after the framework, then (optionally) your own theme after it:
 
 ```css
 @import url(./framework/mcss.css);
 @import url(./framework/mcss.components.css); /* optional */
-@import url(./framework/theme.wireframe.css);
+@import url(./framework/theme.default.css);
+@import url(./theme.acme.css); /* your theme */
 ```
 
-That's the entire swap. Theme files are **self-layered**: each one wraps its own content in `@layer theme`, so it lands in the right cascade slot no matter how you load it (plain `@import`, a `<link>` tag on `dist/css/theme.wireframe.css`, or a bundler). No `layer()` annotation needed.
+A full swappable skin like the wireframe replaces the default import instead: `theme.wireframe.css` is an entry that composes `theme.default.css` itself and overrides on top, so you import it INSTEAD of the default. Either way you activate exactly one theme entry.
 
-The `theme` layer sits after `components` and before `helpers`, so a theme beats every framework default but still loses to your own unlayered CSS and to [helpers](/docs/helpers). The layer order runs from default to deliberate: the framework's layers are what things look like when nobody has an opinion, a theme is a deliberate opinion about those defaults, and your unlayered CSS is more deliberate still.
+Theme files are **self-layered**, so they land in the right cascade slot no matter how you load them (plain `@import`, a `<link>` tag on a `dist/css` file, or a bundler); no `layer()` annotation needed. The default theme's parts layer into `theme.defaults`, and your theme layers into `theme.overrides`, which comes after it: **your theme beats the default no matter the import order.** Both sit after `components` and before `helpers`, so any theme beats the framework's structure but still loses to your own unlayered CSS and to [helpers](/docs/helpers). The layer order runs from default to deliberate: the framework's layers and the default theme are what things look like when nobody has an opinion, your theme is a deliberate opinion about those defaults, and your unlayered CSS is more deliberate still.
 
 </section>
 
@@ -47,15 +48,15 @@ The `theme` layer sits after `components` and before `helpers`, so a theme beats
 
 <section class="prose">
 
-Themes work because of the two token tiers below them:
+Themes work because the default theme is built in two halves your overrides can hook into:
 
-1. **Raw tokens** (`settings.tokens.css`) hold raw values: palettes, type scale, spacing, etc.
-2. **[Interface tokens](/docs/tokens#interface-tokens)** (`settings.ui.css`) map those primitives onto meaning: semantic aliases like `--ui-border-color`, element defaults (`--heading-*`, `--input-*`, ...), plus every component's token defaults (`--bt-*`, `--card-*`, ...). Interface tokens usually take another token for value; raw values appear only where following the scales would be wrong (content, one-off control geometry, `em`-relative measures).
+1. **Scale tokens** (`theme.default.tokens.css`) hold the raw values, named for what they are: palettes, type scale, spacing, etc.
+2. **[UI tokens](/docs/tokens#ui-tokens)** (`theme.default.ui.css`) map those scales onto meaning, named for what they're for: semantic aliases like `--ui-border-color`, element defaults (`--heading-*`, `--input-*`, ...), plus every component's token defaults (`--bt-*`, `--card-*`, ...). A ui token usually takes another token for value; raw values appear only where following the scales would be wrong (content, one-off control geometry, `em`-relative measures).
 
 Because components read `var(--ui-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
 
 ```css
-@layer theme {
+@layer theme.overrides {
   :root {
     /* Whole palette shifts */
     --base-950: #1a1208;
@@ -89,11 +90,11 @@ Also worth copying: what it leaves alone. The focus ring stays crisp and high-co
 
 <section class="prose">
 
-Copy [`theme.default.css`][srcDefault] and start overriding. Guidelines:
+Copy [`theme.starter.css`][srcStarter] and start overriding. Guidelines:
 
-- **Tokens first.** Most themes never need a selector: raw tokens for the palette and type, interface tokens for cross-cutting changes, component tokens for details.
+- **Tokens first.** Most themes never need a selector: scale tokens for the palette and type, ui tokens for cross-cutting changes, component tokens for details.
 - **Style rules for the rest**, only for what tokens can't express. Pseudo-elements, `nth-child` rhythm, `text-decoration`, and text rendering on `body` such as font smoothing, `font-synthesis`, or `text-wrap` have no token hooks, so themes may style them directly. Theme files are the one place in mCSS allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors (see [`theme.wireframe.css`][srcWireframe] for a real example). **A `body` rule belongs here, not in your project CSS.**
-- **Check tokens before writing a `body` rule.** Most of what people write into one is already an interface token. The elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. What is left over (the text-rendering properties the framework exposes no token for) is exactly what a theme style rule is for.
+- **Check tokens before writing a `body` rule.** Most of what people write into one is already a ui token. The elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. What is left over (the text-rendering properties the framework exposes no token for) is exactly what a theme style rule is for.
 - **No `!important`.** A theme is meant to be overridable by your page CSS; the last word belongs to [helpers](/docs/helpers).
 
 </section>

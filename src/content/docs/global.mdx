@@ -28,7 +28,7 @@ The grid system is extremely easy to use, light weight, and very flexible. It us
 
 It's composed of 2 classes: `.grid` for the container, and `.grid_item` for each grid item.
 
-The default grid gap is defined as a custom property in [`settings.ui.css`](/docs/tokens#interface-tokens) and is responsive: `16px` (`--sm1`) on small screens, stepping up to `24px` (`--sm3`) at the `--md` breakpoint (768px). You can override `--grid-column-gap` and `--grid-row-gap` globally in your own theme, or on a specific `.grid` element. A `grid-flush` modifier is available if you don't want any gap.
+The default grid gap is defined as a custom property in [`theme.default.ui.css`](/docs/tokens#ui-tokens) and is responsive: `16px` (`--sm1`) on small screens, stepping up to `24px` (`--sm3`) at the `--md` breakpoint (768px). You can override `--grid-column-gap` and `--grid-row-gap` globally in your own theme, or on a specific `.grid` element. A `grid-flush` modifier is available if you don't want any gap.
 
 Because `.grid` reads its gaps from those two custom properties, overriding a specific grid is just a matter of setting them on the element. Add a class of your own:
 
@@ -170,7 +170,7 @@ The content column comes in three width presets, set with a modifier on the wrap
 
 ### Settings
 
-You can customize 3 diffent sizes of left/right padding for responsive designs as well as the width of your content. The values below are set in `settings.ui.css`.
+You can customize 3 diffent sizes of left/right padding for responsive designs as well as the width of your content. The values below are set in `theme.default.ui.css`.
 
 <div class="docs_oversizedTable">
 
@@ -274,7 +274,7 @@ Every scaffold's main column (`.layout_content_main`) is a named [size container
 
 ### Settings
 
-Column widths come from three tokens in `settings.ui.css`. `--layout-toc-width` accepts any grid track size; the `1fr` default lets the TOC absorb whatever space the main column doesn't use.
+Column widths come from three tokens in `theme.default.ui.css`. `--layout-toc-width` accepts any grid track size; the `1fr` default lets the TOC absorb whatever space the main column doesn't use.
 
 <div class="docs_oversizedTable">
 

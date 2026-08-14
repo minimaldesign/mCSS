@@ -40,10 +40,11 @@ Per-page docs: append `.md` to any mcss.dev docs or components URL (e.g. https:/
 
 ### Mental model: layers from default to deliberate
 
-All framework CSS lives in native cascade layers, declared in `mcss.css` in priority order (later wins): `settings, base, elements, global, components, theme, helpers`. `mcss.css` only declares the `components` slot; the component library fills it from a second entry, `mcss.components.css`, imported alongside (skip it in projects that build their own components).
+All framework CSS lives in native cascade layers, declared in `mcss.css` in priority order (later wins): `base, elements, global, components, theme.defaults, theme.overrides, helpers`. `mcss.css` only declares the `components` and theme slots; the component library fills `components` from a second entry, `mcss.components.css`, imported alongside (skip it in projects that build their own components), and the default theme (`theme.default.css`) fills `theme.defaults` from YOUR entry, imported right after `mcss.css`: nothing paints without it.
 
-- `settings` through `components` are the framework defaults: what things look like when nobody has an opinion. Never edit these files to restyle; override them from further up the order.
-- `theme` holds at most one theme file: a deliberate opinion about the defaults. An empty theme layer IS the default look.
+- `base` through `components` are the framework's structure. Never edit these files to restyle; override them from further up the order.
+- `theme.defaults` holds the default theme: every design value (scale tokens + ui tokens). Never edit it either; it is what your overrides fall back to.
+- `theme.overrides` holds at most one theme of your own: a deliberate opinion about the defaults (copy `theme.starter.css`). A full skin like `theme.wireframe.css` is an entry that composes the default theme and overrides on top; either way, activate exactly one theme entry.
 - Your own unlayered CSS is more deliberate still: it beats every layer, by design. Never use `!important` to win against the framework.
 - `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS. Use sparingly. `!important` is banned everywhere else.
 
@@ -55,7 +56,7 @@ Inline `style` attributes don't participate in the order at all: they beat every
 
 ### Restyling, in order of preference
 
-1. **Theme token overrides.** A theme is one file that restyles the whole site: `@layer theme { :root { ... } }` (self-layered, so it slots correctly however it's loaded). Copy `theme.default.css` to start one; activate exactly one from your CSS entry point, after `mcss.css` (which never imports themes itself). Anything the theme doesn't mention falls back to the defaults. Pick the blast radius per override: raw tokens (`--base-*`, `--text`) shift the whole palette or type scale, interface tokens (`--ui-border-color`, `--heading-font`) change every surface that shares the meaning, component tokens (`--bt-border-radius`, `--card-*`) turn one knob.
+1. **Theme token overrides.** A theme is one file that restyles the whole site: `@layer theme.overrides { :root { ... } }` (self-layered, so it slots correctly however it's loaded). Copy `theme.starter.css` to start one; import it from your CSS entry point after `theme.default.css`, the default theme that carries every design value and that your entry must activate right after `mcss.css` (which never imports themes itself; nothing paints without the default theme). Your theme lands in `theme.overrides` and beats the default's `theme.defaults` regardless of import order; anything it doesn't mention falls back to the default theme. Pick the blast radius per override: scale tokens (`--base-*`, `--text`) shift the whole palette or type scale, ui tokens (`--ui-border-color`, `--heading-font`) change every surface that shares the meaning, component tokens (`--bt-border-radius`, `--card-*`) turn one knob.
 2. **Theme style rules**, only if a token doesn't exist for that value, or for what tokens can't express (pseudo-elements, `nth-child` rhythm, etc.). It's ok to override elements like `body` if there is no other way to reliably set it globally. Theme files are the ONE place allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors. **A `body` rule belongs here, not in project CSS**. Make sure you keep the ordering general to specific (same as ITCSS). No `!important` in themes.
 3. **Unlayered project CSS** for what belongs to your project rather than to the design: page layouts, one-off blocks.
 
@@ -63,8 +64,7 @@ Do not edit framework files.
 
 ### Tokens
 
-- `settings.tokens.css`: raw primitives (palettes, type scale, spacing, radii).
-- `settings.ui.css`: interface tokens, the public API of every element and component (semantic aliases plus all defaults). Placement is by name: a token named for what it's for (`--heading-*`, `--bt-*`, `--ui-border-color`) goes here; a token named for what it is (`--sm1`, `--base-500`) is a scale token and goes in `settings.tokens.css`. Values prefer another token (a shared-meaning interface token first, else a scale token); raw values only for content (strings, icon URLs), one-off control geometry, or element-relative `em`/`ch` measures.
+- Every token lives in the default theme, split in two: `theme.default.tokens.css` holds the scales (palettes, type scale, spacing, radii), `theme.default.ui.css` holds the ui tokens, the public API of every element and component (semantic aliases plus all defaults). Placement is by name: a token named for what it's for (`--heading-*`, `--bt-*`, `--ui-border-color`) is a ui token; a token named for what it is (`--sm1`, `--base-500`) is a scale token. Values prefer another token (a shared-meaning ui token first, else a scale token); raw values only for content (strings, icon URLs), one-off control geometry, or element-relative `em`/`ch` measures.
 - Grammar: `--component-part-property`, longhand, kebab-case, no abbreviations: `--bt-background-color-hover`, `--notice-border-width`.
 - Feedback colors: use the semantic aliases `--success-*`, `--danger-*`, `--warning-*`, not the raw scales they point at.
 - The same discipline applies to your own CSS: **no raw color and no raw type size in a `component.*.css` file.** If the theme doesn't name the value you need, add a token to the theme and use that. A `#8a5500` or a `1.0625rem` sitting in a component is a design decision nobody can find, and the second use of it will be a slightly different number.

@@ -36,7 +36,7 @@ const mcssComponentsMinGzipKb = Math.round(gzipSync(mcssComponentsMinCss).length
 // Section 4's diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
 const themeDiffs = {
-  default: `/* settings.ui.css defaults (excerpt) */
+  default: `/* theme.default.ui.css defaults (excerpt) */
 :root {
   --heading-font: var(--display);
   --text: ui-sans-serif, system-ui, sans-serif;
@@ -353,7 +353,7 @@ const themeDiffs = {
     <ul class="home_own_facts home_reveal">
       <li><strong>MIT License</strong><span>Use it anywhere. Keep it forever.</span></li>
       <li><strong>Versioned releases</strong><span>Pull updates when you choose to.</span></li>
-      <li><strong>One token file</strong><span>Edit <code>settings.tokens.css</code>, not <code>node_modules</code>.</span></li>
+      <li><strong>One theme file</strong><span>Your design lives in your theme, not <code>node_modules</code>.</span></li>
     </ul>
   </Section>
 

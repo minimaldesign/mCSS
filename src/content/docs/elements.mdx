@@ -49,7 +49,7 @@ import iconX from '../../assets/icons/x.svg?raw';
 
   ### Headings
 
-  Heading sizes are fluid via `clamp()` set on `--heading-font-size-h1`—`--heading-font-size-h6` tokens: each interpolates from a minimum size (at 480px viewports and below) to a maximum (from 1024px up), so the type scale tightens on small screens without media queries. The preferred value mixes `rem` with `vw`, which keeps browser text zoom working. The tokens live in `settings.ui.css` with the rest of the heading family (`--heading-spacing-*`, `--heading-line-height-*`), mapping each level onto the [type scale](/docs/tokens#font-size); override any of them in your theme to change how a heading level scales.
+  Heading sizes are fluid via `clamp()` set on `--heading-font-size-h1`—`--heading-font-size-h6` tokens: each interpolates from a minimum size (at 480px viewports and below) to a maximum (from 1024px up), so the type scale tightens on small screens without media queries. The preferred value mixes `rem` with `vw`, which keeps browser text zoom working. The tokens live in `theme.default.ui.css` with the rest of the heading family (`--heading-spacing-*`, `--heading-line-height-*`), mapping each level onto the [type scale](/docs/tokens#font-size); override any of them in your theme to change how a heading level scales.
 
 <div class="docs_oversizedTable">
 
