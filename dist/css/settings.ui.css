@@ -116,6 +116,9 @@ xxl: 1920px
   --progress-track-color: var(--primary-100);
   --progress-border-radius: var(--radius-md);
 
+  /* select's chevron (a 24px SVG mask) */
+  --select-icon-size: var(--sm3);
+
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
