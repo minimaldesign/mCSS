@@ -420,6 +420,21 @@ xxl: 1920px
      frames all consume this) */
   --pre-border-radius: var(--radius-md);
 
+  /* Blockquote: inline padding is start end; start leaves extra room for
+     the accent bar. The accent takes any color or gradient. */
+  --blockquote-padding-block: var(--sm1);
+  --blockquote-padding-inline: var(--md1) var(--sm3);
+  --blockquote-background-color: light-dark(
+    var(--primary-50),
+    var(--primary-900)
+  );
+  --blockquote-border-radius: var(--radius-md);
+  --blockquote-accent-width: var(--xs2);
+  --blockquote-accent-color: linear-gradient(
+    var(--primary-800),
+    var(--primary-500)
+  );
+
   /* .prose related stuff in GLOBAL */
 
   --marker-color: var(--highlight-500);
@@ -963,22 +978,22 @@ b {
 blockquote {
   position: relative;
   margin-bottom: var(--prose-spacing);
-  padding-block: var(--sm1);
+  padding-block: var(--blockquote-padding-block);
   /* extra inline-start room for the accent bar */
-  padding-inline: var(--md1) var(--sm3);
+  padding-inline: var(--blockquote-padding-inline);
   font-style: italic;
-  background-color: light-dark(var(--primary-50), var(--primary-900));
-  border-radius: var(--radius-md);
+  background-color: var(--blockquote-background-color);
+  border-radius: var(--blockquote-border-radius);
   &::before {
     content: "";
     position: absolute;
     top: 0;
     inset-inline-start: 0;
-    width: var(--xs2);
+    width: var(--blockquote-accent-width);
     height: 100%;
-    border-start-start-radius: var(--radius-md);
-    border-end-start-radius: var(--radius-md);
-    background-image: linear-gradient(var(--primary-800), var(--primary-500));
+    border-start-start-radius: var(--blockquote-border-radius);
+    border-end-start-radius: var(--blockquote-border-radius);
+    background: var(--blockquote-accent-color);
   }
 
   p {

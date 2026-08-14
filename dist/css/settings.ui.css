@@ -125,6 +125,21 @@ xxl: 1920px
      frames all consume this) */
   --pre-border-radius: var(--radius-md);
 
+  /* Blockquote: inline padding is start end; start leaves extra room for
+     the accent bar. The accent takes any color or gradient. */
+  --blockquote-padding-block: var(--sm1);
+  --blockquote-padding-inline: var(--md1) var(--sm3);
+  --blockquote-background-color: light-dark(
+    var(--primary-50),
+    var(--primary-900)
+  );
+  --blockquote-border-radius: var(--radius-md);
+  --blockquote-accent-width: var(--xs2);
+  --blockquote-accent-color: linear-gradient(
+    var(--primary-800),
+    var(--primary-500)
+  );
+
   /* .prose related stuff in GLOBAL */
 
   --marker-color: var(--highlight-500);
