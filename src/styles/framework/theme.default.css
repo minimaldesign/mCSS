@@ -1,44 +1,23 @@
-/* DEFAULT THEME (template) */
+/* DEFAULT THEME (entry) */
 
 /*
-  A theme is a file of token overrides, plus optional rules for what
-  tokens can't express. Swap which theme file your entry point imports and
-  the whole site restyles; everything a theme doesn't mention falls back to
-  the framework defaults (settings.tokens.css + settings.ui.css).
-
-  Themes are self-layered: the @layer theme block below slots this file
-  into the layer order declared in mcss.css no matter how it's loaded
-  (plain @import, link tag, bundler). Import exactly one theme from your
-  own entry point, after mcss.css:
+  The framework's design values: the scales (theme.default.tokens.css) and
+  the defaults every element and component consumes (theme.default.ui.css).
+  Activate it from your own entry point, right after mcss.css:
 
     @import url(./framework/mcss.css);
-    @import url(./framework/theme.wireframe.css);
+    @import url(./framework/theme.default.css);
 
-  mCSS imports no theme by default: an empty theme layer IS the default
-  look. Copy this file to start your own theme.
+  mcss.css imports no theme itself; without this file every token is unset
+  and the page renders half-styled.
 
-  Guidelines:
-  - Prefer token overrides. Override raw tokens (--base-*, --text) to shift
-    the whole palette or type, interface tokens (--ui-border-color,
-    --heading-font) for cross-cutting changes, or component tokens
-    (--bt-border-radius) for surgical ones.
-  - Rules are for what tokens can't express (pseudo-elements,
-    nth-child rhythm, text-decoration). Theme files are the one place
-    allowed to style component classes from outside; they still lose
-    to your unlayered CSS and to helpers, by design.
-  - No !important: that privilege is reserved for the helpers layer.
+  Never edit the default theme. Your palette, type, and overrides go in a
+  theme of your own, imported after this one (copy theme.starter.css). The
+  parts here land in the `theme.defaults` layer and your theme lands in
+  `theme.overrides`, so yours wins no matter the import order. A full
+  replacement skin works the same way: theme.wireframe.css composes this
+  entry and overrides on top.
 */
 
-@layer theme {
-  :root {
-    /* A new palette usually gets you 80% of the way:              */
-    /* --base-0: #fff;                                             */
-    /* --primary-500: rebeccapurple;                               */
-    /* Then reach for interface and component tokens as needed:    */
-    /* --heading-font: Georgia, serif;                             */
-    /* --card-border-radius: 0;                                    */
-    /* A theme may also add scales the framework doesn't ship,     */
-    /* e.g. a second accent, and use them in its own style rules:  */
-    /* --secondary-500: teal;                                      */
-  }
-}
+@import url(./theme.default.tokens.css);
+@import url(./theme.default.ui.css);

@@ -8,24 +8,25 @@
   declarations beat unlayered CSS. Helpers are element-level overrides that
   win everywhere, like inline styling.
 */
-@layer settings, base, elements, global, components, theme, helpers;
+@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
 
 /* Build-time only (@custom-media + mixin definitions, no runtime output) */
 @import url(./settings.media-queries.css);
 @import url(./settings.mixins.css);
 
-/* Settings */
-@import url(./settings.tokens.css) layer(settings);
-@import url(./settings.ui.css) layer(settings);
-
 /*
-  No theme is imported here, ever: the framework only declares the empty
-  `theme` slot above. A theme (theme.*.css) is part of YOUR css: a swappable
-  theme of token overrides plus optional style rules that you activate, at
-  most one, from your own entry point (see _global.css for this site's).
-  Theme files self-layer (@layer theme inside the file), so wherever that
-  import sits it lands in this slot.
-  None imported = the default look (settings.* holds every default).
+  No theme is imported here, ever: the framework only declares the two
+  theme slots above. Every design value (scales and defaults) lives in the
+  default theme, which YOUR entry point activates right after this file:
+
+    @import url(./framework/mcss.css);
+    @import url(./framework/theme.default.css);
+
+  Without it, every token is unset and the page renders half-styled. Your
+  own theme (copy theme.starter.css) imports after that and lands in
+  `theme.overrides`, so it beats the default's `theme.defaults` no matter
+  the import order. Theme files self-layer, so no layer() annotation is
+  needed on their imports. See _global.css for this site's entry.
 */
 
 /* Reset & Normalize */
