@@ -122,6 +122,11 @@
   /* Optional centered label on <hr>, e.g. "***" or a dingbat */
   --hr-content: "";
 
+  /* ins: the pastel background stays light in both modes, so the text
+     color pins dark */
+  --ins-color: var(--base-950);
+  --ins-background-color: var(--success-200);
+
   --marker-color: var(--highlight-500);
 
   --selection-color: light-dark(var(--base-950), var(--base-0));

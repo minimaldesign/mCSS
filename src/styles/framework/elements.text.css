@@ -145,7 +145,7 @@ dd + dt {
 }
 
 del {
-  text-decoration-color: var(--no-500);
+  text-decoration-color: var(--danger-500);
   text-decoration-style: wavy;
 }
 
@@ -270,9 +270,8 @@ i {
 
 ins {
   padding: 0.15em 0.3em;
-  /* pastel bg stays light in both modes, so pin a dark text color */
-  color: var(--base-950);
-  background-color: var(--yes-200);
+  color: var(--ins-color);
+  background-color: var(--ins-background-color);
   border-radius: var(--radius-sm);
   text-decoration: none;
   &::before {
