@@ -415,6 +415,9 @@ xxl: 1920px
     var(--primary-100),
     var(--primary-900)
   );
+  /* code/var/kbd where the inline chip styling doesn't apply
+     (inside headings and pre) */
+  --text-code-muted-color: light-dark(var(--base-500), var(--base-300));
 
   /* Code blocks (bare pre, astro-code, and the site's expressive-code
      frames all consume this) */
@@ -1022,7 +1025,7 @@ kbd {
   font-family: var(--mono);
   font-size: 0.9em;
   font-style: normal;
-  color: light-dark(var(--base-500), var(--base-300));
+  color: var(--text-code-muted-color);
 }
 
 :is(code, var, kbd):not(h1 *, h2 *, h3 *, h4 *, h5 *, h6 *, pre *) {

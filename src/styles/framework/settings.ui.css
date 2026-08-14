@@ -93,6 +93,9 @@
     var(--primary-100),
     var(--primary-900)
   );
+  /* code/var/kbd where the inline chip styling doesn't apply
+     (inside headings and pre) */
+  --text-code-muted-color: light-dark(var(--base-500), var(--base-300));
 
   /* Code blocks (bare pre, astro-code, and the site's expressive-code
      frames all consume this) */
