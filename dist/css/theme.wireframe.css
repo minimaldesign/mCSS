@@ -39,6 +39,11 @@ xxl: 1920px
   point (see theme.default.css).
 */
 
+/* Pin the layer order before anything else in this file: priority is
+   set by first declaration, so this skin slots correctly even if it
+   loads before mcss.css. */
+@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+
 @import url(./theme.default.css);
 
 /* Registered so it computes on the element that declares it and then

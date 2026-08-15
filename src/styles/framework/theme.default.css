@@ -19,5 +19,10 @@
   entry and overrides on top.
 */
 
+/* Pin the layer order before anything else in this file: priority is
+   set by first declaration, so a theme loaded before mcss.css still
+   slots correctly. */
+@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+
 @import url(./theme.default.tokens.css);
 @import url(./theme.default.ui.css);

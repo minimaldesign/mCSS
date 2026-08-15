@@ -1,6 +1,7 @@
 /*! mCSS v1.3.0 | MIT | https://mcss.dev */
 
 @layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
 /*
   mCSS framework entry point.
 
@@ -4592,6 +4593,10 @@ body.dev {
   replacement skin works the same way: theme.wireframe.css composes this
   entry and overrides on top.
 */
+
+/* Pin the layer order before anything else in this file: priority is
+   set by first declaration, so a theme loaded before mcss.css still
+   slots correctly. */
 
 /* DEFAULT THEME: TOKENS */
 
