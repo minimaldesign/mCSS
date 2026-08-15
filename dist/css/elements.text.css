@@ -173,7 +173,7 @@ dd + dt {
 }
 
 del {
-  text-decoration-color: var(--danger-500);
+  text-decoration-color: var(--no-500);
   text-decoration-style: wavy;
 }
 

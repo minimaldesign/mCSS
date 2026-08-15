@@ -68,7 +68,7 @@ UI tokens (`theme.default.ui.css`) are the public API of every component; they f
 
 - `--bt-background-color-hover`, `--notice-border-width`, `--avatar-status-dot-color-online`
 - No abbreviations (`--card-bg-color` is legacy; new tokens spell out `background-color`), no camelCase, no underscores.
-- Feedback colors: prefer the semantic aliases `--success-*` / `--danger-*` / `--warning-*` over the raw `--yes/no/maybe-*` scales.
+- Feedback colors come straight from the `--yes-*` / `--no-*` / `--maybe-*` palettes; there is no separate success/danger/warning alias tier.
 
 ### Logical vs physical direction
 

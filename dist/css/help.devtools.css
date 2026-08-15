@@ -49,9 +49,9 @@ body.dev {
   z-index: var(--z-top) !important;
   padding: var(--sm1) !important;
   font-size: 1rem !important;
-  color: var(--danger-500) !important;
-  background: var(--danger-100) !important;
-  border: 1px solid var(--danger-500) !important;
+  color: var(--no-500) !important;
+  background: var(--no-100) !important;
+  border: 1px solid var(--no-500) !important;
   border-radius: var(--radius-md) !important;
 }
 

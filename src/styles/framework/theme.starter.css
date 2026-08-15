@@ -1,4 +1,4 @@
-/* YOUR THEME (starter) */
+/* STARTER USER THEME */
 
 /*
   A theme is a file of token overrides, plus optional style rules for what
@@ -7,26 +7,22 @@
 
     @import url(./framework/mcss.css);
     @import url(./framework/theme.default.css);
-    @import url(./theme.acme.css);
+    @import url(./theme.my-project.css);
 
-  Everything this file doesn't mention falls back to the default theme.
-  It self-layers into `theme.user`, which beats the default theme's
-  `theme.default` no matter the import order. Never edit the default
-  theme files: your palette, type, and overrides all live here, which is
-  what keeps framework updates painless.
+  MAKE SURE you put all your overrides inside `@layer theme.user`
 
   Guidelines:
-  - Prefer token overrides. Override scale tokens (--base-*, --text) to
-    shift the whole palette or type, ui tokens (--ui-border-color,
-    --heading-font) for cross-cutting changes, or component tokens
-    (--bt-border-radius) for surgical ones.
-  - Rules are for what tokens can't express (pseudo-elements, nth-child
-    rhythm, text-decoration). Theme files are the one place allowed to
-    style framework classes from outside; they still lose to your
-    unlayered CSS and to helpers, by design.
-  - No !important: that privilege is reserved for the helpers layer.
-  - For a full swappable skin, write an entry that composes the default
-    theme and overrides on top instead: see theme.wireframe.css.
+
+  - Override values in `theme.default.tokens.css` for low level stuff
+    like colors, sizes, fonts, etc.
+  - For UI related stuff like button radius or component specific styles,
+    override values in `theme.default.ui.css`
+  - Add your own rules if a token can't do what you need (pseudo-elements,
+  nth-child,, text-decoration, etc.)
+  - Don't use !important. If you need to, you're doing something wrong.
+    Email me and I'll help you out.
+  - For a full swappable skin, look at ` theme.wireframe.css` to see
+    how it's done.
 */
 
 /* Pin the layer order before declaring into it: priority is set by
@@ -42,7 +38,7 @@
     /* Then reach for ui and component tokens as needed:           */
     /* --heading-font: Georgia, serif;                             */
     /* --card-border-radius: 0;                                    */
-    /* A theme may also add scales the framework doesn't ship,     */
+    /* A theme may also add tokens the framework doesn't ship,     */
     /* e.g. a second accent, and use them in its own style rules:  */
     /* --secondary-500: teal;                                      */
   }

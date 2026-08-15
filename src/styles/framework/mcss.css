@@ -1,32 +1,22 @@
 /*
   mCSS framework entry point.
 
-  The framework lives in named cascade layers, declared here in priority
-  order (later wins). The layer name, not import order, decides priority.
-  Anything a consumer writes OUTSIDE these layers beats the framework by
-  default, with one exception: helpers use !important, and important layered
-  declarations beat unlayered CSS. Helpers are element-level overrides that
-  win everywhere, like inline styling.
+  mCSS recreates the ITCSS specificity strategy using modern CSS layers.
+  Anything outside these layers has higher specificity, except helpers which use
+  `!important` to override everything, by design.
 */
 @layer base, elements, global, components, theme.default, theme.user, helpers;
 
-/* Build-time only (@custom-media + mixin definitions, no runtime output) */
 @import url(./settings.media-queries.css);
 @import url(./settings.mixins.css);
 
 /*
-  No theme is imported here, ever: the framework only declares the two
-  theme slots above. Every design value (scales and defaults) lives in the
-  default theme, which YOUR entry point activates right after this file:
+  Your theme is not imported here, but at the same level as mCSS:
 
     @import url(./framework/mcss.css);
     @import url(./framework/theme.default.css);
 
-  Without it, every token is unset and the page renders half-styled. Your
-  own theme (copy theme.starter.css) imports after that and lands in
-  `theme.user`, so it beats the default's `theme.default` no matter
-  the import order. Theme files self-layer, so no layer() annotation is
-  needed on their imports. See _global.css for this site's entry.
+  See the default theme for how to create your own.
 */
 
 /* Reset & Normalize */
@@ -51,16 +41,16 @@
 @import url(./global.wrap.css) layer(global);
 
 /*
-  No component is imported here either: this entry only declares the empty
-  `components` slot above. The component library lives in its own entry,
-  mcss.components.css, so consumers who build their own components can skip
-  it entirely. Import it alongside this file (any order: the slot declared
-  here decides priority) to get the full library.
+  Components are optional and not imported here
+  You import them at the same level as mCSS:
+
+    @import url(./framework/mcss.css);
+    @import url(./framework/mcss.components.css);
+
+  See the default theme for how to create your own.
 */
 
-/* Helpers for local overrides. Every declaration is !important on purpose: */
-/* important layered declarations beat unlayered CSS, so helpers win over */
-/* everything, including consumer CSS. */
+/* Helpers for local overrides. Every declaration is !important */
 /* (Use VERY sparingly, or you might as well use Tailwind…) */
 @import url(./help.colors.css) layer(helpers);
 @import url(./help.devtools.css) layer(helpers);

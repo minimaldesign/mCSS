@@ -28,23 +28,15 @@ xxl: 1920px
 /* DEFAULT THEME: UI */
 
 /*
-  The decisions. Every token here is named for what it's FOR (an
-  element, a component, or a shared meaning) and answers "what does this
-  thing use by default". Tokens named for what they ARE (--sm1, --base-500,
-  --bold) are scale tokens and live in theme.default.tokens.css. That's the
-  whole split: a name that mentions a UI thing belongs here; a name that
-  labels a step on a scale belongs there.
+  Tokens here are one abstraction level above raw tokens
+  They define styling for elements, components, or a shared style.
 
   Values, in order of preference:
   1. Another ui token, when the meaning is shared
-     (--input-border-color: var(--ui-border-color)).
-  2. A scale token, when the value should follow the system scales
-     (--fieldset-padding: var(--sm3)).
-  3. A raw value, only where following the scales would be wrong:
-     content (separator strings, icon URLs), geometry tuned to one
-     control (--toggle-width), or element-relative measures that track
-     the element's own type instead of the page (em heading spacing).
-     The test: "if a theme retuned the scales, should this follow?"
+     `--input-border-color: var(--ui-border-color)`
+  2. A raw token: `--fieldset-padding: var(--sm3)`
+  3. A raw value, only when it's not supposed to match a raw token
+     or when it's relative to the the element's own value (em heading spacing).
 
   Part of the default theme (see theme.default.css); don't edit it,
   override from your own theme (see theme.starter.css).
@@ -52,41 +44,20 @@ xxl: 1920px
 
 :root {
   /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
-     classes below. Unrelated to theme files, which are full themes. */
+     classes below. */
   color-scheme: light dark;
 
   --ui-border-color: light-dark(var(--base-200), var(--base-500));
-  /* Also consumed by the --shadow-* scale in theme.default.tokens.css:
-     the one reference between the files that runs upward, so shadows can
-     switch with the color scheme. Raw alpha colors: the palettes have no
-     alpha steps. */
+  /* Also used by the --shadow-*  in theme.default.tokens.css, The one reference
+     between the files that runs upward, so shadows can switch with the color
+     scheme. Raw alpha colors: the palettes have no alpha steps. */
   --ui-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
 
-  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css).
-     Raw 2px on purpose: an accessibility affordance that shouldn't move
-     when a theme retunes the decorative border scale. */
+  /* Keyboard focus ring (used by :focus-visible in global.a11y.css).
+     Raw 2px on purpose: an accessibility shouldn't change with the theme. */
   --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
-
-  /* Semantic feedback aliases over the raw feedback palettes.
-     Prefer these in components and themes; a theme can restyle feedback by
-     overriding the aliases without touching the raw scales. */
-  --success-100: var(--yes-100);
-  --success-200: var(--yes-200);
-  --success-300: var(--yes-300);
-  --success-400: var(--yes-400);
-  --success-500: var(--yes-500);
-  --danger-100: var(--no-100);
-  --danger-200: var(--no-200);
-  --danger-300: var(--no-300);
-  --danger-400: var(--no-400);
-  --danger-500: var(--no-500);
-  --warning-100: var(--maybe-100);
-  --warning-200: var(--maybe-200);
-  --warning-300: var(--maybe-300);
-  --warning-400: var(--maybe-400);
-  --warning-500: var(--maybe-500);
 }
 
 :root.theme-light {
@@ -110,10 +81,7 @@ xxl: 1920px
   --input-border-width: var(--border-sm);
   --input-border-color: var(--ui-border-color);
   --input-border-radius: var(--radius-md);
-  --input-border-color-invalid: light-dark(
-    var(--danger-500),
-    var(--danger-400)
-  );
+  --input-border-color-invalid: light-dark(var(--no-500), var(--no-400));
 
   /* Gap under a label that precedes its control */
   --label-spacing: var(--xs1);
@@ -128,16 +96,16 @@ xxl: 1920px
   --meter-height: var(--sm1);
   --meter-border-radius: var(--radius-md);
   --meter-track-color: var(--primary-100);
-  --meter-low-color: var(--danger-400);
-  --meter-medium-color: var(--warning-400);
-  --meter-high-color: var(--success-400);
+  --meter-low-color: var(--no-400);
+  --meter-medium-color: var(--maybe-400);
+  --meter-high-color: var(--yes-400);
 
   --progress-height: var(--sm1);
   --progress-color: var(--primary-500);
   --progress-track-color: var(--primary-100);
   --progress-border-radius: var(--radius-md);
 
-  /* select's chevron, applied as a mask painted with the text color;
+  /* select's chevron, applied as a mask using  text color;
      any url() works here, data URL or file */
   --select-icon-size: var(--sm3);
   --select-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E");
@@ -152,9 +120,8 @@ xxl: 1920px
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
-  /* details: same surface as dialog by default, on purpose but
-     independently overridable. Spacing is the gap between an open
-     summary and its content. */
+  /* details: same as dialog by default, on purpose, to be  independently
+     overridable. Spacing is the gap between an open summary and its content. */
   --details-padding: var(--sm1);
   --details-spacing: var(--xs3);
   --details-border-width: var(--border-sm);
@@ -268,7 +235,7 @@ xxl: 1920px
 
   /* ins: background stays light in both light/dark modes */
   --ins-color: var(--base-950);
-  --ins-background-color: var(--success-200);
+  --ins-background-color: var(--yes-200);
 
   --marker-color: var(--highlight-500);
 
@@ -321,20 +288,14 @@ xxl: 1920px
     var(--primary-600),
     var(--primary-500)
   );
-  --badge-success-color: light-dark(var(--success-500), var(--base-0));
-  --badge-success-background-color: light-dark(
-    var(--success-100),
-    var(--success-500)
-  );
-  --badge-danger-color: light-dark(var(--danger-500), var(--base-0));
-  --badge-danger-background-color: light-dark(
-    var(--danger-100),
-    var(--danger-500)
-  );
-  --badge-warning-color: light-dark(var(--warning-500), var(--base-950));
+  --badge-success-color: light-dark(var(--yes-500), var(--base-0));
+  --badge-success-background-color: light-dark(var(--yes-100), var(--yes-500));
+  --badge-danger-color: light-dark(var(--no-500), var(--base-0));
+  --badge-danger-background-color: light-dark(var(--no-100), var(--no-500));
+  --badge-warning-color: light-dark(var(--maybe-500), var(--base-950));
   --badge-warning-background-color: light-dark(
-    var(--warning-100),
-    var(--warning-500)
+    var(--maybe-100),
+    var(--maybe-500)
   );
 }
 
@@ -447,7 +408,7 @@ xxl: 1920px
 :root {
   --field-spacing: var(--xs1);
   --field-hint-color: light-dark(var(--base-400), var(--base-500));
-  --field-error-color: light-dark(var(--danger-500), var(--danger-300));
+  --field-error-color: light-dark(var(--no-500), var(--no-300));
   /*Field's hint/error position. Use `static` to reflow under, use `absolute`
   (and leave enough space below) if you don't want any shift on errors */
   --field-message-position: static;
@@ -552,7 +513,7 @@ xxl: 1920px
     var(--primary-600),
     var(--primary-400)
   );
-  --pricingCard-check-color: light-dark(var(--success-500), var(--success-400));
+  --pricingCard-check-color: light-dark(var(--yes-500), var(--yes-400));
 }
 
 /* Read Progress Bar */

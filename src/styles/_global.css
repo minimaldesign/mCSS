@@ -3,27 +3,10 @@
 /* mCSS component library (fills the `components` layer slot) */
 @import url(./framework/mcss.components.css);
 
-/*
-  Theme activation. Themes are part of this site's CSS, not the
-  framework's: mcss.css declares the theme layer slots but never fills
-  them. The default theme carries every design value, so activate exactly
-  one theme entry: theme.default.css for the stock look, or a skin like
-  theme.wireframe.css that composes the default and overrides on top. A
-  theme of this site's own would import after the default and land in
-  `theme.user` (copy theme.starter.css). No layer() annotation:
-  theme files self-layer. Unlayered site styles below beat any theme
-  no matter where these lines sit.
-*/
 @import url(./framework/theme.default.css);
 /* @import url(./framework/theme.wireframe.css); */
 
-/*
-  Site-only styles (docs site chrome, internal components, pages).
-  UNLAYERED: their normal declarations beat the framework layers and match
-  the cascade of other unlayered site CSS (expressive-code, Astro scoped
-  styles). Helpers still win everywhere: their !important declarations beat
-  unlayered CSS too.
-*/
+/* Site-only styles (mCSS specific) */
 @import url(./site/global.layout.css);
 
 @import url(./site/component.header.css);
@@ -45,7 +28,7 @@
 @import url(./site/component.selectMask.css);
 
 /*  Page specific styles */
-/* (Use sparingly. Component is probably the way to go) */
+/* (Use sparingly. Components are usually the way to go) */
 @import url(./site/page.blog.css);
 @import url(./site/page.docs.css);
 @import url(./site/page.home.css);

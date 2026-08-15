@@ -1,12 +1,12 @@
 /* DEFAULT THEME: TOKENS */
 
 /*
-  The scales: every token here is named for what it IS (a step on a scale),
-  never for what it's for. Part of the default theme (see theme.default.css);
-  don't edit it, override from your own theme (see theme.starter.css).
+  Raw design tokens. Part of the default theme (see theme.default.css);
+  Don't edit this file directly. Thee best way is to Override it with your
+  own theme (see theme.starter.css).
 
   Can't use var() inside media queries, so breakpoints are hard coded in
-  settings.media-queries.css:
+  settings.media-queries.css instead of custom properties
   xxs: 240px xs: 360px sm: 480px md: 768px lg: 1024px xl: 1440px xxl: 1920px
 */
 
@@ -24,18 +24,22 @@
 
 • Colors
 
-• Box shadows
-• Border radius
 • Border width
+• Border radius
+
+• Box shadows
+
 • Opacity
+
+• Z-index
+
+• Transitions
+
 */
 
 :root {
-  /* GLOBALS */
 
   /* DIMENSIONS */
-
-  /* Sizes */
 
   --xs1: 4px;
   --xs2: 8px;
@@ -73,18 +77,20 @@
   --tera2: 480px;
   --tera3: 520px;
 
-  /* Aspect Ratios */
+  /* ASPECT RATIOS */
+
   --ar-square: 1;
   --ar-landscape: 4/3;
   --ar-portrait: 3/4;
   --ar-widescreen: 16/9;
   --ar-golden: 1.618/1;
 
-  /* TYPOGRAPHY */
-  /* See also elements.text & help.text */
+  /*  */
 
-  /* Font Families */
-  /* Local font stacks - More options @ https://modernfontstacks.com */
+  /* (More typography in elements.text & help.text)  */
+
+  /* FONT FAMILIES (https://modernfontstacks.com) */
+
   --display:
     Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif,
     sans-serif;
@@ -94,8 +100,8 @@
     Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono,
     ui-monospace, monospace;
 
-  /* Font Sizes */
-  /* Create your own sizes @ https://typescale.com */
+  /* FONT SIZES (https://typescale.com) */
+
   --text-xs: 0.694rem;
   --text-sm: 0.833rem;
   --text-md: 1rem;
@@ -108,11 +114,8 @@
   --display-mega: 3.583rem;
   --display-giga: 4.299rem;
 
-  /* Heading font sizes are decisions, not scale steps: they map each
-     heading level onto this scale. See --heading-font-size-* in
-     theme.default.ui.css. */
+  /* FONT WEIGHTS */
 
-  /* Font Weights */
   --extra-light: 200;
   --light: 300;
   --book: 400;
@@ -120,14 +123,16 @@
   --bold: 700;
   --black: 900;
 
-  /* Letter Spacing */
+  /* LETTER SPACING */
+
   --tracking-sm: -0.05em;
   --tracking-md: 0.025em;
   --tracking-lg: 0.05em;
   --tracking-xl: 0.075em;
   --tracking-xxl: 0.15em;
 
-  /* Line Height */
+  /* LINE HEIGHT */
+
   --leading-xs: 1;
   --leading-sm: 1.15;
   --leading-md: 1.375;
@@ -135,8 +140,7 @@
   --leading-xl: 1.75;
   --leading-xxl: 2;
 
-  /* COLORS */
-  /* Make your own palettes programmatically: https://www.tints.dev */
+  /* COLORS (https://www.tints.dev) */
 
   /* Base */
 
@@ -166,8 +170,6 @@
   --primary-800: #075985;
   --primary-900: #0c4a6e;
   --primary-950: #082f49;
-
-  /* Secondary and/or Highlight goes here */
 
   /* Feedback */
 

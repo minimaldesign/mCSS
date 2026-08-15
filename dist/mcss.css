@@ -5,15 +5,11 @@
 /*
   mCSS framework entry point.
 
-  The framework lives in named cascade layers, declared here in priority
-  order (later wins). The layer name, not import order, decides priority.
-  Anything a consumer writes OUTSIDE these layers beats the framework by
-  default, with one exception: helpers use !important, and important layered
-  declarations beat unlayered CSS. Helpers are element-level overrides that
-  win everywhere, like inline styling.
+  mCSS recreates the ITCSS specificity strategy using modern CSS layers.
+  Anything outside these layers has higher specificity, except helpers which use
+  `!important` to override everything, by design.
 */
 
-/* Build-time only (@custom-media + mixin definitions, no runtime output) */
 /*
 SETTINGS MEDIA QUERIES
 
@@ -39,18 +35,12 @@ xxl: 1920px
 /* truncate single line of text and adds … */
 
 /*
-  No theme is imported here, ever: the framework only declares the two
-  theme slots above. Every design value (scales and defaults) lives in the
-  default theme, which YOUR entry point activates right after this file:
+  Your theme is not imported here, but at the same level as mCSS:
 
     @import url(./framework/mcss.css);
     @import url(./framework/theme.default.css);
 
-  Without it, every token is unset and the page renders half-styled. Your
-  own theme (copy theme.starter.css) imports after that and lands in
-  `theme.user`, so it beats the default's `theme.default` no matter
-  the import order. Theme files self-layer, so no layer() annotation is
-  needed on their imports. See _global.css for this site's entry.
+  See the default theme for how to create your own.
 */
 
 /* Reset & Normalize */
@@ -305,7 +295,7 @@ dd + dt {
 }
 
 del {
-  text-decoration-color: var(--danger-500);
+  text-decoration-color: var(--no-500);
   text-decoration-style: wavy;
 }
 
@@ -1877,16 +1867,16 @@ details {
 }
 
 /*
-  No component is imported here either: this entry only declares the empty
-  `components` slot above. The component library lives in its own entry,
-  mcss.components.css, so consumers who build their own components can skip
-  it entirely. Import it alongside this file (any order: the slot declared
-  here decides priority) to get the full library.
+  Components are optional and not imported here
+  You import them at the same level as mCSS:
+
+    @import url(./framework/mcss.css);
+    @import url(./framework/mcss.components.css);
+
+  See the default theme for how to create your own.
 */
 
-/* Helpers for local overrides. Every declaration is !important on purpose: */
-/* important layered declarations beat unlayered CSS, so helpers win over */
-/* everything, including consumer CSS. */
+/* Helpers for local overrides. Every declaration is !important */
 /* (Use VERY sparingly, or you might as well use Tailwind…) */
 @layer helpers{
 /* HELPER COLORS */
@@ -2375,9 +2365,9 @@ body.dev {
   z-index: var(--z-top) !important;
   padding: var(--sm1) !important;
   font-size: 1rem !important;
-  color: var(--danger-500) !important;
-  background: var(--danger-100) !important;
-  border: 1px solid var(--danger-500) !important;
+  color: var(--no-500) !important;
+  background: var(--no-100) !important;
+  border: 1px solid var(--no-500) !important;
   border-radius: var(--radius-md) !important;
 }
 }
@@ -4573,47 +4563,39 @@ body.dev {
   text-transform: capitalize !important;
 }
 }
-/* DEFAULT THEME (entry) */
+/* DEFAULT THEME */
 
 /*
-  The framework's design values: the scales (theme.default.tokens.css) and
-  the defaults every element and component consumes (theme.default.ui.css).
-  Activate it from your own entry point, right after mcss.css:
+  Basic design tokens and UI abstractions
+  Import it next to mcss.css
 
     @import url(./framework/mcss.css);
     @import url(./framework/theme.default.css);
 
   mcss.css imports no theme itself; without this file every token is unset
-  and the page renders half-styled.
+  and the page will look broken..
 
-  Never edit the default theme. Your palette, type, and overrides go in a
-  theme of your own, imported after this one (copy theme.starter.css). The
-  parts here land in the `theme.default` layer and your theme lands in
-  `theme.user`, so yours wins no matter the import order. A full
-  replacement skin works the same way: theme.wireframe.css composes this
-  entry and overrides on top.
+  Don't edit the  default theme.
+
+  To make your own theme,  either duplicate/rename the 2 files below and
+  import theme instead of the default, or just override the bits you want
+  to change and imported that AFTER the defaults. There is `theme.starter.css`
+  to get you started if you want to go that road (recommended)).
 */
 
-/* Pin the layer order before anything else in this file: priority is
-   set by first declaration, so a theme loaded before mcss.css still
-   slots correctly. */
-
-/* The parts are plain CSS; this entry assigns their layer, the same way
-   mcss.css layers the structural files. (Only standalone theme files
-   self-layer; in dist/css the parts are pre-wrapped so a lone <link>
-   still works.) */
+/* Defensive redundancy - Same layers as in mcss.css */
 
 @layer theme.default{
 
 /* DEFAULT THEME: TOKENS */
 
 /*
-  The scales: every token here is named for what it IS (a step on a scale),
-  never for what it's for. Part of the default theme (see theme.default.css);
-  don't edit it, override from your own theme (see theme.starter.css).
+  Raw design tokens. Part of the default theme (see theme.default.css);
+  Don't edit this file directly. Thee best way is to Override it with your
+  own theme (see theme.starter.css).
 
   Can't use var() inside media queries, so breakpoints are hard coded in
-  settings.media-queries.css:
+  settings.media-queries.css instead of custom properties
   xxs: 240px xs: 360px sm: 480px md: 768px lg: 1024px xl: 1440px xxl: 1920px
 */
 
@@ -4631,18 +4613,22 @@ body.dev {
 
 • Colors
 
-• Box shadows
-• Border radius
 • Border width
+• Border radius
+
+• Box shadows
+
 • Opacity
+
+• Z-index
+
+• Transitions
+
 */
 
 :root {
-  /* GLOBALS */
 
   /* DIMENSIONS */
-
-  /* Sizes */
 
   --xs1: 4px;
   --xs2: 8px;
@@ -4680,18 +4666,20 @@ body.dev {
   --tera2: 480px;
   --tera3: 520px;
 
-  /* Aspect Ratios */
+  /* ASPECT RATIOS */
+
   --ar-square: 1;
   --ar-landscape: 4/3;
   --ar-portrait: 3/4;
   --ar-widescreen: 16/9;
   --ar-golden: 1.618/1;
 
-  /* TYPOGRAPHY */
-  /* See also elements.text & help.text */
+  /*  */
 
-  /* Font Families */
-  /* Local font stacks - More options @ https://modernfontstacks.com */
+  /* (More typography in elements.text & help.text)  */
+
+  /* FONT FAMILIES (https://modernfontstacks.com) */
+
   --display:
     Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, ui-sans-serif,
     sans-serif;
@@ -4701,8 +4689,8 @@ body.dev {
     Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono,
     ui-monospace, monospace;
 
-  /* Font Sizes */
-  /* Create your own sizes @ https://typescale.com */
+  /* FONT SIZES (https://typescale.com) */
+
   --text-xs: 0.694rem;
   --text-sm: 0.833rem;
   --text-md: 1rem;
@@ -4715,11 +4703,8 @@ body.dev {
   --display-mega: 3.583rem;
   --display-giga: 4.299rem;
 
-  /* Heading font sizes are decisions, not scale steps: they map each
-     heading level onto this scale. See --heading-font-size-* in
-     theme.default.ui.css. */
+  /* FONT WEIGHTS */
 
-  /* Font Weights */
   --extra-light: 200;
   --light: 300;
   --book: 400;
@@ -4727,14 +4712,16 @@ body.dev {
   --bold: 700;
   --black: 900;
 
-  /* Letter Spacing */
+  /* LETTER SPACING */
+
   --tracking-sm: -0.05em;
   --tracking-md: 0.025em;
   --tracking-lg: 0.05em;
   --tracking-xl: 0.075em;
   --tracking-xxl: 0.15em;
 
-  /* Line Height */
+  /* LINE HEIGHT */
+
   --leading-xs: 1;
   --leading-sm: 1.15;
   --leading-md: 1.375;
@@ -4742,8 +4729,7 @@ body.dev {
   --leading-xl: 1.75;
   --leading-xxl: 2;
 
-  /* COLORS */
-  /* Make your own palettes programmatically: https://www.tints.dev */
+  /* COLORS (https://www.tints.dev) */
 
   /* Base */
 
@@ -4773,8 +4759,6 @@ body.dev {
   --primary-800: #075985;
   --primary-900: #0c4a6e;
   --primary-950: #082f49;
-
-  /* Secondary and/or Highlight goes here */
 
   /* Feedback */
 
@@ -4863,23 +4847,15 @@ body.dev {
 /* DEFAULT THEME: UI */
 
 /*
-  The decisions. Every token here is named for what it's FOR (an
-  element, a component, or a shared meaning) and answers "what does this
-  thing use by default". Tokens named for what they ARE (--sm1, --base-500,
-  --bold) are scale tokens and live in theme.default.tokens.css. That's the
-  whole split: a name that mentions a UI thing belongs here; a name that
-  labels a step on a scale belongs there.
+  Tokens here are one abstraction level above raw tokens
+  They define styling for elements, components, or a shared style.
 
   Values, in order of preference:
   1. Another ui token, when the meaning is shared
-     (--input-border-color: var(--ui-border-color)).
-  2. A scale token, when the value should follow the system scales
-     (--fieldset-padding: var(--sm3)).
-  3. A raw value, only where following the scales would be wrong:
-     content (separator strings, icon URLs), geometry tuned to one
-     control (--toggle-width), or element-relative measures that track
-     the element's own type instead of the page (em heading spacing).
-     The test: "if a theme retuned the scales, should this follow?"
+     `--input-border-color: var(--ui-border-color)`
+  2. A raw token: `--fieldset-padding: var(--sm3)`
+  3. A raw value, only when it's not supposed to match a raw token
+     or when it's relative to the the element's own value (em heading spacing).
 
   Part of the default theme (see theme.default.css); don't edit it,
   override from your own theme (see theme.starter.css).
@@ -4887,41 +4863,20 @@ body.dev {
 
 :root {
   /* Color scheme (light/dark), toggled by the .theme-light / .theme-dark
-     classes below. Unrelated to theme files, which are full themes. */
+     classes below. */
   color-scheme: light dark;
 
   --ui-border-color: light-dark(var(--base-200), var(--base-500));
-  /* Also consumed by the --shadow-* scale in theme.default.tokens.css:
-     the one reference between the files that runs upward, so shadows can
-     switch with the color scheme. Raw alpha colors: the palettes have no
-     alpha steps. */
+  /* Also used by the --shadow-*  in theme.default.tokens.css, The one reference
+     between the files that runs upward, so shadows can switch with the color
+     scheme. Raw alpha colors: the palettes have no alpha steps. */
   --ui-shadow-color: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.6));
 
-  /* Keyboard focus ring (consumed by :focus-visible in global.a11y.css).
-     Raw 2px on purpose: an accessibility affordance that shouldn't move
-     when a theme retunes the decorative border scale. */
+  /* Keyboard focus ring (used by :focus-visible in global.a11y.css).
+     Raw 2px on purpose: an accessibility shouldn't change with the theme. */
   --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
-
-  /* Semantic feedback aliases over the raw feedback palettes.
-     Prefer these in components and themes; a theme can restyle feedback by
-     overriding the aliases without touching the raw scales. */
-  --success-100: var(--yes-100);
-  --success-200: var(--yes-200);
-  --success-300: var(--yes-300);
-  --success-400: var(--yes-400);
-  --success-500: var(--yes-500);
-  --danger-100: var(--no-100);
-  --danger-200: var(--no-200);
-  --danger-300: var(--no-300);
-  --danger-400: var(--no-400);
-  --danger-500: var(--no-500);
-  --warning-100: var(--maybe-100);
-  --warning-200: var(--maybe-200);
-  --warning-300: var(--maybe-300);
-  --warning-400: var(--maybe-400);
-  --warning-500: var(--maybe-500);
 }
 
 :root.theme-light {
@@ -4945,10 +4900,7 @@ body.dev {
   --input-border-width: var(--border-sm);
   --input-border-color: var(--ui-border-color);
   --input-border-radius: var(--radius-md);
-  --input-border-color-invalid: light-dark(
-    var(--danger-500),
-    var(--danger-400)
-  );
+  --input-border-color-invalid: light-dark(var(--no-500), var(--no-400));
 
   /* Gap under a label that precedes its control */
   --label-spacing: var(--xs1);
@@ -4963,16 +4915,16 @@ body.dev {
   --meter-height: var(--sm1);
   --meter-border-radius: var(--radius-md);
   --meter-track-color: var(--primary-100);
-  --meter-low-color: var(--danger-400);
-  --meter-medium-color: var(--warning-400);
-  --meter-high-color: var(--success-400);
+  --meter-low-color: var(--no-400);
+  --meter-medium-color: var(--maybe-400);
+  --meter-high-color: var(--yes-400);
 
   --progress-height: var(--sm1);
   --progress-color: var(--primary-500);
   --progress-track-color: var(--primary-100);
   --progress-border-radius: var(--radius-md);
 
-  /* select's chevron, applied as a mask painted with the text color;
+  /* select's chevron, applied as a mask using  text color;
      any url() works here, data URL or file */
   --select-icon-size: var(--sm3);
   --select-icon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='chevron-down'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E");
@@ -4987,9 +4939,8 @@ body.dev {
   --dialog-backdrop-color: var(--base-950);
   --dialog-backdrop-opacity: var(--o-4);
 
-  /* details: same surface as dialog by default, on purpose but
-     independently overridable. Spacing is the gap between an open
-     summary and its content. */
+  /* details: same as dialog by default, on purpose, to be  independently
+     overridable. Spacing is the gap between an open summary and its content. */
   --details-padding: var(--sm1);
   --details-spacing: var(--xs3);
   --details-border-width: var(--border-sm);
@@ -5103,7 +5054,7 @@ body.dev {
 
   /* ins: background stays light in both light/dark modes */
   --ins-color: var(--base-950);
-  --ins-background-color: var(--success-200);
+  --ins-background-color: var(--yes-200);
 
   --marker-color: var(--highlight-500);
 
@@ -5156,20 +5107,14 @@ body.dev {
     var(--primary-600),
     var(--primary-500)
   );
-  --badge-success-color: light-dark(var(--success-500), var(--base-0));
-  --badge-success-background-color: light-dark(
-    var(--success-100),
-    var(--success-500)
-  );
-  --badge-danger-color: light-dark(var(--danger-500), var(--base-0));
-  --badge-danger-background-color: light-dark(
-    var(--danger-100),
-    var(--danger-500)
-  );
-  --badge-warning-color: light-dark(var(--warning-500), var(--base-950));
+  --badge-success-color: light-dark(var(--yes-500), var(--base-0));
+  --badge-success-background-color: light-dark(var(--yes-100), var(--yes-500));
+  --badge-danger-color: light-dark(var(--no-500), var(--base-0));
+  --badge-danger-background-color: light-dark(var(--no-100), var(--no-500));
+  --badge-warning-color: light-dark(var(--maybe-500), var(--base-950));
   --badge-warning-background-color: light-dark(
-    var(--warning-100),
-    var(--warning-500)
+    var(--maybe-100),
+    var(--maybe-500)
   );
 }
 
@@ -5282,7 +5227,7 @@ body.dev {
 :root {
   --field-spacing: var(--xs1);
   --field-hint-color: light-dark(var(--base-400), var(--base-500));
-  --field-error-color: light-dark(var(--danger-500), var(--danger-300));
+  --field-error-color: light-dark(var(--no-500), var(--no-300));
   /*Field's hint/error position. Use `static` to reflow under, use `absolute`
   (and leave enough space below) if you don't want any shift on errors */
   --field-message-position: static;
@@ -5387,7 +5332,7 @@ body.dev {
     var(--primary-600),
     var(--primary-400)
   );
-  --pricingCard-check-color: light-dark(var(--success-500), var(--success-400));
+  --pricingCard-check-color: light-dark(var(--yes-500), var(--yes-400));
 }
 
 /* Read Progress Bar */
