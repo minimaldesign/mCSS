@@ -25,5 +25,9 @@
    slots correctly. */
 @layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
 
-@import url(./theme.default.tokens.css);
-@import url(./theme.default.ui.css);
+/* The parts are plain CSS; this entry assigns their layer, the same way
+   mcss.css layers the structural files. (Only standalone theme files
+   self-layer; in dist/css the parts are pre-wrapped so a lone <link>
+   still works.) */
+@import url(./theme.default.tokens.css) layer(theme.defaults);
+@import url(./theme.default.ui.css) layer(theme.defaults);

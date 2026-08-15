@@ -135,20 +135,24 @@ for (const file of files) {
   const css = await readFile(join(SRC, file), "utf8");
   // Prepend the build-time settings so @custom-media/@mixin resolve, then
   // wrap the file's own rules in its layer. preset-env removes the
-  // @custom-media definitions from the output. Theme files self-layer, so
-  // they're not re-wrapped. In the index the default theme import is
-  // active (the framework doesn't paint without a theme); other theme
-  // entries are commented: swap which one is active to change skins.
-  const selfLayered = layer === "theme";
+  // @custom-media definitions from the output. Standalone theme files
+  // (starter, skins) self-layer, so they're not re-wrapped; the default
+  // theme's parts are plain CSS layered by their entry in source, so the
+  // dist copies get wrapped here so a lone <link> still slots correctly.
+  // In the index the default theme import is active (the framework
+  // doesn't paint without a theme); other theme entries are commented:
+  // swap which one is active to change skins.
   const importsOnly = file === "theme.default.css";
+  const isDefaultPart = file.startsWith("theme.default.") && !importsOnly;
+  const selfLayered = layer === "theme" && !isDefaultPart;
+  const wrapLayer = isDefaultPart ? "theme.defaults" : layer;
   const wrapped = importsOnly
     ? css
     : selfLayered
       ? `${settingsPrelude}\n${css}`
-      : `${settingsPrelude}\n@layer ${layer} {\n${css}\n}`;
+      : `${settingsPrelude}\n@layer ${wrapLayer} {\n${css}\n}`;
   const processed = await process(wrapped, join(SRC, file));
   await writeFile(join(OUT, "css", file), BANNER + processed.trim() + "\n");
-  const isDefaultPart = file.startsWith("theme.default.") && !importsOnly;
   indexImports.push(
     importsOnly
       ? `@import url(./${file}); /* the default theme */`
