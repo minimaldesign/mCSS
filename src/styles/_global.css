@@ -10,7 +10,7 @@
   one theme entry: theme.default.css for the stock look, or a skin like
   theme.wireframe.css that composes the default and overrides on top. A
   theme of this site's own would import after the default and land in
-  `theme.overrides` (copy theme.starter.css). No layer() annotation:
+  `theme.user` (copy theme.starter.css). No layer() annotation:
   theme files self-layer. Unlayered site styles below beat any theme
   no matter where these lines sit.
 */

@@ -8,7 +8,7 @@
   declarations beat unlayered CSS. Helpers are element-level overrides that
   win everywhere, like inline styling.
 */
-@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+@layer base, elements, global, components, theme.default, theme.user, helpers;
 
 /* Build-time only (@custom-media + mixin definitions, no runtime output) */
 @import url(./settings.media-queries.css);
@@ -24,7 +24,7 @@
 
   Without it, every token is unset and the page renders half-styled. Your
   own theme (copy theme.starter.css) imports after that and lands in
-  `theme.overrides`, so it beats the default's `theme.defaults` no matter
+  `theme.user`, so it beats the default's `theme.default` no matter
   the import order. Theme files self-layer, so no layer() annotation is
   needed on their imports. See _global.css for this site's entry.
 */

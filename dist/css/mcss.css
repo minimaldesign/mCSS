@@ -1,5 +1,5 @@
 /*! mCSS v1.3.0 | MIT | https://mcss.dev */
-@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+@layer base, elements, global, components, theme.default, theme.user, helpers;
 @import url(./base.reset.css) layer(base);
 @import url(./component.avatar.css) layer(components);
 @import url(./component.badge.css) layer(components);

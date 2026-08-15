@@ -40,7 +40,7 @@ Activate the default theme right after the framework, then (optionally) your own
 
 A full swappable skin like the wireframe replaces the default import instead: `theme.wireframe.css` is an entry that composes `theme.default.css` itself and overrides on top, so you import it INSTEAD of the default. Either way you activate exactly one theme entry.
 
-Theme files are **self-layered**, so they land in the right cascade slot no matter how you load them (plain `@import`, a `<link>` tag on a `dist/css` file, or a bundler); no `layer()` annotation needed. The default theme's parts layer into `theme.defaults`, and your theme layers into `theme.overrides`, which comes after it: **your theme beats the default no matter the import order.** Both sit after `components` and before `helpers`, so any theme beats the framework's structure but still loses to your own unlayered CSS and to [helpers](/docs/helpers). The layer order runs from default to deliberate: the framework's layers and the default theme are what things look like when nobody has an opinion, your theme is a deliberate opinion about those defaults, and your unlayered CSS is more deliberate still.
+Theme files are **self-layered**, so they land in the right cascade slot no matter how you load them (plain `@import`, a `<link>` tag on a `dist/css` file, or a bundler); no `layer()` annotation needed. The default theme's parts layer into `theme.default`, and your theme layers into `theme.user`, which comes after it: **your theme beats the default no matter the import order.** Both sit after `components` and before `helpers`, so any theme beats the framework's structure but still loses to your own unlayered CSS and to [helpers](/docs/helpers). The layer order runs from default to deliberate: the framework's layers and the default theme are what things look like when nobody has an opinion, your theme is a deliberate opinion about those defaults, and your unlayered CSS is more deliberate still.
 
 </section>
 
@@ -56,7 +56,7 @@ Themes work because the default theme is built in two halves your overrides can 
 Because components read `var(--ui-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
 
 ```css
-@layer theme.overrides {
+@layer theme.user {
   :root {
     /* Whole palette shifts */
     --base-950: #1a1208;

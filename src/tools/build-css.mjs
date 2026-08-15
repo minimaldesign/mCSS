@@ -79,7 +79,7 @@ function layerOf(file) {
 }
 
 const LAYER_STATEMENT =
-  "@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;\n";
+  "@layer base, elements, global, components, theme.default, theme.user, helpers;\n";
 
 // Rebuild dist/css from scratch so renamed or deleted source files can't
 // leave stale outputs behind.
@@ -145,7 +145,7 @@ for (const file of files) {
   const importsOnly = file === "theme.default.css";
   const isDefaultPart = file.startsWith("theme.default.") && !importsOnly;
   const selfLayered = layer === "theme" && !isDefaultPart;
-  const wrapLayer = isDefaultPart ? "theme.defaults" : layer;
+  const wrapLayer = isDefaultPart ? "theme.default" : layer;
   const wrapped = importsOnly
     ? css
     : selfLayered

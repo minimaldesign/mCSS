@@ -34,15 +34,15 @@ xxl: 1920px
 
   A full skin is an entry that composes the default theme and overrides
   on top: the import below brings in every default, and this file's own
-  rules land in `theme.overrides`, which wins over the default's
-  `theme.defaults`. Activate exactly one theme entry from your own entry
+  rules land in `theme.user`, which wins over the default's
+  `theme.default`. Activate exactly one theme entry from your own entry
   point (see theme.default.css).
 */
 
 /* Pin the layer order before anything else in this file: priority is
    set by first declaration, so this skin slots correctly even if it
    loads before mcss.css. */
-@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+@layer base, elements, global, components, theme.default, theme.user, helpers;
 
 @import url(./theme.default.css);
 
@@ -56,7 +56,7 @@ xxl: 1920px
   initial-value: 1;
 }
 
-@layer theme.overrides {
+@layer theme.user {
   :root {
     /* COLORS: everything goes grayscale, including the primary scale */
 

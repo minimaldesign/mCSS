@@ -1,7 +1,7 @@
 /*! mCSS v1.3.0 | MIT | https://mcss.dev */
 
-@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
-@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+@layer base, elements, global, components, theme.default, theme.user, helpers;
+@layer base, elements, global, components, theme.default, theme.user, helpers;
 /*
   mCSS framework entry point.
 
@@ -48,7 +48,7 @@ xxl: 1920px
 
   Without it, every token is unset and the page renders half-styled. Your
   own theme (copy theme.starter.css) imports after that and lands in
-  `theme.overrides`, so it beats the default's `theme.defaults` no matter
+  `theme.user`, so it beats the default's `theme.default` no matter
   the import order. Theme files self-layer, so no layer() annotation is
   needed on their imports. See _global.css for this site's entry.
 */
@@ -4588,8 +4588,8 @@ body.dev {
 
   Never edit the default theme. Your palette, type, and overrides go in a
   theme of your own, imported after this one (copy theme.starter.css). The
-  parts here land in the `theme.defaults` layer and your theme lands in
-  `theme.overrides`, so yours wins no matter the import order. A full
+  parts here land in the `theme.default` layer and your theme lands in
+  `theme.user`, so yours wins no matter the import order. A full
   replacement skin works the same way: theme.wireframe.css composes this
   entry and overrides on top.
 */
@@ -4603,7 +4603,7 @@ body.dev {
    self-layer; in dist/css the parts are pre-wrapped so a lone <link>
    still works.) */
 
-@layer theme.defaults{
+@layer theme.default{
 
 /* DEFAULT THEME: TOKENS */
 
@@ -4858,7 +4858,7 @@ body.dev {
 }
 }
 
-@layer theme.defaults{
+@layer theme.default{
 
 /* DEFAULT THEME: UI */
 

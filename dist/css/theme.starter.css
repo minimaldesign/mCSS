@@ -36,8 +36,8 @@ xxl: 1920px
     @import url(./theme.acme.css);
 
   Everything this file doesn't mention falls back to the default theme.
-  It self-layers into `theme.overrides`, which beats the default theme's
-  `theme.defaults` no matter the import order. Never edit the default
+  It self-layers into `theme.user`, which beats the default theme's
+  `theme.default` no matter the import order. Never edit the default
   theme files: your palette, type, and overrides all live here, which is
   what keeps framework updates painless.
 
@@ -58,9 +58,9 @@ xxl: 1920px
 /* Pin the layer order before declaring into it: priority is set by
    first declaration, so this file slots correctly even if it loads
    before mcss.css. */
-@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+@layer base, elements, global, components, theme.default, theme.user, helpers;
 
-@layer theme.overrides {
+@layer theme.user {
   :root {
     /* A new palette usually gets you 80% of the way:              */
     /* --base-0: #fff;                                             */

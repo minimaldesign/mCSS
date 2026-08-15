@@ -13,8 +13,8 @@
 
   Never edit the default theme. Your palette, type, and overrides go in a
   theme of your own, imported after this one (copy theme.starter.css). The
-  parts here land in the `theme.defaults` layer and your theme lands in
-  `theme.overrides`, so yours wins no matter the import order. A full
+  parts here land in the `theme.default` layer and your theme lands in
+  `theme.user`, so yours wins no matter the import order. A full
   replacement skin works the same way: theme.wireframe.css composes this
   entry and overrides on top.
 */
@@ -22,11 +22,11 @@
 /* Pin the layer order before anything else in this file: priority is
    set by first declaration, so a theme loaded before mcss.css still
    slots correctly. */
-@layer base, elements, global, components, theme.defaults, theme.overrides, helpers;
+@layer base, elements, global, components, theme.default, theme.user, helpers;
 
 /* The parts are plain CSS; this entry assigns their layer, the same way
    mcss.css layers the structural files. (Only standalone theme files
    self-layer; in dist/css the parts are pre-wrapped so a lone <link>
    still works.) */
-@import url(./theme.default.tokens.css) layer(theme.defaults);
-@import url(./theme.default.ui.css) layer(theme.defaults);
+@import url(./theme.default.tokens.css) layer(theme.default);
+@import url(./theme.default.ui.css) layer(theme.default);

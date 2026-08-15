@@ -24,7 +24,7 @@ xxl: 1920px
 
 /* truncate single line of text and adds … */
 
-@layer theme.defaults {
+@layer theme.default {
 /* DEFAULT THEME: TOKENS */
 
 /*
