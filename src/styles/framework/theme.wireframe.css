@@ -7,10 +7,12 @@
   bottom cover what tokens can't express.
 
   A full skin is an entry that composes the default theme and overrides
-  on top: the import below brings in every default, and this file's own
-  rules land in `theme.user`, which wins over the default's
-  `theme.default`. Activate exactly one theme entry from your own entry
-  point (see theme.default.css).
+  on top. This file contains ONLY the skin's deviations; everything it
+  doesn't mention comes from theme.default.css, which the @import below
+  makes the browser load alongside this file. The rules here land in
+  `theme.user`, which wins over the default theme's `theme.default`
+  layer. Activate exactly one theme entry from your own entry point
+  (see theme.default.css).
 */
 
 /* Pin the layer order before anything else in this file: priority is
