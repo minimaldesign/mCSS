@@ -11,6 +11,7 @@
     "astro": "astro",
     "build:css": "node src/tools/build-css.mjs",
     "check": "astro check",
+    "check:layers": "node src/tools/check-layers.mjs",
     "lint:css": "stylelint \"src/styles/**/*.css\"",
     "prepare": "git config core.hooksPath .githooks"
   },

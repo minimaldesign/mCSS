@@ -78,8 +78,15 @@ function layerOf(file) {
   );
 }
 
+// The canonical layer statement is the one in mcss.css; derive it so dist
+// can never disagree with source. check-layers.mjs guards the other copies
+// (theme file pins, docs code blocks).
 const LAYER_STATEMENT =
-  "@layer base, elements, global, components, theme.default, theme.user, external, helpers;\n";
+  (await readFile(join(SRC, "mcss.css"), "utf8")).match(
+    /^@layer [^;{]+;/m,
+  )?.[0] + "\n";
+if (LAYER_STATEMENT.startsWith("undefined"))
+  throw new Error("No @layer statement found in mcss.css");
 
 // Rebuild dist/css from scratch so renamed or deleted source files can't
 // leave stale outputs behind.
