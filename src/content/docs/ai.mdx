@@ -48,6 +48,8 @@ All framework CSS lives in native cascade layers, declared in `mcss.css` in prio
 - Your own unlayered CSS is more deliberate still: it beats every layer, by design. Never use `!important` to win against the framework.
 - `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS. Use sparingly. `!important` is banned everywhere else.
 
+The layer order is only the enforced half of the system. mCSS is a methodology (simplified ITCSS) first: selectors stay flat (single class, no specificity stacking) and files are ordered broad to specific everywhere, including unlayered project CSS. `@layer` hard-codes that discipline for the framework's half so it can never fight yours; in your own files, the same flat selectors and deliberate import order make source order the reliable tiebreaker. Don't reason about a mCSS project like arbitrary CSS: a conflict is resolved by putting the rule in the right file, never by escalating specificity.
+
 Inline `style` attributes don't participate in the order at all: they beat every normal declaration in every stylesheet (only a helper's `!important` outranks them). **Never place, size, space, or color anything from a `style` attribute**: a declaration written into markup is one no stylesheet can see, override, or audit, which is the opposite of what the layer order is for. When a value genuinely comes from data, pass it as a custom property and consume it in CSS:
 
 ```html
