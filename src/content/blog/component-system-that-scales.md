@@ -132,11 +132,13 @@ The rule bans crossing block boundaries, not everything that isn't a class:
 
 **None of these reach into another component.** They describe your own block's markup/state.
 
-### The two exceptions
+### Exceptions
 
-**Theme files.** A theme's entire job is to restyle other people's blocks, deliberately and in one place. That is why `theme.*.css` is the one kind of file allowed to select framework classes, framework globals, and bare elements from outside. The exception is safe because it is bounded: at most one theme is active, and you always know where to look.
+Some CSS legitimately crosses block boundaries. What makes an exception acceptable is that it is bounded and named: one predictable file, one clear reason, so you always know where to look. Two examples:
 
-**The print sheet.** `global.print.css` holds every `@media print` rule in the project, including rules that select other blocks' classes, because a printed page is one design decision that should be readable in one file. The [Getting Started docs](/docs/start#print-styles) cover the reasoning.
+**Theme files.** A theme's entire job is to restyle other people's blocks, deliberately and in one place. That is why `theme.*.css` files are allowed to select framework classes, framework globals, and bare elements from outside. The exception is safe because it is bounded: at most one theme is active.
+
+**A print sheet.** A `global.print.css` holding every `@media print` rule in the project, including rules that select other blocks' classes, because a printed page is one design decision that should be readable in one file, not spread across every component it touches.
 
 ## The self-check
 

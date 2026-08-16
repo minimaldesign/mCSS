@@ -4,7 +4,7 @@
 @import url(./framework/mcss.components.css);
 
 @import url(./framework/theme.default.css);
-/* @import url(./framework/theme.wireframe.css); */
+/* Your custom theme would go here */
 
 /* Site-only styles (mCSS specific) */
 @import url(./site/global.layout.css);

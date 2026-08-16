@@ -45,7 +45,7 @@ All framework CSS lives in native cascade layers, declared in `mcss.css` in prio
 - `base` through `components` are the framework's structure. Never edit these files to restyle; override them from further up the order.
 - `theme.default` holds the default theme: every design value (scale tokens + ui tokens). Never edit it either; it is what your overrides fall back to.
 - `theme.user` holds at most one theme of your own: a deliberate opinion about the defaults (copy `theme.starter.css`). A full skin like `theme.wireframe.css` is an entry that composes the default theme and overrides on top; either way, activate exactly one theme entry.
-- `external` ships empty: a slot to demote third-party CSS you import yourself (` url(vendor.css) layer(external);`). It beats the framework but loses to all unlayered project CSS at any specificity, so vendor styles stay easy to override. Fixes to vendor CSS go in unlayered `patch.*` files (the one place allowed to select third-party classes). Vendor styles injected from JS cannot be captured this way; they stay unlayered.
+- `external` ships empty: a slot to demote third-party CSS you import yourself (`@import url(vendor.css) layer(external);`). It beats the framework but loses to all unlayered project CSS at any specificity, so vendor styles stay easy to override. Fixes to vendor CSS go in unlayered `patch.*` files (the one place allowed to select third-party classes). Vendor styles injected from JS cannot be captured this way; they stay unlayered.
 - Your own unlayered CSS is more deliberate still: it beats every layer, by design. Never use `!important` to win against the framework.
 - `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS. Use sparingly. `!important` is banned everywhere else.
 
@@ -82,11 +82,11 @@ Name each file for the block it holds, and hold one block in it. `component.card
 
 The import list in the entry file is then also the list of blocks in the project, in build order, which makes an unfamiliar codebase readable from one file.
 
-### The print sheet is the one exception
+### Exceptions
 
-Two rules bend for one file: one block per file, and the rule that a selector only contains classes from its own block. `global.print.css` holds **every** `@media print` rule in the project, including rules that select classes belonging to other blocks. Print is not a variation on the screen design, it is a different artifact: one decision about a medium, easier to keep coherent in one place than spread across every component it touches. Reading `global.print.css` top to bottom should tell you what a printed page looks like. Group it by intent rather than by component: the sheet, what paper cannot use, ink instead of tint, where the page may break.
+Some CSS legitimately crosses block boundaries. An acceptable exception is bounded and named: one predictable file, one clear reason, so you always know where to look. Theme files are one (themes restyle other blocks by design, see above). A print sheet is another: a `global.print.css` holding **every** `@media print` rule in the project, including rules that select other blocks' classes, because a printed page is one design decision about a medium, easier to keep coherent in one place than spread across every component it touches. Group a print sheet by intent rather than by component: the sheet, what paper cannot use, ink instead of tint, where the page may break.
 
-**No other media query gets this exception.** `@media (forced-colors: active)`, `prefers-reduced-motion`, and `prefers-color-scheme` stay in the file of the block they concern: those are per-block statements about how one component survives a condition.
+**Media queries about conditions never get this kind of exception.** `@media (forced-colors: active)`, `prefers-reduced-motion`, and `prefers-color-scheme` stay in the file of the block they concern: those are per-block statements about how one component survives a condition.
 
 ### Class naming (BEM-like, different separators)
 
