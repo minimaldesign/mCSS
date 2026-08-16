@@ -47,7 +47,7 @@ xxl: 1920px
   nth-child,, text-decoration, etc.)
   - Don't use !important. If you need to, you're doing something wrong.
     Email me and I'll help you out.
-  - For a full swappable skin, look at ` theme.wireframe.css` to see
+  - For a full swappable theme, look at `theme.wireframe.css` to see
     how it's done.
 */
 

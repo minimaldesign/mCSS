@@ -43,7 +43,7 @@
 /* @import url(./theme.default.tokens.css); */ /* imported by theme.default.css */
 /* @import url(./theme.default.ui.css); */ /* imported by theme.default.css */
 /* @import url(./theme.starter.css); */ /* your theme's starting point: keep the default active */
-/* @import url(./theme.wireframe.css); */ /* full skin: use instead of the default (it imports it itself) */
+/* @import url(./theme.wireframe.css); */ /* full theme: use instead of the default (it imports it itself) */
 @import url(./help.colors.css) layer(helpers);
 @import url(./help.devtools.css) layer(helpers);
 @import url(./help.layout.css) layer(helpers);

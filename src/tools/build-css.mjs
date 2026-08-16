@@ -129,7 +129,7 @@ const settingsPrelude = [
 // The index reads best in cascade-layer order (matching the layer
 // statement), alphabetical within each layer. Theme files split in two:
 // the default theme and its parts (theme.default slot), then the starter
-// and skins (theme.user slot). theme.default.css sorts before its parts
+// and full themes (theme.user slot). theme.default.css sorts before its parts
 // alphabetically, keeping the active import first.
 const LAYER_RANK = {
   base: 0,
@@ -162,12 +162,12 @@ for (const file of files) {
   // Prepend the build-time settings so @custom-media/@mixin resolve, then
   // wrap the file's own rules in its layer. preset-env removes the
   // @custom-media definitions from the output. Standalone theme files
-  // (starter, skins) self-layer, so they're not re-wrapped; the default
+  // (starter, full themes) self-layer, so they're not re-wrapped; the default
   // theme's parts are plain CSS layered by their entry in source, so the
   // dist copies get wrapped here so a lone <link> still slots correctly.
   // In the index the default theme import is active (the framework
   // doesn't paint without a theme); other theme entries are commented.
-  // Skins genuinely replace the default import (they compose the default
+  // Full themes genuinely replace the default import (they compose the default
   // themselves); the starter doesn't: it's imported after the default,
   // which stays active.
   const importsOnly = file === "theme.default.css";
@@ -189,7 +189,7 @@ for (const file of files) {
         : selfLayered
           ? file === "theme.starter.css"
             ? `/* @import url(./${file}); */ /* your theme's starting point: keep the default active */`
-            : `/* @import url(./${file}); */ /* full skin: use instead of the default (it imports it itself) */`
+            : `/* @import url(./${file}); */ /* full theme: use instead of the default (it imports it itself) */`
           : `@import url(./${file}) layer(${layer});`,
   );
 }

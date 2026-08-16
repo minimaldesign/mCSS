@@ -6,8 +6,8 @@
   cards and buttons. Mostly token overrides; the style rules at the
   bottom cover what tokens can't express.
 
-  A full skin is an entry that composes the default theme and overrides
-  on top. This file contains ONLY the skin's deviations; everything it
+  A full theme is an entry that composes the default theme and overrides
+  on top. This file contains ONLY this theme's deviations; everything it
   doesn't mention comes from theme.default.css, which the @import below
   makes the browser load alongside this file. The rules here land in
   `theme.user`, which wins over the default theme's `theme.default`
@@ -16,7 +16,7 @@
 */
 
 /* Pin the layer order before anything else in this file: priority is
-   set by first declaration, so this skin slots correctly even if it
+   set by first declaration, so this theme slots correctly even if it
    loads before mcss.css. */
 @layer base, elements, global, components, theme.default, theme.user, external, helpers;
 

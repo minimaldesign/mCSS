@@ -44,7 +44,7 @@ All framework CSS lives in native cascade layers, declared in `mcss.css` in prio
 
 - `base` through `components` are the framework's structure. Never edit these files to restyle; override them from further up the order.
 - `theme.default` holds the default theme: every design value (scale tokens + ui tokens). Never edit it either; it is what your overrides fall back to.
-- `theme.user` holds at most one theme of your own: a deliberate opinion about the defaults (copy `theme.starter.css`). A full skin like `theme.wireframe.css` is an entry that composes the default theme and overrides on top; either way, activate exactly one theme entry.
+- `theme.user` holds at most one theme of your own: a deliberate opinion about the defaults (copy `theme.starter.css`). A full theme like `theme.wireframe.css` is an entry that composes the default theme and overrides on top; either way, activate exactly one theme entry.
 - `external` ships empty: a slot to demote third-party CSS you import yourself (`@import url(vendor.css) layer(external);`). It beats the framework but loses to all unlayered project CSS at any specificity, so vendor styles stay easy to override. Fixes to vendor CSS go in unlayered `patch.*` files (the one place allowed to select third-party classes). Vendor styles injected from JS cannot be captured this way; they stay unlayered.
 - Your own unlayered CSS is more deliberate still: it beats every layer, by design. Never use `!important` to win against the framework.
 - `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS. Use sparingly. `!important` is banned everywhere else.
