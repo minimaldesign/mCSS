@@ -5,7 +5,7 @@ lastUpdate: 2026-07-31
 version: 1
 ---
 
-import Notice from '../../components/Notice.astro';
+import Notice from "../../components/Notice.astro";
 
 <section class="prose">
 mCSS is both a CSS framework and a methodology. You need to first understand the methodology to use the framework correctly. There are 3 main parts to the methodology.
@@ -24,7 +24,7 @@ Once you've read through the basics below, the best way to understand how it all
 
 By design, mCSS is not an npm package. You just copy the [latest mCSS release][release] into your project. Three ways to do that, from most convenient to most customizable:
 
-1. Add the self contained pre-compiled, minified bundle version to your project
+1. Add the self-contained pre-compiled, minified bundle version to your project
 1. Add the individual precompiled files
 1. Add the source files and use PostCSS to compile them.
 
@@ -88,7 +88,7 @@ npm install -D postcss postcss-preset-env
 
 ##### `postcss.config.cjs`
 
-This `postcss.config.cjs` at the root of your project.
+Add this `postcss.config.cjs` at the root of your project.
 
 ```cjs
 // postcss.config.cjs
@@ -131,7 +131,7 @@ A bare minimum setup will look like this:
 @import url(./framework/mcss.css);
 @import url(./framework/theme.default.css);
 
-@import url(./site/theme.user.css);
+@import url(./site/theme.starter.css);
 ```
 
 A more common full featured setup:
@@ -147,7 +147,7 @@ A more common full featured setup:
 /* etc. */
 @import url(./site/page.home.css);
 /* etc. */
-@import url(./site/theme.user.css);
+@import url(./site/theme.starter.css);
 ```
 
 </section>
@@ -158,16 +158,17 @@ A more common full featured setup:
 
 ### Two folders
 
-The **[`framework/`][framework-src]**: core files you should not edit yourself:
+**[`framework/`][framework-src]**: the core files you should not edit yourself:
 
 - Settings
 - Base
 - HTML elements
 - Global styles
 - Components (optional)
+- Themes (the default theme, and optional skins)
 - Helpers
 
-**[`site/`][site-src]**: your own CSS. These files do not use CSS [layers][layers] so **understanding and using [ITCSS][1] methodology there is key**. (The [mCSS own][4] `/site` folder is a good reference.)
+**[`site/`][site-src]**: your own CSS. These files do not use CSS [layers][layers] so **understanding and using [ITCSS][1] methodology there is key**. (The [mCSS own][site-src] `/site` folder is a good reference.)
 
 - Custom theme
 - Custom layouts
@@ -179,9 +180,11 @@ The **[`framework/`][framework-src]**: core files you should not edit yourself:
 
 mCSS is a modern take on [ITCSS][1]. Files are organized in [layers][layers] going from broad and generic (settings → reset → HTML elements) to specific and local (components → helpers). This methodology addresses all the supposed "shortcomings" of CSS such as [specificity][3] wars and cascading conflicts.
 
-ITCSS is upgraded in mCSS with native [CSS cascade layers][cascade-layers]. Every framework file is imported into a named `@layer`, and the layer order (not the import order) dictates the specificity. By default, anything you write _outside_ the layers (in the `/site` folder) has higher specificity. The only exception is [helpers][helpers] which use `!important` to override everything, by design.
+While ITCSS used specificity for its layers, mCSS upgrades that with native [CSS cascade layers][cascade-layers] priority. Every framework file is imported into a named `@layer`, and the layer order (not the import order, and not specificity) dictates the priority. By default, anything you write _outside_ the layers (in the `/site` folder) has higher priority.
 
-Here are all the mCSS layers in order of specificity:
+The only exception is [helpers][helpers] which use `!important` to override everything, by design.
+
+Here are all the mCSS layers, from lowest to highest priority:
 
 <div class="docs_oversizedTable">
 
@@ -191,7 +194,7 @@ Here are all the mCSS layers in order of specificity:
 | `elements`      | `elements.*`      | Default styling of bare HTML elements.          |
 | `global`        | `global.*`        | Grid, wrap, layout scaffolds, prose, a11y.      |
 | `components`    | `component.*`     | Self-contained component styles.                |
-| `theme.default` | `theme.default.*` | Default [theme][themes] files.                   |
+| `theme.default` | `theme.default.*` | Default [theme][themes] files.                  |
 | `theme.user`    | `theme.*`         | Custom theme override.                          |
 | `external`      | _(your imports)_  | Code from plugins, npm packages, etc.           |
 | `helpers`       | `help.*`          | Tailwind style utility classes, but done right. |
@@ -199,22 +202,22 @@ Here are all the mCSS layers in order of specificity:
 
 </div>
 
-Have a look at [`framework/mcss.css`][mcss-entry] to see how it's organized. All layers are *defined* in this file.
+Have a look at [`framework/mcss.css`][mcss-entry] to see how it's organized. All layers are _defined_ in this file.
 
 **Notes:**
 
 - `settings.*` files conceptually occupy the top position of the ITCSS "inverted pyramid" with lowest specificity, but since they're only used at build-time, they don't need their own `@layer`.
-- The `external` layer ships empty. This layer is reserve for third-party CSS (npm packages, plugins, etc.). That way you can use `@import url(…) layer(external);` to import vendor styles and it becomes trivial to override with your own CSS in a `patch.*` file (like this site's `patch.astro.css`).
+- The `external` layer ships empty. This layer is reserved for third-party CSS (npm packages, plugins, etc.). That way you can use `@import url(…) layer(external);` to import vendor styles and it becomes trivial to override with your own CSS in a `patch.*` file (like this site's `patch.astro.css`).
 
 ### The global import
 
-The global import ([`_global.css`][4] for this site) is where is all comes together. You import everything used on your site there:
+The global import ([`_global.css`][4] for this site) is where it all comes together. You import everything used on your site there:
 
 - The mCSS framework
 - The mCSS components (optional)
 - The default theme
 - Your theme (optional override)
-- You custom layouts, component, and page overrides
+- Your custom layouts, components, and page overrides
 - Vendor style patches
 
 ```css
@@ -239,7 +242,6 @@ The global import ([`_global.css`][4] for this site) is where is all comes toget
 
 [cascade-layers]: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
 [mcss-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.css
-[mcss-components-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.components.css
 
 </section>
 
@@ -249,7 +251,7 @@ The global import ([`_global.css`][4] for this site) is where is all comes toget
 
 ### Settings
 
-Two `settings.*` files sit outside the `@layer` stack: they're only use at build time.
+Two `settings.*` files sit outside the `@layer` stack: they're only used at build time.
 
 - [Media queries][6] include responsive sizes, as well as user preferences like color schemes, reduced motion, etc. See [media queries docs][6].
 - **Mixins** (optional). It is not used in other parts of mCSS by default but can be useful to streamline your own components' code. It requires a [PostCSS plugin][7] to work.
@@ -289,35 +291,35 @@ Self-contained styles for single components. mCSS is designed to let you to crea
 
 ### Theme
 
-Every design value in mCSS lives in the **default theme** (`theme.default.css`)composed of 2 parts:
+Every design value in mCSS lives in the **default theme** (`theme.default.css`) composed of 2 parts:
 
 - [tokens][5]: Raw design tokens such as dimensions, fonts, colors, etc.
 - [ui tokens][uiTokens]: abstraction layer that maps raw tokens to semantic tokens, e.g. `--ui-border-color`, `--input-padding`, etc.
 
-Use the [starter template][srcStarter] to make your own theme (feel free to rename it to anything you'd like but it's recommended to follow the `theme.*.css` convention). Anything you add to this file will automatically overrides what's in the default theme.
+Use the [starter template][srcStarter] to make your own theme (feel free to rename it to anything you'd like but it's recommended to follow the `theme.*.css` convention). Anything you add to this file will automatically override what's in the default theme.
 
 **Don't edit the default theme files:** keeping your design in your theme makes framework updates easy.
 
-If you want to make a self contained mCSS theme you can distribute, see how `theme.wireframe.css` is setup. It basically imports the default theme itself, so you can swap the `@import` in your [global import][4]. More details on that in the [theme][themes].
+If you want to make a self contained mCSS theme you can distribute, see how `theme.wireframe.css` is set up. It basically imports the default theme itself, so you can swap the `@import` in your [global import][4]. More details on that in the [theme docs][themes].
 
 ### Helpers
 
-[Helpers][helpers] provide classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Helper declarations use `!important` and overrides everything on that element, including your own CSS. Read [the docs][helpers] for more info on this.
+[Helpers][helpers] provide classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Helper declarations use `!important` and override everything on that element, including your own CSS. Read [the docs][helpers] for more info on this.
 
 ### Your CSS
 
 Your own CSS is unlayered, which means:
 
-- Your CSS has higher specificity than mCSS' (except helpers)
+- Your CSS has higher priority than mCSS' (except helpers)
 - Using the [ITCSS][1] methodology is **critical**.
 
-Your `site/` CSS is required to be imported in that order:
+Your `site/` CSS is required to be imported in this order:
 
-- `theme.starter.css` override the default mCSS theme.
+- `theme.starter.css` overrides the default mCSS theme.
 - `global.*.css` for site-wide additions to the framework's globals.
 - `component.*.css` for your own components (most of your CSS should end up here)
 - `page.*.css` for the rare page-specific styles
-- `external.*.css` for CSS you don't control, i.e. plugins
+- `patch.*.css` for patching CSS you don't control, i.e. plugins
 
 **Note:** You can also refer to [mCSS own][4] `/site`'s setup as a reference.
 
@@ -396,7 +398,7 @@ CSS:
 }
 ```
 
-**Note:** State selectors have higher specificity than modifier classes (`.avatar.is-online` =`020` vs. `.avatar-xl` = `010`), so always declare custom properties default values inside the main class and _use_ the properties inside the state.
+**Note:** State selectors have higher specificity than modifier classes (`.avatar.is-online` = `020` vs. `.avatar-xl` = `010`), so always declare custom properties default values inside the main class and _use_ the properties inside the state.
 
 ```css
 .avatar {
@@ -470,8 +472,13 @@ When using modifiers to create different variations of a component, it's recomme
 
 ### One class per file
 
-<Notice type="warning" title="This is the most common error I see" class="mb-md1">
-CSS files must only contain one CSS class, its modifiers, and its elements. **Nothing else.**
+<Notice
+  type="warning"
+  title="This is the most common error I see"
+  class="mb-md1"
+>
+  CSS files must only contain one CSS class, its modifiers, and its elements.
+  **Nothing else.**
 </Notice>
 
 For example, the `component.card.css` should only contain:
@@ -490,14 +497,13 @@ For example, the `component.card.css` should only contain:
 
 **mCSS targets [Baseline](https://web.dev/baseline) 2024**.
 
-It uses cascade layers (`@layer`), nesting, `:has()`, and other modern CSS features natively, with no polyfills. In practice that means the versions of Chrome, Edge 130, Firefox, and Safari that shipped late 2024 and after.
+It uses cascade layers (`@layer`), nesting, `:has()`, and other modern CSS features natively, with no polyfills. In practice that means the versions of Chrome, Edge, Firefox, and Safari that shipped late 2024 and after.
 
-If you install mCSS via the [third option above](#option-3-compiled-via-postcss), it is possible to modify mCSS browser support via the `.browserslistrc` file. Using a different target, `postcss-preset-env` will start polyfilling the newer features. But it's not recommend: it will create file bloat and it's not full proof. Some features can break in the process.
+If you install mCSS via the [third option above](#option-3-compiled-via-postcss), it is possible to modify mCSS browser support via the `.browserslistrc` file. Using a different target, `postcss-preset-env` will start polyfilling the newer features. But it's not recommended: it will create file bloat and it's not foolproof. Some features can break in the process.
 
 </section>
 
 [1]: /blog/what-is-itcss
-[2]: https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#css_rulesets
 [3]: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css
 [5]: /docs/tokens
@@ -509,7 +515,6 @@ If you install mCSS via the [third option above](#option-3-compiled-via-postcss)
 [browserslistrc]: https://github.com/minimaldesign/mCSS/blob/main/.browserslistrc
 [components]: /components/start
 [coupling]: /blog/component-system-that-scales
-[discussions]: https://github.com/minimaldesign/mCSS/discussions
 [dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
 [dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
 [dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
@@ -523,7 +528,7 @@ If you install mCSS via the [third option above](#option-3-compiled-via-postcss)
 [helpers]: /docs/helpers
 [uiTokens]: /docs/tokens#ui-tokens
 [layers]: /blog/what-is-itcss#the-layers-of-itcss
-[mcss-layers]: /docs/start#the-layers-in-order
+[mcss-layers]: /docs/start#the-layers
 [layout]: /docs/global#layouts
 [postcss-post]: /blog/postcss-setup-for-mcss
 [presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
