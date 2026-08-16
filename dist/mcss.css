@@ -1225,7 +1225,7 @@ details {
 }
 
 /* DEFAULT */
-.grid > .grid_item { display: block; appearance: none; -webkit-appearance: none }
+.grid > .grid_item { display: block; appearance: none; }
 .grid[col="1"] { --grid-tc: repeat(1, 1fr) }
 .grid[col="2"] { --grid-tc: repeat(2, 1fr) }
 .grid[col="3"] { --grid-tc: repeat(3, 1fr) }

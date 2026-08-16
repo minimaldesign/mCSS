@@ -119,6 +119,25 @@ const settingsPrelude = [
   await readFile(join(SRC, "settings.mixins.css"), "utf8"),
 ].join("\n");
 
+// The index reads best in cascade-layer order (matching the layer
+// statement), alphabetical within each layer. Theme files split in two:
+// the default theme and its parts (theme.default slot), then the starter
+// and skins (theme.user slot). theme.default.css sorts before its parts
+// alphabetically, keeping the active import first.
+const LAYER_RANK = {
+  base: 0,
+  elements: 1,
+  global: 2,
+  components: 3,
+  helpers: 6,
+};
+const rankOf = (f) =>
+  layerOf(f) === "theme"
+    ? f.startsWith("theme.default")
+      ? 4
+      : 5
+    : LAYER_RANK[layerOf(f)];
+
 const files = (await readdir(SRC))
   .filter(
     (f) =>
@@ -127,7 +146,7 @@ const files = (await readdir(SRC))
       f !== "mcss.components.css" &&
       !buildTimeOnly.has(f),
   )
-  .sort();
+  .sort((a, b) => rankOf(a) - rankOf(b) || a.localeCompare(b));
 
 const indexImports = [];
 for (const file of files) {
@@ -140,8 +159,10 @@ for (const file of files) {
   // theme's parts are plain CSS layered by their entry in source, so the
   // dist copies get wrapped here so a lone <link> still slots correctly.
   // In the index the default theme import is active (the framework
-  // doesn't paint without a theme); other theme entries are commented:
-  // swap which one is active to change skins.
+  // doesn't paint without a theme); other theme entries are commented.
+  // Skins genuinely replace the default import (they compose the default
+  // themselves); the starter doesn't: it's imported after the default,
+  // which stays active.
   const importsOnly = file === "theme.default.css";
   const isDefaultPart = file.startsWith("theme.default.") && !importsOnly;
   const selfLayered = layer === "theme" && !isDefaultPart;
@@ -159,7 +180,9 @@ for (const file of files) {
       : isDefaultPart
         ? `/* @import url(./${file}); */ /* imported by theme.default.css */`
         : selfLayered
-          ? `/* @import url(./${file}); */ /* theme: swap for the default */`
+          ? file === "theme.starter.css"
+            ? `/* @import url(./${file}); */ /* your theme's starting point: keep the default active */`
+            : `/* @import url(./${file}); */ /* full skin: use instead of the default (it imports it itself) */`
           : `@import url(./${file}) layer(${layer});`,
   );
 }

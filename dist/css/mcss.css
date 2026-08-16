@@ -1,6 +1,19 @@
 /*! mCSS v1.3.0 | MIT | https://mcss.dev */
 @layer base, elements, global, components, theme.default, theme.user, helpers;
 @import url(./base.reset.css) layer(base);
+@import url(./elements.form.css) layer(elements);
+@import url(./elements.interactive.css) layer(elements);
+@import url(./elements.media.css) layer(elements);
+@import url(./elements.sectioning.css) layer(elements);
+@import url(./elements.table.css) layer(elements);
+@import url(./elements.text.css) layer(elements);
+@import url(./elements.text.quotes.css) layer(elements);
+@import url(./global.a11y.css) layer(global);
+@import url(./global.animation.css) layer(global);
+@import url(./global.grid.css) layer(global);
+@import url(./global.layout.css) layer(global);
+@import url(./global.prose.css) layer(global);
+@import url(./global.wrap.css) layer(global);
 @import url(./component.avatar.css) layer(components);
 @import url(./component.badge.css) layer(components);
 @import url(./component.banner.css) layer(components);
@@ -26,19 +39,11 @@
 @import url(./component.tiles.css) layer(components);
 @import url(./component.toc.css) layer(components);
 @import url(./component.toggle.css) layer(components);
-@import url(./elements.form.css) layer(elements);
-@import url(./elements.interactive.css) layer(elements);
-@import url(./elements.media.css) layer(elements);
-@import url(./elements.sectioning.css) layer(elements);
-@import url(./elements.table.css) layer(elements);
-@import url(./elements.text.css) layer(elements);
-@import url(./elements.text.quotes.css) layer(elements);
-@import url(./global.a11y.css) layer(global);
-@import url(./global.animation.css) layer(global);
-@import url(./global.grid.css) layer(global);
-@import url(./global.layout.css) layer(global);
-@import url(./global.prose.css) layer(global);
-@import url(./global.wrap.css) layer(global);
+@import url(./theme.default.css); /* the default theme */
+/* @import url(./theme.default.tokens.css); */ /* imported by theme.default.css */
+/* @import url(./theme.default.ui.css); */ /* imported by theme.default.css */
+/* @import url(./theme.starter.css); */ /* your theme's starting point: keep the default active */
+/* @import url(./theme.wireframe.css); */ /* full skin: use instead of the default (it imports it itself) */
 @import url(./help.colors.css) layer(helpers);
 @import url(./help.devtools.css) layer(helpers);
 @import url(./help.layout.css) layer(helpers);
@@ -46,8 +51,3 @@
 @import url(./help.ratios.css) layer(helpers);
 @import url(./help.spacing.css) layer(helpers);
 @import url(./help.typography.css) layer(helpers);
-@import url(./theme.default.css); /* the default theme */
-/* @import url(./theme.default.tokens.css); */ /* imported by theme.default.css */
-/* @import url(./theme.default.ui.css); */ /* imported by theme.default.css */
-/* @import url(./theme.starter.css); */ /* theme: swap for the default */
-/* @import url(./theme.wireframe.css); */ /* theme: swap for the default */

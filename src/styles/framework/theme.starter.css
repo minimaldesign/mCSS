@@ -2,12 +2,12 @@
 
 /*
   A theme is a file of token overrides, plus optional style rules for what
-  tokens can't express. Copy this file, name it after your project, and
-  import it from your own entry point after the default theme:
+  tokens can't express. This file is where your theme starts: import it
+  from your own entry point after the default theme:
 
     @import url(./framework/mcss.css);
     @import url(./framework/theme.default.css);
-    @import url(./theme.my-project.css);
+    @import url(./theme.starter.css);
 
   MAKE SURE you put all your overrides inside `@layer theme.user`
 
