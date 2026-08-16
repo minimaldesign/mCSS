@@ -36,23 +36,30 @@ jobs:
           git diff --exit-code dist/ || { echo '::error::dist/ is stale — run `npm run build:css` and commit the result'; exit 1; }
           test -z "$(git status --porcelain dist/)" || { echo '::error::dist/ has uncommitted files — run `npm run build:css` and commit the result'; exit 1; }
 
+      - name: Layer statements agree everywhere
+        run: npm run check:layers
+
       - name: Verify dist invariants
         run: |
           set -e
-          # layers survived the build (the preset-env polyfill must stay off)
-          grep -q '@layer settings, base, elements, global, components, theme, helpers;' dist/mcss.css
+          # no cascade-layers or light-dark polyfill artifacts (the layer
+          # statement itself is covered by check:layers above)
           ! grep -q ':not(#' dist/mcss.css
-          # the bundle ships zero-opinion: no theme or component content in
-          # mcss.css ('@layer theme'/'@layer components' appear in comments;
-          # check real block syntax)
-          ! grep -q '@layer theme {' dist/mcss.css
-          ! grep -q '@layer components {' dist/mcss.css
-          # the component library lives in its own bundle
-          grep -q '@layer components {' dist/mcss.components.css
-          ! grep -q '@layer theme {' dist/mcss.components.css
-          # per-file themes self-layer so any import method lands them right
-          grep -q '@layer theme {' dist/css/theme.wireframe.css
-          grep -q '@layer theme {' dist/css/theme.default.css
+          ! grep -q 'csstools' dist/mcss.css
+          ! grep -q 'csstools' dist/mcss.components.css
+          # the core bundle bakes in the default theme (it must paint alone)
+          # but ships no components and no user theme
+          grep -qE '@layer theme\.default ?\{' dist/mcss.css
+          ! grep -qE '@layer theme\.user ?\{' dist/mcss.css
+          ! grep -qE '@layer components ?\{' dist/mcss.css
+          # the component library lives in its own bundle, with no theme
+          grep -qE '@layer components ?\{' dist/mcss.components.css
+          ! grep -qE '@layer theme\.(default|user) ?\{' dist/mcss.components.css
+          # standalone themes self-layer into theme.user, and the default
+          # theme's entry layers its parts, so any import method lands right
+          grep -qE '@layer theme\.user ?\{' dist/css/theme.wireframe.css
+          grep -qE '@layer theme\.user ?\{' dist/css/theme.starter.css
+          grep -qF 'layer(theme.default)' dist/css/theme.default.css
           # no unresolved custom media or mixins shipped
           # (plain '@custom-media' appears in a comment; check real syntax)
           ! grep -qE '@custom-media --|media \(--' dist/mcss.css
