@@ -33,5 +33,5 @@
 @import url(./site/page.docs.css);
 @import url(./site/page.home.css);
 
-/* Plugins, etc. */
-@import url(./site/external.astro.css);
+/* Patches to third-party CSS (plugins, etc.) */
+@import url(./site/patch.astro.css);

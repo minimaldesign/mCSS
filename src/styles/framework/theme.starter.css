@@ -28,7 +28,7 @@
 /* Pin the layer order before declaring into it: priority is set by
    first declaration, so this file slots correctly even if it loads
    before mcss.css. */
-@layer base, elements, global, components, theme.default, theme.user, helpers;
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
 
 @layer theme.user {
   :root {

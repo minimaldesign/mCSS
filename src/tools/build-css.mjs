@@ -79,7 +79,7 @@ function layerOf(file) {
 }
 
 const LAYER_STATEMENT =
-  "@layer base, elements, global, components, theme.default, theme.user, helpers;\n";
+  "@layer base, elements, global, components, theme.default, theme.user, external, helpers;\n";
 
 // Rebuild dist/css from scratch so renamed or deleted source files can't
 // leave stale outputs behind.

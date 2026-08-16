@@ -1,5 +1,5 @@
 /*! mCSS v1.3.0 | MIT | https://mcss.dev */
-@layer base, elements, global, components, theme.default, theme.user, helpers;
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
 @import url(./base.reset.css) layer(base);
 @import url(./elements.form.css) layer(elements);
 @import url(./elements.interactive.css) layer(elements);

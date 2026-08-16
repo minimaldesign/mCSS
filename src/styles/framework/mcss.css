@@ -5,7 +5,7 @@
   Anything outside these layers has higher specificity, except helpers which use
   `!important` to override everything, by design.
 */
-@layer base, elements, global, components, theme.default, theme.user, helpers;
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
 
 @import url(./settings.media-queries.css);
 @import url(./settings.mixins.css);
@@ -48,6 +48,17 @@
     @import url(./framework/mcss.components.css);
 
   See the default theme for how to create your own.
+*/
+
+/*
+  `external` is an empty slot for third-party CSS (npm packages, plugins).
+  Import vendor stylesheets into it from your own global import:
+
+    @import url(../node_modules/some-package/widget.css) layer(external);
+
+  Vendor CSS in the layer loses to all your unlayered CSS, so it stays
+  easy to override. Write those overrides in a patch.* file (e.g.
+  patch.datepicker.css) in your own CSS folder.
 */
 
 /* Helpers for local overrides. Every declaration is !important */

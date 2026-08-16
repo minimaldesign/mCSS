@@ -59,7 +59,7 @@ Add/remove/comment out files in `mcss.css` according to what you need ([more inf
 
 ```css
 /* css/mcss.css */
-@layer base, elements, global, components, theme.default, theme.user, helpers;
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
 @import url(./base.reset.css) layer(base);
 /* […] */
 @import url(./theme.default.css);
@@ -178,12 +178,15 @@ Each layer only ever loses to the ones after it. The sections below detail each 
 | `components`    | `component.*`     | Self-contained component styles.                |
 | `theme.default` | `theme.default.*` | Default [theme][themes] files.                   |
 | `theme.user`    | `theme.*`         | Custom theme override.                          |
+| `external`      | _(your imports)_  | For code from plugins, npm packages, etc.       |
 | `helpers`       | `help.*`          | Tailwind style utility classes, but done right. |
 | _(unlayered)_   | your own CSS      | Beats every layer above, except helpers.        |
 
 </div>
 
 **Note:** `settings.*` files (`settings.media-queries.css` and `settings.mixins.css`) conceptually occupy the top position of the ITCSS pyramid, but in mCSS implementation, they're only used at build-time so they don't need their own `@layer`.
+
+**Note:** the `external` layer ships empty. It's a slot for third-party CSS (npm packages, plugin styles): import a vendor stylesheet with `@import url(…) layer(external);` and it loses to all your unlayered CSS, at any specificity, so it stays easy to override. Write your fixes to vendor CSS in a `patch.*` file (like this site's `patch.astro.css`); patch files are the one place allowed to select third-party classes. (Vendor styles injected from JS can't be captured this way; they stay unlayered.)
 
 Have a look at [`framework/mcss.css`][mcss-entry] to see how it all comes together. All layers are defined in this file, but some are imported in your [global import][4] instead of directly there:
 
@@ -281,24 +284,24 @@ If you want to make a self contained mCSS theme you can distribute, see how `the
 
 ### Your CSS
 
-Your own CSS use the same basic [ITCSS][1] technic, but it's unlayered, which means:
+Your own CSS is unlayered, which means:
 
 - Your CSS has higher specificity than mCSS' (except helpers)
-- The order you import your files inside your [global import][4] is important. **Make sure you have a clear mental model of [ITCSS][1] principles before delving in.**
+- Using the [ITCSS][1] methodology is **critical**.
 
-Your CSS goes inside your `site/` folder, in this order:
+Your `site/` CSS is required to be imported in that order:
 
-- `theme.*.css` is the one file of yours that is **not** unlayered: a theme wraps its own content in `@layer theme`, deliberately dropping into the framework's theme slot so it restyles the framework defaults while the rest of your CSS below still beats it.
+- `theme.starter.css` override the default mCSS theme.
 - `global.*.css` for site-wide additions to the framework's globals.
-- `component.*.css` for your own blocks (most of your CSS should end up here)
+- `component.*.css` for your own components (most of your CSS should end up here)
 - `page.*.css` for the rare page-specific styles
 - `external.*.css` for CSS you don't control, i.e. plugins
 
-Because those files are unlayered, the order you import them in is important. Make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
+**Note:** You can also refer to [mCSS own][4] `/site`'s setup as a reference.
 
-### Pages
+#### Pages
 
-Page files belong to your `/site` folder. They're used sparingly, for the rare page-specific overrides.
+Page files should be used sparingly, for the rare page-specific overrides.
 
 ```css
 /* page.blog.css */
