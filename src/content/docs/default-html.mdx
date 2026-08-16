@@ -1,9 +1,34 @@
 ---
-title: "HTML Elements"
-description: "Default styles for bare HTML elements: text, forms, media, tables"
-lastUpdate: 2024-08-27
-version: 0.1
+title: "Default HTML"
+description: "The reset, and the default styling of every bare HTML element"
+lastUpdate: 2026-08-16
+version: 1
 ---
+
+<section class="prose">
+
+<div class="docs_oversizedTable">
+
+| File name        | Source        |
+| ---------------- | ------------- |
+| `base.reset.css` | [Github][src] |
+
+</div>
+
+The mCSS reset is kept to a minimum. It does the following:
+
+- It sets the `box-sizing` to `border-box`
+- It removes the default `margin` on all elements
+- It sets the document's `min-height` to 100%.
+
+The rest of the defaults that would traditionally be included in a "reset" or "normalize" file are handled by the `elements.*.css` files. Refer to the [mCSS File structure][structure] section of _Getting Started_ for more details.
+
+You can find an example of all HTML elements default styling in the sections [below](#sectioning).
+
+</section>
+
+[structure]: /docs/start#mcss-file-structure
+[src]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/base.reset.css
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DocsPostLayout from "../../layouts/DocsPostLayout.astro";
@@ -49,7 +74,7 @@ import iconX from '../../assets/icons/x.svg?raw';
 
   ### Headings
 
-  Heading sizes are fluid via `clamp()` set on `--heading-font-size-h1`—`--heading-font-size-h6` tokens: each interpolates from a minimum size (at 480px viewports and below) to a maximum (from 1024px up), so the type scale tightens on small screens without media queries. The preferred value mixes `rem` with `vw`, which keeps browser text zoom working. The tokens live in `theme.default.ui.css` with the rest of the heading family (`--heading-spacing-*`, `--heading-line-height-*`), mapping each level onto the [type scale](/docs/tokens#font-size); override any of them in your theme to change how a heading level scales.
+  Heading sizes are fluid via `clamp()` set on `--heading-font-size-h1`—`--heading-font-size-h6` tokens: each interpolates from a minimum size (at 480px viewports and below) to a maximum (from 1024px up), so the type scale tightens on small screens without media queries. The preferred value mixes `rem` with `vw`, which keeps browser text zoom working. The tokens live in `theme.default.ui.css` with the rest of the heading family (`--heading-spacing-*`, `--heading-line-height-*`), mapping each level onto the [type scale](/docs/default-theme#font-size); override any of them in your theme to change how a heading level scales.
 
 <div class="docs_oversizedTable">
 

@@ -32,7 +32,7 @@ The `.section` component is the workhorse wrapper marketing pages are made of: a
 
 </div>
 
-Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: the header and the content each compose `.wrap` with their own [width preset](/docs/global#wrap), so a section pairs a reading-width header (`.wrap-md`) with a wider content column (`.wrap-lg`) by default.
+Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: the header and the content each compose `.wrap` with their own [width preset](/docs/layout#wrap), so a section pairs a reading-width header (`.wrap-md`) with a wider content column (`.wrap-lg`) by default.
 
 [1]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.section.css
 [2]: https://github.com/minimaldesign/mCSS/blob/main/src/components/Section.astro
@@ -117,7 +117,7 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: the header and th
 </section>
 ```
 
-The header and content each compose `.wrap` with a [width preset](/docs/global#wrap) (`.wrap-sm`, `.wrap-md`, `.wrap-lg`), so they can use different column widths. `wrap-md` on the header and `wrap-lg` on the content is the standard pairing; use `wrap-md` on the content too when it is text meant for reading (an FAQ, for example).
+The header and content each compose `.wrap` with a [width preset](/docs/layout#wrap) (`.wrap-sm`, `.wrap-md`, `.wrap-lg`), so they can use different column widths. `wrap-md` on the header and `wrap-lg` on the content is the standard pairing; use `wrap-md` on the content too when it is text meant for reading (an FAQ, for example).
 
 ### Available modifiers
 
@@ -148,7 +148,7 @@ The header and content each compose `.wrap` with a [width preset](/docs/global#w
 
 ### Custom properties
 
-The following custom properties are available in [`theme.default.ui.css`](/docs/tokens#ui-tokens):
+The following custom properties are available in [`theme.default.ui.css`](/docs/default-theme#ui-tokens):
 
 <div class="docs_oversizedTable">
 

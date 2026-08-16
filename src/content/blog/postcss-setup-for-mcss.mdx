@@ -57,7 +57,7 @@ Browsers still can't do that. So we compile it to:
 }
 ```
 
-Note what did **not** change: the nested `@media` is still nested. The output is modern CSS, just with the breakpoint spelled out. See the [media queries docs](/docs/media-queries) for the full list of names.
+Note what did **not** change: the nested `@media` is still nested. The output is modern CSS, just with the breakpoint spelled out. See the [media queries docs](/docs/layout) for the full list of names.
 
 ### Mixins, if you want them
 
@@ -128,11 +128,11 @@ The one that matters. Left enabled, preset-env's cascade-layer polyfill deletes 
 
 For most frameworks that is a reasonable trade. For mCSS it is fatal, because the promise of the layers runs in the other direction: framework CSS is supposed to _lose_ to yours. Once the layers become specificity, your unlayered rules stop winning automatically, and you are back to counting selectors and reaching for `!important`. Everything still compiles, nothing warns you, and your overrides just quietly stop working.
 
-Since mCSS only supports browsers that implement `@layer` natively (see [browser support](/docs/start#browser-support)), there is nothing to polyfill anyway.
+Since mCSS only supports browsers that implement `@layer` natively (see [browser support](/docs/browser-support)), there is nothing to polyfill anyway.
 
 ### `"random-function": false`
 
-Narrower, and you can skip it unless you use the [wireframe theme](/docs/themes). CSS `random()` gives each element in that theme its own slight hand-drawn tilt. The polyfill replaces `random()` with a single fixed value seeded from the length of your source, so every element tilts identically, and the value changes whenever you edit an unrelated line. Browsers without `random()` already fall back to `sibling-index()` math, so passing it through is strictly better.
+Narrower, and you can skip it unless you use the [wireframe theme](/docs/default-theme). CSS `random()` gives each element in that theme its own slight hand-drawn tilt. The polyfill replaces `random()` with a single fixed value seeded from the length of your source, so every element tilts identically, and the value changes whenever you edit an unrelated line. Browsers without `random()` already fall back to `sibling-index()` math, so passing it through is strictly better.
 
 ## The browserslist floor
 

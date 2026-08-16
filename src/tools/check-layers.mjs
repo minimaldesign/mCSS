@@ -29,7 +29,7 @@ const CARRIERS = [
   "src/styles/framework/theme.starter.css",
   "src/styles/framework/theme.wireframe.css",
   "src/pages/templates/marketing.astro",
-  "src/content/docs/start.mdx",
+  "src/content/docs/installation.mdx",
   "src/content/docs/ai.mdx",
   "dist/mcss.css",
   "dist/css/mcss.css",

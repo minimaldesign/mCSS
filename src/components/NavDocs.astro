@@ -11,7 +11,7 @@ const currentPath = pathname.split('/')[2]; // pathname starts with '/'
     {
       docsNavItems.map((page) => (
         <li>
-          <a class:list={[{ 'is-active': page.id == currentPath }]} href={`/docs/${page.id}`}>
+          <a class:list={[{ 'is-active': page.id == currentPath }]} href={page.href ?? `/docs/${page.id}`}>
             <Fragment set:html={arrow} />
             {page.title}
           </a>

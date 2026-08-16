@@ -1,0 +1,33 @@
+# Netlify edge redirects: real HTTP 301s, so they work for every client
+# (browsers, curl, AI agents fetching the .md twins), not just HTML pages.
+# Do NOT also add a rule's source path to astro.config.mjs `redirects`:
+# Astro would emit a stub file at that path, and Netlify serves an existing
+# file instead of applying the redirect.
+
+# Slug lowercased for consistency with the other component docs
+/components/ReadProgressBar  /components/readprogressbar  301
+
+# The template docs page moved twice: components collection -> docs ->
+# a section of the component library's start page (docs restructure)
+/components/template  /components/start#marketing-template  301
+
+# Tags pages moved under /blog so the Blog nav item highlights on them
+/tags    /blog/tags         301
+/tags/*  /blog/tags/:splat  301
+
+# Docs restructure (2026-08-16): pages merged or split. The .md twins are
+# separate routes fetched cold by AI agents, so each gets its own rule.
+/docs/tokens            /docs/default-theme     301
+/docs/tokens.md         /docs/default-theme.md  301
+/docs/themes            /docs/default-theme     301
+/docs/themes.md         /docs/default-theme.md  301
+/docs/reset             /docs/default-html      301
+/docs/reset.md          /docs/default-html.md   301
+/docs/elements          /docs/default-html      301
+/docs/elements.md       /docs/default-html.md   301
+/docs/global            /docs/layout            301
+/docs/global.md         /docs/layout.md         301
+/docs/media-queries     /docs/layout            301
+/docs/media-queries.md  /docs/layout.md         301
+/docs/template          /components/start#marketing-template  301
+/docs/template.md       /components/start.md    301

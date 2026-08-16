@@ -28,127 +28,7 @@ By design, mCSS is not an npm package. You just copy the [latest mCSS release][r
 1. Add the individual precompiled files
 1. Add the source files and use PostCSS to compile them.
 
-### Option 1: easy install
-
-Link the [framework file][dist-min] in your `<head>` and optionally the [components styles][dist-components-min] if you want to use mCSS components:
-
-```html
-<!-- index.html -->
-<head>
-  <!-- […] -->
-  <link rel="stylesheet" href="/css/mcss.min.css" />
-  <link rel="stylesheet" href="/css/mcss.components.min.css" />
-</head>
-```
-
-(Unminified versions ([framework][dist-css], [components][dist-components]) are available if you want to read the code.)
-
-### Option 2: individual files
-
-The sweet spot between ease of use and customization options: everything is pre-processed, so there is no build step and no PostCSS. But you can pick and choose which file to include depending on what you need.
-
-Every framework and component file is available pre-processed in [`dist/css/`][dist-dir] with the `@import` index at [`dist/css/mcss.css`][dist-index]. The files are not minified so you can read and understand them. (For the smallest size possible, see the third install option.)
-
-```html
-<!-- index.html -->
-<head>
-  <!-- […] -->
-  <link rel="stylesheet" href="/css/mcss.css" />
-</head>
-```
-
-Add/remove/comment out files in `mcss.css` according to what you need ([more info][mcss-layers]) and override the default styles with your own [theme][themes]. **Don't delete the `@layer` statement.**
-
-```css
-/* css/mcss.css */
-@layer base, elements, global, components, theme.default, theme.user, external, helpers;
-@import url(./base.reset.css) layer(base);
-/* […] */
-@import url(./theme.default.css);
-@import url(./theme.starter.css); /* your theme */
-/* […] */
-@import url(./help.typography.css) layer(helpers);
-```
-
-### Option 3: compiled via PostCSS
-
-If you want the most flexibility and full customization, this is the option for you.
-
-#### PostCSS setup
-
-You'll need three things to get PostCSS working (more details in [this blog article][postcss-post] if needed):
-
-##### `postcss-preset-env`
-
-Install [postcss-preset-env][presetEnv] as a dev dependency.
-
-```shell
-npm install -D postcss postcss-preset-env
-```
-
-##### `postcss.config.cjs`
-
-Add this `postcss.config.cjs` at the root of your project.
-
-```cjs
-// postcss.config.cjs
-const postcssPresetEnv = require("postcss-preset-env");
-const config = {
-  plugins: [
-    // Uncomment if you use mixins (needs `npm install -D postcss-mixins`)
-    // require("postcss-mixins"),
-    postcssPresetEnv({
-      stage: 2,
-      features: {
-        "cascade-layers": false,
-        "random-function": false,
-      },
-    }),
-  ],
-};
-module.exports = config;
-```
-
-##### `.browserslistrc`
-
-A [`.browserslistrc`][browserslistrc], at the repo's root. It sets the [compile floor](#browser-support) so preset-env resolves `@custom-media` and leaves other modern features alone.
-
-```ini
-# .browserslistrc
-baseline 2024
-```
-
-If you already use Astro, Vite, Next, or any other bundler, that's it! Otherwise you'll need `postcss-cli` and `postcss-import` to run the build yourself (details in [blog article][postcss-post]).
-
-#### mCSS setup
-
-Once PostCSS is set up, copy [`src/styles/framework/`][framework-src] in your CSS folder. Next to it, add a folder for your own CSS. Finally, add a global import CSS file.
-
-A bare minimum setup will look like this:
-
-```css
-/* global.css */
-@import url(./framework/mcss.css);
-@import url(./framework/theme.default.css);
-
-@import url(./site/theme.starter.css);
-```
-
-A more common full featured setup:
-
-```css
-/* global.css */
-@import url(./framework/mcss.css);
-@import url(./framework/mcss.components.css);
-@import url(./framework/theme.default.css);
-
-@import url(./site/global.layout.css);
-@import url(./site/component.customComponent.css);
-/* etc. */
-@import url(./site/page.home.css);
-/* etc. */
-@import url(./site/theme.starter.css);
-```
+See [Installation](/docs/installation) for the details of each option.
 
 </section>
 
@@ -334,7 +214,7 @@ Page files should be used sparingly, for the rare page-specific overrides.
 }
 ```
 
-**Note**: page classes should go on the `<body>` in the HTML, at the same level as the [layout scaffold](/docs/global#layouts) classes (not on `<main>`):
+**Note**: page classes should go on the `<body>` in the HTML, at the same level as the [layout scaffold](/docs/layout#layouts) classes (not on `<main>`):
 
 ```html
 <body class="layout layout-centered blog blog-index"></body>
@@ -491,52 +371,30 @@ For example, the `component.card.css` should only contain:
 
 </section>
 
-## Browser support
-
-<section class="docs_section prose">
-
-**mCSS targets [Baseline](https://web.dev/baseline) 2024**.
-
-It uses cascade layers (`@layer`), nesting, `:has()`, and other modern CSS features natively, with no polyfills. In practice that means the versions of Chrome, Edge, Firefox, and Safari that shipped late 2024 and after.
-
-If you install mCSS via the [third option above](#option-3-compiled-via-postcss), it is possible to modify mCSS browser support via the `.browserslistrc` file. Using a different target, `postcss-preset-env` will start polyfilling the newer features. But it's not recommended: it will create file bloat and it's not foolproof. Some features can break in the process.
-
-</section>
-
 [1]: /blog/what-is-itcss
 [3]: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css
-[5]: /docs/tokens
-[6]: /docs/media-queries
+[5]: /docs/default-theme
+[6]: /docs/layout
 [7]: https://github.com/postcss/postcss-mixins
-[a11y]: /docs/global#accessibility
+[a11y]: /docs/layout#accessibility
 [bem]: /blog/what-is-bem
 [bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
-[browserslistrc]: https://github.com/minimaldesign/mCSS/blob/main/.browserslistrc
 [components]: /components/start
 [coupling]: /blog/component-system-that-scales
-[dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
-[dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
-[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
-[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
-[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
-[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
 [framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
 [srcStarter]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.starter.css
 [notice]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
-[grid]: /docs/global#grid
+[grid]: /docs/layout#grid
 [helpers]: /docs/helpers
-[uiTokens]: /docs/tokens#ui-tokens
+[uiTokens]: /docs/default-theme#ui-tokens
 [layers]: /blog/what-is-itcss#the-layers-of-itcss
-[mcss-layers]: /docs/start#the-layers
-[layout]: /docs/global#layouts
-[postcss-post]: /blog/postcss-setup-for-mcss
-[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
-[prose]: /docs/global#prose
+[layout]: /docs/layout#layouts
+[prose]: /docs/layout#prose
 [site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site
 [src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles
 [system-that-scales]: /blog/component-system-that-scales
 [release]: https://github.com/minimaldesign/mCSS/releases/latest
 [tags]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.tags.css
-[themes]: /docs/themes
-[wrap]: /docs/global#wrap
+[themes]: /docs/default-theme
+[wrap]: /docs/layout#wrap
