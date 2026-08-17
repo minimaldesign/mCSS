@@ -12,7 +12,7 @@ import Playground from "../../components/_Playground.jsx";
 
 <section class="prose">
 
-The `.tiles` component lays out repeated, same-size items (cards, feature items, pricing tiers) in equal-height columns. It is container-responsive: columns appear as the nearest [size container](/docs/global#layouts) crosses the size's thresholds, so the count answers the space the list actually has, not the viewport. The same markup is 2-up in this docs column and 4-up on the wide [blog index](/blog), at the same window size.
+The `.tiles` component lays out repeated, same-size items (cards, feature items, pricing tiers) in equal-height columns. It is container-responsive: columns appear as the nearest [size container](/docs/layout#layouts) crosses the size's thresholds, so the count answers the space the list actually has, not the viewport. The same markup is 2-up in this docs column and 4-up on the wide [blog index](/blog), at the same window size.
 
 <Tiles>
   <li>
@@ -126,7 +126,7 @@ The thresholds are deliberately not the global `--md`/`--lg` viewport breakpoint
 
 ### The container
 
-The column count responds to the nearest size container. Every [layout scaffold](/docs/global#layouts) declares its main column as one, so inside a `.layout` page it just works. Outside a scaffold the wrapper is required: without a container ancestor the queries never match and the list stays single-column.
+The column count responds to the nearest size container. Every [layout scaffold](/docs/layout#layouts) declares its main column as one, so inside a `.layout` page it just works. Outside a scaffold the wrapper is required: without a container ancestor the queries never match and the list stays single-column.
 
 ```html
 <div class="tiles_container">
@@ -153,7 +153,7 @@ The column count responds to the nearest size container. Every [layout scaffold]
 }
 ```
 
-Gaps come from the [grid system](/docs/global#grid)'s `--grid-column-gap` and `--grid-row-gap`, so tiles and grids share the same rhythm.
+Gaps come from the [grid system](/docs/layout#grid)'s `--grid-column-gap` and `--grid-row-gap`, so tiles and grids share the same rhythm.
 
 </section>
 

@@ -1,0 +1,149 @@
+---
+title: "Installation"
+description: "Three ways to add mCSS to your project: drop-in bundle, individual files, or source + PostCSS"
+lastUpdate: 2026-08-16
+version: 1
+---
+
+## Installation options
+
+### Option 1: easy install
+
+<section class="prose">
+
+Link the [framework file][dist-min] in your `<head>` and optionally the [components styles][dist-components-min] if you want to use mCSS components:
+
+```html
+<!-- index.html -->
+<head>
+  <!-- […] -->
+  <link rel="stylesheet" href="/css/mcss.min.css" />
+  <link rel="stylesheet" href="/css/mcss.components.min.css" />
+</head>
+```
+
+(Unminified versions ([framework][dist-css], [components][dist-components]) are available if you want to read the code.)
+
+
+### Option 2: individual files
+
+The sweet spot between ease of use and customization options: everything is pre-processed, so there is no build step and no PostCSS. But you can pick and choose which file to include depending on what you need.
+
+Every framework and component file is available pre-processed in [`dist/css/`][dist-dir] with the `@import` index at [`dist/css/mcss.css`][dist-index]. The files are not minified so you can read and understand them. (For the smallest size possible, see the third install option.)
+
+```html
+<!-- index.html -->
+<head>
+  <!-- […] -->
+  <link rel="stylesheet" href="/css/mcss.css" />
+</head>
+```
+
+Add/remove/comment out files in `mcss.css` according to what you need ([more info][mcss-layers]) and override the default styles with your own [theme][themes]. **Don't delete the `@layer` statement.**
+
+```css
+/* css/mcss.css */
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
+@import url(./base.reset.css) layer(base);
+/* […] */
+@import url(./theme.default.css);
+@import url(./theme.starter.css); /* your theme */
+/* […] */
+@import url(./help.typography.css) layer(helpers);
+```
+
+### Option 3: compiled via PostCSS
+
+If you want the most flexibility and full customization, this is the option for you.
+
+#### PostCSS setup
+
+You'll need three things to get PostCSS working (more details in [this blog article][postcss-post] if needed):
+
+#### `postcss-preset-env`
+
+Install [postcss-preset-env][presetEnv] as a dev dependency.
+
+```shell
+npm install -D postcss postcss-preset-env
+```
+
+#### `postcss.config.cjs`
+
+Add this `postcss.config.cjs` at the root of your project.
+
+```cjs
+// postcss.config.cjs
+const postcssPresetEnv = require("postcss-preset-env");
+const config = {
+  plugins: [
+    // Uncomment if you use mixins (needs `npm install -D postcss-mixins`)
+    // require("postcss-mixins"),
+    postcssPresetEnv({
+      stage: 2,
+      features: {
+        "cascade-layers": false,
+        "random-function": false,
+      },
+    }),
+  ],
+};
+module.exports = config;
+```
+
+#### `.browserslistrc`
+
+A [`.browserslistrc`][browserslistrc], at the repo's root. It sets the [compile floor](/docs/browser-support) so preset-env resolves `@custom-media` and leaves other modern features alone.
+
+```ini
+# .browserslistrc
+baseline 2024
+```
+
+If you already use Astro, Vite, Next, or any other bundler, that's it! Otherwise you'll need `postcss-cli` and `postcss-import` to run the build yourself (details in [blog article][postcss-post]).
+
+#### mCSS setup
+
+Once PostCSS is set up, copy [`src/styles/framework/`][framework-src] in your CSS folder. Next to it, add a folder for your own CSS. Finally, add a global import CSS file.
+
+A bare minimum setup will look like this:
+
+```css
+/* global.css */
+@import url(./framework/mcss.css);
+@import url(./framework/theme.default.css);
+
+@import url(./site/theme.starter.css);
+```
+
+A more common full featured setup:
+
+```css
+/* global.css */
+@import url(./framework/mcss.css);
+@import url(./framework/mcss.components.css);
+@import url(./framework/theme.default.css);
+
+@import url(./site/global.layout.css);
+@import url(./site/component.customComponent.css);
+/* etc. */
+@import url(./site/page.home.css);
+/* etc. */
+@import url(./site/theme.starter.css);
+```
+
+</section>
+
+[browserslistrc]: https://github.com/minimaldesign/mCSS/blob/main/.browserslistrc
+[components]: /components/start
+[dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
+[dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
+[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
+[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
+[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
+[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
+[framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
+[mcss-layers]: /docs/start#the-layers
+[postcss-post]: /blog/postcss-setup-for-mcss
+[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
+[themes]: /docs/default-theme

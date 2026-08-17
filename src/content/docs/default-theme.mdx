@@ -1,7 +1,7 @@
 ---
-title: "Tokens"
-description: "Design tokens: the CSS custom properties for color, typography, spacing, and more that customize the framework"
-lastUpdate: 2026-07-28
+title: "Default Theme"
+description: "Every design value in mCSS lives in the default theme: raw tokens, UI tokens, and the themes that override them"
+lastUpdate: 2026-08-16
 version: 1
 ---
 
@@ -9,15 +9,114 @@ import Notice from "../../components/Notice.astro";
 
 <section class="prose">
 
-| File name             | Source        |
-| --------------------- | ------------- |
-| `settings.tokens.css` | [Github][src] |
+<div class="docs_oversizedTable">
 
-[src]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.tokens.css
+| File name                  | Description                                 | Source                 |
+| -------------------------- | ------------------------------------------- | ---------------------- |
+| `theme.default.css`        | Default theme entry: imports the next two   | [Github][srcDefault]   |
+| `theme.default.tokens.css` | Raw tokens: colors, type, spacing, etc.     | [Github][src]          |
+| `theme.default.ui.css`     | UI tokens: what elements and components use | [Github][srcUi]        |
+| `theme.starter.css`        | Use it as a start for your own theme        | [Github][srcStarter]   |
+| `theme.wireframe.css`      | Full swappable theme example                | [Github][srcWireframe] |
 
-**Design tokens** are the "atoms" of a design system. They define the design elements of a user interface, such as colors, typography, and spacing.
+</div>
 
-In mCSS, tokens are CSS custom properties that provide a flexible, coherent, and harmonious set of values designed to make implementing UI/UX projects fast and easy.
+[srcDefault]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.css
+[src]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.tokens.css
+[srcUi]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.ui.css
+[srcStarter]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.starter.css
+[srcWireframe]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.wireframe.css
+
+Every design value in mCSS (colors, fonts, spacing, component styling) lives in the **default theme**. Your own theme should be imported after it and just override what it needs.
+
+**Never edit the default theme files.** Keep your design decisions in your own theme, so updating the framework is easy.
+
+</section>
+
+## Activating a theme
+
+<section class="prose">
+
+Activate the default theme right after the framework, then (optionally) your own theme:
+
+```css
+@import url(./framework/mcss.css);
+@import url(./framework/mcss.components.css); /* optional */
+@import url(./framework/theme.default.css);
+@import url(./site/theme.starter.css); /* your theme */
+```
+
+Theme files are **self-layered** and your theme goes in the `theme.user` layer:
+
+```css
+/* theme.starter.css */
+@layer theme.user {
+  /* […] */
+}
+```
+
+mCSS is set up so that, regardless of how you load your theme (`@import`, `<link>`, or bundler), it always overrides the default theme.
+
+</section>
+
+## Writing your own theme
+
+<section class="prose">
+
+Copy [`theme.starter.css`][srcStarter] and start overriding:
+
+- **Tokens first.** Most themes never need a selector: raw tokens for the palette and type, UI tokens for general UI changes, and component tokens for details.
+- **Style rules only for what tokens can't express**: pseudo-elements, `nth-child` rhythm, font smoothing, `text-wrap`, etc. Your theme file is the one place where overriding framework classes and HTML elements from other files is ok.
+- **Check tokens before writing a style rule.** The page is already painted from `--body-background-color`, `--text-color`, and `--text`: set those instead of writing a `body` rule for background, color, or font.
+- **No `!important`.** It will break the layer system. And if you need `!important`, it's a sign you're doing something wrong.
+
+</section>
+
+## Full themes
+
+<section class="prose">
+
+A theme can also be a complete, distributable style. mCSS ships with the [`theme.wireframe.css`][srcWireframe] example. (Flip the switcher on the [marketing template](/templates/marketing) to see it live.)
+
+A full theme is an entry that imports the default theme itself and overrides on top, so you activate it INSTEAD of the default:
+
+```css
+@import url(./framework/mcss.css);
+/* theme.default.css is swapped */
+@import url(./framework/theme.wireframe.css);
+```
+
+The wireframe file is a good read if you're planning a full theme. Token overrides do most of the work (grayscale palette, handwriting font stack, "paper cutout" shadows), a few style rules cover the rest (wavy underlines, tilted cards), and it's deliberate about what it leaves alone: the focus ring stays crisp, and text stays high-contrast.
+
+</section>
+
+## Tokens
+
+<section class="prose">
+
+Tokens are CSS custom properties, split in two files:
+
+- **Raw tokens** are named for what they **are**: raw values like colors, type sizes, spacing, radii, etc.
+- **UI tokens** are named for what they're **for**: they map raw tokens to elements and components.
+
+Because components read `var(--ui-border-color)` instead of a raw hex value, one override can have three levels of blast radius:
+
+```css
+@layer theme.user {
+  :root {
+    /* Whole palette shifts */
+    --base-950: #1a1208;
+
+    /* Every bordered surface at once */
+    --ui-border-color: light-dark(var(--base-300), var(--base-600));
+
+    /* Single component override */
+    --bt-border-radius: 0;
+  }
+}
+```
+
+That's why small theme files can go far with a handful of token overrides.
 
 </section>
 
@@ -25,35 +124,27 @@ In mCSS, tokens are CSS custom properties that provide a flexible, coherent, and
 
 <section class="prose">
 
-When you start a new project, open `settings.tokens.css` and change the values of as many tokens as necessary to match the design you're planning to implement. (Things like spacing might not need to change, but you'll almost certainly need to customize your `base` and `primary` colors for instance.) For deviations you want to keep swappable, put the overrides in a [theme](/docs/themes) instead of editing the defaults.
+When you start a new project, put your design's raw token values in your own theme: your `base` and `primary` colors, your font stacks, and whatever else your design calls for. The defaults are sensible and things like spacing might not need to change.
 
-The same discipline applies to the CSS you write on top of the framework: **no raw color and no raw type size in a `component.*.css` file.** If your theme does not name the value you need, add a token to the theme and use that. A `#8a5500` or a `1.0625rem` sitting in a component is a design decision nobody can find, and the second use of it will be a slightly different number. Spacing is more forgiving (a `2px` optical nudge is a property of that component and belongs to it), but color and type size are the design system, and the design system lives in one file.
+Then continue overriding UI tokens provided by mCSS as you go, and creating your own when needed. Do not add hard-coded "magic numbers" anywhere else but in your theme's tokens.
 
 </section>
 
-## Interface tokens
+## UI tokens
 
 <section class="prose">
 
-<div class="docs_oversizedTable">
+UI tokens are named for what they're for: semantic aliases (`--ui-border-color`), element defaults (`--heading-font`, `--input-padding`, etc.), and every component's defaults (`--badge-color`, `--card-spacing`, etc.).
 
-| File name         | Source          |
-| ----------------- | --------------- |
-| `settings.ui.css` | [Github][srcUi] |
+A UI token usually takes another token for value: a UI token when the meaning is shared (`--input-border-color` is `--ui-border-color`), or a raw token when the value should stay in sync with the rest of the design (`--fieldset-padding` is `--sm3`). Hard-coded values are for the few places where that sync would be wrong: content (separator strings, icon URLs), geometry tuned to one control (`--toggle-width`), and element-relative `em` measures.
 
-</div>
-
-[srcUi]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.ui.css
-
-Interface tokens are the decisions layer over the raw scales. Every one is named for what it's _for_ (an element, a component, or a shared meaning) and standardizes UI decisions in logical groups: semantic aliases like `--ui-border-color` or `--success-*`, element defaults (`--heading-*`, `--input-*`, ...), plus every component's token defaults (`--bt-*`, `--card-*`, ...). That naming is the whole split between the two files: a token named for what it _is_ (a step on a scale, like `--sm1` or `--base-500`) lives in `settings.tokens.css`; a token named for what it's _for_ lives in `settings.ui.css`. This gives tokens meaning and context, and it's what makes [themes](/docs/themes) powerful: override one interface token and every rule that consumes it follows.
-
-An interface token usually takes another token for value: another interface token when the meaning is shared (`--input-border-color` is `--ui-border-color`), or a scale token when the value should follow the system scales (`--fieldset-padding` is `--sm3`). A raw value is correct only where following the scales would be wrong: content like separator strings and icon URLs, geometry tuned to one control (`--toggle-width`), and element-relative measures like the `em` heading spacing, which tracks each heading's own size instead of the page scale. The test: if a theme retuned the scales, should this value follow?
-
-`elements.*` and `global.*` files tend to use interface tokens, while `component.*` files mix them with low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new interface token is probably the best option.
+For your own components, there's no hard and fast rule about which kind of token to use. If the same style comes up in several places with the same meaning, a new UI token is probably the best option.
 
 </section>
 
-## Color
+## Raw tokens
+
+### Color
 
 <section class="prose">
 
@@ -61,7 +152,7 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 
 <div class="grid" col="1" col-lg="2">
   <div class="grid_item">
-  ### Base
+  #### Base
 
 | Token      | Value   | Demo                                      |
 | ---------- | ------- | ----------------------------------------- |
@@ -80,7 +171,7 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 
   </div>
   <div class="grid_item">
-  ### Primary
+  #### Primary
 
 | Token         | Value   | Demo                                         |
 | ------------- | ------- | -------------------------------------------- |
@@ -98,7 +189,7 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 
   </div>
   <div class="grid_item">
-  ### Feedback
+  #### Feedback
 
 | Token       | Value   | Demo                                       |
 | ----------- | ------- | ------------------------------------------ |
@@ -118,9 +209,9 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 | `maybe-400` | #ffc220 | <div class="docs_box bgc-maybe-400"></div> |
 | `maybe-500` | #f9a007 | <div class="docs_box bgc-maybe-500"></div> |
 
-### Highlight
+#### Highlight
 
-The text marker color, consumed by the `--marker-color` interface token (what `<mark>` uses). Override `--highlight-500` in a theme to restyle every highlight.
+The text marker color, consumed by the `--marker-color` UI token (what `<mark>` uses). Override `--highlight-500` in a theme to restyle every highlight.
 
 | Token           | Value   | Demo                                                                        |
 | --------------- | ------- | --------------------------------------------------------------------------- |
@@ -131,7 +222,7 @@ The text marker color, consumed by the `--marker-color` interface token (what `<
 
 </section>
 
-## Dimension
+### Dimension
 
 <section class="prose">
 
@@ -173,7 +264,7 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 
 </section>
 
-## Aspect ratio
+### Aspect ratio
 
 <section class="prose">
 
@@ -187,13 +278,13 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 
 </section>
 
-## Typography
+### Typography
 
 <section class="prose">
 
-### Font stack
+#### Font stack
 
-There are 3 font stacks set up by default for the `font-family` CSS Property.
+There are 3 font stacks set up by default for the `font-family` CSS property.
 
 | Token     | Value                                                                                                                                                           |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -211,9 +302,9 @@ If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.
   `sans-serif` is the browser default.
 </Notice>
 
-### Font size
+#### Font size
 
-Check out [typescale.com ](https://typescale.com) if you need help creating your own sizes.
+Check out [typescale.com](https://typescale.com) if you need help creating your own sizes.
 
 <div class="docs_oversizedTable">
 
@@ -233,9 +324,9 @@ Check out [typescale.com ](https://typescale.com) if you need help creating your
 
 </div>
 
-The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale but are [interface tokens](#interface-tokens); they're documented with [the headings themselves](/docs/elements#headings).
+The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale but are [UI tokens](#ui-tokens); they're documented with [the headings themselves](/docs/default-html#headings).
 
-### Font weight
+#### Font weight
 
 | Token         | Value | Demo                                                 |
 | ------------- | ----- | ---------------------------------------------------- |
@@ -246,7 +337,7 @@ The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale bu
 | `bold`        | 700   | <div class="font-bold">Sample demo text</div>        |
 | `black`       | 900   | <div class="font-black">Sample demo text</div>       |
 
-### Letter spacing
+#### Letter spacing
 
 | Token          | Value   | Demo                                             |
 | -------------- | ------- | ------------------------------------------------ |
@@ -256,7 +347,7 @@ The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale bu
 | `tracking-xl`  | 0.075em | <div class="tracking-xl">Sample demo text</div>  |
 | `tracking-xxl` | 0.15em  | <div class="tracking-xxl">Sample demo text</div> |
 
-### Line height
+#### Line height
 
 | Token         | Value | Demo                                                                |
 | ------------- | ----- | ------------------------------------------------------------------- |
@@ -269,13 +360,13 @@ The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale bu
 
 </section>
 
-## Borders
+### Borders
 
 <section class="prose">
   <div class="grid" col="1" col-lg="2">
     <div class="grid_item docs_radius">
 
-### Border radius
+#### Border radius
 
 | Token          | Value | Demo        |
 | -------------- | ----- | ----------- |
@@ -286,10 +377,10 @@ The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale bu
 | `radius-xxl`   | 16px  | <div></div> |
 | `radius-round` | 1e5px | <div></div> |
 
-    </div>
-    <div class="grid_item docs_border">
+</div>
+<div class="grid_item docs_border">
 
-      ### Border width
+#### Border width
 
 | Token        | Value | Demo        |
 | ------------ | ----- | ----------- |
@@ -304,13 +395,13 @@ The heading font sizes (`--heading-font-size-h1`…`-h6`) build on this scale bu
   </div>
 </section>
 
-## Drop Shadow
+### Drop Shadow
 
 <section class="prose">
 
 It wouldn't be super useful to list the values here. You can look at them [on Github][githubShadows] if you're curious.
 
-[githubShadows]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.tokens.css#L217
+[githubShadows]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.tokens.css#L217
 
   <div class="docs_shadow">
 
@@ -325,7 +416,7 @@ It wouldn't be super useful to list the values here. You can look at them [on Gi
   </div>
 </section>
 
-## Opacity
+### Opacity
 
 <section class="prose">
 
@@ -340,7 +431,7 @@ It wouldn't be super useful to list the values here. You can look at them [on Gi
 
 </section>
 
-## Z-index
+### Z-index
 
 <section class="prose">
 
@@ -357,7 +448,7 @@ It wouldn't be super useful to list the values here. You can look at them [on Gi
 
 </section>
 
-## Transition
+### Transition
 
 <section class="prose">
 

@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
   {
     label: 'Docs',
     href: '/docs/start',
-    children: docsNavItems.map((page) => ({ label: page.title, href: `/docs/${page.id}` })),
+    children: docsNavItems.map((page) => ({ label: page.title, href: page.href ?? `/docs/${page.id}` })),
   },
   {
     label: 'Components',

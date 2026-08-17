@@ -1,31 +1,22 @@
 /*
   mCSS framework entry point.
 
-  The framework lives in named cascade layers, declared here in priority
-  order (later wins). The layer name, not import order, decides priority.
-  Anything a consumer writes OUTSIDE these layers beats the framework by
-  default, with one exception: helpers use !important, and important layered
-  declarations beat unlayered CSS. Helpers are element-level overrides that
-  win everywhere, like inline styling.
+  mCSS recreates the ITCSS specificity strategy using modern CSS layers.
+  Anything outside these layers has higher specificity, except helpers which use
+  `!important` to override everything, by design.
 */
-@layer settings, base, elements, global, components, theme, helpers;
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
 
-/* Build-time only (@custom-media + mixin definitions, no runtime output) */
 @import url(./settings.media-queries.css);
 @import url(./settings.mixins.css);
 
-/* Settings */
-@import url(./settings.tokens.css) layer(settings);
-@import url(./settings.ui.css) layer(settings);
-
 /*
-  No theme is imported here, ever: the framework only declares the empty
-  `theme` slot above. A theme (theme.*.css) is part of YOUR css: a swappable
-  theme of token overrides plus optional style rules that you activate, at
-  most one, from your own entry point (see _global.css for this site's).
-  Theme files self-layer (@layer theme inside the file), so wherever that
-  import sits it lands in this slot.
-  None imported = the default look (settings.* holds every default).
+  Your theme is not imported here, but at the same level as mCSS:
+
+    @import url(./framework/mcss.css);
+    @import url(./framework/theme.default.css);
+
+  See the default theme for how to create your own.
 */
 
 /* Reset & Normalize */
@@ -50,16 +41,27 @@
 @import url(./global.wrap.css) layer(global);
 
 /*
-  No component is imported here either: this entry only declares the empty
-  `components` slot above. The component library lives in its own entry,
-  mcss.components.css, so consumers who build their own components can skip
-  it entirely. Import it alongside this file (any order: the slot declared
-  here decides priority) to get the full library.
+  Components are optional and not imported here
+  You import them at the same level as mCSS:
+
+    @import url(./framework/mcss.css);
+    @import url(./framework/mcss.components.css);
+
+  See the default theme for how to create your own.
 */
 
-/* Helpers for local overrides. Every declaration is !important on purpose: */
-/* important layered declarations beat unlayered CSS, so helpers win over */
-/* everything, including consumer CSS. */
+/*
+  `external` is an empty slot for third-party CSS (npm packages, plugins).
+  Import vendor stylesheets into it from your own global import:
+
+    @import url(../node_modules/some-package/widget.css) layer(external);
+
+  Vendor CSS in the layer loses to all your unlayered CSS, so it stays
+  easy to override. Write those overrides in a patch.* file (e.g.
+  patch.datepicker.css) in your own CSS folder.
+*/
+
+/* Helpers for local overrides. Every declaration is !important */
 /* (Use VERY sparingly, or you might as well use Tailwind…) */
 @import url(./help.colors.css) layer(helpers);
 @import url(./help.devtools.css) layer(helpers);

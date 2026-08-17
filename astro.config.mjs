@@ -8,7 +8,8 @@ import tunnel from "astro-tunnel";
 import expressiveCode from "astro-expressive-code";
 
 // astro-tunnel is a dev-only tool; keep it out of production builds
-const isDev = process.env.NODE_ENV !== "production" && process.argv.includes("dev");
+const isDev =
+  process.env.NODE_ENV !== "production" && process.argv.includes("dev");
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,20 +17,14 @@ export default defineConfig({
   // dist/ is reserved for the framework CSS artifact (npm run build:css);
   // the hosting platform's publish directory must point at _site/
   outDir: "./_site",
-  redirects: {
-    // slug lowercased for consistency with the other component docs
-    "/components/ReadProgressBar": "/components/readprogressbar",
-    // the template docs page moved from the components collection to docs
-    "/components/template": "/docs/template",
-    // tags pages moved under /blog so the Blog nav item highlights on them
-    "/tags": "/blog/tags",
-    "/tags/[tag]": "/blog/tags/[tag]",
-  },
+  // Redirects live in public/_redirects (Netlify edge, real 301s), not
+  // here: Astro config redirects emit meta-refresh HTML stubs that shadow
+  // the Netlify rules and that non-browser clients don't follow.
   integrations: [
     preact(),
     sitemap({
-      // keep the meta-refresh stubs at /tags/* and the bare demo pages out
-      filter: (page) => !page.startsWith("https://mcss.dev/tags/") && !page.startsWith("https://mcss.dev/demos/"),
+      // keep the bare demo pages out
+      filter: (page) => !page.startsWith("https://mcss.dev/demos/"),
     }),
     expressiveCode({
       themes: ["github-dark"], // Theme also needs to be imported in shikiHighlighter.js

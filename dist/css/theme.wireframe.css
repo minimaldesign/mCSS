@@ -7,7 +7,7 @@ https://open-props.style/#media-queries
 
 Can't use var() inside media queries 🤦‍♂️
 https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
-so breakpoints are not in settings.tokens.css
+so breakpoints are not in theme.default.tokens.css
 
 xxs: 240px
 xs: 360px
@@ -30,9 +30,23 @@ xxl: 1920px
   A hand-drawn wireframe theme: grayscale palette, rounded type, wobbly
   borders, paper-cutout shadows, and a traced-twice pencil stroke on
   cards and buttons. Mostly token overrides; the style rules at the
-  bottom cover what tokens can't express. See theme.default.css for how
-  themes work and how to activate one.
+  bottom cover what tokens can't express.
+
+  A full theme is an entry that composes the default theme and overrides
+  on top. This file contains ONLY this theme's deviations; everything it
+  doesn't mention comes from theme.default.css, which the @import below
+  makes the browser load alongside this file. The rules here land in
+  `theme.user`, which wins over the default theme's `theme.default`
+  layer. Activate exactly one theme entry from your own entry point
+  (see theme.default.css).
 */
+
+/* Pin the layer order before anything else in this file: priority is
+   set by first declaration, so this theme slots correctly even if it
+   loads before mcss.css. */
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
+
+@import url(./theme.default.css);
 
 /* Registered so it computes on the element that declares it and then
    inherits as a plain integer: a card and its media resolve the SAME
@@ -44,7 +58,7 @@ xxl: 1920px
   initial-value: 1;
 }
 
-@layer theme {
+@layer theme.user {
   :root {
     /* COLORS: everything goes grayscale, including the primary scale */
 
@@ -98,7 +112,9 @@ xxl: 1920px
        Comic Sans ships on macOS and Windows, Chalkboard SE on iOS,
        casual is the Android generic. */
 
-    --text: 'Comic Sans MS', 'Chalkboard SE', Chalkboard, 'Comic Neue', 'Segoe Print', 'Bradley Hand', casual, cursive;
+    --text:
+      "Comic Sans MS", "Chalkboard SE", Chalkboard, "Comic Neue", "Segoe Print",
+      "Bradley Hand", casual, cursive;
     --display: var(--text);
     --heading-font: var(--text);
     --heading-weight: var(--bold);
@@ -157,7 +173,10 @@ xxl: 1920px
        against paper, not one gray against another. */
 
     --toggle-track-color-checked: light-dark(var(--base-800), var(--base-200));
-    --avatar-status-dot-color-online: light-dark(var(--base-800), var(--base-200));
+    --avatar-status-dot-color-online: light-dark(
+      var(--base-800),
+      var(--base-200)
+    );
 
     /* WAYFINDING STAYS CRISP: the focus ring is not part of the sketch,
        and --marker-color is already highlighter yellow. */
@@ -273,8 +292,7 @@ xxl: 1920px
        Corner pattern mirrors --wobble-2 (short/long alternation). */
     .card,
     .card_media {
-      border-radius:
-        calc(9px + sin(var(--sketch-seed) * 9.1) * 2px)
+      border-radius: calc(9px + sin(var(--sketch-seed) * 9.1) * 2px)
         calc(105px + sin(var(--sketch-seed) * 4.7) * 18px)
         calc(7px + sin(var(--sketch-seed) * 3.1) * 2px)
         calc(120px + sin(var(--sketch-seed) * 5.5) * 18px) /
@@ -286,13 +304,10 @@ xxl: 1920px
 
     /* Flush media bleeds to the card's top edge only */
     .card_media-flush {
-      border-radius:
-        calc(9px + sin(var(--sketch-seed) * 9.1) * 2px)
-        calc(105px + sin(var(--sketch-seed) * 4.7) * 18px)
-        0 0 /
+      border-radius: calc(9px + sin(var(--sketch-seed) * 9.1) * 2px)
+        calc(105px + sin(var(--sketch-seed) * 4.7) * 18px) 0 0 /
         calc(115px + sin(var(--sketch-seed) * 5.9) * 18px)
-        calc(8px + sin(var(--sketch-seed) * 7.7) * 2px)
-        0 0;
+        calc(8px + sin(var(--sketch-seed) * 7.7) * 2px) 0 0;
     }
 
     .card::after,
@@ -300,8 +315,7 @@ xxl: 1920px
       rotate: calc(sin(var(--sketch-seed) * 7.3) * 0.6deg);
       translate: calc(sin(var(--sketch-seed) * 3.7) * 1.5px)
         calc(cos(var(--sketch-seed) * 5.3) * 1.5px);
-      border-radius:
-        calc(100px + sin(var(--sketch-seed) * 5.1) * 20px)
+      border-radius: calc(100px + sin(var(--sketch-seed) * 5.1) * 20px)
         calc(8px + sin(var(--sketch-seed) * 2.3) * 3px)
         calc(110px + sin(var(--sketch-seed) * 4.9) * 20px)
         calc(9px + sin(var(--sketch-seed) * 4.3) * 3px) /

@@ -24,9 +24,9 @@ export async function GET(context) {
   const text = [
     "# mCSS",
     "",
-    "> mCSS is a modern CSS framework and component library for websites: real CSS, real markup, zero build step, built on native cascade layers. It is not a dependency; you copy the files into your project and own them, editing them directly (starting with settings.tokens.css).",
+    "> mCSS is a modern CSS framework and component library for websites: real CSS, real markup, zero build step, built on native cascade layers. It is not a dependency; you copy the files into your project and own them, putting your design in a theme of your own (copy theme.starter.css).",
     "",
-    "Every docs and components page has a markdown twin at the same URL with `.md` appended (e.g. /docs/tokens.md). Fetch those instead of the HTML pages. The complete reference in a single file is at /llms-full.txt.",
+    "Every docs and components page has a markdown twin at the same URL with `.md` appended (e.g. /docs/default-theme.md). Fetch those instead of the HTML pages. The complete reference in a single file is at /llms-full.txt.",
     "",
     "## Docs",
     "",

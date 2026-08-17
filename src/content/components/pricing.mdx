@@ -12,7 +12,7 @@ import checkIcon from "../../assets/icons/check.svg?raw";
 
 <section class="prose">
 
-The `.pricingCard` component is one tier of a pricing table: name, price, feature list, and a CTA pinned to the bottom so a row of tiers lines up. A pricing table is a row of these on the [grid](/docs/global#grid), with `highlighted` marking the recommended tier.
+The `.pricingCard` component is one tier of a pricing table: name, price, feature list, and a CTA pinned to the bottom so a row of tiers lines up. A pricing table is a row of these on the [grid](/docs/layout#grid), with `highlighted` marking the recommended tier.
 
 <div class="grid" col="1" col-md="3">
   <PricingCard name="Starter" price="$0" period="/month" description="For side projects." features={["1 site", "Community support"]} ctaHref="#" />
@@ -28,7 +28,7 @@ The `.pricingCard` component is one tier of a pricing table: name, price, featur
 | `component.card.css`, `component.badge.css`, `component.button.css` | Base visuals (dependencies) | [Github][2] |
 | `PricingCard.astro`                        | The Astro component                 | [Github][3] |
 | `icons/check.svg`                          | Feature list check icon             | [Github][4] |
-| `--pricingCard-*` block in `settings.ui.css`   | Interface tokens (see table below)      | [Github][5] |
+| `--pricingCard-*` block in `theme.default.ui.css`   | UI tokens (see table below)      | [Github][5] |
 
 </div>
 
@@ -38,7 +38,7 @@ It extends the [card](/components/card) and uses the [badge](/components/badge) 
 [2]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
 [3]: https://github.com/minimaldesign/mCSS/blob/main/src/components/PricingCard.astro
 [4]: https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons
-[5]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/settings.ui.css
+[5]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.ui.css
 
 </section>
 

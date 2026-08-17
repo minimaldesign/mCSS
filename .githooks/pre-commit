@@ -10,3 +10,7 @@ if git diff --cached --name-only | grep -qE '^(src/styles/framework/|src/tools/b
   npm run --silent build:css || exit 1
   git add dist
 fi
+
+# Every copy of the cascade-layer statement (theme file pins, docs code
+# blocks, dist) must agree with the canonical one in framework/mcss.css.
+npm run --silent check:layers || exit 1

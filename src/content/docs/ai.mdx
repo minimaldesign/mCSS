@@ -40,12 +40,16 @@ Per-page docs: append `.md` to any mcss.dev docs or components URL (e.g. https:/
 
 ### Mental model: layers from default to deliberate
 
-All framework CSS lives in native cascade layers, declared in `mcss.css` in priority order (later wins): `settings, base, elements, global, components, theme, helpers`. `mcss.css` only declares the `components` slot; the component library fills it from a second entry, `mcss.components.css`, imported alongside (skip it in projects that build their own components).
+All framework CSS lives in native cascade layers, declared in `mcss.css` in priority order (later wins): `base, elements, global, components, theme.default, theme.user, external, helpers`. `mcss.css` only declares the `components` and theme slots; the component library fills `components` from a second entry, `mcss.components.css`, imported alongside (skip it in projects that build their own components), and the default theme (`theme.default.css`) fills `theme.default` from YOUR entry, imported right after `mcss.css`: nothing paints without it.
 
-- `settings` through `components` are the framework defaults: what things look like when nobody has an opinion. Never edit these files to restyle; override them from further up the order.
-- `theme` holds at most one theme file: a deliberate opinion about the defaults. An empty theme layer IS the default look.
+- `base` through `components` are the framework's structure. Never edit these files to restyle; override them from further up the order.
+- `theme.default` holds the default theme: every design value (raw tokens + UI tokens). Never edit it either; it is what your overrides fall back to.
+- `theme.user` holds at most one theme of your own: a deliberate opinion about the defaults (copy `theme.starter.css`). A full theme like `theme.wireframe.css` is an entry that composes the default theme and overrides on top; either way, activate exactly one theme entry.
+- `external` ships empty: a slot to demote third-party CSS you import yourself (`@import url(vendor.css) layer(external);`). It beats the framework but loses to all unlayered project CSS at any specificity, so vendor styles stay easy to override. Fixes to vendor CSS go in unlayered `patch.*` files (the one place allowed to select third-party classes). Vendor styles injected from JS cannot be captured this way; they stay unlayered.
 - Your own unlayered CSS is more deliberate still: it beats every layer, by design. Never use `!important` to win against the framework.
 - `helpers` (`help.*` files: spacing, color, typography utilities) are the one exception: every declaration carries `!important`, which inverts the cascade, so they beat even unlayered CSS. Use sparingly. `!important` is banned everywhere else.
+
+The layer order is only the enforced half of the system. mCSS is a methodology (simplified ITCSS) first: selectors stay flat (single class, no specificity stacking) and files are ordered broad to specific everywhere, including unlayered project CSS. `@layer` hard-codes that discipline for the framework's half so it can never fight yours; in your own files, the same flat selectors and deliberate import order make source order the reliable tiebreaker. Don't reason about a mCSS project like arbitrary CSS: a conflict is resolved by putting the rule in the right file, never by escalating specificity.
 
 Inline `style` attributes don't participate in the order at all: they beat every normal declaration in every stylesheet (only a helper's `!important` outranks them). **Never place, size, space, or color anything from a `style` attribute**: a declaration written into markup is one no stylesheet can see, override, or audit, which is the opposite of what the layer order is for. When a value genuinely comes from data, pass it as a custom property and consume it in CSS:
 
@@ -55,7 +59,7 @@ Inline `style` attributes don't participate in the order at all: they beat every
 
 ### Restyling, in order of preference
 
-1. **Theme token overrides.** A theme is one file that restyles the whole site: `@layer theme { :root { ... } }` (self-layered, so it slots correctly however it's loaded). Copy `theme.default.css` to start one; activate exactly one from your CSS entry point, after `mcss.css` (which never imports themes itself). Anything the theme doesn't mention falls back to the defaults. Pick the blast radius per override: raw tokens (`--base-*`, `--text`) shift the whole palette or type scale, interface tokens (`--ui-border-color`, `--heading-font`) change every surface that shares the meaning, component tokens (`--bt-border-radius`, `--card-*`) turn one knob.
+1. **Theme token overrides.** A theme is one file that restyles the whole site: `@layer theme.user { :root { ... } }` (self-layered, so it slots correctly however it's loaded). Copy `theme.starter.css` to start one; import it from your CSS entry point after `theme.default.css`, the default theme that carries every design value and that your entry must activate right after `mcss.css` (which never imports themes itself; nothing paints without the default theme). Your theme lands in `theme.user` and beats the default's `theme.default` regardless of import order; anything it doesn't mention falls back to the default theme. Pick the blast radius per override: raw tokens (`--base-*`, `--text`) shift the whole palette or type scale, UI tokens (`--ui-border-color`, `--heading-font`) change every surface that shares the meaning, component tokens (`--bt-border-radius`, `--card-*`) turn one knob.
 2. **Theme style rules**, only if a token doesn't exist for that value, or for what tokens can't express (pseudo-elements, `nth-child` rhythm, etc.). It's ok to override elements like `body` if there is no other way to reliably set it globally. Theme files are the ONE place allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors. **A `body` rule belongs here, not in project CSS**. Make sure you keep the ordering general to specific (same as ITCSS). No `!important` in themes.
 3. **Unlayered project CSS** for what belongs to your project rather than to the design: page layouts, one-off blocks.
 
@@ -63,10 +67,9 @@ Do not edit framework files.
 
 ### Tokens
 
-- `settings.tokens.css`: raw primitives (palettes, type scale, spacing, radii).
-- `settings.ui.css`: interface tokens, the public API of every element and component (semantic aliases plus all defaults). Placement is by name: a token named for what it's for (`--heading-*`, `--bt-*`, `--ui-border-color`) goes here; a token named for what it is (`--sm1`, `--base-500`) is a scale token and goes in `settings.tokens.css`. Values prefer another token (a shared-meaning interface token first, else a scale token); raw values only for content (strings, icon URLs), one-off control geometry, or element-relative `em`/`ch` measures.
+- Every token lives in the default theme, split in two: `theme.default.tokens.css` holds the scales (palettes, type scale, spacing, radii), `theme.default.ui.css` holds the UI tokens, the public API of every element and component (semantic aliases plus all defaults). Placement is by name: a token named for what it's for (`--heading-*`, `--bt-*`, `--ui-border-color`) is a UI token; a token named for what it is (`--sm1`, `--base-500`) is a raw token. Values prefer another token (a shared-meaning UI token first, else a raw token); hard-coded values only for content (strings, icon URLs), one-off control geometry, or element-relative `em`/`ch` measures.
 - Grammar: `--component-part-property`, longhand, kebab-case, no abbreviations: `--bt-background-color-hover`, `--notice-border-width`.
-- Feedback colors: use the semantic aliases `--success-*`, `--danger-*`, `--warning-*`, not the raw scales they point at.
+- Feedback colors come straight from the `--yes-*` / `--no-*` / `--maybe-*` palettes; there is no separate success/danger/warning alias tier.
 - The same discipline applies to your own CSS: **no raw color and no raw type size in a `component.*.css` file.** If the theme doesn't name the value you need, add a token to the theme and use that. A `#8a5500` or a `1.0625rem` sitting in a component is a design decision nobody can find, and the second use of it will be a slightly different number.
 
 ### Organizing project CSS: one block per file
@@ -79,11 +82,11 @@ Name each file for the block it holds, and hold one block in it. `component.card
 
 The import list in the entry file is then also the list of blocks in the project, in build order, which makes an unfamiliar codebase readable from one file.
 
-### The print sheet is the one exception
+### Exceptions
 
-Two rules bend for one file: one block per file, and the rule that a selector only contains classes from its own block. `global.print.css` holds **every** `@media print` rule in the project, including rules that select classes belonging to other blocks. Print is not a variation on the screen design, it is a different artifact: one decision about a medium, easier to keep coherent in one place than spread across every component it touches. Reading `global.print.css` top to bottom should tell you what a printed page looks like. Group it by intent rather than by component: the sheet, what paper cannot use, ink instead of tint, where the page may break.
+Some CSS legitimately crosses block boundaries. An acceptable exception is bounded and named: one predictable file, one clear reason, so you always know where to look. Theme files are one (themes restyle other blocks by design, see above). A print sheet is another: a `global.print.css` holding **every** `@media print` rule in the project, including rules that select other blocks' classes, because a printed page is one design decision about a medium, easier to keep coherent in one place than spread across every component it touches. Group a print sheet by intent rather than by component: the sheet, what paper cannot use, ink instead of tint, where the page may break.
 
-**No other media query gets this exception.** `@media (forced-colors: active)`, `prefers-reduced-motion`, and `prefers-color-scheme` stay in the file of the block they concern: those are per-block statements about how one component survives a condition.
+**Media queries about conditions never get this kind of exception.** `@media (forced-colors: active)`, `prefers-reduced-motion`, and `prefers-color-scheme` stay in the file of the block they concern: those are per-block statements about how one component survives a condition.
 
 ### Class naming (BEM-like, different separators)
 
@@ -128,7 +131,7 @@ A selector may only contain classes from its own block. Never write a selector t
 
 When the markup is rendered by a component file (Astro, JSX) instead of HTML you type yourself, its `<part>Class` props (`titleClass`, `iconClass`, ...) mix your class onto the internal part the same way. If the token or `<part>Class` prop you need doesn't exist, don't reach in with a selector and don't edit the framework file: override what you can through mixed classes or your theme, and past that, replace the component with a site component of your own.
 
-Bare HTML tags, `.is-*` states, and ARIA attribute selectors are fine inside your own block. Theme files are the only sanctioned exception to this rule.
+Bare HTML tags, `.is-*` states, and ARIA attribute selectors are fine inside your own block. Selectors only cross block boundaries in the bounded exceptions described above (theme files, a print sheet).
 
 ### Globals lose to components, and that is the point
 

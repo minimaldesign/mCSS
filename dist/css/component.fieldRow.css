@@ -7,7 +7,7 @@ https://open-props.style/#media-queries
 
 Can't use var() inside media queries 🤦‍♂️
 https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
-so breakpoints are not in settings.tokens.css
+so breakpoints are not in theme.default.tokens.css
 
 xxs: 240px
 xs: 360px
@@ -30,7 +30,7 @@ xxl: 1920px
 /* Inline composition: fields and buttons on one wrapping row
    (newsletter signup, search bar…). Mix .fieldRow_field onto each field:
    fieldRow never reaches into the field block itself, it only sets the
-   --field-message-position interface token so hints and errors overlay
+   --field-message-position ui token so hints and errors overlay
    below the row instead of pushing bottom-aligned buttons out of line.
    Leave a little vertical room under the row for them. */
 .fieldRow {

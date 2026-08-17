@@ -6,6 +6,8 @@
 // joke: the structure is the standard landing-page structure, and the
 // words point at it while it happens. Replace them with yours.
 import '../../styles/framework/mcss.css';
+import '../../styles/framework/mcss.components.css';
+import '../../styles/framework/theme.default.css';
 import wireframeThemeUrl from '../../styles/framework/theme.wireframe.css?url';
 
 import Banner from '../../components/Banner.astro';
@@ -41,7 +43,7 @@ const navItems = [
       /* Pin the cascade-layer order before any stylesheet loads: layer
          priority is set by first occurrence, and the theme <link> below
          may be parsed before the framework's own @layer statement. */
-      @layer settings, base, elements, global, components, theme, helpers;
+      @layer base, elements, global, components, theme.default, theme.user, external, helpers;
     </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -64,7 +66,7 @@ const navItems = [
     </Header>
 
     <main class="layout_content">
-      <Hero variant="full" height={55} media={{ type: 'gradient', src: 'var(--gradient-primary)' }} textColor="--base-0">
+      <Hero variant="full" height={55} media={{ type: 'gradient', src: 'linear-gradient(90deg, var(--primary-950) 0%, var(--primary-400) 100%)' }} textColor="--base-0">
         <h1>The landing page you already know how to read</h1>
         <p>Big headline, reassuring sentence underneath, two buttons where the bright one is the one we want. You've scanned this exact page four hundred times, so we won't pretend it's a surprise.</p>
         <div class="hero_actions">

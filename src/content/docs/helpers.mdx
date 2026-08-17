@@ -6,7 +6,7 @@ version: 0.1
 ---
 
 <section class="prose">
-Helpers are classes for very targeted "one-off" local overrides. Every helper declaration uses `!important`, and because they live in an mCSS [cascade layer](/docs/start#mcss-file-structure), that beats everything: all framework layers, your own unlayered CSS, even normal inline styles. They should be used as little as possible, but they're useful for things like:
+Helpers are classes for very targeted "one-off" local overrides. Every helper declaration uses <code>!&#8288;important</code> and overrides everything else. They should be used as little as possible, but they're useful for things like:
 
 - Designer's request to "make an exception"
 - Quick fix until refactor
@@ -20,9 +20,9 @@ Let's say the request is: _"This component just doesn't look right in that conte
 </div>
 ```
 
-Using helpers is optional and mCSS will work just fine without them. None of the mCSS components rely on them. If you do use them in your project, it's recommended to use [PurgeCSS](https://purgecss.com/getting-started.html) to keep your CSS size to a minimum. For Astro users, the [astro-purgecss integration](https://github.com/codiume/orbit/tree/main/packages/astro-purgecss) does everything for you out of the box once you install it.
+Using helpers is optional and mCSS will work just fine without them. None of the mCSS components rely on them.
 
-Below is a list of all the available helpers. mCSS doesn't include every single CSS property like utility classes frameworks do. It only includes the ones you actually need in those "one-off" situations. I've never needed more than that, but I'm open to add anything that would be useful. Just [open an issue on Github](https://github.com/minimaldesign/mCSS/issues) with your use case and I'll add it in.
+Below is a list of all the available helpers. mCSS doesn't include every single CSS property like utility class frameworks do. It only includes the ones you actually need in those "one-off" situations. I've never needed more than that, but I'm open to adding anything that would be useful. Just [open an issue on Github](https://github.com/minimaldesign/mCSS/issues) with your use case and I'll add it in.
 
 </section>
 
@@ -38,7 +38,7 @@ Below is a list of all the available helpers. mCSS doesn't include every single 
 
 ### width, height, margin, and padding
 
-You can combine these properties with any [dimension token](/docs/tokens#dimension) as well as `0`:
+You can combine these properties with any [dimension token](/docs/default-theme#dimension) as well as `0`:
 
 | CSS property           | Class prefix |
 | ---------------------- | ------------ |
@@ -59,7 +59,7 @@ You can combine these properties with any [dimension token](/docs/tokens#dimensi
 | `padding-inline-start` | `pis`        |
 | `padding-inline-end`   | `pie`        |
 
-Both directional sets exist on purpose. Use the logical helpers (`mis`, `mie`, `pis`, `pie`) when the spacing follows the reading direction: an icon gap, a list indent, anything that should flip in a right-to-left layout. Use the physical helpers (`ml`, `mr`, `pl`, `pr`) when the offset is a purely visual choice that should stay on the same side no matter the script direction. In a left-to-right layout they resolve identically.
+Both directional sets exist on purpose. Use the logical helpers (`mis`, `mie`, `pis`, `pie`) when the spacing follows the reading direction. Use the physical helpers (`ml`, `mr`, `pl`, `pr`) when the spacing is purely visual and should stay in the same position no matter the script direction.
 
 #### Examples
 
@@ -95,7 +95,7 @@ Both directional sets exist on purpose. Use the logical helpers (`mis`, `mie`, `
 
 ### color, background-color, and border-color
 
-You can combine this properties with any [color token](/docs/tokens#color):
+You can combine these properties with any [color token](/docs/default-theme#color):
 
 | CSS property       | Class prefix |
 | ------------------ | ------------ |
@@ -192,12 +192,13 @@ Helper classes for the `visibility` property.
 
 ### z-index
 
-Helper classes for the `z-index` property. See also the [z-index token docs](docs/tokens#z-index).
+Helper classes for the `z-index` property. See also the [z-index token docs](/docs/default-theme#z-index).
 
 <div class="docs_oversizedTable">
 
 | Custom Property | CSS Value   | Class       |
 | --------------- | ----------- | ----------- |
+| –               | auto        | `.z-auto`   |
 | `--z-bottom`    | -1000000000 | `.z-bottom` |
 | `--z-0`         | 0           | `.z-0`      |
 | `--z-1`         | 10          | `.z-1`      |
@@ -267,7 +268,7 @@ Helper classes for the `z-index` property. See also the [z-index token docs](doc
 
 ### font-family
 
-See the [font stack tokens](/docs/tokens#font-stack) for details.
+See the [font stack tokens](/docs/default-theme#font-stack) for details.
 
 <div class="docs_oversizedTable">
 
@@ -288,7 +289,7 @@ See the [font stack tokens](/docs/tokens#font-stack) for details.
 
 ### font-weight
 
-See the [font weight tokens](/docs/tokens#font-weight) for details.
+See the [font weight tokens](/docs/default-theme#font-weight) for details.
 
 <div class="docs_oversizedTable">
 
@@ -305,23 +306,37 @@ See the [font weight tokens](/docs/tokens#font-weight) for details.
 
 ### font-size
 
-See the [font size tokens](/docs/tokens#font-size) for details.
+See the [font size tokens](/docs/default-theme#font-size) for details.
 
-| Custom Property | Class         |
-| --------------- | ------------- |
-| `--text-xs`     | `.text-xs`    |
-| `--text-sm`     | `.text-sm`    |
-| `--text-md`     | `.text-md`    |
-| `--text-lg`     | `.text-lg`    |
-| `--text-xl`     | `.text-xl`    |
-| `--display-sm`  | `.display-sm` |
-| `--display-md`  | `.display-md` |
-| `--display-lg`  | `.display-lg` |
-| `--display-xl`  | `.display-xl` |
+| Custom Property  | Class           |
+| ---------------- | --------------- |
+| `--text-xs`      | `.text-xs`      |
+| `--text-sm`      | `.text-sm`      |
+| `--text-md`      | `.text-md`      |
+| `--text-lg`      | `.text-lg`      |
+| `--text-xl`      | `.text-xl`      |
+| `--display-sm`   | `.display-sm`   |
+| `--display-md`   | `.display-md`   |
+| `--display-lg`   | `.display-lg`   |
+| `--display-xl`   | `.display-xl`   |
+| `--display-mega` | `.display-mega` |
+| `--display-giga` | `.display-giga` |
+
+### letter-spacing
+
+See the [letter spacing tokens](/docs/default-theme#letter-spacing) for details.
+
+| Custom Property  | Class           |
+| ---------------- | --------------- |
+| `--tracking-sm`  | `.tracking-sm`  |
+| `--tracking-md`  | `.tracking-md`  |
+| `--tracking-lg`  | `.tracking-lg`  |
+| `--tracking-xl`  | `.tracking-xl`  |
+| `--tracking-xxl` | `.tracking-xxl` |
 
 ### line-height
 
-See the [line height tokens](/docs/tokens#line-height) for details.
+See the [line height tokens](/docs/default-theme#line-height) for details.
 
 | Custom Property | Class          |
 | --------------- | -------------- |
@@ -343,7 +358,7 @@ See the [line height tokens](/docs/tokens#line-height) for details.
 | `start`   | `.text-start`   |
 | `end`     | `.text-end`     |
 
-Same split as the spacing helpers: `.text-start` and `.text-end` follow the reading direction (they flip in a right-to-left layout), `.text-left` and `.text-right` always mean the visual side.
+Same as the spacing helpers: `.text-start` and `.text-end` follow the reading direction (they flip in a right-to-left layout), `.text-left` and `.text-right` always mean the visual side.
 
 ### text-transform
 

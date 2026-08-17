@@ -1,5 +1,5 @@
 .toggle {
-  /* Themable via the --toggle-* tokens in settings.ui.css */
+  /* Themable via the --toggle-* tokens in theme.default.ui.css */
   --toggle-w: var(--toggle-width);
   --toggle-h: var(--toggle-height);
   --toggle-bd: var(--toggle-border-width);

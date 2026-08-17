@@ -7,7 +7,7 @@ https://open-props.style/#media-queries
 
 Can't use var() inside media queries 🤦‍♂️
 https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries/47212942#47212942
-so breakpoints are not in settings.tokens.css
+so breakpoints are not in theme.default.tokens.css
 
 xxs: 240px
 xs: 360px
@@ -43,7 +43,7 @@ xxl: 1920px
 }
 
 /* DEFAULT */
-.grid > .grid_item { display: block; appearance: none; -webkit-appearance: none }
+.grid > .grid_item { display: block; appearance: none; }
 .grid[col="1"] { --grid-tc: repeat(1, 1fr) }
 .grid[col="2"] { --grid-tc: repeat(2, 1fr) }
 .grid[col="3"] { --grid-tc: repeat(3, 1fr) }

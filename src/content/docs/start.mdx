@@ -5,6 +5,8 @@ lastUpdate: 2026-07-31
 version: 1
 ---
 
+import Notice from "../../components/Notice.astro";
+
 <section class="prose">
 mCSS is both a CSS framework and a methodology. You need to first understand the methodology to use the framework correctly. There are 3 main parts to the methodology.
 
@@ -12,35 +14,7 @@ mCSS is both a CSS framework and a methodology. You need to first understand the
 1. The CSS syntax
 1. The component architecture
 
-Once you've read through the basics below, the best way to understand how it all comes together is to have a look at the [source code][src]. (Video tutorial coming soon!)
-
-</section>
-
-## How to install mCSS
-
-<section class="prose">
-
-There is nothing to install from a registry: you copy mCSS into your project and own the copy. What you copy is the choice, the source files or the compiled ones.
-
-### Install with PostCSS
-
-Copy [`src/styles/framework/`][framework-src] to wherever your CSS lives, then start your own folder next to it for your unlayered CSS. This site's [`site/`][site-src] is the worked example of that folder, and [`_global.css`][4] is the entry file tying the two together (see [the layers](#mcss-file-structure) below). Copy [`.browserslistrc`][browserslistrc] from the repo root as well: it sets the [compile floor](#browser-support) that keeps postcss-preset-env from polyfilling the features mCSS uses natively.
-
-You own the source this way: tokens, components, and themes are all editable, and you only ship the files you actually import. The cost is a build step, because the source uses `@custom-media`, which no browser understands yet. One plugin ([postcss-preset-env][presetEnv]) and a five-line config resolve it, and if you already use Astro, Vite, Next, or any other bundler, that config is the only thing you add. If you need more details on how to set up PostCSS, see [this blog post][postcss-post].
-
-### The easy install
-
-Grab [`dist/mcss.min.css`][dist-min], the framework core in one file, and link it. Add [`dist/mcss.components.min.css`][dist-components-min] next to it for the component library, or leave it out if you're building your own components:
-
-```html
-<link rel="stylesheet" href="/css/mcss.min.css" />
-<!-- optional -->
-<link rel="stylesheet" href="/css/mcss.components.min.css" />
-```
-
-Everything is pre-processed, so there is no build step and no PostCSS. The unminified [`dist/mcss.css`][dist-css] and [`dist/mcss.components.css`][dist-components] are there if you need them.
-
-If you'd rather copy just what you need, every framework/component file is also available pre-processed and uncompressed in [`dist/css/`][dist-dir] (with [`dist/css/mcss.css`][dist-index] as an `@import` index).
+Once you've read through the basics below, have a look at the [source code][src] to see how it all comes together, and look at [Installation](/docs/installation) to choose the best option for your project.
 
 </section>
 
@@ -48,76 +22,84 @@ If you'd rather copy just what you need, every framework/component file is also 
 
 <section class="docs_section prose">
 
-The file structure is a simplified [ITCSS][1]: files are organized in [layers][layers] going from broad and generic (tokens, element defaults) to specific and local (components, one-off helpers). When done right, it takes care of all the common "shortcomings" of CSS such as [specificity][3] wars and cascading conflicts.
-
-mCSS implements this with native [CSS cascade layers][cascade-layers]: every framework file is imported into a named `@layer`, and the layer order (not the import order or specificity) decides who wins. Anything you write _outside_ the layers beats the framework by default, so mCSS always gets out of your way. The only exception is [helper classes][helpers], which use `!important` so they can override anything, including your own CSS.
-
 ### Two folders
 
-The styles live in two folders, and the split is the methodology in miniature:
+**[`framework/`][framework-src]**: the core files you should not edit yourself:
 
-- **[`framework/`][framework-src]**: mCSS itself, every file in a named layer. You copy it and mostly leave it alone: customization goes through the `settings.*` tokens, a [theme](/docs/themes), or your own CSS, not through edits scattered across framework files.
-- **[`site/`][site-src]**: this site's own CSS, imported **unlayered, after the framework**, so it wins without specificity games. Because those files are unlayered, the order you import them in is important so make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
+- Settings
+- Base
+- HTML elements
+- Global styles
+- Components (optional)
+- Themes (the default theme, plus optional swappable themes)
+- Helpers
 
-### The layers, in order
+**[`site/`][site-src]**: your own CSS. These files do not use CSS [layers][layers] so **understanding and using [ITCSS][1] methodology there is key**. (The [mCSS own][site-src] `/site` folder is a good reference.)
 
-Each layer only ever loses to the ones after it. The sections below detail each one; most have full docs in the sidebar.
+- Custom theme
+- Custom layouts
+- Your components
+- Page specific overrides
+- Patches to vendor plugins, packages, etc.
+
+### The layers
+
+mCSS is a modern take on [ITCSS][1]. Files are organized in [layers][layers] going from broad and generic (settings → reset → HTML elements) to specific and local (components → helpers). This methodology addresses all the supposed "shortcomings" of CSS such as [specificity][3] wars and cascading conflicts.
+
+While ITCSS used specificity for its layers, mCSS upgrades that with native [CSS cascade layers][cascade-layers] priority. Every framework file is imported into a named `@layer`, and the layer order (not the import order, and not specificity) dictates the priority. By default, anything you write _outside_ the layers (in the `/site` folder) has higher priority.
+
+The only exception is [helpers][helpers] which use `!important` to override everything, by design.
+
+Here are all the mCSS layers, from lowest to highest priority:
 
 <div class="docs_oversizedTable">
 
-| Layer         | Files         | What lives there                                         |
-| ------------- | ------------- | -------------------------------------------------------- |
-| `settings`    | `settings.*`  | Tokens, interface tokens, media queries, mixins          |
-| `base`        | `base.*`      | Reset/normalize                                          |
-| `elements`    | `elements.*`  | Default styling of bare HTML elements                    |
-| `global`      | `global.*`    | Grid, wrap, layout scaffolds, prose, a11y                |
-| `components`  | `component.*` | One self-contained block per file                        |
-| `theme`       | `theme.*`     | At most one active theme (token overrides + style rules) |
-| `helpers`     | `help.*`      | `!important` one-off overrides, last resort              |
-| _(unlayered)_ | your own CSS  | Beats every layer above, except helpers                  |
+| Layer           | Files             | What lives there                                |
+| --------------- | ----------------- | ----------------------------------------------- |
+| `base`          | `base.*`          | Reset/normalize.                                |
+| `elements`      | `elements.*`      | Default styling of bare HTML elements.          |
+| `global`        | `global.*`        | Grid, wrap, layout scaffolds, prose, a11y.      |
+| `components`    | `component.*`     | Self-contained component styles.                |
+| `theme.default` | `theme.default.*` | Default [theme][themes] files.                  |
+| `theme.user`    | `theme.*`         | Custom theme override.                          |
+| `external`      | _(your imports)_  | Code from plugins, npm packages, etc.           |
+| `helpers`       | `help.*`          | Tailwind style utility classes, but done right. |
+| _(unlayered)_   | your own CSS      | Beats every layer above, except helpers.        |
 
 </div>
 
-The framework's own entry, [`framework/mcss.css`][mcss-entry], makes the split concrete: it declares the layer order and puts every core framework file in its layer. You never edit it:
+Have a look at [`framework/mcss.css`][mcss-entry] to see how it's organized. All layers are _defined_ in this file.
+
+**Notes:**
+
+- `settings.*` files conceptually occupy the top position of the ITCSS "inverted pyramid" with lowest specificity, but since they're only used at build-time, they don't need their own `@layer`.
+- The `external` layer ships empty. This layer is reserved for third-party CSS (npm packages, plugins, etc.). That way you can use `@import url(…) layer(external);` to import vendor styles and it becomes trivial to override with your own CSS in a `patch.*` file (like this site's `patch.astro.css`).
+
+### The global import
+
+The global import ([`_global.css`][4] for this site) is where it all comes together. You import everything used on your site there:
+
+- The mCSS framework
+- The mCSS components (optional)
+- The default theme
+- Your theme (optional override)
+- Your custom layouts, components, and page overrides
+- Vendor style patches
 
 ```css
-/* framework/mcss.css (abridged) */
-@layer settings, base, elements, global, components, theme, helpers;
+/* global.css */
 
-/* Build-time only (media queries + mixins definitions) */
-@import url(./settings.media-queries.css);
-@import url(./settings.mixins.css);
-
-@import url(./settings.tokens.css) layer(settings);
-@import url(./settings.ui.css) layer(settings);
-@import url(./base.reset.css) layer(base);
-@import url(./elements.text.css) layer(elements);
-@import url(./global.grid.css) layer(global);
-@import url(./help.spacing.css) layer(helpers);
-/* etc. — note: no component.* and no theme.* imports here */
-```
-
-Two layers are declared but never filled by this entry. The `theme` slot is yours (see below), and the `components` slot belongs to the component library, which lives in its own entry, [`framework/mcss.components.css`][mcss-components-entry]. Import it alongside `mcss.css` for the full library, or skip it and build your own components; the layer order declared in `mcss.css` decides priority either way, so import order between the two doesn't matter.
-
-Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, activates at most one theme, then imports your own CSS unlayered:
-
-```css
-/* your entry file */
 @import url(./framework/mcss.css);
 
-/* Optional: the mCSS component library. Skip it if you build
-   your own components. */
+/* Optional: the mCSS component library. */
 @import url(./framework/mcss.components.css);
 
-/* Optional: activate ONE theme, a swappable style. Theme files are
-   self-layered (@layer theme inside the file), so no layer()
-   annotation. None imported = the default look. */
-/* @import url(./framework/theme.wireframe.css); */
+/* The default theme. */
+@import url(./framework/theme.default.css);
+/* Optional: your own theme, overriding the default */
+@import url(./site/theme.starter.css);
 
-/* Your own CSS: UNLAYERED, after the framework. Its normal
-   declarations win over every mCSS layer without fighting
-   specificity. One exception: helpers are !important and beat
-   unlayered CSS too. */
+/* Your own CSS: it wins over every mCSS layer (except helpers) */
 @import url(./site/global.layout.css);
 @import url(./site/component.header.css);
 @import url(./site/page.blog.css);
@@ -126,22 +108,19 @@ Your site's entry (this site's is [`_global.css`][4]) pulls in the framework, ac
 
 [cascade-layers]: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
 [mcss-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.css
-[mcss-components-entry]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/mcss.components.css
 
 </section>
 
-## Detailed description of each layer
+## Detailed description of all files
 
 <section class="docs_section prose">
 
 ### Settings
 
-Settings are where all custom properties are set.
+Two `settings.*` files sit outside the `@layer` stack: they're only used at build time.
 
-- [Tokens][5] is where you set default values for sizes, font stacks, colors, transitions, etc. See [the docs][5] for all the values available by default.
-- [Interface tokens][interfaceTokens] are an abstraction level to standardize common values across elements and components. For instance, components use `--ui-border-color` instead of the lower level token `--base-200`, so one override restyles every bordered surface.
 - [Media queries][6] include responsive sizes, as well as user preferences like color schemes, reduced motion, etc. See [media queries docs][6].
-- **Mixins** is optional. It is not used in other parts of mCSS by default but can be useful to streamline your own components' code. It requires a [PostCSS plugin][7] to work.
+- **Mixins** (optional). It is not used in other parts of mCSS by default but can be useful to streamline your own components' code. It requires a [PostCSS plugin][7] to work.
 
 ### Base
 
@@ -172,37 +151,47 @@ Global styles included out of the box:
 
 ### Components
 
-Self-contained styles for single components, one block per file. The mCSS framework is designed to be used on its own, allowing you to create your own components, but a [collection of components][components] built on top of mCSS is included. It ships in its own entry file (`mcss.components.css`, or `dist/mcss.components.css` as a drop-in): `mcss.css` only declares the `components` layer slot, so the library is opt-in.
+Self-contained styles for single components. mCSS is designed to let you to create your own components, but a [collection of components][components] built on top of mCSS is included. It ships separately to keep mCSS nimble as the component library grows.
 
-Some components are **CSS-only**: a single class on a single element, with no Astro component because there is no markup structure to encapsulate. For example, the `.badge` class on a `<span>` is the whole badge, and the `.bt` class can style a `<button>` or an `<a>` (styling that has to be opt-in, since not all links are buttons). Their docs live in the [components section][components] like everything else, marked "CSS-only".
+**Note:** Some components are CSS-only. A single class on a single element, with no associated HTML. For example, the `.badge` class on a `<span>` is the whole badge, and the `.bt` class can style a `<button>` or an `<a>`.
 
 ### Theme
 
-This is the one layer the framework declares but never fills: `mcss.css` imports no theme, and the default look IS the empty theme layer. The theme itself is really part of [your CSS](#your-css-unlayered): one `theme.*.css` file of token overrides plus optional style rules that you activate from your own entry file, whether it's a shipped theme like `theme.wireframe.css` or one you wrote yourself.
+Every design value in mCSS lives in the **default theme** (`theme.default.css`) composed of 2 parts:
 
-The theme's remit is wider than component classes. Theme files are the ONE place allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors. **A `body` rule belongs in the theme, not in your project CSS.** Before adding a declaration to `body`, check whether an interface token already delivers it: the elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. See [the theme docs][themes] for how themes work and how to build one.
+- [tokens][5]: Raw design tokens such as dimensions, fonts, colors, etc.
+- [UI tokens][uiTokens]: abstraction layer that maps raw tokens to semantic tokens, e.g. `--ui-border-color`, `--input-padding`, etc.
+
+Use the [starter template][srcStarter] to make your own theme (feel free to rename it to anything you'd like but it's recommended to follow the `theme.*.css` convention). Anything you add to this file will automatically override what's in the default theme.
+
+**Don't edit the default theme files:** keeping your design in your theme makes framework updates easy.
+
+If you want to make a self contained mCSS theme you can distribute, see how `theme.wireframe.css` is set up. It basically imports the default theme itself, so you can swap the `@import` in your [global import][4]. More details on that in the [theme docs][themes].
 
 ### Helpers
 
-[Helpers][helpers] provide classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Helper declarations use `!important`, and important declarations inside a layer beat unlayered CSS, so a helper class overrides everything on that element, including your own CSS. Read [the docs][helpers] for more info on this.
+[Helpers][helpers] provide classes for “one-off” local overrides. They're similar to utility classes from other frameworks, with a critical difference: they're meant to be used as a last resort and as sparingly as possible. Helper declarations use `!important` and override everything on that element, including your own CSS. Read [the docs][helpers] for more info on this.
 
-### Your CSS (unlayered)
+### Your CSS
 
-Your own CSS (components, page styles, third-party CSS you don't control) is imported after the mCSS framework. Your CSS is unlayered. It wins over all layered mCSS files. You never have to worry about the framework's specificity. The one exception is helper classes: their `!important` declarations win over everything, on purpose.
+Your own CSS is unlayered, which means:
 
-Your CSS goes inside your `site/` folder, in this order:
+- Your CSS has higher priority than mCSS' (except helpers)
+- Using the [ITCSS][1] methodology is **critical**.
 
-- `theme.*.css` is the one file of yours that is **not** unlayered: a theme wraps its own content in `@layer theme`, deliberately dropping into the framework's theme slot so it restyles the framework defaults while the rest of your CSS below still beats it.
+Your `site/` CSS is required to be imported in this order:
+
+- `theme.starter.css` overrides the default mCSS theme.
 - `global.*.css` for site-wide additions to the framework's globals.
-- `component.*.css` for your own blocks (most of your CSS should end up here)
+- `component.*.css` for your own components (most of your CSS should end up here)
 - `page.*.css` for the rare page-specific styles
-- `external.*.css` for CSS you don't control, i.e. plugins
+- `patch.*.css` for patching CSS you don't control, i.e. plugins
 
-Because those files are unlayered, the order you import them in is important. Make sure you have a clear mental model of [ITCSS][1] principles before delving in. You can also refer to mCSS [own `/site`'s setup][4] as a reference.
+**Note:** You can also refer to [mCSS own][4] `/site`'s setup as a reference.
 
-### Pages
+#### Pages
 
-Page files belong to your `/site` folder. They're used sparingly, for the rare page-specific overrides.
+Page files should be used sparingly, for the rare page-specific overrides.
 
 ```css
 /* page.blog.css */
@@ -211,45 +200,11 @@ Page files belong to your `/site` folder. They're used sparingly, for the rare p
 }
 ```
 
-**Note**: page classes should go on the `<body>` in the HTML, at the same level as the [layout scaffold](/docs/global#layouts) classes (not on `<main>`):
+**Note**: page classes should go on the `<body>` in the HTML, at the same level as the [layout scaffold](/docs/layout#layouts) classes (not on `<main>`):
 
 ```html
 <body class="layout layout-centered blog blog-index"></body>
 ```
-
-### Print styles
-
-Two rules bend for one file: one block per file, and the rule that a selector only contains classes from its own block. `global.print.css` holds **every** `@media print` rule in the project, including rules that select classes belonging to other blocks.
-
-Print is not a variation on the screen design, it is a different artifact. It removes the parts of the interface that paper cannot use, flattens tinted surfaces that cost toner and print as nothing, and decides where the page may break. That is a single decision about a medium, and a decision is easier to keep coherent in one place than spread across every component it touches. Reading `global.print.css` top to bottom should tell you what a printed page looks like; you cannot read that out of fourteen `@media print` blocks in fourteen files.
-
-Group it by intent rather than by component: the sheet, what paper cannot use, ink instead of tint, where the page may break. Grouping that way also collapses repeated rules into shared selector lists, which a per-component split cannot do.
-
-```css
-/* site/global.print.css */
-@media print {
-  /* What paper cannot use */
-  .a11y-skipLink,
-  .header,
-  .footer,
-  .signup {
-    display: none;
-  }
-
-  /* Ink instead of tint */
-  .codeBlock_pre,
-  .caveat,
-  .correction {
-    background: none;
-    /* --print-rule is yours to define, in your theme */
-    border: 1pt solid var(--print-rule);
-  }
-}
-```
-
-The cost of the exception is that deleting a component can leave an orphan rule behind. Naming the exception is what makes that affordable: there is one file to scan, not fourteen.
-
-**No other media query gets this exception.** `@media (forced-colors: active)`, `prefers-reduced-motion`, and `prefers-color-scheme` stay in the file of the block they concern. Those are per-block statements about how one component survives a condition: a note on that component, and part of understanding it. A print rule is one line in the design of a printed page, and belongs with the rest of that design.
 
 </section>
 
@@ -309,24 +264,22 @@ CSS:
 }
 ```
 
-**One gotcha to keep in mind:** nesting a state inside its block compiles to a two-class selector (`.form_submit.is-disabled`), which beats single-class modifiers like `.form_submit-lg`. That's usually what you want: states describe what's happening _right now_, so they should win. But it means a state block is the wrong place to declare default values for custom properties. Declare defaults on the block itself, let modifiers override them, and only _use_ the properties inside the state. Otherwise your size and color modifiers will mysteriously stop working the moment the state class shows up.
+**Note:** State selectors have higher specificity than modifier classes (`.avatar.is-online` = `020` vs. `.avatar-xl` = `010`), so always declare custom properties default values inside the main class and _use_ the properties inside the state.
 
 ```css
 .avatar {
-  /* ✅ defaults live on the block… */
+  /* Defaults on the main class */
   --status-dot-size: 12px;
 
   &.is-online {
-    /* ❌ …not here: this would override .avatar-xl's dot size */
-    &::after {
-      /* ✅ states just consume the properties */
-      width: var(--status-dot-size);
-    }
+    /* ❌ not here: it would override .avatar-xl */
+    /* states just use the properties */
+    width: var(--status-dot-size);
   }
 }
 
 .avatar-xl {
-  /* modifiers can now override the default */
+  /* modifiers override the default */
   --status-dot-size: 20px;
 }
 ```
@@ -341,7 +294,7 @@ CSS:
 
 When using mCSS syntax **within a component**, it's considered overkill to create a class for every single HTML element you need to target.
 
-For example, this is acceptable (and recommended) CSS for the tags component (`component.tags.css`):
+For example, this is acceptable (and recommended) CSS for the [tags][tags] component:
 
 ```css
 .tags {
@@ -360,7 +313,7 @@ For example, this is acceptable (and recommended) CSS for the tags component (`c
 
 ### Modifiers and component variations
 
-When using modifiers to create different variations of a component, it's recommended to use local custom properties if possible instead of overriding the CSS directly.
+When using modifiers to create different variations of a component, it's recommended to use local custom properties if possible instead of overriding the CSS directly. (See the [notice component][notice] for an implementation example.)
 
 ```css
 /* Don't do that */
@@ -383,70 +336,51 @@ When using modifiers to create different variations of a component, it's recomme
 }
 ```
 
-See the [implementation][github] of the [notice component](/components/notice) for a real life example.
+### One class per file
 
-### One block per file
+<Notice
+  type="warning"
+  title="This is the most common error I see"
+  class="mb-md1"
+>
+  CSS files must only contain one CSS class, its modifiers, and its elements.
+  **Nothing else.**
+</Notice>
 
-This rule governs every file in your `site/` folder, not just `component.*.css`. Name each file for the block it holds, and hold one block in it. `component.card.css` is `.card`, its elements, its modifiers, and its media queries, nothing else. A file carrying a second block is a file you cannot delete when that block dies; a block with no file of its own is a block nobody can find.
+For example, the `component.card.css` should only contain:
 
-- A container's items are elements, not blocks: a step indicator only ever exists inside `.steps`, so it is `.steps_step`, and it lives in `component.steps.css` with the rest of its block. The test is whether the thing has a life of its own: a `.card` that shows up all over the site is its own block, and a `.cardGrid` built to lay cards out is another, each with its own file.
-- A nested component starts its own name, so it gets its own file.
-- `global.*` files are bound by the same rule: one scaffold, one utility, one role family per file. A `global.layout.css` holding the page shell, a section pattern, and nine typography classes is three files.
-
-The import list in your entry file is then also the list of blocks in your project, in build order, which makes an unfamiliar codebase readable from a single file.
-
-Any questions or feedback? Head over to the [Github discussions][discussions]!
-
-</section>
-
-## Browser support
-
-<section class="docs_section prose">
-
-mCSS targets **[Baseline](https://web.dev/baseline) 2024**: it freely uses cascade layers (`@layer`), nesting, `:has()`, `light-dark()`, `@scope`, `text-wrap: balance`, and relative color syntax, all natively, with no polyfills. In practice that means Chrome and Edge 130, Firefox 132, and Safari 18.2 or newer, the versions that shipped by late 2024.
-
-How things degrade in older browsers:
-
-- **Cascade layers, nesting, `:has()`, `light-dark()`**: load-bearing. Browsers without them are not supported. `light-dark()` deserves a specific warning: every color token stores it in a custom property, and a custom property holding an unsupported function does not fall back, it makes the properties that consume it invalid at computed-value time. Browsers older than mid-2024 get unset colors (`currentColor` borders, transparent backgrounds), not the light palette.
-- **`@scope`** (mid-2024): only affects `.prose` internals; spacing between prose blocks and headings loses one refinement.
-- **Scroll-driven animations**: the [ReadProgressBar](/components/readprogressbar) component detects support and falls back to JavaScript automatically.
-- **`sibling-index()`, CSS `random()`, SVG displacement filters**: used only by the [wireframe theme](/docs/themes) for per-element sketch variation; without them the theme keeps its fixed hand-drawn look.
-
-The exact compile floor lives in `.browserslistrc` (`baseline 2024`). Keep it: with a broader target, postcss-preset-env starts polyfilling the features above, which costs real weight (a `light-dark()` polyfill alone added 23% to a measured build) and quietly rewrites CSS the framework's layer model depends on.
+- `.card` and nested HTML elements.
+- `.card_*` descendants.
+- `.card-*` modifiers.
+- State classes
+- **Nothing else.** See [this blog article][system-that-scales] for more details.
 
 </section>
 
 [1]: /blog/what-is-itcss
-[2]: https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#css_rulesets
 [3]: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
 [4]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/_global.css
-[5]: /docs/tokens
-[6]: /docs/media-queries
+[5]: /docs/default-theme
+[6]: /docs/layout
 [7]: https://github.com/postcss/postcss-mixins
-[a11y]: /docs/global#accessibility
+[a11y]: /docs/layout#accessibility
 [bem]: /blog/what-is-bem
 [bemit]: https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
-[browserslistrc]: https://github.com/minimaldesign/mCSS/blob/main/.browserslistrc
 [components]: /components/start
 [coupling]: /blog/component-system-that-scales
-[discussions]: https://github.com/minimaldesign/mCSS/discussions
-[dist-components-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css
-[dist-components]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.css
-[dist-css]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
-[dist-dir]: https://github.com/minimaldesign/mCSS/tree/main/dist/css
-[dist-index]: https://github.com/minimaldesign/mCSS/blob/main/dist/css/mcss.css
-[dist-min]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css
 [framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
-[github]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
-[grid]: /docs/global#grid
+[srcStarter]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.starter.css
+[notice]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.notice.css
+[grid]: /docs/layout#grid
 [helpers]: /docs/helpers
-[interfaceTokens]: /docs/tokens#interface-tokens
+[uiTokens]: /docs/default-theme#ui-tokens
 [layers]: /blog/what-is-itcss#the-layers-of-itcss
-[layout]: /docs/global#layouts
-[postcss-post]: /blog/postcss-setup-for-mcss
-[presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
-[prose]: /docs/global#prose
+[layout]: /docs/layout#layouts
+[prose]: /docs/layout#prose
 [site-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/site
 [src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles
-[themes]: /docs/themes
-[wrap]: /docs/global#wrap
+[system-that-scales]: /blog/component-system-that-scales
+[release]: https://github.com/minimaldesign/mCSS/releases/latest
+[tags]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/component.tags.css
+[themes]: /docs/default-theme
+[wrap]: /docs/layout#wrap

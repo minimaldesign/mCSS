@@ -46,7 +46,7 @@ If you build something with mCSS, I'd love to see it. Come say hi in the [discus
 
 [dist]: https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.css
 [components]: /components/start
-[themes]: /docs/themes
+[themes]: /docs/default-theme
 [template]: /templates/marketing
 [changelog]: https://github.com/minimaldesign/mCSS/blob/main/CHANGELOG.md
 [discussions]: https://github.com/minimaldesign/mCSS/discussions
