@@ -224,7 +224,7 @@ The header and footer are optional: a bare `.layout` with only `.layout_content`
 
 ### The layouts
 
-Each thumbnail links to a full-page demo built from labeled color blocks. The demos are the honest version: resize the window to see the breakpoint collapses, sticky footer, and full-viewport behavior that a static diagram can't show.
+Each thumbnail links to a full-page demo built from labeled color blocks. Resize the demos window to see the different breakpoints, sticky footer, and full-viewport behavior.
 
 <div class="grid" col="2" col-lg="3">
   <div class="grid_item">
@@ -251,11 +251,11 @@ Each thumbnail links to a full-page demo built from labeled color blocks. The de
 
 | Class                 | What it's for                                                                                                                                                             |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.layout`             | The base app shell: header / content / footer with a sticky footer. Required by every variant, usable alone.                                                              |
+| `.layout`             | The base class: header / content / footer with a sticky footer. Required by every variant, usable alone.                                                              |
 | `.layout-centered`    | A single centered reading column (articles, blog posts, legal pages). Width capped at `--layout-content-width`.                                                           |
 | `.layout-sidebar`     | Aside + main from the `--md` breakpoint, single column below it (aside follows source order).                                                                             |
-| `.layout-sidebar-end` | Compose with `.layout-sidebar` to move the aside to the reading end. ("End", not "right": columns follow the writing direction.)                                          |
-| `.layout-docs`        | Documentation shell: nav aside + main + TOC aside (`.layout_content_aside-toc`). One column below `--md` with the asides hidden, nav + main from `--md`, TOC from `--lg`. |
+| `.layout-sidebar-end` | Compose with `.layout-sidebar` to move the aside to the opposite side.  |
+| `.layout-docs`        | Documentation: nav aside + main + TOC aside (`.layout_content_aside-toc`). One column below `--md` with the asides hidden, nav + main from `--md`, TOC from `--lg`. |
 | `.layout-split`       | Two equal full-height panes (the direct children of `.layout_content`), stacked below `--md`. Auth screens, image + content landings.                                     |
 | `.layout-cover`       | Full-viewport (`100dvh`) cover with content centered both ways. Landing, 404, coming-soon pages.                                                                          |
 
@@ -268,13 +268,18 @@ Each thumbnail links to a full-page demo built from labeled color blocks. The de
   `.layout-sidebar`, which stacks instead of hiding.
 </Notice>
 
-### The main column is a container
+### Container queries
 
-Every scaffold's main column (`.layout_content_main`) is a named [size container](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries) (`container: main / inline-size`). Container-responsive components ([Tiles](/components/tiles)) pick their column count from it instead of the viewport, and your own rules can respond to it with `@container main (width >= …)`.
+Every layout main column (`.layout_content_main`) is a named [size container](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries) (`container: main / inline-size`). You can use it in your container queries:
+
+```css
+@container main (width >= …)
+```
+
 
 ### Settings
 
-Column widths come from three tokens in `theme.default.ui.css`. `--layout-toc-width` accepts any grid track size; the `1fr` default lets the TOC absorb whatever space the main column doesn't use.
+Column widths come from three tokens in `theme.default.ui.css`. `--layout-toc-width` accepts any grid track size; the `1fr` default lets the TOC resize to whatever space the main column doesn't use.
 
 <div class="docs_oversizedTable">
 
@@ -286,7 +291,7 @@ Column widths come from three tokens in `theme.default.ui.css`. `--layout-toc-wi
 
 </div>
 
-Override them globally in your [theme](/docs/default-theme), or per-layout with a scoped rule. mcss.dev itself runs its docs on `.layout-docs` and layers its own specifics on top ([source][srcSiteLayout]): a wider `77ch` reading column and sticky side navs. That file is the pattern to copy when a scaffold gets you 90% of the way.
+Override them globally in your [theme](/docs/default-theme), or per-layout with a scoped rule. This very site uses `.layout-docs` and layers its own specifics on top ([source][srcSiteLayout]): a wider `77ch` reading column and sticky side navs.
 
 [srcSiteLayout]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/site/global.layout.css
 
@@ -328,7 +333,9 @@ The `.prose` class also adds extra styling for `ol`, `ul`, and `code` elements.
 
 [srcA11y]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/global.a11y.css
 
-This is where accessibility specific classes go. Currently a WIP as [components are being created](/components/start).
+This is where accessibility specific classes go.
+
+Currently a WIP as [components are being created](/components/start).
 
 </section>
 
@@ -381,11 +388,11 @@ Basic fade in/out animations with flexible start/end opacity values. (More info 
 
 </section>
 
-## Viewport size
+### Viewport size
 
 <section class="prose">
 
-### Dimensions
+#### Dimensions
 
 <div class="docs_oversizedTable">
 
@@ -401,7 +408,7 @@ Basic fade in/out animations with flexible start/end opacity values. (More info 
 
 </div>
 
-### Variations
+#### Variations
 
 Using the `md` dimension as an example:
 
@@ -417,7 +424,7 @@ Using the `md` dimension as an example:
 
 </div>
 
-### Examples
+#### Examples
 
 <div class="docs_oversizedTable">
 
@@ -433,7 +440,7 @@ Using the `md` dimension as an example:
 
 The `-phone` variant is available from `xxs` through `lg` (there is no `xl-phone` or `xxl-phone`).
 
-### Recommended responsive setup
+#### Recommended responsive setup
 
 If you search online for the best approach to responsive design and setting up your breakpoints, you'll come across the technically true but useless "it depends" answer.
 
@@ -463,7 +470,7 @@ Without [PostCSS plugins][postcss]:
 
 </section>
 
-## User preferences
+### User preferences
 
 <section class="prose">
 
@@ -490,7 +497,7 @@ These map to the `prefers-*` and related media features, so you can respect user
 
 </section>
 
-## Device capabilities
+### Device capabilities
 
 <section class="prose">
 
@@ -508,7 +515,7 @@ These map to the `prefers-*` and related media features, so you can respect user
 
 </div>
 
-### Example
+#### Example
 
 These are used like any other custom media query, and they can be combined with each other or with a dimension token:
 
