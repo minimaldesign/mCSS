@@ -9,7 +9,7 @@
 
 # The template docs page moved twice: components collection -> docs ->
 # a section of the component library's start page (docs restructure)
-/components/template  /components/start#marketing-template  301
+/components/template  /docs/components#marketing-template  301
 
 # Tags pages moved under /blog so the Blog nav item highlights on them
 /tags    /blog/tags         301
@@ -29,5 +29,5 @@
 /docs/global.md         /docs/layout.md         301
 /docs/media-queries     /docs/layout            301
 /docs/media-queries.md  /docs/layout.md         301
-/docs/template          /components/start#marketing-template  301
-/docs/template.md       /components/start.md    301
+/docs/template          /docs/components#marketing-template  301
+/docs/template.md       /docs/components.md     301

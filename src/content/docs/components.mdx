@@ -1,0 +1,82 @@
+---
+title: "Components"
+description: "The component part of mCSS: the built-in component library, your own site components, and the marketing template"
+lastUpdate: 2026-08-16
+version: 1
+---
+
+<section class="prose">
+
+Components in a mCSS project come in two kinds:
+
+- **Built-in components**: a [library of ready-made components](/components/start) built on top of mCSS. Like the rest of the framework, you copy the pieces you want into your project and own the code. It ships separately (`mcss.components.css`), so skip it entirely if you don't need it.
+- **Your own components**: mCSS is designed for building your own, one `component.*.css` file per block, in your own CSS folder. The [class syntax](/docs/start#mcss-classes-syntax) and [component conventions](/docs/start#components) from Getting Started are all you need.
+
+The two kinds mix freely: this very site's pages are built from library components, site components, and the occasional page override.
+
+</section>
+
+## Marketing template
+
+<section class="prose">
+
+A complete marketing one-pager built from nothing but mCSS and its Astro components: no site CSS, no custom components, no JavaScript beyond what the components ship with. It is both a working template and the proof that the library composes into a real page.
+
+**[Open the live template](/templates/marketing)**, and use the switcher in its bottom corner to swap the default theme and the [wireframe theme](/docs/default-theme).
+
+The whole page sits on the base [`.layout` scaffold](/docs/layout#layouts): `<body class="layout">` wrapping a `.layout_content` main, which gives the header / content / footer app shell with a sticky footer. Inside that shell, from top to bottom:
+
+- [Banner](/components/banner)
+- [Header](/components/header) (sticky, with mobile menu)
+- [Hero](/components/hero) (full variant on a gradient)
+- [Section](/components/section) with a [feature grid](/components/featuregrid) ([Tiles](/components/tiles) + FeatureItems), a filled Section of [Testimonials](/components/testimonial) on the grid
+- [Pricing](/components/pricing)
+- [FAQ](/components/faq) with exclusive-open items
+- Closing-CTA [Section](/components/section)
+- [Footer](/components/footer).
+
+</section>
+
+### Using it
+
+<section class="prose">
+
+Copy [`marketing.astro`][srcTemplate] into your own `src/pages/` (as `index.astro`, most likely) and definitely swap the copy ;) Everything it needs is listed below. if you copied the whole framework and component library per [Getting started](/docs/start), you should be good to go.
+
+Two blocks in the file exist for the docs demo and are safe to remove:
+
+- The **theme switcher** at the bottom (marked with a comment) is just for the demo.
+- The **inline `@layer` statement** at the top of `<head>` pins the cascade-layer order before any stylesheet loads. It's needed when a theme is loaded as a separate `<link>` which we do here to use the theme switcher.
+
+<div class="docs_oversizedTable">
+
+| What             | Files                                                                                                                                                                             |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The page         | `src/pages/templates/marketing.astro` ([source][srcTemplate])                                                                                                                     |
+| Astro components | `Banner`, `Header`, `Hero`, `Section`, `Tiles`, `FeatureItem`, `Testimonial`, `Avatar` (used by Testimonial), `PricingCard`, `Faq`, `FaqItem`, `Footer` ([source][srcComponents]) |
+| mCSS    | The framework entries `mcss.css` and `mcss.components.css` cover every component and layout style used ([source][srcFramework])                                                   |
+| Icons            | `menu`, `x`, `check`, `circle-check`, `moon-star`, `external-link`, `rotate-ccw`, `mail`, `heart` ([source][srcIcons])                                                            |
+| Scripts          | `src/scripts/utilities.js` (the Header's scroll throttle) ([source][srcScripts])                                                                                                  |
+
+</div>
+
+[srcTemplate]: https://github.com/minimaldesign/mCSS/blob/main/src/pages/templates/marketing.astro
+[srcComponents]: https://github.com/minimaldesign/mCSS/tree/main/src/components
+[srcFramework]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
+[srcWireframe]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.wireframe.css
+[srcIcons]: https://github.com/minimaldesign/mCSS/tree/main/src/assets/icons
+[srcScripts]: https://github.com/minimaldesign/mCSS/blob/main/src/scripts/utilities.js
+
+</section>
+
+### Useful recipes
+
+<section class="prose">
+
+Even if you don't use the whole page, three patterns in it transfer anywhere:
+
+- **The closing CTA** is not a component; it is a `Section` with `variant="primary"` and a `.section_actions` row (see the [Section recipes](/components/section)).
+- **The pricing row** is three [PricingCards](/components/pricing) on the plain [grid](/docs/layout#grid) (`col="1" col-md="3"`), with `highlighted` on the recommended tier.
+- **Exclusive-open FAQ** items share a `name`, so the browser closes one when another opens. Native `<details>`, no JavaScript.
+
+</section>

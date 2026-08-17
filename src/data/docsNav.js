@@ -9,7 +9,7 @@ export const docsNavItems = [
   { id: "default-html", title: "Default HTML" },
   { id: "default-theme", title: "Default Theme" },
   { id: "layout", title: "Layout" },
-  { id: "components", title: "Components", href: "/components/start" },
+  { id: "components", title: "Components" },
   { id: "helpers", title: "Helpers" },
   { id: "browser-support", title: "Browser Support" },
   { id: "ai", title: "AI Agents" },
