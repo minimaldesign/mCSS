@@ -5,6 +5,12 @@
   unlayered on top.
 */
 
+/* The site header is sticky, so scrolling to an anchor needs an offset or the
+   target heading lands hidden underneath it. */
+html {
+  scroll-padding-block-start: calc(var(--header-height) + var(--sm1));
+}
+
 .layout-docs {
   /* Docs pages read a little wider than the 70ch default */
   --layout-content-width: 77ch;
