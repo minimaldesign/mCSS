@@ -16,7 +16,7 @@ import Notice from "../../components/Notice.astro";
 | `theme.default.css`        | Default theme entry: imports the next two   | [Github][srcDefault]   |
 | `theme.default.tokens.css` | Raw tokens: colors, type, spacing, etc.     | [Github][src]          |
 | `theme.default.ui.css`     | UI tokens: what elements and components use | [Github][srcUi]        |
-| `theme.starter.css`        | Use it as a start for your own theme.       | [Github][srcStarter]   |
+| `theme.starter.css`        | Use it as a start for your own theme        | [Github][srcStarter]   |
 | `theme.wireframe.css`      | Full swappable theme example                | [Github][srcWireframe] |
 
 </div>
@@ -43,7 +43,7 @@ Activate the default theme right after the framework, then (optionally) your own
 @import url(./framework/mcss.css);
 @import url(./framework/mcss.components.css); /* optional */
 @import url(./framework/theme.default.css);
-@import url(./theme.starter.css); /* your theme */
+@import url(./site/theme.starter.css); /* your theme */
 ```
 
 Theme files are **self-layered** and your theme goes in the `theme.user` layer:
@@ -51,11 +51,11 @@ Theme files are **self-layered** and your theme goes in the `theme.user` layer:
 ```css
 /* theme.starter.css */
 @layer theme.user {
-    /* […] */
+  /* […] */
 }
 ```
 
-mCSS is set up so that, regardless of how you load your theme (`@import`, `<link>`, or bundler), it always overrides the default's theme.
+mCSS is set up so that, regardless of how you load your theme (`@import`, `<link>`, or bundler), it always overrides the default theme.
 
 </section>
 
@@ -65,7 +65,7 @@ mCSS is set up so that, regardless of how you load your theme (`@import`, `<link
 
 Copy [`theme.starter.css`][srcStarter] and start overriding:
 
-- **Tokens first.** Most themes never need a selector: raw tokens for the palette and type, ui tokens for general UI changes, and component tokens for details.
+- **Tokens first.** Most themes never need a selector: raw tokens for the palette and type, UI tokens for general UI changes, and component tokens for details.
 - **Style rules only for what tokens can't express**: pseudo-elements, `nth-child` rhythm, font smoothing, `text-wrap`, etc. Your theme file is the one place where overriding framework classes and HTML elements from other files is ok.
 - **Check tokens before writing a style rule.** The page is already painted from `--body-background-color`, `--text-color`, and `--text`: set those instead of writing a `body` rule for background, color, or font.
 - **No `!important`.** It will break the layer system. And if you need `!important`, it's a sign you're doing something wrong.
@@ -126,7 +126,7 @@ That's why small theme files can go far with a handful of token overrides.
 
 When you start a new project, put your design's raw token values in your own theme: your `base` and `primary` colors, your font stacks, and whatever else your design calls for. The defaults are sensible and things like spacing might not need to change.
 
-Then continue overriding UI tokens provided by mCSS as you go, and creating your own when needed. Do not add hard coded "magic numbers" anywhere else but in your raw token values.
+Then continue overriding UI tokens provided by mCSS as you go, and creating your own when needed. Do not add hard-coded "magic numbers" anywhere else but in your theme's tokens.
 
 </section>
 
@@ -211,7 +211,7 @@ Check out [tints.dev](https://www.tints.dev) if you want to make your own palett
 
 #### Highlight
 
-The text marker color, consumed by the `--marker-color` ui token (what `<mark>` uses). Override `--highlight-500` in a theme to restyle every highlight.
+The text marker color, consumed by the `--marker-color` UI token (what `<mark>` uses). Override `--highlight-500` in a theme to restyle every highlight.
 
 | Token           | Value   | Demo                                                                        |
 | --------------- | ------- | --------------------------------------------------------------------------- |
@@ -284,7 +284,7 @@ Dimension tokens can be used anywhere you need to set `margin`, `padding`, `widt
 
 #### Font stack
 
-There are 3 font stacks set up by default for the `font-family` CSS Property.
+There are 3 font stacks set up by default for the `font-family` CSS property.
 
 | Token     | Value                                                                                                                                                           |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -304,7 +304,7 @@ If you'd like to bring in your own fonts or [Google fonts](https://fonts.google.
 
 #### Font size
 
-Check out [typescale.com ](https://typescale.com) if you need help creating your own sizes.
+Check out [typescale.com](https://typescale.com) if you need help creating your own sizes.
 
 <div class="docs_oversizedTable">
 
