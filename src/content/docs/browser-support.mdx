@@ -9,9 +9,15 @@ version: 1
 
 **mCSS targets [Baseline](https://web.dev/baseline) 2024**.
 
-It uses cascade layers (`@layer`), nesting, `:has()`, and other modern CSS features natively, with no polyfills. In practice that means the versions of Chrome, Edge, Firefox, and Safari that shipped late 2024 and after.
+It uses cascade layers (`@layer`), nesting, `:has()`, and other modern CSS features natively, with no polyfills. In practice that means the versions of Chrome, Edge, Firefox, and Safari that shipped late 2024 and after:
 
-If you install mCSS via the [third option above](/docs/installation#option-3-compiled-via-postcss), it is possible to modify mCSS browser support via the `.browserslistrc` file. Using a different target, `postcss-preset-env` will start polyfilling the newer features. But it's not recommended: it will create file bloat and it's not foolproof. Some features can break in the process.
+| Browser        | Version |
+| -------------- | ------- |
+| Chrome         | 130+    |
+| Edge           | 130+    |
+| Firefox        | 132+    |
+| Safari (+ iOS) | 18.2+   |
+
+If you install mCSS with the [PostCSS option](/docs/installation#option-3-compiled-via-postcss), it is possible to modify mCSS browser support via the `.browserslistrc` file. Using a different target, `postcss-preset-env` will start polyfilling the newer features. But it's not recommended: it will create file bloat and it's not foolproof. Some features can break in the process. (See [this blog post](/blog/postcss-setup-for-mcss) for details on what can break when changing the default browser support.)
 
 </section>
-
