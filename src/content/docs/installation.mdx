@@ -5,7 +5,9 @@ lastUpdate: 2026-08-16
 version: 1
 ---
 
-## Option 1: easy install
+## Installation options
+
+### Option 1: easy install
 
 <section class="prose">
 
@@ -22,11 +24,8 @@ Link the [framework file][dist-min] in your `<head>` and optionally the [compone
 
 (Unminified versions ([framework][dist-css], [components][dist-components]) are available if you want to read the code.)
 
-</section>
 
-## Option 2: individual files
-
-<section class="prose">
+### Option 2: individual files
 
 The sweet spot between ease of use and customization options: everything is pre-processed, so there is no build step and no PostCSS. But you can pick and choose which file to include depending on what you need.
 
@@ -53,19 +52,15 @@ Add/remove/comment out files in `mcss.css` according to what you need ([more inf
 @import url(./help.typography.css) layer(helpers);
 ```
 
-</section>
-
-## Option 3: compiled via PostCSS
-
-<section class="prose">
+### Option 3: compiled via PostCSS
 
 If you want the most flexibility and full customization, this is the option for you.
 
-### PostCSS setup
+#### PostCSS setup
 
 You'll need three things to get PostCSS working (more details in [this blog article][postcss-post] if needed):
 
-### `postcss-preset-env`
+#### `postcss-preset-env`
 
 Install [postcss-preset-env][presetEnv] as a dev dependency.
 
@@ -73,7 +68,7 @@ Install [postcss-preset-env][presetEnv] as a dev dependency.
 npm install -D postcss postcss-preset-env
 ```
 
-### `postcss.config.cjs`
+#### `postcss.config.cjs`
 
 Add this `postcss.config.cjs` at the root of your project.
 
@@ -96,7 +91,7 @@ const config = {
 module.exports = config;
 ```
 
-### `.browserslistrc`
+#### `.browserslistrc`
 
 A [`.browserslistrc`][browserslistrc], at the repo's root. It sets the [compile floor](/docs/browser-support) so preset-env resolves `@custom-media` and leaves other modern features alone.
 
@@ -107,7 +102,7 @@ baseline 2024
 
 If you already use Astro, Vite, Next, or any other bundler, that's it! Otherwise you'll need `postcss-cli` and `postcss-import` to run the build yourself (details in [blog article][postcss-post]).
 
-### mCSS setup
+#### mCSS setup
 
 Once PostCSS is set up, copy [`src/styles/framework/`][framework-src] in your CSS folder. Next to it, add a folder for your own CSS. Finally, add a global import CSS file.
 
