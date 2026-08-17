@@ -2,6 +2,31 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## 1.4.0 (2026-08-16)
+
+The default theme: the framework now ships as structure plus one swappable file holding every design value, a new `external` layer makes third-party CSS easy to override, and the docs got a full restructure ([#65](https://github.com/minimaldesign/mCSS/issues/65)).
+
+### Breaking
+
+- **The `settings.*` design files become the default theme.** `settings.tokens.css` and `settings.ui.css` are now `theme.default.tokens.css` and `theme.default.ui.css`, imported by the new `theme.default.css` entry. `mcss.css` no longer carries any design values: your entry must activate the default theme right after it (`@import url(./framework/theme.default.css);`), and nothing paints without it.
+- **The `theme` layer splits into `theme.default` and `theme.user`.** The default theme's parts land in `theme.default`; your own theme self-layers into `theme.user`, so your overrides beat the default no matter the import order. The full layer statement is now `base, elements, global, components, theme.default, theme.user, external, helpers`.
+- **`theme.wireframe.css` is a composed entry**: it imports the default theme itself and holds only its deviations. Activate it INSTEAD of `theme.default.css`.
+- **The feedback alias tier is gone.** The `--success-*` / `--danger-*` / `--warning-*` aliases are removed; components and themes use the `--yes-*` / `--no-*` / `--maybe-*` palettes directly.
+- **`dist/mcss.css` bakes the default theme in**, so the single-file drop-in keeps painting on its own. `dist/css/mcss.css` (the per-file `@import` index) ships with the default theme import active and is now ordered by cascade layer.
+- **Docs URLs restructured**: tokens + themes → `/docs/default-theme`, reset + elements → `/docs/default-html`, global + media queries → `/docs/layout`, Installation and Browser Support split out of Getting Started, and the marketing template lives on the new `/docs/components`. Every old URL (including the `.md` twins) 301s.
+
+### Added
+
+- **`external` cascade layer**, empty by default, between `theme.user` and `helpers`: import third-party CSS with `@import url(…) layer(external);` and it beats the framework but loses to all your unlayered CSS, at any specificity. Companion convention: `patch.*.css` files (like this site's `patch.astro.css`) hold your fixes to vendor styles.
+- **`theme.starter.css`**: the starting point for writing your own theme.
+- **`check-layers.mjs`** (`npm run check:layers`, wired into pre-commit and CI): the layer statement is deliberately duplicated (theme pins, docs code blocks, dist), so the build now derives it from `mcss.css` and the check fails when any copy drifts. `--fix` rewrites stale copies.
+- Docs: dedicated Installation, Browser Support (with a version floor table), and Components pages; anchor scrolling clears the sticky header on mcss.dev.
+
+### Fixed
+
+- The marketing template imports `mcss.components.css` and `theme.default.css` (it rendered unstyled after the restructure).
+- All redirects are real Netlify 301s in `public/_redirects`. Astro's config redirects emit meta-refresh HTML stubs, which broke `.md` twin fetchers (a 200 with HTML where agents expect markdown) and shadowed the edge rules.
+
 ## 1.3.0 (2026-07-31)
 
 The compile floor now matches the docs: mCSS targets Baseline 2024, and the build stops polyfilling the features the framework was always meant to use natively ([#56](https://github.com/minimaldesign/mCSS/issues/56)).
