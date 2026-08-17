@@ -1,27 +1,35 @@
 ---
 title: "Default Theme"
-description: "Every design value in mCSS lives in the default theme: token scales, ui tokens, and the themes that override them"
+description: "Every design value in mCSS lives in the default theme: raw tokens, ui tokens, and the themes that override them"
 lastUpdate: 2026-08-16
 version: 1
 ---
+
+import Notice from "../../components/Notice.astro";
 
 <section class="prose">
 
 <div class="docs_oversizedTable">
 
-| File name             | Description                                              | Source                 |
-| --------------------- | -------------------------------------------------------- | ---------------------- |
-| `theme.default.css`   | Default theme: every design value mCSS provides          | [Github][srcDefault]   |
-| `theme.starter.css`   | Starter template: copy it to write your own theme        | [Github][srcStarter]   |
-| `theme.wireframe.css` | Full swappable theme example                             | [Github][srcWireframe] |
+| File name                  | Description                                 | Source                 |
+| -------------------------- | ------------------------------------------- | ---------------------- |
+| `theme.default.css`        | Default theme entry: imports the next two   | [Github][srcDefault]   |
+| `theme.default.tokens.css` | Raw tokens: colors, type, spacing, etc.     | [Github][src]          |
+| `theme.default.ui.css`     | UI tokens: what elements and components use | [Github][srcUi]        |
+| `theme.starter.css`        | Use it as a start for your own theme.       | [Github][srcStarter]   |
+| `theme.wireframe.css`      | Full swappable theme example                | [Github][srcWireframe] |
 
 </div>
 
 [srcDefault]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.css
+[src]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.tokens.css
+[srcUi]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.ui.css
 [srcStarter]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.starter.css
 [srcWireframe]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.wireframe.css
 
-A theme is **a file of design decisions**: [token](/docs/default-theme) overrides, plus optional style rules for the few things tokens can't express. The framework itself ships as structure plus a **default theme** that holds every design value (the scales and the ui defaults). Your own theme imports after it and overrides only what it cares about; anything it doesn't mention falls back to the default theme. **Never edit the default theme files**: keeping them pristine is what makes framework updates painless, the same way you'd never edit a parent theme you build on.
+Every design value in mCSS (colors, fonts, spacing, component styling) lives in the **default theme**. Your own theme should be imported after it and just override what it needs.
+
+**Never edit the default theme files.** Keep your design decisions in your own theme, so updating the framework is easy.
 
 </section>
 
@@ -29,31 +37,69 @@ A theme is **a file of design decisions**: [token](/docs/default-theme) override
 
 <section class="prose">
 
-Activate the default theme right after the framework, then (optionally) your own theme after it:
+Activate the default theme right after the framework, then (optionally) your own theme:
 
 ```css
 @import url(./framework/mcss.css);
 @import url(./framework/mcss.components.css); /* optional */
 @import url(./framework/theme.default.css);
-@import url(./theme.acme.css); /* your theme */
+@import url(./theme.starter.css); /* your theme */
 ```
 
-A full swappable theme like the wireframe replaces the default import instead: `theme.wireframe.css` is an entry that composes `theme.default.css` itself and overrides on top, so you import it INSTEAD of the default. Either way you activate exactly one theme entry.
+Theme files are **self-layered** and your theme goes in the `theme.user` layer:
 
-Theme files are **self-layered**, so they land in the right cascade slot no matter how you load them (plain `@import`, a `<link>` tag on a `dist/css` file, or a bundler); no `layer()` annotation needed. The default theme's parts layer into `theme.default`, and your theme layers into `theme.user`, which comes after it: **your theme beats the default no matter the import order.** Both sit after `components` and before `helpers`, so any theme beats the framework's structure but still loses to your own unlayered CSS and to [helpers](/docs/helpers). The layer order runs from default to deliberate: the framework's layers and the default theme are what things look like when nobody has an opinion, your theme is a deliberate opinion about those defaults, and your unlayered CSS is more deliberate still.
+```css
+/* theme.starter.css */
+@layer theme.user {
+    /* […] */
+}
+```
+
+mCSS is set up so that, regardless of how you load your theme (`@import`, `<link>`, or bundler), it always overrides the default's theme.
 
 </section>
 
-## Why small theme files go far
+## Writing your own theme
 
 <section class="prose">
 
-Themes work because the default theme is built in two halves your overrides can hook into:
+Copy [`theme.starter.css`][srcStarter] and start overriding:
 
-1. **Scale tokens** (`theme.default.tokens.css`) hold the raw values, named for what they are: palettes, type scale, spacing, etc.
-2. **[UI tokens](/docs/default-theme#ui-tokens)** (`theme.default.ui.css`) map those scales onto meaning, named for what they're for: semantic aliases like `--ui-border-color`, element defaults (`--heading-*`, `--input-*`, ...), plus every component's token defaults (`--bt-*`, `--card-*`, ...). A ui token usually takes another token for value; raw values appear only where following the scales would be wrong (content, one-off control geometry, `em`-relative measures).
+- **Tokens first.** Most themes never need a selector: raw tokens for the palette and type, ui tokens for general UI changes, and component tokens for details.
+- **Style rules only for what tokens can't express**: pseudo-elements, `nth-child` rhythm, font smoothing, `text-wrap`, etc. Your theme file is the one place where overriding framework classes and HTML elements from other files is ok.
+- **Check tokens before writing a style rule.** The page is already painted from `--body-background-color`, `--text-color`, and `--text`: set those instead of writing a `body` rule for background, color, or font.
+- **No `!important`.** It will break the layer system. And if you need `!important`, it's a sign you're doing something wrong.
 
-Because components read `var(--ui-border-color)` instead of a raw hex, a theme gets three levels of blast radius from a single override:
+</section>
+
+## Full themes
+
+<section class="prose">
+
+A theme can also be a complete, distributable style. mCSS ships with the [`theme.wireframe.css`][srcWireframe] example. (Flip the switcher on the [marketing template](/templates/marketing) to see it live.)
+
+A full theme is an entry that imports the default theme itself and overrides on top, so you activate it INSTEAD of the default:
+
+```css
+@import url(./framework/mcss.css);
+/* theme.default.css is swapped */
+@import url(./framework/theme.wireframe.css);
+```
+
+The wireframe file is a good read if you're planning a full theme. Token overrides do most of the work (grayscale palette, handwriting font stack, "paper cutout" shadows), a few style rules cover the rest (wavy underlines, tilted cards), and it's deliberate about what it leaves alone: the focus ring stays crisp, and text stays high-contrast.
+
+</section>
+
+## Tokens
+
+<section class="prose">
+
+Tokens are CSS custom properties, split in two files:
+
+- **Raw tokens** are named for what they **are**: raw values like colors, type sizes, spacing, radii, etc.
+- **UI tokens** are named for what they're **for**: they map raw tokens to elements and components.
+
+Because components read `var(--ui-border-color)` instead of a raw hex value, one override can have three levels of blast radius:
 
 ```css
 @layer theme.user {
@@ -70,48 +116,7 @@ Because components read `var(--ui-border-color)` instead of a raw hex, a theme g
 }
 ```
 
-</section>
-
-## Example: the wireframe theme
-
-<section class="prose">
-
-[`theme.wireframe.css`][srcWireframe] turns the whole site into a hand-drawn wireframe and shows both halves of a theme in action. To see it applied to a real page, flip the switcher on the [marketing template](/templates/marketing).
-
-**The token half** does most of the work: a grayscale palette (`--base-*`, `--primary-*`, and the feedback scales, because in a wireframe success and danger are annotations, not colors), a marker-style handwriting stack for text, headings, and `--display`, pen-weight borders (`--border-sm: 2px`), and hard-offset "paper cutout" shadows replacing the soft blur scale. On/off states (toggle, avatar status dot) get explicit ink-on-paper overrides since the green they normally lean on is gone. For wobbly sketch borders it defines three oversized asymmetric radii (`--wobble-1/2/3`) and remaps each component's radius token to a different one, so cards, buttons, and inputs don't all wobble identically. It deliberately does NOT override the raw `--radius-*` scale: uniform wobble reads as a bug, not a hand.
-
-**The style-rule half** covers what tokens can't express: wavy link underlines (only the `text-decoration-style` longhand, so un-underlined links stay clean), tiny alternating tilts on cards via the independent `rotate` property (which composes with the transforms components animate instead of fighting them), drawn-panel borders on filled and primary sections, and a traced-twice pencil stroke drawn by a pseudo-element with the same border color, a different wobble, and a 1px offset. Progressive enhancements ride on top for browsers that support them: an SVG displacement filter roughens the traced card stroke; `sibling-index()` (all current engines) seeds per-element variation through `sin()` so every box gets its own tilt, stroke offset, and corner radii, with a registered inherited seed keeping a card's corners in sync with its media; and CSS `random()` (Safari 26.5+) upgrades tilts and stroke offsets to true randomness. Everything degrades to the fixed sketch silently.
-
-Also worth copying: what it leaves alone. The focus ring stays crisp and high-contrast, `--radius-round` consumers (avatars, toggles) stay round, and text stays at the near-black end of the gray scale.
-
-</section>
-
-## Writing your own theme
-
-<section class="prose">
-
-Copy [`theme.starter.css`][srcStarter] and start overriding. Guidelines:
-
-- **Tokens first.** Most themes never need a selector: scale tokens for the palette and type, ui tokens for cross-cutting changes, component tokens for details.
-- **Style rules for the rest**, only for what tokens can't express. Pseudo-elements, `nth-child` rhythm, `text-decoration`, and text rendering on `body` such as font smoothing, `font-synthesis`, or `text-wrap` have no token hooks, so themes may style them directly. Theme files are the one place in mCSS allowed to select framework classes from outside: component classes, framework globals like `.a11y-skipLink`, and bare element selectors (see [`theme.wireframe.css`][srcWireframe] for a real example). **A `body` rule belongs here, not in your project CSS.**
-- **Check tokens before writing a `body` rule.** Most of what people write into one is already a ui token. The elements layer paints the page from `--body-background-color`, `--text-color`, and `--text`, so a theme that sets those does not also need to set `background-color`, `color`, and `font-family`. What is left over (the text-rendering properties the framework exposes no token for) is exactly what a theme style rule is for.
-- **No `!important`.** A theme is meant to be overridable by your page CSS; the last word belongs to [helpers](/docs/helpers).
-
-</section>
-
-import Notice from "../../components/Notice.astro";
-
-<section class="prose">
-
-| File name                  | Source        |
-| -------------------------- | ------------- |
-| `theme.default.tokens.css` | [Github][src] |
-
-[src]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.tokens.css
-
-**Design tokens** are the "atoms" of a design system. They define the design elements of a user interface, such as colors, typography, and spacing.
-
-In mCSS, tokens are CSS custom properties, and every one of them lives in the **default theme**: `theme.default.tokens.css` holds the scales documented on this page, and `theme.default.ui.css` holds the [ui tokens](#ui-tokens) that map those scales onto elements and components. Together they provide a flexible, coherent, and harmonious set of values designed to make implementing UI/UX projects fast and easy.
+That's why small theme files can go far with a handful of token overrides.
 
 </section>
 
@@ -119,9 +124,9 @@ In mCSS, tokens are CSS custom properties, and every one of them lives in the **
 
 <section class="prose">
 
-When you start a new project, put your design's values in [your own theme](/docs/default-theme): override your `base` and `primary` colors, your font stacks, and whatever else your design calls for. (Things like spacing might not need to change.) Never edit the default theme files themselves; everything your theme doesn't mention falls back to them, and keeping them pristine is what makes updating the framework painless.
+When you start a new project, put your design's raw token values in your own theme: your `base` and `primary` colors, your font stacks, and whatever else your design calls for. The defaults are sensible and things like spacing might not need to change.
 
-The same discipline applies to the CSS you write on top of the framework: **no raw color and no raw type size in a `component.*.css` file.** If your theme does not name the value you need, add a token to the theme and use that. A `#8a5500` or a `1.0625rem` sitting in a component is a design decision nobody can find, and the second use of it will be a slightly different number. Spacing is more forgiving (a `2px` optical nudge is a property of that component and belongs to it), but color and type size are the design system, and the design system lives in one file.
+Then continue overriding UI tokens provided by mCSS as you go, and creating your own when needed. Do not add hard coded "magic numbers" anywhere else but in your raw token values.
 
 </section>
 
@@ -129,21 +134,11 @@ The same discipline applies to the CSS you write on top of the framework: **no r
 
 <section class="prose">
 
-<div class="docs_oversizedTable">
+UI tokens are named for what they're for: semantic aliases (`--ui-border-color`), element defaults (`--heading-font`, `--input-padding`, etc.), and every component's defaults (`--badge-color`, `--card-spacing`, etc.).
 
-| File name              | Source          |
-| ---------------------- | --------------- |
-| `theme.default.ui.css` | [Github][srcUi] |
+A UI token usually takes another token for value: a UI token when the meaning is shared (`--input-border-color` is `--ui-border-color`), or a raw token when the value should stay in sync with the rest of the design (`--fieldset-padding` is `--sm3`). Hard-coded values are for the few places where that sync would be wrong: content (separator strings, icon URLs), geometry tuned to one control (`--toggle-width`), and element-relative `em` measures.
 
-</div>
-
-[srcUi]: https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/theme.default.ui.css
-
-UI tokens are the decisions half of the default theme. Every one is named for what it's _for_ (an element, a component, or a shared meaning) and answers "what does this thing use by default": semantic aliases like `--ui-border-color`, element defaults (`--heading-*`, `--input-*`, ...), plus every component's token defaults (`--bt-*`, `--card-*`, ...). That naming is the whole split between the two files: a token named for what it _is_ (a step on a scale, like `--sm1` or `--base-500`) lives in `theme.default.tokens.css`; a token named for what it's _for_ lives in `theme.default.ui.css`. This gives tokens meaning and context, and it's what makes [themes](/docs/default-theme) powerful: override one ui token and every rule that consumes it follows.
-
-A ui token usually takes another token for value: another ui token when the meaning is shared (`--input-border-color` is `--ui-border-color`), or a scale token when the value should follow the system scales (`--fieldset-padding` is `--sm3`). A raw value is correct only where following the scales would be wrong: content like separator strings and icon URLs, geometry tuned to one control (`--toggle-width`), and element-relative measures like the `em` heading spacing, which tracks each heading's own size instead of the page scale. The test: if a theme retuned the scales, should this value follow?
-
-`elements.*` and `global.*` files tend to use ui tokens, while `component.*` files mix them with low level tokens. There are no hard and fast rules about the type of token you should use in your custom component. Just try to think where else this style is used in the design and if it comes up in many places with the same context, a new ui token is probably the best option.
+For your own components, there's no hard and fast rule about which kind of token to use. If the same style comes up in several places with the same meaning, a new UI token is probably the best option.
 
 </section>
 

@@ -16,7 +16,7 @@ If you look at the imports in `mcss.css` [on Github][1], you'll get the basic id
 - Elements: HTML elements defaults, without any classes.
 - Global: layouts like `.wrap` and `.grid` and global styling like `.prose`.
 - Components: component specific styling, from single-class pieces like `.bt` buttons to full structures.
-- Theme default: the default theme, where every global variable is set (scale tokens and ui tokens).
+- Theme default: the default theme, where every global variable is set (raw tokens and ui tokens).
 - Theme user: your own theme, a file of token overrides that restyles the whole site.
 - Helpers: local overrides (last layer, so they beat everything above).
 - Your own CSS imports unlayered, after the framework, and wins over all of it.
