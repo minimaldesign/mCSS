@@ -42,7 +42,7 @@
     &:nth-child(5) { order: 2; }
     &:nth-child(6) { order: 4; }
     &:nth-child(7) { order: 6; }
-    &:nth-child(8) { order: 7; }
+    &:nth-child(8) { order: 8; }
     @media (--md) {
       &:nth-child(1),
       &:nth-child(2),
