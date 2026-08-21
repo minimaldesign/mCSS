@@ -15,7 +15,7 @@ import ColorPickerOklch from "../../components/_ColorPickerOklch.jsx";
 
 ### A little bit of history
 
-First, there was the [CIELAB](https://en.wikipedia.org/wiki/CIELAB_color_space) ("Lab") perceptually uniform color space. Then in 2020, [Björn Ottosson created Oklab](https://bottosson.github.io/posts/oklab/) ("an OK Lab color space") to address Lab's problems when used with modern displays. But Oklab uses Cartesian coordinates which is great if you're a computer, but pretty cryptic otherwise… So OKLCH was added to the mix soon after, using polar coordinates, which makes it much easier to use (similar to HSL) for non-robots.
+First, there was the [CIELAB](https://en.wikipedia.org/wiki/CIELAB_color_space) ("Lab") perceptually uniform color space. Then in 2020, [Björn Ottosson created Oklab](https://bottosson.github.io/posts/oklab/) ("an OK Lab color space") to address Lab's problems when used with modern displays. But Oklab uses Cartesian coordinates which is great if you're a computer, but pretty cryptic otherwise… So OKLCH was added to the mix, using polar coordinates, which makes it much easier to use (similar to HSL) for non-robots.
 
 ### OKLCH syntax
 
@@ -26,8 +26,8 @@ First, there was the [CIELAB](https://en.wikipedia.org/wiki/CIELAB_color_space) 
 ```
 
 - **L**ightness controls how light or dark the color is. From `0` – `1` (or `0%` – `100%`).
-- **C**hroma is similar to saturation, but [different](https://en.wikipedia.org/wiki/Munsell_color_system#Chroma): it's how a color _looks_ compared to a neutral gray of the same brightness. A "safe" range is `0` – `0.35`, Values above ~`0.37` will be clipped on most monitors.
-- **H**ue controls what part of the color wheel to sample. From `0deg` – `360deg`
+- **C**hroma is similar to saturation, but [different](https://en.wikipedia.org/wiki/Munsell_color_system#Chroma): it's how a color _looks_ compared to a neutral gray of the same brightness. A "safe" range is roughly `0` – `0.32` for sRGB and `0.36` for P3, and often less on most monitors.
+- **H**ue controls what part of the color wheel to sample. From `0deg` – `360deg`.
 
 ### Why use OKLCH
 
@@ -151,7 +151,7 @@ For a cleaner syntax, you can drop the commas and units, and add the alpha chann
 /* red at 0.5 opacity */
 
 .elem {
-  oklch(0.628 0.2577 29.23 / 0.5)
+  color: oklch(0.628 0.2577 29.23 / 0.5);
 }
 
 .elem {
@@ -170,7 +170,7 @@ For a cleaner syntax, you can drop the commas and units, and add the alpha chann
 ```css
 .elem {
   /* you can pass alpha channel at the end of hex too*/
-  /* (hex 80 = decimal 50) */
+  /* hex 80 = decimal 128 ≈ 50% alpha (128/255 = 50.2%) */
   background: #ff000080;
 }
 ```
