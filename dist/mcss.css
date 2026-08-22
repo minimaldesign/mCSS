@@ -92,9 +92,6 @@ body {
 /* SECTIONING ROOT */
 
 body {
-  /* line-sizing is a CSSWG draft with no browser support yet; kept as intent
-     for consistent line-spacing once it ships. */
-  line-sizing: normal;
   /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
   -webkit-text-size-adjust: none;
      -moz-text-size-adjust: none;
