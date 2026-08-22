@@ -100,7 +100,7 @@
     position: fixed;
     top: 0;
     left: 0; /* deliberately physical: full-viewport overlay pinned to the screen edge */
-    width: 100vw;
+    width: 100%;
     height: 100svh;
     overflow-y: auto;
     padding: var(--lg3);
