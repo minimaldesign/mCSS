@@ -49,7 +49,9 @@ xxl: 1920px
     width: 0;
   }
   to {
-    width: 100vw;
+    /* Not 100vw: with a classic scrollbar the bar would hit full visible
+       width before the scroll reaches the bottom */
+    width: 100%;
   }
 }
 
