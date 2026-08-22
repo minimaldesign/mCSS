@@ -2,6 +2,15 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## 1.4.1 (2026-08-22)
+
+A one-bug release: the `.layout` scaffold grew a horizontal scrollbar on PC ([#72](https://github.com/minimaldesign/mCSS/pull/72)).
+
+### Fixed
+
+- **`100vw` removed from layout.** Where the vertical scrollbar takes layout space (Windows, Linux, and macOS set to "Always show scroll bars"), its gutter sits inside `100vw` but outside the width the page actually has to fill. `.layout` put that on the `<body>`, so every scaffolded page overflowed by the scrollbar's width, and the browser added a horizontal scrollbar along the bottom.
+- **Header menu and read progress bar size set to `width: 100%`.** Both are `position: fixed`, so a percentage resolves against the initial containing block, without the gutter `100vw` counts. It's more consistent and removes the precedent of using `100vw` anywhere.
+
 ## 1.4.0 (2026-08-16)
 
 The default theme: the framework now ships as structure plus one swappable file holding every design value, a new `external` layer makes third-party CSS easy to override, and the docs got a full restructure ([#65](https://github.com/minimaldesign/mCSS/issues/65)).
