@@ -38,10 +38,6 @@ const SRC = join(ROOT, "src/styles/framework");
 const OUT = join(ROOT, "dist");
 
 const pkg = JSON.parse(await readFile(join(ROOT, "package.json"), "utf8"));
-// The version goes only on the entry files people reference as a unit (the
-// bundles and the dist/css index). Per-part files get a version-less banner:
-// they bump repo-wide anyway, so a per-file version stamp would churn every
-// file on release without saying when the file last changed.
 const BANNER = `/*! mCSS v${pkg.version} | MIT | https://mcss.dev */\n`;
 const PART_BANNER = `/*! mCSS | MIT | https://mcss.dev */\n`;
 
@@ -55,9 +51,7 @@ const plugins = (withImport) =>
       stage: 2,
       // Keep in sync with postcss.config.cjs. cascade-layers: mCSS ships
       // native @layer, the polyfill would strip it. random-function: let
-      // native random() pass through so it doesn't freeze into a static,
-      // source-length-seeded value that churns dist on any edit (the
-      // wireframe theme's tier 1 sibling-index() math is the fallback).
+      // native random() pass through
       features: { "cascade-layers": false, "random-function": false },
     }),
   ].filter(Boolean);
