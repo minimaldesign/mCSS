@@ -38,7 +38,12 @@ const SRC = join(ROOT, "src/styles/framework");
 const OUT = join(ROOT, "dist");
 
 const pkg = JSON.parse(await readFile(join(ROOT, "package.json"), "utf8"));
+// The version goes only on the entry files people reference as a unit (the
+// bundles and the dist/css index). Per-part files get a version-less banner:
+// they bump repo-wide anyway, so a per-file version stamp would churn every
+// file on release without saying when the file last changed.
 const BANNER = `/*! mCSS v${pkg.version} | MIT | https://mcss.dev */\n`;
+const PART_BANNER = `/*! mCSS | MIT | https://mcss.dev */\n`;
 
 // Same semantics as the site pipeline (postcss.config.cjs + Vite's
 // postcss-import): custom media resolved, mixins expanded, layers kept.
@@ -180,7 +185,10 @@ for (const file of files) {
       ? `${settingsPrelude}\n${css}`
       : `${settingsPrelude}\n@layer ${wrapLayer} {\n${css}\n}`;
   const processed = await process(wrapped, join(SRC, file));
-  await writeFile(join(OUT, "css", file), BANNER + processed.trim() + "\n");
+  await writeFile(
+    join(OUT, "css", file),
+    PART_BANNER + processed.trim() + "\n",
+  );
   indexImports.push(
     importsOnly
       ? `@import url(./${file}); /* the default theme */`
