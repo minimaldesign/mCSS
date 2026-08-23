@@ -39,6 +39,7 @@ const OUT = join(ROOT, "dist");
 
 const pkg = JSON.parse(await readFile(join(ROOT, "package.json"), "utf8"));
 const BANNER = `/*! mCSS v${pkg.version} | MIT | https://mcss.dev */\n`;
+const PART_BANNER = `/*! mCSS | MIT | https://mcss.dev */\n`;
 
 // Same semantics as the site pipeline (postcss.config.cjs + Vite's
 // postcss-import): custom media resolved, mixins expanded, layers kept.
@@ -50,9 +51,7 @@ const plugins = (withImport) =>
       stage: 2,
       // Keep in sync with postcss.config.cjs. cascade-layers: mCSS ships
       // native @layer, the polyfill would strip it. random-function: let
-      // native random() pass through so it doesn't freeze into a static,
-      // source-length-seeded value that churns dist on any edit (the
-      // wireframe theme's tier 1 sibling-index() math is the fallback).
+      // native random() pass through
       features: { "cascade-layers": false, "random-function": false },
     }),
   ].filter(Boolean);
@@ -180,7 +179,10 @@ for (const file of files) {
       ? `${settingsPrelude}\n${css}`
       : `${settingsPrelude}\n@layer ${wrapLayer} {\n${css}\n}`;
   const processed = await process(wrapped, join(SRC, file));
-  await writeFile(join(OUT, "css", file), BANNER + processed.trim() + "\n");
+  await writeFile(
+    join(OUT, "css", file),
+    PART_BANNER + processed.trim() + "\n",
+  );
   indexImports.push(
     importsOnly
       ? `@import url(./${file}); /* the default theme */`
