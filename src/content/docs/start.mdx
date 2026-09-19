@@ -182,7 +182,7 @@ Your own CSS is unlayered, which means:
 Your `site/` CSS is required to be imported in this order:
 
 - `theme.starter.css` overrides the default mCSS theme.
-- `global.*.css` for site-wide additions to the framework's globals.
+- `global.*.css` for site-wide patterns that are not components: your own opt-in classes (a `.photobook` image treatment, for example) and additions to the mCSS globals.
 - `component.*.css` for your own components (most of your CSS should end up here)
 - `page.*.css` for the rare page-specific styles
 - `patch.*.css` for patching CSS you don't control, i.e. plugins
