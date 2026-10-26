@@ -51,6 +51,7 @@ Leaner element defaults. An audit of four sites built on mCSS found the same ele
 
 - Getting Started says your own `global.*` files can hold opt-in patterns of your own ([#75](https://github.com/minimaldesign/mCSS/pull/75)).
 - Default HTML documents the fieldset and legend defaults, and its form demo drops the `aria-hidden` legend copies.
+- The [select mask post](https://mcss.dev/blog/css-select-mask-styling/) is deleted, with its `/demos/select` page: mCSS no longer uses the technique. Both URLs redirect to the [form section of Default HTML](https://mcss.dev/docs/default-html#form).
 
 ## 1.4.1 (2026-08-22)
 
