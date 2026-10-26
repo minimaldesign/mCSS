@@ -237,7 +237,7 @@ hr {
   align-items: center;
   height: 0;
   border-style: solid;
-  border-width: var(--border-sm) 0 0;
+  border-width: var(--hr-border-width) 0 0;
   color: var(--ui-border-color);
   overflow: visible;
   &::after {
@@ -245,7 +245,7 @@ hr {
     padding: 0 var(--xs1);
     line-height: 1;
     letter-spacing: var(--tracking-sm);
-    background-color: var(--body-background-color);
+    background-color: var(--hr-label-background-color);
   }
 }
 

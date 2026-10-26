@@ -229,6 +229,9 @@ xxl: 1920px
 
   /* Optional centered label on <hr>, e.g. "***" or a dingbat */
   --hr-content: "";
+  --hr-border-width: var(--border-sm);
+  /* Behind the label, where it crosses the rule: match the surface */
+  --hr-label-background-color: var(--body-background-color);
 
   /* ins: background stays light in both light/dark modes */
   --ins-color: var(--base-950);

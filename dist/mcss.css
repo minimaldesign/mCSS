@@ -356,7 +356,7 @@ hr {
   align-items: center;
   height: 0;
   border-style: solid;
-  border-width: var(--border-sm) 0 0;
+  border-width: var(--hr-border-width) 0 0;
   color: var(--ui-border-color);
   overflow: visible;
   &::after {
@@ -364,7 +364,7 @@ hr {
     padding: 0 var(--xs1);
     line-height: 1;
     letter-spacing: var(--tracking-sm);
-    background-color: var(--body-background-color);
+    background-color: var(--hr-label-background-color);
   }
 }
 
@@ -4997,6 +4997,9 @@ body.dev {
 
   /* Optional centered label on <hr>, e.g. "***" or a dingbat */
   --hr-content: "";
+  --hr-border-width: var(--border-sm);
+  /* Behind the label, where it crosses the rule: match the surface */
+  --hr-label-background-color: var(--body-background-color);
 
   /* ins: background stays light in both light/dark modes */
   --ins-color: var(--base-950);
