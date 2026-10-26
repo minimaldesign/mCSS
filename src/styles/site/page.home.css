@@ -16,6 +16,7 @@
 .home_themer_split,
 .home_gallery_grid,
 .home_own_split,
+.home_install_body,
 .home_more {
   grid-column: 1 / -1;
   width: 100%;
@@ -1007,29 +1008,37 @@
   color: #85e89d;
 }
 
-/* 7 FINAL CTA */
+/* 7 INSTALL: the page ends on the two lines you paste */
 
-.home_cta {
-  --section-spacing: var(--xl2);
-  background: light-dark(var(--primary-700), var(--base-950));
-}
+.home_install_body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--md2);
 
-/* Mixed onto the Section header via headerClass */
-.home_cta_header {
-  margin-bottom: var(--md2);
-}
-
-.home_cta_bt {
-  --bt-color: light-dark(var(--primary-700), var(--base-950));
-}
-
-.home_cta_newsletter {
-  margin-top: var(--md2);
-  text-align: center;
-  font-size: var(--text-sm);
-  color: var(--primary-100);
-
-  a {
-    color: var(--base-0);
+  pre {
+    align-self: stretch;
+    margin: 0;
+    padding: var(--sm3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-xl);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+    @media (--md) {
+      font-size: var(--text-md);
+    }
   }
+}
+
+.home_install_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs3);
+  margin: 0;
+}
+
+.home_install_newsletter {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: light-dark(var(--base-600), var(--base-400));
 }
