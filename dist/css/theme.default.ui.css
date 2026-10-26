@@ -281,6 +281,9 @@ xxl: 1920px
   --layout-toc-width: 1fr;
 
   --prose-spacing: var(--sm1);
+  --prose-ul-marker: "→ ";
+  --prose-ol-marker: decimal-leading-zero;
+  --prose-marker-color: light-dark(var(--base-300), var(--base-600));
 }
 
 /* COMPONENTS */

@@ -1712,19 +1712,19 @@ details {
     li {
       margin-bottom: 0.5em;
       &::marker {
-        color: light-dark(var(--base-300), var(--base-600));
+        color: var(--prose-marker-color);
       }
     }
   }
 
   ul {
     margin-inline-start: var(--sm2);
-    list-style-type: "→ ";
+    list-style-type: var(--prose-ul-marker);
   }
 
   ol {
     margin-inline-start: var(--md2);
-    list-style-type: decimal-leading-zero;
+    list-style-type: var(--prose-ol-marker);
     li::marker {
       font-size: var(--text-sm);
     }
@@ -5036,6 +5036,9 @@ body.dev {
   --layout-toc-width: 1fr;
 
   --prose-spacing: var(--sm1);
+  --prose-ul-marker: "→ ";
+  --prose-ol-marker: decimal-leading-zero;
+  --prose-marker-color: light-dark(var(--base-300), var(--base-600));
 }
 
 /* COMPONENTS */
