@@ -169,11 +169,12 @@
   flex-direction: column;
   /* Plays once on load and holds the result; Replay runs it again.
      Each class gets a --morph-slot strike that starts --morph-stagger after
-     the previous one. --morph-done is when the last class collapses:
-     settle + (classes - 1) staggers + one slot. */
-  --morph-settle: 1s;
-  --morph-stagger: 0.25s;
-  --morph-slot: 0.6s;
+     the previous one. Stagger equals slot, so the classes go strictly one
+     at a time: the length of the wait is the point. --morph-done is when
+     the last class collapses: settle + (classes - 1) staggers + one slot. */
+  --morph-settle: 1.2s;
+  --morph-stagger: 0.7s;
+  --morph-slot: 0.7s;
   --morph-done: calc(
     var(--morph-settle) + 22 * var(--morph-stagger) + var(--morph-slot)
   );
@@ -422,8 +423,8 @@
     font-size: 1em;
     --morph-strike-now: transparent;
   }
-  25%,
-  65% {
+  28.6%,
+  65.7% {
     opacity: 0.75;
     --morph-strike-now: var(--morph-strike);
   }
@@ -476,102 +477,102 @@
    duration), then the empty attribute fills with "bt bt-primary". */
 @keyframes morphCount {
   0%,
-  21.35% {
+  10.68% {
     --morph-n: 388;
   }
-  21.62%,
-  24.73% {
+  10.8%,
+  14.66% {
     --morph-n: 376;
   }
-  25%,
-  28.11% {
+  14.77%,
+  18.64% {
     --morph-n: 363;
   }
-  28.38%,
-  31.49% {
+  18.75%,
+  22.61% {
     --morph-n: 348;
   }
-  31.76%,
-  34.86% {
+  22.73%,
+  26.59% {
     --morph-n: 342;
   }
-  35.14%,
-  38.24% {
+  26.7%,
+  30.57% {
     --morph-n: 331;
   }
-  38.51%,
-  41.62% {
+  30.68%,
+  34.55% {
     --morph-n: 320;
   }
-  41.89%,
-  45% {
+  34.66%,
+  38.52% {
     --morph-n: 315;
   }
-  45.27%,
-  48.38% {
+  38.64%,
+  42.5% {
     --morph-n: 308;
   }
-  48.65%,
-  51.76% {
+  42.61%,
+  46.48% {
     --morph-n: 300;
   }
-  52.03%,
-  55.14% {
+  46.59%,
+  50.45% {
     --morph-n: 286;
   }
-  55.41%,
-  58.51% {
+  50.57%,
+  54.43% {
     --morph-n: 275;
   }
-  58.78%,
-  61.89% {
+  54.55%,
+  58.41% {
     --morph-n: 265;
   }
-  62.16%,
-  65.27% {
+  58.52%,
+  62.39% {
     --morph-n: 247;
   }
-  65.54%,
-  68.65% {
+  62.5%,
+  66.36% {
     --morph-n: 234;
   }
-  68.92%,
-  72.03% {
+  66.48%,
+  70.34% {
     --morph-n: 217;
   }
-  72.3%,
-  75.41% {
+  70.45%,
+  74.32% {
     --morph-n: 190;
   }
-  75.68%,
-  78.78% {
+  74.43%,
+  78.3% {
     --morph-n: 169;
   }
-  79.05%,
-  82.16% {
+  78.41%,
+  82.27% {
     --morph-n: 142;
   }
-  82.43%,
-  85.54% {
+  82.39%,
+  86.25% {
     --morph-n: 114;
   }
-  85.81%,
-  88.92% {
+  86.36%,
+  90.23% {
     --morph-n: 98;
   }
-  89.19%,
-  92.3% {
+  90.34%,
+  94.2% {
     --morph-n: 78;
   }
-  92.57%,
-  95.68% {
+  94.32%,
+  98.18% {
     --morph-n: 62;
   }
-  95.95%,
-  97.3% {
+  98.3%,
+  98.86% {
     --morph-n: 41;
   }
-  99.32%,
+  99.72%,
   100% {
     --morph-n: 54;
   }
