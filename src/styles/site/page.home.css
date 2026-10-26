@@ -158,8 +158,16 @@
 .home_morph {
   display: flex;
   flex-direction: column;
-  /* The editor surface is github-dark in both site themes */
-  --morph-duration: 20s;
+  /* Plays once on load and holds the result; Replay runs it again.
+     Each class gets a --morph-slot strike that starts --morph-stagger after
+     the previous one. --morph-done is when the last class collapses:
+     settle + (classes - 1) staggers + one slot. */
+  --morph-settle: 1s;
+  --morph-stagger: 0.3s;
+  --morph-slot: 0.6s;
+  --morph-done: calc(
+    var(--morph-settle) + 12 * var(--morph-stagger) + var(--morph-slot)
+  );
   --morph-strike: var(--no-400);
   --morph-pulse: rgb(19 136 109 / 0.45);
   /* Stacked layout: slot between the subhead (order 0) and the buttons
@@ -204,7 +212,6 @@
 
 .home_morph_frame {
   display: grid;
-  animation: morphFade var(--morph-duration) linear infinite;
 
   > pre {
     grid-area: 1 / 1;
@@ -243,9 +250,13 @@
   initial-value: transparent;
 }
 
+/* --morph-i (set per span in index.astro) is the class's place in line */
 .home_morph_g {
   color: #9ecbff;
-  animation: var(--morph-duration) linear infinite;
+  animation: morphStrike var(--morph-slot) linear both;
+  animation-delay: calc(
+    var(--morph-settle) + var(--morph-i) * var(--morph-stagger)
+  );
 }
 
 .home_morph_gt {
@@ -255,46 +266,6 @@
     var(--morph-strike-now) calc(54% - 1.5px) calc(54% + 1.5px),
     transparent calc(54% + 1.5px)
   );
-}
-
-.home_morph_g-1 {
-  animation-name: morphC1;
-}
-.home_morph_g-2 {
-  animation-name: morphC2;
-}
-.home_morph_g-3 {
-  animation-name: morphC3;
-}
-.home_morph_g-4 {
-  animation-name: morphC4;
-}
-.home_morph_g-5 {
-  animation-name: morphC5;
-}
-.home_morph_g-6 {
-  animation-name: morphC6;
-}
-.home_morph_g-7 {
-  animation-name: morphC7;
-}
-.home_morph_g-8 {
-  animation-name: morphC8;
-}
-.home_morph_g-9 {
-  animation-name: morphC9;
-}
-.home_morph_g-10 {
-  animation-name: morphC10;
-}
-.home_morph_g-11 {
-  animation-name: morphC11;
-}
-.home_morph_g-12 {
-  animation-name: morphC12;
-}
-.home_morph_g-13 {
-  animation-name: morphC13;
 }
 
 .home_morph_after,
@@ -308,7 +279,7 @@
   opacity: 0;
   border-radius: var(--radius-sm);
   background-color: transparent;
-  animation: morphAfter var(--morph-duration) linear infinite;
+  animation: morphAfter 1.6s linear var(--morph-done) both;
 }
 
 .home_morph_counter {
@@ -319,12 +290,11 @@
   font-variant-numeric: tabular-nums;
   text-align: right;
   color: #8b949e;
-  animation: morphFade var(--morph-duration) linear infinite;
 }
 
 .home_morph_count {
   --morph-n: 219;
-  animation: morphCount var(--morph-duration) linear infinite;
+  animation: morphCount calc(var(--morph-done) + 0.3s) linear both;
 
   &::after {
     counter-reset: morphN calc(var(--morph-n));
@@ -384,31 +354,17 @@
 }
 
 .home_morph_editor:hover
-  :is(
-    .home_morph_frame,
-    .home_morph_counter,
-    .home_morph_g,
-    .home_morph_after,
-    .home_morph_count
-  ) {
+  :is(.home_morph_g, .home_morph_after, .home_morph_count) {
   animation-play-state: paused;
 }
 
 /* Replay: the page script toggles this class to restart every animation */
 .home_morph.is-resetting
-  :is(
-    .home_morph_frame,
-    .home_morph_counter,
-    .home_morph_g,
-    .home_morph_after,
-    .home_morph_count
-  ) {
+  :is(.home_morph_g, .home_morph_after, .home_morph_count) {
   animation-name: none;
 }
 
 @media (--motionNotOK) {
-  .home_morph_frame,
-  .home_morph_counter,
   .home_morph_g,
   .home_morph_after,
   .home_morph_count {
@@ -426,494 +382,113 @@
   }
 }
 
-/* Timeline, per 20s loop: 1.2s settle, then each of the 13 classes gets a
-   0.7s slot (strike, fade, snap collapse) from 6% to 51.5%, survivors expand
-   and pulse at 52% to 62%, long hold, crossfade reset at the end. Slot i runs
-   A to B where A = 6 + 3.5(i-1) and B = A + 3.5 (percent). */
-
-@keyframes morphFade {
-  0%,
-  93.5% {
-    opacity: 1;
-  }
-  95.5%,
-  98.5% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes morphC1 {
-  0%,
-  6% {
+/* One class's slot: strike, fade, then snap the width to zero */
+@keyframes morphStrike {
+  0% {
     opacity: 1;
     font-size: 1em;
     --morph-strike-now: transparent;
   }
-  7%,
-  8.3% {
+  25%,
+  65% {
     opacity: 0.75;
     --morph-strike-now: var(--morph-strike);
   }
-  9.4% {
+  97% {
     opacity: 0;
     font-size: 1em;
   }
-  9.5%,
-  96% {
+  100% {
     opacity: 0;
     font-size: 0;
   }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
 }
 
-@keyframes morphC2 {
-  0%,
-  9.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  10.5%,
-  11.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  12.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  13%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC3 {
-  0%,
-  13% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  14%,
-  15.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  16.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  16.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC4 {
-  0%,
-  16.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  17.5%,
-  18.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  19.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  20%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC5 {
-  0%,
-  20% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  21%,
-  22.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  23.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  23.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC6 {
-  0%,
-  23.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  24.5%,
-  25.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  26.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  27%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC7 {
-  0%,
-  27% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  28%,
-  29.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  30.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  30.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC8 {
-  0%,
-  30.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  31.5%,
-  32.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  33.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  34%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC9 {
-  0%,
-  34% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  35%,
-  36.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  37.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  37.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC10 {
-  0%,
-  37.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  38.5%,
-  39.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  40.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  41%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC11 {
-  0%,
-  41% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  42%,
-  43.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  44.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  44.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC12 {
-  0%,
-  44.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  45.5%,
-  46.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  47.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  48%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC13 {
-  0%,
-  48% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  49%,
-  50.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  51.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  51.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
+/* The survivors expand and pulse once */
 @keyframes morphAfter {
-  0%,
-  51.5% {
+  0% {
     font-size: 0;
     opacity: 0;
     background-color: transparent;
   }
-  52% {
+  5% {
     font-size: 1em;
     opacity: 0;
   }
-  53% {
+  15% {
     opacity: 1;
     background-color: var(--morph-pulse);
   }
-  62%,
-  96% {
+  100% {
     font-size: 1em;
     opacity: 1;
     background-color: transparent;
   }
-  96.5%,
-  100% {
-    font-size: 0;
-    opacity: 0;
-  }
 }
 
+/* Generated from the class list in index.astro: each step lands as a class
+   collapses (settle + i * stagger + slot, as a share of the counter's
+   duration), then the empty attribute fills with "bt bt-primary". */
 @keyframes morphCount {
   0%,
-  8.8% {
+  28.73% {
     --morph-n: 219;
   }
-  9.5%,
-  12.3% {
+  29.09%,
+  34.18% {
     --morph-n: 204;
   }
-  13%,
-  15.8% {
+  34.55%,
+  39.64% {
     --morph-n: 199;
   }
-  16.5%,
-  19.3% {
+  40%,
+  45.09% {
     --morph-n: 194;
   }
-  20%,
-  22.8% {
+  45.45%,
+  50.55% {
     --morph-n: 186;
   }
-  23.5%,
-  26.3% {
+  50.91%,
+  56% {
     --morph-n: 172;
   }
-  27%,
-  29.8% {
+  56.36%,
+  61.45% {
     --morph-n: 161;
   }
-  30.5%,
-  33.3% {
+  61.82%,
+  66.91% {
     --morph-n: 150;
   }
-  34%,
-  36.8% {
+  67.27%,
+  72.36% {
     --morph-n: 139;
   }
-  37.5%,
-  40.3% {
+  72.73%,
+  77.82% {
     --morph-n: 126;
   }
-  41%,
-  43.8% {
+  78.18%,
+  83.27% {
     --morph-n: 105;
   }
-  44.5%,
-  47.3% {
+  83.64%,
+  88.73% {
     --morph-n: 84;
   }
-  48%,
-  50.8% {
+  89.09%,
+  94.18% {
     --morph-n: 56;
   }
-  51.5%,
-  52.2% {
+  94.55%,
+  96.36% {
     --morph-n: 41;
   }
-  53%,
-  96% {
-    --morph-n: 54;
-  }
-  96.5%,
+  99.09%,
   100% {
-    --morph-n: 219;
+    --morph-n: 54;
   }
 }
 

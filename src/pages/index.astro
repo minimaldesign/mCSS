@@ -33,6 +33,10 @@ const description = 'mCSS is a modern CSS framework and Astro component library 
 const mcssMinGzipKb = Math.round(gzipSync(mcssMinCss).length / 1024);
 const mcssComponentsMinGzipKb = Math.round(gzipSync(mcssComponentsMinCss).length / 1024);
 
+// The hero morph strikes these one at a time, left to right. The character
+// counts in page.home.css (morphCount, --morph-done) follow this list.
+const morphUtilities = ['bg-primary-600', 'px-4', 'py-3', 'text-sm', 'font-semibold', 'text-white', 'rounded-md', 'transition', 'duration-200', 'hover:bg-primary-700', 'focus-visible:ring-2', 'focus-visible:ring-offset-2', 'active:scale-95'];
+
 // Section 4's diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
 const themeDiffs = {
@@ -118,10 +122,10 @@ const themeDiffs = {
           }
           <div class="home_morph_frame">
             <pre
-              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">bt bt-primary</span><span class="home_morph_g home_morph_g-1"><span class="home_morph_gt">bg-primary-600</span> </span><span class="home_morph_g home_morph_g-2"><span class="home_morph_gt">px-4</span> </span><span class="home_morph_g home_morph_g-3"><span class="home_morph_gt">py-3</span> </span><span class="home_morph_g home_morph_g-4"><span class="home_morph_gt">text-sm</span> </span><span class="home_morph_g home_morph_g-5"><span class="home_morph_gt">font-semibold</span> </span><span class="home_morph_g home_morph_g-6"><span class="home_morph_gt">text-white</span> </span><span class="home_morph_g home_morph_g-7"><span class="home_morph_gt">rounded-md</span> </span><span class="home_morph_g home_morph_g-8"><span class="home_morph_gt">transition</span> </span><span class="home_morph_g home_morph_g-9"><span class="home_morph_gt">duration-200</span> </span><span class="home_morph_g home_morph_g-10"><span class="home_morph_gt">hover:bg-primary-700</span> </span><span class="home_morph_g home_morph_g-11"><span class="home_morph_gt">focus-visible:ring-2</span> </span><span class="home_morph_g home_morph_g-12"><span class="home_morph_gt">focus-visible:ring-offset-2</span> </span><span class="home_morph_g home_morph_g-13"><span class="home_morph_gt">active:scale-95</span></span><span class="home_morph_str">"</span>&gt;
+              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">bt bt-primary</span>{morphUtilities.map((utility, i) => <span class="home_morph_g" style={`--morph-i: ${i}`}><span class="home_morph_gt">{utility}</span>{i < morphUtilities.length - 1 && ' '}</span>)}<span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
-            <pre class="home_morph_code home_morph_sizer"><code>&lt;button class="bg-primary-600 px-4 py-3 text-sm font-semibold text-white rounded-md transition duration-200 hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-95"&gt;
+            <pre class="home_morph_code home_morph_sizer"><code>&lt;button class="{morphUtilities.join(' ')}"&gt;
   Demo button
 &lt;/button&gt;</code></pre>
           </div>
