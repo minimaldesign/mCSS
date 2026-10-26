@@ -64,10 +64,12 @@
   @media (--lg-n-below) {
     gap: 0;
   }
+  /* 9fr and a --lg3 gap give the copy 620px at the 1150px cap: just
+     enough for "One class. Not twenty." on one line */
   @media (--lg) {
-    grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
+    grid-template-columns: minmax(0, 9fr) minmax(0, 7fr);
     align-items: start;
-    gap: var(--xl2);
+    gap: var(--lg3);
   }
 }
 
