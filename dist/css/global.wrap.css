@@ -60,11 +60,15 @@ xxl: 1920px
   --wrap-width: var(--wrap-width-lg);
 }
 
+.wrap-flush {
+  --wrap-width: 100%;
+}
+
 .wrap_content {
   /* default doesn't need styling */
 }
 
-.wrap_content-fullBleed {
+.wrap_content-flush {
   grid-column: 1 / -1;
   width: 100%;
   object-fit: cover;
