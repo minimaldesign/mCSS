@@ -11,7 +11,7 @@
 
 /* 2 to 5: narrow header, wide content. These blocks escape the wrap
    column and center at up to 1150px. */
-.home_pillars,
+.home_layers,
 .home_showcase_tiles,
 .home_themer_split,
 .home_gallery_grid,
@@ -575,41 +575,82 @@
   }
 }
 
-/* 2 PHILOSOPHY */
+/* 2 PHILOSOPHY: the layer order, and one override proving it */
 
-/* prettier-ignore */
-.home_pillars {
-  --tiles-columns: 1;
-  @media (--md) {
-    --tiles-columns: 3;
-  }
-  /* Breathing room between the three pillars on desktop */
+.home_layers {
+  display: grid;
+  gap: var(--lg1);
   @media (--lg) {
-    --grid-column-gap: var(--xl2);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: center;
+    gap: var(--xl2);
   }
 }
 
-/* Mixed onto each FeatureItem (root, titleClass, iconClass) in index.astro */
-.home_pillar {
+.home_layers_stack {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: var(--xs1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.home_pillar_title {
-  font-size: var(--text-xl);
+.home_layers_layer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sm1);
+  padding: var(--xs2) var(--sm1);
+  font-size: var(--text-sm);
+  background-color: light-dark(var(--base-0), var(--base-950));
+  border: var(--border-sm) solid var(--ui-border-color);
+  border-radius: var(--radius-md);
+
+  code {
+    padding: 0;
+    font-size: inherit;
+    background: none;
+  }
+
+  span {
+    font-size: var(--text-xs);
+    color: light-dark(var(--base-600), var(--base-400));
+  }
 }
 
-.home_pillar_icon {
-  width: fit-content;
-  height: 90px;
-  margin-bottom: var(--sm1);
-  background: none;
-  border-radius: 0;
+/* Opt-in exception: a dashed edge, since nothing lands here by default */
+.home_layers_layer-helpers {
+  border-style: dashed;
+}
 
-  svg {
-    width: auto;
-    height: 100%;
+.home_layers_layer-yours {
+  color: var(--base-0);
+  background-color: var(--primary-700);
+  border-color: var(--primary-700);
+
+  span {
+    color: var(--primary-100);
+  }
+}
+
+.home_layers_proof {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm2);
+
+  pre {
+    margin: 0;
+    padding: var(--sm3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-xl);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+  }
+
+  p {
+    margin: 0;
+    max-width: 60ch;
   }
 }
 
