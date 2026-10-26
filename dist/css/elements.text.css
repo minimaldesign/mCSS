@@ -99,25 +99,11 @@ b {
 }
 
 blockquote {
-  position: relative;
   margin-bottom: var(--prose-spacing);
   padding-block: var(--blockquote-padding-block);
-  /* extra inline-start room for the accent bar */
   padding-inline: var(--blockquote-padding-inline);
-  font-style: italic;
-  background-color: var(--blockquote-background-color);
-  border-radius: var(--blockquote-border-radius);
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    inset-inline-start: 0;
-    width: var(--blockquote-accent-width);
-    height: 100%;
-    border-start-start-radius: var(--blockquote-border-radius);
-    border-end-start-radius: var(--blockquote-border-radius);
-    background: var(--blockquote-accent-color);
-  }
+  border-inline-start: var(--blockquote-border-width) solid
+    var(--blockquote-border-color);
 
   p {
     &:first-of-type::before {
