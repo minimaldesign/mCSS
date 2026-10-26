@@ -7,7 +7,7 @@
   Values, in order of preference:
   1. Another ui token, when the meaning is shared
      `--input-border-color: var(--ui-border-color)`
-  2. A raw token: `--fieldset-padding: var(--sm3)`
+  2. A raw token: `--label-spacing: var(--xs1)`
   3. A raw value, only when it's not supposed to match a raw token
      or when it's relative to the the element's own value (em heading spacing).
 
@@ -60,8 +60,8 @@
   /* Gap under a label that precedes its control */
   --label-spacing: var(--xs1);
 
-  --fieldset-padding: var(--sm3);
-  --fieldset-border-width: var(--border-sm);
+  --fieldset-padding: 0;
+  --fieldset-border-width: 0;
   --fieldset-border-color: var(--ui-border-color);
   --fieldset-border-radius: var(--radius-lg);
 

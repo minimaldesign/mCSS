@@ -48,6 +48,7 @@ datalist {
 }
 
 fieldset {
+  min-inline-size: 0;
   border: var(--fieldset-border-width) solid var(--fieldset-border-color);
   border-radius: var(--fieldset-border-radius);
   padding: var(--fieldset-padding);

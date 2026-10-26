@@ -310,6 +310,8 @@ See [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn
 
 This is just the bare minimum default styles to make any form look consistent out of the box. See the [field component](/components/field) for more.
 
+A `fieldset` has no border or padding by default, so it groups controls without drawing a box. To draw one, set `--fieldset-border-width` and `--fieldset-padding` in your theme (`--fieldset-border-color` and `--fieldset-border-radius` style it).
+
 The `legend` HTML element is notoriously impractical to style. The example below uses the following workaround:
 
 ```html

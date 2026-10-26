@@ -136,7 +136,7 @@ Then continue overriding UI tokens provided by mCSS as you go, and creating your
 
 UI tokens are named for what they're for: semantic aliases (`--ui-border-color`), element defaults (`--heading-font`, `--input-padding`, etc.), and every component's defaults (`--badge-color`, `--card-spacing`, etc.).
 
-A UI token usually takes another token for value: a UI token when the meaning is shared (`--input-border-color` is `--ui-border-color`), or a raw token when the value should stay in sync with the rest of the design (`--fieldset-padding` is `--sm3`). Hard-coded values are for the few places where that sync would be wrong: content (separator strings, icon URLs), geometry tuned to one control (`--toggle-width`), and element-relative `em` measures.
+A UI token usually takes another token for value: a UI token when the meaning is shared (`--input-border-color` is `--ui-border-color`), or a raw token when the value should stay in sync with the rest of the design (`--label-spacing` is `--xs1`). Hard-coded values are for the few places where that sync would be wrong: content (separator strings, icon URLs), geometry tuned to one control (`--toggle-width`), and element-relative `em` measures.
 
 For your own components, there's no hard and fast rule about which kind of token to use. If the same style comes up in several places with the same meaning, a new UI token is probably the best option.
 
