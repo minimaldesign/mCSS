@@ -9,7 +9,7 @@ const title = 'Wrap component demo';
     <section class="wrap_content prose">
       <h1>Two ways to go full width</h1>
       <p><code>.wrap</code> is a three-column grid: a flexible track on each side and a content column in the middle. Every child is placed in the middle column, so text stays at a comfortable reading width.</p>
-      <p>On this page, the tinted area is the wrapper and each dashed box is one of its children. There are two ways to get wider than the content column, and they answer different questions: is one element wide, or is the whole section wide?</p>
+      <p>On this page, the tinted area is the wrapper and each dashed box is one of its children. There are two ways to get wider than the content column depending on the situation: is one element wide, or is the whole section wide?</p>
     </section>
   </div>
 
@@ -33,18 +33,8 @@ const title = 'Wrap component demo';
       <p>This wrapper has <code>.wrap-flush</code>. The preset sets the content column to <code>100%</code>, so the side tracks collapse to nothing and every child spans the viewport, with the wrapper’s padding applied to each of them.</p>
       <p>Use it when the whole section is wide content: a gallery, a row of cards, a dashboard, a large table. If you find yourself adding <code>.wrap_content-flush</code> to every child, put <code>.wrap-flush</code> on the wrapper instead.</p>
     </section>
-    <div class="wrap_content">
-      <ul class="wrapDemo_tiles">
-        <li>Card</li>
-        <li>Card</li>
-        <li>Card</li>
-        <li>Card</li>
-        <li>Card</li>
-        <li>Card</li>
-      </ul>
-    </div>
     <section class="wrap_content prose">
-      <p>On large screens the default theme sets the wrapper padding to <code>0</code> (<code>--wrap-lg-spacing</code>), because a plain <code>.wrap</code> gets its margins from the side tracks. A <code>.wrap-flush</code> section has no side tracks, so its content reaches the viewport edges there unless you add your own padding.</p>
+      <p>On large screens a plain <code>.wrap</code> drops its padding (<code>--wrap-lg-spacing</code>) because the side tracks supply the margin. A <code>.wrap-flush</code> section has no side tracks, so it keeps a gutter there instead (<code>--wrap-flush-lg-spacing</code>). A <code>.wrap_content-flush</code> child does not, so a flush image can still touch both edges.</p>
     </section>
   </div>
 </DemoLayout>
@@ -66,23 +56,5 @@ const title = 'Wrap component demo';
     background-color: light-dark(var(--primary-100), var(--primary-900));
     padding-block: var(--md2);
     margin-block: var(--md2);
-  }
-
-  .wrapDemo_tiles {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-    gap: var(--sm1);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    > li {
-      display: grid;
-      place-items: center;
-      aspect-ratio: 4 / 3;
-      background-color: light-dark(var(--base-0), var(--base-800));
-      border: 1px solid var(--ui-border-color);
-      border-radius: var(--sm1);
-    }
   }
 </style>

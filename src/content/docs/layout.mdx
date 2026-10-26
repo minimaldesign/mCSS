@@ -182,19 +182,20 @@ The content column comes in three width presets, set with a modifier on the wrap
 
 ### Settings
 
-Three responsive paddings and the content widths, set in `theme.default.ui.css`. Override them in your [theme](/docs/default-theme).
+The responsive paddings and the content widths, set in `theme.default.ui.css`. Override them in your [theme](/docs/default-theme).
 
 <div class="docs_oversizedTable">
 
-| Token             | Value                  | Description                      |
-| ----------------- | ---------------------- | -------------------------------- |
-| `wrap-spacing`    | `var(--sm1)`           | default left/right padding       |
-| `wrap-md-spacing` | `var(--sm3)`           | left/right padding tablet and up |
-| `wrap-lg-spacing` | `0`                    | left/right padding laptop and up |
-| `wrap-width-sm`   | `minmax(0, 55ch)`      | narrow column (`.wrap-sm`)       |
-| `wrap-width-md`   | `minmax(0, 70ch)`      | reading column (`.wrap-md`)      |
-| `wrap-width-lg`   | `minmax(0, 900px)`     | wide column (`.wrap-lg`)         |
-| `wrap-width`      | `var(--wrap-width-md)` | width of a bare `.wrap`          |
+| Token                   | Value                    | Description                                       |
+| ----------------------- | ------------------------ | ------------------------------------------------- |
+| `wrap-spacing`          | `var(--sm1)`             | default left/right padding                        |
+| `wrap-md-spacing`       | `var(--sm3)`             | left/right padding tablet and up                  |
+| `wrap-lg-spacing`       | `0`                      | left/right padding laptop and up                  |
+| `wrap-flush-lg-spacing` | `var(--wrap-md-spacing)` | left/right padding laptop and up in `.wrap-flush` |
+| `wrap-width-sm`         | `minmax(0, 55ch)`        | narrow column (`.wrap-sm`)                        |
+| `wrap-width-md`         | `minmax(0, 70ch)`        | reading column (`.wrap-md`)                       |
+| `wrap-width-lg`         | `minmax(0, 900px)`       | wide column (`.wrap-lg`)                          |
+| `wrap-width`            | `var(--wrap-width-md)`   | width of a bare `.wrap`                           |
 
 </div>
 

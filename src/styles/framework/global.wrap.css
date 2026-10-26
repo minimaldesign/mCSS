@@ -33,8 +33,10 @@
   --wrap-width: var(--wrap-width-lg);
 }
 
+/* No side tracks to supply a margin, so keep a gutter on large screens. */
 .wrap-flush {
   --wrap-width: 100%;
+  --wrap-lg-spacing: var(--wrap-flush-lg-spacing);
 }
 
 .wrap_content {
