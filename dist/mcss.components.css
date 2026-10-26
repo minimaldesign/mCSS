@@ -1,4 +1,4 @@
-/*! mCSS v1.4.1 | MIT | https://mcss.dev */
+/*! mCSS v1.5.0 | MIT | https://mcss.dev */
 /*
   mCSS component library entry point.
 
@@ -656,8 +656,6 @@ li + li::before {
    details/summary element styling in elements.interactive.css. */
 
 .faq_content {
-  cursor: auto;
-
   p:last-of-type {
     /* in case it's inside a .prose context */
     margin-bottom: 0;

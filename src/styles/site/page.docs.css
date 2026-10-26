@@ -44,6 +44,15 @@ ul.docs_section_media {
   }
 }
 
+.docs_dialogClose {
+  position: absolute;
+  inset-block-start: var(--xs3);
+  inset-inline-end: var(--xs3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .docs_form {
   fieldset {
     margin-bottom: var(--prose-spacing);

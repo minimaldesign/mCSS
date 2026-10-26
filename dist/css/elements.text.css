@@ -41,93 +41,36 @@ a {
   color: var(--link-color);
   &:where(:hover) {
     color: var(--link-color-hover);
-    -webkit-text-decoration: none;
-    text-decoration: none;
   }
 }
 
 address {
-  width: max-content;
-  max-width: 100%;
-  padding: var(--sm1) var(--sm3);
   font-style: normal;
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border: var(--xs2) solid transparent;
-  border-image: 8
-    repeating-linear-gradient(
-      -45deg,
-      var(--no-500) 0,
-      var(--no-500) var(--xs2),
-      transparent 0,
-      transparent calc(var(--xs2) * 2),
-      var(--primary-500) 0,
-      var(--primary-500) calc(var(--xs2) * 3),
-      transparent 0,
-      transparent calc(var(--xs2) * 4)
-    );
 }
 
-abbr {
-  position: relative;
+abbr[title] {
   cursor: help;
-  &:after {
-    position: relative;
-    top: calc(var(--xs1) * -1);
-    width: var(--sm1);
-    height: var(--sm1);
-    display: inline-block;
-    content: "";
-    background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20id='circle-help'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Cpath%20d='M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203'/%3E%3Cpath%20d='M12%2017h.01'/%3E%3C/svg%3E");
-    background-size: contain;
-  }
-  &:hover:before {
-    width: max-content;
-    max-width: 400px;
-    position: absolute;
-    left: 50%; /* deliberately physical: symmetric centering, paired with translate(-50%) */
-    padding: var(--xs1) var(--xs3);
-    content: attr(title);
-    color: var(--base-0);
-    background-color: var(--base-900);
-    opacity: var(--o-4);
-    border-radius: var(--radius-sm);
-    transform: translate(-50%, -2em);
-  }
 }
 
 b {
 }
 
 blockquote {
-  position: relative;
   margin-bottom: var(--prose-spacing);
   padding-block: var(--blockquote-padding-block);
-  /* extra inline-start room for the accent bar */
   padding-inline: var(--blockquote-padding-inline);
-  font-style: italic;
-  background-color: var(--blockquote-background-color);
-  border-radius: var(--blockquote-border-radius);
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    inset-inline-start: 0;
-    width: var(--blockquote-accent-width);
-    height: 100%;
-    border-start-start-radius: var(--blockquote-border-radius);
-    border-end-start-radius: var(--blockquote-border-radius);
-    background: var(--blockquote-accent-color);
-  }
+  border-inline-start: var(--blockquote-border-width) solid
+    var(--blockquote-border-color);
 
   p {
-    &:first-child::before {
+    &:first-of-type::before {
       content: open-quote;
+    }
+    &:last-of-type::after {
+      content: close-quote;
     }
     &:last-child {
       margin-bottom: 0;
-      &::after {
-        content: close-quote;
-      }
     }
   }
 }
@@ -162,7 +105,7 @@ dl {
 }
 
 dt {
-  font-weight: var(--bold);
+  font-weight: var(--dt-font-weight);
 }
 
 dd {
@@ -200,6 +143,7 @@ h6,
 .h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
+  color: var(--heading-color);
 }
 
 h1,
@@ -270,7 +214,7 @@ hr {
   align-items: center;
   height: 0;
   border-style: solid;
-  border-width: var(--border-sm) 0 0;
+  border-width: var(--hr-border-width) 0 0;
   color: var(--ui-border-color);
   overflow: visible;
   &::after {
@@ -278,7 +222,7 @@ hr {
     padding: 0 var(--xs1);
     line-height: 1;
     letter-spacing: var(--tracking-sm);
-    background-color: var(--body-background-color);
+    background-color: var(--hr-label-background-color);
   }
 }
 
@@ -302,9 +246,8 @@ ins {
 }
 
 mark {
-  padding: 0.15em 0.5em;
-  background: var(--marker-color);
-  border-radius: 1em 0;
+  padding-inline: 0.15em;
+  background-color: var(--marker-color);
 }
 
 menu {

@@ -2,15 +2,56 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
-## Unreleased
+## 1.5.0 (2026-10-26)
+
+Leaner element defaults. An audit of four sites built on mCSS found the same element styles undone in site after site, so this release removes them or turns them into tokens, and fixes the bugs the audit turned up ([#77](https://github.com/minimaldesign/mCSS/pull/77)).
 
 ### Breaking
 
+- **The `<select>` chevron is a background image, not a mask.** The mask showed the page background around the chevron on any tinted surface and clipped the focus ring. The select now paints `--input-background-color` with `--select-icon` on top. An image can’t use `currentColor`, so the default theme ships `--select-icon-light` and `--select-icon-dark` (ink matching `--text-color`) and switches between them with the color scheme. If your theme sets `--select-icon` to an SVG drawn in `currentColor`, it now renders black: set the stroke color in the SVG (`stroke='%23…'`), one for each scheme. Disabled selects fade with `opacity` instead of recoloring.
+- **`<blockquote>` is an inline-start rule.** The background, gradient accent bar, radius and italic are gone. `--blockquote-background-color`, `--blockquote-border-radius`, `--blockquote-accent-width` and `--blockquote-accent-color` are replaced by `--blockquote-border-width` and `--blockquote-border-color`; `--blockquote-padding-block` is now `0` and `--blockquote-padding-inline` is `var(--sm3) 0`.
+- **`<legend>` is visible.** It was visually hidden, with a `fieldset > [aria-hidden]` element styled as a stand-in. That rule is gone: delete the `aria-hidden` copy from your markup or the label shows twice. Style the legend with `--legend-font-size` and `--legend-spacing`.
+- **Only text-like inputs get the text field box.** Height, padding, border, radius and background now apply to inputs with no type or a type that takes typed values (`text`, `email`, `search`, `number`, the date and time types…). Checkbox, radio, range, file, submit, reset, button and image inputs keep their native look; color inputs keep the height and border.
+- **`--dialog-backdrop-opacity` is removed.** The alpha now lives in `--dialog-backdrop-color` (`opacity` on `::backdrop` also faded any `backdrop-filter`). The dialog close-button rule, keyed to `[aria-label="close pop-up"]`, is removed too: style your close button with your own class.
 - **`.wrap_content-fullBleed` is renamed `.wrap_content-flush`**, to match the new `.wrap-flush` preset ([#76](https://github.com/minimaldesign/mCSS/pull/76)). Same behavior: one child of a `.wrap` spans the full viewport. Find and replace the class in your markup.
+
+### Changed
+
+- **`<address>`** is plain text in an upright font: no striped border, background, padding or `max-content` width.
+- **`<fieldset>`** draws no box: `--fieldset-border-width` and `--fieldset-padding` default to `0`, so set them in your theme to bring the box back. It also gets `min-inline-size: 0`, so it can shrink below its content.
+- **Links** inherit the surrounding font weight (`--link-font-weight: inherit`, was semi-bold) and keep their underline on hover; hover only changes the color.
+- **`<figcaption>`** is upright (fonts without an italic face got a fake oblique).
+- **`<details>`**: the chevron no longer animates its rotation, and the pointer cursor moved from the whole element to the `<summary>`. `.faq_content` drops its `cursor: auto`, which only undid the old cursor.
+- **`<label>`** around a checkbox or radio stays inline, so options can sit side by side.
+- **`<mark>`** is a plain highlight fill, without the leaf-shaped radius and wide padding.
+- **`<abbr>`** keeps the browser’s dotted underline and gets a help cursor when it has a `title`. The help icon and the hover tooltip (which doubled the browser’s own) are gone.
+- **`<iframe>`** has no border.
+- **Elements with `tabindex="-1"`** (a thank-you message, a skip-link target) show no focus ring when a script focuses them; they’re never reached with Tab.
 
 ### Added
 
+- **`--input-background-color`**, the fill of text fields, textareas and selects (default: `var(--body-background-color)`).
+- **`--hr-border-width`** and **`--hr-label-background-color`**: an `<hr>` label can now sit on a tinted surface, or stand alone with the rule set to `0`.
+- **`--prose-ul-marker`**, **`--prose-ol-marker`** and **`--prose-marker-color`** for `.prose` lists (defaults: the arrow, `decimal-leading-zero`, the muted base color).
+- **`--heading-color`** (default: `inherit`) and **`--dt-font-weight`** (default: bold).
 - **`.wrap-flush` preset** for `.wrap`: no width limit, so every child spans the viewport. It keeps a side gutter on large screens, where a plain `.wrap` has none, through the new `--wrap-flush-lg-spacing` token (default: `var(--wrap-md-spacing)`). The [wrap demo](https://mcss.dev/demos/wrap) now shows when to use `.wrap-flush` and when to use `.wrap_content-flush`.
+
+### Fixed
+
+- **Blockquote quote marks** close when a `<footer>` or `<cite>` follows the last paragraph: they’re tied to the first and last `<p>`, not the first and last child.
+- **Select text** is no longer pinned to the top of the field in Chrome, where the block padding left the text less room than its line.
+- **The details chevron** no longer shrinks when a long summary wraps.
+
+### Removed
+
+- **`line-sizing: normal`** on `body` ([#73](https://github.com/minimaldesign/mCSS/pull/73)): a CSSWG draft no browser supports.
+- **The version number in each `dist/css/` file banner** ([#74](https://github.com/minimaldesign/mCSS/pull/74)), so files that didn’t change between releases don’t show up in your upgrade diff. The bundles keep it.
+
+### Docs
+
+- Getting Started says your own `global.*` files can hold opt-in patterns of your own ([#75](https://github.com/minimaldesign/mCSS/pull/75)).
+- Default HTML documents the fieldset and legend defaults, and its form demo drops the `aria-hidden` legend copies.
+- The [select mask post](https://mcss.dev/blog/css-select-mask-styling/) is deleted, with its `/demos/select` page: mCSS no longer uses the technique. Both URLs redirect to the [form section of Default HTML](https://mcss.dev/docs/default-html#form).
 
 ## 1.4.1 (2026-08-22)
 

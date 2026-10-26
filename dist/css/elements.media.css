@@ -62,7 +62,6 @@ canvas {
 }
 
 figcaption {
-  font-style: italic;
   font-size: var(--text-sm);
 }
 
@@ -81,7 +80,6 @@ figure {
 }
 
 iframe {
-  border: var(--border-sm) solid var(--ui-border-color);
 }
 
 img {

@@ -12,19 +12,6 @@ dialog {
 
   &::backdrop {
     background: var(--dialog-backdrop-color);
-    opacity: var(--dialog-backdrop-opacity);
-  }
-
-  [aria-label="close pop-up"] {
-    position: absolute;
-    top: var(--xs3);
-    right: var(
-      --xs3
-    ); /* deliberately physical: close button pinned to a visual corner */
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
   }
 
   p:last-of-type {
@@ -38,10 +25,10 @@ details {
   border: var(--details-border-width) solid var(--details-border-color);
   background-color: var(--details-background-color);
   border-radius: var(--details-border-radius);
-  cursor: pointer;
 
   summary {
     display: flex;
+    cursor: pointer;
     justify-content: space-between;
     font-weight: var(--bold);
     &::-webkit-details-marker {
@@ -49,6 +36,7 @@ details {
     }
     &::after {
       content: "";
+      flex-shrink: 0;
       width: var(--details-icon-size);
       height: var(--details-icon-size);
       /* icon as a mask painted with the text color, so it follows the
@@ -58,7 +46,6 @@ details {
       mask-image: var(--details-icon);
       mask-size: contain;
       mask-repeat: no-repeat;
-      transition: transform var(--transition);
     }
   }
 

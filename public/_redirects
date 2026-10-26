@@ -31,3 +31,10 @@
 /docs/media-queries.md  /docs/layout.md         301
 /docs/template          /docs/components#marketing-template  301
 /docs/template.md       /docs/components.md     301
+
+# The select mask post was removed in 1.5.0: mCSS no longer uses the
+# technique. Its demo page and its only-used tags go with it.
+/blog/css-select-mask-styling  /docs/default-html#form  301
+/demos/select                  /docs/default-html#form  301
+/blog/tags/mask                /blog/tags               301
+/blog/tags/svg                 /blog/tags               301

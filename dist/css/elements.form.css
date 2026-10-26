@@ -48,19 +48,13 @@ datalist {
 }
 
 fieldset {
+  min-inline-size: 0;
   border: var(--fieldset-border-width) solid var(--fieldset-border-color);
   border-radius: var(--fieldset-border-radius);
   padding: var(--fieldset-padding);
 
   ul:has([type="checkbox"], [type="radio"]) {
     padding-inline-start: 0;
-  }
-
-  > [aria-hidden] {
-    /* legend replacement  */
-    margin-bottom: var(--sm3);
-    font-size: var(--text-lg);
-    grid-column: 1 / -1;
   }
 }
 
@@ -70,18 +64,29 @@ fieldset {
 }
 
 input {
-  &:where(:not([type="checkbox"], [type="radio"])) {
-    height: var(--input-height);
-  }
   &:where(
-    :not([type="color"], [type="file"], [type="reset"], [type="submit"])
+    :not([type]),
+    [type="date"],
+    [type="datetime-local"],
+    [type="email"],
+    [type="month"],
+    [type="number"],
+    [type="password"],
+    [type="search"],
+    [type="tel"],
+    [type="text"],
+    [type="time"],
+    [type="url"],
+    [type="week"]
   ) {
+    height: var(--input-height);
     padding: var(--input-padding);
-  }
-  &:where(:not([type="color"])) {
+    border: var(--input-border-width) solid var(--input-border-color);
     border-radius: var(--input-border-radius);
+    background-color: var(--input-background-color);
   }
-  &:where(:not([type="file"])) {
+  &[type="color"] {
+    height: var(--input-height);
     border: var(--input-border-width) solid var(--input-border-color);
   }
   &[type="file"] {
@@ -94,22 +99,17 @@ input {
 }
 
 label {
-  display: block;
+  &:where(:not(:has([type="checkbox"], [type="radio"]))) {
+    display: block;
+  }
   &:has(+ :is(input, select, textarea)) {
     margin-bottom: var(--label-spacing);
   }
 }
 
 legend {
-  /*  Visually hidden  */
-  /* replaced by fieldset > [aria-hidden] above */
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  white-space: nowrap;
+  padding: 0 0 var(--legend-spacing);
+  font-size: var(--legend-font-size);
 }
 
 meter {
@@ -185,55 +185,26 @@ progress {
 }
 
 select {
-  /* derived, stays local */
-  --split: calc(100% - var(--select-icon-size));
   display: flex;
   appearance: none;
   height: var(--input-height);
-  padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
-    var(--input-padding);
+  padding-block: 0;
+  padding-inline: var(--input-padding)
+    calc(var(--input-padding) + var(--select-icon-size));
   border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
-  background: linear-gradient(
-    to right,
-    var(--body-background-color) 0 var(--split),
-    var(--text-color) var(--split) 100%
-  );
-  mask-image:
-    var(--select-icon),
-    linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
-    linear-gradient(red 0 0);
-  mask-size: var(--select-icon-size), auto, auto;
-  mask-position:
-    calc(100% - var(--xs1)) center,
-    0 0,
-    0 0;
-  mask-repeat: no-repeat;
-  mask-clip: padding-box, padding-box, border-box;
-  mask-origin: padding-box, padding-box, border-box;
-  mask-composite: add, exclude;
-
-  /* focus ring comes from the global :focus-visible rule (global.a11y.css) */
+  background: var(--input-background-color) var(--select-icon) no-repeat
+    calc(100% - var(--xs1)) center / var(--select-icon-size);
 
   &:disabled {
-    --disabled-color: light-dark(
-      hsl(from var(--text-color) h s 70%),
-      hsl(from var(--text-color) h s 40%)
-    );
     cursor: not-allowed;
-    color: var(--disabled-color);
-    background: linear-gradient(
-      to right,
-      var(--body-background-color) 0 var(--split),
-      var(--disabled-color) var(--split) 100%
-    );
+    opacity: var(--o-3);
   }
 
   &[multiple] {
     height: auto;
     padding: var(--input-padding);
-    background: var(--body-background-color);
-    mask-image: none;
+    background-image: none;
   }
 }
 
@@ -242,6 +213,7 @@ textarea {
   padding: var(--input-padding);
   border-radius: var(--input-border-radius);
   border: var(--input-border-width) solid var(--input-border-color);
+  background-color: var(--input-background-color);
   resize: vertical;
   &:not([rows]) {
     min-height: 6em;
