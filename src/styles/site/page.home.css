@@ -40,8 +40,7 @@
   margin-inline: auto;
   display: grid;
   gap: var(--lg3);
-  /* Below --lg the copy dissolves (display: contents below) and the items
-     own their spacing through margins, so the grid gap goes away */
+  /* Stacked below --lg: the editor owns its top margin */
   @media (--lg-n-below) {
     gap: 0;
   }
@@ -53,11 +52,9 @@
 }
 
 .home_hero_copy {
-  /* Below the two-column layout the copy centers, and it dissolves into the
-     hero grid so the editor can slot in after the subhead, before the
-     buttons (source order stays copy-first for AT and desktop) */
+  /* Below the two-column layout the copy centers above the editor, so the
+     buttons stay in the first screen */
   @media (--lg-n-below) {
-    display: contents;
     text-align: center;
 
     h1 {
@@ -70,7 +67,6 @@
 
     .home_hero_actions {
       justify-content: center;
-      order: 2;
     }
   }
 
@@ -170,11 +166,8 @@
   );
   --morph-strike: var(--no-400);
   --morph-pulse: rgb(19 136 109 / 0.45);
-  /* Stacked layout: slot between the subhead (order 0) and the buttons
-     (order 2, see .home_hero_copy) */
   @media (--lg-n-below) {
-    order: 1;
-    margin-top: var(--md2);
+    margin-top: var(--xl1);
   }
 }
 
@@ -232,8 +225,15 @@
   }
 }
 
+/* Reserves the before height so the collapse never shifts the hero. Below
+   --lg the editor sits under the buttons and is far taller than the
+   result, so there it shrinks with the code instead of holding an empty
+   box. */
 .home_morph_sizer {
   visibility: hidden;
+  @media (--lg-n-below) {
+    display: none;
+  }
 }
 
 .home_morph_code {
@@ -792,7 +792,10 @@
   pre {
     margin: 0;
     padding: var(--sm3);
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
+    @media (--lg) {
+      font-size: var(--text-md);
+    }
     line-height: var(--leading-xl);
     border-radius: var(--radius-lg);
     overflow-x: auto;
@@ -803,28 +806,6 @@
 .home_themer:has(input[value="wireframe"]:checked) .home_themer_pane-wireframe,
 .home_themer:has(input[value="sunset"]:checked) .home_themer_pane-sunset {
   display: block;
-}
-
-.home_themer_diff {
-  display: none;
-  @media (--lg) {
-    display: block;
-  }
-}
-
-.home_themer_diffDetails {
-  @media (--lg) {
-    display: none;
-  }
-
-  summary {
-    cursor: pointer;
-    font-weight: var(--semi-bold);
-  }
-
-  .home_themer_pane {
-    margin-top: var(--sm1);
-  }
 }
 
 .home_themer_caption {
