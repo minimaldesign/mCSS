@@ -64,6 +64,8 @@
   --fieldset-border-width: 0;
   --fieldset-border-color: var(--ui-border-color);
   --fieldset-border-radius: var(--radius-lg);
+  --legend-font-size: var(--text-lg);
+  --legend-spacing: var(--sm3);
 
   /* meter: low/medium/high map to the even-less-good, suboptimum, and
      optimum pseudo-elements */

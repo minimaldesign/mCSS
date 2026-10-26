@@ -833,13 +833,6 @@ fieldset {
   ul:has([type="checkbox"], [type="radio"]) {
     padding-inline-start: 0;
   }
-
-  > [aria-hidden] {
-    /* legend replacement  */
-    margin-bottom: var(--sm3);
-    font-size: var(--text-lg);
-    grid-column: 1 / -1;
-  }
 }
 
 /* Only flag fields the user has actually interacted with */
@@ -894,15 +887,8 @@ label {
 }
 
 legend {
-  /*  Visually hidden  */
-  /* replaced by fieldset > [aria-hidden] above */
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  white-space: nowrap;
+  padding: 0 0 var(--legend-spacing);
+  font-size: var(--legend-font-size);
 }
 
 meter {
@@ -4880,6 +4866,8 @@ body.dev {
   --fieldset-border-width: 0;
   --fieldset-border-color: var(--ui-border-color);
   --fieldset-border-radius: var(--radius-lg);
+  --legend-font-size: var(--text-lg);
+  --legend-spacing: var(--sm3);
 
   /* meter: low/medium/high map to the even-less-good, suboptimum, and
      optimum pseudo-elements */

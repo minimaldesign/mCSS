@@ -152,7 +152,6 @@ Fieldset + the [grid system](/docs/layout#grid) for the two-column row:
 <form>
   <fieldset>
     <legend>Contact us</legend>
-    <p aria-hidden="true">Contact us</p>
     <div class="grid" col="1" col-md="2" style="margin-bottom: var(--sm1);">
       <Field label="Name" name="contact-name" required />
       <Field label="Email" name="contact-email" type="email" required error="That doesn't look like an email address." />
@@ -171,7 +170,6 @@ import Field from "../components/Field.astro";
 <form method="post" action="/contact">
   <fieldset>
     <legend>Contact us</legend>
-    <p aria-hidden="true">Contact us</p>
     <div class="grid" col="1" col-md="2">
       <Field label="Name" name="name" required />
       <Field label="Email" name="email" type="email" required />

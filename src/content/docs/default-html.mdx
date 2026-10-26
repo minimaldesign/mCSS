@@ -312,38 +312,13 @@ This is just the bare minimum default styles to make any form look consistent ou
 
 A `fieldset` has no border or padding by default, so it groups controls without drawing a box. To draw one, set `--fieldset-border-width` and `--fieldset-padding` in your theme (`--fieldset-border-color` and `--fieldset-border-radius` style it).
 
-The `legend` HTML element is notoriously impractical to style. The example below uses the following workaround:
-
-```html
-<legend>Example of custom fieldset legend</legend>
-<div aria-hidden="true">Example of a fieldset legend</div>
-```
-
-```css
-fieldset {
-  > [aria-hidden] {
-    /* [styling goes her…] */
-  }
-}
-
-legend {
-  /*  Visually hidden  */
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  white-space: nowrap;
-}
-```
+A `legend` is shown as the heading of its group (`--legend-font-size`, `--legend-spacing`).
 </section>
 
 <section class="docs_section">
   <form class="docs_form">
     <fieldset>
-      <legend>Example of custom fieldset legend</legend>
-      <div aria-hidden="true">Example of a fieldset legend</div>
+      <legend>Text inputs</legend>
       <p>
         <label for="text">Text Input</label>
         <input id="text" type="text" placeholder="Text Input" />
