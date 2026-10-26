@@ -1061,7 +1061,6 @@ details {
       mask-image: var(--details-icon);
       mask-size: contain;
       mask-repeat: no-repeat;
-      transition: transform var(--transition);
     }
   }
 
