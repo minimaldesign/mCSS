@@ -39,7 +39,6 @@ dialog {
 
   &::backdrop {
     background: var(--dialog-backdrop-color);
-    opacity: var(--dialog-backdrop-opacity);
   }
 
   p:last-of-type {
