@@ -711,7 +711,6 @@ canvas {
 }
 
 figcaption {
-  font-style: italic;
   font-size: var(--text-sm);
 }
 
