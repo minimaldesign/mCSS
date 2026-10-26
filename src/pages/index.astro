@@ -343,16 +343,30 @@ const themeDiffs = {
   </Section>
 
   {/* 6: Ownership */}
-  <Section class="home_section home_own" variant="filled" title="You own the code">
-    <div class="home_own_body">
-      <p>mCSS isn’t a dependency. It’s a starting point. Copy the files into your project and edit them like the code you wrote yourself, because now it is. Styling disagreements end with you changing a line, not filing an issue.</p>
-      <p>MIT licensed. Versioned releases when you want to pull updates. No lock-in, because there’s nothing to be locked into.</p>
+  <Section class="home_section home_own" headerClass="home_wideHeader" variant="filled" title="You own the code">
+    <div class="home_own_split">
+      <div class="home_own_body">
+        <p>mCSS isn’t a dependency. It’s a starting point. Copy the files into your project and edit them like the code you wrote yourself, because now it is. Styling disagreements end with you changing a line, not filing an issue.</p>
+        <p>MIT licensed. Versioned releases when you want to pull updates. No lock-in, because there’s nothing to be locked into.</p>
+      </div>
+      <figure class="home_own_tree">
+        <figcaption class="a11y-srOnly">The files an mCSS project keeps</figcaption>
+        <pre><code>styles/
+├── framework/              <span class="home_own_note"># copied once, yours to edit</span>
+│   ├── mcss.css
+│   ├── settings.*.css
+│   ├── base.reset.css
+│   ├── elements.*.css      <span class="home_own_note"># 7 files</span>
+│   ├── global.*.css        <span class="home_own_note"># 6</span>
+│   ├── component.*.css     <span class="home_own_note"># 25</span>
+│   ├── help.*.css          <span class="home_own_note"># 7</span>
+│   └── theme.*.css         <span class="home_own_note"># the default theme and two more</span>
+├── site/
+│   ├── <span class="home_own_mine">theme.mysite.css</span>    <span class="home_own_note"># your design lives here</span>
+│   └── component.*.css
+└── main.css</code></pre>
+      </figure>
     </div>
-    <ul class="home_own_facts">
-      <li><strong>MIT License</strong><span>Use it anywhere. Keep it forever.</span></li>
-      <li><strong>Versioned releases</strong><span>Pull updates when you choose to.</span></li>
-      <li><strong>One theme file</strong><span>Your design lives in your theme, not <code>node_modules</code>.</span></li>
-    </ul>
   </Section>
 
   {/* 7: Final CTA */}
