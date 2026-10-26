@@ -248,7 +248,7 @@ dl {
 }
 
 dt {
-  font-weight: var(--bold);
+  font-weight: var(--dt-font-weight);
 }
 
 dd {
@@ -4964,6 +4964,7 @@ body.dev {
   --heading-spacing-consecutive: 0.3em;
 
   --text-color: light-dark(var(--base-950), var(--base-200));
+  --dt-font-weight: var(--bold);
   --link-font-weight: inherit;
   --link-color: light-dark(var(--primary-600), var(--primary-400));
   --link-color-hover: var(--primary-500);

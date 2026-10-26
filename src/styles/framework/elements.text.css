@@ -102,7 +102,7 @@ dl {
 }
 
 dt {
-  font-weight: var(--bold);
+  font-weight: var(--dt-font-weight);
 }
 
 dd {
