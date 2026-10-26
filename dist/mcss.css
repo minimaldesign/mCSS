@@ -160,8 +160,6 @@ a {
   color: var(--link-color);
   &:where(:hover) {
     color: var(--link-color-hover);
-    -webkit-text-decoration: none;
-    text-decoration: none;
   }
 }
 
