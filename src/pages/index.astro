@@ -21,7 +21,7 @@ import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
 
 const title = 'mCSS: One class. Not twenty.';
-const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
+const description = 'mCSS is a CSS framework and Astro component library for websites: semantic classes, native cascade layers, no build step, MIT licensed. You copy the files into your project and own them.';
 
 // The size claims in the hero fineprint are measured, not remembered: gzip the
 // files people actually download, at build time, so they can never drift from
@@ -114,7 +114,7 @@ const themeDiffs = {
     <div class="home_hero_inner">
       <div class="home_hero_copy">
         <h1 id="home_hero_title">One class. Not&nbsp;twenty.</h1>
-        <p class="home_hero_subhead">mCSS is a modern CSS framework and component library for websites. Real CSS, real markup, zero build step. Built on what browsers can finally do.</p>
+        <p class="home_hero_subhead">mCSS is a CSS framework and component library for websites. It gives each element one semantic class, keeps its own rules in cascade layers, and needs no build step.</p>
         <p class="home_hero_actions">
           <a class="bt bt-lg bt-primary" href="/docs/start">Get started</a>
           <a class="bt bt-lg" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
@@ -172,7 +172,7 @@ const themeDiffs = {
   </section>
 
   {/* 2: Philosophy */}
-  <Section class="home_section home_philosophy" variant="filled" title="Made for humans who write CSS" lede="CSS isn’t broken, and you don’t need to be protected from it. mCSS takes care of the tedious parts (resets, tokens, a sane cascade) and gets out of the way.">
+  <Section class="home_section home_philosophy" variant="filled" title="Your CSS outranks the framework" lede="mCSS handles the reset, the design tokens, and the element defaults, and puts every one of its own rules in a cascade layer.">
     <div class="home_layers">
       <ol class="home_layers_stack" aria-label="Cascade priority, highest first">
         <li class="home_layers_layer home_layers_layer-helpers"><code>helpers</code><span>!important utilities, opt-in</span></li>
@@ -193,7 +193,7 @@ const themeDiffs = {
   </Section>
 
   {/* 3: Modern CSS showcase */}
-  <Section class="home_section home_showcase" headerClass="home_wideHeader" title="Built on what browsers can do now" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
+  <Section class="home_section home_showcase" headerClass="home_wideHeader" title="Built on current CSS" lede="Every feature below works in all current major browsers, and mCSS is designed around them.">
     <div class="home_showcase_body">
       <table class="home_showcase_table">
         <thead>
@@ -212,7 +212,7 @@ const themeDiffs = {
           <tr class="home_showcase_row-lightDark">
             <th scope="row"><code>light-dark()</code></th>
             <td>
-              Dark mode is one token file, not a parallel stylesheet.
+              Dark mode lives in the same tokens: each color holds its light and its dark value.
               <label class="home_showcase_mini">
                 <input class="toggle" type="checkbox" role="switch" />
                 <span>Flip this row’s <code>color-scheme</code></span>
@@ -232,12 +232,12 @@ const themeDiffs = {
           </tr>
           <tr>
             <th scope="row"><code>@container</code></th>
-            <td>Layouts that count their columns from the space they’re in, not the viewport.</td>
+            <td>Layouts that size their columns to the space they’re in.</td>
             <td><BaselineBadge feature="container-queries" /></td>
           </tr>
           <tr>
             <th scope="row">Custom properties</th>
-            <td>Three tiers of tokens: raw scales → semantic theme → per-component properties. Change one value; the system follows.</td>
+            <td>Three tiers of tokens: raw scales, semantic theme values, and per-component properties.</td>
             <td><BaselineBadge feature="custom-properties" /></td>
           </tr>
         </tbody>
@@ -247,7 +247,7 @@ const themeDiffs = {
   </Section>
 
   {/* 4: Theming demo (radio + :has(), zero JS) */}
-  <Section class="home_section home_themer" variant="filled" title="Theme with variables, not variants" lede="Every color, size, and radius flows from one token file. Edit it and the whole system follows, light and dark. This demo switches themes with radio buttons and :has(), no JavaScript.">
+  <Section class="home_section home_themer" variant="filled" title="Theme with variables" lede="Every color, size, and radius comes from one token file, in light and dark. Change a value and every component that uses it changes with it. This demo switches themes with radio buttons and :has(), without JavaScript.">
     <fieldset class="home_themer_switcher">
       <legend class="a11y-srOnly">Pick a demo theme</legend>
       <label class="home_themer_swatch home_themer_swatch-default">
@@ -266,8 +266,8 @@ const themeDiffs = {
 
     <div class="home_themer_split">
       <div class="home_themer_stage">
-        <Card variant="filled" title="You’re invited!" subtitle="Sam turns 30 · Saturday 4pm">
-          <p>Cake, candles, and questionable karaoke. No gifts, just bring yourself.</p>
+        <Card variant="filled" title="You’re invited!" subtitle="Sam’s birthday · Saturday 4pm">
+          <p>Cake at Sam’s place. Reply by Thursday so we know how many to expect.</p>
           <Fragment slot="actions">
             <button type="button" class="bt">Details</button>
             <button type="button" class="bt bt-primary">RSVP</button>
@@ -289,13 +289,13 @@ const themeDiffs = {
   </Section>
 
   {/* 5: Component gallery */}
-  <Section class="home_section home_gallery" headerClass="home_wideHeader" title="Components for real websites" lede="Header to footer: heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, pagination. Built for marketing sites, blogs, and docs. Ships as plain HTML or Astro, whichever you write. Only the mobile menu and the dismissible banner use JavaScript.">
+  <Section class="home_section home_gallery" headerClass="home_wideHeader" title="Components for marketing sites, blogs, and docs" lede="Heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, and pagination, as plain HTML or as Astro components. Only the mobile menu and the dismissible banner use JavaScript.">
     <ul class="home_gallery_grid">
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Card</p>
         <div class="home_gallery_thumb" inert>
           <Card title="Field notes" subtitle="Issue #12">
-            <p>A monthly dispatch on modern CSS, real-world markup, and the odd bird photo.</p>
+            <p>A monthly newsletter about CSS and HTML.</p>
             <Fragment slot="actions"><button type="button" class="bt bt-primary">Read it</button></Fragment>
           </Card>
         </div>
@@ -304,7 +304,7 @@ const themeDiffs = {
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Pricing</p>
         <div class="home_gallery_thumb" inert>
-          <PricingCard name="Indie" price="$0" period="/ forever" description="Everything, for everyone." features={['All components', 'Light & dark themes', 'MIT license']} ctaLabel="Copy the files" ctaHref="#" highlighted badge="MIT" />
+          <PricingCard name="Indie" price="$0" period="/ forever" description="The whole framework." features={['All components', 'Light & dark themes', 'MIT license']} ctaLabel="Copy the files" ctaHref="#" highlighted badge="MIT" />
         </div>
         <a class="home_gallery_link" href="/components/pricing"><span class="a11y-srOnly">Pricing component documentation</span></a>
       </li>
@@ -331,7 +331,7 @@ const themeDiffs = {
         <p class="home_gallery_name">Form field</p>
         <div class="home_gallery_thumb" inert>
           <div class="home_gallery_formDemo">
-            <Field label="Work email" name="home_gallery_email" type="email" placeholder="you@work.com" hint="One email a month, no noise." />
+            <Field label="Work email" name="home_gallery_email" type="email" placeholder="you@work.com" hint="One email a month." />
             <button type="button" class="bt bt-primary">Sign up</button>
           </div>
         </div>
@@ -352,8 +352,8 @@ const themeDiffs = {
   <Section class="home_section home_own" headerClass="home_wideHeader" variant="filled" title="You own the code">
     <div class="home_own_split">
       <div class="home_own_body">
-        <p>mCSS isn’t a dependency. It’s a starting point. Copy the files into your project and edit them like the code you wrote yourself, because now it is. Styling disagreements end with you changing a line, not filing an issue.</p>
-        <p>MIT licensed. Versioned releases when you want to pull updates. No lock-in, because there’s nothing to be locked into.</p>
+        <p>mCSS doesn’t install from a package registry. You copy the files into your project and edit them like any other code in it. When a default doesn’t suit you, you change that line.</p>
+        <p>It’s MIT licensed. Releases are tagged on GitHub and listed in the changelog, so you bring in updates when you decide to.</p>
       </div>
       <figure class="home_own_tree">
         <figcaption class="a11y-srOnly">The files an mCSS project keeps</figcaption>
