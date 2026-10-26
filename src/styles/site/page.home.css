@@ -936,10 +936,12 @@
   justify-items: center;
 }
 
+/* Link-colored so the whole cell reads as a link without hovering */
 .home_gallery_name {
   margin: 0;
   padding-bottom: var(--xs3);
   font-weight: var(--semi-bold);
+  color: var(--link-color);
 }
 
 .home_gallery_link {
