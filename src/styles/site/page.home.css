@@ -14,7 +14,8 @@
 .home_pillars,
 .home_showcase_tiles,
 .home_themer_split,
-.home_gallery_grid {
+.home_gallery_grid,
+.home_more {
   grid-column: 1 / -1;
   width: 100%;
   max-width: 1150px;
@@ -22,6 +23,23 @@
   /* Same gutters as the footer */
   padding-left: var(--sm3);
   padding-right: var(--sm3);
+}
+
+/* Showcase and gallery: the header lines up with the wide content under
+   it (same 1150px column, same gutter) instead of centering over it */
+.home_wideHeader {
+  --wrap-width: minmax(0, 1150px);
+  --wrap-lg-spacing: var(--sm3);
+  text-align: start;
+
+  > * {
+    max-width: 70ch;
+  }
+}
+
+/* A section's one onward link, under its content */
+.home_more {
+  margin-block: var(--md2) 0;
 }
 
 /* 1 HERO */
@@ -127,16 +145,9 @@
     margin-top: var(--xl3);
   }
 
-  li {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--xs1);
-  }
-
-  svg {
-    width: 12px;
-    height: 12px;
-    color: light-dark(var(--primary-600), var(--primary-400));
+  li + li::before {
+    content: "·";
+    margin-inline-end: var(--sm1);
   }
 }
 
@@ -653,12 +664,6 @@
   color-scheme: light;
 }
 
-.home_showcase_kicker {
-  margin-top: var(--lg1);
-  text-align: center;
-  color: light-dark(var(--base-500), var(--base-400));
-}
-
 /* 4 THEMING DEMO */
 
 .home_themer_switcher {
@@ -808,13 +813,6 @@
   display: block;
 }
 
-.home_themer_caption {
-  margin-top: var(--sm3);
-  text-align: center;
-  font-size: var(--text-sm);
-  color: light-dark(var(--base-500), var(--base-400));
-}
-
 /* 5 COMPONENT GALLERY */
 
 .home_gallery_grid {
@@ -885,23 +883,6 @@
 
   > button {
     align-self: flex-start;
-  }
-}
-
-.home_gallery_kicker {
-  margin-top: var(--md2);
-  text-align: center;
-  color: light-dark(var(--base-500), var(--base-400));
-}
-
-.home_gallery_template {
-  margin-top: var(--xl1);
-  text-align: center;
-
-  p {
-    max-width: 55ch;
-    margin-inline: auto;
-    color: light-dark(var(--base-500), var(--base-400));
   }
 }
 

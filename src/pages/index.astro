@@ -21,7 +21,6 @@ import mcssComponentsMinCss from '../../dist/mcss.components.min.css?raw';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
-import arrowIcon from '../assets/icons/arrow-right.svg?raw';
 
 const title = 'mCSS: One class. Not twenty.';
 const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
@@ -149,17 +148,17 @@ const themeDiffs = {
       </div>
     </div>
     <ul class="home_hero_fineprint">
-      <li><Fragment set:html={arrowIcon} />~{mcssMinGzipKb} KB min+gzip</li>
-      <li><Fragment set:html={arrowIcon} />Components ~{mcssComponentsMinGzipKb} KB</li>
-      <li><Fragment set:html={arrowIcon} />0 dependencies</li>
-      <li><Fragment set:html={arrowIcon} />Baseline 2024</li>
-      <li><Fragment set:html={arrowIcon} />MIT licensed</li>
+      <li>~{mcssMinGzipKb} KB min+gzip</li>
+      <li>Components ~{mcssComponentsMinGzipKb} KB</li>
+      <li>0 dependencies</li>
+      <li>Baseline 2024</li>
+      <li>MIT licensed</li>
     </ul>
   </section>
 
   {/* 2: Philosophy */}
-  <Section class="home_section home_philosophy" headerClass="home_reveal" variant="filled" eyebrow="Philosophy" title="Made for humans who write CSS" lede="CSS isn’t broken, and you don’t need to be protected from it. mCSS takes care of the tedious parts (resets, tokens, a sane cascade) and gets out of the way.">
-    <Tiles size="sm" class="home_pillars home_reveal">
+  <Section class="home_section home_philosophy" variant="filled" title="Made for humans who write CSS" lede="CSS isn’t broken, and you don’t need to be protected from it. mCSS takes care of the tedious parts (resets, tokens, a sane cascade) and gets out of the way.">
+    <Tiles size="sm" class="home_pillars">
       <FeatureItem class="home_pillar" titleClass="home_pillar_title" iconClass="home_pillar_icon" title="It’s actual CSS">
         <svg slot="icon" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" fill="none">
           <path d="M55 12 C40 12 36 21 36 33 L36 55 C36 65 29 70 21 71 C29 72 36 77 36 87 L36 109 C36 121 40 128 55 128" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round"></path>
@@ -189,8 +188,8 @@ const themeDiffs = {
   </Section>
 
   {/* 3: Modern CSS showcase */}
-  <Section class="home_section home_showcase" headerClass="home_reveal" eyebrow="Modern CSS" title="Built on what browsers can do now" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
-    <div class="home_showcase_tiles home_reveal tiles_container">
+  <Section class="home_section home_showcase" headerClass="home_wideHeader" title="Built on what browsers can do now" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
+    <div class="home_showcase_tiles tiles_container">
       <Tiles>
         <li class="home_showcase_card">
           <h3 class="home_showcase_name"><code>@layer</code></h3>
@@ -228,14 +227,11 @@ const themeDiffs = {
         </li>
       </Tiles>
     </div>
-    <div class="home_showcase_kicker">
-      <p>Every technique is documented on the blog. The framework practices what it teaches.</p>
-      <p><a href="/blog">Read the blog →</a></p>
-    </div>
+    <p class="home_more"><a href="/blog">How each one works, on the blog →</a></p>
   </Section>
 
   {/* 4: Theming demo (radio + :has(), zero JS) */}
-  <Section class="home_section home_themer" headerClass="home_reveal" variant="filled" eyebrow="Theming" title="Theme with variables, not variants" lede="Every color, size, and radius flows from one token file. Edit it and the whole system follows, light and dark.">
+  <Section class="home_section home_themer" variant="filled" title="Theme with variables, not variants" lede="Every color, size, and radius flows from one token file. Edit it and the whole system follows, light and dark. This demo switches themes with radio buttons and :has(), no JavaScript.">
     <fieldset class="home_themer_switcher">
       <legend class="a11y-srOnly">Pick a demo theme</legend>
       <label class="home_themer_swatch home_themer_swatch-default">
@@ -252,7 +248,7 @@ const themeDiffs = {
       </label>
     </fieldset>
 
-    <div class="home_themer_split home_reveal">
+    <div class="home_themer_split">
       <div class="home_themer_stage">
         <Card variant="filled" title="You’re invited!" subtitle="Sam turns 30 · Saturday 4pm">
           <p>Cake, candles, and questionable karaoke. No gifts, just bring yourself.</p>
@@ -274,12 +270,11 @@ const themeDiffs = {
       </div>
     </div>
 
-    <p class="home_themer_caption">Radio buttons and <code>:has()</code>: this demo runs on zero JavaScript.</p>
   </Section>
 
   {/* 5: Component gallery */}
-  <Section class="home_section home_gallery" headerClass="home_reveal" eyebrow="Component library" title="Components for real websites" lede="Header to footer: heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, pagination. Built for marketing sites, blogs, and docs. Ships as plain HTML or Astro, whichever you write.">
-    <ul class="home_gallery_grid home_reveal">
+  <Section class="home_section home_gallery" headerClass="home_wideHeader" title="Components for real websites" lede="Header to footer: heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, pagination. Built for marketing sites, blogs, and docs. Ships as plain HTML or Astro, whichever you write. Only the mobile menu and the dismissible banner use JavaScript.">
+    <ul class="home_gallery_grid">
       <li class="home_gallery_cell">
         <div class="home_gallery_meta"><span class="home_gallery_name">Card</span><span class="badge badge-success">Zero JS</span></div>
         <div class="home_gallery_thumb" inert>
@@ -334,21 +329,16 @@ const themeDiffs = {
         <a class="home_gallery_link" href="/components/pagination"><span class="a11y-srOnly">Pagination component documentation</span></a>
       </li>
     </ul>
-    <p class="home_gallery_kicker">Nearly everything is zero-JavaScript. The mobile menu and the dismissible banner are the exceptions, and they’re tiny.</p>
-    <div class="home_gallery_template home_reveal">
-      <h3>Start from a whole site, not a blank file.</h3>
-      <p>This site (docs, blog, the page you’re reading) is built from mCSS.</p>
-      <p><a href="/components/start">Browse the components →</a></p>
-    </div>
+    <p class="home_more">This site (docs, blog, this page) is built from them. <a href="/components/start">Browse all the components →</a></p>
   </Section>
 
   {/* 6: Ownership */}
-  <Section class="home_section home_own" headerClass="home_reveal" variant="filled" eyebrow="Ownership" title="You own the code">
-    <div class="home_own_body home_reveal">
+  <Section class="home_section home_own" variant="filled" title="You own the code">
+    <div class="home_own_body">
       <p>mCSS isn’t a dependency. It’s a starting point. Copy the files into your project and edit them like the code you wrote yourself, because now it is. Styling disagreements end with you changing a line, not filing an issue.</p>
       <p>MIT licensed. Versioned releases when you want to pull updates. No lock-in, because there’s nothing to be locked into.</p>
     </div>
-    <ul class="home_own_facts home_reveal">
+    <ul class="home_own_facts">
       <li><strong>MIT License</strong><span>Use it anywhere. Keep it forever.</span></li>
       <li><strong>Versioned releases</strong><span>Pull updates when you choose to.</span></li>
       <li><strong>One theme file</strong><span>Your design lives in your theme, not <code>node_modules</code>.</span></li>
@@ -356,7 +346,7 @@ const themeDiffs = {
   </Section>
 
   {/* 7: Final CTA */}
-  <Section class="home_section home_cta" headerClass="home_reveal home_cta_header" variant="primary" title="Give your CSS its cascade back" lede="Read the methodology, copy the files, ship something.">
+  <Section class="home_section home_cta" headerClass="home_cta_header" variant="primary" title="Give your CSS its cascade back" lede="Read the methodology, copy the files, ship something.">
     <div class="section_actions">
       <a class="bt bt-lg bt-white home_cta_bt" href="/docs/start">Get started in 10 mn</a>
       <a class="bt bt-lg bt-outline-white" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />Star on GitHub</a>
