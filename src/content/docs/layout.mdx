@@ -150,7 +150,7 @@ The following example goes from 1 → 4 → 9 → 12 columns. (Resize window to 
 
 The `.wrap` global class is a simple content wrapper: it centers your content on the page and adds some left/right padding on small viewports.
 
-The content column comes in three width presets, set with a modifier on the wrapper: `.wrap-sm`, `.wrap-md`, and `.wrap-lg`. A bare `.wrap` uses the `md` width (`minmax(0, 70ch)`). There is also a `.wrap_content-fullBleed` modifier for children that should extend to the full size of the viewport. See [demo](/demos/wrap).
+The content column comes in three width presets, set with a modifier on the wrapper: `.wrap-sm`, `.wrap-md`, and `.wrap-lg`. A bare `.wrap` uses the `md` width (`minmax(0, 70ch)`). A fourth preset, `.wrap-flush`, removes the width limit so every child spans the viewport while keeping the responsive gutters. For a single child that should extend to the full size of the viewport, use the `.wrap_content-flush` modifier on that child. See [demo](/demos/wrap).
 
 ### Syntax
 
@@ -167,28 +167,35 @@ The content column comes in three width presets, set with a modifier on the wrap
   </section>
 </div>
 
+<div class="wrap wrap-flush">
+  <section class="wrap_content">
+    <!-- Viewport width content, gutters kept -->
+  </section>
+</div>
+
 <div class="wrap">
-  <section class="wrap_content wrap_content-fullBleed">
-    <!-- Viewport width content -->
+  <section class="wrap_content wrap_content-flush">
+    <!-- One viewport width child inside a reading width wrap -->
   </section>
 </div>
 ```
 
 ### Settings
 
-Three responsive paddings and the content widths, set in `theme.default.ui.css`. Override them in your [theme](/docs/default-theme).
+The responsive paddings and the content widths, set in `theme.default.ui.css`. Override them in your [theme](/docs/default-theme).
 
 <div class="docs_oversizedTable">
 
-| Token             | Value                  | Description                      |
-| ----------------- | ---------------------- | -------------------------------- |
-| `wrap-spacing`    | `var(--sm1)`           | default left/right padding       |
-| `wrap-md-spacing` | `var(--sm3)`           | left/right padding tablet and up |
-| `wrap-lg-spacing` | `0`                    | left/right padding laptop and up |
-| `wrap-width-sm`   | `minmax(0, 55ch)`      | narrow column (`.wrap-sm`)       |
-| `wrap-width-md`   | `minmax(0, 70ch)`      | reading column (`.wrap-md`)      |
-| `wrap-width-lg`   | `minmax(0, 900px)`     | wide column (`.wrap-lg`)         |
-| `wrap-width`      | `var(--wrap-width-md)` | width of a bare `.wrap`          |
+| Token                   | Value                    | Description                                       |
+| ----------------------- | ------------------------ | ------------------------------------------------- |
+| `wrap-spacing`          | `var(--sm1)`             | default left/right padding                        |
+| `wrap-md-spacing`       | `var(--sm3)`             | left/right padding tablet and up                  |
+| `wrap-lg-spacing`       | `0`                      | left/right padding laptop and up                  |
+| `wrap-flush-lg-spacing` | `var(--wrap-md-spacing)` | left/right padding laptop and up in `.wrap-flush` |
+| `wrap-width-sm`         | `minmax(0, 55ch)`        | narrow column (`.wrap-sm`)                        |
+| `wrap-width-md`         | `minmax(0, 70ch)`        | reading column (`.wrap-md`)                       |
+| `wrap-width-lg`         | `minmax(0, 900px)`       | wide column (`.wrap-lg`)                          |
+| `wrap-width`            | `var(--wrap-width-md)`   | width of a bare `.wrap`                           |
 
 </div>
 

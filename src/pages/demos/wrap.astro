@@ -5,16 +5,56 @@ const title = 'Wrap component demo';
 ---
 
 <DemoLayout title={title}>
-  <div class="wrap mt-xl1">
-    <section class="wrap_content prose mb-lg1">
-      <h1>A Header within a default wrap container</h1>
-      <p>This text is inside a dive with the <code>.wrap_content</code> class.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <div class="wrap wrapDemo mt-xl1">
+    <section class="wrap_content prose">
+      <h1>Two ways to go full width</h1>
+      <p><code>.wrap</code> is a three-column grid: a flexible track on each side and a content column in the middle. Every child is placed in the middle column, so text stays at a comfortable reading width.</p>
+      <p>On this page, the tinted area is the wrapper and each dashed box is one of its children. There are two ways to get wider than the content column depending on the situation: is one element wide, or is the whole section wide?</p>
     </section>
-    <section class="wrap_content wrap_content-fullBleed prose">
-      <h1>A Header within a full bleed wrap container</h1>
-      <p>This text is inside a div with the <code>.wrap_content</code> and the <code>.wrap_content-fullBleed</code> modifier class.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+
+  <div class="wrap wrapDemo mt-xl1">
+    <section class="wrap_content prose">
+      <h2>One wide child: <code>.wrap_content-flush</code></h2>
+      <p>This wrapper is a plain <code>.wrap</code>, the usual setup for an article or a docs page. Almost everything here is text that should stay in the reading column.</p>
+      <p>Sometimes one element needs the full viewport: a hero image, a banner, a colored call-out. Put <code>.wrap_content-flush</code> on that one child and leave its siblings alone.</p>
+    </section>
+    <section class="wrap_content wrap_content-flush wrapDemo_band">
+      <p><strong>This child has <code>.wrap_content-flush</code>.</strong> It spans all three grid columns, side tracks included, so its background reaches both edges of the viewport. Its content still gets the wrapper’s padding on small and medium screens.</p>
+    </section>
+    <section class="wrap_content prose">
+      <p>The next sibling is back in the content column. The modifier changed one child, not the wrapper, so you can break out as many times as the page needs and return to the reading width after each one.</p>
+    </section>
+  </div>
+
+  <div class="wrap wrap-flush wrapDemo mt-xl1 mb-xl1">
+    <section class="wrap_content prose">
+      <h2>A wide section: <code>.wrap-flush</code></h2>
+      <p>This wrapper has <code>.wrap-flush</code>. The preset sets the content column to <code>100%</code>, so the side tracks collapse to nothing and every child spans the viewport, with the wrapper’s padding applied to each of them.</p>
+      <p>Use it when the whole section is wide content: a gallery, a row of cards, a dashboard, a large table. If you find yourself adding <code>.wrap_content-flush</code> to every child, put <code>.wrap-flush</code> on the wrapper instead.</p>
+    </section>
+    <section class="wrap_content prose">
+      <p>On large screens a plain <code>.wrap</code> drops its padding (<code>--wrap-lg-spacing</code>) because the side tracks supply the margin. A <code>.wrap-flush</code> section has no side tracks, so it keeps a gutter there instead (<code>--wrap-flush-lg-spacing</code>). A <code>.wrap_content-flush</code> child does not, so a flush image can still touch both edges.</p>
     </section>
   </div>
 </DemoLayout>
+
+<style>
+  /* Demo-only visuals: tint the wrapper and outline each child so the grid
+     columns are visible. */
+  .wrapDemo {
+    background-color: light-dark(var(--base-50), var(--base-900));
+    padding-block: var(--md2);
+
+    > * {
+      outline: 1px dashed var(--ui-border-color);
+      outline-offset: -1px;
+    }
+  }
+
+  .wrapDemo_band {
+    background-color: light-dark(var(--primary-100), var(--primary-900));
+    padding-block: var(--md2);
+    margin-block: var(--md2);
+  }
+</style>

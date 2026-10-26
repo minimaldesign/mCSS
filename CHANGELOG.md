@@ -2,6 +2,16 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## Unreleased
+
+### Breaking
+
+- **`.wrap_content-fullBleed` is renamed `.wrap_content-flush`**, to match the new `.wrap-flush` preset ([#76](https://github.com/minimaldesign/mCSS/pull/76)). Same behavior: one child of a `.wrap` spans the full viewport. Find and replace the class in your markup.
+
+### Added
+
+- **`.wrap-flush` preset** for `.wrap`: no width limit, so every child spans the viewport. It keeps a side gutter on large screens, where a plain `.wrap` has none, through the new `--wrap-flush-lg-spacing` token (default: `var(--wrap-md-spacing)`). The [wrap demo](https://mcss.dev/demos/wrap) now shows when to use `.wrap-flush` and when to use `.wrap_content-flush`.
+
 ## 1.4.1 (2026-08-22)
 
 A one-bug release: the `.layout` scaffold grew a horizontal scrollbar on PC ([#72](https://github.com/minimaldesign/mCSS/pull/72)).
