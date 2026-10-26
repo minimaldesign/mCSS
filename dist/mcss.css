@@ -388,9 +388,8 @@ ins {
 }
 
 mark {
-  padding: 0.15em 0.5em;
-  background: var(--marker-color);
-  border-radius: 1em 0;
+  padding-inline: 0.15em;
+  background-color: var(--marker-color);
 }
 
 menu {
