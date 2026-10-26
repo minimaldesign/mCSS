@@ -23,7 +23,7 @@ import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
 import arrowIcon from '../assets/icons/arrow-right.svg?raw';
 
-const title = 'mCSS: One class. Not forty.';
+const title = 'mCSS: One class. Not twenty.';
 const description = 'mCSS is a modern CSS framework and Astro component library for websites. Real CSS, one class per element, zero build step, MIT. You copy it, you own it.';
 
 // The size claims in the hero fineprint are measured, not remembered: gzip the
@@ -35,7 +35,7 @@ const mcssComponentsMinGzipKb = Math.round(gzipSync(mcssComponentsMinCss).length
 
 // The hero morph strikes these one at a time, left to right. The character
 // counts in page.home.css (morphCount, --morph-done) follow this list.
-const morphUtilities = ['bg-primary-600', 'px-4', 'py-3', 'text-sm', 'font-semibold', 'text-white', 'rounded-md', 'transition', 'duration-200', 'hover:bg-primary-700', 'focus-visible:ring-2', 'focus-visible:ring-offset-2', 'active:scale-95'];
+const morphUtilities = ['inline-flex', 'items-center', 'justify-center', 'gap-2', 'rounded-md', 'bg-sky-600', 'px-4', 'py-2.5', 'text-sm', 'font-semibold', 'text-white', 'shadow-sm', 'transition-colors', 'duration-200', 'hover:bg-sky-500', 'focus-visible:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-sky-600', 'focus-visible:ring-offset-2', 'active:scale-95', 'disabled:opacity-50', 'dark:bg-sky-500', 'dark:hover:bg-sky-400'];
 
 // Section 4's diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
@@ -99,7 +99,7 @@ const themeDiffs = {
   <section class="home_hero" aria-labelledby="home_hero_title">
     <div class="home_hero_inner">
       <div class="home_hero_copy">
-        <h1 id="home_hero_title">One class. Not&nbsp;forty.</h1>
+        <h1 id="home_hero_title">One class. Not&nbsp;twenty.</h1>
         <p class="home_hero_subhead">mCSS is a modern CSS framework and component library for websites. Real CSS, real markup, zero build step. Built on what browsers can finally do.</p>
         <p class="home_hero_actions">
           <a class="bt bt-lg bt-primary" href="/docs/start">Get started</a>
@@ -140,10 +140,10 @@ const themeDiffs = {
           <pre class="home_morph_code home_morph_code-after"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_keep">bt bt-primary</span><span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
-          <p class="home_morph_static_count">219 → 54 characters</p>
+          <p class="home_morph_static_count">388 → 54 characters</p>
         </div>
 
-        <p class="a11y-srOnly">Two mCSS classes replace forty utility classes: the same button, from markup you can read.</p>
+        <p class="a11y-srOnly">Two mCSS classes replace 23 Tailwind utility classes on the same button.</p>
 
         <button type="button" class="home_morph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
       </div>

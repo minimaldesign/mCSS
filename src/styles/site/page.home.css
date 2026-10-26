@@ -146,13 +146,13 @@
 
 /* 1 THE CODE MORPH */
 
-/* Animated character counter (219 to 54). The unregistered fallback below
+/* Animated character counter (388 to 54). The unregistered fallback below
    keeps the number correct in engines without @property (it just steps
    instead of ticking). */
 @property --morph-n {
   syntax: "<integer>";
   inherits: true;
-  initial-value: 219;
+  initial-value: 388;
 }
 
 .home_morph {
@@ -163,10 +163,10 @@
      the previous one. --morph-done is when the last class collapses:
      settle + (classes - 1) staggers + one slot. */
   --morph-settle: 1s;
-  --morph-stagger: 0.3s;
+  --morph-stagger: 0.25s;
   --morph-slot: 0.6s;
   --morph-done: calc(
-    var(--morph-settle) + 12 * var(--morph-stagger) + var(--morph-slot)
+    var(--morph-settle) + 22 * var(--morph-stagger) + var(--morph-slot)
   );
   --morph-strike: var(--no-400);
   --morph-pulse: rgb(19 136 109 / 0.45);
@@ -302,7 +302,7 @@
 }
 
 .home_morph_count {
-  --morph-n: 219;
+  --morph-n: 388;
   animation: morphCount calc(var(--morph-done) + 0.3s) linear both;
 
   &::after {
@@ -463,62 +463,102 @@
    duration), then the empty attribute fills with "bt bt-primary". */
 @keyframes morphCount {
   0%,
-  28.73% {
-    --morph-n: 219;
+  21.35% {
+    --morph-n: 388;
   }
-  29.09%,
-  34.18% {
-    --morph-n: 204;
+  21.62%,
+  24.73% {
+    --morph-n: 376;
   }
-  34.55%,
-  39.64% {
-    --morph-n: 199;
+  25%,
+  28.11% {
+    --morph-n: 363;
   }
-  40%,
-  45.09% {
-    --morph-n: 194;
+  28.38%,
+  31.49% {
+    --morph-n: 348;
   }
-  45.45%,
-  50.55% {
-    --morph-n: 186;
+  31.76%,
+  34.86% {
+    --morph-n: 342;
   }
-  50.91%,
-  56% {
-    --morph-n: 172;
+  35.14%,
+  38.24% {
+    --morph-n: 331;
   }
-  56.36%,
-  61.45% {
-    --morph-n: 161;
+  38.51%,
+  41.62% {
+    --morph-n: 320;
   }
-  61.82%,
-  66.91% {
-    --morph-n: 150;
+  41.89%,
+  45% {
+    --morph-n: 315;
   }
-  67.27%,
-  72.36% {
-    --morph-n: 139;
+  45.27%,
+  48.38% {
+    --morph-n: 308;
   }
-  72.73%,
-  77.82% {
-    --morph-n: 126;
+  48.65%,
+  51.76% {
+    --morph-n: 300;
   }
-  78.18%,
-  83.27% {
-    --morph-n: 105;
+  52.03%,
+  55.14% {
+    --morph-n: 286;
   }
-  83.64%,
-  88.73% {
-    --morph-n: 84;
+  55.41%,
+  58.51% {
+    --morph-n: 275;
   }
-  89.09%,
-  94.18% {
-    --morph-n: 56;
+  58.78%,
+  61.89% {
+    --morph-n: 265;
   }
-  94.55%,
-  96.36% {
+  62.16%,
+  65.27% {
+    --morph-n: 247;
+  }
+  65.54%,
+  68.65% {
+    --morph-n: 234;
+  }
+  68.92%,
+  72.03% {
+    --morph-n: 217;
+  }
+  72.3%,
+  75.41% {
+    --morph-n: 190;
+  }
+  75.68%,
+  78.78% {
+    --morph-n: 169;
+  }
+  79.05%,
+  82.16% {
+    --morph-n: 142;
+  }
+  82.43%,
+  85.54% {
+    --morph-n: 114;
+  }
+  85.81%,
+  88.92% {
+    --morph-n: 98;
+  }
+  89.19%,
+  92.3% {
+    --morph-n: 78;
+  }
+  92.57%,
+  95.68% {
+    --morph-n: 62;
+  }
+  95.95%,
+  97.3% {
     --morph-n: 41;
   }
-  99.09%,
+  99.32%,
   100% {
     --morph-n: 54;
   }
