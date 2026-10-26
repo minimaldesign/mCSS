@@ -54,6 +54,7 @@
   --input-border-width: var(--border-sm);
   --input-border-color: var(--ui-border-color);
   --input-border-radius: var(--radius-md);
+  --input-background-color: var(--body-background-color);
   --input-border-color-invalid: light-dark(var(--no-500), var(--no-400));
 
   /* Gap under a label that precedes its control */

@@ -892,6 +892,21 @@ input {
   &:where(:not([type="file"])) {
     border: var(--input-border-width) solid var(--input-border-color);
   }
+  &:where(
+    :not(
+      [type="checkbox"],
+      [type="radio"],
+      [type="color"],
+      [type="file"],
+      [type="range"],
+      [type="submit"],
+      [type="reset"],
+      [type="button"],
+      [type="image"]
+    )
+  ) {
+    background-color: var(--input-background-color);
+  }
   &[type="file"] {
     width: 100%;
     accent-color: var(--text-color);
@@ -1004,7 +1019,7 @@ select {
   border-radius: var(--input-border-radius);
   background: linear-gradient(
     to right,
-    var(--body-background-color) 0 var(--split),
+    var(--input-background-color) 0 var(--split),
     var(--text-color) var(--split) 100%
   );
   mask-image:
@@ -1032,7 +1047,7 @@ select {
     color: var(--disabled-color);
     background: linear-gradient(
       to right,
-      var(--body-background-color) 0 var(--split),
+      var(--input-background-color) 0 var(--split),
       var(--disabled-color) var(--split) 100%
     );
   }
@@ -1040,7 +1055,7 @@ select {
   &[multiple] {
     height: auto;
     padding: var(--input-padding);
-    background: var(--body-background-color);
+    background: var(--input-background-color);
     mask-image: none;
   }
 }
@@ -1050,6 +1065,7 @@ textarea {
   padding: var(--input-padding);
   border-radius: var(--input-border-radius);
   border: var(--input-border-width) solid var(--input-border-color);
+  background-color: var(--input-background-color);
   resize: vertical;
   &:not([rows]) {
     min-height: 6em;
@@ -4913,6 +4929,7 @@ body.dev {
   --input-border-width: var(--border-sm);
   --input-border-color: var(--ui-border-color);
   --input-border-radius: var(--radius-md);
+  --input-background-color: var(--body-background-color);
   --input-border-color-invalid: light-dark(var(--no-500), var(--no-400));
 
   /* Gap under a label that precedes its control */
