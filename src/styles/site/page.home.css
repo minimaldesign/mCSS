@@ -934,14 +934,9 @@
   justify-items: center;
 }
 
-.home_gallery_meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: var(--xs3);
-}
-
 .home_gallery_name {
+  margin: 0;
+  padding-bottom: var(--xs3);
   font-weight: var(--semi-bold);
 }
 
