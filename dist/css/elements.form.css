@@ -200,55 +200,26 @@ progress {
 }
 
 select {
-  /* derived, stays local */
-  --split: calc(100% - var(--select-icon-size));
   display: flex;
   appearance: none;
   height: var(--input-height);
-  padding: var(--xs1) calc(var(--input-padding) + var(--md1)) var(--xs1)
-    var(--input-padding);
+  padding-block: 0;
+  padding-inline: var(--input-padding)
+    calc(var(--input-padding) + var(--select-icon-size));
   border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
-  background: linear-gradient(
-    to right,
-    var(--input-background-color) 0 var(--split),
-    var(--text-color) var(--split) 100%
-  );
-  mask-image:
-    var(--select-icon),
-    linear-gradient(to right, transparent calc(var(--split) - 1px), red 0),
-    linear-gradient(red 0 0);
-  mask-size: var(--select-icon-size), auto, auto;
-  mask-position:
-    calc(100% - var(--xs1)) center,
-    0 0,
-    0 0;
-  mask-repeat: no-repeat;
-  mask-clip: padding-box, padding-box, border-box;
-  mask-origin: padding-box, padding-box, border-box;
-  mask-composite: add, exclude;
-
-  /* focus ring comes from the global :focus-visible rule (global.a11y.css) */
+  background: var(--input-background-color) var(--select-icon) no-repeat
+    calc(100% - var(--xs1)) center / var(--select-icon-size);
 
   &:disabled {
-    --disabled-color: light-dark(
-      hsl(from var(--text-color) h s 70%),
-      hsl(from var(--text-color) h s 40%)
-    );
     cursor: not-allowed;
-    color: var(--disabled-color);
-    background: linear-gradient(
-      to right,
-      var(--input-background-color) 0 var(--split),
-      var(--disabled-color) var(--split) 100%
-    );
+    opacity: var(--o-3);
   }
 
   &[multiple] {
     height: auto;
     padding: var(--input-padding);
-    background: var(--input-background-color);
-    mask-image: none;
+    background-image: none;
   }
 }
 
