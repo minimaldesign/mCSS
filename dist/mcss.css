@@ -1069,6 +1069,10 @@ details {
   outline-offset: var(--focus-ring-offset);
 }
 
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
 /* Skip-to-content link. Place it as the first element in <body>, pointing
    at the id of your main content; it stays off-screen until focused. */
 .a11y-skipLink {
