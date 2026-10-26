@@ -13,6 +13,17 @@ description: "A pure CSS technique to style a native `<select>` element using la
 
 import SelectMask from "../../components/_SelectMask.jsx";
 import CanIUse from "../../components/_CanIUse.astro";
+import Notice from "../../components/Notice.astro";
+
+<Notice type="warning" title="Update, October 2026: mCSS no longer uses this">
+  The technique works as described, but it kept breaking on real sites, and mCSS 1.5.0 replaced it with a plain `background-image`. The same three problems came up every time:
+
+  - The strip behind the chevron is see-through, while the field color is baked into the gradient. On a card or a tinted band, the field and the strip don’t match what’s behind them, and the control looks split in two.
+  - The mask clips everything the element paints outside its border box, outline included, so keyboard users get no focus ring at all.
+  - Every state that recolors the field (disabled, another surface) has to repeat the whole gradient.
+
+  mCSS now paints the chevron as a `background-image` over `--input-background-color`, with one SVG per color scheme, which gives up requirement #3 below. If you use the mask anyway, keep the select on a plain page background, and show focus inside the border box: the demo below changes the border color on `:focus-visible`. The [changelog](https://github.com/minimaldesign/mCSS/blob/main/CHANGELOG.md) has the details.
+</Notice>
 
 ## The problem
 
@@ -56,9 +67,9 @@ The two values used here:
 
 ### The result
 
-Here's how it looks like (more [examples in mCSS docs](/docs/default-html#form)):
+Here’s how it looks:
 
-<select class="mt-sm3 mb-md1">
+<select class="selectMaskDemo mt-sm3 mb-md1">
   <option>Native Select…</option>
   <option>Custom styling</option>
   <option>No extra wrapper</option>
@@ -157,9 +168,9 @@ Only the chevron layer needs a positional offset. The gradient and solid layers 
 
 Using `calc(100% - offset)` instead of the three-value `right <length> center` syntax keeps things reliable. A single `mask-position` value with multiple layers of different sizes can produce unexpected results: percentage math is resolved as `(container - image) * %`, which can shift full-size gradient layers in unexpected ways.
 
-### Putting is all together
+### Putting it all together
 
-**Note:** this code sample is from the [mCSS source code](https://github.com/minimaldesign/mCSS/blob/main/src/styles/framework/elements.form.css#L170) so it includes custom properties, but it should be pretty self-explanatory…
+**Note:** this code sample is from the [mCSS 1.4.1 source code](https://github.com/minimaldesign/mCSS/blob/v1.4.1/src/styles/framework/elements.form.css#L160), the last version to use it, so it includes custom properties, but it should be pretty self-explanatory…
 
 ```css
 select {

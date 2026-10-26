@@ -1,0 +1,37 @@
+/* SELECT MASK DEMO */
+
+.selectMaskDemo {
+  --selectMaskDemo-split: calc(100% - var(--select-icon-size));
+  display: flex;
+  appearance: none;
+  height: var(--input-height);
+  padding: 0 calc(var(--input-padding) + var(--md1)) 0 var(--input-padding);
+  border: var(--input-border-width) solid var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  background: linear-gradient(
+    to right,
+    var(--body-background-color) 0 var(--selectMaskDemo-split),
+    var(--text-color) var(--selectMaskDemo-split) 100%
+  );
+  mask-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"),
+    linear-gradient(
+      to right,
+      transparent calc(var(--selectMaskDemo-split) - 1px),
+      red 0
+    ),
+    linear-gradient(red 0 0);
+  mask-size: var(--select-icon-size), auto, auto;
+  mask-position:
+    calc(100% - var(--xs1)) center,
+    0 0,
+    0 0;
+  mask-repeat: no-repeat;
+  mask-clip: padding-box, padding-box, border-box;
+  mask-origin: padding-box, padding-box, border-box;
+  mask-composite: add, exclude;
+
+  &:focus-visible {
+    border-color: var(--focus-ring-color);
+  }
+}
