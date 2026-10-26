@@ -37,34 +37,30 @@ fieldset {
 }
 
 input {
-  &:where(:not([type="checkbox"], [type="radio"])) {
+  &:where(
+    :not([type]),
+    [type="date"],
+    [type="datetime-local"],
+    [type="email"],
+    [type="month"],
+    [type="number"],
+    [type="password"],
+    [type="search"],
+    [type="tel"],
+    [type="text"],
+    [type="time"],
+    [type="url"],
+    [type="week"]
+  ) {
     height: var(--input-height);
-  }
-  &:where(
-    :not([type="color"], [type="file"], [type="reset"], [type="submit"])
-  ) {
     padding: var(--input-padding);
-  }
-  &:where(:not([type="color"])) {
-    border-radius: var(--input-border-radius);
-  }
-  &:where(:not([type="file"])) {
     border: var(--input-border-width) solid var(--input-border-color);
-  }
-  &:where(
-    :not(
-      [type="checkbox"],
-      [type="radio"],
-      [type="color"],
-      [type="file"],
-      [type="range"],
-      [type="submit"],
-      [type="reset"],
-      [type="button"],
-      [type="image"]
-    )
-  ) {
+    border-radius: var(--input-border-radius);
     background-color: var(--input-background-color);
+  }
+  &[type="color"] {
+    height: var(--input-height);
+    border: var(--input-border-width) solid var(--input-border-color);
   }
   &[type="file"] {
     width: 100%;
