@@ -2,6 +2,12 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## Unreleased
+
+### Fixed
+
+- **`<iframe>` has no border again.** 1.5.0 removed the framework's iframe border but left the rule empty, so browsers drew their own 2px inset border instead. The rule now sets `border: 0`.
+
 ## 1.5.0 (2026-10-26)
 
 Leaner element defaults. An audit of four sites built on mCSS found the same element styles undone in site after site, so this release removes them or turns them into tokens, and fixes the bugs the audit turned up ([#77](https://github.com/minimaldesign/mCSS/pull/77)).
