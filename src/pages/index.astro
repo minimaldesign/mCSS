@@ -113,7 +113,10 @@ const themeDiffs = {
       }
       <div class="home_morph">
         <figure class="home_morph_editor" aria-hidden="true">
-          <div class="home_morph_chrome"><i></i><i></i><i></i></div>
+          <div class="home_morph_bar">
+            <p class="home_morph_label"><span class="home_morph_label_before">Tailwind</span><span class="home_morph_label_after">mCSS</span></p>
+            <p class="home_morph_counter"><span class="home_morph_count"></span> characters</p>
+          </div>
           {
             /* The invisible sizer keeps the box at the "before" height at every
               width, so the collapse never shifts layout. Syntax spans fake
@@ -129,7 +132,6 @@ const themeDiffs = {
   Demo button
 &lt;/button&gt;</code></pre>
           </div>
-          <p class="home_morph_counter"><span class="home_morph_count"></span> characters</p>
         </figure>
 
         {/* Reduced-motion: static before/after with the final numbers */}
