@@ -120,14 +120,14 @@ blockquote {
   }
 
   p {
-    &:first-child::before {
+    &:first-of-type::before {
       content: open-quote;
+    }
+    &:last-of-type::after {
+      content: close-quote;
     }
     &:last-child {
       margin-bottom: 0;
-      &::after {
-        content: close-quote;
-      }
     }
   }
 }
