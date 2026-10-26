@@ -1040,10 +1040,10 @@ details {
   border: var(--details-border-width) solid var(--details-border-color);
   background-color: var(--details-background-color);
   border-radius: var(--details-border-radius);
-  cursor: pointer;
 
   summary {
     display: flex;
+    cursor: pointer;
     justify-content: space-between;
     font-weight: var(--bold);
     &::-webkit-details-marker {

@@ -36,8 +36,6 @@ xxl: 1920px
    details/summary element styling in elements.interactive.css. */
 
 .faq_content {
-  cursor: auto;
-
   p:last-of-type {
     /* in case it's inside a .prose context */
     margin-bottom: 0;
