@@ -76,6 +76,7 @@ details {
     }
     &::after {
       content: "";
+      flex-shrink: 0;
       width: var(--details-icon-size);
       height: var(--details-icon-size);
       /* icon as a mask painted with the text color, so it follows the
