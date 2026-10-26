@@ -72,7 +72,9 @@ input {
 }
 
 label {
-  display: block;
+  &:where(:not(:has([type="checkbox"], [type="radio"]))) {
+    display: block;
+  }
   &:has(+ :is(input, select, textarea)) {
     margin-bottom: var(--label-spacing);
   }
