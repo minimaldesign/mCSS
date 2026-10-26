@@ -3,7 +3,6 @@ import { Code } from 'astro:components';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
-import Tiles from '../components/Tiles.astro';
 import Card from '../components/Card.astro';
 import PricingCard from '../components/PricingCard.astro';
 import Testimonial from '../components/Testimonial.astro';
@@ -189,43 +188,54 @@ const themeDiffs = {
 
   {/* 3: Modern CSS showcase */}
   <Section class="home_section home_showcase" headerClass="home_wideHeader" title="Built on what browsers can do now" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
-    <div class="home_showcase_tiles tiles_container">
-      <Tiles>
-        <li class="home_showcase_card">
-          <h3 class="home_showcase_name"><code>@layer</code></h3>
-          <p>The whole architecture. Import order stops mattering, and your overrides always win.</p>
-          <BaselineBadge feature="cascade-layers" />
-        </li>
-        <li class="home_showcase_card home_showcase_card-lightDark">
-          <h3 class="home_showcase_name"><code>light-dark()</code></h3>
-          <p>Dark mode is one token file, not a parallel stylesheet.</p>
-          <label class="home_showcase_mini">
-            <input class="toggle" type="checkbox" role="switch" />
-            <span>Flip this card’s <code>color-scheme</code></span>
-          </label>
-          <BaselineBadge feature="light-dark" />
-        </li>
-        <li class="home_showcase_card">
-          <h3 class="home_showcase_name"><code>:has()</code> &amp; nesting</h3>
-          <p>Components with zero specificity hacks, written the way you’d write them yourself.</p>
-          <BaselineBadge feature="has" />
-        </li>
-        <li class="home_showcase_card">
-          <h3 class="home_showcase_name"><code>@scope</code></h3>
-          <p>Prose styling that can’t leak into your components.</p>
-          <BaselineBadge feature="scope" />
-        </li>
-        <li class="home_showcase_card">
-          <h3 class="home_showcase_name"><code>@container</code></h3>
-          <p>The component used for this very grid counts its columns from the space it’s in, not the viewport.</p>
-          <BaselineBadge feature="container-queries" />
-        </li>
-        <li class="home_showcase_card">
-          <h3 class="home_showcase_name">Three-tier tokens</h3>
-          <p>Raw scales → semantic theme → per-component properties. Change one value; the system follows.</p>
-          <BaselineBadge feature="custom-properties" />
-        </li>
-      </Tiles>
+    <div class="home_showcase_body">
+      <table class="home_showcase_table">
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">What mCSS does with it</th>
+            <th scope="col">Support</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><code>@layer</code></th>
+            <td>The whole architecture. Import order stops mattering, and your overrides always win.</td>
+            <td><BaselineBadge feature="cascade-layers" /></td>
+          </tr>
+          <tr class="home_showcase_row-lightDark">
+            <th scope="row"><code>light-dark()</code></th>
+            <td>
+              Dark mode is one token file, not a parallel stylesheet.
+              <label class="home_showcase_mini">
+                <input class="toggle" type="checkbox" role="switch" />
+                <span>Flip this row’s <code>color-scheme</code></span>
+              </label>
+            </td>
+            <td><BaselineBadge feature="light-dark" /></td>
+          </tr>
+          <tr>
+            <th scope="row"><code>:has()</code> &amp; nesting</th>
+            <td>Components with zero specificity hacks, written the way you’d write them yourself.</td>
+            <td><BaselineBadge feature="has" /></td>
+          </tr>
+          <tr>
+            <th scope="row"><code>@scope</code></th>
+            <td>Prose styling that can’t leak into your components. The one feature here newer than the Baseline 2024 floor.</td>
+            <td><BaselineBadge feature="scope" /></td>
+          </tr>
+          <tr>
+            <th scope="row"><code>@container</code></th>
+            <td>Layouts that count their columns from the space they’re in, not the viewport.</td>
+            <td><BaselineBadge feature="container-queries" /></td>
+          </tr>
+          <tr>
+            <th scope="row">Custom properties</th>
+            <td>Three tiers of tokens: raw scales → semantic theme → per-component properties. Change one value; the system follows.</td>
+            <td><BaselineBadge feature="custom-properties" /></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <p class="home_more"><a href="/blog">How each one works, on the blog →</a></p>
   </Section>

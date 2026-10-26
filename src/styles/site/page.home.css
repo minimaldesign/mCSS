@@ -12,7 +12,7 @@
 /* 2 to 5: narrow header, wide content. These blocks escape the wrap
    column and center at up to 1150px. */
 .home_layers,
-.home_showcase_tiles,
+.home_showcase_body,
 .home_themer_split,
 .home_gallery_grid,
 .home_more {
@@ -654,55 +654,90 @@
   }
 }
 
-/* 3 MODERN CSS SHOWCASE */
+/* 3 MODERN CSS SHOWCASE: reference content, so a table */
 
-/* .home_showcase_tiles is the size container the cards read (.tiles_container
-   in the markup); .tiles handles the grid, the gaps, and the list reset. */
+.home_showcase_table {
+  width: 100%;
 
-.home_showcase_card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--xs3);
-  padding: var(--sm3);
+  thead th {
+    font-size: var(--text-sm);
+    font-weight: var(--semi-bold);
+    color: light-dark(var(--base-600), var(--base-400));
+  }
+
+  tbody th {
+    font-family: var(--mono);
+    font-weight: var(--bold);
+    white-space: nowrap;
+
+    code {
+      padding: 0;
+      font-size: inherit;
+      background: none;
+    }
+  }
+
+  td {
+    vertical-align: top;
+  }
+
+  td:last-child {
+    white-space: nowrap;
+  }
+
+  /* Phones: each row stacks feature, description, then support */
+  @media (--md-n-below) {
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+
+    tr {
+      display: grid;
+    }
+
+    th,
+    td {
+      border-inline-start-width: 0;
+    }
+
+    tbody th,
+    td:nth-child(2) {
+      padding-bottom: 0;
+      border-bottom-width: 0;
+    }
+  }
+}
+
+/* The light-dark() row flips its own color-scheme: zero JS, fully contained */
+.home_showcase_row-lightDark {
   color: var(--text-color);
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
 
-  p {
-    flex: 1;
-    margin: 0;
+  > * {
+    background-color: light-dark(var(--base-0), var(--base-900));
   }
 }
 
-.home_showcase_name {
-  margin: 0;
-  font-family: var(--mono);
-  font-size: var(--text-lg);
-  font-weight: var(--bold);
-
-  code {
-    font-size: inherit;
-  }
+:root:not(.theme-dark) .home_showcase_row-lightDark:has(input:checked) {
+  color-scheme: dark;
 }
 
-/* The light-dark() card flips its own color-scheme: zero JS, fully contained */
+:root.theme-dark .home_showcase_row-lightDark:has(input:checked) {
+  color-scheme: light;
+}
+
 .home_showcase_mini {
   display: flex;
   align-items: center;
   gap: var(--xs2);
+  margin-top: var(--xs2);
   font-size: var(--text-sm);
   cursor: pointer;
   --toggle-width: 36px;
   --toggle-height: 20px;
-}
-
-:root:not(.theme-dark) .home_showcase_card-lightDark:has(input:checked) {
-  color-scheme: dark;
-}
-
-:root.theme-dark .home_showcase_card-lightDark:has(input:checked) {
-  color-scheme: light;
 }
 
 /* 4 THEMING DEMO */
