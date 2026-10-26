@@ -140,6 +140,7 @@ h6,
 .h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
+  color: var(--heading-color);
 }
 
 h1,

@@ -286,6 +286,7 @@ h6,
 .h6 {
   overflow-wrap: break-word; /* Avoid text overflows */
   text-wrap: balance;
+  color: var(--heading-color);
 }
 
 h1,
@@ -4910,6 +4911,7 @@ body.dev {
 
   --heading-font: var(--display);
   --heading-weight: var(--black);
+  --heading-color: inherit;
   --heading-letter-spacing: normal; /* (e.g. -0.02em or var(--tracking-sm)) */
 
   --heading-font-size-h1: clamp(

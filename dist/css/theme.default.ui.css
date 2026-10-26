@@ -151,6 +151,7 @@ xxl: 1920px
 
   --heading-font: var(--display);
   --heading-weight: var(--black);
+  --heading-color: inherit;
   --heading-letter-spacing: normal; /* (e.g. -0.02em or var(--tracking-sm)) */
 
   --heading-font-size-h1: clamp(
