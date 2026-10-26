@@ -1011,18 +1011,6 @@ dialog {
     opacity: var(--dialog-backdrop-opacity);
   }
 
-  [aria-label="close pop-up"] {
-    position: absolute;
-    top: var(--xs3);
-    right: var(
-      --xs3
-    ); /* deliberately physical: close button pinned to a visual corner */
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  }
-
   p:last-of-type {
     /* in case it's inside a .prose context */
     margin-bottom: 0;
@@ -4890,8 +4878,7 @@ body.dev {
   --dialog-border-color: light-dark(var(--base-200), var(--base-800));
   --dialog-background-color: light-dark(var(--base-50), var(--base-900));
   --dialog-border-radius: var(--radius-lg);
-  --dialog-backdrop-color: var(--base-950);
-  --dialog-backdrop-opacity: var(--o-4);
+  --dialog-backdrop-color: rgb(from var(--base-950) r g b / var(--o-4));
 
   /* details: same as dialog by default, on purpose, to be  independently
      overridable. Spacing is the gap between an open summary and its content. */

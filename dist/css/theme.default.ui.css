@@ -122,8 +122,7 @@ xxl: 1920px
   --dialog-border-color: light-dark(var(--base-200), var(--base-800));
   --dialog-background-color: light-dark(var(--base-50), var(--base-900));
   --dialog-border-radius: var(--radius-lg);
-  --dialog-backdrop-color: var(--base-950);
-  --dialog-backdrop-opacity: var(--o-4);
+  --dialog-backdrop-color: rgb(from var(--base-950) r g b / var(--o-4));
 
   /* details: same as dialog by default, on purpose, to be  independently
      overridable. Spacing is the gap between an open summary and its content. */
