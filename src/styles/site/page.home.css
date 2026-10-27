@@ -14,7 +14,6 @@
 .home_layers,
 .home_showcase_body,
 .home_themer_split,
-.home_themer_note,
 .home_gallery_grid,
 .home_own_split,
 .home_install_body,
@@ -985,14 +984,6 @@
 .home_themer:has(input[value="wireframe"]:checked) .home_themer_pane-wireframe,
 .home_themer:has(input[value="sunset"]:checked) .home_themer_pane-sunset {
   display: block;
-}
-
-/* A by-the-way under the demo */
-.home_themer_note {
-  margin-block: var(--sm1) 0;
-  font-size: var(--text-sm);
-  text-align: center;
-  color: light-dark(var(--base-600), var(--base-400));
 }
 
 /* 5 COMPONENT GALLERY */
