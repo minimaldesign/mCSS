@@ -166,13 +166,13 @@
 
 /* 1 THE CODE MORPH */
 
-/* Animated character counter (388 to 43). The unregistered fallback below
+/* Animated character counter (385 to 43). The unregistered fallback below
    keeps the number correct in engines without @property (it just steps
    instead of ticking). */
 @property --morph-n {
   syntax: "<integer>";
   inherits: true;
-  initial-value: 388;
+  initial-value: 385;
 }
 
 .home_morph {
@@ -332,7 +332,7 @@
 }
 
 .home_morph_count {
-  --morph-n: 388;
+  --morph-n: 385;
   animation: morphCount calc(var(--morph-done) + 0.3s) linear both;
 
   &::after {
@@ -499,71 +499,71 @@
 @keyframes morphCount {
   0%,
   10.68% {
-    --morph-n: 388;
+    --morph-n: 385;
   }
   10.8%,
   14.66% {
-    --morph-n: 376;
+    --morph-n: 373;
   }
   14.77%,
   18.64% {
-    --morph-n: 363;
+    --morph-n: 360;
   }
   18.75%,
   22.61% {
-    --morph-n: 348;
+    --morph-n: 345;
   }
   22.73%,
   26.59% {
-    --morph-n: 342;
+    --morph-n: 331;
   }
   26.7%,
   30.57% {
-    --morph-n: 331;
+    --morph-n: 323;
   }
   30.68%,
   34.55% {
-    --morph-n: 320;
+    --morph-n: 318;
   }
   34.66%,
   38.52% {
-    --morph-n: 315;
+    --morph-n: 307;
   }
   38.64%,
   42.5% {
-    --morph-n: 308;
+    --morph-n: 300;
   }
   42.61%,
   46.48% {
-    --morph-n: 300;
+    --morph-n: 284;
   }
   46.59%,
   50.45% {
-    --morph-n: 286;
+    --morph-n: 275;
   }
   50.57%,
   54.43% {
-    --morph-n: 275;
+    --morph-n: 267;
   }
   54.55%,
   58.41% {
-    --morph-n: 265;
+    --morph-n: 253;
   }
   58.52%,
   62.39% {
-    --morph-n: 247;
+    --morph-n: 239;
   }
   62.5%,
   66.36% {
-    --morph-n: 234;
+    --morph-n: 224;
   }
   66.48%,
   70.34% {
-    --morph-n: 217;
+    --morph-n: 206;
   }
   70.45%,
   74.32% {
-    --morph-n: 190;
+    --morph-n: 189;
   }
   74.43%,
   78.3% {
@@ -571,23 +571,23 @@
   }
   78.41%,
   82.27% {
-    --morph-n: 142;
+    --morph-n: 140;
   }
   82.39%,
   86.25% {
-    --morph-n: 114;
+    --morph-n: 120;
   }
   86.36%,
   90.23% {
-    --morph-n: 98;
+    --morph-n: 99;
   }
   90.34%,
   94.2% {
-    --morph-n: 78;
+    --morph-n: 82;
   }
   94.32%,
   98.18% {
-    --morph-n: 62;
+    --morph-n: 63;
   }
   98.3%,
   98.86% {
