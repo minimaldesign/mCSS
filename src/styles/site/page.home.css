@@ -49,10 +49,11 @@
   --wrap-width: minmax(0, var(--home-width));
   --wrap-lg-spacing: var(--sm3);
   text-align: start;
+}
 
-  > * {
-    max-width: 40rem;
-  }
+/* Mixed onto the Section's title and lede (titleClass, ledeClass) */
+.home_wideHeader_text {
+  max-width: 40rem;
 }
 
 /* A section's one onward link, under its content */
@@ -1033,6 +1034,13 @@
   }
 }
 
+/* The section's title, set like Section's own (.section_title) but at
+   the top of the text column */
+.home_own_title {
+  margin-bottom: var(--xs3);
+  font-size: var(--display-md);
+}
+
 .home_own_body {
   max-width: 60ch;
 }
@@ -1093,8 +1101,8 @@
   --section-primary-link-color-hover: var(--primary-100);
 }
 
-/* Mixed onto the Section header: the lede is as wide as the snippet */
-.home_install_header > p {
+/* Mixed onto the Section's lede: as wide as the snippet */
+.home_install_lede {
   max-width: var(--home-snippet-width);
   margin-inline: auto;
 }

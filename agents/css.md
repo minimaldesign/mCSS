@@ -9,7 +9,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 ## Cascade rules (load-bearing)
 
 1. Framework layers, in priority order (later wins):
-   `base, elements, global, components, theme.default, theme.user, helpers`
+   `base, elements, global, components, theme.default, theme.user, external, helpers`
    The order runs **from default to deliberate**: `base` through `components` are the framework's structure, `theme.default` holds the default theme's design values, `theme.user` holds the consumer's deliberate deviations, helpers are the last word. (Not "generic to specific": a theme is broad in reach but late in intent, and intent decides cascade order.)
 2. **Unlayered CSS beats every layer for normal declarations.** That's the consumer guarantee ("your CSS wins") and why site CSS is unlayered.
 3. **Every design value lives in the default theme** (`theme.default.css` entry importing `theme.default.tokens.css` + `theme.default.ui.css` with `layer(theme.default)`; the parts are plain CSS, the entry assigns their layer, and the dist build pre-wraps the dist copies for lone `<link>` use). It is **never imported by `mcss.css`**; the consumer entry activates it right after `mcss.css` (see `_global.css`), and the framework does not paint without it. A consumer theme (self-layered into `theme.user`, see `theme.starter.css`) beats the default regardless of import order; a full skin like `theme.wireframe.css` is an entry that composes `theme.default.css` and overrides on top. Activate exactly one theme entry. Unlayered consumer CSS still beats all themes.
@@ -27,6 +27,7 @@ mCSS uses **native CSS cascade layers** (`@layer`) on top of an ITCSS-inspired f
 | components    | `component.*`     | Library components (card, hero, notice, …), including CSS-only single-class ones (badge, button, toggle); imported by `mcss.components.css`, never by `mcss.css`                                                                               |
 | theme.default | `theme.default.*` | The default theme: scale tokens (`theme.default.tokens.css`) and ui tokens (`theme.default.ui.css`), imported by the `theme.default.css` entry, activated by the consumer entry (never by `mcss.css`); the framework does not paint without it |
 | theme.user    | `theme.*`         | Your theme and swappable skins: token overrides + style rules, self-layered via `@layer theme.user`; a full skin (`theme.wireframe.css`) is an entry composing `theme.default.css` and overriding on top                                       |
+| external      | (none)            | Empty slot for third-party CSS you import yourself (`@import url(vendor.css) layer(external)`): beats the framework, loses to unlayered project CSS                                                                                            |
 | helpers       | `help.*`          | Utility overrides (colors, spacing, typography), all `!important`: beats everything, including unlayered CSS                                                                                                                                   |
 
 `settings.media-queries.css` and `settings.mixins.css` are the only remaining `settings.*` files: build-time material (`@custom-media` + mixins), imported unlayered, no runtime output.

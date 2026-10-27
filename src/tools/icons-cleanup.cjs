@@ -52,22 +52,20 @@ fs.readdir(iconsFolder, (err, files) => {
           changes.push('xml:space="preserve" removed');
         }
 
-        // Remove duplicate id attributes and ensure proper formatting
+        // Remove id attributes: icons are inlined, often several times per
+        // page, and a repeated id is invalid HTML
         if (/\s+id="[^"]*"/g.test(updatedData)) {
-          updatedData = updatedData.replace(/\s+id="[^"]*"/g, ""); // Remove all id attributes
-          changes.push("duplicate id attributes removed");
+          updatedData = updatedData.replace(/\s+id="[^"]*"/g, "");
+          changes.push("id attributes removed");
         }
 
-        // Add the correct id attribute
-        const idRegex = new RegExp(`<svg[^>]*id="${fileNameWithoutExt}"[^>]*>`);
-        if (!idRegex.test(updatedData)) {
-          if (/<svg([^>]*)>/.test(updatedData)) {
-            updatedData = updatedData.replace(
-              /<svg([^>]*)>/,
-              `<svg$1 id="${fileNameWithoutExt}">`
-            );
-            changes.push("id added or updated");
-          }
+        // Fix a stray space in the SVG namespace (some exports carry one)
+        if (/xmlns="http:\/\/www\.w3\.org\/2000\/ svg"/.test(updatedData)) {
+          updatedData = updatedData.replace(
+            /xmlns="http:\/\/www\.w3\.org\/2000\/ svg"/,
+            'xmlns="http://www.w3.org/2000/svg"'
+          );
+          changes.push("xmlns fixed");
         }
 
         // Remove any class attributes

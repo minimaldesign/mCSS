@@ -7,8 +7,10 @@
 
 <label class="themeToggle">
   <input class="toggle root-theme js-theme-checkbox" name="theme" type="checkbox" role="switch" />
-  <span class="themeToggle_text">current theme: <span class="js-theme-name">light</span></span>
-  <span class="a11y-srOnly">Use dark theme</span>
+  {/* The switch's own on/off state says which theme is active, so it is
+      named for what it turns on; the visible text is for sighted users */}
+  <span class="themeToggle_text" aria-hidden="true">current theme: <span class="js-theme-name">light</span></span>
+  <span class="a11y-srOnly">Dark theme</span>
 </label>
 
 <script>

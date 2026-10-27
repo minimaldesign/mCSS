@@ -7,6 +7,13 @@ All notable changes to mCSS. The framework follows the copy-it-you-own-it model:
 ### Fixed
 
 - **Section ledes meet AA contrast.** `--section-lede-color` was `base-500` / `base-400`, 4.1:1 on a light filled section and 3.74:1 on a dark one. It is now `base-600` / `base-300` (5.7:1 and 5.75:1).
+- **The rest of the default theme’s secondary text and controls meet AA too.** Measured on the mcss.dev home page:
+  - `--card-secondary-text-color` and `--field-hint-color` are `base-600` / `base-300` (were 2.5–3.4:1).
+  - `--text-code-color` is `primary-700` / `primary-300` on its tinted background (was 3.57:1 light, 4.42:1 dark).
+  - `--badge-primary-background-color` and `--pagination-background-color-current` are `primary-700` in both schemes (white on `primary-500` was 2.77:1 in dark).
+  - `--focus-ring-color` is `primary-700` in light (was 2.1–2.8:1 against light surfaces).
+  - Placeholders take a new `--input-placeholder-color` (`base-600` / `base-400`) at full opacity, instead of the browser’s gray at 80% (2.6:1 in dark).
+  - `--input-border-color` is `base-500` / `base-400` instead of `--ui-border-color` (1.4:1), `--toggle-track-color` is `base-500` / `base-400` and `--toggle-track-color-checked` is `yes-500` / `yes-400`, so field edges and switch tracks reach 3:1.
 
 - **`<iframe>` has no border again.** 1.5.0 removed the framework's iframe border but left the rule empty, so browsers drew their own 2px inset border instead. The rule now sets `border: 0`.
 

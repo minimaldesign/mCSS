@@ -16,9 +16,10 @@
   display: flex;
   place-items: center;
   border: none;
-  color: light-dark(var(--base-400), var(--base-400));
+  /* Always on a dark code block, in either site theme */
+  color: var(--base-300);
   border-radius: var(--radius-md);
-  background: light-dark(var(--base-950), var(--base-900));
+  background: var(--base-800);
   cursor: pointer;
   transition:
     opacity var(--transition),
@@ -27,13 +28,13 @@
   &:hover,
   &:focus-visible {
     opacity: 1;
-    color: light-dark(var(--base-200), var(--base-200));
-    background: light-dark(var(--base-800), var(--base-700));
+    color: var(--base-100);
+    background: var(--base-700);
   }
 
   &:active {
     opacity: 1;
-    background: light-dark(var(--base-700), var(--base-600));
+    background: var(--base-600);
   }
 
   svg {
@@ -43,14 +44,14 @@
 }
 
 /* On pointer devices: hide by default, reveal on parent hover */
-@media (hover: hover) {
+@media (--mouse), (--pointer) {
   .copyBtn_trigger {
     opacity: 0;
     width: var(--md2);
     height: var(--md2);
   }
 
-  /* Reveal when the copy button's grandparent (the code wrapper) is hovered,
+  /* Reveal when the copy button's parent (the code wrapper) is hovered,
        or when a sibling is focused, or when feedback is visible */
   :hover > .copyBtn .copyBtn_trigger:not(:hover),
   :focus-within > .copyBtn .copyBtn_trigger:not(:hover),

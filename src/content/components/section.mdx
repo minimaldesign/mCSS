@@ -103,10 +103,10 @@ Depends on `.wrap` (`global.wrap.css`), part of the mCSS core: the header and th
 <section class="prose">
 
 ```html
-<section class="section section-filled">
+<section class="section section-filled" aria-labelledby="section-everything">
   <header class="section_header wrap wrap-md">
     <p class="section_eyebrow">Why mCSS</p>
-    <h2 class="section_title">Everything is a section</h2>
+    <h2 class="section_title" id="section-everything">Everything is a section</h2>
     <p class="section_lede">
       Stack a few of these and you have a landing page.
     </p>
@@ -185,6 +185,8 @@ The following custom properties are available in [`theme.default.ui.css`](/docs/
 | `headerWrap`   | `string` | `md`        | Header column width preset: `sm`, `md`, `lg`.                       |
 | `contentWrap`  | `string` | `lg`        | Content column width preset: `sm`, `md`, `lg`.                      |
 | `headerClass`  | `string` | `undefined` | Extra classes added to `.section_header`.                           |
+| `titleClass`   | `string` | `undefined` | Extra classes added to `.section_title`.                            |
+| `ledeClass`    | `string` | `undefined` | Extra classes added to `.section_lede`.                             |
 | `contentClass` | `string` | `undefined` | Extra classes added to `.section_content`.                          |
 | `class`        | `string` | `undefined` | Additional CSS classes, useful for [helper classes](/docs/helpers). |
 

@@ -778,7 +778,8 @@ tfoot {
 /* ELEMENTS FORM */
 
 ::placeholder {
-  opacity: var(--o-4);
+  color: var(--input-placeholder-color);
+  opacity: 1;
 }
 
 /* Remove built-in form typography styles */
@@ -4792,7 +4793,7 @@ body.dev {
 
   /* Keyboard focus ring (used by :focus-visible in global.a11y.css).
      Raw 2px on purpose: an accessibility shouldn't change with the theme. */
-  --focus-ring-color: light-dark(var(--primary-500), var(--primary-400));
+  --focus-ring-color: light-dark(var(--primary-700), var(--primary-400));
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
 }
@@ -4816,9 +4817,11 @@ body.dev {
   --input-height: var(--md3);
   --input-padding: var(--xs3);
   --input-border-width: var(--border-sm);
-  --input-border-color: var(--ui-border-color);
+  /* Darker than --ui-border-color: a field's edge must reach 3:1 */
+  --input-border-color: light-dark(var(--base-500), var(--base-400));
   --input-border-radius: var(--radius-md);
   --input-background-color: var(--body-background-color);
+  --input-placeholder-color: light-dark(var(--base-600), var(--base-400));
   --input-border-color-invalid: light-dark(var(--no-500), var(--no-400));
 
   /* Gap under a label that precedes its control */
@@ -4946,7 +4949,7 @@ body.dev {
   --link-color: light-dark(var(--primary-600), var(--primary-400));
   --link-color-hover: var(--primary-500);
 
-  --text-code-color: light-dark(var(--primary-600), var(--primary-400));
+  --text-code-color: light-dark(var(--primary-700), var(--primary-300));
   --text-code-background-color: light-dark(
     var(--primary-100),
     var(--primary-900)
@@ -5036,10 +5039,7 @@ body.dev {
   --badge-background-color: light-dark(var(--base-700), var(--base-600));
 
   --badge-primary-color: var(--base-0);
-  --badge-primary-background-color: light-dark(
-    var(--primary-600),
-    var(--primary-500)
-  );
+  --badge-primary-background-color: var(--primary-700);
   --badge-success-color: light-dark(var(--yes-500), var(--base-0));
   --badge-success-background-color: light-dark(var(--yes-100), var(--yes-500));
   --badge-danger-color: light-dark(var(--no-500), var(--base-0));
@@ -5124,7 +5124,7 @@ body.dev {
 :root {
   --card-spacing: var(--sm3);
   --card-color: var(--text-color);
-  --card-secondary-text-color: light-dark(var(--base-400), var(--base-500));
+  --card-secondary-text-color: light-dark(var(--base-600), var(--base-300));
   --card-bg-color: light-dark(var(--base-100), var(--base-900));
   --card-border-radius: var(--radius-lg);
   --card-border-color: var(--ui-border-color);
@@ -5144,8 +5144,8 @@ body.dev {
   --toggle-width: 50px;
   --toggle-height: 28px;
   --toggle-border-width: 2px;
-  --toggle-track-color: light-dark(var(--base-300), var(--base-700));
-  --toggle-track-color-checked: var(--yes-400);
+  --toggle-track-color: light-dark(var(--base-500), var(--base-400));
+  --toggle-track-color-checked: light-dark(var(--yes-500), var(--yes-400));
   --toggle-thumb-color: var(--body-background-color);
 }
 
@@ -5159,7 +5159,7 @@ body.dev {
 
 :root {
   --field-spacing: var(--xs1);
-  --field-hint-color: light-dark(var(--base-400), var(--base-500));
+  --field-hint-color: light-dark(var(--base-600), var(--base-300));
   --field-error-color: light-dark(var(--no-500), var(--no-300));
   /*Field's hint/error position. Use `static` to reflow under, use `absolute`
   (and leave enough space below) if you don't want any shift on errors */
@@ -5228,10 +5228,7 @@ body.dev {
   --pagination-border-radius: var(--radius-md);
   --pagination-color: var(--text-color);
   --pagination-color-current: var(--base-0);
-  --pagination-background-color-current: light-dark(
-    var(--primary-600),
-    var(--primary-500)
-  );
+  --pagination-background-color-current: var(--primary-700);
   --pagination-background-color-hover: light-dark(
     var(--base-100),
     var(--base-800)
