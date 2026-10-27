@@ -1097,9 +1097,29 @@
 
 .home_own_body {
   max-width: 60ch;
+}
 
-  p + p {
-    margin-top: var(--sm1);
+/* The three facts, for readers who scan */
+.home_own_facts {
+  display: grid;
+  gap: var(--sm1);
+  margin: var(--md2) 0 0;
+  padding-inline-start: var(--sm2);
+
+  /* Stays a list-item (flex would drop the marker) */
+  li {
+    padding-inline-start: var(--xs1);
+
+    &::marker {
+      color: var(--primary-500);
+    }
+  }
+
+  span {
+    display: block;
+    margin-top: var(--xs1);
+    font-size: var(--text-sm);
+    color: light-dark(var(--base-600), var(--base-400));
   }
 }
 
