@@ -1076,26 +1076,30 @@
   max-width: 60ch;
 }
 
-/* The three facts, for readers who scan */
+/* The three facts, for readers who scan, each behind a check */
 .home_own_facts {
   display: grid;
   gap: var(--sm1);
   margin: var(--md2) 0 0;
-  padding-inline-start: var(--sm2);
+  padding: 0;
+  list-style: none;
 
-  /* Stays a list-item (flex would drop the marker) */
   li {
-    padding-inline-start: var(--xs1);
+    display: grid;
+    grid-template-columns: 1.25em minmax(0, 1fr);
+    column-gap: var(--xs3);
 
-    &::marker {
-      color: var(--primary-500);
+    &::before {
+      content: "";
+      grid-row: 1 / span 2;
+      height: 1lh;
+      background-color: var(--primary-500);
+      mask: url(../../assets/icons/check.svg) center / 1.25em no-repeat;
     }
   }
 
   span {
-    display: block;
     margin-top: var(--xs1);
-    font-size: var(--text-sm);
     color: light-dark(var(--base-600), var(--base-400));
   }
 }
