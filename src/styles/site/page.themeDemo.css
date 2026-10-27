@@ -1,0 +1,20 @@
+/* THEME DEMO: the pages the home page's theme switcher shows in an
+   iframe (src/pages/demos/themes/), one per theme */
+
+.themeDemo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md2);
+  margin: 0;
+  padding: var(--sm3);
+}
+
+.themeDemo_formRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm1);
+
+  > button {
+    align-self: flex-start;
+  }
+}

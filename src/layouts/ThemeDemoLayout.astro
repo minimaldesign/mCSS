@@ -1,0 +1,49 @@
+---
+// The home page's theme demo: the same card and form under one theme.
+// Each page in src/pages/demos/themes/ imports the framework and its
+// theme, then renders this; the home page shows them in iframes.
+import Card from '../components/Card.astro';
+import Field from '../components/Field.astro';
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    {/* Follows the site's theme, and the toggle on the page around it */}
+    <script is:inline>
+      (function () {
+        var apply = function (theme) {
+          if (!theme) {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'theme-dark' : 'theme-light';
+          }
+          document.documentElement.classList.remove('theme-dark', 'theme-light');
+          document.documentElement.classList.add(theme);
+        };
+        try {
+          apply(localStorage.getItem('theme'));
+          window.addEventListener('storage', function (event) {
+            if (event.key === 'theme') apply(event.newValue);
+          });
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+  </head>
+  <body class="themeDemo">
+    <Card variant="raised" headingLevel={2} title="You’re invited!" subtitle="Sam’s birthday · Saturday 4pm">
+      <p>Cake at Sam’s place. Reply by Thursday so we know how many to expect.</p>
+      <Fragment slot="actions">
+        <button type="button" class="bt">Details</button>
+        <button type="button" class="bt bt-primary">RSVP</button>
+      </Fragment>
+    </Card>
+    <div class="themeDemo_formRow">
+      <Field label="Email" name="themeDemo_email" type="email" placeholder="you@example.com" hint="We’ll never share it." />
+      <button type="button" class="bt bt-primary">Subscribe</button>
+    </div>
+  </body>
+</html>

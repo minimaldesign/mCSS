@@ -17,6 +17,10 @@ import { gzipSync } from 'node:zlib';
 
 import mcssMinCss from '../../dist/mcss.min.css?raw';
 import mcssComponentsMinCss from '../../dist/mcss.components.min.css?raw';
+import defaultTokensCss from '../styles/framework/theme.default.tokens.css?raw';
+import defaultUiCss from '../styles/framework/theme.default.ui.css?raw';
+import wireframeThemeCss from '../styles/framework/theme.wireframe.css?raw';
+import sunsetThemeCss from '../styles/site/theme.sunset.css?raw';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
@@ -69,57 +73,29 @@ const installSnippet = `<!-- mCSS, ~${mcssMinGzipKb} KB min+gzip -->
 <!-- components, ~${mcssComponentsMinGzipKb} KB -->
 <link rel="stylesheet" href="/css/mcss.components.min.css" />`;
 
-// Section 4's diff panes, rendered with Shiki (github-dark) at build time.
-// Each list matches the overrides in page.home.css line for line.
+// Section 4's diff panes, read from the theme files themselves so they can't
+// drift: the declarations in their :root blocks, comments stripped, picked by
+// name in the order given (all of them when no names are given).
+const rootDeclarations = (css: string) => {
+  const declarations = new Map<string, string>();
+  const bare = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const [, body] of bare.matchAll(/:root\s*\{([^}]*)\}/g)) {
+    for (const declaration of body.split(';')) {
+      const [name, ...value] = declaration.split(':');
+      if (name.trim().startsWith('--')) declarations.set(name.trim(), value.join(':').replace(/\s+/g, ' ').trim());
+    }
+  }
+  return declarations;
+};
+const themeExcerpt = (css: string, names?: string[]) => {
+  const declarations = rootDeclarations(css);
+  const lines = (names ?? [...declarations.keys()]).filter((name) => declarations.has(name)).map((name) => `  ${name}: ${declarations.get(name)};`);
+  return `:root {\n${lines.join('\n')}\n}`;
+};
 const themeDiffs = {
-  default: `:root {
-  --heading-font: var(--display);
-  --text: ui-sans-serif, system-ui, sans-serif;
-  --text-md: 1rem;
-  --text-lg: 1.2rem;
-  --text-color: light-dark(#23282e, #d6dbe1);
-  --card-bg-color: light-dark(#edeef1, #353c45);
-  --card-border-radius: 8px;
-  --card-shadow: var(--shadow-md);
-  --bt-primary-background-color: #0284c7;
-  --bt-primary-background-color-hover: #0ea5e9;
-  --bt-primary-border-color: #0284c7;
-  --bt-primary-border-color-hover: #0284c7;
-  --bt-border-radius: 8px;
-  --input-border-radius: 5px;
-  --link-color: light-dark(#0284c7, #38bdf8);
-}`,
-  wireframe: `:root {
-  --heading-font: ui-rounded, "Arial Rounded MT Bold", Calibri, sans-serif;
-  --text-color: light-dark(#404040, #d4d4d4);
-  --card-bg-color: light-dark(#f5f5f5, #171717);
-  --card-border-radius: 0;
-  --card-shadow: none;
-  --bt-primary-background-color: #525252;
-  --bt-primary-background-color-hover: #737373;
-  --bt-primary-border-color: #525252;
-  --bt-primary-border-color-hover: #525252;
-  --bt-border-radius: 0;
-  --input-border-radius: 0;
-  --link-color: light-dark(#525252, #a3a3a3);
-}`,
-  sunset: `:root {
-  --heading-font: "Iowan Old Style", Georgia, serif;
-  --text: Georgia, "Times New Roman", serif;
-  --text-md: 1.05rem;
-  --text-lg: 1.3rem;
-  --text-color: light-dark(#431407, #ffedd5);
-  --card-bg-color: light-dark(#fef9c3, #431407);
-  --card-border-radius: 16px;
-  --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
-  --bt-primary-background-color: #ea580c;
-  --bt-primary-background-color-hover: #f97316;
-  --bt-primary-border-color: #ea580c;
-  --bt-primary-border-color-hover: #ea580c;
-  --bt-border-radius: 1e5px;
-  --input-border-radius: 1e5px;
-  --link-color: light-dark(#c2410c, #fb923c);
-}`,
+  default: themeExcerpt(defaultTokensCss + defaultUiCss, ['--text', '--heading-font', '--primary-600', '--border-sm', '--ui-border-color', '--card-border-radius', '--card-shadow', '--bt-border-radius', '--bt-primary-background-color', '--input-border-radius']),
+  wireframe: themeExcerpt(wireframeThemeCss, ['--text', '--heading-font', '--heading-weight', '--primary-600', '--border-sm', '--ui-border-color', '--wobble-1', '--wobble-2', '--wobble-3', '--card-border-radius', '--bt-border-radius', '--input-border-radius', '--ui-shadow-color', '--shadow-md']),
+  sunset: themeExcerpt(sunsetThemeCss),
 };
 ---
 
@@ -274,37 +250,41 @@ const themeDiffs = {
       <legend class="a11y-srOnly">Pick a demo theme</legend>
       <label class="home_themer_swatch home_themer_swatch-default">
         <input type="radio" name="home_theme" value="default" checked />
-        <i aria-hidden="true"></i><span>Default</span>
+        <span class="home_themer_dot" aria-hidden="true"></span><span>Default</span>
       </label>
       <label class="home_themer_swatch home_themer_swatch-wireframe">
         <input type="radio" name="home_theme" value="wireframe" />
-        <i aria-hidden="true"></i><span>Wireframe</span>
+        <span class="home_themer_dot" aria-hidden="true"></span><span>Wireframe</span>
       </label>
       <label class="home_themer_swatch home_themer_swatch-sunset">
         <input type="radio" name="home_theme" value="sunset" />
-        <i aria-hidden="true"></i><span>Sunset</span>
+        <span class="home_themer_dot" aria-hidden="true"></span><span>Sunset</span>
       </label>
     </fieldset>
 
+    <p class="home_themer_note">A demo: Default and Wireframe ship with mCSS, Sunset is made up for this page.</p>
+
     <div class="home_themer_split">
-      <div class="home_themer_stage">
-        <Card variant="filled" headingLevel={3} title="You’re invited!" subtitle="Sam’s birthday · Saturday 4pm">
-          <p>Cake at Sam’s place. Reply by Thursday so we know how many to expect.</p>
-          <Fragment slot="actions">
-            <button type="button" class="bt">Details</button>
-            <button type="button" class="bt bt-primary">RSVP</button>
-          </Fragment>
-        </Card>
-        <div class="home_themer_formRow">
-          <Field label="Email" name="home_themer_email" type="email" placeholder="you@example.com" hint="We’ll never share it." />
-          <button type="button" class="bt bt-primary">Subscribe</button>
-        </div>
+      {/* Each theme renders in its own page, with its real CSS file */}
+      <div class="home_themer_frames">
+        <iframe class="home_themer_frame home_themer_frame-default" src="/demos/themes/default" title="A card and a form in the Default theme" loading="lazy"></iframe>
+        <iframe class="home_themer_frame home_themer_frame-wireframe" src="/demos/themes/wireframe" title="A card and a form in the Wireframe theme" loading="lazy"></iframe>
+        <iframe class="home_themer_frame home_themer_frame-sunset" src="/demos/themes/sunset" title="A card and a form in the Sunset theme" loading="lazy"></iframe>
       </div>
 
       <div>
-        <div class="home_themer_pane home_themer_pane-default"><Code code={themeDiffs.default} lang="css" theme="github-dark" /></div>
-        <div class="home_themer_pane home_themer_pane-wireframe"><Code code={themeDiffs.wireframe} lang="css" theme="github-dark" /></div>
-        <div class="home_themer_pane home_themer_pane-sunset"><Code code={themeDiffs.sunset} lang="css" theme="github-dark" /></div>
+        <figure class="home_themer_pane home_themer_pane-default">
+          <figcaption class="home_themer_file">theme.default.css, excerpt</figcaption>
+          <Code code={themeDiffs.default} lang="css" theme="github-dark" />
+        </figure>
+        <figure class="home_themer_pane home_themer_pane-wireframe">
+          <figcaption class="home_themer_file">theme.wireframe.css, excerpt</figcaption>
+          <Code code={themeDiffs.wireframe} lang="css" theme="github-dark" />
+        </figure>
+        <figure class="home_themer_pane home_themer_pane-sunset">
+          <figcaption class="home_themer_file">theme.sunset.css</figcaption>
+          <Code code={themeDiffs.sunset} lang="css" theme="github-dark" />
+        </figure>
       </div>
     </div>
   </Section>
