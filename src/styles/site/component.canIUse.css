@@ -6,13 +6,6 @@
 }
 
 .canIUse_wrap {
-  --canIUse-bl-limited-front: light-dark(var(--maybe-500), var(--maybe-500));
-  --canIUse-bl-limited-back: light-dark(var(--base-300), var(--base-500));
-  --canIUse-bl-newly-front: light-dark(var(--primary-600), var(--primary-500));
-  --canIUse-bl-newly-back: light-dark(var(--primary-300), var(--primary-800));
-  --canIUse-bl-widely-front: light-dark(var(--yes-500), var(--yes-400));
-  --canIUse-bl-widely-back: light-dark(var(--yes-200), var(--base-500));
-
   margin: var(--sm3) 0;
   max-width: 560px;
 }

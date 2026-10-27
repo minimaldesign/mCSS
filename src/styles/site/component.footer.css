@@ -1,9 +1,33 @@
 /* Site-specific overrides of the library footer (framework/component.footer.css) */
 
+/* The webring pins itself to the bottom (component.webring.css), so the
+   meta lines can line up with the first links of the nav lists */
+.footer {
+  @media (--md) {
+    position: relative;
+  }
+}
+
 .footer_meta {
   display: flex;
   flex-direction: column;
-  justify-content: end;
+
+  /* An empty stand-in for the nav's .h5 headings, built from the same
+     tokens, so the first line lands on the first link's line */
+  @media (--md) {
+    &::before {
+      content: "";
+      height: 1lh;
+      margin-bottom: var(--heading-spacing-h5);
+      font-size: var(--heading-font-size-h5);
+      line-height: var(--heading-line-height-h5);
+    }
+  }
+
+  /* The nav lists' item spacing */
+  > p + p {
+    margin-top: var(--xs1);
+  }
 
   svg {
     position: relative;

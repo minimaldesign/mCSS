@@ -11,10 +11,13 @@
 
 /* 2 to 5: narrow header, wide content. These blocks escape the wrap
    column and center at up to 1150px. */
-.home_pillars,
-.home_showcase_tiles,
+.home_layers,
+.home_showcase_body,
 .home_themer_split,
-.home_gallery_grid {
+.home_gallery_grid,
+.home_own_split,
+.home_install_body,
+.home_more {
   grid-column: 1 / -1;
   width: 100%;
   max-width: 1150px;
@@ -24,14 +27,35 @@
   padding-right: var(--sm3);
 }
 
+/* Showcase and gallery: the header lines up with the wide content under
+   it (same 1150px column, same gutter) instead of centering over it */
+.home_wideHeader {
+  --wrap-width: minmax(0, 1150px);
+  --wrap-lg-spacing: var(--sm3);
+  text-align: start;
+
+  > * {
+    max-width: 70ch;
+  }
+}
+
+/* A section's one onward link, under its content */
+.home_more {
+  margin-block: var(--md2) 0;
+}
+
 /* 1 HERO */
 
 .home_hero {
   display: grid;
   align-content: center;
   min-height: calc(80svh - var(--header-height));
-  padding-block: var(--lg1) var(--sm3);
+  padding-block: var(--lg1);
   padding-inline: var(--sm3);
+  /* More room over the headline than under the fine print */
+  @media (--lg) {
+    padding-block: var(--xl1) var(--lg3);
+  }
 }
 
 .home_hero_inner {
@@ -39,30 +63,55 @@
   max-width: 1150px;
   margin-inline: auto;
   display: grid;
-  gap: var(--lg3);
-  /* Below --lg the copy dissolves (display: contents below) and the items
-     own their spacing through margins, so the grid gap goes away */
+  /* Stacked below --lg: the editor owns its top margin */
   @media (--lg-n-below) {
     gap: 0;
   }
+  /* The headline gets its own centered row; the copy and the editor split
+     the row under it */
   @media (--lg) {
-    grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
-    align-items: top;
-    gap: var(--xl2);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--lg1) var(--lg3);
+  }
+}
+
+/* Gradient-clipped text; light-dark() per stop keeps both themes AA
+   (postcss-mixins can't see display-gradient from another file).
+   fit-content, not max-content: max-content inflates the hero grid's
+   min-content size and overflows small viewports */
+.home_hero_title {
+  grid-column: 1 / -1;
+  justify-self: center;
+  /* The grid gap and the subhead's margin space it, not the h1 default */
+  margin: 0;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  color: transparent;
+  /* background-image longhand: preset-env's light-dark polyfill re-emits
+     shorthands after this rule, which would reset background-clip */
+  background-image: linear-gradient(
+    90deg,
+    light-dark(var(--primary-950), var(--primary-300)),
+    light-dark(var(--primary-500), var(--primary-500))
+  );
+  background-clip: text;
+  /* The gradient only paints the box; at line-height 1 the descenders
+     poke below it and vanish, so extend the box under the last line */
+  font-size: var(--display-md);
+  line-height: var(--leading-xs);
+  @media (--md) {
+    padding-bottom: 0.12em;
+    font-size: var(--display-mega);
   }
 }
 
 .home_hero_copy {
-  /* Below the two-column layout the copy centers, and it dissolves into the
-     hero grid so the editor can slot in after the subhead, before the
-     buttons (source order stays copy-first for AT and desktop) */
+  /* Below the two-column layout the copy centers above the editor, so the
+     buttons stay in the first screen */
   @media (--lg-n-below) {
-    display: contents;
     text-align: center;
-
-    h1 {
-      margin-inline: auto;
-    }
 
     .home_hero_subhead {
       margin-inline: auto;
@@ -70,33 +119,6 @@
 
     .home_hero_actions {
       justify-content: center;
-      order: 2;
-    }
-  }
-
-  h1 {
-    /* Gradient-clipped text; light-dark() per stop keeps both themes AA
-       (postcss-mixins can't see display-gradient from another file).
-       fit-content, not max-content: max-content inflates the hero grid's
-       min-content size and overflows small viewports */
-    width: fit-content;
-    max-width: 100%;
-    color: transparent;
-    /* background-image longhand: preset-env's light-dark polyfill re-emits
-       shorthands after this rule, which would reset background-clip */
-    background-image: linear-gradient(
-      90deg,
-      light-dark(var(--primary-950), var(--primary-300)),
-      light-dark(var(--primary-500), var(--primary-500))
-    );
-    background-clip: text;
-    /* The gradient only paints the box; at line-height 1 the descenders
-       poke below it and vanish, so extend the box under the last line */
-    font-size: var(--display-md);
-    line-height: var(--leading-xs);
-    @media (--md) {
-      padding-bottom: 0.12em;
-      font-size: var(--display-mega);
     }
   }
 }
@@ -108,6 +130,10 @@
   color: light-dark(var(--base-500), var(--base-400));
   @media (--md) {
     font-size: var(--text-xl);
+  }
+  /* First in its column once the headline has its own row */
+  @media (--lg) {
+    margin-top: 0;
   }
 }
 
@@ -127,52 +153,57 @@
   font-family: var(--mono);
   font-size: var(--text-sm);
   color: light-dark(var(--base-500), var(--base-400));
-  @media (--md) {
-    margin-top: var(--xl3);
+
+  @media (--lg) {
+    margin-top: var(--xl1);
   }
 
-  li {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--xs1);
-  }
-
-  svg {
-    width: 12px;
-    height: 12px;
-    color: light-dark(var(--primary-600), var(--primary-400));
+  li + li::before {
+    content: "·";
+    margin-inline-end: var(--sm1);
   }
 }
 
 /* 1 THE CODE MORPH */
 
-/* Animated character counter (219 to 54). The unregistered fallback below
+/* Animated character counter (388 to 43). The unregistered fallback below
    keeps the number correct in engines without @property (it just steps
    instead of ticking). */
 @property --morph-n {
   syntax: "<integer>";
   inherits: true;
-  initial-value: 219;
+  initial-value: 388;
 }
 
 .home_morph {
   display: flex;
   flex-direction: column;
-  /* The editor surface is github-dark in both site themes */
-  --morph-duration: 20s;
+  /* Plays once on load and holds the result; Replay runs it again.
+     Each class gets a --morph-slot strike that starts --morph-stagger after
+     the previous one. Stagger equals slot, so the classes go strictly one
+     at a time: the length of the wait is the point. --morph-done is when
+     the last class collapses: settle + (classes - 1) staggers + one slot. */
+  --morph-settle: 1.2s;
+  --morph-stagger: 0.7s;
+  --morph-slot: 0.7s;
+  --morph-done: calc(
+    var(--morph-settle) + 22 * var(--morph-stagger) + var(--morph-slot)
+  );
   --morph-strike: var(--no-400);
   --morph-pulse: rgb(19 136 109 / 0.45);
-  /* Stacked layout: slot between the subhead (order 0) and the buttons
-     (order 2, see .home_hero_copy) */
   @media (--lg-n-below) {
-    order: 1;
-    margin-top: var(--md2);
+    margin-top: var(--lg1);
+  }
+  /* Side by side, the copy centers on the editor alone: Replay hangs
+     under it, out of the row's height */
+  @media (--lg) {
+    position: relative;
   }
 }
 
 /* The editor fakes Shiki's github-dark in both site themes */
 .home_morph_editor {
-  margin-top: var(--sm2);
+  margin: 0;
   padding: var(--sm3);
   background-color: #24292e;
   border: var(--border-sm) solid rgb(255 255 255 / 0.12);
@@ -180,39 +211,59 @@
   box-shadow: var(--shadow-lg);
 }
 
-.home_morph_chrome {
+/* What the code is (utility classes, then mCSS) on the left, its length on the
+   right */
+.home_morph_bar {
   display: flex;
-  gap: var(--xs2);
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sm1);
   margin-bottom: var(--sm1);
+  font-family: var(--mono);
+  font-size: var(--text-sm);
+  color: #8b949e;
 
-  i {
-    width: 10px;
-    height: 10px;
-    border-radius: var(--radius-round);
-    opacity: var(--o-4);
-    &:nth-child(1) {
-      background: var(--no-300);
-    }
-    &:nth-child(2) {
-      background: var(--maybe-300);
-    }
-    &:nth-child(3) {
-      background: var(--yes-300);
-    }
+  p {
+    margin: 0;
   }
+}
+
+/* The two names share one cell and crossfade as the last class goes */
+.home_morph_label {
+  display: grid;
+
+  span {
+    grid-area: 1 / 1;
+  }
+}
+
+.home_morph_label_before {
+  animation: morphLabelOut 0.4s linear var(--morph-done) both;
+}
+
+.home_morph_label_after {
+  opacity: 0;
+  color: #85e89d;
+  animation: morphLabelIn 0.4s linear var(--morph-done) both;
 }
 
 .home_morph_frame {
   display: grid;
-  animation: morphFade var(--morph-duration) linear infinite;
 
   > pre {
     grid-area: 1 / 1;
   }
 }
 
+/* Reserves the before height so the collapse never shifts the hero. Below
+   --lg the editor sits under the buttons and is far taller than the
+   result, so there it shrinks with the code instead of holding an empty
+   box. */
 .home_morph_sizer {
   visibility: hidden;
+  @media (--lg-n-below) {
+    display: none;
+  }
 }
 
 .home_morph_code {
@@ -243,9 +294,13 @@
   initial-value: transparent;
 }
 
+/* --morph-i (set per span in index.astro) is the class's place in line */
 .home_morph_g {
   color: #9ecbff;
-  animation: var(--morph-duration) linear infinite;
+  animation: morphStrike var(--morph-slot) linear both;
+  animation-delay: calc(
+    var(--morph-settle) + var(--morph-i) * var(--morph-stagger)
+  );
 }
 
 .home_morph_gt {
@@ -255,46 +310,6 @@
     var(--morph-strike-now) calc(54% - 1.5px) calc(54% + 1.5px),
     transparent calc(54% + 1.5px)
   );
-}
-
-.home_morph_g-1 {
-  animation-name: morphC1;
-}
-.home_morph_g-2 {
-  animation-name: morphC2;
-}
-.home_morph_g-3 {
-  animation-name: morphC3;
-}
-.home_morph_g-4 {
-  animation-name: morphC4;
-}
-.home_morph_g-5 {
-  animation-name: morphC5;
-}
-.home_morph_g-6 {
-  animation-name: morphC6;
-}
-.home_morph_g-7 {
-  animation-name: morphC7;
-}
-.home_morph_g-8 {
-  animation-name: morphC8;
-}
-.home_morph_g-9 {
-  animation-name: morphC9;
-}
-.home_morph_g-10 {
-  animation-name: morphC10;
-}
-.home_morph_g-11 {
-  animation-name: morphC11;
-}
-.home_morph_g-12 {
-  animation-name: morphC12;
-}
-.home_morph_g-13 {
-  animation-name: morphC13;
 }
 
 .home_morph_after,
@@ -308,23 +323,17 @@
   opacity: 0;
   border-radius: var(--radius-sm);
   background-color: transparent;
-  animation: morphAfter var(--morph-duration) linear infinite;
+  animation: morphAfter 1.6s linear var(--morph-done) both;
 }
 
 .home_morph_counter {
-  margin: var(--xs2) 0 0;
-  font-family: var(--mono);
-  font-size: var(--text-sm);
   font-weight: var(--bold);
   font-variant-numeric: tabular-nums;
-  text-align: right;
-  color: #8b949e;
-  animation: morphFade var(--morph-duration) linear infinite;
 }
 
 .home_morph_count {
-  --morph-n: 219;
-  animation: morphCount var(--morph-duration) linear infinite;
+  --morph-n: 388;
+  animation: morphCount calc(var(--morph-done) + 0.3s) linear both;
 
   &::after {
     counter-reset: morphN calc(var(--morph-n));
@@ -339,6 +348,11 @@
   align-self: flex-end;
   margin-top: var(--xs3);
   padding: var(--xs1) var(--xs2);
+  @media (--lg) {
+    position: absolute;
+    top: 100%;
+    right: 0;
+  }
   border: none;
   background: none;
   font-size: var(--text-sm);
@@ -385,11 +399,10 @@
 
 .home_morph_editor:hover
   :is(
-    .home_morph_frame,
-    .home_morph_counter,
     .home_morph_g,
     .home_morph_after,
-    .home_morph_count
+    .home_morph_count,
+    .home_morph_label span
   ) {
   animation-play-state: paused;
 }
@@ -397,21 +410,19 @@
 /* Replay: the page script toggles this class to restart every animation */
 .home_morph.is-resetting
   :is(
-    .home_morph_frame,
-    .home_morph_counter,
     .home_morph_g,
     .home_morph_after,
-    .home_morph_count
+    .home_morph_count,
+    .home_morph_label span
   ) {
   animation-name: none;
 }
 
 @media (--motionNotOK) {
-  .home_morph_frame,
-  .home_morph_counter,
   .home_morph_g,
   .home_morph_after,
-  .home_morph_count {
+  .home_morph_count,
+  .home_morph_label span {
     animation: none;
   }
 
@@ -426,590 +437,421 @@
   }
 }
 
-/* Timeline, per 20s loop: 1.2s settle, then each of the 13 classes gets a
-   0.7s slot (strike, fade, snap collapse) from 6% to 51.5%, survivors expand
-   and pulse at 52% to 62%, long hold, crossfade reset at the end. Slot i runs
-   A to B where A = 6 + 3.5(i-1) and B = A + 3.5 (percent). */
-
-@keyframes morphFade {
-  0%,
-  93.5% {
-    opacity: 1;
-  }
-  95.5%,
-  98.5% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes morphC1 {
-  0%,
-  6% {
+/* One class's slot: strike, fade, then snap the width to zero */
+@keyframes morphStrike {
+  0% {
     opacity: 1;
     font-size: 1em;
     --morph-strike-now: transparent;
   }
-  7%,
-  8.3% {
+  28.6%,
+  65.7% {
     opacity: 0.75;
     --morph-strike-now: var(--morph-strike);
   }
-  9.4% {
+  97% {
     opacity: 0;
     font-size: 1em;
   }
-  9.5%,
-  96% {
+  100% {
     opacity: 0;
     font-size: 0;
   }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
+}
+
+@keyframes morphLabelOut {
+  to {
+    opacity: 0;
   }
 }
 
-@keyframes morphC2 {
-  0%,
-  9.5% {
+@keyframes morphLabelIn {
+  to {
     opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  10.5%,
-  11.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  12.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  13%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
   }
 }
 
-@keyframes morphC3 {
-  0%,
-  13% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  14%,
-  15.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  16.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  16.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC4 {
-  0%,
-  16.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  17.5%,
-  18.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  19.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  20%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC5 {
-  0%,
-  20% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  21%,
-  22.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  23.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  23.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC6 {
-  0%,
-  23.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  24.5%,
-  25.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  26.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  27%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC7 {
-  0%,
-  27% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  28%,
-  29.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  30.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  30.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC8 {
-  0%,
-  30.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  31.5%,
-  32.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  33.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  34%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC9 {
-  0%,
-  34% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  35%,
-  36.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  37.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  37.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC10 {
-  0%,
-  37.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  38.5%,
-  39.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  40.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  41%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC11 {
-  0%,
-  41% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  42%,
-  43.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  44.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  44.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC12 {
-  0%,
-  44.5% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  45.5%,
-  46.8% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  47.9% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  48%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
-@keyframes morphC13 {
-  0%,
-  48% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-  49%,
-  50.3% {
-    opacity: 0.75;
-    --morph-strike-now: var(--morph-strike);
-  }
-  51.4% {
-    opacity: 0;
-    font-size: 1em;
-  }
-  51.5%,
-  96% {
-    opacity: 0;
-    font-size: 0;
-  }
-  96.5%,
-  100% {
-    opacity: 1;
-    font-size: 1em;
-    --morph-strike-now: transparent;
-  }
-}
-
+/* The survivors expand and pulse once */
 @keyframes morphAfter {
-  0%,
-  51.5% {
+  0% {
     font-size: 0;
     opacity: 0;
     background-color: transparent;
   }
-  52% {
+  5% {
     font-size: 1em;
     opacity: 0;
   }
-  53% {
+  15% {
     opacity: 1;
     background-color: var(--morph-pulse);
   }
-  62%,
-  96% {
+  100% {
     font-size: 1em;
     opacity: 1;
     background-color: transparent;
   }
-  96.5%,
-  100% {
-    font-size: 0;
-    opacity: 0;
-  }
 }
 
+/* Generated from the class list in index.astro: each step lands as a class
+   collapses (settle + i * stagger + slot, as a share of the counter's
+   duration), then the empty attribute fills with "bt". */
 @keyframes morphCount {
   0%,
-  8.8% {
-    --morph-n: 219;
+  10.68% {
+    --morph-n: 388;
   }
-  9.5%,
-  12.3% {
-    --morph-n: 204;
+  10.8%,
+  14.66% {
+    --morph-n: 376;
   }
-  13%,
-  15.8% {
-    --morph-n: 199;
+  14.77%,
+  18.64% {
+    --morph-n: 363;
   }
-  16.5%,
-  19.3% {
-    --morph-n: 194;
+  18.75%,
+  22.61% {
+    --morph-n: 348;
   }
-  20%,
-  22.8% {
-    --morph-n: 186;
+  22.73%,
+  26.59% {
+    --morph-n: 342;
   }
-  23.5%,
-  26.3% {
-    --morph-n: 172;
+  26.7%,
+  30.57% {
+    --morph-n: 331;
   }
-  27%,
-  29.8% {
-    --morph-n: 161;
+  30.68%,
+  34.55% {
+    --morph-n: 320;
   }
-  30.5%,
-  33.3% {
-    --morph-n: 150;
+  34.66%,
+  38.52% {
+    --morph-n: 315;
   }
-  34%,
-  36.8% {
-    --morph-n: 139;
+  38.64%,
+  42.5% {
+    --morph-n: 308;
   }
-  37.5%,
-  40.3% {
-    --morph-n: 126;
+  42.61%,
+  46.48% {
+    --morph-n: 300;
   }
-  41%,
-  43.8% {
-    --morph-n: 105;
+  46.59%,
+  50.45% {
+    --morph-n: 286;
   }
-  44.5%,
-  47.3% {
-    --morph-n: 84;
+  50.57%,
+  54.43% {
+    --morph-n: 275;
   }
-  48%,
-  50.8% {
-    --morph-n: 56;
+  54.55%,
+  58.41% {
+    --morph-n: 265;
   }
-  51.5%,
-  52.2% {
+  58.52%,
+  62.39% {
+    --morph-n: 247;
+  }
+  62.5%,
+  66.36% {
+    --morph-n: 234;
+  }
+  66.48%,
+  70.34% {
+    --morph-n: 217;
+  }
+  70.45%,
+  74.32% {
+    --morph-n: 190;
+  }
+  74.43%,
+  78.3% {
+    --morph-n: 169;
+  }
+  78.41%,
+  82.27% {
+    --morph-n: 142;
+  }
+  82.39%,
+  86.25% {
+    --morph-n: 114;
+  }
+  86.36%,
+  90.23% {
+    --morph-n: 98;
+  }
+  90.34%,
+  94.2% {
+    --morph-n: 78;
+  }
+  94.32%,
+  98.18% {
+    --morph-n: 62;
+  }
+  98.3%,
+  98.86% {
     --morph-n: 41;
   }
-  53%,
-  96% {
-    --morph-n: 54;
-  }
-  96.5%,
+  99.72%,
   100% {
-    --morph-n: 219;
+    --morph-n: 43;
   }
 }
 
-/* 2 PHILOSOPHY */
+/* 2 PHILOSOPHY: the layer order, and one override proving it */
 
-/* prettier-ignore */
-.home_pillars {
-  --tiles-columns: 1;
-  @media (--md) {
-    --tiles-columns: 3;
-  }
-  /* Breathing room between the three pillars on desktop */
+.home_layers {
+  display: grid;
+  gap: var(--lg1);
   @media (--lg) {
-    --grid-column-gap: var(--xl2);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: center;
+    gap: var(--xl2);
   }
 }
 
-/* Mixed onto each FeatureItem (root, titleClass, iconClass) in index.astro */
-.home_pillar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* The priority arrow, then the stack */
+.home_layers_diagram {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--sm1);
+  justify-self: center;
 }
 
-.home_pillar_title {
-  font-size: var(--text-xl);
-}
-
-.home_pillar_icon {
-  width: fit-content;
-  height: 90px;
-  margin-bottom: var(--sm1);
-  background: none;
-  border-radius: 0;
-
-  svg {
-    width: auto;
-    height: 100%;
-  }
-}
-
-/* 3 MODERN CSS SHOWCASE */
-
-/* .home_showcase_tiles is the size container the cards read (.tiles_container
-   in the markup); .tiles handles the grid, the gaps, and the list reset. */
-
-.home_showcase_card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--xs3);
-  padding: var(--sm3);
-  color: var(--text-color);
-  background-color: light-dark(var(--base-50), var(--base-900));
-  border-radius: var(--radius-lg);
-
-  p {
-    flex: 1;
-    margin: 0;
-  }
-}
-
-.home_showcase_name {
+/* "Priority" runs up the side of an arrow from Low to High */
+.home_layers_axis {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto 1fr auto;
+  column-gap: var(--xs2);
   margin: 0;
-  font-family: var(--mono);
-  font-size: var(--text-lg);
-  font-weight: var(--bold);
+  font-size: var(--text-xs);
+  font-weight: var(--semi-bold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: light-dark(var(--base-500), var(--base-400));
+
+  /* Shaft */
+  &::before {
+    content: "";
+    grid-area: 2 / 2;
+    justify-self: center;
+    width: 2px;
+    margin-block: var(--xs2);
+    background-image: linear-gradient(
+      to top,
+      var(--primary-800),
+      var(--primary-300)
+    );
+  }
+
+  /* Arrowhead, over the top of the shaft */
+  &::after {
+    content: "";
+    grid-area: 2 / 2;
+    justify-self: center;
+    width: 10px;
+    height: 8px;
+    margin-top: var(--xs1);
+    background-color: var(--primary-300);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+}
+
+.home_layers_axisName {
+  grid-area: 1 / 1 / -1;
+  align-self: center;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+
+.home_layers_axisHigh {
+  grid-area: 1 / 2;
+  color: light-dark(var(--primary-600), var(--primary-300));
+}
+
+.home_layers_axisLow {
+  grid-area: 3 / 2;
+}
+
+/* Each slab is a flat isometric plate, a 2:1 diamond. Rows sit
+   --layer-step apart and the slabs overflow them, so each one lies over
+   the next one down. */
+.home_layers_stack {
+  --slab-width: 120px;
+  --slab-depth: calc(var(--slab-width) / 2);
+  --layer-step: 38px;
+  margin: 0;
+  padding: 0 0 calc(var(--slab-depth) - var(--layer-step));
+  list-style: none;
+  @media (--md) {
+    --slab-width: 200px;
+  }
+}
+
+.home_layers_layer {
+  position: relative;
+  z-index: var(--layer-i);
+  display: grid;
+  grid-template-columns: var(--slab-width) auto;
+  height: var(--layer-step);
+}
+
+/* Dark to light blue as priority rises, the logo's run of blues */
+.home_layers_slab {
+  height: var(--slab-depth);
+  background-color: color-mix(
+    in oklab,
+    var(--primary-300) calc(var(--layer-i) * 12.5%),
+    var(--primary-800)
+  );
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.home_layers_label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  margin-top: calc(var(--slab-depth) / 2 - 1lh);
+  padding-inline-start: var(--sm1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  white-space: nowrap;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 1lh;
+    left: 0;
+    width: var(--xs3);
+    border-top: var(--border-sm) solid
+      light-dark(var(--base-300), var(--base-600));
+  }
 
   code {
+    padding: 0;
     font-size: inherit;
+    background: none;
   }
 }
 
-/* The light-dark() card flips its own color-scheme: zero JS, fully contained */
+.home_layers_note {
+  font-size: var(--text-xs);
+  color: light-dark(var(--base-600), var(--base-400));
+}
+
+/* Opt-in: a ghost of a slab, since nothing lands here by default */
+.home_layers_layer-helpers .home_layers_slab {
+  opacity: 0.4;
+}
+
+.home_layers_layer-yours {
+  strong {
+    color: light-dark(var(--primary-700), var(--primary-300));
+  }
+}
+
+.home_layers_proof pre {
+  margin: 0;
+  padding: var(--sm3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-xl);
+  border-radius: var(--radius-lg);
+
+  /* Shiki's lines: a wrapped line hangs under its first word */
+  code > span {
+    display: inline-block;
+    padding-inline-start: 2ch;
+    text-indent: -2ch;
+  }
+}
+
+/* 3 MODERN CSS SHOWCASE: reference content, so a table */
+
+.home_showcase_table {
+  width: 100%;
+
+  thead th {
+    font-size: var(--text-sm);
+    font-weight: var(--semi-bold);
+    color: light-dark(var(--base-600), var(--base-400));
+  }
+
+  tbody th {
+    font-family: var(--mono);
+    font-weight: var(--bold);
+    white-space: nowrap;
+
+    code {
+      padding: 0;
+      font-size: inherit;
+      background: none;
+    }
+  }
+
+  td {
+    vertical-align: top;
+  }
+
+  td:last-child {
+    white-space: nowrap;
+  }
+
+  /* Phones: each row stacks feature, description, then support */
+  @media (--md-n-below) {
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+
+    tr {
+      display: grid;
+    }
+
+    th,
+    td {
+      border-inline-start-width: 0;
+    }
+
+    tbody th,
+    td:nth-child(2) {
+      padding-bottom: 0;
+      border-bottom-width: 0;
+    }
+  }
+}
+
+/* The light-dark() row flips its own color-scheme: zero JS, fully contained */
+.home_showcase_row-lightDark {
+  color: var(--text-color);
+
+  > * {
+    background-color: light-dark(var(--base-0), var(--base-900));
+  }
+}
+
+:root:not(.theme-dark) .home_showcase_row-lightDark:has(input:checked) {
+  color-scheme: dark;
+}
+
+:root.theme-dark .home_showcase_row-lightDark:has(input:checked) {
+  color-scheme: light;
+}
+
 .home_showcase_mini {
   display: flex;
   align-items: center;
   gap: var(--xs2);
+  margin-top: var(--xs2);
   font-size: var(--text-sm);
   cursor: pointer;
   --toggle-width: 36px;
   --toggle-height: 20px;
-}
-
-:root:not(.theme-dark) .home_showcase_card-lightDark:has(input:checked) {
-  color-scheme: dark;
-}
-
-:root.theme-dark .home_showcase_card-lightDark:has(input:checked) {
-  color-scheme: light;
-}
-
-.home_showcase_kicker {
-  margin-top: var(--lg1);
-  text-align: center;
-  color: light-dark(var(--base-500), var(--base-400));
 }
 
 /* 4 THEMING DEMO */
@@ -1145,7 +987,10 @@
   pre {
     margin: 0;
     padding: var(--sm3);
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
+    @media (--lg) {
+      font-size: var(--text-md);
+    }
     line-height: var(--leading-xl);
     border-radius: var(--radius-lg);
     overflow-x: auto;
@@ -1156,35 +1001,6 @@
 .home_themer:has(input[value="wireframe"]:checked) .home_themer_pane-wireframe,
 .home_themer:has(input[value="sunset"]:checked) .home_themer_pane-sunset {
   display: block;
-}
-
-.home_themer_diff {
-  display: none;
-  @media (--lg) {
-    display: block;
-  }
-}
-
-.home_themer_diffDetails {
-  @media (--lg) {
-    display: none;
-  }
-
-  summary {
-    cursor: pointer;
-    font-weight: var(--semi-bold);
-  }
-
-  .home_themer_pane {
-    margin-top: var(--sm1);
-  }
-}
-
-.home_themer_caption {
-  margin-top: var(--sm3);
-  text-align: center;
-  font-size: var(--text-sm);
-  color: light-dark(var(--base-500), var(--base-400));
 }
 
 /* 5 COMPONENT GALLERY */
@@ -1232,15 +1048,12 @@
   justify-items: center;
 }
 
-.home_gallery_meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: var(--xs3);
-}
-
+/* Link-colored so the whole cell reads as a link without hovering */
 .home_gallery_name {
+  margin: 0;
+  padding-bottom: var(--xs3);
   font-weight: var(--semi-bold);
+  color: var(--link-color);
 }
 
 .home_gallery_link {
@@ -1260,85 +1073,131 @@
   }
 }
 
-.home_gallery_kicker {
-  margin-top: var(--md2);
-  text-align: center;
-  color: light-dark(var(--base-500), var(--base-400));
-}
-
-.home_gallery_template {
-  margin-top: var(--xl1);
-  text-align: center;
-
-  p {
-    max-width: 55ch;
-    margin-inline: auto;
-    color: light-dark(var(--base-500), var(--base-400));
-  }
-}
-
 /* 6 OWNERSHIP: the exhale before the CTA */
 
 .home_own {
   --section-spacing: var(--xl1);
 }
 
-.home_own_body {
-  max-width: 55ch;
-  margin-inline: auto;
-
-  p + p {
-    margin-top: var(--sm1);
+.home_own_split {
+  display: grid;
+  gap: var(--lg1);
+  @media (--lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--xl2);
   }
 }
 
+.home_own_body {
+  max-width: 60ch;
+}
+
+/* The three facts, for readers who scan, each behind a check */
 .home_own_facts {
   display: grid;
-  gap: var(--sm3);
-  max-width: 720px;
-  margin: var(--lg3) auto 0;
+  gap: var(--sm1);
+  margin: var(--md2) 0 0;
   padding: 0;
   list-style: none;
-  text-align: center;
-  @media (--md) {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
   li {
-    display: flex;
-    flex-direction: column;
-    gap: var(--xs1);
-  }
+    display: grid;
+    grid-template-columns: 1.25em minmax(0, 1fr);
+    column-gap: var(--xs3);
 
-  strong {
-    font-size: var(--text-lg);
+    &::before {
+      content: "";
+      grid-row: 1 / span 2;
+      height: 1lh;
+      background-color: var(--primary-500);
+      mask: url(../../assets/icons/check.svg) center / 1.25em no-repeat;
+    }
   }
 
   span {
-    font-size: var(--text-sm);
-    color: light-dark(var(--base-500), var(--base-400));
+    margin-top: var(--xs1);
+    color: light-dark(var(--base-600), var(--base-400));
   }
 }
 
-/* 7 FINAL CTA */
+/* Same github-dark surface as the other code on the page */
+.home_own_tree {
+  margin: 0;
 
-.home_cta {
+  pre {
+    margin: 0;
+    padding: var(--sm3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-xl);
+    color: #e1e4e8;
+    background-color: #24292e;
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+  }
+}
+
+.home_own_note {
+  color: #8b949e;
+}
+
+.home_own_mine {
+  font-weight: var(--bold);
+  color: #85e89d;
+}
+
+/* 7 INSTALL: the page ends on the two lines you paste, on the primary band */
+
+.home_install {
   --section-spacing: var(--xl2);
   background: light-dark(var(--primary-700), var(--base-950));
 }
 
-/* Mixed onto the Section header via headerClass */
-.home_cta_header {
-  margin-bottom: var(--md2);
+/* Mixed onto the Section header: the lede is as wide as the snippet */
+.home_install_header > p {
+  max-width: 640px;
+  margin-inline: auto;
 }
 
-.home_cta_bt {
+.home_install_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--md2);
+  text-align: center;
+
+  pre {
+    align-self: stretch;
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--sm3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-xl);
+    text-align: start;
+    border: var(--border-sm) solid rgb(255 255 255 / 0.12);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+    @media (--md) {
+      font-size: var(--text-md);
+    }
+  }
+}
+
+.home_install_actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--xs3);
+  margin: 0;
+}
+
+.home_install_bt {
   --bt-color: light-dark(var(--primary-700), var(--base-950));
 }
 
-.home_cta_newsletter {
-  margin-top: var(--md2);
-  text-align: center;
+.home_install_newsletter {
+  margin: 0;
   font-size: var(--text-sm);
   color: var(--primary-100);
 
