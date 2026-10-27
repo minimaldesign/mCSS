@@ -151,7 +151,7 @@ const themeDiffs = {
           }
           <div class="home_morph_frame">
             <pre
-              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">bt bt-primary</span>{morphUtilities.map((utility, i) => <span class="home_morph_g" style={`--morph-i: ${i}`}><span class="home_morph_gt">{utility}</span>{i < morphUtilities.length - 1 && ' '}</span>)}<span class="home_morph_str">"</span>&gt;
+              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">bt</span>{morphUtilities.map((utility, i) => <span class="home_morph_g" style={`--morph-i: ${i}`}><span class="home_morph_gt">{utility}</span>{i < morphUtilities.length - 1 && ' '}</span>)}<span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
             <pre class="home_morph_code home_morph_sizer"><code>&lt;button class="{morphUtilities.join(' ')}"&gt;
@@ -163,13 +163,13 @@ const themeDiffs = {
         {/* Reduced-motion: static before/after with the final numbers */}
         <div class="home_morph_static" aria-hidden="true">
           <p class="home_morph_static_arrow">↓</p>
-          <pre class="home_morph_code home_morph_code-after"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_keep">bt bt-primary</span><span class="home_morph_str">"</span>&gt;
+          <pre class="home_morph_code home_morph_code-after"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_keep">bt</span><span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
-          <p class="home_morph_static_count">388 → 54 characters</p>
+          <p class="home_morph_static_count">388 → 43 characters</p>
         </div>
 
-        <p class="a11y-srOnly">Two mCSS classes replace 23 Tailwind utility classes on the same button.</p>
+        <p class="a11y-srOnly">One mCSS class replaces 23 Tailwind utility classes on the same button.</p>
 
         <button type="button" class="home_morph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
       </div>

@@ -160,7 +160,7 @@
 
 /* 1 THE CODE MORPH */
 
-/* Animated character counter (388 to 54). The unregistered fallback below
+/* Animated character counter (388 to 43). The unregistered fallback below
    keeps the number correct in engines without @property (it just steps
    instead of ticking). */
 @property --morph-n {
@@ -479,7 +479,7 @@
 
 /* Generated from the class list in index.astro: each step lands as a class
    collapses (settle + i * stagger + slot, as a share of the counter's
-   duration), then the empty attribute fills with "bt bt-primary". */
+   duration), then the empty attribute fills with "bt". */
 @keyframes morphCount {
   0%,
   10.68% {
@@ -579,7 +579,7 @@
   }
   99.72%,
   100% {
-    --morph-n: 54;
+    --morph-n: 43;
   }
 }
 
