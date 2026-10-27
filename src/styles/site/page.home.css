@@ -562,7 +562,6 @@
   }
 }
 
-
 /* 2 PHILOSOPHY: the layer order, and one override proving it */
 
 .home_layers {
@@ -1149,5 +1148,3 @@
 .home_install_bt {
   --bt-color: light-dark(var(--primary-700), var(--base-950));
 }
-
-
