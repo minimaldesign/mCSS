@@ -176,9 +176,9 @@ const themeDiffs = {
         </figure>
 
         {/* Reduced-motion: static before/after with the final numbers */}
-        <div class="home_morph_static" aria-hidden="true">
+        <div class="home_morph_static home_codeBlock" aria-hidden="true">
           <p class="home_morph_static_arrow">↓</p>
-          <pre class="home_morph_code home_morph_code-after"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_keep">{morphAfter}</span><span class="home_morph_str">"</span>&gt;
+          <pre class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_keep">{morphAfter}</span><span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
           <p class="home_morph_static_count">{morphBefore} → {morphAfterLength} characters</p>
@@ -206,7 +206,7 @@ const themeDiffs = {
     <div class="home_layers">
       <div class="home_layers_diagram">
         <p class="home_layers_axis" aria-hidden="true"><span class="home_layers_axisName">Priority</span><span class="home_layers_axisHigh">High</span><span class="home_layers_axisLow">Low</span></p>
-        <ol class="home_layers_stack" aria-label="Cascade priority, highest first">
+        <ol class="home_layers_stack" aria-label="Cascade priority, highest first" style={`--layer-count: ${cascadeLayers.length}`}>
           {
             cascadeLayers.map((layer, i) => (
               <li class:list={['home_layers_layer', layer.kind && `home_layers_layer-${layer.kind}`]} style={`--layer-i: ${cascadeLayers.length - 1 - i}`}>
@@ -220,7 +220,7 @@ const themeDiffs = {
           }
         </ol>
       </div>
-      <div class="home_layers_proof">
+      <div class="home_layers_proof home_codeBlock">
         <Code code={layerProof} lang="css" theme={codeTheme} wrap />
       </div>
     </div>
@@ -310,15 +310,15 @@ const themeDiffs = {
       </div>
 
       <div>
-        <figure class="home_themer_pane home_themer_pane-default">
+        <figure class="home_themer_pane home_themer_pane-default home_codeBlock">
           <figcaption class="home_themer_file">theme.default.css, excerpt</figcaption>
           <Code code={themeDiffs.default} lang="css" theme={codeTheme} />
         </figure>
-        <figure class="home_themer_pane home_themer_pane-wireframe">
+        <figure class="home_themer_pane home_themer_pane-wireframe home_codeBlock">
           <figcaption class="home_themer_file">theme.wireframe.css, excerpt</figcaption>
           <Code code={themeDiffs.wireframe} lang="css" theme={codeTheme} />
         </figure>
-        <figure class="home_themer_pane home_themer_pane-sunset">
+        <figure class="home_themer_pane home_themer_pane-sunset home_codeBlock">
           <figcaption class="home_themer_file">theme.sunset.css</figcaption>
           <Code code={themeDiffs.sunset} lang="css" theme={codeTheme} />
         </figure>
@@ -332,45 +332,55 @@ const themeDiffs = {
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Card</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <Card headingLevel={3} title="Field notes" subtitle="Issue #12">
             <p>A monthly newsletter about CSS and HTML.</p>
             <Fragment slot="actions"><button type="button" class="bt bt-primary">Read it</button></Fragment>
           </Card>
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/card"><span class="a11y-srOnly">Card component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Pricing</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <PricingCard name="Indie" price="$0" period="/ forever" description="The whole framework." features={['All components', 'Light & dark themes', 'MIT license']} ctaLabel="Copy the files" ctaHref="#" highlighted badge="MIT" />
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/pricing"><span class="a11y-srOnly">Pricing component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Testimonial</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <Testimonial name="Ada Lindgren" role="Front-end lead">
             <p>I stopped fighting my framework. There was nothing left to fight.</p>
           </Testimonial>
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/testimonial"><span class="a11y-srOnly">Testimonial component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">FAQ</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <Faq>
             <FaqItem question="Do I need a build step?" name="home_faq" open>No. Link one file and start writing HTML.</FaqItem>
             <FaqItem question="Can I override anything?" name="home_faq">Yes: unlayered CSS always beats the framework.</FaqItem>
           </Faq>
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/faq"><span class="a11y-srOnly">FAQ component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Form field</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <div class="home_gallery_formDemo">
             <Field label="Work email" name="home_gallery_email" type="email" placeholder="you@work.com" hint="One email a month." />
             <button type="button" class="bt bt-primary">Sign up</button>
+          </div>
           </div>
         </div>
         <a class="home_gallery_link" href="/components/field"><span class="a11y-srOnly">Field component documentation</span></a>
@@ -378,7 +388,9 @@ const themeDiffs = {
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Pagination</p>
         <div class="home_gallery_thumb home_gallery_thumb-centered" inert>
+          <div class="home_gallery_scale">
           <Pagination currentPage={3} lastPage={5} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/pagination"><span class="a11y-srOnly">Pagination component documentation</span></a>
       </li>
@@ -398,7 +410,7 @@ const themeDiffs = {
           <li><strong>One theme file</strong><span>Your design lives in your theme, not in <code>node_modules</code>.</span></li>
         </ul>
       </div>
-      <figure class="home_own_tree">
+      <figure class="home_own_tree home_codeBlock">
         <figcaption class="a11y-srOnly">The files an mCSS project keeps</figcaption>
         <pre><code>styles/
 ├── framework/              <span class="home_own_note"># copied once, yours to edit</span>
@@ -421,7 +433,7 @@ const themeDiffs = {
   {/* 7: Install */}
   <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the compiled framework and, if you want them, the components, with no build step. The docs cover the other installs, including how to build from source with PostCSS.">
     <div class="home_install_body">
-      <div class="home_install_snippet" role="region" aria-label="Install snippet">
+      <div class="home_install_snippet home_codeBlock" role="region" aria-label="Install snippet">
         <Code code={installSnippet} lang="html" theme={codeTheme} />
         <CopyButtonStatic code={installSnippet} />
       </div>
