@@ -446,8 +446,11 @@ const themeDiffs = {
       pauseLabel.textContent = paused ? 'Resume' : 'Pause';
     };
     pause.addEventListener('click', () => setPaused(!morph.classList.contains('is-paused')));
+    // The "bt" pulse is the last thing to finish
+    morph.querySelector('.home_morph_after')?.addEventListener('animationend', () => morph.classList.add('is-done'));
     replay.addEventListener('click', () => {
       setPaused(false);
+      morph.classList.remove('is-done');
       morph.classList.add('is-resetting');
       void (morph as HTMLElement).offsetWidth;
       morph.classList.remove('is-resetting');

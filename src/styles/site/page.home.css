@@ -346,8 +346,12 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* --morph-n starts at the "before" count, set in index.astro */
+/* --morph-n starts at the "before" count, set in index.astro. Three
+   digits wide, so the label doesn't shift when it drops to two. */
 .home_morph_count {
+  display: inline-block;
+  min-width: 3ch;
+  text-align: end;
   animation: morphCount calc(var(--morph-done) + 0.3s) linear both;
 
   &::after {
@@ -433,24 +437,22 @@
   color: var(--home-muted-color);
 }
 
-.home_morph_editor:hover
-  :is(
-    .home_morph_g,
-    .home_morph_after,
-    .home_morph_count,
-    .home_morph_label span
-  ) {
-  animation-play-state: paused;
+/* Hovering the editor or pressing Pause holds every part of the morph */
+.home_morph_editor:hover,
+.home_morph.is-paused {
+  --morph-play: paused;
 }
 
-.home_morph.is-paused
-  :is(
-    .home_morph_g,
-    .home_morph_after,
-    .home_morph_count,
-    .home_morph_label span
-  ) {
-  animation-play-state: paused;
+.home_morph_g,
+.home_morph_after,
+.home_morph_count,
+.home_morph_label span {
+  animation-play-state: var(--morph-play, running);
+}
+
+/* Once the morph has played out, Pause has nothing left to hold */
+.home_morph.is-done .js-morphPause {
+  display: none;
 }
 
 /* Replay: the page script toggles this class to restart every animation */
