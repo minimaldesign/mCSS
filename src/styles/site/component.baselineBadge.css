@@ -5,7 +5,7 @@
   align-items: center;
   gap: var(--xs2);
   font-size: var(--text-xs);
-  color: light-dark(var(--base-500), var(--base-400));
+  color: light-dark(var(--base-600), var(--base-300));
   text-decoration: none;
 
   svg {

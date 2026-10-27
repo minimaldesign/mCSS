@@ -23,5 +23,5 @@ const url = feat ? `https://github.com/web-platform-dx/web-features/blob/main/fe
 
 <a class={`baselineBadge baselineBadge-${baseline || 'limited'}`} href={url} target="_blank" rel="noopener noreferrer">
   <Fragment set:html={icon} />
-  <span>{label}</span>
+  <span>{label}</span><span class="a11y-srOnly">&#32;(opens in a new tab)</span>
 </a>

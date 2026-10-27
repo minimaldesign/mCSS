@@ -85,7 +85,7 @@ const filteredPlatforms = urls.map((entry) => {
   {
     filteredPlatforms.map(({ url, icon, key }) => (
       <li>
-        <a href={url} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined} aria-label={key}>
+        <a href={url} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined} aria-label={newTab ? `${key} (opens in a new tab)` : key}>
           <Fragment set:html={icon} aria-hidden="true" />
         </a>
       </li>
