@@ -224,7 +224,7 @@ xxl: 1920px
   --pre-font-size: 0.9rem;
 
   --blockquote-padding-block: 0;
-  --blockquote-padding-inline: var(--sm3) 0;
+  --blockquote-padding-inline: var(--sm1) 0;
   --blockquote-border-width: var(--xs2);
   --blockquote-border-color: light-dark(var(--primary-500), var(--primary-400));
 
