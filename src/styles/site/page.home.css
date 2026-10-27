@@ -167,8 +167,9 @@
     margin-top: var(--xl1);
   }
 
+  /* Separator only: empty alt text, so it isn't read out */
   li + li::before {
-    content: "·";
+    content: "·" / "";
     margin-inline-end: var(--sm1);
   }
 }
