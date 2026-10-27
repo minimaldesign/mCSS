@@ -4,4 +4,11 @@
   display: flex;
   gap: var(--xs2);
   margin-top: var(--md3);
+  /* In the footer's side column: stays at the bottom while the column above
+     it aligns to the top. Bottom matches the footer's --md padding. */
+  @media (--md) {
+    position: absolute;
+    bottom: var(--lg3);
+    margin-top: 0;
+  }
 }
