@@ -6,8 +6,6 @@ All notable changes to mCSS. The framework follows the copy-it-you-own-it model:
 
 ### Fixed
 
-- **Section ledes meet AA contrast.** `--section-lede-color` was `base-500` / `base-400`, 4.1:1 on a light filled section and 3.74:1 on a dark one. It is now `base-600` / `base-300` (5.7:1 and 5.75:1).
-
 - **`<iframe>` has no border again.** 1.5.0 removed the framework's iframe border but left the rule empty, so browsers drew their own 2px inset border instead. The rule now sets `border: 0`.
 
 ## 1.5.0 (2026-10-26)
