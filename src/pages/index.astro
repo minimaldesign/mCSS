@@ -55,9 +55,9 @@ const layerProof = `/* mcss.css: the framework's layers, lowest first */
 @layer base, elements, global, components, theme.default, theme.user, external, helpers;
 
 /* your CSS: no layer */
-/* <a class="bt bt-primary bt-lg signup_cta"> */
+/* <a class="bt bt-primary signup_cta"> */
 .signup_cta {
-  border-radius: 0; /* beats .bt.bt-primary.bt-lg */
+  border-radius: 0; /* beats .bt.bt-primary */
 }`;
 
 // Section 7's install snippet, with the same measured sizes as the hero.
@@ -187,7 +187,7 @@ const themeDiffs = {
   <Section class="home_section home_philosophy" variant="filled" title="Your overrides work the first time" lede="mCSS puts all of its own CSS in native @layer cascade layers, so specificity conflicts never start: anything you write outside those layers wins automatically. No !important, no fighting your framework.">
     <div class="home_layers">
       <div class="home_layers_diagram">
-        <p class="home_layers_axis" aria-hidden="true"><span>Wins</span><span>Loses</span></p>
+        <p class="home_layers_axis" aria-hidden="true"><span class="home_layers_axisName">Priority</span><span class="home_layers_axisHigh">High</span><span class="home_layers_axisLow">Low</span></p>
         <ol class="home_layers_stack" aria-label="Cascade priority, highest first">
           {
             cascadeLayers.map((layer, i) => (
