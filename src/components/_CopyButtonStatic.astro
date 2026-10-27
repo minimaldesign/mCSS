@@ -1,0 +1,36 @@
+---
+// Copy-to-clipboard button without a framework island, for pages that
+// otherwise ship no Preact (the home page). Same markup and CSS as the
+// _CopyButton.jsx island used inside the Playground and GridDemo islands.
+// Place it as a direct child of the positioned wrapper around the code.
+import copyIcon from '../assets/icons/copy.svg?raw';
+
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+---
+
+<div class="copyBtn">
+  <span class="copyBtn_feedback" role="status"></span>
+  <button type="button" class="copyBtn_trigger" title="Copy to clipboard" aria-label="Copy to clipboard" data-copy={code}><Fragment set:html={copyIcon} /></button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copyBtn_trigger[data-copy]').forEach((button) => {
+    const feedback = button.parentElement?.querySelector('.copyBtn_feedback');
+    let timer: ReturnType<typeof setTimeout>;
+    button.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(button.dataset.copy ?? '');
+      if (!feedback) return;
+      feedback.textContent = 'Copied!';
+      feedback.classList.add('is-visible');
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        feedback.classList.remove('is-visible');
+        feedback.textContent = '';
+      }, 1500);
+    });
+  });
+</script>

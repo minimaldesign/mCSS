@@ -1,6 +1,8 @@
 ---
 import { Code } from 'astro:components';
 
+import { codeTheme } from '../scripts/codeTheme.js';
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
@@ -11,14 +13,21 @@ import FaqItem from '../components/FaqItem.astro';
 import Field from '../components/Field.astro';
 import Pagination from '../components/Pagination.astro';
 import BaselineBadge from '../components/_BaselineBadge.astro';
+import CopyButtonStatic from '../components/_CopyButtonStatic.astro';
 
 import { gzipSync } from 'node:zlib';
 
 import mcssMinCss from '../../dist/mcss.min.css?raw';
 import mcssComponentsMinCss from '../../dist/mcss.components.min.css?raw';
+import defaultTokensCss from '../styles/framework/theme.default.tokens.css?raw';
+import defaultUiCss from '../styles/framework/theme.default.ui.css?raw';
+import wireframeThemeCss from '../styles/framework/theme.wireframe.css?raw';
+import sunsetThemeCss from '../styles/site/theme.sunset.css?raw';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
+import pauseIcon from '../assets/icons/pause.svg?raw';
+import playIcon from '../assets/icons/play.svg?raw';
 
 const title = 'mCSS: One class. Not twenty.';
 const description = 'mCSS is a CSS framework and Astro component library for websites: semantic classes, native cascade layers, no build step, MIT licensed. You copy the files into your project and own them.';
@@ -30,9 +39,42 @@ const description = 'mCSS is a CSS framework and Astro component library for web
 const mcssMinGzipKb = Math.round(gzipSync(mcssMinCss).length / 1024);
 const mcssComponentsMinGzipKb = Math.round(gzipSync(mcssComponentsMinCss).length / 1024);
 
-// The hero morph strikes these one at a time, left to right. The character
-// counts in page.home.css (morphCount, --morph-done) follow this list.
-const morphUtilities = ['inline-flex', 'items-center', 'justify-center', 'gap-2', 'rounded-md', 'bg-sky-600', 'px-4', 'py-2.5', 'text-sm', 'font-semibold', 'text-white', 'shadow-sm', 'transition-colors', 'duration-200', 'hover:bg-sky-500', 'focus-visible:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-sky-600', 'focus-visible:ring-offset-2', 'active:scale-95', 'disabled:opacity-50', 'dark:bg-sky-500', 'dark:hover:bg-sky-400'];
+// The hero morph strikes these one at a time, left to right. Everything
+// counted about it (classes, characters, the counter's keyframes) is derived
+// from this list and the timing below.
+const morphUtilities = ['inline-flex', 'items-center', 'justify-center', 'min-w-[101px]', 'min-h-9', 'px-3', 'rounded-lg', 'border', 'border-gray-300', 'bg-white', 'text-sm', 'font-semibold', 'text-gray-900', 'cursor-pointer', 'transition-colors', 'hover:bg-gray-50', 'active:scale-[0.97]', 'disabled:pointer-events-none', 'disabled:opacity-50', 'dark:border-gray-600', 'dark:bg-gray-800', 'dark:text-gray-100', 'dark:hover:bg-gray-900'];
+const morphAfter = 'bt';
+
+// Seconds: a pause before the first strike, then one class per --morph-slot,
+// each starting --morph-stagger after the previous one (stagger equals slot,
+// so they go strictly one at a time: the length of the wait is the point).
+const morphTiming = { settle: 1.2, stagger: 0.7, slot: 0.7 };
+const morphDone = morphTiming.settle + (morphUtilities.length - 1) * morphTiming.stagger + morphTiming.slot;
+
+// Characters in the code as shown: <button class="…">, the label, </button>
+const morphShell = '<button class="">\n  Demo button\n</button>'.length;
+const morphBefore = morphShell + morphUtilities.join(' ').length;
+const morphAfterLength = morphShell + morphAfter.length;
+
+// The counter steps down as each class collapses (settle + i * stagger +
+// slot, as a share of the counter's run, which ends 0.3s after the last
+// class), then the empty attribute fills with morphAfter. Keyframe
+// percentages can't read custom properties, so they're written out here.
+const morphCountCss = (() => {
+  const run = morphDone + 0.3;
+  const pct = (seconds: number) => +((seconds / run) * 100).toFixed(2);
+  let count = morphBefore;
+  const steps = ['0%,'];
+  morphUtilities.forEach((utility, i) => {
+    const collapse = morphTiming.settle + i * morphTiming.stagger + morphTiming.slot;
+    steps.push(`${pct(collapse - 0.02)}% { --morph-n: ${count}; }`);
+    count -= utility.length + (i < morphUtilities.length - 1 ? 1 : 0);
+    steps.push(`${pct(collapse)}%,`);
+  });
+  steps.push(`${pct(morphDone + 0.1)}% { --morph-n: ${count}; }`, `${pct(morphDone + 0.25)}%, 100% { --morph-n: ${morphAfterLength}; }`);
+  return `@property --morph-n { syntax: "<integer>"; inherits: true; initial-value: ${morphBefore}; }
+@keyframes morphCount { ${steps.join(' ')} }`;
+})();
 
 // Section 2's layer stack, highest priority first. --layer-i counts from the
 // bottom, so the stack paints each slab over the one under it.
@@ -66,61 +108,34 @@ const installSnippet = `<!-- mCSS, ~${mcssMinGzipKb} KB min+gzip -->
 <!-- components, ~${mcssComponentsMinGzipKb} KB -->
 <link rel="stylesheet" href="/css/mcss.components.min.css" />`;
 
-// Section 4's diff panes, rendered with Shiki (github-dark) at build time.
-// Each list matches the overrides in page.home.css line for line.
+// Section 4's diff panes, read from the theme files themselves so they can't
+// drift: the declarations in their :root blocks, comments stripped, picked by
+// name in the order given (all of them when no names are given).
+const rootDeclarations = (css: string) => {
+  const declarations = new Map<string, string>();
+  const bare = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const [, body] of bare.matchAll(/:root\s*\{([^}]*)\}/g)) {
+    for (const declaration of body.split(';')) {
+      const [name, ...value] = declaration.split(':');
+      if (name.trim().startsWith('--')) declarations.set(name.trim(), value.join(':').replace(/\s+/g, ' ').trim());
+    }
+  }
+  return declarations;
+};
+const themeExcerpt = (css: string, names?: string[]) => {
+  const declarations = rootDeclarations(css);
+  const lines = (names ?? [...declarations.keys()]).filter((name) => declarations.has(name)).map((name) => `  ${name}: ${declarations.get(name)};`);
+  return `:root {\n${lines.join('\n')}\n}`;
+};
 const themeDiffs = {
-  default: `:root {
-  --heading-font: var(--display);
-  --text: ui-sans-serif, system-ui, sans-serif;
-  --text-md: 1rem;
-  --text-lg: 1.2rem;
-  --text-color: light-dark(#23282e, #d6dbe1);
-  --card-bg-color: light-dark(#edeef1, #353c45);
-  --card-border-radius: 8px;
-  --card-shadow: var(--shadow-md);
-  --bt-primary-background-color: #0284c7;
-  --bt-primary-background-color-hover: #0ea5e9;
-  --bt-primary-border-color: #0284c7;
-  --bt-primary-border-color-hover: #0284c7;
-  --bt-border-radius: 8px;
-  --input-border-radius: 5px;
-  --link-color: light-dark(#0284c7, #38bdf8);
-}`,
-  wireframe: `:root {
-  --heading-font: ui-rounded, "Arial Rounded MT Bold", Calibri, sans-serif;
-  --text-color: light-dark(#404040, #d4d4d4);
-  --card-bg-color: light-dark(#f5f5f5, #171717);
-  --card-border-radius: 0;
-  --card-shadow: none;
-  --bt-primary-background-color: #525252;
-  --bt-primary-background-color-hover: #737373;
-  --bt-primary-border-color: #525252;
-  --bt-primary-border-color-hover: #525252;
-  --bt-border-radius: 0;
-  --input-border-radius: 0;
-  --link-color: light-dark(#525252, #a3a3a3);
-}`,
-  sunset: `:root {
-  --heading-font: "Iowan Old Style", Georgia, serif;
-  --text: Georgia, "Times New Roman", serif;
-  --text-md: 1.05rem;
-  --text-lg: 1.3rem;
-  --text-color: light-dark(#431407, #ffedd5);
-  --card-bg-color: light-dark(#fef9c3, #431407);
-  --card-border-radius: 16px;
-  --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
-  --bt-primary-background-color: #ea580c;
-  --bt-primary-background-color-hover: #f97316;
-  --bt-primary-border-color: #ea580c;
-  --bt-primary-border-color-hover: #ea580c;
-  --bt-border-radius: 1e5px;
-  --input-border-radius: 1e5px;
-  --link-color: light-dark(#c2410c, #fb923c);
-}`,
+  default: themeExcerpt(defaultTokensCss + defaultUiCss, ['--text', '--heading-font', '--primary-600', '--border-sm', '--ui-border-color', '--card-border-radius', '--card-shadow', '--bt-border-radius', '--bt-primary-background-color', '--input-border-radius']),
+  wireframe: themeExcerpt(wireframeThemeCss, ['--text', '--heading-font', '--heading-weight', '--primary-600', '--border-sm', '--ui-border-color', '--wobble-1', '--wobble-2', '--wobble-3', '--card-border-radius', '--bt-border-radius', '--input-border-radius', '--ui-shadow-color', '--shadow-md']),
+  sunset: themeExcerpt(sunsetThemeCss, ['--heading-font', '--heading-weight', '--base-50', '--base-950', '--primary-700', '--body-background-color', '--card-bg-color', '--card-border-radius', '--card-secondary-text-color', '--card-shadow', '--bt-border-radius', '--bt-primary-background-color', '--input-border-radius']),
 };
 ---
 
 <BaseLayout title={title} bodyClass="layout home" frontmatter={{ description }}>
+  <main class="layout_content_main">
   {/* 1: Hero */}
   <section class="home_hero" aria-labelledby="home_hero_title">
     <div class="home_hero_inner">
@@ -137,11 +152,12 @@ const themeDiffs = {
         /* The code morph. The animated block is decorative for AT; the srOnly
           line below carries the argument. */
       }
-      <div class="home_morph">
+      <style is:inline set:html={morphCountCss}></style>
+      <div class="home_morph" style={`--morph-count: ${morphUtilities.length}; --morph-settle: ${morphTiming.settle}s; --morph-stagger: ${morphTiming.stagger}s; --morph-slot: ${morphTiming.slot}s`}>
         <figure class="home_morph_editor" aria-hidden="true">
           <div class="home_morph_bar">
             <p class="home_morph_label"><span class="home_morph_label_before">Utility classes</span><span class="home_morph_label_after">mCSS</span></p>
-            <p class="home_morph_counter"><span class="home_morph_count"></span> characters</p>
+            <p class="home_morph_counter"><span class="home_morph_count" style={`--morph-n: ${morphBefore}`}></span> characters</p>
           </div>
           {
             /* The invisible sizer keeps the box at the "before" height at every
@@ -151,27 +167,30 @@ const themeDiffs = {
           }
           <div class="home_morph_frame">
             <pre
-              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">bt</span>{morphUtilities.map((utility, i) => <span class="home_morph_g" style={`--morph-i: ${i}`}><span class="home_morph_gt">{utility}</span>{i < morphUtilities.length - 1 && ' '}</span>)}<span class="home_morph_str">"</span>&gt;
+              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">{morphAfter}</span>{morphUtilities.map((utility, i) => <span class="home_morph_g" style={`--morph-i: ${i}`}><span class="home_morph_class home_morph_gt">{utility}</span>{i < morphUtilities.length - 1 && ' '}</span>)}<span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
-            <pre class="home_morph_code home_morph_sizer"><code>&lt;button class="{morphUtilities.join(' ')}"&gt;
+            <pre class="home_morph_code home_morph_sizer"><code>&lt;button class="{morphUtilities.map((utility, i) => <Fragment><span class="home_morph_class">{utility}</span>{i < morphUtilities.length - 1 && ' '}</Fragment>)}"&gt;
   Demo button
 &lt;/button&gt;</code></pre>
           </div>
         </figure>
 
         {/* Reduced-motion: static before/after with the final numbers */}
-        <div class="home_morph_static" aria-hidden="true">
+        <div class="home_morph_static home_codeBlock" aria-hidden="true">
           <p class="home_morph_static_arrow">↓</p>
-          <pre class="home_morph_code home_morph_code-after"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_keep">bt</span><span class="home_morph_str">"</span>&gt;
+          <pre class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_keep">{morphAfter}</span><span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
-          <p class="home_morph_static_count">388 → 43 characters</p>
+          <p class="home_morph_static_count">{morphBefore} → {morphAfterLength} characters</p>
         </div>
 
-        <p class="a11y-srOnly">One mCSS class replaces 23 utility classes on the same button.</p>
+        <p class="a11y-srOnly">One mCSS class replaces {morphUtilities.length} utility classes on the same button.</p>
 
-        <button type="button" class="home_morph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
+        <p class="home_morph_controls">
+          <button type="button" class="home_morph_control js-morphPause"><span class="home_morph_pauseIcon"><Fragment set:html={pauseIcon} /></span><span class="home_morph_playIcon"><Fragment set:html={playIcon} /></span><span class="js-morphPauseLabel">Pause</span></button>
+          <button type="button" class="home_morph_control js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
+        </p>
       </div>
     </div>
     <ul class="home_hero_fineprint">
@@ -188,7 +207,7 @@ const themeDiffs = {
     <div class="home_layers">
       <div class="home_layers_diagram">
         <p class="home_layers_axis" aria-hidden="true"><span class="home_layers_axisName">Priority</span><span class="home_layers_axisHigh">High</span><span class="home_layers_axisLow">Low</span></p>
-        <ol class="home_layers_stack" aria-label="Cascade priority, highest first">
+        <ol class="home_layers_stack" aria-label="Cascade priority, highest first" style={`--layer-count: ${cascadeLayers.length}`}>
           {
             cascadeLayers.map((layer, i) => (
               <li class:list={['home_layers_layer', layer.kind && `home_layers_layer-${layer.kind}`]} style={`--layer-i: ${cascadeLayers.length - 1 - i}`}>
@@ -202,16 +221,17 @@ const themeDiffs = {
           }
         </ol>
       </div>
-      <div class="home_layers_proof">
-        <Code code={layerProof} lang="css" theme="github-dark" wrap />
+      <div class="home_layers_proof home_codeBlock">
+        <Code code={layerProof} lang="css" theme={codeTheme} wrap />
       </div>
     </div>
   </Section>
 
   {/* 3: Modern CSS showcase */}
-  <Section class="home_section home_showcase" headerClass="home_wideHeader" title="Built with modern CSS" lede="Every feature below works in all current major browsers, and mCSS is designed around them.">
+  <Section class="home_section home_showcase" headerClass="home_wideHeader" title="Built with modern CSS" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
     <div class="home_showcase_body">
       <table class="home_showcase_table">
+        <caption class="a11y-srOnly">Modern CSS features mCSS is built on, and their browser support</caption>
         <thead>
           <tr>
             <th scope="col">Feature</th>
@@ -263,99 +283,114 @@ const themeDiffs = {
   </Section>
 
   {/* 4: Theming demo (radio + :has(), zero JS) */}
-  <Section class="home_section home_themer" variant="filled" title="Make it your own with built-in themes" lede="Every color, size, and radius comes from one token file, in light and dark. Start from a theme, change a value, and every component that uses it changes with it.">
+  <Section class="home_section home_themer" headerClass="home_wideHeader" variant="filled" title="Make it your own with built-in themes" lede="Every color, size, and radius comes from one token file, in light and dark. Start from a theme, change a value, and every component that uses it changes with it.">
     <fieldset class="home_themer_switcher">
       <legend class="a11y-srOnly">Pick a demo theme</legend>
       <label class="home_themer_swatch home_themer_swatch-default">
         <input type="radio" name="home_theme" value="default" checked />
-        <i aria-hidden="true"></i><span>Default</span>
+        <span class="home_themer_dot" aria-hidden="true"></span><span>Default</span>
       </label>
       <label class="home_themer_swatch home_themer_swatch-wireframe">
         <input type="radio" name="home_theme" value="wireframe" />
-        <i aria-hidden="true"></i><span>Wireframe</span>
+        <span class="home_themer_dot" aria-hidden="true"></span><span>Wireframe</span>
       </label>
       <label class="home_themer_swatch home_themer_swatch-sunset">
         <input type="radio" name="home_theme" value="sunset" />
-        <i aria-hidden="true"></i><span>Sunset</span>
+        <span class="home_themer_dot" aria-hidden="true"></span><span>Sunset</span>
       </label>
     </fieldset>
 
     <div class="home_themer_split">
-      <div class="home_themer_stage">
-        <Card variant="filled" headingLevel={3} title="You’re invited!" subtitle="Sam’s birthday · Saturday 4pm">
-          <p>Cake at Sam’s place. Reply by Thursday so we know how many to expect.</p>
-          <Fragment slot="actions">
-            <button type="button" class="bt">Details</button>
-            <button type="button" class="bt bt-primary">RSVP</button>
-          </Fragment>
-        </Card>
-        <div class="home_themer_formRow">
-          <Field label="Email" name="home_themer_email" type="email" placeholder="you@example.com" hint="We’ll never share it." />
-          <button type="button" class="bt bt-primary">Subscribe</button>
-        </div>
+      {/* Each theme renders in its own page, with its real CSS file */}
+      <div class="home_themer_frames">
+        <p class="home_themer_label">Default and Wireframe ship with mCSS, Sunset is made up for this page.</p>
+        <iframe class="home_themer_frame home_themer_frame-default" src="/demos/themes/default" title="A card and a form in the Default theme" loading="lazy"></iframe>
+        <iframe class="home_themer_frame home_themer_frame-wireframe" src="/demos/themes/wireframe" title="A card and a form in the Wireframe theme" loading="lazy"></iframe>
+        <iframe class="home_themer_frame home_themer_frame-sunset" src="/demos/themes/sunset" title="A card and a form in the Sunset theme" loading="lazy"></iframe>
       </div>
 
       <div>
-        <div class="home_themer_pane home_themer_pane-default"><Code code={themeDiffs.default} lang="css" theme="github-dark" /></div>
-        <div class="home_themer_pane home_themer_pane-wireframe"><Code code={themeDiffs.wireframe} lang="css" theme="github-dark" /></div>
-        <div class="home_themer_pane home_themer_pane-sunset"><Code code={themeDiffs.sunset} lang="css" theme="github-dark" /></div>
+        <figure class="home_themer_pane home_themer_pane-default home_codeBlock">
+          <figcaption class="home_themer_label home_themer_label-file">theme.default.css, excerpt</figcaption>
+          <Code code={themeDiffs.default} lang="css" theme={codeTheme} />
+        </figure>
+        <figure class="home_themer_pane home_themer_pane-wireframe home_codeBlock">
+          <figcaption class="home_themer_label home_themer_label-file">theme.wireframe.css, excerpt</figcaption>
+          <Code code={themeDiffs.wireframe} lang="css" theme={codeTheme} />
+        </figure>
+        <figure class="home_themer_pane home_themer_pane-sunset home_codeBlock">
+          <figcaption class="home_themer_label home_themer_label-file">theme.sunset.css, excerpt</figcaption>
+          <Code code={themeDiffs.sunset} lang="css" theme={codeTheme} />
+        </figure>
       </div>
     </div>
   </Section>
 
   {/* 5: Component gallery */}
-  <Section class="home_section home_gallery" headerClass="home_wideHeader" title="A growing HTML and Astro component library" lede="Heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, and pagination, as plain HTML or as Astro components. Only the mobile menu and the dismissible banner use JavaScript.">
+  <Section class="home_section home_gallery" headerClass="home_wideHeader" title="A growing HTML and Astro component library" lede="Heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, and pagination, as plain HTML or as Astro components. Most of them need no JavaScript.">
     <ul class="home_gallery_grid">
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Card</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <Card headingLevel={3} title="Field notes" subtitle="Issue #12">
             <p>A monthly newsletter about CSS and HTML.</p>
             <Fragment slot="actions"><button type="button" class="bt bt-primary">Read it</button></Fragment>
           </Card>
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/card"><span class="a11y-srOnly">Card component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Pricing</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <PricingCard name="Indie" price="$0" period="/ forever" description="The whole framework." features={['All components', 'Light & dark themes', 'MIT license']} ctaLabel="Copy the files" ctaHref="#" highlighted badge="MIT" />
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/pricing"><span class="a11y-srOnly">Pricing component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Testimonial</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <Testimonial name="Ada Lindgren" role="Front-end lead">
             <p>I stopped fighting my framework. There was nothing left to fight.</p>
           </Testimonial>
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/testimonial"><span class="a11y-srOnly">Testimonial component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">FAQ</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <Faq>
             <FaqItem question="Do I need a build step?" name="home_faq" open>No. Link one file and start writing HTML.</FaqItem>
             <FaqItem question="Can I override anything?" name="home_faq">Yes: unlayered CSS always beats the framework.</FaqItem>
           </Faq>
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/faq"><span class="a11y-srOnly">FAQ component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Form field</p>
         <div class="home_gallery_thumb" inert>
+          <div class="home_gallery_scale">
           <div class="home_gallery_formDemo">
             <Field label="Work email" name="home_gallery_email" type="email" placeholder="you@work.com" hint="One email a month." />
             <button type="button" class="bt bt-primary">Sign up</button>
+          </div>
           </div>
         </div>
         <a class="home_gallery_link" href="/components/field"><span class="a11y-srOnly">Field component documentation</span></a>
       </li>
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Pagination</p>
-        <div class="home_gallery_thumb home_gallery_thumb-wide" inert>
-          <Pagination currentPage={4} lastPage={9} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
+        <div class="home_gallery_thumb home_gallery_thumb-centered" inert>
+          <div class="home_gallery_scale">
+          <Pagination currentPage={3} lastPage={5} baseUrl="#" pageUrl={(p) => `#page-${p}`} />
+          </div>
         </div>
         <a class="home_gallery_link" href="/components/pagination"><span class="a11y-srOnly">Pagination component documentation</span></a>
       </li>
@@ -364,17 +399,18 @@ const themeDiffs = {
   </Section>
 
   {/* 6: Ownership */}
-  <Section class="home_section home_own" headerClass="home_wideHeader" variant="filled" title="You own the code">
+  <Section class="home_section home_own" variant="filled" aria-labelledby="home_own_title">
     <div class="home_own_split">
       <div class="home_own_body">
-        <p>mCSS doesn’t install from a package registry. You copy the files into your project and edit them like any other code in it. When a default doesn’t suit you, you change that line.</p>
+        <h2 class="section_title" id="home_own_title">You own the code</h2>
+        <p>mCSS doesn’t install from a package registry. You copy its source into your project, build it with PostCSS, and edit it like any other code in it. When a default doesn’t suit you, you change that line.</p>
         <ul class="home_own_facts">
           <li><strong>MIT license</strong><span>Use it anywhere. Keep it forever.</span></li>
           <li><strong>Versioned releases</strong><span>Tagged on GitHub and listed in the changelog. Pull updates when you choose to.</span></li>
           <li><strong>One theme file</strong><span>Your design lives in your theme, not in <code>node_modules</code>.</span></li>
         </ul>
       </div>
-      <figure class="home_own_tree">
+      <figure class="home_own_tree home_codeBlock">
         <figcaption class="a11y-srOnly">The files an mCSS project keeps</figcaption>
         <pre><code>styles/
 ├── framework/              <span class="home_own_note"># copied once, yours to edit</span>
@@ -395,24 +431,40 @@ const themeDiffs = {
   </Section>
 
   {/* 7: Install */}
-  <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the framework and, if you want them, the components. The docs cover the other installs, including how to build from source with PostCSS.">
+  <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the compiled framework and, if you want them, the components, with no build step. The docs cover the other installs, including how to build from source with PostCSS.">
     <div class="home_install_body">
-      <Code code={installSnippet} lang="html" theme="github-dark" />
+      <div class="home_install_snippet home_codeBlock" role="region" aria-label="Install snippet">
+        <Code code={installSnippet} lang="html" theme={codeTheme} />
+        <CopyButtonStatic code={installSnippet} />
+      </div>
+      <p class="home_install_files">Get <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css">mcss.min.css</a> and <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css">mcss.components.min.css</a> on GitHub.</p>
       <p class="home_install_actions">
         <a class="bt bt-lg bt-white home_install_bt" href="/docs/start">Get started</a>
         <a class="bt bt-lg bt-outline-white" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
       </p>
-      <p class="home_install_newsletter">Prefer email? <a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Join the mailing list</a> for new components and modern CSS write-ups.</p>
+      <p class="home_install_newsletter">Prefer email? <a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Join the mailing list<span class="a11y-srOnly">&#32;(opens in a new tab)</span></a> for new components and modern CSS write-ups.</p>
     </div>
   </Section>
+  </main>
 </BaseLayout>
 
-{/* The one allowed JS nicety: restart the hero loop. */}
+{/* The hero morph's controls: pause or resume it, and play it again. */}
 <script>
   const morph = document.querySelector('.home_morph');
+  const pause = document.querySelector('.js-morphPause');
+  const pauseLabel = document.querySelector('.js-morphPauseLabel');
   const replay = document.querySelector('.js-morphReplay');
-  if (morph && replay) {
+  if (morph && pause && pauseLabel && replay) {
+    const setPaused = (paused: boolean) => {
+      morph.classList.toggle('is-paused', paused);
+      pauseLabel.textContent = paused ? 'Resume' : 'Pause';
+    };
+    pause.addEventListener('click', () => setPaused(!morph.classList.contains('is-paused')));
+    // The "bt" pulse is the last thing to finish
+    morph.querySelector('.home_morph_after')?.addEventListener('animationend', () => morph.classList.add('is-done'));
     replay.addEventListener('click', () => {
+      setPaused(false);
+      morph.classList.remove('is-done');
       morph.classList.add('is-resetting');
       void (morph as HTMLElement).offsetWidth;
       morph.classList.remove('is-resetting');

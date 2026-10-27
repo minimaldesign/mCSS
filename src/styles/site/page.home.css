@@ -1,18 +1,35 @@
 /* HOMEPAGE */
 
+/* Page-wide values, on the body class */
+.home {
+  /* Secondary text: AA on the body and on filled sections, both themes */
+  --home-muted-color: light-dark(var(--base-600), var(--base-300));
+  /* The column every section's wide content shares, and the snippet's */
+  --home-width: 1150px;
+  --home-snippet-width: 640px;
+  /* The code surfaces imitate Shiki's github-dark in both site themes.
+     The note color is lighter than github-dark's comments (#6a737d,
+     3.05:1) for AA, the same value src/scripts/codeTheme.js uses. */
+  --home-code-background: #24292e;
+  --home-code-text: #e1e4e8;
+  --home-code-note: #8b949e;
+  --home-code-border: rgb(255 255 255 / 0.12);
+}
+
 .home_section {
   --section-spacing: var(--xl1);
-  /* Mobile gutters match the footer's (24px) so every section aligns */
+  /* The same 24px gutter as the wide blocks below, so every section aligns */
   --wrap-spacing: var(--sm3);
   @media (--lg) {
     --section-spacing: var(--xxl1);
   }
 }
 
-/* 2 to 5: narrow header, wide content. These blocks escape the wrap
-   column and center at up to 1150px. */
+/* 2 to 7: these blocks escape the wrap column and center at up to
+   --home-width. */
 .home_layers,
 .home_showcase_body,
+.home_themer_switcher,
 .home_themer_split,
 .home_gallery_grid,
 .home_own_split,
@@ -20,28 +37,47 @@
 .home_more {
   grid-column: 1 / -1;
   width: 100%;
-  max-width: 1150px;
+  max-width: var(--home-width);
   margin-inline: auto;
-  /* Same gutters as the footer */
-  padding-left: var(--sm3);
-  padding-right: var(--sm3);
+  padding-inline: var(--sm3);
 }
 
-/* Showcase and gallery: the header lines up with the wide content under
-   it (same 1150px column, same gutter) instead of centering over it */
+/* Start-aligned headers line up with the wide content under them (same
+   column, same gutter) instead of centering over it. The lede stops
+   around 75 characters a line (70ch held about 100 of this font). */
 .home_wideHeader {
-  --wrap-width: minmax(0, 1150px);
+  --wrap-width: minmax(0, var(--home-width));
   --wrap-lg-spacing: var(--sm3);
   text-align: start;
 
   > * {
-    max-width: 70ch;
+    max-width: 40rem;
   }
 }
 
 /* A section's one onward link, under its content */
 .home_more {
   margin-block: var(--md2) 0;
+}
+
+/* Every code block on the page (mixed onto its wrapper): one github-dark
+   surface. Shiki paints its own background over this one. */
+.home_codeBlock pre {
+  margin: 0;
+  padding: var(--sm3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-xl);
+  color: var(--home-code-text);
+  background-color: var(--home-code-background);
+  border: var(--border-sm) solid var(--home-code-border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+
+  /* elements.text.css mutes code inside pre (--text-code-muted-color),
+     3.3:1 on this surface in the light theme */
+  code {
+    color: inherit;
+  }
 }
 
 /* 1 HERO */
@@ -60,13 +96,12 @@
 
 .home_hero_inner {
   width: 100%;
-  max-width: 1150px;
+  /* The sections' column minus their gutters, so the hero's left edge is
+     the same as every heading and block below it */
+  max-width: calc(var(--home-width) - 2 * var(--sm3));
   margin-inline: auto;
-  display: grid;
   /* Stacked below --lg: the editor owns its top margin */
-  @media (--lg-n-below) {
-    gap: 0;
-  }
+  display: grid;
   /* The headline gets its own centered row; the copy and the editor split
      the row under it */
   @media (--lg) {
@@ -76,7 +111,8 @@
   }
 }
 
-/* Gradient-clipped text; light-dark() per stop keeps both themes AA
+/* Gradient-clipped text; light-dark() per stop keeps every point of the
+   gradient above 3:1, the large-text minimum, in both themes
    (postcss-mixins can't see display-gradient from another file).
    fit-content, not max-content: max-content inflates the hero grid's
    min-content size and overflows small viewports */
@@ -89,20 +125,19 @@
   max-width: 100%;
   text-align: center;
   color: transparent;
-  /* background-image longhand: preset-env's light-dark polyfill re-emits
-     shorthands after this rule, which would reset background-clip */
+  /* background-image longhand, so it can't reset background-clip */
   background-image: linear-gradient(
     90deg,
     light-dark(var(--primary-950), var(--primary-300)),
-    light-dark(var(--primary-500), var(--primary-500))
+    light-dark(var(--primary-600), var(--primary-500))
   );
   background-clip: text;
   /* The gradient only paints the box; at line-height 1 the descenders
      poke below it and vanish, so extend the box under the last line */
+  padding-bottom: 0.12em;
   font-size: var(--display-md);
   line-height: var(--leading-xs);
   @media (--md) {
-    padding-bottom: 0.12em;
     font-size: var(--display-mega);
   }
 }
@@ -127,7 +162,7 @@
   max-width: 38ch;
   margin-top: var(--sm1);
   font-size: var(--text-lg);
-  color: light-dark(var(--base-500), var(--base-400));
+  color: var(--home-muted-color);
   @media (--md) {
     font-size: var(--text-xl);
   }
@@ -152,45 +187,40 @@
   margin-top: var(--lg1);
   font-family: var(--mono);
   font-size: var(--text-sm);
-  color: light-dark(var(--base-500), var(--base-400));
+  color: var(--home-muted-color);
 
   @media (--lg) {
     margin-top: var(--xl1);
   }
 
+  /* Separator only: empty alt text, so it isn't read out */
   li + li::before {
-    content: "·";
+    content: "·" / "";
     margin-inline-end: var(--sm1);
   }
 }
 
 /* 1 THE CODE MORPH */
 
-/* Animated character counter (388 to 43). The unregistered fallback below
-   keeps the number correct in engines without @property (it just steps
-   instead of ticking). */
-@property --morph-n {
-  syntax: "<integer>";
-  inherits: true;
-  initial-value: 388;
-}
+/* Animated character counter. The @property registration and its
+   keyframes are written by index.astro from the class list; without
+   @property the number still lands right, it just steps instead of
+   ticking. */
 
 .home_morph {
   display: flex;
   flex-direction: column;
   /* Plays once on load and holds the result; Replay runs it again.
-     Each class gets a --morph-slot strike that starts --morph-stagger after
-     the previous one. Stagger equals slot, so the classes go strictly one
-     at a time: the length of the wait is the point. --morph-done is when
-     the last class collapses: settle + (classes - 1) staggers + one slot. */
-  --morph-settle: 1.2s;
-  --morph-stagger: 0.7s;
-  --morph-slot: 0.7s;
+     --morph-count, --morph-settle, --morph-stagger and --morph-slot come
+     from index.astro, which owns the class list and its timing.
+     --morph-done is when the last class collapses: settle + (classes - 1)
+     staggers + one slot. */
   --morph-done: calc(
-    var(--morph-settle) + 22 * var(--morph-stagger) + var(--morph-slot)
+    var(--morph-settle) + (var(--morph-count) - 1) * var(--morph-stagger) +
+      var(--morph-slot)
   );
   --morph-strike: var(--no-400);
-  --morph-pulse: rgb(19 136 109 / 0.45);
+  --morph-pulse: rgb(from var(--yes-500) r g b / 0.45);
   @media (--lg-n-below) {
     margin-top: var(--lg1);
   }
@@ -205,9 +235,13 @@
 .home_morph_editor {
   margin: 0;
   padding: var(--sm3);
-  background-color: #24292e;
-  border: var(--border-sm) solid rgb(255 255 255 / 0.12);
-  border-radius: var(--radius-xl);
+  /* Room for the longest class on the narrowest phones */
+  @media (--xs-n-below) {
+    padding-inline: var(--sm1);
+  }
+  background-color: var(--home-code-background);
+  border: var(--border-sm) solid var(--home-code-border);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
 
@@ -221,7 +255,7 @@
   margin-bottom: var(--sm1);
   font-family: var(--mono);
   font-size: var(--text-sm);
-  color: #8b949e;
+  color: var(--home-code-note);
 
   p {
     margin: 0;
@@ -255,22 +289,23 @@
   }
 }
 
-/* Reserves the before height so the collapse never shifts the hero. Below
-   --lg the editor sits under the buttons and is far taller than the
-   result, so there it shrinks with the code instead of holding an empty
-   box. */
+/* Reserves the before height so the collapse never shifts the page */
 .home_morph_sizer {
   visibility: hidden;
-  @media (--lg-n-below) {
-    display: none;
-  }
 }
 
 .home_morph_code {
   margin: 0;
+
+  /* elements.text.css mutes code inside pre (--text-code-muted-color),
+     which is 3.3:1 on this dark surface in the light theme */
+  code {
+    color: inherit;
+  }
+
   font-size: var(--text-sm);
   line-height: var(--leading-xl);
-  color: #e1e4e8;
+  color: var(--home-code-text);
   overflow-wrap: anywhere;
 }
 
@@ -303,6 +338,13 @@
   );
 }
 
+/* One utility class, never broken at its hyphens: a split class reads
+   as two. In both the animated code and the sizer, so their heights
+   match. */
+.home_morph_class {
+  white-space: nowrap;
+}
+
 .home_morph_gt {
   background-image: linear-gradient(
     to bottom,
@@ -331,8 +373,12 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* --morph-n starts at the "before" count, set in index.astro. Three
+   digits wide, so the label doesn't shift when it drops to two. */
 .home_morph_count {
-  --morph-n: 388;
+  display: inline-block;
+  min-width: 3ch;
+  text-align: end;
   animation: morphCount calc(var(--morph-done) + 0.3s) linear both;
 
   &::after {
@@ -341,33 +387,55 @@
   }
 }
 
-.home_morph_replay {
+/* Pause and Replay, under the editor's right edge. Side by side, they
+   hang below it, out of the row's height, so the copy centers on the
+   editor alone. */
+.home_morph_controls {
+  display: flex;
+  gap: var(--xs2);
+  align-self: flex-end;
+  margin: var(--xs1) 0 0;
+  /* The 44px tap height already clears the editor */
+  @media (--lg) {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-end: 0;
+    margin: 0;
+  }
+}
+
+.home_morph_control {
   display: inline-flex;
   align-items: center;
   gap: var(--xs1);
-  align-self: flex-end;
-  margin-top: var(--xs3);
+  min-height: var(--lg2);
   padding: var(--xs1) var(--xs2);
-  @media (--lg) {
-    position: absolute;
-    top: 100%;
-    right: 0;
-  }
   border: none;
   background: none;
   font-size: var(--text-sm);
-  color: light-dark(var(--base-500), var(--base-400));
+  color: var(--home-muted-color);
   cursor: pointer;
   transition: color var(--transition-fast);
 
+  /* Icons at the label's size */
   svg {
-    width: 14px;
-    height: 14px;
+    width: 1em;
+    height: 1em;
   }
 
   &:hover {
     color: var(--text-color);
   }
+}
+
+/* The pause button shows play while the morph is paused */
+.home_morph_playIcon,
+.home_morph.is-paused .home_morph_pauseIcon {
+  display: none;
+}
+
+.home_morph.is-paused .home_morph_playIcon {
+  display: inline;
 }
 
 /* Reduced-motion after-state (hidden while the animation runs) */
@@ -379,32 +447,33 @@
   margin: var(--xs3) 0;
   text-align: center;
   font-size: var(--text-xl);
-  color: light-dark(var(--base-400), var(--base-500));
-}
-
-.home_morph_static .home_morph_code {
-  padding: var(--sm3);
-  background-color: #24292e;
-  border: var(--border-sm) solid rgb(255 255 255 / 0.12);
-  border-radius: var(--radius-xl);
+  color: var(--home-muted-color);
 }
 
 .home_morph_static_count {
   margin: var(--xs2) 0 0;
   font-family: var(--mono);
   font-size: var(--text-xs);
-  text-align: right;
-  color: light-dark(var(--base-500), var(--base-400));
+  text-align: end;
+  color: var(--home-muted-color);
 }
 
-.home_morph_editor:hover
-  :is(
-    .home_morph_g,
-    .home_morph_after,
-    .home_morph_count,
-    .home_morph_label span
-  ) {
-  animation-play-state: paused;
+/* Hovering the editor or pressing Pause holds every part of the morph */
+.home_morph_editor:hover,
+.home_morph.is-paused {
+  --morph-play: paused;
+}
+
+.home_morph_g,
+.home_morph_after,
+.home_morph_count,
+.home_morph_label span {
+  animation-play-state: var(--morph-play, running);
+}
+
+/* Once the morph has played out, Pause has nothing left to hold */
+.home_morph.is-done .js-morphPause {
+  display: none;
 }
 
 /* Replay: the page script toggles this class to restart every animation */
@@ -428,7 +497,7 @@
 
   /* Static before/after stacked with an arrow and the final numbers */
   .home_morph_counter,
-  .home_morph_replay {
+  .home_morph_controls {
     display: none;
   }
 
@@ -493,112 +562,6 @@
   }
 }
 
-/* Generated from the class list in index.astro: each step lands as a class
-   collapses (settle + i * stagger + slot, as a share of the counter's
-   duration), then the empty attribute fills with "bt". */
-@keyframes morphCount {
-  0%,
-  10.68% {
-    --morph-n: 388;
-  }
-  10.8%,
-  14.66% {
-    --morph-n: 376;
-  }
-  14.77%,
-  18.64% {
-    --morph-n: 363;
-  }
-  18.75%,
-  22.61% {
-    --morph-n: 348;
-  }
-  22.73%,
-  26.59% {
-    --morph-n: 342;
-  }
-  26.7%,
-  30.57% {
-    --morph-n: 331;
-  }
-  30.68%,
-  34.55% {
-    --morph-n: 320;
-  }
-  34.66%,
-  38.52% {
-    --morph-n: 315;
-  }
-  38.64%,
-  42.5% {
-    --morph-n: 308;
-  }
-  42.61%,
-  46.48% {
-    --morph-n: 300;
-  }
-  46.59%,
-  50.45% {
-    --morph-n: 286;
-  }
-  50.57%,
-  54.43% {
-    --morph-n: 275;
-  }
-  54.55%,
-  58.41% {
-    --morph-n: 265;
-  }
-  58.52%,
-  62.39% {
-    --morph-n: 247;
-  }
-  62.5%,
-  66.36% {
-    --morph-n: 234;
-  }
-  66.48%,
-  70.34% {
-    --morph-n: 217;
-  }
-  70.45%,
-  74.32% {
-    --morph-n: 190;
-  }
-  74.43%,
-  78.3% {
-    --morph-n: 169;
-  }
-  78.41%,
-  82.27% {
-    --morph-n: 142;
-  }
-  82.39%,
-  86.25% {
-    --morph-n: 114;
-  }
-  86.36%,
-  90.23% {
-    --morph-n: 98;
-  }
-  90.34%,
-  94.2% {
-    --morph-n: 78;
-  }
-  94.32%,
-  98.18% {
-    --morph-n: 62;
-  }
-  98.3%,
-  98.86% {
-    --morph-n: 41;
-  }
-  99.72%,
-  100% {
-    --morph-n: 43;
-  }
-}
-
 /* 2 PHILOSOPHY: the layer order, and one override proving it */
 
 .home_layers {
@@ -628,16 +591,16 @@
   margin: 0;
   font-size: var(--text-xs);
   font-weight: var(--semi-bold);
-  letter-spacing: 0.05em;
+  letter-spacing: var(--tracking-lg);
   text-transform: uppercase;
-  color: light-dark(var(--base-500), var(--base-400));
+  color: var(--home-muted-color);
 
   /* Shaft */
   &::before {
     content: "";
     grid-area: 2 / 2;
     justify-self: center;
-    width: 2px;
+    width: var(--border-md);
     margin-block: var(--xs2);
     background-image: linear-gradient(
       to top,
@@ -668,7 +631,7 @@
 
 .home_layers_axisHigh {
   grid-area: 1 / 2;
-  color: light-dark(var(--primary-600), var(--primary-300));
+  color: light-dark(var(--primary-700), var(--primary-300));
 }
 
 .home_layers_axisLow {
@@ -679,14 +642,21 @@
    --layer-step apart and the slabs overflow them, so each one lies over
    the next one down. */
 .home_layers_stack {
-  --slab-width: 120px;
+  /* In rem, so the rows grow with the labels when text is enlarged */
+  --slab-width: 7.5rem;
   --slab-depth: calc(var(--slab-width) / 2);
-  --layer-step: 38px;
+  --layer-step: 2.375rem;
   margin: 0;
   padding: 0 0 calc(var(--slab-depth) - var(--layer-step));
   list-style: none;
+  /* Narrowest phones: leaves room for the longest label */
+  @media (--xs-n-below) {
+    --slab-width: 6rem;
+  }
+  /* Capped by the viewport, so enlarged text doesn't push the labels
+     off a tablet screen */
   @media (--md) {
-    --slab-width: 200px;
+    --slab-width: min(12.5rem, 30vw);
   }
 }
 
@@ -703,7 +673,7 @@
   height: var(--slab-depth);
   background-color: color-mix(
     in oklab,
-    var(--primary-300) calc(var(--layer-i) * 12.5%),
+    var(--primary-300) calc(var(--layer-i) * 100% / (var(--layer-count) - 1)),
     var(--primary-800)
   );
   clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
@@ -723,8 +693,8 @@
   &::before {
     content: "";
     position: absolute;
-    top: 1lh;
-    left: 0;
+    inset-block-start: 1lh;
+    inset-inline-start: 0;
     width: var(--xs3);
     border-top: var(--border-sm) solid
       light-dark(var(--base-300), var(--base-600));
@@ -739,7 +709,7 @@
 
 .home_layers_note {
   font-size: var(--text-xs);
-  color: light-dark(var(--base-600), var(--base-400));
+  color: var(--home-muted-color);
 }
 
 /* Opt-in: a ghost of a slab, since nothing lands here by default */
@@ -754,12 +724,6 @@
 }
 
 .home_layers_proof pre {
-  margin: 0;
-  padding: var(--sm3);
-  font-size: var(--text-sm);
-  line-height: var(--leading-xl);
-  border-radius: var(--radius-lg);
-
   /* Shiki's lines: a wrapped line hangs under its first word */
   code > span {
     display: inline-block;
@@ -782,7 +746,11 @@
   tbody th {
     font-family: var(--mono);
     font-weight: var(--bold);
-    white-space: nowrap;
+    /* Feature names and badges stay on one line where there's room; at
+       tablet width they wrap rather than overflow (enlarged text too) */
+    @media (--lg) {
+      white-space: nowrap;
+    }
 
     code {
       padding: 0;
@@ -796,17 +764,24 @@
   }
 
   td:last-child {
-    white-space: nowrap;
+    @media (--lg) {
+      white-space: nowrap;
+    }
   }
 
   /* Phones: each row stacks feature, description, then support */
   @media (--md-n-below) {
+    /* .a11y-srOnly's recipe: the headers stay for assistive tech */
     thead {
       position: absolute;
       width: 1px;
       height: 1px;
+      padding: 0;
+      margin: -1px;
       overflow: hidden;
-      clip-path: inset(50%);
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     tr {
@@ -830,8 +805,9 @@
 .home_showcase_row-lightDark {
   color: var(--text-color);
 
+  /* The page background, repainted in the row's own color-scheme */
   > * {
-    background-color: light-dark(var(--base-0), var(--base-900));
+    background-color: var(--body-background-color);
   }
 }
 
@@ -850,18 +826,17 @@
   margin-top: var(--xs2);
   font-size: var(--text-sm);
   cursor: pointer;
-  --toggle-width: 36px;
-  --toggle-height: 20px;
+  --toggle-width: var(--md3);
+  --toggle-height: var(--sm2);
 }
 
 /* 4 THEMING DEMO */
 
 .home_themer_switcher {
   display: flex;
-  justify-content: center;
   gap: var(--md2);
-  margin: 0 0 var(--md2);
-  padding: 0;
+  margin-block: 0 var(--md2);
+  padding-block: 0;
   border: none;
 }
 
@@ -878,40 +853,43 @@
     opacity: 0;
     pointer-events: none;
   }
+}
 
-  i {
-    width: var(--md1);
-    height: var(--md1);
-    border-radius: var(--radius-round);
-    border: var(--border-md) solid var(--ui-border-color);
-    transition:
-      border-color var(--transition-fast),
-      box-shadow var(--transition-fast);
-  }
+.home_themer_dot {
+  width: var(--md1);
+  height: var(--md1);
+  border-radius: var(--radius-round);
+  border: var(--border-md) solid var(--ui-border-color);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 
-  input:checked ~ i {
+  input:checked ~ & {
     border-color: var(--text-color);
-    box-shadow: 0 0 0 2px var(--body-background-color) inset;
+    box-shadow: 0 0 0 var(--border-md) var(--body-background-color) inset;
   }
 
-  input:focus-visible ~ i {
+  input:focus-visible ~ & {
     outline: var(--focus-ring-width) solid var(--focus-ring-color);
     outline-offset: var(--focus-ring-offset);
   }
 }
 
-.home_themer_swatch-default i {
-  background: var(--primary-500);
+/* Each swatch is its theme's primary button color (the demo themes'
+   own values) */
+.home_themer_swatch-default .home_themer_dot {
+  background: var(--primary-600);
 }
-.home_themer_swatch-wireframe i {
-  background: #a3a3a3;
+.home_themer_swatch-wireframe .home_themer_dot {
+  background: #525252;
 }
-.home_themer_swatch-sunset i {
-  background: #ea580c;
+.home_themer_swatch-sunset .home_themer_dot {
+  background: #c2410c;
 }
 
 .home_themer_split {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--md2);
   @media (--lg) {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -919,87 +897,46 @@
   }
 }
 
-.home_themer_stage {
-  display: flex;
-  flex-direction: column;
-  gap: var(--md2);
-  /* Re-declared from the tokens so the demo themes can override the body
-     font and base size (body resolves --text at :root, out of demo reach) */
-  font-family: var(--text);
-  font-size: var(--text-md);
-  padding: var(--md2);
-  background-color: light-dark(var(--base-0), var(--base-950));
+/* The demo pages (src/pages/demos/themes/), one per theme. Tall enough
+   for the card and form at each width, in the roomiest theme. */
+.home_themer_frame {
+  display: none;
+  width: 100%;
+  height: 540px;
   border: var(--border-sm) solid var(--ui-border-color);
   border-radius: var(--radius-lg);
-}
-
-.home_themer_formRow {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sm1);
-
-  > button {
-    align-self: flex-start;
+  @media (--md) {
+    height: 470px;
   }
 }
 
-/* Demo themes: each override list below matches its diff pane exactly.
-   Semantic tokens only; that's the theming API. */
-
-.home_themer:has(input[value="wireframe"]:checked) .home_themer_stage {
-  --heading-font: ui-rounded, "Arial Rounded MT Bold", Calibri, sans-serif;
-  --text-color: light-dark(#404040, #d4d4d4);
-  --card-bg-color: light-dark(#f5f5f5, #171717);
-  --card-border-radius: 0;
-  --card-shadow: none;
-  --bt-primary-background-color: #525252;
-  --bt-primary-background-color-hover: #737373;
-  --bt-primary-border-color: #525252;
-  --bt-primary-border-color-hover: #525252;
-  --bt-border-radius: 0;
-  --input-border-radius: 0;
-  --link-color: light-dark(#525252, #a3a3a3);
-}
-
-.home_themer:has(input[value="sunset"]:checked) .home_themer_stage {
-  --heading-font: "Iowan Old Style", Georgia, serif;
-  --text: Georgia, "Times New Roman", serif;
-  --text-md: 1.05rem;
-  --text-lg: 1.3rem;
-  --text-color: light-dark(#431407, #ffedd5);
-  --card-bg-color: light-dark(#fef9c3, #431407);
-  --card-border-radius: 16px;
-  --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
-  --bt-primary-background-color: #ea580c;
-  --bt-primary-background-color-hover: #f97316;
-  --bt-primary-border-color: #ea580c;
-  --bt-primary-border-color-hover: #ea580c;
-  --bt-border-radius: 1e5px;
-  --input-border-radius: 1e5px;
-  --link-color: light-dark(#c2410c, #fb923c);
-}
-
-/* Diff panes: Shiki (github-dark) output, one pane per theme */
+/* Diff panes: Shiki (github-dark) output, one pane per theme, named
+   after the file it comes from */
 
 .home_themer_pane {
   display: none;
-
-  pre {
-    margin: 0;
-    padding: var(--sm3);
-    font-size: var(--text-sm);
-    @media (--lg) {
-      font-size: var(--text-md);
-    }
-    line-height: var(--leading-xl);
-    border-radius: var(--radius-lg);
-    overflow-x: auto;
-  }
+  margin: 0;
 }
 
-.home_themer:has(input[value="default"]:checked) .home_themer_pane-default,
-.home_themer:has(input[value="wireframe"]:checked) .home_themer_pane-wireframe,
-.home_themer:has(input[value="sunset"]:checked) .home_themer_pane-sunset {
+/* The label over each column: which themes are real over the frame,
+   the file each pane comes from over the code */
+.home_themer_label {
+  margin-block: 0 var(--xs2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-lg);
+  color: var(--home-muted-color);
+}
+
+.home_themer_label-file {
+  font-family: var(--mono);
+}
+
+.home_themer:has(input[value="default"]:checked)
+  :is(.home_themer_frame-default, .home_themer_pane-default),
+.home_themer:has(input[value="wireframe"]:checked)
+  :is(.home_themer_frame-wireframe, .home_themer_pane-wireframe),
+.home_themer:has(input[value="sunset"]:checked)
+  :is(.home_themer_frame-sunset, .home_themer_pane-sunset) {
   display: block;
 }
 
@@ -1035,17 +972,24 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: border-color var(--transition-fast);
-  zoom: 0.85;
+  /* Demos render at 85%; the frame itself stays full size */
+  --gallery-zoom: 0.85;
+}
+
+.home_gallery_scale {
+  zoom: var(--gallery-zoom);
 }
 
 .home_gallery_cell:hover .home_gallery_thumb {
   border-color: var(--link-color);
 }
 
-/* Wide component demos (pagination) shrink further to fit their cell */
-.home_gallery_thumb-wide {
-  zoom: 0.62;
+/* Pagination: one short row, so it shows at full size, centered, with
+   tighter side padding to fit the narrowest three-column cell (1024px) */
+.home_gallery_thumb-centered {
+  --gallery-zoom: 1;
   justify-items: center;
+  padding-inline: var(--sm1);
 }
 
 /* Link-colored so the whole cell reads as a link without hovering */
@@ -1117,28 +1061,16 @@
 
   span {
     margin-top: var(--xs1);
-    color: light-dark(var(--base-600), var(--base-400));
+    color: var(--home-muted-color);
   }
 }
 
-/* Same github-dark surface as the other code on the page */
 .home_own_tree {
   margin: 0;
-
-  pre {
-    margin: 0;
-    padding: var(--sm3);
-    font-size: var(--text-sm);
-    line-height: var(--leading-xl);
-    color: #e1e4e8;
-    background-color: #24292e;
-    border-radius: var(--radius-lg);
-    overflow-x: auto;
-  }
 }
 
 .home_own_note {
-  color: #8b949e;
+  color: var(--home-code-note);
 }
 
 .home_own_mine {
@@ -1150,12 +1082,20 @@
 
 .home_install {
   --section-spacing: var(--xl2);
-  background: light-dark(var(--primary-700), var(--base-950));
+  /* The default ring is 2.1:1 on this blue */
+  --focus-ring-color: var(--base-0);
+  /* A deeper blue than the default band in light, white links on it */
+  --section-primary-background-color: light-dark(
+    var(--primary-700),
+    var(--primary-900)
+  );
+  --section-primary-link-color: var(--base-0);
+  --section-primary-link-color-hover: var(--primary-100);
 }
 
 /* Mixed onto the Section header: the lede is as wide as the snippet */
 .home_install_header > p {
-  max-width: 640px;
+  max-width: var(--home-snippet-width);
   margin-inline: auto;
 }
 
@@ -1166,22 +1106,34 @@
   gap: var(--md2);
   text-align: center;
 
+  /* Two lines to read and paste: a size up from the other code blocks */
   pre {
-    align-self: stretch;
-    max-width: 640px;
-    width: 100%;
-    margin: 0 auto;
-    padding: var(--sm3);
-    font-size: var(--text-sm);
-    line-height: var(--leading-xl);
     text-align: start;
-    border: var(--border-sm) solid rgb(255 255 255 / 0.12);
-    border-radius: var(--radius-lg);
-    overflow-x: auto;
     @media (--md) {
       font-size: var(--text-md);
     }
   }
+}
+
+/* The snippet and its copy button (which places itself in the corner) */
+.home_install_snippet {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  max-width: var(--home-snippet-width);
+  margin-inline: auto;
+}
+
+/* The small print around the snippet, in the band's lede color */
+.home_install_files,
+.home_install_newsletter {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--section-primary-lede-color);
+}
+
+.home_install_files {
+  margin-top: calc(var(--sm1) - var(--md2));
 }
 
 .home_install_actions {
@@ -1194,14 +1146,4 @@
 
 .home_install_bt {
   --bt-color: light-dark(var(--primary-700), var(--base-950));
-}
-
-.home_install_newsletter {
-  margin: 0;
-  font-size: var(--text-sm);
-  color: var(--primary-100);
-
-  a {
-    color: var(--base-0);
-  }
 }
