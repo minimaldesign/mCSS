@@ -59,17 +59,45 @@
   max-width: 1150px;
   margin-inline: auto;
   display: grid;
-  gap: var(--lg3);
   /* Stacked below --lg: the editor owns its top margin */
   @media (--lg-n-below) {
     gap: 0;
   }
-  /* 9fr and a --lg3 gap give the copy 620px at the 1150px cap: just
-     enough for "One class. Not twenty." on one line */
+  /* The headline gets its own centered row; the copy and the editor split
+     the row under it */
   @media (--lg) {
-    grid-template-columns: minmax(0, 9fr) minmax(0, 7fr);
-    align-items: start;
-    gap: var(--lg3);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--xl2) var(--lg3);
+  }
+}
+
+/* Gradient-clipped text; light-dark() per stop keeps both themes AA
+   (postcss-mixins can't see display-gradient from another file).
+   fit-content, not max-content: max-content inflates the hero grid's
+   min-content size and overflows small viewports */
+.home_hero_title {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  color: transparent;
+  /* background-image longhand: preset-env's light-dark polyfill re-emits
+     shorthands after this rule, which would reset background-clip */
+  background-image: linear-gradient(
+    90deg,
+    light-dark(var(--primary-950), var(--primary-300)),
+    light-dark(var(--primary-500), var(--primary-500))
+  );
+  background-clip: text;
+  /* The gradient only paints the box; at line-height 1 the descenders
+     poke below it and vanish, so extend the box under the last line */
+  font-size: var(--display-md);
+  line-height: var(--leading-xs);
+  @media (--md) {
+    padding-bottom: 0.12em;
+    font-size: var(--display-mega);
   }
 }
 
@@ -79,42 +107,12 @@
   @media (--lg-n-below) {
     text-align: center;
 
-    h1 {
-      margin-inline: auto;
-    }
-
     .home_hero_subhead {
       margin-inline: auto;
     }
 
     .home_hero_actions {
       justify-content: center;
-    }
-  }
-
-  h1 {
-    /* Gradient-clipped text; light-dark() per stop keeps both themes AA
-       (postcss-mixins can't see display-gradient from another file).
-       fit-content, not max-content: max-content inflates the hero grid's
-       min-content size and overflows small viewports */
-    width: fit-content;
-    max-width: 100%;
-    color: transparent;
-    /* background-image longhand: preset-env's light-dark polyfill re-emits
-       shorthands after this rule, which would reset background-clip */
-    background-image: linear-gradient(
-      90deg,
-      light-dark(var(--primary-950), var(--primary-300)),
-      light-dark(var(--primary-500), var(--primary-500))
-    );
-    background-clip: text;
-    /* The gradient only paints the box; at line-height 1 the descenders
-       poke below it and vanish, so extend the box under the last line */
-    font-size: var(--display-md);
-    line-height: var(--leading-xs);
-    @media (--md) {
-      padding-bottom: 0.12em;
-      font-size: var(--display-mega);
     }
   }
 }
@@ -126,6 +124,10 @@
   color: light-dark(var(--base-500), var(--base-400));
   @media (--md) {
     font-size: var(--text-xl);
+  }
+  /* First in its column once the headline has its own row */
+  @media (--lg) {
+    margin-top: 0;
   }
 }
 
