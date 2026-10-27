@@ -1154,7 +1154,8 @@
 
 .home_install {
   --section-spacing: var(--xl2);
-  background: light-dark(var(--primary-700), var(--base-950));
+  /* primary-900 in dark: base-950 was the body color, so the band vanished */
+  background: light-dark(var(--primary-700), var(--primary-900));
 }
 
 /* Mixed onto the Section header: the lede is as wide as the snippet */
@@ -1171,10 +1172,7 @@
   text-align: center;
 
   pre {
-    align-self: stretch;
-    max-width: 640px;
-    width: 100%;
-    margin: 0 auto;
+    margin: 0;
     padding: var(--sm3);
     font-size: var(--text-sm);
     line-height: var(--leading-xl);
@@ -1185,6 +1183,25 @@
     @media (--md) {
       font-size: var(--text-md);
     }
+  }
+}
+
+/* The snippet and its copy button (which places itself in the corner) */
+.home_install_snippet {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.home_install_files {
+  margin: calc(var(--sm1) - var(--md2)) 0 0;
+  font-size: var(--text-sm);
+  color: var(--primary-100);
+
+  a {
+    color: var(--base-0);
   }
 }
 
