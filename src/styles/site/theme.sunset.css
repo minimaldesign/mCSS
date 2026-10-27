@@ -1,31 +1,68 @@
 /* SUNSET: a made-up theme for the home page's theme demo
-   (src/pages/demos/themes/sunset.astro). Not shipped with mCSS. */
+   (src/pages/demos/themes/sunset.astro). Not shipped with mCSS.
+   Warm sand by day, deep plum by night, a coral accent, serif headings
+   over the default sans text. */
 
 @layer theme.user {
   :root {
-    --primary-50: #fff7ed;
-    --primary-100: #ffedd5;
-    --primary-200: #fed7aa;
-    --primary-300: #fdba74;
-    --primary-400: #fb923c;
-    --primary-500: #f97316;
-    --primary-600: #ea580c;
-    --primary-700: #c2410c;
-    --primary-800: #9a3412;
-    --primary-900: #7c2d12;
-    --primary-950: #431407;
+    /* Sand to plum instead of cool grays */
+    --base-0: #fffaf5;
+    --base-50: #fbf3ea;
+    --base-100: #f5e8db;
+    --base-200: #e9d5c4;
+    --base-300: #d3b8a5;
+    --base-400: #ad8f80;
+    --base-500: #8a6d62;
+    --base-600: #6b5049;
+    --base-700: #553c3b;
+    --base-800: #3d2a33;
+    --base-900: #2c1f2c;
+    --base-950: #1d1520;
 
-    --text: Georgia, "Times New Roman", serif;
-    --heading-font: "Iowan Old Style", Georgia, serif;
+    /* Coral */
+    --primary-50: #fff4ef;
+    --primary-100: #ffe4d9;
+    --primary-200: #ffc6b0;
+    --primary-300: #ff9f80;
+    --primary-400: #f97a5a;
+    --primary-500: #ec5a3c;
+    --primary-600: #d4462c;
+    --primary-700: #b23a26;
+    --primary-800: #8d2f22;
+    --primary-900: #6a2620;
+    --primary-950: #3d1410;
 
-    --card-bg-color: light-dark(var(--primary-50), var(--primary-950));
-    --card-border-radius: 16px;
-    --card-shadow: 0 8px 24px rgb(234 88 12 / 0.25);
+    --heading-font:
+      "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+      serif;
+    --heading-weight: var(--semi-bold);
+
+    --body-background-color: light-dark(var(--base-50), var(--base-950));
+
+    --card-bg-color: light-dark(var(--base-0), var(--base-900));
+    --card-border-color: transparent;
+    --card-border-radius: 20px;
+    --card-secondary-text-color: light-dark(
+      var(--primary-700),
+      var(--primary-300)
+    );
+    --card-shadow:
+      0 1px 2px rgb(61 42 51 / 0.08),
+      0 18px 40px -18px light-dark(rgb(178 58 38 / 0.35), rgb(0 0 0 / 0.6));
 
     --bt-border-radius: 1e5px;
     --bt-primary-background-color: var(--primary-700);
     --bt-primary-background-color-hover: var(--primary-800);
     --bt-primary-border-color: var(--primary-700);
-    --input-border-radius: 1e5px;
+
+    --input-border-radius: 12px;
+    --field-hint-color: light-dark(var(--base-600), var(--base-300));
+    --focus-ring-color: light-dark(var(--primary-700), var(--primary-300));
+  }
+
+  /* The raised card sits on its own lighter (or, at night, lighter
+     plum) surface instead of the page */
+  .card-raised {
+    background-color: var(--card-bg-color);
   }
 }
