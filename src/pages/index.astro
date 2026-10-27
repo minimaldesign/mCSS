@@ -368,7 +368,7 @@ const themeDiffs = {
     <div class="home_own_split">
       <div class="home_own_body">
         <h2 class="section_title" id="home_own_title">You own the code</h2>
-        <p>mCSS doesn’t install from a package registry. You copy the files into your project and edit them like any other code in it. When a default doesn’t suit you, you change that line.</p>
+        <p>mCSS doesn’t install from a package registry. You copy its source into your project, build it with PostCSS, and edit it like any other code in it. When a default doesn’t suit you, you change that line.</p>
         <ul class="home_own_facts">
           <li><strong>MIT license</strong><span>Use it anywhere. Keep it forever.</span></li>
           <li><strong>Versioned releases</strong><span>Tagged on GitHub and listed in the changelog. Pull updates when you choose to.</span></li>
@@ -396,7 +396,7 @@ const themeDiffs = {
   </Section>
 
   {/* 7: Install */}
-  <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the framework and, if you want them, the components. The docs cover the other installs, including how to build from source with PostCSS.">
+  <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the compiled framework and, if you want them, the components, with no build step. The docs cover the other installs, including how to build from source with PostCSS.">
     <div class="home_install_body">
       <Code code={installSnippet} lang="html" theme="github-dark" />
       <p class="home_install_actions">
