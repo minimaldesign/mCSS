@@ -1,8 +1,10 @@
 // Shared Shiki highlighter for client-side syntax highlighting.
-// Uses the same "github-dark" theme as Expressive Code in astro.config.mjs.
-// If you change the theme there, update the import below to match.
+// Uses the same "github-dark" theme as Expressive Code in astro.config.mjs,
+// with comments raised to AA contrast (codeTheme.js). If you change the theme
+// there, update codeTheme.js to match.
 
 import { createHighlighterCore } from "shiki/core";
+import { codeTheme } from "./codeTheme.js";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
 let highlighterPromise = null;
@@ -10,7 +12,7 @@ let highlighterPromise = null;
 function getHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighterCore({
-      themes: [import("@shikijs/themes/github-dark")],
+      themes: [codeTheme],
       langs: [import("@shikijs/langs/css"), import("@shikijs/langs/html")],
       engine: createJavaScriptRegexEngine(),
     });
