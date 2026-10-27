@@ -5285,7 +5285,7 @@ body.dev {
   --section-spacing: var(--xl3);
   --section-header-spacing: var(--lg3);
   --section-eyebrow-color: light-dark(var(--primary-600), var(--primary-400));
-  --section-lede-color: light-dark(var(--base-500), var(--base-400));
+  --section-lede-color: light-dark(var(--base-600), var(--base-300));
   --section-filled-background-color: light-dark(
     var(--base-50),
     var(--base-900)

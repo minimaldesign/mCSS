@@ -130,7 +130,7 @@
   max-width: 38ch;
   margin-top: var(--sm1);
   font-size: var(--text-lg);
-  color: light-dark(var(--base-500), var(--base-400));
+  color: light-dark(var(--base-600), var(--base-300));
   @media (--md) {
     font-size: var(--text-xl);
   }
@@ -155,7 +155,7 @@
   margin-top: var(--lg1);
   font-family: var(--mono);
   font-size: var(--text-sm);
-  color: light-dark(var(--base-500), var(--base-400));
+  color: light-dark(var(--base-600), var(--base-300));
 
   @media (--lg) {
     margin-top: var(--xl1);
@@ -359,7 +359,7 @@
   border: none;
   background: none;
   font-size: var(--text-sm);
-  color: light-dark(var(--base-500), var(--base-400));
+  color: light-dark(var(--base-600), var(--base-300));
   cursor: pointer;
   transition: color var(--transition-fast);
 
@@ -397,7 +397,7 @@
   font-family: var(--mono);
   font-size: var(--text-xs);
   text-align: right;
-  color: light-dark(var(--base-500), var(--base-400));
+  color: light-dark(var(--base-600), var(--base-300));
 }
 
 .home_morph_editor:hover
@@ -633,7 +633,7 @@
   font-weight: var(--semi-bold);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: light-dark(var(--base-500), var(--base-400));
+  color: light-dark(var(--base-600), var(--base-300));
 
   /* Shaft */
   &::before {
@@ -671,7 +671,7 @@
 
 .home_layers_axisHigh {
   grid-area: 1 / 2;
-  color: light-dark(var(--primary-600), var(--primary-300));
+  color: light-dark(var(--primary-700), var(--primary-300));
 }
 
 .home_layers_axisLow {
@@ -742,7 +742,7 @@
 
 .home_layers_note {
   font-size: var(--text-xs);
-  color: light-dark(var(--base-600), var(--base-400));
+  color: light-dark(var(--base-600), var(--base-300));
 }
 
 /* Opt-in: a ghost of a slab, since nothing lands here by default */
@@ -1121,7 +1121,7 @@
 
   span {
     margin-top: var(--xs1);
-    color: light-dark(var(--base-600), var(--base-400));
+    color: light-dark(var(--base-600), var(--base-300));
   }
 }
 
