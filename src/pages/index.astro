@@ -130,7 +130,7 @@ const themeExcerpt = (css: string, names?: string[]) => {
 const themeDiffs = {
   default: themeExcerpt(defaultTokensCss + defaultUiCss, ['--text', '--heading-font', '--primary-600', '--border-sm', '--ui-border-color', '--card-border-radius', '--card-shadow', '--bt-border-radius', '--bt-primary-background-color', '--input-border-radius']),
   wireframe: themeExcerpt(wireframeThemeCss, ['--text', '--heading-font', '--heading-weight', '--primary-600', '--border-sm', '--ui-border-color', '--wobble-1', '--wobble-2', '--wobble-3', '--card-border-radius', '--bt-border-radius', '--input-border-radius', '--ui-shadow-color', '--shadow-md']),
-  sunset: themeExcerpt(sunsetThemeCss),
+  sunset: themeExcerpt(sunsetThemeCss, ['--heading-font', '--heading-weight', '--base-50', '--base-950', '--primary-700', '--body-background-color', '--card-bg-color', '--card-border-radius', '--card-secondary-text-color', '--card-shadow', '--bt-border-radius', '--bt-primary-background-color', '--input-border-radius']),
 };
 ---
 
@@ -319,7 +319,7 @@ const themeDiffs = {
           <Code code={themeDiffs.wireframe} lang="css" theme={codeTheme} />
         </figure>
         <figure class="home_themer_pane home_themer_pane-sunset home_codeBlock">
-          <figcaption class="home_themer_label home_themer_label-file">theme.sunset.css</figcaption>
+          <figcaption class="home_themer_label home_themer_label-file">theme.sunset.css, excerpt</figcaption>
           <Code code={themeDiffs.sunset} lang="css" theme={codeTheme} />
         </figure>
       </div>
