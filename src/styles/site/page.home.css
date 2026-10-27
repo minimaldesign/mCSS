@@ -898,10 +898,18 @@
   }
 }
 
+/* The frames share one cell under the label. The inactive ones are
+   hidden, not display: none, so they keep a box and lazy-load with the
+   visible one instead of on the first click. */
+.home_themer_frames {
+  display: grid;
+}
+
 /* The demo pages (src/pages/demos/themes/), one per theme. Tall enough
    for the card and form at each width, in the roomiest theme. */
 .home_themer_frame {
-  display: none;
+  grid-area: 2 / 1;
+  visibility: hidden;
   width: 100%;
   height: 540px;
   border: var(--border-sm) solid var(--ui-border-color);
@@ -932,12 +940,15 @@
   font-family: var(--mono);
 }
 
-.home_themer:has(input[value="default"]:checked)
-  :is(.home_themer_frame-default, .home_themer_pane-default),
-.home_themer:has(input[value="wireframe"]:checked)
-  :is(.home_themer_frame-wireframe, .home_themer_pane-wireframe),
-.home_themer:has(input[value="sunset"]:checked)
-  :is(.home_themer_frame-sunset, .home_themer_pane-sunset) {
+.home_themer:has(input[value="default"]:checked) .home_themer_frame-default,
+.home_themer:has(input[value="wireframe"]:checked) .home_themer_frame-wireframe,
+.home_themer:has(input[value="sunset"]:checked) .home_themer_frame-sunset {
+  visibility: visible;
+}
+
+.home_themer:has(input[value="default"]:checked) .home_themer_pane-default,
+.home_themer:has(input[value="wireframe"]:checked) .home_themer_pane-wireframe,
+.home_themer:has(input[value="sunset"]:checked) .home_themer_pane-sunset {
   display: block;
 }
 
