@@ -2,9 +2,22 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
-## Unreleased
+## 1.5.1 (2026-10-26)
+
+The default theme’s secondary text, code, badges, focus ring and form controls meet WCAG AA contrast, and `<iframe>` loses the browser border that 1.5.0 let back in. If your theme doesn’t override these tokens, those colors get darker in light mode and lighter in dark mode.
+
+### Changed
+
+- **`<blockquote>`** sits closer to its rule: `--blockquote-padding-inline` is `var(--sm1) 0` (was `var(--sm3) 0`).
+
+### Added
+
+- **`--input-placeholder-color`** for `::placeholder` (default: `base-600` / `base-400`).
+- **`titleClass` and `ledeClass` on `<Section>`**, which add classes to `.section_title` and `.section_lede` the way `headerClass` does for the header.
 
 ### Fixed
+
+- **`<Section>` is a named region.** Its title gets an id and the section points `aria-labelledby` at it, so screen readers list it as a region (pass your own `aria-labelledby` to override).
 
 - **Section ledes meet AA contrast.** `--section-lede-color` was `base-500` / `base-400`, 4.1:1 on a light filled section and 3.74:1 on a dark one. It is now `base-600` / `base-300` (5.7:1 and 5.75:1).
 - **The rest of the default theme’s secondary text and controls meet AA too.** Measured on the mcss.dev home page:
