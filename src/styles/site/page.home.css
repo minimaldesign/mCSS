@@ -175,28 +175,22 @@
 
 /* 1 THE CODE MORPH */
 
-/* Animated character counter (385 to 43). The unregistered fallback below
-   keeps the number correct in engines without @property (it just steps
-   instead of ticking). */
-@property --morph-n {
-  syntax: "<integer>";
-  inherits: true;
-  initial-value: 385;
-}
+/* Animated character counter. The @property registration and its
+   keyframes are written by index.astro from the class list; without
+   @property the number still lands right, it just steps instead of
+   ticking. */
 
 .home_morph {
   display: flex;
   flex-direction: column;
   /* Plays once on load and holds the result; Replay runs it again.
-     Each class gets a --morph-slot strike that starts --morph-stagger after
-     the previous one. Stagger equals slot, so the classes go strictly one
-     at a time: the length of the wait is the point. --morph-done is when
-     the last class collapses: settle + (classes - 1) staggers + one slot. */
-  --morph-settle: 1.2s;
-  --morph-stagger: 0.7s;
-  --morph-slot: 0.7s;
+     --morph-count, --morph-settle, --morph-stagger and --morph-slot come
+     from index.astro, which owns the class list and its timing.
+     --morph-done is when the last class collapses: settle + (classes - 1)
+     staggers + one slot. */
   --morph-done: calc(
-    var(--morph-settle) + 22 * var(--morph-stagger) + var(--morph-slot)
+    var(--morph-settle) + (var(--morph-count) - 1) * var(--morph-stagger) +
+      var(--morph-slot)
   );
   --morph-strike: var(--no-400);
   --morph-pulse: rgb(19 136 109 / 0.45);
@@ -352,8 +346,8 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* --morph-n starts at the "before" count, set in index.astro */
 .home_morph_count {
-  --morph-n: 385;
   animation: morphCount calc(var(--morph-done) + 0.3s) linear both;
 
   &::after {
@@ -545,111 +539,6 @@
   }
 }
 
-/* Generated from the class list in index.astro: each step lands as a class
-   collapses (settle + i * stagger + slot, as a share of the counter's
-   duration), then the empty attribute fills with "bt". */
-@keyframes morphCount {
-  0%,
-  10.68% {
-    --morph-n: 385;
-  }
-  10.8%,
-  14.66% {
-    --morph-n: 373;
-  }
-  14.77%,
-  18.64% {
-    --morph-n: 360;
-  }
-  18.75%,
-  22.61% {
-    --morph-n: 345;
-  }
-  22.73%,
-  26.59% {
-    --morph-n: 331;
-  }
-  26.7%,
-  30.57% {
-    --morph-n: 323;
-  }
-  30.68%,
-  34.55% {
-    --morph-n: 318;
-  }
-  34.66%,
-  38.52% {
-    --morph-n: 307;
-  }
-  38.64%,
-  42.5% {
-    --morph-n: 300;
-  }
-  42.61%,
-  46.48% {
-    --morph-n: 284;
-  }
-  46.59%,
-  50.45% {
-    --morph-n: 275;
-  }
-  50.57%,
-  54.43% {
-    --morph-n: 267;
-  }
-  54.55%,
-  58.41% {
-    --morph-n: 253;
-  }
-  58.52%,
-  62.39% {
-    --morph-n: 239;
-  }
-  62.5%,
-  66.36% {
-    --morph-n: 224;
-  }
-  66.48%,
-  70.34% {
-    --morph-n: 206;
-  }
-  70.45%,
-  74.32% {
-    --morph-n: 189;
-  }
-  74.43%,
-  78.3% {
-    --morph-n: 169;
-  }
-  78.41%,
-  82.27% {
-    --morph-n: 140;
-  }
-  82.39%,
-  86.25% {
-    --morph-n: 120;
-  }
-  86.36%,
-  90.23% {
-    --morph-n: 99;
-  }
-  90.34%,
-  94.2% {
-    --morph-n: 82;
-  }
-  94.32%,
-  98.18% {
-    --morph-n: 63;
-  }
-  98.3%,
-  98.86% {
-    --morph-n: 41;
-  }
-  99.72%,
-  100% {
-    --morph-n: 43;
-  }
-}
 
 /* 2 PHILOSOPHY: the layer order, and one override proving it */
 
