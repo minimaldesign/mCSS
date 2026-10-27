@@ -61,7 +61,9 @@
 
 .home_hero_inner {
   width: 100%;
-  max-width: 1150px;
+  /* The sections' 1150px column minus their gutters, so the hero's left
+     edge is the same as every heading and block below it */
+  max-width: calc(1150px - 2 * var(--sm3));
   margin-inline: auto;
   display: grid;
   /* Stacked below --lg: the editor owns its top margin */
