@@ -69,8 +69,7 @@ const installSnippet = `<!-- mCSS, ~${mcssMinGzipKb} KB min+gzip -->
 // Section 4's diff panes, rendered with Shiki (github-dark) at build time.
 // Each list matches the overrides in page.home.css line for line.
 const themeDiffs = {
-  default: `/* theme.default.ui.css defaults (excerpt) */
-:root {
+  default: `:root {
   --heading-font: var(--display);
   --text: ui-sans-serif, system-ui, sans-serif;
   --text-md: 1rem;
@@ -87,8 +86,7 @@ const themeDiffs = {
   --input-border-radius: 5px;
   --link-color: light-dark(#0284c7, #38bdf8);
 }`,
-  wireframe: `/* a wireframe theme: the entire diff */
-:root {
+  wireframe: `:root {
   --heading-font: ui-rounded, "Arial Rounded MT Bold", Calibri, sans-serif;
   --text-color: light-dark(#404040, #d4d4d4);
   --card-bg-color: light-dark(#f5f5f5, #171717);
@@ -102,8 +100,7 @@ const themeDiffs = {
   --input-border-radius: 0;
   --link-color: light-dark(#525252, #a3a3a3);
 }`,
-  sunset: `/* sunset: the entire diff */
-:root {
+  sunset: `:root {
   --heading-font: "Iowan Old Style", Georgia, serif;
   --text: Georgia, "Times New Roman", serif;
   --text-md: 1.05rem;
@@ -266,7 +263,7 @@ const themeDiffs = {
   </Section>
 
   {/* 4: Theming demo (radio + :has(), zero JS) */}
-  <Section class="home_section home_themer" variant="filled" title="Theme with variables" lede="Every color, size, and radius comes from one token file, in light and dark. Change a value and every component that uses it changes with it. This demo switches themes with radio buttons and :has(), without JavaScript.">
+  <Section class="home_section home_themer" variant="filled" title="Make it your own with built-in themes" lede="Every color, size, and radius comes from one token file, in light and dark. Start from a theme, change a value, and every component that uses it changes with it.">
     <fieldset class="home_themer_switcher">
       <legend class="a11y-srOnly">Pick a demo theme</legend>
       <label class="home_themer_swatch home_themer_swatch-default">
@@ -304,7 +301,7 @@ const themeDiffs = {
         <div class="home_themer_pane home_themer_pane-sunset"><Code code={themeDiffs.sunset} lang="css" theme="github-dark" /></div>
       </div>
     </div>
-
+    <p class="home_themer_note">This demo switches themes with radio buttons and <code>:has()</code>, no JavaScript.</p>
   </Section>
 
   {/* 5: Component gallery */}
