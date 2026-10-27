@@ -887,13 +887,6 @@
   background: #c2410c;
 }
 
-/* Says which themes are real */
-.home_themer_note {
-  margin-block: calc(var(--sm1) - var(--md2)) var(--md2);
-  font-size: var(--text-sm);
-  color: var(--home-muted-color);
-}
-
 .home_themer_split {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -925,11 +918,17 @@
   margin: 0;
 }
 
-.home_themer_file {
-  margin-bottom: var(--xs2);
-  font-family: var(--mono);
+/* The label over each column: which themes are real over the frame,
+   the file each pane comes from over the code */
+.home_themer_label {
+  margin-block: 0 var(--xs2);
   font-size: var(--text-sm);
+  line-height: var(--leading-lg);
   color: var(--home-muted-color);
+}
+
+.home_themer_label-file {
+  font-family: var(--mono);
 }
 
 .home_themer:has(input[value="default"]:checked)

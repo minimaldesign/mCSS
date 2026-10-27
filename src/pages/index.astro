@@ -300,11 +300,10 @@ const themeDiffs = {
       </label>
     </fieldset>
 
-    <p class="home_themer_note">A demo: Default and Wireframe ship with mCSS, Sunset is made up for this page.</p>
-
     <div class="home_themer_split">
       {/* Each theme renders in its own page, with its real CSS file */}
       <div class="home_themer_frames">
+        <p class="home_themer_label">Default and Wireframe ship with mCSS, Sunset is made up for this page.</p>
         <iframe class="home_themer_frame home_themer_frame-default" src="/demos/themes/default" title="A card and a form in the Default theme" loading="lazy"></iframe>
         <iframe class="home_themer_frame home_themer_frame-wireframe" src="/demos/themes/wireframe" title="A card and a form in the Wireframe theme" loading="lazy"></iframe>
         <iframe class="home_themer_frame home_themer_frame-sunset" src="/demos/themes/sunset" title="A card and a form in the Sunset theme" loading="lazy"></iframe>
@@ -312,15 +311,15 @@ const themeDiffs = {
 
       <div>
         <figure class="home_themer_pane home_themer_pane-default home_codeBlock">
-          <figcaption class="home_themer_file">theme.default.css, excerpt</figcaption>
+          <figcaption class="home_themer_label home_themer_label-file">theme.default.css, excerpt</figcaption>
           <Code code={themeDiffs.default} lang="css" theme={codeTheme} />
         </figure>
         <figure class="home_themer_pane home_themer_pane-wireframe home_codeBlock">
-          <figcaption class="home_themer_file">theme.wireframe.css, excerpt</figcaption>
+          <figcaption class="home_themer_label home_themer_label-file">theme.wireframe.css, excerpt</figcaption>
           <Code code={themeDiffs.wireframe} lang="css" theme={codeTheme} />
         </figure>
         <figure class="home_themer_pane home_themer_pane-sunset home_codeBlock">
-          <figcaption class="home_themer_file">theme.sunset.css</figcaption>
+          <figcaption class="home_themer_label home_themer_label-file">theme.sunset.css</figcaption>
           <Code code={themeDiffs.sunset} lang="css" theme={codeTheme} />
         </figure>
       </div>
