@@ -1,6 +1,8 @@
 ---
 import { Code } from 'astro:components';
 
+import { codeTheme } from '../scripts/codeTheme.js';
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
@@ -185,7 +187,7 @@ const themeDiffs = {
         </ol>
       </div>
       <div class="home_layers_proof">
-        <Code code={layerProof} lang="css" theme="github-dark" wrap />
+        <Code code={layerProof} lang="css" theme={codeTheme} wrap />
       </div>
     </div>
   </Section>
@@ -275,15 +277,15 @@ const themeDiffs = {
       <div>
         <figure class="home_themer_pane home_themer_pane-default">
           <figcaption class="home_themer_file">theme.default.css, excerpt</figcaption>
-          <Code code={themeDiffs.default} lang="css" theme="github-dark" />
+          <Code code={themeDiffs.default} lang="css" theme={codeTheme} />
         </figure>
         <figure class="home_themer_pane home_themer_pane-wireframe">
           <figcaption class="home_themer_file">theme.wireframe.css, excerpt</figcaption>
-          <Code code={themeDiffs.wireframe} lang="css" theme="github-dark" />
+          <Code code={themeDiffs.wireframe} lang="css" theme={codeTheme} />
         </figure>
         <figure class="home_themer_pane home_themer_pane-sunset">
           <figcaption class="home_themer_file">theme.sunset.css</figcaption>
-          <Code code={themeDiffs.sunset} lang="css" theme="github-dark" />
+          <Code code={themeDiffs.sunset} lang="css" theme={codeTheme} />
         </figure>
       </div>
     </div>
@@ -385,7 +387,7 @@ const themeDiffs = {
   <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the compiled framework and, if you want them, the components, with no build step. The docs cover the other installs, including how to build from source with PostCSS.">
     <div class="home_install_body">
       <div class="home_install_snippet" role="region" aria-label="Install snippet">
-        <Code code={installSnippet} lang="html" theme="github-dark" />
+        <Code code={installSnippet} lang="html" theme={codeTheme} />
         <CopyButtonStatic code={installSnippet} />
       </div>
       <p class="home_install_files">Get <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css">mcss.min.css</a> and <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css">mcss.components.min.css</a> on GitHub.</p>
