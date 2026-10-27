@@ -258,15 +258,9 @@
   }
 }
 
-/* Reserves the before height so the collapse never shifts the hero. Below
-   --lg the editor sits under the buttons and is far taller than the
-   result, so there it shrinks with the code instead of holding an empty
-   box. */
+/* Reserves the before height so the collapse never shifts the page */
 .home_morph_sizer {
   visibility: hidden;
-  @media (--lg-n-below) {
-    display: none;
-  }
 }
 
 .home_morph_code {
@@ -344,18 +338,29 @@
   }
 }
 
-.home_morph_replay {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--xs1);
+/* Pause and Replay, under the editor's right edge. Side by side, they
+   hang below it, out of the row's height, so the copy centers on the
+   editor alone. */
+.home_morph_controls {
+  display: flex;
+  gap: var(--xs2);
   align-self: flex-end;
-  margin-top: var(--xs3);
-  padding: var(--xs1) var(--xs2);
+  margin: var(--xs1) 0 0;
+  /* The 44px tap height already clears the editor */
   @media (--lg) {
     position: absolute;
     top: 100%;
     right: 0;
+    margin: 0;
   }
+}
+
+.home_morph_control {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--xs1);
+  min-height: var(--lg2);
+  padding: var(--xs1) var(--xs2);
   border: none;
   background: none;
   font-size: var(--text-sm);
@@ -371,6 +376,16 @@
   &:hover {
     color: var(--text-color);
   }
+}
+
+/* The pause button shows play while the morph is paused */
+.home_morph_playIcon,
+.home_morph.is-paused .home_morph_pauseIcon {
+  display: none;
+}
+
+.home_morph.is-paused .home_morph_playIcon {
+  display: inline;
 }
 
 /* Reduced-motion after-state (hidden while the animation runs) */
@@ -410,6 +425,16 @@
   animation-play-state: paused;
 }
 
+.home_morph.is-paused
+  :is(
+    .home_morph_g,
+    .home_morph_after,
+    .home_morph_count,
+    .home_morph_label span
+  ) {
+  animation-play-state: paused;
+}
+
 /* Replay: the page script toggles this class to restart every animation */
 .home_morph.is-resetting
   :is(
@@ -431,7 +456,7 @@
 
   /* Static before/after stacked with an arrow and the final numbers */
   .home_morph_counter,
-  .home_morph_replay {
+  .home_morph_controls {
     display: none;
   }
 

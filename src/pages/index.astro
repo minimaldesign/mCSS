@@ -20,6 +20,8 @@ import mcssComponentsMinCss from '../../dist/mcss.components.min.css?raw';
 
 import githubIcon from '../assets/icons/social-github.svg?raw';
 import replayIcon from '../assets/icons/rotate-ccw.svg?raw';
+import pauseIcon from '../assets/icons/pause.svg?raw';
+import playIcon from '../assets/icons/play.svg?raw';
 
 const title = 'mCSS: One class. Not twenty.';
 const description = 'mCSS is a CSS framework and Astro component library for websites: semantic classes, native cascade layers, no build step, MIT licensed. You copy the files into your project and own them.';
@@ -172,7 +174,10 @@ const themeDiffs = {
 
         <p class="a11y-srOnly">One mCSS class replaces 23 utility classes on the same button.</p>
 
-        <button type="button" class="home_morph_replay js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
+        <p class="home_morph_controls">
+          <button type="button" class="home_morph_control js-morphPause"><span class="home_morph_pauseIcon"><Fragment set:html={pauseIcon} /></span><span class="home_morph_playIcon"><Fragment set:html={playIcon} /></span><span class="js-morphPauseLabel">Pause</span></button>
+          <button type="button" class="home_morph_control js-morphReplay"><Fragment set:html={replayIcon} />Replay</button>
+        </p>
       </div>
     </div>
     <ul class="home_hero_fineprint">
@@ -413,12 +418,20 @@ const themeDiffs = {
   </Section>
 </BaseLayout>
 
-{/* The one allowed JS nicety: restart the hero loop. */}
+{/* The hero morph's controls: pause or resume it, and play it again. */}
 <script>
   const morph = document.querySelector('.home_morph');
+  const pause = document.querySelector('.js-morphPause');
+  const pauseLabel = document.querySelector('.js-morphPauseLabel');
   const replay = document.querySelector('.js-morphReplay');
-  if (morph && replay) {
+  if (morph && pause && pauseLabel && replay) {
+    const setPaused = (paused: boolean) => {
+      morph.classList.toggle('is-paused', paused);
+      pauseLabel.textContent = paused ? 'Resume' : 'Pause';
+    };
+    pause.addEventListener('click', () => setPaused(!morph.classList.contains('is-paused')));
     replay.addEventListener('click', () => {
+      setPaused(false);
       morph.classList.add('is-resetting');
       void (morph as HTMLElement).offsetWidth;
       morph.classList.remove('is-resetting');
