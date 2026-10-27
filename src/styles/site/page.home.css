@@ -1153,6 +1153,12 @@
   background: light-dark(var(--primary-700), var(--base-950));
 }
 
+/* Mixed onto the Section header: the lede is as wide as the snippet */
+.home_install_header > p {
+  max-width: 640px;
+  margin-inline: auto;
+}
+
 .home_install_body {
   display: flex;
   flex-direction: column;
