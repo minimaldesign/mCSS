@@ -396,12 +396,12 @@ const themeDiffs = {
   </Section>
 
   {/* 7: Install */}
-  <Section class="home_section home_install" headerClass="home_wideHeader" title="Two lines in your <head>" lede="Link the framework and, if you want them, the components. The docs cover the other installs, including the PostCSS source build.">
+  <Section class="home_section home_install" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the framework and, if you want them, the components. The docs cover the other installs, including the PostCSS source build.">
     <div class="home_install_body">
       <Code code={installSnippet} lang="html" theme="github-dark" />
       <p class="home_install_actions">
-        <a class="bt bt-lg bt-primary" href="/docs/start">Get started</a>
-        <a class="bt bt-lg" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
+        <a class="bt bt-lg bt-white home_install_bt" href="/docs/start">Get started</a>
+        <a class="bt bt-lg bt-outline-white" href="https://github.com/minimaldesign/mCSS"><Fragment set:html={githubIcon} />View on GitHub</a>
       </p>
       <p class="home_install_newsletter">Prefer email? <a href="https://mcss.ck.page/900e1d8f88" target="mailing-list">Join the mailing list</a> for new components and modern CSS write-ups.</p>
     </div>

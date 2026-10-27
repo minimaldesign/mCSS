@@ -1148,20 +1148,30 @@
   color: #85e89d;
 }
 
-/* 7 INSTALL: the page ends on the two lines you paste */
+/* 7 INSTALL: the page ends on the two lines you paste, on the primary band */
+
+.home_install {
+  --section-spacing: var(--xl2);
+  background: light-dark(var(--primary-700), var(--base-950));
+}
 
 .home_install_body {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--md2);
+  text-align: center;
 
   pre {
     align-self: stretch;
-    margin: 0;
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
     padding: var(--sm3);
     font-size: var(--text-sm);
     line-height: var(--leading-xl);
+    text-align: start;
+    border: var(--border-sm) solid rgb(255 255 255 / 0.12);
     border-radius: var(--radius-lg);
     overflow-x: auto;
     @media (--md) {
@@ -1173,12 +1183,21 @@
 .home_install_actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--xs3);
   margin: 0;
+}
+
+.home_install_bt {
+  --bt-color: light-dark(var(--primary-700), var(--base-950));
 }
 
 .home_install_newsletter {
   margin: 0;
   font-size: var(--text-sm);
-  color: light-dark(var(--base-600), var(--base-400));
+  color: var(--primary-100);
+
+  a {
+    color: var(--base-0);
+  }
 }
