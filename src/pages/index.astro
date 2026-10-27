@@ -228,7 +228,7 @@ const themeDiffs = {
   </Section>
 
   {/* 3: Modern CSS showcase */}
-  <Section class="home_section home_showcase" headerClass="home_wideHeader" title="Built with modern CSS" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
+  <Section class="home_section home_showcase" headerClass="home_wideHeader" titleClass="home_wideHeader_text" ledeClass="home_wideHeader_text" title="Built with modern CSS" lede="The last few years quietly made CSS spectacular. mCSS is what a framework looks like when it’s designed after that happened.">
     <div class="home_showcase_body">
       <table class="home_showcase_table">
         <caption class="a11y-srOnly">Modern CSS features mCSS is built on, and their browser support</caption>
@@ -283,7 +283,7 @@ const themeDiffs = {
   </Section>
 
   {/* 4: Theming demo (radio + :has(), zero JS) */}
-  <Section class="home_section home_themer" headerClass="home_wideHeader" variant="filled" title="Make it your own with built-in themes" lede="Every color, size, and radius comes from one token file, in light and dark. Start from a theme, change a value, and every component that uses it changes with it.">
+  <Section class="home_section home_themer" headerClass="home_wideHeader" titleClass="home_wideHeader_text" ledeClass="home_wideHeader_text" variant="filled" title="Make it your own with built-in themes" lede="Every color, size, and radius comes from one token file, in light and dark. Start from a theme, change a value, and every component that uses it changes with it.">
     <fieldset class="home_themer_switcher">
       <legend class="a11y-srOnly">Pick a demo theme</legend>
       <label class="home_themer_swatch home_themer_swatch-default">
@@ -327,7 +327,7 @@ const themeDiffs = {
   </Section>
 
   {/* 5: Component gallery */}
-  <Section class="home_section home_gallery" headerClass="home_wideHeader" title="A growing HTML and Astro component library" lede="Heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, and pagination, as plain HTML or as Astro components. Most of them need no JavaScript.">
+  <Section class="home_section home_gallery" headerClass="home_wideHeader" titleClass="home_wideHeader_text" ledeClass="home_wideHeader_text" title="A growing HTML and Astro component library" lede="Heroes, sections, feature grids, pricing, testimonials, FAQs, forms, article lists, and pagination, as plain HTML or as Astro components. Most of them need no JavaScript.">
     <ul class="home_gallery_grid">
       <li class="home_gallery_cell">
         <p class="home_gallery_name">Card</p>
@@ -402,7 +402,7 @@ const themeDiffs = {
   <Section class="home_section home_own" variant="filled" aria-labelledby="home_own_title">
     <div class="home_own_split">
       <div class="home_own_body">
-        <h2 class="section_title" id="home_own_title">You own the code</h2>
+        <h2 class="home_own_title" id="home_own_title">You own the code</h2>
         <p>mCSS doesn’t install from a package registry. You copy its source into your project, build it with PostCSS, and edit it like any other code in it. When a default doesn’t suit you, you change that line.</p>
         <ul class="home_own_facts">
           <li><strong>MIT license</strong><span>Use it anywhere. Keep it forever.</span></li>
@@ -431,7 +431,7 @@ const themeDiffs = {
   </Section>
 
   {/* 7: Install */}
-  <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the compiled framework and, if you want them, the components, with no build step. The docs cover the other installs, including how to build from source with PostCSS.">
+  <Section class="home_section home_install" ledeClass="home_install_lede" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the compiled framework and, if you want them, the components, with no build step. The docs cover the other installs, including how to build from source with PostCSS.">
     <div class="home_install_body">
       <div class="home_install_snippet home_codeBlock" role="region" aria-label="Install snippet">
         <Code code={installSnippet} lang="html" theme={codeTheme} />

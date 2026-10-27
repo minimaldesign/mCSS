@@ -11,6 +11,8 @@ interface Props extends HTMLAttributes<'section'> {
   headerWrap?: WrapSize;
   contentWrap?: WrapSize;
   headerClass?: string;
+  titleClass?: string;
+  ledeClass?: string;
   contentClass?: string;
   'data-testid'?: string;
 }
@@ -24,11 +26,16 @@ const {
   headerWrap = 'md',
   contentWrap = 'lg',
   headerClass,
+  titleClass,
+  ledeClass,
   contentClass,
   class: className,
   'data-testid': testId = 'section',
   ...rest
 } = Astro.props as Props;
+
+// The title names the section, so it is exposed as a region landmark
+const titleId = title ? `section-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}` : undefined;
 ---
 
 <!-- prettier-ignore -->
@@ -38,6 +45,7 @@ const {
     variant && `section-${variant}`,
     className,
   ]}
+  aria-labelledby={titleId}
   data-testid={testId}
   {...rest}
 >
@@ -45,8 +53,8 @@ const {
     (eyebrow || title || lede) && (
       <header class:list={['section_header', 'wrap', `wrap-${headerWrap}`, headerClass]}>
         {eyebrow && <p class="section_eyebrow">{eyebrow}</p>}
-        {title && <h2 class="section_title">{title}</h2>}
-        {lede && <p class="section_lede">{lede}</p>}
+        {title && <h2 class:list={['section_title', titleClass]} id={titleId}>{title}</h2>}
+        {lede && <p class:list={['section_lede', ledeClass]}>{lede}</p>}
       </header>
     )
   }
