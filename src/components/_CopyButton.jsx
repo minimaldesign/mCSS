@@ -34,8 +34,13 @@ export default function CopyButton({ code }) {
 
   return (
     <div class="copyBtn">
-      <span class={`copyBtn_feedback${copied ? " is-visible" : ""}`}>
-        Copied!
+      {/* A status region, so screen readers hear the confirmation; empty
+          until a copy, so they don't read "Copied!" before the button */}
+      <span
+        class={`copyBtn_feedback${copied ? " is-visible" : ""}`}
+        role="status"
+      >
+        {copied ? "Copied!" : ""}
       </span>
       <button
         type="button"
