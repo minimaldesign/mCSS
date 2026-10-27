@@ -1044,10 +1044,12 @@
   border-color: var(--link-color);
 }
 
-/* Wide component demos (pagination) shrink further to fit their cell */
-.home_gallery_thumb-wide {
-  zoom: 0.62;
+/* Pagination: one short row, so it shows at full size, centered, with
+   tighter side padding to fit the narrowest three-column cell (1024px) */
+.home_gallery_thumb-centered {
+  zoom: 1;
   justify-items: center;
+  padding-inline: var(--sm1);
 }
 
 /* Link-colored so the whole cell reads as a link without hovering */
