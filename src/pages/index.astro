@@ -11,7 +11,7 @@ import FaqItem from '../components/FaqItem.astro';
 import Field from '../components/Field.astro';
 import Pagination from '../components/Pagination.astro';
 import BaselineBadge from '../components/_BaselineBadge.astro';
-import CopyButton from '../components/_CopyButton.jsx';
+import CopyButtonStatic from '../components/_CopyButtonStatic.astro';
 
 import { gzipSync } from 'node:zlib';
 
@@ -384,9 +384,9 @@ const themeDiffs = {
   {/* 7: Install */}
   <Section class="home_section home_install" headerClass="home_install_header" variant="primary" title="Give your CSS its cascade back" lede="Two lines in your <head> link the compiled framework and, if you want them, the components, with no build step. The docs cover the other installs, including how to build from source with PostCSS.">
     <div class="home_install_body">
-      <div class="home_install_snippet">
+      <div class="home_install_snippet" role="region" aria-label="Install snippet">
         <Code code={installSnippet} lang="html" theme="github-dark" />
-        <CopyButton client:visible code={installSnippet} />
+        <CopyButtonStatic code={installSnippet} />
       </div>
       <p class="home_install_files">Get <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.min.css">mcss.min.css</a> and <a href="https://github.com/minimaldesign/mCSS/blob/main/dist/mcss.components.min.css">mcss.components.min.css</a> on GitHub.</p>
       <p class="home_install_actions">
