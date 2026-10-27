@@ -214,6 +214,10 @@
 .home_morph_editor {
   margin: 0;
   padding: var(--sm3);
+  /* Room for the longest class on the narrowest phones */
+  @media (--xs-n-below) {
+    padding-inline: var(--sm1);
+  }
   background-color: #24292e;
   border: var(--border-sm) solid rgb(255 255 255 / 0.12);
   border-radius: var(--radius-xl);
@@ -311,6 +315,13 @@
   animation-delay: calc(
     var(--morph-settle) + var(--morph-i) * var(--morph-stagger)
   );
+}
+
+/* One utility class, never broken at its hyphens: a split class reads
+   as two. In both the animated code and the sizer, so their heights
+   match. */
+.home_morph_class {
+  white-space: nowrap;
 }
 
 .home_morph_gt {
@@ -720,14 +731,21 @@
    --layer-step apart and the slabs overflow them, so each one lies over
    the next one down. */
 .home_layers_stack {
-  --slab-width: 120px;
+  /* In rem, so the rows grow with the labels when text is enlarged */
+  --slab-width: 7.5rem;
   --slab-depth: calc(var(--slab-width) / 2);
-  --layer-step: 38px;
+  --layer-step: 2.375rem;
   margin: 0;
   padding: 0 0 calc(var(--slab-depth) - var(--layer-step));
   list-style: none;
+  /* Narrowest phones: leaves room for the longest label */
+  @media (--xs-n-below) {
+    --slab-width: 6rem;
+  }
+  /* Capped by the viewport, so enlarged text doesn't push the labels
+     off a tablet screen */
   @media (--md) {
-    --slab-width: 200px;
+    --slab-width: min(12.5rem, 30vw);
   }
 }
 
@@ -823,7 +841,11 @@
   tbody th {
     font-family: var(--mono);
     font-weight: var(--bold);
-    white-space: nowrap;
+    /* Feature names and badges stay on one line where there's room; at
+       tablet width they wrap rather than overflow (enlarged text too) */
+    @media (--lg) {
+      white-space: nowrap;
+    }
 
     code {
       padding: 0;
@@ -837,7 +859,9 @@
   }
 
   td:last-child {
-    white-space: nowrap;
+    @media (--lg) {
+      white-space: nowrap;
+    }
   }
 
   /* Phones: each row stacks feature, description, then support */

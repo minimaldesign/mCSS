@@ -132,10 +132,10 @@ const themeDiffs = {
           }
           <div class="home_morph_frame">
             <pre
-              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">bt</span>{morphUtilities.map((utility, i) => <span class="home_morph_g" style={`--morph-i: ${i}`}><span class="home_morph_gt">{utility}</span>{i < morphUtilities.length - 1 && ' '}</span>)}<span class="home_morph_str">"</span>&gt;
+              class="home_morph_code"><code>&lt;<span class="home_morph_tag">button</span> <span class="home_morph_attr">class</span>=<span class="home_morph_str">"</span><span class="home_morph_after">bt</span>{morphUtilities.map((utility, i) => <span class="home_morph_g" style={`--morph-i: ${i}`}><span class="home_morph_class home_morph_gt">{utility}</span>{i < morphUtilities.length - 1 && ' '}</span>)}<span class="home_morph_str">"</span>&gt;
   Demo button
 &lt;/<span class="home_morph_tag">button</span>&gt;</code></pre>
-            <pre class="home_morph_code home_morph_sizer"><code>&lt;button class="{morphUtilities.join(' ')}"&gt;
+            <pre class="home_morph_code home_morph_sizer"><code>&lt;button class="{morphUtilities.map((utility, i) => <Fragment><span class="home_morph_class">{utility}</span>{i < morphUtilities.length - 1 && ' '}</Fragment>)}"&gt;
   Demo button
 &lt;/button&gt;</code></pre>
           </div>
