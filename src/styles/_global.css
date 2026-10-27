@@ -8,6 +8,7 @@
 
 /* Site-only styles (mCSS specific) */
 @import url(./site/global.layout.css);
+@import url(./site/global.baselineIcons.css);
 
 @import url(./site/component.header.css);
 @import url(./site/component.themeToggle.css);
