@@ -211,7 +211,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* What the code is (Tailwind, then mCSS) on the left, its length on the
+/* What the code is (utility classes, then mCSS) on the left, its length on the
    right */
 .home_morph_bar {
   display: flex;
