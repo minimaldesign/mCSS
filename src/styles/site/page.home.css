@@ -587,77 +587,181 @@
 .home_layers {
   display: grid;
   gap: var(--lg1);
+  /* The floor color the slabs rise from, toward --primary-400 */
+  --layers-floor: light-dark(var(--base-200), var(--base-700));
   @media (--lg) {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
     align-items: center;
     gap: var(--xl2);
   }
 }
 
-.home_layers_stack {
+/* The priority arrow, then the stack */
+.home_layers_diagram {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--sm1);
+  justify-self: center;
+}
+
+.home_layers_axis {
   display: flex;
   flex-direction: column;
-  gap: var(--xs1);
+  align-items: center;
   margin: 0;
-  padding: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--semi-bold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: light-dark(var(--base-500), var(--base-400));
+
+  > span:first-child {
+    order: -2;
+    color: var(--primary-600);
+  }
+
+  /* Arrowhead */
+  &::after {
+    content: "";
+    order: -1;
+    width: 10px;
+    height: 8px;
+    margin-top: var(--xs2);
+    background-color: var(--primary-500);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+
+  /* Shaft */
+  &::before {
+    content: "";
+    flex: 1;
+    width: 2px;
+    margin-bottom: var(--xs2);
+    background-image: linear-gradient(
+      to top,
+      var(--layers-floor),
+      var(--primary-500)
+    );
+  }
+}
+
+/* Each slab is an isometric plate: a 2:1 diamond on top, two shaded faces
+   under it. Rows sit --layer-step apart and the slabs overflow them, so
+   each one floats over the next one down. */
+.home_layers_stack {
+  --slab-width: 120px;
+  --slab-depth: calc(var(--slab-width) / 2);
+  --slab-thickness: 10px;
+  --layer-step: 38px;
+  margin: 0;
+  padding: 0 0
+    calc(var(--slab-depth) + var(--slab-thickness) - var(--layer-step));
   list-style: none;
+  @media (--md) {
+    --slab-width: 200px;
+  }
 }
 
 .home_layers_layer {
+  position: relative;
+  z-index: var(--layer-i);
+  display: grid;
+  grid-template-columns: var(--slab-width) auto;
+  height: var(--layer-step);
+  /* Rises from the floor color toward the primary as priority goes up */
+  --slab-top: color-mix(
+    in oklab,
+    var(--primary-400) calc(var(--layer-i) * 9%),
+    var(--layers-floor)
+  );
+}
+
+.home_layers_slab {
+  position: relative;
+  height: calc(var(--slab-depth) + var(--slab-thickness));
+  background-image: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--slab-top), black 18%) 50%,
+    color-mix(in oklab, var(--slab-top), black 34%) 50%
+  );
+  clip-path: polygon(
+    50% 0,
+    100% calc(var(--slab-depth) / 2),
+    100% calc(var(--slab-depth) / 2 + var(--slab-thickness)),
+    50% 100%,
+    0 calc(var(--slab-depth) / 2 + var(--slab-thickness)),
+    0 calc(var(--slab-depth) / 2)
+  );
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--slab-depth);
+    background-color: var(--slab-top);
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  }
+}
+
+/* Level with the slab's right corner, joined to it by a short rule */
+.home_layers_label {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--sm1);
-  padding: var(--xs2) var(--sm1);
+  flex-direction: column;
+  align-self: start;
+  margin-top: calc(var(--slab-depth) / 2 - 1lh);
+  padding-inline-start: var(--sm1);
   font-size: var(--text-sm);
-  background-color: light-dark(var(--base-0), var(--base-950));
-  border: var(--border-sm) solid var(--ui-border-color);
-  border-radius: var(--radius-md);
+  line-height: var(--leading-sm);
+  white-space: nowrap;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 1lh;
+    left: 0;
+    width: var(--xs3);
+    border-top: var(--border-sm) solid
+      light-dark(var(--base-300), var(--base-600));
+  }
 
   code {
     padding: 0;
     font-size: inherit;
     background: none;
   }
-
-  span {
-    font-size: var(--text-xs);
-    color: light-dark(var(--base-600), var(--base-400));
-  }
 }
 
-/* Opt-in exception: a dashed edge, since nothing lands here by default */
-.home_layers_layer-helpers {
-  border-style: dashed;
+.home_layers_note {
+  font-size: var(--text-xs);
+  color: light-dark(var(--base-600), var(--base-400));
+}
+
+/* Opt-in: a ghost of a slab, since nothing lands here by default */
+.home_layers_layer-helpers .home_layers_slab {
+  opacity: 0.4;
 }
 
 .home_layers_layer-yours {
-  color: var(--base-0);
-  background-color: var(--primary-700);
-  border-color: var(--primary-700);
+  --slab-top: var(--primary-500);
 
-  span {
-    color: var(--primary-100);
+  strong {
+    color: light-dark(var(--primary-700), var(--primary-300));
   }
 }
 
-.home_layers_proof {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sm2);
+.home_layers_proof pre {
+  margin: 0;
+  padding: var(--sm3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-xl);
+  border-radius: var(--radius-lg);
 
-  pre {
-    margin: 0;
-    padding: var(--sm3);
-    font-size: var(--text-sm);
-    line-height: var(--leading-xl);
-    border-radius: var(--radius-lg);
-    overflow-x: auto;
-  }
-
-  p {
-    margin: 0;
-    max-width: 60ch;
+  /* Shiki's lines: a wrapped line hangs under its first word */
+  code > span {
+    display: inline-block;
+    padding-inline-start: 2ch;
+    text-indent: -2ch;
   }
 }
 

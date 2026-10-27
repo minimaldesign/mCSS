@@ -34,10 +34,25 @@ const mcssComponentsMinGzipKb = Math.round(gzipSync(mcssComponentsMinCss).length
 // counts in page.home.css (morphCount, --morph-done) follow this list.
 const morphUtilities = ['inline-flex', 'items-center', 'justify-center', 'gap-2', 'rounded-md', 'bg-sky-600', 'px-4', 'py-2.5', 'text-sm', 'font-semibold', 'text-white', 'shadow-sm', 'transition-colors', 'duration-200', 'hover:bg-sky-500', 'focus-visible:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-sky-600', 'focus-visible:ring-offset-2', 'active:scale-95', 'disabled:opacity-50', 'dark:bg-sky-500', 'dark:hover:bg-sky-400'];
 
-// Section 2's override example, rendered with Shiki like the diff panes.
+// Section 2's layer stack, highest priority first. --layer-i counts from the
+// bottom, so the stack paints each slab over the one under it.
+const cascadeLayers = [
+  { name: 'helpers', note: '!important, opt-in', kind: 'helpers' },
+  { name: 'your CSS', note: 'no layer', kind: 'yours' },
+  { name: 'external', note: 'third-party CSS' },
+  { name: 'theme.user', note: 'your theme' },
+  { name: 'theme.default', note: 'every design value' },
+  { name: 'components', note: 'the component library' },
+  { name: 'global', note: 'layouts, prose, a11y' },
+  { name: 'elements', note: 'HTML element defaults' },
+  { name: 'base', note: 'reset' },
+];
+
+// Section 2's override example, rendered with Shiki like the diff panes. The
+// @layer statement stays on one line: Shiki's CSS grammar loses track of
+// everything after one that spans lines.
 const layerProof = `/* mcss.css: the framework's layers, lowest first */
-@layer base, elements, global, components,
-  theme.default, theme.user, external, helpers;
+@layer base, elements, global, components, theme.default, theme.user, external, helpers;
 
 /* your CSS: no layer */
 /* <a class="bt bt-primary bt-lg signup_cta"> */
@@ -172,22 +187,26 @@ const themeDiffs = {
   </section>
 
   {/* 2: Philosophy */}
-  <Section class="home_section home_philosophy" variant="filled" title="Your CSS outranks the framework" lede="mCSS handles the reset, the design tokens, and the element defaults, and puts every one of its own rules in a cascade layer.">
+  <Section class="home_section home_philosophy" variant="filled" title="Your overrides work the first time" lede="mCSS puts all of its own CSS in native @layer cascade layers, so specificity conflicts never start: anything you write outside those layers wins automatically. No !important, no fighting your framework.">
     <div class="home_layers">
-      <ol class="home_layers_stack" aria-label="Cascade priority, highest first">
-        <li class="home_layers_layer home_layers_layer-helpers"><code>helpers</code><span>!important utilities, opt-in</span></li>
-        <li class="home_layers_layer home_layers_layer-yours"><strong>your CSS</strong><span>no layer</span></li>
-        <li class="home_layers_layer"><code>external</code><span>third-party CSS</span></li>
-        <li class="home_layers_layer"><code>theme.user</code><span>your theme</span></li>
-        <li class="home_layers_layer"><code>theme.default</code><span>every design value</span></li>
-        <li class="home_layers_layer"><code>components</code></li>
-        <li class="home_layers_layer"><code>global</code></li>
-        <li class="home_layers_layer"><code>elements</code></li>
-        <li class="home_layers_layer"><code>base</code><span>reset</span></li>
-      </ol>
+      <div class="home_layers_diagram">
+        <p class="home_layers_axis" aria-hidden="true"><span>Wins</span><span>Loses</span></p>
+        <ol class="home_layers_stack" aria-label="Cascade priority, highest first">
+          {
+            cascadeLayers.map((layer, i) => (
+              <li class:list={['home_layers_layer', layer.kind && `home_layers_layer-${layer.kind}`]} style={`--layer-i: ${cascadeLayers.length - 1 - i}`}>
+                <span class="home_layers_slab" aria-hidden="true" />
+                <span class="home_layers_label">
+                  {layer.kind === 'yours' ? <strong>{layer.name}</strong> : <code>{layer.name}</code>}
+                  <span class="home_layers_note">{layer.note}</span>
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
       <div class="home_layers_proof">
-        <Code code={layerProof} lang="css" theme="github-dark" />
-        <p>Native <code>@layer</code> keeps specificity conflicts from starting: one class you write outside mCSS’s layers beats any framework selector, without <code>!important</code>.</p>
+        <Code code={layerProof} lang="css" theme="github-dark" wrap />
       </div>
     </div>
   </Section>
