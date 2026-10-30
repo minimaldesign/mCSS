@@ -81,13 +81,19 @@ const headImage = `${Astro.url.origin}${logoImg.src.split('?')[0]}`;
     </script>
 
     <!-- Privacy-friendly analytics by Plausible -->
-    <script is:inline defer data-domain="mcss.dev" src="https://analytics.minimaldesign.net/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script is:inline async src="https://analytics.minimaldesign.net/js/pa-vk0Wga507dieYtmNcflBA.js"></script>
     <script is:inline>
       window.plausible =
         window.plausible ||
         function () {
           (window.plausible.q = window.plausible.q || []).push(arguments);
         };
+      plausible.init =
+        plausible.init ||
+        function (options) {
+          plausible.o = options || {};
+        };
+      plausible.init();
     </script>
 
     <slot name="head" />
