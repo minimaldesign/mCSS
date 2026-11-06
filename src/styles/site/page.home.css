@@ -86,12 +86,11 @@
 .home_hero {
   display: grid;
   align-content: center;
-  min-height: calc(80svh - var(--header-height));
   padding-block: var(--lg1);
   padding-inline: var(--sm3);
   /* More room over the headline than under the fine print */
   @media (--lg) {
-    padding-block: var(--xl1) var(--lg3);
+    padding-block: var(--xl3);
   }
 }
 
@@ -112,32 +111,21 @@
   }
 }
 
-/* Gradient-clipped text; light-dark() per stop keeps every point of the
-   gradient above 3:1, the large-text minimum, in both themes
-   (postcss-mixins can't see display-gradient from another file).
-   fit-content, not max-content: max-content inflates the hero grid's
-   min-content size and overflows small viewports */
+
 .home_hero_title {
   grid-column: 1 / -1;
   justify-self: center;
-  /* The grid gap and the subhead's margin space it, not the h1 default */
-  margin: 0;
   width: fit-content;
   max-width: 100%;
   text-align: center;
   color: transparent;
-  /* background-image longhand, so it can't reset background-clip */
   background-image: linear-gradient(
     90deg,
     light-dark(var(--primary-950), var(--primary-300)),
     light-dark(var(--primary-600), var(--primary-500))
   );
   background-clip: text;
-  /* The gradient only paints the box; at line-height 1 the descenders
-     poke below it and vanish, so extend the box under the last line */
-  padding-bottom: 0.12em;
   font-size: var(--display-md);
-  line-height: var(--leading-xs);
   @media (--md) {
     font-size: var(--display-mega);
   }
