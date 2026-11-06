@@ -2,6 +2,12 @@
 
 All notable changes to mCSS. The framework follows the copy-it-you-own-it model: there is no package to update, so version numbers mark states of the repository you can copy from (each release is also a git tag).
 
+## Unreleased
+
+### Fixed
+
+- **Prose spacing in Firefox 132 to 145.** `global.prose.css` and the notice’s heading-adjacent margin used `@scope`, which Firefox only shipped in 146, above the Baseline 2024 floor, so those versions dropped the whole block (paragraph and list margins, markers, table margins). Both rules are now scoped by hand with `:where()` wrappers at the same specificity; browsers that already applied them render the same.
+
 ## 1.5.1 (2026-10-26)
 
 The default theme’s secondary text, code, badges, focus ring and form controls meet WCAG AA contrast, and `<iframe>` loses the browser border that 1.5.0 let back in. If your theme doesn’t override these tokens, those colors get darker in light mode and lighter in dark mode.

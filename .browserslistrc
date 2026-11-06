@@ -1,5 +1,5 @@
 # mCSS support floor: Baseline 2024. Everything the framework uses natively
-# (cascade layers, nesting, :has(), light-dark(), @scope, relative colors)
+# (cascade layers, nesting, :has(), light-dark(), relative colors)
 # is inside this floor, so postcss-preset-env has nothing to polyfill; the
 # only transform left is resolving @custom-media, which no browser ships.
 # Requires browserslist >= 4.25 for the baseline query.

@@ -74,9 +74,10 @@
 }
 
 /* Heading-adjacent margin mirrors the prose rhythm in global.prose.css
-   (prose can't reach into component classes, so the notice owns this rule) */
-@scope (.prose) to (.not-prose) {
-  .notice:has(+ :is(h1, h2, h3, h4)) {
-    margin-bottom: calc(var(--prose-spacing) * 2);
-  }
+   (prose can't reach into component classes, so the notice owns this rule).
+   Scoped by hand like global.prose.css: @scope is above the Baseline 2024
+   floor, and the :where() wrappers keep the rule at .notice's specificity. */
+:where(.prose)
+  .notice:has(+ :is(h1, h2, h3, h4)):not(:where(.not-prose, .not-prose *)) {
+  margin-bottom: calc(var(--prose-spacing) * 2);
 }
