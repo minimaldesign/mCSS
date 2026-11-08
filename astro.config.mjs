@@ -6,6 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import tunnel from "astro-tunnel";
 
 import expressiveCode from "astro-expressive-code";
+import purgecss from "astro-purgecss";
 
 // astro-tunnel is a dev-only tool; keep it out of production builds
 const isDev =
@@ -53,5 +54,18 @@ export default defineConfig({
     }),
     mdx(),
     ...(isDev ? [tunnel()] : []),
+    purgecss({
+      // The default extractor splits on "+", so the grid's span="2+3"
+      // attribute API would lose its [span$=\+3] rules. Same token set as
+      // astro-purgecss's own extractor, plus "+".
+      defaultExtractor: (content) =>
+        content.match(/[\w\-/:.#(),';%+]+(?<!:)/g) || [],
+      safelist: {
+        // Classes toggled at runtime, so they may not appear in any built
+        // page or script: is-* states, the theme class on <html>, and the
+        // menu's body lock.
+        standard: [/^is-/, /^theme-(dark|light)$/, "body-is-locked"],
+      },
+    }),
   ],
 });

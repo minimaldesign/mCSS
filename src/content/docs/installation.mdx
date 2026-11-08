@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 description: "Three ways to add mCSS to your project: drop-in bundle, individual files, or source + PostCSS"
-lastUpdate: 2026-08-16
+lastUpdate: 2026-11-07
 version: 1
 ---
 
@@ -23,7 +23,6 @@ Link the [framework file][dist-min] in your `<head>` and optionally the [compone
 ```
 
 (Unminified versions ([framework][dist-css], [components][dist-components]) are available if you want to read the code.)
-
 
 ### Option 2: individual files
 
@@ -54,7 +53,13 @@ Add/remove/comment out files in `mcss.css` according to what you need ([more inf
 
 ### Option 3: compiled via PostCSS
 
-If you want the most flexibility and full customization, this is the option for you.
+If you want the most flexibility and full customization, this is the option for you. It is also the only option where the CSS you ship can be trimmed to what your pages use.
+
+#### Why compile
+
+- **Pick your files.** Same as option 2, but the `@import` list is resolved at build time into one file.
+- **Author with modern CSS.** `@custom-media`, nesting, and anything else [postcss-preset-env][presetEnv] can compile down to your [browser floor](/docs/browser-support).
+- **Remove what you don't use.** You can use [PurgeCSS][purgecss] to remove any of the framework CSS that is not currently in use on your site. The [astro-purgecss][astro-purgecss] config in [this site's `astro.config.mjs`][astro-config] shows the two things mCSS needs on top of the defaults: an [extractor][purgecss-extractors] that keeps the `+` in `span="2+3"` attribute values, and a safelist for classes added via JavaScript (`is-*` states, the theme class on `<html>`).
 
 #### PostCSS setup
 
@@ -145,5 +150,9 @@ A more common full featured setup:
 [framework-src]: https://github.com/minimaldesign/mCSS/tree/main/src/styles/framework
 [mcss-layers]: /docs/start#the-layers
 [postcss-post]: /blog/postcss-setup-for-mcss
+[purgecss]: https://www.purgecss.com
+[purgecss-extractors]: https://www.purgecss.com/extractors.html
+[astro-purgecss]: https://github.com/codiume/orbit/tree/main/packages/astro-purgecss
+[astro-config]: https://github.com/minimaldesign/mCSS/blob/main/astro.config.mjs
 [presetEnv]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-preset-env
 [themes]: /docs/default-theme

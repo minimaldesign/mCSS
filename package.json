@@ -33,10 +33,17 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@mdn/browser-compat-data": "^7.3.9",
+    "astro-purgecss": "^7.0.1",
     "esbuild": "^0.28.1",
     "postcss": "^8.5.19",
     "postcss-import": "^16.1.1",
+    "purgecss": "^9.1.0",
     "stylelint": "^17.14.0",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "astro-purgecss": {
+      "purgecss": "$purgecss"
+    }
   }
 }
