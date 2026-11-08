@@ -35,7 +35,7 @@ All architectural detail is in the `agents/` directory — read these before mak
 - [agents/structure.md](agents/structure.md) — Directory map, where to place new files
 - [agents/content.md](agents/content.md) — Content collection schemas, slug/URL behaviour
 - [agents/components.md](agents/components.md) — Astro vs Preact choice, hydration directives, naming conventions
-- [agents/pitfalls.md](agents/pitfalls.md) — PurgeCSS (installed but disabled), URL slug changes, theme storage (sessionStorage, not localStorage)
+- [agents/pitfalls.md](agents/pitfalls.md) — PurgeCSS (extractor + safelist rules), URL slug changes, theme storage (sessionStorage, not localStorage)
 
 ## Formatting
 
